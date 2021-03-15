@@ -1,0 +1,28 @@
+\begin{sphinxtheindex}
+\let\lettergroup\sphinxstyleindexlettergroup
+\let\lettergroupDefault\sphinxstyleindexlettergroupDefault
+\let\spxpagem\sphinxstyleindexpagemain
+\let\spxentry\sphinxstyleindexentry
+\let\spxextra\sphinxstyleindexextra
+
+
+  \lettergroupDefault{default}
+  \item \spxentry {统计量}, \spxpagem{\hyperpage{41}}
+
+  \indexspace
+
+  \lettergroup{K}
+  \item \spxentry {KL散度（Kullback–Leibler divergence)}, \spxpagem{\hyperpage{80}}
+
+  \indexspace
+
+  \lettergroup{V}
+  \item \spxentry {嵌套模型(nested model)}, \spxpagem{\hyperpage{118}}
+
+  \indexspace
+
+  \lettergroup{W}
+  \item \spxentry {最大似然估计(maximum likelihood estimation,MLE)}, \spxpagem{\hyperpage{39}}
+  \item \spxentry {概率公理}, \spxpagem{\hyperpage{4}}
+
+\end{sphinxtheindex}
