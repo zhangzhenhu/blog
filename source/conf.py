@@ -25,7 +25,7 @@ copyright = '2019, zhangzhenhu. acmtiger@outlook.com'
 author = '张振虎'
 
 # The short X.Y version
-version = '0.1'
+version = 'zhangzhenhu'
 # The full version, including alpha/beta/rc tags
 release = '草稿'
 
