@@ -408,11 +408,9 @@ KDD CUP 2010 Challenge 榜单结果
 
 BKT项目代码
 
-https://git.speiyou.cn/app_bi/talirt
 
 本文实验入口文件
 
-https://git.speiyou.cn/app_bi/talirt/blob/master/pyedm/experiment/kddcup.py
 
 未来工作
 ##################################################
