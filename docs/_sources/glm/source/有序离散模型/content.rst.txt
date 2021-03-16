@@ -1,0 +1,432 @@
+#####################################
+有序离散模型
+#####################################
+
+
+
+
+有序多分类模型，可以看做是二分类逻辑回归模型的扩展，
+因此，有序多分类模型也被称为有序逻辑回归模型（Ordered Logistic Regression）。
+
+有序逻辑回归
+#####################################
+
+
+``logistic`` 函数是一个累计概率分布函数。
+
+.. math::
+
+    P(Y=1) &= \frac{e^{x^T\beta}}{1+e^{x^T\beta}}
+
+    P(Y=0) &= 1-\frac{e^{x^T\beta}}{1+e^{x^T\beta}}
+    = \frac{e^{-x^T\beta}}{1+e^{-x^T\beta}}
+
+
+
+线性预测器 :math:`\eta=x^T \beta` 的取值范围是 :math:`(-\infty,\infty)`
+，
+
+
+假设有一个分割点 :math:`c`
+，当 :math:`\eta` 的值落在区间 :math:`(-\infty,c]` 时，
+响应变量 :math:`Y=0`
+；反之，当 :math:`\eta` 的值落在区间 :math:`(c,\infty)` 时，
+响应变量 :math:`Y=0`
+。
+
+
+.. math::
+    :label: eq_ordered_logistic_004
+
+    y=
+    \begin{cases}
+    0& \text{if}\quad -\infty < \eta <= c\\
+    1& \text{if} \quad  c< \eta < \infty
+    \end{cases}
+
+由于变量 :math:`Y` 是一个随机变量，不能直接用上面的分段函数输出 :math:`Y` 的值
+，而是要给出 :math:`Y` 的一个概率分布。
+假设 :math:`Y=0` 的概率和 :math:`\eta` 与分割点 :math:`c` 的距离（有方向）有关，
+:math:`\eta` 与分割点 :math:`c` 的距离为 :math:`c-\eta`
+，:math:`c-\eta` 越大，:math:`P(Y=0)` 也就越大，
+:math:`c-\eta` 越小，:math:`P(Y=0)` 也就越小。
+此时可以选择一个累计概率分布函数作为 :math:`P(Y=0)` 与 :math:`c-\eta`
+之间的关系，
+累计概率分布函数有多种选择，比如
+``logistic`` ，``probit`` ，``clog-log`` 等等，
+这里以 ``logistic`` 为例。
+:math:`P(Y=0)` 可以写成
+
+
+.. math::
+    :label: eq_ordered_logistic_005
+
+    P(Y=0) =
+    \frac{e^{c-\eta}}{1+e^{c-\eta}}
+
+
+- 当 :math:`\eta` 趋近于 :math:`-\infty` 时，:math:`c-\eta` 趋近于 :math:`+\infty` ，:math:`P(Y=0)` 趋近于 :math:`1` 。
+- 当 :math:`\eta` 趋近于 :math:`c` 时，:math:`c-\eta` 趋近于 :math:`0` ，:math:`P(Y=0)` 趋近于 :math:`0.5` 。
+- 当 :math:`\eta` 趋近于 :math:`\infty` 时，:math:`c-\eta` 趋近于 :math:`-\infty` ，:math:`P(Y=0)` 趋近于 :math:`0` 。
+
+
+:math:`P(Y=1)` 为
+
+.. math::
+    :label: eq_ordered_logistic_006
+
+    P(Y=1) &= 1- P(Y=0)
+
+    &= 1 - \frac{e^{c-\eta}}{1+e^{c-\eta}}
+
+    &= \frac{1}{1+e^{c-\eta}}
+
+    &= \frac{e^{ -(c-\eta)}}{1+e^{-(c-\eta)}}
+
+    &= \frac{e^{ \eta-c}}{1+e^{\eta-c}}
+
+
+线性预测器 :math:`\eta` 展开为
+
+.. math::
+    :label: eq_ordered_logistic_007
+
+    \eta = x^T\beta=\beta_0 + \beta_1 \times x_1 + \beta_2 \times x_2 +\dots+\beta_p \times x_p
+
+
+:math:`\eta-c` 为
+
+.. math::
+    :label: eq_ordered_logistic_008
+
+    \eta-c &=  \beta_0 + \beta_1 \times x_1 + \beta_2 \times x_2 +\dots+\beta_p \times x_p -c
+
+        &=  (\beta_0-c) + \beta_1 \times x_1 + \beta_2 \times x_2 +\dots+\beta_p \times x_p
+
+
+虽然 :math:`\beta_0` 和 :math:`c` 都是未知参数，但是可以把 :math:`(\beta_0-c)` 看做一个整体并作为截距参数，
+:math:`\beta_0-c \Rightarrow \beta_0`
+，对于模型来说，:math:`\eta-c` 和 :math:`\eta` 是等价的。
+从这里可以看出，在逻辑回归模型中，线性部分的截距 :math:`\beta_0` 是和分割点有关的。
+最后，利用分割点分方式推导出的逻辑回归和前面章节逻辑回归的定义是等价的。
+
+
+核心思想就是，在线性预测器 :math:`\eta` 的空间中有一个分割点，当 :math:`\eta` 的值落在分割点的左侧时，
+响应变量 :math:`Y` 为 :math:`0` 的概率大，
+当 :math:`\eta` 的值落在分割点的右侧时，
+:math:`Y` 为 :math:`1` 的概率大，
+:math:`Y` 的概率分布与间距 :math:`c-\eta` 正相关，两者可以通过一个累计概率分布函数相连接。
+
+
+假设 :math:`\eta` 的整个实数域空间中，有 :math:`K+1` 个分割点，
+:math:`{c_0,c_1,c_2,\dots,c_K}`
+，并且令 :math:`c_0=-\infty,c_{K}=+\infty`
+，则整个空间被分成 :math:`K` 个段，
+分别对应着响应变量 :math:`Y` 的 :math:`K` 个值。
+参考 :eq:`eq_ordered_logistic_004`
+，则有
+
+
+
+.. math::
+    :label: eq_ordered_logistic_009
+
+    y=
+    \begin{cases}
+    1& \text{if}\quad -\infty=c_0 < \eta \le c_1\\
+    2& \text{if} \quad  c_1< \eta \le c_2 \\
+    3& \text{if} \quad  c_2< \eta \le c_3 \\
+    \vdots  \\
+    K& \text{if} \quad  c_{K-1} < \eta < c_K= +\infty
+    \end{cases}
+
+
+
+假设累计概率分布函数为 :math:`F`
+，其一阶导数也就是对应的概率分布函数用符号 :math:`f` 表示
+。任意选择一个分割点 :math:`c_k` ，
+:math:`F(c_k - \eta)` 表示响应变量 :math:`Y` 小于等于类别 :math:`k`
+的概率。注意，:math:`F(c_k - \eta)` 不是 :math:`Y=k` 的概率
+，而是 :math:`Y \le k` 的概率。
+
+
+.. math::
+
+    P(Y \le k) &= F(c_k - \eta)
+
+    P(Y > k) &= 1- P(Y \le k) = 1- F(c_k - \eta)
+
+
+:math:`Y=k` 的概率可以表示成
+
+.. math::
+    :label: eq_ordered_logistic_010
+
+
+    P(Y = k) &= P(Y \le k) - P(Y \le k-1)
+
+    &= F(c_k - \eta) - F(c_{k-1} - \eta)
+
+
+特殊的 :math:`P(Y = 1)` 和 :math:`P(Y = K)` 分别为
+
+.. math::
+
+    P(Y = 1) &=  F(c_1 - \eta) - F(c_0 - \eta)
+
+    & =  F(c_1 - \eta) - F(-\infty - \eta)
+
+    & =  F(c_1 - \eta)
+
+
+.. math::
+
+
+    P(Y = K) &=  F(c_K - \eta) - F(c_{K-1} - \eta)
+
+    & =  F(+\infty - \eta) - F(c_{K-1} - \eta)
+
+    & = 1 - F(c_{K-1} - \eta)
+
+    &= 1 - P(Y \le K-1)
+
+
+完整的概率质量函数为
+
+.. math::
+    :label: eq_ordered_logistic_011
+
+    f(y) = \prod_{k=1}^K \left [ F(c_k - \eta) - F(c_{k-1} - \eta) \right ] ^{ \mathbb{I}(y=k)}
+    ,\quad c_0=-\infty,c_{K}=+\infty
+
+
+累计分函数 :math:`F` 可以有多种选择，如果是 ``logistic`` 函数，就是是有序逻辑回归模型，
+如果是高斯累积分布函数就是 ``probit`` 有序回归模型，
+其它的还有 ``log-log`` ，``clog-log`` 等等。
+
+模型的参数除了 :math:`\beta` 外，增加了未知参数 :math:`c^T=[c_1,c_2,\dots,c_{K-1}]`
+，由于参数 :math:`c` 替代线性部分的截距参数 :math:`\beta_0`
+，因此有序多分类模型中的线性部分不再需要解决参数 :math:`\beta_0`
+。此外注意，所有的类别是共用 :math:`\beta` 参数的。
+
+
+参数估计
+#####################################
+
+
+有序多分类模型同样不能使用 ``IRLS`` 算法进行参数估计，需要使用牛顿法等完全最大似然估计。
+其对数似然函数为
+
+
+
+.. math::
+    :label: eq_ordered_logistic_012
+
+
+    \ell(y;c,\beta) = \sum_{i=1}^N \sum_{k=1}^K
+     \mathbb{I}(y_i=k) \ln  \left [
+    F(c_k - \eta_i) - F(c_{k-1} - \eta_i)
+    \right ]
+
+对数似然函数的一阶导数为
+
+
+.. math::
+
+    \frac{\partial \ell }{\partial \beta_j}
+    = \sum_{i=1}^N x_{ij} \sum_{k=1}^K
+    \left [
+    \frac{-f(c_k - \eta_i) + f(c_{k-1} - \eta_i)}{F(c_k - \eta_i)-F(c_{k-1} - \eta_i)}
+    \right ]\mathbb{I}(y_i=k)
+
+
+
+.. math::
+
+    \frac{\partial \ell }{\partial c_k}
+    &= \sum_{i=1}^N
+    \left [
+    \frac{f(c_k - \eta_i)}{F(c_k - \eta_i)-F(c_{k-1} - \eta_i)} \mathbb{I}(y_i=k)
+    \right.
+
+    &\left. -\frac{f(c_k - \eta_i)}{F(c_{k+1} - \eta_i)-F(c_{k} - \eta_i)} \mathbb{I}(y_i=k+1)
+    \right ] , 1 \le k \le K-1
+
+
+二阶导数为
+
+.. math::
+
+    \frac{\partial^2 \ell }{\partial \beta_j \partial \beta_t} =
+    \sum_{i=1}^N x_{ij} x_{it} \sum_{k=1}^K
+    &\left \{
+    \frac{f'(c_k - \eta_i) - f'(c_{k-1} - \eta_i)}{F(c_k - \eta_i)-F(c_{k-1} - \eta_i)}
+    \right.
+
+    &\left. -\frac{ [-f(c_k - \eta_i) + f(c_{k-1} - \eta_i) ]^2 }{ [ F(c_k - \eta_i)-F(c_{k-1} - \eta_i)]^2 }
+    \right \}\mathbb{I}(y_i=k)
+
+
+.. math::
+
+    \frac{\partial^2 \ell }{\partial c_k \partial c_t}
+    = - \sum_{i=1}^N
+    \frac{f(c_k - \eta_i)f(c_t - \eta_i)}{ [ F(c_k - \eta_i)-F(c_{t} - \eta_i)]^2 }
+    \mathbb{I}(y_i=\mathop{max}(k,t)) \mathbb{I}(|k-t|=1)
+
+
+.. math::
+
+    \frac{\partial^2 \ell }{\partial c_k \partial c_k}
+    &=  \sum_{i=1}^N  \big \{
+
+    &\left [
+    \frac{f'(c_k-\eta_i)}{F(c_k-\eta_i)-F(c_{k-1}-\eta_i)}
+    -\frac{f(c_k-\eta_i)[ f(c_k-\eta_i) -f(c_{k-1}-\eta_i)  ]    }{  [F(c_k-\eta_i)-F(c_{k-1}-\eta_i)]^2 }
+    \right ]\mathbb{I}(y_i=k)
+
+    -&\left [
+        \frac{f'(c_k-\eta_i)}{F(c_{k+1}-\eta_i)-F(c_{k}-\eta_i)}
+        -\frac{f(c_k-\eta_i)[ f(c_{k+1}-\eta_i) -f(c_{k}-\eta_i)  ]  }{  [F(c_{k+1}-\eta_i)-F(c_{k}-\eta_i)]^2 }
+    \right ]\mathbb{I}(y_i=k+1)
+
+    &\big \}
+
+
+.. math::
+
+    \frac{\partial^2 \ell }{\partial c_k \partial \beta_t} =
+    - \sum_{i=1}^N [
+    x_{it} \mathcal{A}_i \mathbb{I}(y_i=t)
+    - \mathcal{B}_i \mathbb{I}(y_i=t+1)
+
+其中
+
+.. math::
+
+
+    \mathcal{A}_i &= \frac{ f(c_k-\eta_i) [F(c_k-\eta_i)-F(c_{k-1}-\eta_i) +f(c_k-\eta_i)-f(c_{k-1}-\eta_i)  ]}
+    {[F(c_k-\eta_i)-F(c_{k-1}-\eta_i)]^2}
+
+    \mathcal{B}_i &= \frac{ f(c_k-\eta_i) [F(c_{k+1}-\eta_i)-F(c_{k}-\eta_i) +f(c_{k+1}-\eta_i)-f(c_{k}-\eta_i)  ]}
+    {[F(c_{k+1}-\eta_i)-F(c_{k}-\eta_i)]^2}
+
+
+连接函数
+################################################
+
+现在，我们讨论下有序多分类模型常用的连接函数。
+上一节中，用符号 :math:`F` 表示累积分布函数，
+符号 :math:`f` 表示 :math:`F` 的导数，也就是累积分布函数对应的概率密度函数。
+:math:`F` 的作用就类似于逻辑回归模型中的响应函数，
+:math:`F` 的反函数就是连接函数。
+有序多分类模型可以看做逻辑回归模型的一种扩展，
+因此逻辑回归模型的连接函数在有序多分类模型中都可以使用。
+
+
+
+
+logit
+=================================
+
+``logistic`` 函数是 ``logit`` 函数的反函数，
+它同时也是标准逻辑分布（standard logistic distribution）的累积分布函数。
+当累积分布函数 :math:`F` 采用 ``logistic``
+函数时，就相当于采用 ``logit`` 连接函数。
+
+.. math::
+
+    F(a) = \frac{\exp(a)  }{1+\exp(a)}
+
+
+.. math::
+
+    f(a) &= F'(a)
+
+    &= \frac{\exp(a)  }{[1+\exp(a)]^2}
+
+    &= F(a)[1-F(a)]
+
+
+
+.. math::
+
+    f'(a) &=\frac{\exp(a) - \exp{ (2a) }  }{[1+\exp(a)]^3}
+
+    &= F(a)[1-F(a)]\{ F(a)-[1-F(a)] \}
+
+
+probit
+=================================
+
+
+当 :math:`F` 采用累积正态分布时，就是 ``probit`` 模型，
+用符号 :math:`\Phi` 表示累积正态分布函数，
+符号 :math:`\phi` 表示正态分布的概率密度函数。
+
+
+.. math::
+
+    F(a) &= \Phi(a)
+
+    f(a) &= \phi(a)
+
+    f'(a) &= -a\phi(a)
+
+
+clog-log
+=================================
+
+``clog-log`` 连接函数的反函数是广义耿贝尔分布（generalized Gumbel distribution ）的累积分布函数。
+:math:`F` 也可以是 ``clog-log`` 函数反函数。
+
+
+.. math::
+
+
+    F(a) &= 1 - \exp\{ -\exp(a) \}
+
+    f(a) &= [ F(a)-1] \ln [ 1- F(a)]
+
+    f'(a) &= f(a) \{ 1+\ln[1-F(a) ] \}
+
+
+log-log
+=================================
+
+
+当 :math:`F` 是 ``log-log`` 反函数时，有
+
+
+.. math::
+
+
+    F(a) &= \exp\{ -\exp(-a) \}
+
+    f(a) &= - F(a) \ln [ F(a)]
+
+    f'(a) &= f(a) \{ 1+\ln[F(a) ] \}
+
+
+cauchit
+=================================
+
+柯西分布（Cauchy distribution ）的定义域也是整个实数域，
+因此柯西分布的累积分布函数也可以拿来用。
+当响应函数 :math:`F` 是标准柯西分布的累积分布函数时，
+连接函数称为 ``cauchit``
+。
+
+
+.. math::
+
+
+    F(a) &=  0.5 + \pi^{-1} atan(-a)
+
+    f(a) &= -\frac{1}{\pi(1+a^2)}
+
+    f'(a) &= f(a) 2\pi a
+
+
+总结
+################################################

@@ -1,0 +1,229 @@
+########################################################
+不完整观测的学习
+########################################################
+
+上一章我们讨论了完整观测数据集的情况下有向图和无向图的参数学习方法，
+所谓完成观测数据是指图中的所有变量都能观测到，即观测集中每条观测样本都包含了图中所有变量的观测值。
+但有些时候，我们是无法观测到图中所有的变量的，观测样本数据只包含图中部分变量的观测值，
+这时我们称为不完整观测(Partial Observations)。本章节我们讨论在不完整观测的情况下，图模型的参数学习方法。
+
+
+隐变量
+########################################################
+
+我们已经知道通常模型参数估计的方法是使用极大似然估计，似然函数的含义是观测数据的概率。我们假设模型中变量集合是
+:math:`\mathbf{x}=\{\mathrm{x}_1,\dots,\mathrm{x}_N\}` ，
+模型的参数是 :math:`\pmb{\theta}={\theta_1,\dots,\theta_M}` ，模型的联合概率分布是
+:math:`p(\mathbf{x};\pmb{\theta})=p(\mathrm{x}_1,\dots,\mathrm{x}_N;\pmb{\theta})` ，
+我们知道无论是有向图、无向图还是因子图，模型的联合概率分布都是可以分解成多个因子函数的乘积形式的
+:math:`p(\mathbf{x};\pmb{\theta})=p(\mathrm{x}_1,\dots,\mathrm{x}_N;\pmb{\theta})=\prod_{c \in C} \psi_c (\mathrm{x}_c;\theta_c)`
+。
+
+我们用
+:math:`\mathcal{D}=\{ \mathbf{x}^{(1)},\ldots,\mathbf{x}^{(S)} \}` 表示此模型的观测样本数据集，并且观测数据是满足i.i.d的，
+即都是独立从模型概率分布 :math:`p(\mathbf{x};\pmb{\theta})` 取样而来，则此观测数据的对数似然函数为：
+
+.. math::
+
+    \ell(\pmb{\theta};\mathcal{D}) &= log p(\mathcal{D};\pmb{\theta})
+
+    &= log \prod_{s=1}^S p(\mathbf{x}^{(s)};\pmb{\theta})
+
+    &= \sum_{s=1}^s log p(\mathbf{x}^{(s)};\pmb{\theta})
+
+    &= \sum_{s=1}^s log \prod_{c \in C} \psi_c (\mathrm{x}_c;\theta_c)
+
+    &= \sum_{s=1}^s \sum_{c \in C} log\  \psi_c (\mathrm{x}_c;\theta_c)
+
+
+我们利用你对数函数的性质，把对数符号里面的乘法(连乘)转变成对数符号外面的加法(求和)，这样对数似然函数就拆解成很多因子函数的的对数的加和，
+这时有两个特点：
+
+1. 每个因子函数的参数 :math:`\theta_c` 只出现在其中一个子项中。
+2. 各个因子函数之间是加法
+
+我们通过极大化对数似然函数 :math:`\ell(\pmb{\theta};\mathcal{D})` 来求解参数，这时需要求解每个参数的偏导数，
+而根据求偏导的规则，在满足上面两个特点的时，参数之间的偏导数是互不相关的，也就一个每个参数的偏导数不包含其它参数，
+这使得极大似然求解称为可能。
+
+.. hint::
+
+    如果参数的偏导数中还包含其它参数，那么将使得解析解或者迭代法都无法实现。
+
+
+
+然而在有些情形下我们只能观测到部分变量，也就是观测样本不包括模型中所有的变量，并且需要学习与整个图模型相关的参数。
+我们把图模型中无法观测到的变量称为隐变量或者潜在变量(Latent variable)。
+我们把模型中的变量分为两类，一类是可以观测到的变量，称为可观测变量，用符号 :math:`\mathbf{x}=\{\mathrm{x}_1,\dots,\mathrm{x}_N\}` 表示；
+另一类是不可观测到的变量，称为隐变量，用符号 :math:`\mathbf{z}=\{\mathrm{z}_1,\dots,\mathrm{z}_N\}` 表示。
+完整图模型联合概率分布变成了 :math:`p(\mathbf{x},\mathbf{z};\pmb{\theta})` 。
+这时观测变量 :math:`\mathbf{x}` 的边缘概率分布就需要通过边际化的方法的到
+:math:`p(\mathbf{x};\pmb{\theta})=\sum_{\mathbf{z}} p(\mathbf{x},\mathbf{z};\pmb{\theta})` ，
+观测数据对数似然函数也就变成了如下形式：
+
+.. math::
+
+
+
+    \ell(\pmb{\theta};\mathcal{D}) &= log \prod_{s=1}^S p(\mathbf{x}^{(s)};\pmb{\theta})
+
+    &= log \prod_{s=1}^S \sum_{\mathbf{z}} p(\mathbf{x}^{(s)},\mathbf{z};\pmb{\theta})
+
+    &= \sum_{s=1}^S log  \sum_{\mathbf{z}} p(\mathbf{x}^{(s)},\mathbf{z};\pmb{\theta})
+
+
+发现没有，对数log操作里面有求和符号 :math:`\sum_{\mathbf{z}}` ，这就导致log里面的内容无法再继续拆解成独立的子项。
+这时再对参数求偏导将变得十分困难。所以，我们需要解决这个求和符号的问题。
+
+.. hint::
+    如果隐变量 :math:`\mathbf{z}` 是连续变量，只需把求和符号换成积分即可，结论不变。
+
+
+此外，无论含有隐变量的对数似然函数，还是不含有隐变量的对数似然函数，其对数log的外层都有一个在样本集
+:math:`\mathcal{D}` 的上的求和 :math:`\sum_{s=1}^S`
+，这求和是定义在样本集上的并且在log外面，在这个问题的讨论中没有影响可以忽略掉，
+所以我们在下文的讨论中，如不特别加上默认是忽略的。
+
+鉴于此，如果随机变量 :math:`\mathbf{x},\mathbf{z}` 都是可观测的，则对数似然你函数为
+:math:`\ell_c(\pmb{\theta};\mathbf{x,z})=log p_{\mathbf{x,z}}(\mathbf{x,z};\pmb{\theta})`
+，我们称其为 *完整数据对数似然(complete log likelihood)* 。反之，如果中 :math:`\mathbf{z}`
+是不可观测的，则对数似然函数为
+:math:`\ell(\pmb{\theta};\mathbf{x})=log \sum_{\mathbf{z}} p(\mathbf{x},\mathbf{z};\pmb{\theta})`
+，我们能称其为 *不完整数据对数似然(incomplete log likelihood)* 。
+
+
+期望最大化算法(EM)
+##########################################
+
+我们讲到带有隐变量的对数似然函数中，对数操作里面含有求和(或者积分)导致无法进行拆解，
+也就无法很好的通过偏导数进行极大化对数似然函数求解。有一个算法可以解决这个问题，
+那就是期望最大化算法(Expectation-Maximization,EM)。
+这个算法的核心就是利用Jensen不等式解决了上面的问题。
+首先，我们回顾一下Jensen不等式定理。
+
+
+**定理1 Jensen不等式** :
+    当 f 是一个下凸函数，并且Y是一个随机变量时，有:
+
+    .. math::
+        Ef(Y) \ge f(EY)
+
+    当 f 是一个上凹函数，并且Y是一个随机变量时，有:
+
+    .. math::
+        Ef(Y) \le f(EY)
+
+
+我们来利用Jensen不等式推导一下含有隐变量的对数似然函数。
+首先我们定义一个关于隐变量 :math:`\mathbf{z}` 的一个概率分布 :math:`q(\mathbf{z})` ，
+这个概率分布函数具体是什么在此先不讨论，稍后再做讨论。
+
+
+.. math::
+
+    \ell(\pmb{\theta};\mathbf{x}) &= log \sum_{\mathbf{z}} p(\mathbf{x},\mathbf{z};\pmb{\theta})
+
+    &= log \sum_{\mathbf{z}} q(\mathbf{z}) \frac{p(\mathbf{x},\mathbf{z};\pmb{\theta})}{q(\mathbf{z})}
+
+    &= log \mathbb{E}_{q(\mathbf{z}) } \left [ \frac{p(\mathbf{x},\mathbf{z};\pmb{\theta})}{q(\mathbf{z})} \right ]
+
+    & \ge \mathbb{E}_{q(\mathbf{z}) } log \left [ \frac{p(\mathbf{x},\mathbf{z};\pmb{\theta})}{q(\mathbf{z})} \right ]
+    \ \ \ \text{根据Jensen不等式}
+
+
+    &= \sum_{\mathbf{z}} q(\mathbf{z}) log \left [ \frac{p(\mathbf{x},\mathbf{z};\pmb{\theta})}{q(\mathbf{z})} \right ]
+
+    &\triangleq \mathcal{L}(q,\pmb{\theta})
+
+
+
+利用Jensen不等式的性质，我们找到原来对数似然函数 :math:`\ell(\pmb{\theta};\mathbf{x})`
+的一个下界函数 :math:`\mathcal{L}(q,\pmb{\theta})` ，且这个下界函数中对数log内已经没有了求和符号。
+那么我们是不是可以通过极大化这个下界函数 :math:`\mathcal{L}(q,\pmb{\theta})` 去求解参数值呢？
+我们发现对数似然函数 :math:`\ell(\pmb{\theta};\mathbf{x})` 是 *大于等于* 这个下界函数的，
+那么如果能令这个 *等号* 成立，也就是让下界函数等于对数似然函数，那两者极大化的解就是等价的。
+
+我们令概率分布 :math:`q(\mathbf{z})` 为 :math:`\mathbf{z}` 的后验概率分布
+:math:`q(\mathbf{z})=p(\mathbf{z}|\mathbf{x};\pmb{\theta})`
+，则可以发现下界函数 :math:`\mathcal{L}(q,\pmb{\theta})`
+与对数似然函数 :math:`\ell(\pmb{\theta};\mathbf{x})` 是等价。
+
+
+.. math::
+
+    \mathcal{L}(q,\pmb{\theta}) &=  \sum_{\mathbf{z}} q(\mathbf{z}) log \left [ \frac{p(\mathbf{x},\mathbf{z};\pmb{\theta})}{q(\mathbf{z})} \right ]
+
+    & =  \sum_{\mathbf{z}} p(\mathbf{z}|\mathbf{x};\pmb{\theta}) log
+    \left [ \frac{p(\mathbf{x},\mathbf{z};\pmb{\theta})}{p(\mathbf{z}|\mathbf{x};\pmb{\theta})} \right ]
+
+    & =  \sum_{\mathbf{z}} p(\mathbf{z}|\mathbf{x};\pmb{\theta}) log
+    \left [ \frac{p(\mathbf{x};\pmb{\theta}) p(\mathbf{z}|\mathbf{x};\pmb{\theta})}{p(\mathbf{z}|\mathbf{x};\pmb{\theta})} \right ]
+
+    & =  \sum_{\mathbf{z}} p(\mathbf{z}|\mathbf{x};\pmb{\theta}) \underbrace{ log p(\mathbf{x};\pmb{\theta})}_{\text{与z无关}}
+
+    & = log p(\mathbf{x};\pmb{\theta})  \underbrace{ \sum_{\mathbf{z}} p(\mathbf{z}|\mathbf{x};\pmb{\theta})}_{=1}
+
+    & = log p(\mathbf{x};\pmb{\theta})
+
+    &= \ell(\pmb{\theta};\mathbf{x})
+
+
+
+
+到此我们已经找到了问题的答案，对于含有隐变量的极大似然估计分为两个过程：E(Expectation)步骤(Maximization)和M步骤，
+交替的执行这两个过程，通过迭代的方式求出参数
+:math:`\pmb{\theta}` 的估计值，我们用t表示交替迭代的第几轮。
+
+
+
+
+**E步骤：** :math:`q^t=\mathop{\arg \max}_q \mathcal{L}(q,\pmb{\theta}^{t-1})`
+    固定参数 :math:`\pmb{\theta}` 的值，关于q极大化 :math:`\mathcal{L}` 求解函数q，
+    使得下界函数  :math:`\mathcal{L}` 等于原来的对数似然函数。
+
+    q其是就是隐变量 :math:`\mathbf{z}` 的后验概率分布，
+    这个下界函数是关于隐变量后验概率分布的期望，所以叫做Expectation。
+    实际上我们需要做的就是求解出隐变量的后验概率分布
+    :math:`q^t=p(\mathbf{z}|\mathbf{x};\pmb{\theta}^{t-1})`
+    ，在求解这个后验概率分布时参数 :math:`\pmb{\theta}` 值使用上一轮的M步骤得出的值 :math:`\pmb{\theta}^{t-1}` 。
+    如果当前是首次执行(t=1)，则使用 :math:`\pmb{\theta}` 的初始化值，关于参数的初始化方法这里不做详细讨论，一般可以随机填充或者是经验值。
+
+
+
+**M步骤：** :math:`\pmb{\theta}^t=\mathop{\arg \max}_{\pmb{\theta}} \mathcal{L}(q^t,\pmb{\theta})`
+    极大化下界函数求解出参数 :math:`\pmb{\theta}` ，这里就和正常的极大似然估计是一样的了，可以通过梯度上升法最优的参数
+    :math:`\pmb{\theta}` 。
+
+
+
+.. math::
+
+    \mathop{\arg \max}_{\pmb{\theta}} \mathcal{L}_{\pmb{\theta}} (q,\pmb{\theta})
+    &= \mathop{\arg \max}_{\pmb{\theta}}  p(\mathbf{z}|\mathbf{x};\pmb{\theta}^{t-1})
+    log \left [ \frac{p(\mathbf{x},\mathbf{z};\pmb{\theta})}{p(\mathbf{z}|\mathbf{x};\pmb{\theta}^{t-1})} \right ]
+
+    &= \mathop{\arg \max}_{\pmb{\theta}} \mathbb{E}_{q}
+    log  \left [ \frac{p(\mathbf{x},\mathbf{z};\pmb{\theta})}{p(\mathbf{z}|\mathbf{x};\pmb{\theta}^{t-1})} \right ]
+
+    &= \mathop{\arg \max}_{\pmb{\theta}} \left \{
+    \mathbb{E}_{q} log \left [ p(\mathbf{x},\mathbf{z};\pmb{\theta}) \right ] -
+    \underbrace{\mathbb{E}_{q} \left [ log p(\mathbf{z}|\mathbf{x};\pmb{\theta}^{t-1}) \right ]}_{\text{已经确定的常量，可以省去}}
+    \right \}
+
+    &= \mathop{\arg \max}_{\pmb{\theta}} \left \{ \mathbb{E}_{q}
+    log \left [ p(\mathbf{x},\mathbf{z};\pmb{\theta}) \right ] \right \}
+
+
+
+最后说明一下EM算法的两个特点：
+
+1. EM算法得到的是局部最优解，不保证得到全局最优，这取决于似然函数是否是凸函数(或者凹函数)。
+2. 通常EM算法前几次迭代收敛较快，在之后收敛速度回急剧下降。
+
+
+.. hint::
+
+    为了大家容易理解，这里对EM的阐述并不是十分严谨，读者可辅助参考其他更专业的资料。
+
+隐马尔可夫模型的参数估计
+##########################################

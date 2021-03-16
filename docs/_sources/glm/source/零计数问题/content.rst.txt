@@ -1,0 +1,494 @@
+################################################
+零计数问题
+################################################
+
+在计数数据中，有一个非常特殊的数字： :math:`0`
+。
+:math:`0` 表示事件发生的次数为 :math:`0`
+，常用的计数模型，泊松分布、负二项式分布都是支持 :math:`0` 次数的，
+但是这些分布中 :math:`0` 的期望（或者说发生概率）是有一定的限度的，
+然而，实际应用中观测数据中的 :math:`0` 经常与模型分布的假设相违背，
+比如数据中没有 :math:`0` 或者拥有过多的 :math:`0`
+。
+无论泊松分布还是负二项式分布，:math:`0` 的概率是不能为 :math:`0` 的
+，也就是正常的分布采样数据中必须是存在 :math:`0` 数据的。
+同理，分布中 :math:`0` 的概率也不是任意大的，观测数据中过多的 :math:`0`
+也是和分布不匹配的。
+
+数据中没有 :math:`0` 或者 :math:`0` 太多，都与先前计数模型的假设相违背。
+通常，把没有 :math:`0` 的数据称为零截断（zero-truncate）数据，
+把 :math:`0` 过多的数据称为零膨胀（zero-inflate）数据。
+虽然仍然可以使用泊松模型和负二项式模型处理这两类数据，
+但在效果上总是差强人意的。
+本章，我们介绍针对这两种情况的改进计数模型，
+处理零截断数据的模型称为零截断模型，
+处理零膨胀数据的模型称为零膨胀模型。
+
+
+零截断模型
+################################################
+
+
+在计数类场景中，有时会存在没有 :math:`0` 的情况，
+比如，住院病人住院的天数，不会出现住院天数是 :math:`0` 的情况，
+这是一个典型的非零数据。当然这个例子中研究的对象是住院病人，
+那些不需要住院的病人不在研究范围内。
+泊松分布和负二项式分布都是包含 :math:`0` 的，
+虽然仍然可以使用这两个模型处理非零数据，
+但显然它们并不是那么契合此类数据。
+要想使得泊松分布或负二项式能更好的适配非零数据，
+最直接的方法就是调整下概率分布函数，把 :math:`0`
+从概率分布函数中去掉。
+
+假设随机变量 :math:`Y` 的概率分布函数是 :math:`f(y)`
+，根据概率和为 :math:`1` 约束，可知 :math:`\sum_{y} f(y) = 1`
+，如果要从 :math:`f(y)` 中去掉一个值，就不满足上述约束了，
+此时就需要对 :math:`f(y)` 重新归一化以满足概率约束。
+假设 :math:`Y` 是一个计数型离散随机变量，
+:math:`Y=0` 的概率是 :math:`f(0)`
+，那么 :math:`Y>0` 的概率分布函数为
+
+.. math::
+    :label: eq_zero_counts_001
+
+    f(y|y>0) = \frac{f(y)}{1-f(0)}
+
+
+
+计数数据模型中最常见的泊松模型和负二项式模型，
+都可以使用这种方法转换成零截断数据的模型。
+
+
+零截断泊松模型
+============================================
+
+
+先以泊松分布为例，泊松分布的概率分布函数为
+
+.. math::
+    :label: eq_zero_counts_002
+
+    f(y;\mu)=\exp \{ y\ln(\mu) -\mu- \ln \Gamma(y+1)   \}
+
+:math:`Y=0` 的概率为
+
+
+.. math::
+    :label: eq_zero_counts_003
+
+    f(y=0;\mu)=\exp \{  -\mu   \}
+
+
+不包含 :math:`0` 的泊松分布的概率分布函数为
+
+.. math::
+    :label: eq_zero_counts_004
+
+    f(y;\mu|y>0)=\frac{\exp \{ y\ln(\mu) -\mu- \ln \Gamma(y+1)   \}}{1-\exp \{  -\mu   \}}
+
+
+对数似然函数为
+
+.. math::
+    :label: eq_zero_counts_005
+
+    \ell(\mu;y|y>0) = \sum_{i=1}^N
+    \left \{
+        \underbrace{ y_i\ln(\mu_i) -\mu_i- \ln \Gamma(y_i+1)}_{\text{原来泊松分布部分}}
+    - \underbrace{\ln [1-\exp \{  -\mu_i   \}]}_{\text{新的归一化项}}
+    \right \}
+
+
+仔细观察下，零截断泊松模型的对数似然函数相比原始泊松模型对数似然函数，只是多了一个归一化项。
+由于对数似然函数结构发生了变化，
+``IRLS`` 算法不适用于零截断模型，
+严格来说，零截断模型已经不属于 ``GLM`` 框架。
+对于零截断模型的参数估计，可以单独运用完整最大似然估计求解，
+也就是梯度法或者牛顿法。
+
+
+
+零截断负二项式模型
+============================================
+
+负二项式模型的概率分布函数为
+
+
+.. math::
+    :label: eq_zero_counts_020
+
+    f(y;\alpha,\mu)  = \exp \left \{
+    y \ln \left (\frac{\alpha \mu}{1+\alpha \mu} \right )
+    - \frac{1}{\alpha} \ln (1+\alpha \mu) + \ln \frac{\Gamma(y+1/\alpha)  }{\Gamma(y+1) \Gamma(1/\alpha) }
+    \right \}
+
+
+
+:math:`Y=0` 的概率为
+
+.. math::
+    :label: eq_zero_counts_021
+
+    f(y=0;\alpha,\mu) = \exp \left \{- \frac{1}{\alpha} \ln (1+\alpha \mu) \right \}
+    =  (1+\alpha \mu)^{-1/\alpha}
+
+
+
+
+用符号 :math:`f(y;\alpha,\mu)_{NB}` 代指 :eq:`eq_zero_counts_020`
+，符号 :math:`f(0;\alpha,\mu)_{NB}` 代指 :eq:`eq_zero_counts_021`
+，零截断负二项式模型的概率分布函数为
+
+.. math::
+    :label: eq_zero_counts_023
+
+
+    f(y;\alpha,\mu|y>0) = \frac{f(y;\alpha,\mu)_{NB}}{1-f(0;\alpha,\mu)_{NB}}
+
+
+用符号 :math:`\ell_{NB}` 表示原始负二项式模型对数似然函数，
+则零截断负二项式模型的对数似然函数为
+
+.. math::
+
+    \ell(\mu;y|y>0) =  \ell_{NB} -  \sum_{i=1}^N
+    \left \{
+        \ln [  1-   (1+\alpha \mu_i)^{-1/\alpha}  ]
+     \right \}
+
+
+
+零膨胀模型
+################################################
+
+零膨胀（zero-inflate）表示数据中的 :math:`0` 太多了，
+超过了泊松分布和负二项式分布中 :math:`0` 的极限。
+对于零膨胀的计数数据，常见的处理思想就是把数据进行分割，
+模型分成两段式。
+所谓两段式是指，假设观测数据由两个过程生成，
+先进行一个二分类过程，再进行一个计数过程，
+实际应用中，有两种常见的实现方法，
+
+
+:math:`0` **和非** :math:`0`
+
+把观测数据分成 :math:`0` 和非 :math:`0` 两部分，
+先用一个二分类模型判断是 :math:`0` 还是非 :math:`0`
+，然后用一个 **零截断模型** 处理非 :math:`0` 的数据。
+采用这种方式的模型称为栅栏（Hurdle）模型。
+
+
+
+
+**"多余"的** :math:`0` **和"正常"的** :math:`0`
+
+把数据中的 :math:`0` 分成两部分，一部分认为是计数分布中产生的 :math:`0`
+，这些 :math:`0` 和非零数据组成计数模型的部分。
+剩余的 :math:`0` 认为是"多余"的，用二分类模型处理。
+这种方法的模型习惯上称为零膨胀模型(zero-inflate model,ZIM)
+。
+
+
+栅栏模型和零膨胀模型都是两段式模型，第一阶段是二分类模型，
+第二阶段是计数模型。
+二者在数据的划分上有些许差别，
+这个差别使得两种模型有不一样的特性，
+零膨胀模型只能处理有过多 :math:`0`
+的数据，而栅栏模型是可以处理 :math:`0` **过少** 的数据的。
+为了和零膨胀模型区分，``Hurdle`` 模型一般被称为 ``zero-altered``
+模型。
+
+Hurdle 模型
+===========================================
+
+``Hurdle`` 在英文语境里指栅栏、障碍，
+顾名思义，``Hurdle`` 寓意在数据生成过程中有一个 :math:`0` 的栅栏阻碍，
+没有跨过去就为 :math:`0` ，跨过去就是非零的正整数，
+``Hurdle`` 模型相当于是一个二分类模型和零截断模型组成的一个混合模型，
+其概率分布函数可以用一个分段函数表示。
+
+.. math::
+    :label: eq_zero_counts_030
+
+    f(y ; \pi,\lambda)
+    =
+    \begin{cases}
+    \textsf{Binary}(0 ; \pi) &\quad \text{if } y = 0\\
+    \left [1-\textsf{Binary}(0 ; \pi) \right ]
+    \times
+     \textsf{Zero-Truncate}(y;\lambda)
+    &\quad\text{if } y > 0
+    \end{cases}
+
+
+其中二分类模型和零截断模型都有可以多种不同的选择。
+
+- 二分类模型：``logit`` 回归， ``probit`` 回归， ``complementary log-log`` 回归等。
+- 零截断模型：零截断泊松模型，零截断负二项式模型。
+
+因为 ``Hurdle`` 模型又被称为 ``zero-altered`` 模型，
+因此采用零截断泊松模型的 ``Hurdle`` 模型简称为 ``ZAP``
+模型，采用零截断负二项式模型的 ``Hurdle`` 模型简称为 ``ZANB``
+模型。
+
+
+``Hurdle`` 模型中二分类部分和零截断计数部分一般拥有不同的线性预测器，
+假设二分类模型的线性预测器为 :math:`\eta^{\gamma}=z^T \gamma`
+，响应函数为 :math:`F(\eta^{\gamma})`
+。零截断计数模型的线性预测器为 :math:`\eta^{\beta}=x^T \beta`
+，标准连接的响应函数为 :math:`R(\eta^{\beta})`
+。下面我们分别看下 ``ZAP`` 模型和
+``ZANB`` 模型的定义。
+
+**ZAP**
+
+当 ``Hurdle`` 模型中的零截断模型是零截断泊松模型时，简称为 ``ZAP`` 模型，
+零截断泊松模型的概率分布函数是 :eq:`eq_zero_counts_004`
+，代入到 :eq:`eq_zero_counts_030` 的模板可以给出 ``ZAP`` 的概率分布函数
+
+.. math::
+    :label: eq_zero_counts_031
+
+    P(y_i=0) &= F(\eta^{\gamma}_i)
+
+    P(y_i>0) &= \left [ 1-F(\eta^{\gamma}_i) \right ]
+    \frac{\exp \{ y_i \eta^{\beta}_i  -R(\eta_i^{\beta}) - \ln \Gamma(y_i+1)   \}}
+    {1-\exp \{  -R(\eta^{\beta}_i)   \}}
+
+
+
+``Hurdle`` 模型的对数似然函数可以按照样本是否为 :math:`0`
+分成两部分，假设观测样本中为 :math:`0` 的子集是  :math:`\mathcal{D}_0`
+，则 ``Hurdle`` 模型的对数似然函数为
+
+.. math::
+    :label: eq_zero_counts_032
+
+    \ell = \sum_{i \in \mathcal{D}_0 } \ln P(y_i=0)
+            + \sum_{i \notin \mathcal{D}_0 }  \ln P(y_i>0)
+
+
+按照这个模板，``ZAP`` 模型的对数似然函数为
+
+.. math::
+    :label: eq_zero_counts_033
+
+    \ell = &\sum_{i \in \mathcal{D}_0 } \ln F(\eta^{\gamma}_i)
+
+    &+\sum_{i \notin \mathcal{D}_0 }
+    \left \{
+    \ln \left [ 1-F(\eta^{\gamma}_i) \right ] +
+    \left [ y_i \eta^{\beta}_i  -R(\eta_i^{\beta}) - \ln \Gamma(y_i+1)   \right ] -
+    \ln  \left \{ 1-\exp [  -R(\eta^{\beta}_i) ] \right \}
+    \right \}
+
+
+**ZANB**
+
+当 ``Hurdle`` 模型中的零截断模型是零截断负二项式模型时，简称为 ``ZANB`` 模型，
+零截断泊松模型的概率分布函数是 :eq:`eq_zero_counts_023`
+，代入到 :eq:`eq_zero_counts_030` 的模板可以给出 ``ZANB`` 的概率分布函数
+
+
+.. math::
+    :label: eq_zero_counts_034
+
+    P(y_i=0) &= F(\eta^{\gamma}_i)
+
+    P(y_i>0) &= \left [ 1-F(\eta^{\gamma}_i) \right ]
+     \frac{f(y)_{NB}}{1-f(0)_{NB}}
+
+
+
+
+
+Zero-inflate 模型
+===========================================
+
+零膨胀(Zero-inflate)计数模型是由 ``Lambert（1992）`` 首次提出的，
+它提供了另一种解决过多零计数的方法。
+与 ``Hurdle`` 模型一样，它也是两部分模型，由二分类和计数模型组成。
+与 ``Hurdle`` 模型不同的地方在于，
+零膨胀模型提供了同时使用二分类和计数过程对零计数进行建模的功能。
+``Hurdle`` 模型将零的建模与计数的建模分开，这意味着只有一个过程会生成零，
+从对数似然函数中也能看到这一点。
+与之不同的时，零膨胀模型将零计数合并到二分类和计数过程中。
+
+和 ``Hurdle`` 模型是类似的是，零膨胀模型也是一个两段式的模型，二分类模型和计数模型组合在一起，
+不同的地方在于，划分的方法不太一样。
+零膨胀模型把数据中的 :math:`0`
+看做两部分，一部分是二分类模型产生，另一部分由计数模型产生。
+这里的计数模型既负责一部分 :math:`0` 的数据，又负责非 :math:`0` 的数据，
+所以这里的计数模型是一个完整的计数模型，而不是零截断计数模型，这一点和 ``Hurdle``
+模型不同。
+
+
+.. math::
+    :label: eq_zero_counts_050
+
+    f(y)
+    =
+    \begin{cases}
+    \textsf{Binary}(0 ; \pi) + [1-\textsf{Binary}(0 ; \pi) ] \text{Count}(0;\lambda) &\quad \text{if } y = 0\\
+    [1-\textsf{Binary}(0 ; \pi)] \text{Count}(y;\lambda)
+    &\quad\text{if } y > 0
+    \end{cases}
+
+
+
+二分类模型部分，通常使用的是伯努利模型，连接函数常用的是 ``logit``
+， ``probit``  和 ``complementary log-log``
+。计数模型部分常用的是泊松模型和负二项式模型，
+采用泊松模型的零膨胀模型通常简称为 ``ZIP`` 模型
+，采用负二项式模型的零膨胀模型通常简称为 ``ZINB`` 模型。
+
+二分类部分和计数部分一般拥有不同的线性预测器，
+假设二分类模型的线性预测器为 :math:`\eta^{\gamma}=z^T \gamma`
+，响应函数为 :math:`F(\eta^{\gamma})`
+。计数模型的线性预测器为 :math:`\eta^{\beta}=x^T \beta`
+，响应函数为 :math:`R(\eta^{\beta})`
+。下面我们分别看下 ``ZIP`` 模型和
+``ZINB`` 模型的定义。
+
+
+
+**ZIP 模型**
+
+计数模型是泊松模型的零膨胀模型称为 ``ZIP`` 模型，
+把泊松模型的概率分布函数 :eq:`eq_zero_counts_002`
+代入到 :eq:`eq_zero_counts_050`
+可得到 ``ZIP`` 模型的概率分布函数。
+
+
+.. math::
+
+    P(y_i=0) &= F(\eta^{\gamma}_i) + \left [ 1-F(\eta^{\gamma}_i) \right ] \exp \left [ -R(\eta^{\beta}_i) \right ]
+
+    P(y_i>0) &= \left [ 1-F(\eta^{\gamma}_i) \right ]
+    \exp \left \{ y_i \eta^{\beta}_i - R(\eta^{\beta}_i) -\ln \Gamma(y_i+1)   \right \}
+
+
+用 :math:`\mathcal{D}_0` 表示观测样本集中 :math:`0` 的子集，
+``ZIP`` 模型的对数似然函数可以写成两部分的和。
+
+
+.. math::
+
+
+    \ell = \sum_{ i \in \mathcal{D}_0 }
+    \ln \left \{
+    F(\eta^{\gamma}_i) + [1-F(\eta^{\gamma}_i)] \exp \left [ -R(\eta^{\beta}_i) \right ]
+    \right \}
+    +
+    \sum_{ i \notin \mathcal{D}_0 }
+    \left \{
+    \ln [1-F(\eta^{\gamma}_i)]
+    +  y_i \eta^{\beta}_i - R(\eta^{\beta}_i) -\ln (y_i!)
+    \right \}
+
+
+
+
+对数似然函数的一阶偏导数为
+
+.. math::
+
+
+    \frac{\partial \ell}{ \partial \beta_j} &=
+    -\sum_{ i \in \mathcal{D}_0 } x_{ji}
+    \frac{ \left [ 1-F(\eta^{\gamma}_i) \right ] R(\eta^{\beta}_i)  \exp \left [ -R(\eta^{\beta}_i) \right ] }
+    {F(\eta^{\gamma}_i) + \left [1-F(\eta^{\gamma}_i) \right] \exp \left [ -R(\eta^{\beta}_i) \right ]  }
+    +
+    \sum_{ i \notin \mathcal{D}_0 } x_{ji}(y_i - R(\eta^{\beta}_i))
+
+
+
+    \frac{\partial \ell}{ \partial \gamma_j} &=
+    \sum_{ i \in \mathcal{D}_0 } z_{ji}
+    \frac{F'(\eta^{\gamma}_i) \left \{ 1-  \exp \left [ -R(\eta^{\beta}_i) \right ] \right \}  }
+     {F(\eta^{\gamma}_i) + \left [1-F(\eta^{\gamma}_i) \right] \exp \left [ -R(\eta^{\beta}_i) \right ]  }
+    - \sum_{ i \notin \mathcal{D}_0 } z_{ji}
+    \frac{F'(\eta^{\gamma}_i)}{ 1-F(\eta^{\gamma}_i) }
+
+
+其中 :math:`F'(\eta^{\gamma}_i)` 表示 :math:`F(\eta^{\gamma}_i)`
+对 :math:`\gamma` 的导数。
+
+**ZINB 模型**
+
+
+计数模型是负二项式模型的零膨胀模型称为 ``ZINB`` 模型，
+把负二项式模型的概率分布函数 :eq:`eq_zero_counts_020`
+代入到 :eq:`eq_zero_counts_050`
+可得到 ``ZINB`` 模型的概率分布函数。
+
+
+
+
+.. math::
+
+    m &= 1/\alpha
+
+    p_i &= 1/(1+\alpha \mu_i)
+
+    \mu_i &= R(\eta^{\beta}) = \exp(x_i \beta)
+
+    P(y_i=0) &= F(\eta^{\gamma}_i)  + [ 1- F(\eta^{\gamma}_i) ] p_i^m
+
+    P(y_i>0) &= [ 1- F(\eta^{\gamma}_i) ] \frac{\Gamma(m+y_i)}{\Gamma(y_i+1)\Gamma(m)}p_i^m(1-p_i)^y_i
+
+
+``ZINB`` 模型的对数似然函数为
+
+.. math::
+
+    \ell = &\sum_{ i \in \mathcal{D}_0 } \ln \left \{ F(\eta^{\gamma}_i)  + [ 1- F(\eta^{\gamma}_i) ] p_i^m  \right \}
+
+    &+ \sum_{ i \notin \mathcal{D}_0 }
+    \left \{ \ln [ 1- F(\eta^{\gamma}_i) ]
+    + \ln \Gamma(m+y_i)
+    -  \ln \Gamma(y_i+1)
+    - \ln \Gamma(m)
+    +m \ln p_i
+    + y_i \ln(1-p_i)
+    \right \}
+
+
+
+其一阶偏导导数为
+
+.. math::
+
+    \frac{\partial \ell}{\beta_j} =
+    \sum_{ i \in \mathcal{D}_0 } x_{ji}
+    \frac{-[ 1- F(\eta^{\gamma}_i)] \mu_i p_i^{m+1}}
+    {F(\eta^{\gamma}_i) + [ 1- F(\eta^{\gamma}_i)] p_i^m}
+    + \sum_{ i \notin \mathcal{D}_0 }
+    x_{ji}p_i(y_i-\mu_i)
+
+.. math::
+
+    \frac{\partial \ell}{\gamma_j} =
+    \sum_{ i \in \mathcal{D}_0 } z_{ji}
+    \frac{F'(\eta^{\gamma}_i)(1-p_i^m)}
+    {F(\eta^{\gamma}_i)+[ 1- F(\eta^{\gamma}_i)]p_i^m}
+    + \sum_{ i \notin \mathcal{D}_0 } z_{ji}
+    \frac{-F'(\eta^{\gamma}_i)}{1-F(\eta^{\gamma}_i)}
+
+
+
+.. math::
+
+    \frac{\partial \ell}{\partial \alpha} = &-
+    \sum_{ i \in \mathcal{D}_0 }
+    \frac{m^2p_i^m \ln p_i -m\mu_i p_i^{m-1}}
+    {F(\eta^{\gamma}_i) + [1-F(\eta^{\gamma}_i)] p_i^m}
+
+    &- \sum_{ i \notin \mathcal{D}_0 } \alpha^{-2}
+    \left \{
+    \frac{\alpha(\mu_i-y_i)}{1+\alpha \mu_i}
+    -ln(1+\alpha \mu_i)
+    + \psi(y_i + 1/\alpha) - \psi(1/\alpha)
+    \right \}
+
+其中 :math:`\psi` 表示双伽马函数（digamma function）

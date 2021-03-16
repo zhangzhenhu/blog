@@ -1,0 +1,1642 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>8. 模型评估 &mdash; 张振虎的博客 张振虎 文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/translations.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"Macros": {"RR": "{\\bf R}", "bold": ["{\\bf #1}", 1]}}})</script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../search.html" />
+    <link rel="next" title="9. 模型检验" href="influence.html" />
+    <link rel="prev" title="7. 参数估计" href="../%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/estimate.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> 张振虎的博客
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                张振虎
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">目录:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">广义线性模型</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80/content.html">1. 概率基础</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80/content.html#id2">1.1. 概率模型</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80/content.html#id3">1.1.1. 概率律</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80/content.html#id4">1.1.2. 离散模型</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80/content.html#id5">1.1.3. 连续模型</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80/content.html#id6">1.2. 条件概率</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80/content.html#id7">1.3. 联合概率</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80/content.html#id8">1.4. 全概率与贝叶斯定理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80/content.html#id9">1.5. 独立性</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80/content.html#id10">1.6. 随机变量</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80/content.html#id11">1.6.1. 离散随机变量</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80/content.html#id12">1.6.2. 连续随机变量</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80/content.html#id13">1.6.3. 累积分布函数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80/content.html#id14">1.6.4. 随机变量的函数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80/content.html#id15">1.6.5. 期望与方差</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80/content.html#id16">1.7. 边缘化</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80/content.html#id17">1.8. 常见概率分布</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80/content.html#id18">1.8.1. 伯努利分布</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80/content.html#id19">1.8.2. 二项式分布</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80/content.html#id20">1.8.3. 类别分布</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80/content.html#id21">1.8.4. 多项式分布</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80/content.html#id22">1.8.5. 高斯分布</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80/content.html#id23">1.8.6. 卡方分布</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80/content.html#t">1.8.7. t分布</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80/content.html#f">1.8.8. F分布</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../%E6%9C%80%E5%A4%A7%E4%BC%BC%E7%84%B6%E4%BC%B0%E8%AE%A1/content.html">2. 最大似然估计</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../%E6%9C%80%E5%A4%A7%E4%BC%BC%E7%84%B6%E4%BC%B0%E8%AE%A1/content.html#ch-liklihood">2.1. 最大似然估计</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../%E6%9C%80%E5%A4%A7%E4%BC%BC%E7%84%B6%E4%BC%B0%E8%AE%A1/content.html#id3">2.2. 伯努利分布</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../%E6%9C%80%E5%A4%A7%E4%BC%BC%E7%84%B6%E4%BC%B0%E8%AE%A1/content.html#id4">2.3. 类别分布</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../%E6%9C%80%E5%A4%A7%E4%BC%BC%E7%84%B6%E4%BC%B0%E8%AE%A1/content.html#ch-2-gaussian-ml">2.4. 高斯分布</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../%E6%9C%80%E5%A4%A7%E4%BC%BC%E7%84%B6%E4%BC%B0%E8%AE%A1/content.html#id6">2.5. 总结</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html">3. 推荐与检验</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#id2">3.1. 统计量和充分统计量</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-sample-distribution">3.2. 抽样分布</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-sample-distribution-normal">3.2.1. 正态分布</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#t">3.2.2. t分布</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#id5">3.2.3. 卡方分布</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#id6">3.3. 极限理论</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#id7">3.3.1. 马尔可夫和切比雪夫不等式</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#id8">3.3.2. 弱大数定律</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#id9">3.3.3. 依概率收敛</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-clt">3.3.4. 中心极限定理</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#id11">3.3.5. 强大数定理</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#id12">3.4. 似然估计量</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#id13">3.4.1. 估计量的偏差与方差</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-2-fisher-information">3.4.2. 信息量</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-2-mle-estimator">3.4.3. 最大似然估计的特性</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-influence-test-interval">3.5. 置信区间</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#z">3.5.1. 均值参数的 Z 区间估计</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#id18">3.5.2. 均值参数的 T 区间估计</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#id19">3.5.3. 方差参数的区间估计</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-influence-test-test">3.6. 简单假设检验</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#id22">3.6.1. Z检验</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#id23">3.6.2. T检验</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#id24">3.6.3. 卡方检验</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../%E6%8C%87%E6%95%B0%E6%97%8F/content.html">4. 指数族</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../%E6%8C%87%E6%95%B0%E6%97%8F/content.html#ch-24-1">4.1. 指数族的定义</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../%E6%8C%87%E6%95%B0%E6%97%8F/content.html#id3">4.1.1. 伯努利分布</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E6%8C%87%E6%95%B0%E6%97%8F/content.html#id4">4.1.2. 类别分布</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E6%8C%87%E6%95%B0%E6%97%8F/content.html#id5">4.1.3. 泊松分布</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E6%8C%87%E6%95%B0%E6%97%8F/content.html#id6">4.1.4. 高斯分布</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E6%8C%87%E6%95%B0%E6%97%8F/content.html#id7">4.1.5. 其它常见指数族</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../%E6%8C%87%E6%95%B0%E6%97%8F/content.html#ch-24-moments">4.2. 指数族的期望与方差</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../%E6%8C%87%E6%95%B0%E6%97%8F/content.html#id9">4.3. 最大似然估计</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../%E6%8C%87%E6%95%B0%E6%97%8F/content.html#kl">4.4. 最大似然估计与KL散度的关系</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/content.html">5. 线性回归模型</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/content.html#id2">5.1. 最小二乘</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/content.html#id3">5.1.1. 最小误差</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/content.html#id4">5.1.2. 参数估计</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/content.html#id5">5.2. 线性回归的概率解释</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/content.html#id6">5.2.1. 高斯分布</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/content.html#id7">5.2.2. 参数估计</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/content.html">6. 广义线性模型</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/content.html#id2">6.1. 指数族分布</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/content.html#id3">6.1.1. 自然指数族</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/content.html#id4">6.1.2. 示例：高斯分布</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/content.html#id5">6.1.3. 示例：伯努利分布</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/content.html#id6">6.2. 广义线性模型</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/content.html#id7">6.3. 例子</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/estimate.html">7. 参数估计</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/estimate.html#ch-glm-estimate">7.1. 最大似然估计</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/estimate.html#id3">7.2. 泰勒级数</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/estimate.html#id4">7.3. 梯度下降法</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/estimate.html#id6">7.4. 牛顿法</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/estimate.html#id7">7.4.1. 算法推导</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/estimate.html#id8">7.4.2. 标准连接函数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/estimate.html#id9">7.4.3. 迭代初始值的设定</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/estimate.html#irls">7.5. 迭代重加权最小二乘(IRLS)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/estimate.html#id10">7.5.1. 算法推导</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/estimate.html#id11">7.5.2. 算法过程</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/estimate.html#id12">7.6. 估计量的标准误差</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/estimate.html#ch-glm-estimate-phi">7.7. 分散参数的估计</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">8. 模型评估</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">8.1. 拟合优度</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id3">8.1.1. 嵌套模型</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#likelihood-ratio">8.1.2. 对数似然比(Likelihood ratio)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#deviance">8.1.3. 偏差(deviance)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#r-2">8.1.4. 决定系数 <span class="math notranslate nohighlight">\(R^2\)</span></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ch-glm-gof-chi">8.1.5. 广义皮尔逊卡方统计量</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#residual-analysis">8.2. 残差分析(Residual analysis)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#response-residuals">8.2.1. Response residuals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#working-residuals">8.2.2. Working residuals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#partial-residuals">8.2.3. Partial residuals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pearson-residuals">8.2.4. Pearson residuals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#deviance-residuals">8.2.5. Deviance residuals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#score-residuals">8.2.6. Score residuals</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#model-selection">8.3. 模型选择(model selection)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#aic">8.3.1. AIC</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="influence.html">9. 模型检验</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="influence.html#id2">9.1. 拉格朗日乘子检验</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="influence.html#id3">9.1.1. 得分统计量</a></li>
+<li class="toctree-l4"><a class="reference internal" href="influence.html#id4">9.1.2. 检验过程</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="influence.html#wald">9.2. wald 检验</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="influence.html#id5">9.2.1. 参数估计量</a></li>
+<li class="toctree-l4"><a class="reference internal" href="influence.html#id6">9.2.2. 检验过程</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="influence.html#id7">9.3. 似然比检验</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="influence.html#id8">9.3.1. 抽样分布</a></li>
+<li class="toctree-l4"><a class="reference internal" href="influence.html#id9">9.3.2. 模型比较</a></li>
+<li class="toctree-l4"><a class="reference internal" href="influence.html#id10">9.3.3. 偏差统计量</a></li>
+<li class="toctree-l4"><a class="reference internal" href="influence.html#f">9.3.4. F 检验</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="influence.html#id11">9.4. 总结</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../%E9%AB%98%E6%96%AF%E6%A8%A1%E5%9E%8B/content.html">10. 高斯模型</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../%E9%AB%98%E6%96%AF%E6%A8%A1%E5%9E%8B/content.html#id2">10.1. 传统线性回归</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../%E9%AB%98%E6%96%AF%E6%A8%A1%E5%9E%8B/content.html#id3">10.2. 高斯分布</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../%E9%AB%98%E6%96%AF%E6%A8%A1%E5%9E%8B/content.html#id4">10.3. 高斯回归模型</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../%E9%AB%98%E6%96%AF%E6%A8%A1%E5%9E%8B/content.html#id5">10.4. 参数估计</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../%E9%AB%98%E6%96%AF%E6%A8%A1%E5%9E%8B/content.html#id6">10.4.1. 似然函数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E9%AB%98%E6%96%AF%E6%A8%A1%E5%9E%8B/content.html#irls">10.4.2. IRLS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E9%AB%98%E6%96%AF%E6%A8%A1%E5%9E%8B/content.html#id7">10.4.3. 拟合优度</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../%E9%AB%98%E6%96%AF%E6%A8%A1%E5%9E%8B/content.html#id10">10.5. 其它连接函数</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../%E9%80%86%E9%AB%98%E6%96%AF%E6%A8%A1%E5%9E%8B/content.html">11. 逆高斯模型</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../%E9%80%86%E9%AB%98%E6%96%AF%E6%A8%A1%E5%9E%8B/content.html#id2">11.1. 逆高斯分布</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../%E9%80%86%E9%AB%98%E6%96%AF%E6%A8%A1%E5%9E%8B/content.html#id3">11.2. 逆高斯回归模型</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../%E9%80%86%E9%AB%98%E6%96%AF%E6%A8%A1%E5%9E%8B/content.html#id4">11.3. 参数估计</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../%E9%80%86%E9%AB%98%E6%96%AF%E6%A8%A1%E5%9E%8B/content.html#id5">11.3.1. 似然函数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E9%80%86%E9%AB%98%E6%96%AF%E6%A8%A1%E5%9E%8B/content.html#irls">11.3.2. IRLS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E9%80%86%E9%AB%98%E6%96%AF%E6%A8%A1%E5%9E%8B/content.html#id6">11.3.3. 拟合优度</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../%E9%80%86%E9%AB%98%E6%96%AF%E6%A8%A1%E5%9E%8B/content.html#id7">11.4. 其它连接函数</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../%E4%BA%8C%E9%A1%B9%E6%A8%A1%E5%9E%8B/content.html">12. 二项式模型</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../%E4%BA%8C%E9%A1%B9%E6%A8%A1%E5%9E%8B/content.html#id2">12.1. 伯努利分布</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../%E4%BA%8C%E9%A1%B9%E6%A8%A1%E5%9E%8B/content.html#id3">12.2. 逻辑回归模型</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../%E4%BA%8C%E9%A1%B9%E6%A8%A1%E5%9E%8B/content.html#id4">12.2.1. 模型定义</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E4%BA%8C%E9%A1%B9%E6%A8%A1%E5%9E%8B/content.html#id5">12.2.2. 参数估计</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E4%BA%8C%E9%A1%B9%E6%A8%A1%E5%9E%8B/content.html#odds-logit">12.2.3. odds 与 logit</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../%E4%BA%8C%E9%A1%B9%E6%A8%A1%E5%9E%8B/content.html#id6">12.3. 二项式分布</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../%E4%BA%8C%E9%A1%B9%E6%A8%A1%E5%9E%8B/content.html#id7">12.4. 二项式回归模型</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../%E4%BA%8C%E9%A1%B9%E6%A8%A1%E5%9E%8B/content.html#id8">12.4.1. 模型定义</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E4%BA%8C%E9%A1%B9%E6%A8%A1%E5%9E%8B/content.html#id9">12.4.2. 参数估计</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../%E4%BA%8C%E9%A1%B9%E6%A8%A1%E5%9E%8B/content.html#id10">12.5. 其它连接函数</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../%E4%BA%8C%E9%A1%B9%E6%A8%A1%E5%9E%8B/content.html#id11">12.5.1. 恒等连接函数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E4%BA%8C%E9%A1%B9%E6%A8%A1%E5%9E%8B/content.html#probit">12.5.2. probit 回归</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E4%BA%8C%E9%A1%B9%E6%A8%A1%E5%9E%8B/content.html#log-log-clog-log">12.5.3. log-log 和 clog-log</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../%E4%BA%8C%E9%A1%B9%E6%A8%A1%E5%9E%8B/content.html#id12">12.6. 分组数据与比例数据</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../%E6%B3%8A%E6%9D%BE%E6%A8%A1%E5%9E%8B/content.html">13. 泊松模型</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../%E6%B3%8A%E6%9D%BE%E6%A8%A1%E5%9E%8B/content.html#poisson">13.1. 泊松(Poisson)分布</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../%E6%B3%8A%E6%9D%BE%E6%A8%A1%E5%9E%8B/content.html#id2">13.1.1. 推导过程</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E6%B3%8A%E6%9D%BE%E6%A8%A1%E5%9E%8B/content.html#id3">13.1.2. 泊松分布的特性</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../%E6%B3%8A%E6%9D%BE%E6%A8%A1%E5%9E%8B/content.html#id5">13.2. 泊松回归模型</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../%E6%B3%8A%E6%9D%BE%E6%A8%A1%E5%9E%8B/content.html#id6">13.3. 参数估计</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../%E6%B3%8A%E6%9D%BE%E6%A8%A1%E5%9E%8B/content.html#id7">13.4. 拟合统计量</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../%E6%B3%8A%E6%9D%BE%E6%A8%A1%E5%9E%8B/content.html#id8">13.5. 频率模型</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../%E6%B3%8A%E6%9D%BE%E6%A8%A1%E5%9E%8B/content.html#id9">13.6. 泊松模型的局限性</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../%E6%8C%87%E6%95%B0%E6%A8%A1%E5%9E%8B/content.html">14. 指数模型</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../%E6%8C%87%E6%95%B0%E6%A8%A1%E5%9E%8B/content.html#exponential">14.1. 指数(exponential)分布</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../%E6%8C%87%E6%95%B0%E6%A8%A1%E5%9E%8B/content.html#id2">14.1.1. 推导过程</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E6%8C%87%E6%95%B0%E6%A8%A1%E5%9E%8B/content.html#id3">14.1.2. 分布的特性</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../%E6%8C%87%E6%95%B0%E6%A8%A1%E5%9E%8B/content.html#id6">14.2. 指数回归模型</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../%E6%8C%87%E6%95%B0%E6%A8%A1%E5%9E%8B/content.html#id7">14.3. 参数估计</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../%E6%8C%87%E6%95%B0%E6%A8%A1%E5%9E%8B/content.html#id8">14.3.1. 似然函数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E6%8C%87%E6%95%B0%E6%A8%A1%E5%9E%8B/content.html#id9">14.3.2. 拟合优度</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E6%8C%87%E6%95%B0%E6%A8%A1%E5%9E%8B/content.html#irls">14.3.3. IRLS</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../gamma%E6%A8%A1%E5%9E%8B/content.html">15. Gamma 模型</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../gamma%E6%A8%A1%E5%9E%8B/content.html#id1">15.1. Gamma 函数</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../gamma%E6%A8%A1%E5%9E%8B/content.html#id2">15.2. Gamma 分布</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../gamma%E6%A8%A1%E5%9E%8B/content.html#id3">15.3. Gamma 回归模型</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../gamma%E6%A8%A1%E5%9E%8B/content.html#id4">15.4. 参数估计</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../gamma%E6%A8%A1%E5%9E%8B/content.html#id5">15.4.1. 似然函数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gamma%E6%A8%A1%E5%9E%8B/content.html#irls">15.4.2. IRLS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gamma%E6%A8%A1%E5%9E%8B/content.html#id6">15.4.3. 拟合优度</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../gamma%E6%A8%A1%E5%9E%8B/content.html#id7">15.5. 其他连接函数</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../gamma%E6%A8%A1%E5%9E%8B/content.html#id8">15.5.1. 对数 Gamma 模型</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../gamma%E6%A8%A1%E5%9E%8B/content.html#identity-gamma">15.5.2. 恒等(identity) Gamma 模型</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../%E8%BF%87%E5%BA%A6%E5%88%86%E6%95%A3/content.html">16. 过度分散</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../%E8%BF%87%E5%BA%A6%E5%88%86%E6%95%A3/content.html#id2">16.1. 什么是过度分散</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../%E8%BF%87%E5%BA%A6%E5%88%86%E6%95%A3/content.html#id3">16.2. 过度分散的检测</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../%E8%BF%87%E5%BA%A6%E5%88%86%E6%95%A3/content.html#id4">16.3. 过度分散的影响</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../%E8%BF%87%E5%BA%A6%E5%88%86%E6%95%A3/content.html#id5">16.4. 标准误差的修正</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../%E8%B4%9F%E4%BA%8C%E9%A1%B9%E6%A8%A1%E5%9E%8B/content.html">17. 负二项式模型</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../%E8%B4%9F%E4%BA%8C%E9%A1%B9%E6%A8%A1%E5%9E%8B/content.html#id2">17.1. 负二项式分布</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../%E8%B4%9F%E4%BA%8C%E9%A1%B9%E6%A8%A1%E5%9E%8B/content.html#id3">17.1.1. 从二项式分布推导</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E8%B4%9F%E4%BA%8C%E9%A1%B9%E6%A8%A1%E5%9E%8B/content.html#id4">17.1.2. 泊松-伽马混合分布</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E8%B4%9F%E4%BA%8C%E9%A1%B9%E6%A8%A1%E5%9E%8B/content.html#alpha">17.1.3. 辅助参数 <span class="math notranslate nohighlight">\(\alpha\)</span> 的影响</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../%E8%B4%9F%E4%BA%8C%E9%A1%B9%E6%A8%A1%E5%9E%8B/content.html#id5">17.2. 负二项回归模型</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../%E8%B4%9F%E4%BA%8C%E9%A1%B9%E6%A8%A1%E5%9E%8B/content.html#id6">17.3. 参数估计</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../%E8%B4%9F%E4%BA%8C%E9%A1%B9%E6%A8%A1%E5%9E%8B/content.html#irls">17.3.1. IRLS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E8%B4%9F%E4%BA%8C%E9%A1%B9%E6%A8%A1%E5%9E%8B/content.html#id7">17.3.2. 参数 <span class="math notranslate nohighlight">\(\alpha\)</span> 的估计</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../%E8%B4%9F%E4%BA%8C%E9%A1%B9%E6%A8%A1%E5%9E%8B/content.html#id8">17.4. 负二项式模型扩展</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../%E8%B4%9F%E4%BA%8C%E9%A1%B9%E6%A8%A1%E5%9E%8B/content.html#id9">17.4.1. 对数连接函数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E8%B4%9F%E4%BA%8C%E9%A1%B9%E6%A8%A1%E5%9E%8B/content.html#id10">17.4.2. 参数 <span class="math notranslate nohighlight">\(\alpha\)</span> 的估计</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E8%B4%9F%E4%BA%8C%E9%A1%B9%E6%A8%A1%E5%9E%8B/content.html#id11">17.4.3. 几何模型</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E8%B4%9F%E4%BA%8C%E9%A1%B9%E6%A8%A1%E5%9E%8B/content.html#id12">17.4.4. 广义负二项式模型</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../%E9%9B%B6%E8%AE%A1%E6%95%B0%E9%97%AE%E9%A2%98/content.html">18. 零计数问题</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../%E9%9B%B6%E8%AE%A1%E6%95%B0%E9%97%AE%E9%A2%98/content.html#id2">18.1. 零截断模型</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../%E9%9B%B6%E8%AE%A1%E6%95%B0%E9%97%AE%E9%A2%98/content.html#id3">18.1.1. 零截断泊松模型</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E9%9B%B6%E8%AE%A1%E6%95%B0%E9%97%AE%E9%A2%98/content.html#id4">18.1.2. 零截断负二项式模型</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../%E9%9B%B6%E8%AE%A1%E6%95%B0%E9%97%AE%E9%A2%98/content.html#id5">18.2. 零膨胀模型</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../%E9%9B%B6%E8%AE%A1%E6%95%B0%E9%97%AE%E9%A2%98/content.html#hurdle">18.2.1. Hurdle 模型</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E9%9B%B6%E8%AE%A1%E6%95%B0%E9%97%AE%E9%A2%98/content.html#zero-inflate">18.2.2. Zero-inflate 模型</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../%E6%97%A0%E5%BA%8F%E7%A6%BB%E6%95%A3%E6%A8%A1%E5%9E%8B/content.html">19. 多项式模型</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../%E6%97%A0%E5%BA%8F%E7%A6%BB%E6%95%A3%E6%A8%A1%E5%9E%8B/content.html#id2">19.1. 类别分布</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../%E6%97%A0%E5%BA%8F%E7%A6%BB%E6%95%A3%E6%A8%A1%E5%9E%8B/content.html#softmax">19.2. softmax 回归模型</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../%E6%97%A0%E5%BA%8F%E7%A6%BB%E6%95%A3%E6%A8%A1%E5%9E%8B/content.html#id3">19.2.1. 模型定义</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E6%97%A0%E5%BA%8F%E7%A6%BB%E6%95%A3%E6%A8%A1%E5%9E%8B/content.html#id4">19.2.2. 参数估计</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../%E6%97%A0%E5%BA%8F%E7%A6%BB%E6%95%A3%E6%A8%A1%E5%9E%8B/content.html#id5">19.3. 多项式分布</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../%E6%97%A0%E5%BA%8F%E7%A6%BB%E6%95%A3%E6%A8%A1%E5%9E%8B/content.html#id6">19.4. 多项式回归模型</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../%E6%9C%89%E5%BA%8F%E7%A6%BB%E6%95%A3%E6%A8%A1%E5%9E%8B/content.html">20. 有序离散模型</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../%E6%9C%89%E5%BA%8F%E7%A6%BB%E6%95%A3%E6%A8%A1%E5%9E%8B/content.html#id2">20.1. 有序逻辑回归</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../%E6%9C%89%E5%BA%8F%E7%A6%BB%E6%95%A3%E6%A8%A1%E5%9E%8B/content.html#id3">20.2. 参数估计</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../%E6%9C%89%E5%BA%8F%E7%A6%BB%E6%95%A3%E6%A8%A1%E5%9E%8B/content.html#id4">20.3. 连接函数</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../%E6%9C%89%E5%BA%8F%E7%A6%BB%E6%95%A3%E6%A8%A1%E5%9E%8B/content.html#logit">20.3.1. logit</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E6%9C%89%E5%BA%8F%E7%A6%BB%E6%95%A3%E6%A8%A1%E5%9E%8B/content.html#probit">20.3.2. probit</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E6%9C%89%E5%BA%8F%E7%A6%BB%E6%95%A3%E6%A8%A1%E5%9E%8B/content.html#clog-log">20.3.3. clog-log</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E6%9C%89%E5%BA%8F%E7%A6%BB%E6%95%A3%E6%A8%A1%E5%9E%8B/content.html#log-log">20.3.4. log-log</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E6%9C%89%E5%BA%8F%E7%A6%BB%E6%95%A3%E6%A8%A1%E5%9E%8B/content.html#cauchit">20.3.5. cauchit</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../%E6%9C%89%E5%BA%8F%E7%A6%BB%E6%95%A3%E6%A8%A1%E5%9E%8B/content.html#id5">20.4. 总结</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../%E9%99%84%E5%BD%95/%E5%88%86%E5%B8%83%E8%A1%A8.html">附录</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../%E9%99%84%E5%BD%95/%E5%88%86%E5%B8%83%E8%A1%A8.html#id2">标准正态累积分布表</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../%E9%99%84%E5%BD%95/%E5%88%86%E5%B8%83%E8%A1%A8.html#id3">卡方分布临界值表</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE/content.html">参考文献</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../probability_model/index_html.html">概率图</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../probability_model/1.%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80.html">1. 概率基础</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/1.%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80.html#id2">1.1. 概率分布</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/1.%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80.html#id3">1.2. 独立性</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/1.%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80.html#marginalization">1.3. 边缘化(marginalization)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/1.%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80.html#id6">1.4. 贝叶斯定理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/1.%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80.html#id7">1.5. 期望与方差</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/1.%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80.html#id8">1.6. 常见概率分布</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../probability_model/1.%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80.html#id9">1.6.1. 离散变量</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../probability_model/1.%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80.html#id10">1.6.2. 连续变量</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../probability_model/1.%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80.html#id11">1.6.3. 计数变量</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/1.%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80.html#id12">1.7. 大数定律</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../probability_model/1.%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80.html#id13">1.7.1. 独立同分布</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../probability_model/1.%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80.html#id14">1.7.2. 中心极限定理</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/1.%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80.html#id15">1.8. 信息论基础</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../probability_model/1.%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80.html#id16">1.8.1. 信息熵</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../probability_model/1.%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80.html#kl">1.8.2. KL散度</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../probability_model/1.%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80.html#id18">1.8.3. 互信息</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../probability_model/2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html">2. 参数估计</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#ch-liklihood">2.1. 极大似然估计</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../probability_model/2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#id3">2.1.1. 二值离散变量</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../probability_model/2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#id4">2.1.2. 一般离散变量</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../probability_model/2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#ch-2-gaussian-ml">2.1.3. 高斯分布</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../probability_model/2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#id6">2.1.4. 总结</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#ch-bayesian-estimation">2.2. 贝叶斯估计</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../probability_model/2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#id8">2.2.1. 伯努利变量</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../probability_model/2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#id9">2.2.2. 类别变量</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#id10">2.3. 最大后验估计</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../probability_model/2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#id11">2.3.1. 伯努利变量</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../probability_model/2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#id12">2.3.2. 类别变量</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#id13">2.4. 最大似然估计与贝叶斯估计的对比</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#id14">2.5. 统计量和充分统计量</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#fisher-information">2.6. Fisher Information</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#id15">2.7. 估计量的评价</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../probability_model/2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#id16">2.7.1. 估计量的方差与偏差</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../probability_model/2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#id17">2.7.2. 大数定律和中心极限定理</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../probability_model/2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#ch-2-mle-estimator">2.7.3. 最大似然估计的特性</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../probability_model/18.%E6%8C%87%E6%95%B0%E6%97%8F_24.html">3. 指数族</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/18.%E6%8C%87%E6%95%B0%E6%97%8F_24.html#ch-24-1">3.1. 指数族的定义</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../probability_model/18.%E6%8C%87%E6%95%B0%E6%97%8F_24.html#id3">3.1.1. 伯努利分布</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../probability_model/18.%E6%8C%87%E6%95%B0%E6%97%8F_24.html#id4">3.1.2. 类别分布</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../probability_model/18.%E6%8C%87%E6%95%B0%E6%97%8F_24.html#id5">3.1.3. 泊松分布</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../probability_model/18.%E6%8C%87%E6%95%B0%E6%97%8F_24.html#id6">3.1.4. 高斯分布</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../probability_model/18.%E6%8C%87%E6%95%B0%E6%97%8F_24.html#id7">3.1.5. 其它常见指数族</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/18.%E6%8C%87%E6%95%B0%E6%97%8F_24.html#ch-24-moments">3.2. 指数族的期望与方差</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/18.%E6%8C%87%E6%95%B0%E6%97%8F_24.html#id9">3.3. 最大似然估计</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/18.%E6%8C%87%E6%95%B0%E6%97%8F_24.html#kl">3.4. 最大似然估计与KL散度的关系</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../probability_model/19.%E5%A4%9A%E7%BB%B4%E9%AB%98%E6%96%AF%E5%88%86%E5%B8%83_26.html">4. 多维高斯分布</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../probability_model/4.%E6%9C%89%E5%90%91%E5%9B%BE_lecture_2.html">5. 有向图(Directed Graphical Models)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/4.%E6%9C%89%E5%90%91%E5%9B%BE_lecture_2.html#id1">5.1. 有向图</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/4.%E6%9C%89%E5%90%91%E5%9B%BE_lecture_2.html#id2">5.2. 条件独立性</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/4.%E6%9C%89%E5%90%91%E5%9B%BE_lecture_2.html#id3">5.3. 本章总结</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../probability_model/5.%E6%97%A0%E5%90%91%E5%9B%BE_lecture_3.html">6. 无向图(Undirected Graphical Models)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/5.%E6%97%A0%E5%90%91%E5%9B%BE_lecture_3.html#id1">6.1. 无向图的定义</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/5.%E6%97%A0%E5%90%91%E5%9B%BE_lecture_3.html#id2">6.2. 条件独立性</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/5.%E6%97%A0%E5%90%91%E5%9B%BE_lecture_3.html#id3">6.3. 图的分解</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/5.%E6%97%A0%E5%90%91%E5%9B%BE_lecture_3.html#vs">6.4. 有向图 vs 无向图</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/5.%E6%97%A0%E5%90%91%E5%9B%BE_lecture_3.html#id4">6.5. 树</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/5.%E6%97%A0%E5%90%91%E5%9B%BE_lecture_3.html#id5">6.6. 本章总结</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../probability_model/6.%E5%9B%A0%E5%AD%90%E5%9B%BE_lecture_4.html">7. 因子图</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/6.%E5%9B%A0%E5%AD%90%E5%9B%BE_lecture_4.html#id2">7.1. 因子图的定义</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/6.%E5%9B%A0%E5%AD%90%E5%9B%BE_lecture_4.html#id3">7.2. 图模型之间的转换</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../probability_model/6.%E5%9B%A0%E5%AD%90%E5%9B%BE_lecture_4.html#id4">7.2.1. 转换为因子图</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../probability_model/6.%E5%9B%A0%E5%AD%90%E5%9B%BE_lecture_4.html#id5">7.2.2. 因子图转换为有向图</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/6.%E5%9B%A0%E5%AD%90%E5%9B%BE_lecture_4.html#id6">7.3. 图模型的评价</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../probability_model/6.%E5%9B%A0%E5%AD%90%E5%9B%BE_lecture_4.html#i-map">7.3.1. I-map</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../probability_model/6.%E5%9B%A0%E5%AD%90%E5%9B%BE_lecture_4.html#d-map">7.3.2. D-map</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../probability_model/6.%E5%9B%A0%E5%AD%90%E5%9B%BE_lecture_4.html#p-map">7.3.3. P-map</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../probability_model/8.%E6%B6%88%E5%85%83%E6%B3%95_lecture_7.html">8. 消元法(The Elimination Algorithm)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/8.%E6%B6%88%E5%85%83%E6%B3%95_lecture_7.html#id1">8.1. 什么是模型的推断</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/8.%E6%B6%88%E5%85%83%E6%B3%95_lecture_7.html#id2">8.2. 消元法</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../probability_model/8.%E6%B6%88%E5%85%83%E6%B3%95_lecture_7.html#id3">8.2.1. 一个例子</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../probability_model/8.%E6%B6%88%E5%85%83%E6%B3%95_lecture_7.html#ch-condition-margin">8.2.2. 条件概率和边缘概率</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../probability_model/8.%E6%B6%88%E5%85%83%E6%B3%95_lecture_7.html#id5">8.2.3. 有向图的消元法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../probability_model/8.%E6%B6%88%E5%85%83%E6%B3%95_lecture_7.html#id6">8.2.4. 无向图的消元法</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/8.%E6%B6%88%E5%85%83%E6%B3%95_lecture_7.html#id7">8.3. 图消除</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/8.%E6%B6%88%E5%85%83%E6%B3%95_lecture_7.html#id9">8.4. 总结</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../probability_model/9.%E5%92%8C%E7%A7%AF%E7%AE%97%E6%B3%95_lecture_8.html">9. 加和乘积算法(sum-product algorithm)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/9.%E5%92%8C%E7%A7%AF%E7%AE%97%E6%B3%95_lecture_8.html#id1">9.1. 树结构</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/9.%E5%92%8C%E7%A7%AF%E7%AE%97%E6%B3%95_lecture_8.html#id2">9.2. 从消元法到信息传播</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/9.%E5%92%8C%E7%A7%AF%E7%AE%97%E6%B3%95_lecture_8.html#id3">9.3. 树模型的和积算法</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/9.%E5%92%8C%E7%A7%AF%E7%AE%97%E6%B3%95_lecture_8.html#id4">9.4. 因子图的和积算法</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/9.%E5%92%8C%E7%A7%AF%E7%AE%97%E6%B3%95_lecture_8.html#id5">9.5. 类树结构图模型</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/9.%E5%92%8C%E7%A7%AF%E7%AE%97%E6%B3%95_lecture_8.html#polytrees">9.6. 多重树(polytrees)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/9.%E5%92%8C%E7%A7%AF%E7%AE%97%E6%B3%95_lecture_8.html#id6">9.7. 总结</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../probability_model/11.%E6%9C%80%E5%A4%A7%E5%90%8E%E9%AA%8C%E4%BC%B0%E8%AE%A1_lecture_11.html">10. 最大后验估计</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/11.%E6%9C%80%E5%A4%A7%E5%90%8E%E9%AA%8C%E4%BC%B0%E8%AE%A1_lecture_11.html#id2">10.1. 最大后验概率</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/11.%E6%9C%80%E5%A4%A7%E5%90%8E%E9%AA%8C%E4%BC%B0%E8%AE%A1_lecture_11.html#id3">10.2. 最大化后验的状态</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/11.%E6%9C%80%E5%A4%A7%E5%90%8E%E9%AA%8C%E4%BC%B0%E8%AE%A1_lecture_11.html#id4">10.3. 本章总结</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../probability_model/12.%E5%AE%8C%E6%95%B4%E8%A7%82%E6%B5%8B%E7%9A%84%E5%8F%82%E6%95%B0%E5%AD%A6%E4%B9%A0_lecture_20.html">11. 完整观测的参数学习</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/12.%E5%AE%8C%E6%95%B4%E8%A7%82%E6%B5%8B%E7%9A%84%E5%8F%82%E6%95%B0%E5%AD%A6%E4%B9%A0_lecture_20.html#id2">11.1. 有向图的参数学习</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/12.%E5%AE%8C%E6%95%B4%E8%A7%82%E6%B5%8B%E7%9A%84%E5%8F%82%E6%95%B0%E5%AD%A6%E4%B9%A0_lecture_20.html#id3">11.2. 无向图的参数学习</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../probability_model/12.%E5%AE%8C%E6%95%B4%E8%A7%82%E6%B5%8B%E7%9A%84%E5%8F%82%E6%95%B0%E5%AD%A6%E4%B9%A0_lecture_20.html#id4">11.2.1. 成对二值变量模型</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../probability_model/12.%E5%AE%8C%E6%95%B4%E8%A7%82%E6%B5%8B%E7%9A%84%E5%8F%82%E6%95%B0%E5%AD%A6%E4%B9%A0_lecture_20.html#id5">11.2.2. 一般二值变量模型</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../probability_model/13.%E4%B8%8D%E5%AE%8C%E6%95%B4%E8%A7%82%E6%B5%8B%E7%9A%84%E5%8F%82%E6%95%B0%E5%AD%A6%E4%B9%A0_lecture_22.html">12. 不完整观测的学习</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/13.%E4%B8%8D%E5%AE%8C%E6%95%B4%E8%A7%82%E6%B5%8B%E7%9A%84%E5%8F%82%E6%95%B0%E5%AD%A6%E4%B9%A0_lecture_22.html#id2">12.1. 隐变量</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/13.%E4%B8%8D%E5%AE%8C%E6%95%B4%E8%A7%82%E6%B5%8B%E7%9A%84%E5%8F%82%E6%95%B0%E5%AD%A6%E4%B9%A0_lecture_22.html#em">12.2. 期望最大化算法(EM)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/13.%E4%B8%8D%E5%AE%8C%E6%95%B4%E8%A7%82%E6%B5%8B%E7%9A%84%E5%8F%82%E6%95%B0%E5%AD%A6%E4%B9%A0_lecture_22.html#id3">12.3. 隐马尔可夫模型的参数估计</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../probability_model/14.%E5%9B%BE%E5%BD%A2%E7%BB%93%E6%9E%84%E7%9A%84%E5%AD%A6%E4%B9%A0_lecture_23.html">13. 有向图结构学习</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../probability_model/16.%E5%8F%98%E5%88%86%E6%8E%A8%E6%96%AD_lecture_17.html">14. 变分推断</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../probability_model/17.%E9%87%87%E6%A0%B7%E6%B3%95_lecture_18.html">15. 马尔科夫蒙特卡洛</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/17.%E9%87%87%E6%A0%B7%E6%B3%95_lecture_18.html#why-sampling">15.1. Why sampling？</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/17.%E9%87%87%E6%A0%B7%E6%B3%95_lecture_18.html#monte-carlo">15.2. 蒙特卡罗(Monte Carlo)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/17.%E9%87%87%E6%A0%B7%E6%B3%95_lecture_18.html#markov-chain">15.3. 马尔科夫链(Markov Chain)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../probability_model/17.%E9%87%87%E6%A0%B7%E6%B3%95_lecture_18.html#id2">15.3.1. 一个例子</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../probability_model/17.%E9%87%87%E6%A0%B7%E6%B3%95_lecture_18.html#time-reversibility">15.3.2. 时间可逆性(Time Reversibility)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../probability_model/17.%E9%87%87%E6%A0%B7%E6%B3%95_lecture_18.html#id3">15.3.3. 总结</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/17.%E9%87%87%E6%A0%B7%E6%B3%95_lecture_18.html#markov-chain-monte-carlo">15.4. Markov Chain Monte Carlo</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../probability_model/17.%E9%87%87%E6%A0%B7%E6%B3%95_lecture_18.html#metropolis-hastings">15.4.1. Metropolis-Hastings</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../probability_model/17.%E9%87%87%E6%A0%B7%E6%B3%95_lecture_18.html#id4">15.4.2. 例子：正态分布的采样</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../probability_model/17.%E9%87%87%E6%A0%B7%E6%B3%95_lecture_18.html#id5">15.4.3. 多变量采样</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../probability_model/17.%E9%87%87%E6%A0%B7%E6%B3%95_lecture_18.html#gibbs">15.4.4. Gibbs 采样</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/17.%E9%87%87%E6%A0%B7%E6%B3%95_lecture_18.html#mixing-time">15.5. Mixing Time</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/17.%E9%87%87%E6%A0%B7%E6%B3%95_lecture_18.html#approximate-map-and-partitioning">15.6. Approximate MAP and Partitioning</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../probability_model/21.%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92_29.html">16. 回归模型</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/21.%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92_29.html#id2">16.1. 机器学习的概率解释</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/21.%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92_29.html#id3">16.2. 经典线性回归</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../probability_model/21.%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92_29.html#id4">16.2.1. 参数估计</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/21.%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92_29.html#id5">16.3. 线性回归的概率解释</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../probability_model/21.%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92_29.html#id6">16.3.1. 参数估计</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/21.%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92_29.html#id7">16.4. 凸函数最优化问题</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/21.%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92_29.html#id8">16.5. 岭回归</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../probability_model/22.%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB_32.html">17. 分类模型</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/22.%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB_32.html#id2">17.1. 生成模型与判别模型</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/22.%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB_32.html#id3">17.2. 线性回归与线性分类</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/22.%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB_32.html#id4">17.3. 生成模型</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../probability_model/22.%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB_32.html#id5">17.3.1. 高斯判别模型</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../probability_model/22.%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB_32.html#id6">17.3.2. 朴素贝叶斯模型</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../probability_model/22.%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB_32.html#id7">17.3.3. 指数族</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/22.%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB_32.html#id8">17.4. 判别模型</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../probability_model/22.%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB_32.html#id9">17.4.1. 逻辑回归</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../probability_model/22.%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB_32.html#id10">17.4.2. 多分类</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../probability_model/22.%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB_32.html#id11">17.4.3. 最大熵模型</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../probability_model/22.%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB_32.html#probit">17.4.4. Probit 回归</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../probability_model/22.%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB_32.html#noisy-or">17.4.5. Noisy-OR 模型</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../probability_model/22.%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB_32.html#id12">17.4.6. 其它指数模型</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../probability_model/25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html">18. 广义线性模型</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#id2">18.1. 定义</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../probability_model/25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#id3">18.1.1. 指数族分布</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../probability_model/25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#id4">18.1.2. 链接函数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../probability_model/25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#id5">18.1.3. 例子</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#id6">18.2. 参数估计</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../probability_model/25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#id7">18.2.1. 梯度下降法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../probability_model/25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#id8">18.2.2. 牛顿法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../probability_model/25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#irls">18.2.3. 迭代重加权最小二乘(IRLS)</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#goodness-of-fit">18.3. goodness of fit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#id9">18.4. 连续值响应模型</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../probability_model/25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#id10">18.4.1. 高斯族</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../probability_model/25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#gamma">18.4.2. Gamma族</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#id12">18.5. 二项响应模型</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#id13">18.6. 多项响应模型</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#id14">18.7. 计数响应模型</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../probability_model/25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#id15">18.7.1. 泊松分布</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#id16">18.8. GLM扩展</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../probability_model/31.%E6%B7%B7%E5%90%88%E6%A8%A1%E5%9E%8B_41.html">19. 混合模型</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/31.%E6%B7%B7%E5%90%88%E6%A8%A1%E5%9E%8B_41.html#id2">19.1. 混合模型</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/31.%E6%B7%B7%E5%90%88%E6%A8%A1%E5%9E%8B_41.html#id3">19.2. 高斯混合模型</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/31.%E6%B7%B7%E5%90%88%E6%A8%A1%E5%9E%8B_41.html#id4">19.3. 参数估计</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../probability_model/32.%E5%9B%A0%E5%AD%90%E5%88%86%E6%9E%90_42.html">20. 因子分析</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../probability_model/33.LDA_43.html">21. 主题模型</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/33.LDA_43.html#plsa">21.1. PLSA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/33.LDA_43.html#lda">21.2. LDA</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../probability_model/26.%E9%9A%90%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB_36.html">22. 隐马尔可夫模型</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/26.%E9%9A%90%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB_36.html#id2">22.1. 隐马尔可夫模型</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../probability_model/26.%E9%9A%90%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB_36.html#id3">22.1.1. 马尔可夫模型和朴素贝叶斯模型的关系</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/26.%E9%9A%90%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB_36.html#id4">22.2. 参考文献</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../probability_model/27.%E6%9D%A1%E4%BB%B6%E9%9A%8F%E6%9C%BA%E5%9C%BA_37.html">23. 条件随机场</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../probability_model/28.%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2%E5%99%A8_38.html">24. 卡尔曼滤波器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../probability_model/40.%E9%A1%B9%E7%9B%AE%E5%8F%8D%E5%BA%94%E7%90%86%E8%AE%BA_50.html">25. 项目反应理论</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../probability_model/41.%E8%B4%9D%E5%8F%B6%E6%96%AF%E7%9F%A5%E8%AF%86%E8%BF%BD%E8%B8%AA_51.html">26. 贝叶斯知识追踪</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../probability_model/%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE.html">27. 参考文献</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../audio/index.html">语音技术</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../audio/feature.html">1. 音频特征</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../audio/feature.html#id2">1.1. 认识声音</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../audio/feature.html#id3">1.2. 认识声波</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../audio/feature.html#id4">1.2.1. 物体的振动以及简谐振动</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../audio/feature.html#id7">1.2.2. 什么是声波</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../audio/feature.html#id8">1.2.3. 纯音和复合音</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../audio/feature.html#spectrum">1.2.4. 频谱 Spectrum</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../audio/feature.html#id10">1.2.5. 名词</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../audio/feature.html#id13">1.3. 语音学</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../audio/feature.html#id14">1.3.1. 发声原理</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../audio/feature.html#id15">1.3.2. 听觉感应</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../audio/feature.html#id16">1.4. 数字信号处理</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../audio/feature.html#id17">1.4.1. 模数转换</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../audio/feature.html#wav">1.4.2. 音频文件–WAV</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../audio/feature.html#id18">1.5. 分帧与加窗</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../audio/feature.html#id19">1.5.1. 预加重处理</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../audio/feature.html#id20">1.5.2. 分帧与加窗</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../audio/feature.html#id21">1.6. 声音的感官度量</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../audio/feature.html#sound-pressure-level-spl">1.6.1. 声压与声压级(Sound Pressure Level,SPL)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../audio/feature.html#intensity-level-il">1.6.2. 声强与声强级(Intensity Level,IL）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../audio/feature.html#id22">1.6.3. 声压与声强的关系</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../audio/feature.html#id23">1.6.4. 响度</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../audio/feature.html#id24">1.6.5. 音量计算</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../audio/feature.html#id25">1.6.6. 频率与音高</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../audio/feature.html#id26">1.7. 时域分析</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../audio/feature.html#id27">1.7.1. 短时能量</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../audio/feature.html#id28">1.7.2. 短时平均幅度</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../audio/feature.html#id29">1.7.3. 短时过零率</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../audio/feature.html#id31">1.8. 频域分析</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../audio/feature.html#spectrum-spectrogram">1.8.1. 声谱(spectrum)和时频谱(spectrogram)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../audio/feature.html#short-time-fourier-transform-stft">1.8.2. 短时傅里叶变换 Short-time Fourier transform (STFT)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../audio/feature.html#id33">1.8.3. 倒频谱</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../audio/feature.html#id34">1.8.4. 色谱图</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../audio/feature.html#id35">1.9. 小波域特征</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../audio/feature.html#id36">1.9.1. 离散小波域变换</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../audio/feature.html#id37">1.9.2. 小波域过零率</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../audio/feature.html#id38">1.9.3. 小波域质心</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../audio/feature.html#id39">1.9.4. 小波域子带能量</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../audio/feature.html#mfcc">1.10. 语音识别的音频特征–MFCC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../audio/feature.html#id40">1.11. 参考资料</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../edm/index.html">教育领域数据挖掘</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../edm/bkt.html">1. 贝叶斯知识追踪(Bayesian Knowledge Tracing,BKT)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id1">1.1. 简介</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#hidden-markov-model-hmm">1.2. 隐马尔科夫模型(Hidden Markov Model,HMM)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id5">1.3. 贝叶斯知识追踪(Bayesian Knowledge Tracing,BKT)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#bkt">1.3.1. BKT的参数估计</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#item-response-theory-irt">1.4. 项目反映理论(Item Response Theory,IRT)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#bktirt">1.5. BKT结合IRT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id6">1.6. 实验</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id7">1.6.1. 数据集</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id8">1.6.2. 实验方法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id9">1.6.3. 实验结果</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id10">1.6.4. 项目代码</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id11">1.7. 未来工作</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id12">1.7.1. 题目难度的计算</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#irt">1.7.2. 多参数IRT模型</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id13">1.7.3. 参数估计算法</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id14">1.8. 参考文献</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">张振虎的博客</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">广义线性模型</a> &raquo;</li>
+        
+      <li><span class="section-number">8. </span>模型评估</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../_sources/glm/source/模型评估/content.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1><span class="section-number">8. </span>模型评估<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<p>当我们训练好一个模型后，我们需要知道这个模型的”好坏”。
+要评价一个模型的好坏，就需要找到合理的度量方法，
+模型好坏的度量方法有很多很多，
+但并不存在一个完美的度量方法能够适用于所有的场景、数据和模型。
+通常我们需要依据场景、数据、模型来选择合适度量方法。
+虽然度量方法很多，但我们可以根据度量目标的不同来对这些度量方法进行简单的归类和划分。</p>
+<ul class="simple">
+<li><p>参数估计量的方差。</p></li>
+<li><p>拟合值和观测值之间的差异。</p></li>
+<li><p>每个协变量</p></li>
+</ul>
+<div class="section" id="id2">
+<h2><span class="section-number">8.1. </span>拟合优度<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>拟合优度(goodness of fit,GOF)，表示的模型输出的拟合值 (fitted value)
+和实际观测值之间的差异程度，目前存在多种差异度量指标，
+比如大家熟知的平方误差(损失)、似然值等都是GOF的度量指标。
+通常参数估计的过程就是极值化某种拟合优度的指标的过程，
+在GLM中一般是采用最大(对数)似然法估计模型参数。</p>
+<p>一个模型拟合数据的过程，可以看做是用模型的输出拟合值(fitted value) <span class="math notranslate nohighlight">\(\hat{\mu}\)</span>
+去替换数据的观测值(observed) <span class="math notranslate nohighlight">\(y\)</span>
+，这个模型拥有较少的参数。
+通常模型的拟合值 <span class="math notranslate nohighlight">\(\hat{\mu}\)</span>
+并不会和观测值 <span class="math notranslate nohighlight">\(y\)</span> 完全相等，
+接下来的问题就是两者的差异有多大。
+较小的差值说明模型的拟合效果好，
+反之，较大的差值说明模型拟合效果差。
+模型对数据拟合效果的评估通常称为拟合优度(goodness of fit,GOF)
+，<code class="docutils literal notranslate"><span class="pre">GOF</span></code> 度量观察值 <span class="math notranslate nohighlight">\(y\)</span> 与该模型拟合值 <span class="math notranslate nohighlight">\(\hat{\mu}\)</span> 之间的差异。</p>
+<div class="section" id="id3">
+<h3><span class="section-number">8.1.1. </span>嵌套模型<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h3>
+<dl class="glossary simple">
+<dt id="term-nested-model">嵌套模型(nested model)<a class="headerlink" href="#term-nested-model" title="Permalink to this term">¶</a></dt><dd><p>两个统计模型(statistical model)，如果对其中的一个模型的参数施加约束就能得到一个模型，
+则这两个模型是嵌套的(nested)。</p>
+</dd>
+</dl>
+<p>假如我们用相同的数据拟合两个GLM，Model 1, Model 2。其中，当限制
+Model 2 中部分参数为零之后会变成 Model 1 时，我们说Model 1 是 Model 2 的嵌套模型。</p>
+<div class="topic">
+<p class="topic-title">例1：嵌套模型示例I</p>
+<p>模型1的线性预测器(linear predictor)方程为:</p>
+<div class="math notranslate nohighlight" id="equation-glm-source-content-0">
+<span class="eqno">(8.1.1)<a class="headerlink" href="#equation-glm-source-content-0" title="公式的永久链接">¶</a></span>\[\eta = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \beta_3 x_3 + \beta_3 x_4\]</div>
+<p>模型2和模型1相比，响应变量使用相同的指数族分布，并且使用相同的连接函数(link function)和尺度参数(scale parameter, <span class="math notranslate nohighlight">\(\phi\)</span> )，
+但是其线性预测器的方程为：</p>
+<div class="math notranslate nohighlight" id="equation-glm-source-content-1">
+<span class="eqno">(8.1.2)<a class="headerlink" href="#equation-glm-source-content-1" title="公式的永久链接">¶</a></span>\[\eta = \beta_0 + \beta_1 x_1\]</div>
+<p>此时，我们就说模型2是模型的1的嵌套模型(nested model)，因为通过对模型1的参数施加约束 <span class="math notranslate nohighlight">\(\beta_2=\beta_3=\beta_4=0\)</span>
+就得到了模型2。</p>
+</div>
+<div class="topic">
+<p class="topic-title">例2：嵌套模型示例II</p>
+<p>模型1的线性预测器(linear predictor)方程为:</p>
+<div class="math notranslate nohighlight" id="equation-glm-source-content-2">
+<span class="eqno">(8.1.3)<a class="headerlink" href="#equation-glm-source-content-2" title="公式的永久链接">¶</a></span>\[\eta = \beta_0 + \beta_1 x_1 + \beta_2 x_1^2\]</div>
+<p>模型2和模型1相比，响应变量使用相同的指数族分布，并且使用相同的连接函数(link function)和尺度参数(scale parameter, <span class="math notranslate nohighlight">\(\phi\)</span> )，
+但是其线性预测器的方程为：</p>
+<div class="math notranslate nohighlight" id="equation-glm-source-content-3">
+<span class="eqno">(8.1.4)<a class="headerlink" href="#equation-glm-source-content-3" title="公式的永久链接">¶</a></span>\[\eta = \beta_0 + \beta_1 x_1\]</div>
+<p>此时，仍然认为模型2是模型的1的嵌套模型(nested model)，因为通过对模型1的参数施加约束 <span class="math notranslate nohighlight">\(\beta_2=0\)</span>
+，模型1就变成了模型2。</p>
+</div>
+<p>我们知道，模型的参数越多对数据的拟合程度就越好，极端情况下，模型参数的数量和样本的数量相同，
+这时就相当于对每条样本都有一个独立的参数(模型)去拟合它，理论上可以完美拟合所有的样本。
+我们把这样的模型成为之饱和模型(saturated model)，也可以称为
+完整模型(full model)或者最大模型(maximal model)。
+饱和模型虽然能完美拟合数据集，但它并没有从数据集中学习出任何的统计信息(统计规律)，所不具备泛化能力，
+俗称过拟合(over-fitted)。
+通过为饱和模型中的参数添加约束，比如令一些参数值为0，相当于去掉了一个参数，这样就得到了简化的模型。
+简化模型对数据集拟合度下降了，但是其泛化能力会得到提升，
+更少的参数数量可以得到更大的泛化能力。
+但是参数数量变少，会降低拟合程度，参数数量越少拟合度就越差，所以也不是参数越少越好。</p>
+<p>我们把完美拟合数据的模型称之为饱和模型(saturated model)，
+饱和模型为每一条样本定义一个参数，有多少条样本就有多少个参数，
+这样就能完美拟合所有的样本。
+同样的道理，我们可以定义一个”最差”的模型，
+参数越多的模型拟合度越好，参数越少拟合度越差，
+我们定义只有一个截距参数的模型为”最差”的模型，通常称为零模型(null model)。
+零模型的线性预测器只有截距( <span class="math notranslate nohighlight">\(\beta_0\)</span> )部分，而没有预测变量。</p>
+<div class="math notranslate nohighlight" id="equation-glm-source-content-4">
+<span class="eqno">(8.1.5)<a class="headerlink" href="#equation-glm-source-content-4" title="公式的永久链接">¶</a></span>\[\eta = \beta_0\]</div>
+<p><a class="reference internal" href="#fg-me-saturated-0010"><span class="std std-numref">图 8.1.1</span></a> 展示了饱和模型(saturated model)、拟合的逻辑回归模型(logistic regression)、空模型(null model)
+三种模型拟合效果的对比情况。饱和模型可以拟合所有的点，而空模型对所有样本只能输出一个固定值。</p>
+<div class="figure align-center" id="id8">
+<span id="fg-me-saturated-0010"></span><a class="reference internal image-reference" href="../../../_images/me_saturated_0010.png"><img alt="../../../_images/me_saturated_0010.png" src="../../../_images/me_saturated_0010.png" style="width: 537.6px; height: 537.6px;" /></a>
+<p class="caption"><span class="caption-number">图 8.1.1 </span><span class="caption-text">饱和模型(saturated model)、拟合的逻辑回归模型(logistic regression)、空模型(null model)</span><a class="headerlink" href="#id8" title="永久链接至图片">¶</a></p>
+</div>
+</div>
+<div class="section" id="likelihood-ratio">
+<h3><span class="section-number">8.1.2. </span>对数似然比(Likelihood ratio)<a class="headerlink" href="#likelihood-ratio" title="永久链接至标题">¶</a></h3>
+<p>我们知道似然(Likelihood)其实就是样本的联合概率，似然值越大说明模型对样本的拟合程度越好，
+因此我们可以通过对比两个模型的似然值来比较两个模型的好坏。
+我们把参数少的模型称为简单模型，用符号 <span class="math notranslate nohighlight">\(s\)</span> 表示，<span class="math notranslate nohighlight">\(L_s\)</span> 表示模型 <span class="math notranslate nohighlight">\(s\)</span> 的似然；
+另一个参数较多的模型称为复杂模型，用符号 <span class="math notranslate nohighlight">\(g\)</span> 表示，<span class="math notranslate nohighlight">\(L_g\)</span> 表示模型 <span class="math notranslate nohighlight">\(g\)</span> 的似然。</p>
+<p>在统计学中，可以通过比较两个嵌套模型的似然值来评判哪个模型对数据拟合的更好。
+似然比(likelihood-ratio,LR)就是用来对比两个嵌套模型对于同一份数据集的拟合程度，
+LR的计算公式如下：</p>
+<div class="math notranslate nohighlight" id="equation-glm-source-content-5">
+<span class="eqno">(8.1.6)<a class="headerlink" href="#equation-glm-source-content-5" title="公式的永久链接">¶</a></span>\[LR = -2  \left ( \frac{L_s  }{L_g} \right )\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(L_g\)</span> 为复杂模型似然值，<span class="math notranslate nohighlight">\(L_s\)</span> 为简单模型似然值。
+从公式可以看出，似然比就是两个模型的似然值比值。
+通常并不直接使用上述似然值的比值，而是会加上一个对数，变成对数似然比。</p>
+<div class="math notranslate nohighlight" id="equation-glm-source-content-6">
+<span class="eqno">(8.1.7)<a class="headerlink" href="#equation-glm-source-content-6" title="公式的永久链接">¶</a></span>\[LLR = -2 \ln \left ( \frac{L_s  }{L_g} \right ) = 2 \ln \frac{L_g}{L_s} = 2 (\ln L_g-\ln L_s)\]</div>
+<p>加上对数操作后，就变成了两个模型对数似然值的差值，使得计算更加方便。
+似然(likelihood)，实际上也可以翻译为可能性，表示的是样本发生的概率，显然似然值越大的模型对数据的拟合也就越好。
+似然比就是直接比较两个模型的似然值大小。
+但是并不是任意两个模型都可以应用似然比去比较，只有在特定条件下似然比才有意义。</p>
+<ol class="arabic simple">
+<li><p>两个模型采用同一份数据集，样本的数量和特征都是相同的。这很好理解，不同数据集似然值自然是不同的，没有比较的意义。</p></li>
+<li><p>两个模型是嵌套关系(nested)。</p></li>
+</ol>
+<p>对于两个嵌套模型，其差别就是参数数据量不同。
+在 <code class="docutils literal notranslate"><span class="pre">GLM</span></code> 中，就是协变量参数向量 <span class="math notranslate nohighlight">\(\beta\)</span> 的长度不同，
+简单模型的参数向量 <span class="math notranslate nohighlight">\(\beta_s\)</span> 是复杂模型参数向量 <span class="math notranslate nohighlight">\(\beta_g\)</span> 的子集，
+把 <span class="math notranslate nohighlight">\(\beta_g\)</span> 中部分元素设置为 <span class="math notranslate nohighlight">\(0\)</span> 就得到了 <span class="math notranslate nohighlight">\(\beta_s\)</span> 。
+我们知道，在拟合效果一样的前提下，参数数量越少的模型越”好”，我们更期望于得到一个参数少的模型，
+也就是尽量得到一个简单模型。然而理论上，参数越多的模型对数据拟合就越好，
+复杂模型的对数似然值一定是大于等于简单模型的，因此一定有 <span class="math notranslate nohighlight">\(LLR \ge 0\)</span> 。
+理论上当 <span class="math notranslate nohighlight">\(LLR=0\)</span> 时，说明两个模型的拟合效果完全一样。
+然而实际上几乎是不可能实现的，对数似然比的值基本上都是一个大于零的值。</p>
+<p><code class="docutils literal notranslate"><span class="pre">LLR</span></code> 的值什么范围的值意味着两个模型拟合程度接近呢？
+这就需要找到一个判断的方法和标准。
+事实上，对数似然比也是一个统计量，称为似然比统计量(Likelihood-ratio statistic)，
+并且其渐进服从卡方分布，其自由度(期望)等于两个嵌套模型的参数数量之差。
+既然是一个统计量，就表示LLR的值是一个随机值，
+因此直接使用 <code class="docutils literal notranslate"><span class="pre">LLR</span></code> 值进行模型好坏的判断是不可靠的。
+可以通过假设检验的方法，利用似然比统计量对两个模型进行对比检验，
+这种检验方法称为似然比检验(likelihood-ratio test,LRT)
+有时也被称为似然比卡方检验(likelihood-ratio chi-squared test,LRCT)。
+在统计学中，似然比检验，
+是用来比较两个嵌套模型的拟合优度(goodness of fit,GOF)的方法。
+似然比检验是基于最大似然估计的统计模型中应用广泛的一种模型对比方法，
+有关假设检验的相关内容下一章在详细讨论。</p>
+</div>
+<div class="section" id="deviance">
+<h3><span class="section-number">8.1.3. </span>偏差(deviance)<a class="headerlink" href="#deviance" title="永久链接至标题">¶</a></h3>
+<p>上一节我们介绍了似然比统计量，似然比检验是常用的一种嵌套模型比较的方法。
+似然比检验是对比两个模型的，不是用来衡量单个模型的。
+本节我们介绍似然比统计量的一个衍生量-偏差统计量(deviance,statistic)，
+偏差统计量本质上就是似然比统计量，但它可以用来度量单个模型的拟合效果。</p>
+<p>在开发一个模型时，我们希望模型的预测值 <span class="math notranslate nohighlight">\(\hat{y}\)</span> 尽可能的接近数据的真实值 <span class="math notranslate nohighlight">\(y\)</span>
+，对于一个规模为N的观测值样本，我们可以考虑参数数量在 <span class="math notranslate nohighlight">\([1,N]\)</span> 之间的候选模型。
+最简单的模型是只有一个参数的模型，但它对所有的样本的预测值都是一样的，缺乏拟合能力，
+只有一个参数的模型称为空模型(null model)。
+最复杂的模型是含有 <span class="math notranslate nohighlight">\(N\)</span> 个参数的模型，它可以完美拟合所有样本，但是它缺乏泛化能力，
+这样的模型称为饱和模型(saturated model)。
+在实际应用中，空模型过于简单，而饱和模型又缺乏数据的抽象进而没有泛化能力。
+虽然饱和模型不能直接拿来用，但是其却可以作为模型拟合能力评价指标的基准。</p>
+<p>我们把训练出的模型模型称为拟合模型(fitted model)，用符号 <span class="math notranslate nohighlight">\(L_t\)</span> 表示它的似然值，
+同理用符号 <span class="math notranslate nohighlight">\(L_f\)</span> 表示对应饱和模型的似然值。
+则二者之间的对数似然比统计量为：</p>
+<div class="math notranslate nohighlight" id="equation-eq-me-051">
+<span class="eqno">(8.1.8)<a class="headerlink" href="#equation-eq-me-051" title="公式的永久链接">¶</a></span>\[D  = 2(\ln L_f - \ln L_t)\]</div>
+<p>在 <code class="docutils literal notranslate"><span class="pre">GLM</span></code> 中，我们把饱和模型和拟合模型之间的似然比统计量定义为 <strong>偏差(deviance)统计量</strong>，
+常用符号 <span class="math notranslate nohighlight">\(D\)</span> 表示。
+严格来说，偏差统计量就是似然比统计量的一个特例，其比较的是饱和模型和训练出的模型之间的拟合度。
+饱和模型是完美拟合数据的模型，其对数似然值是理论最大值，代表了模型拟合度的最高值，
+可以作为训练模型拟合度度量的一个”参考线”，
+训练模型的对数似然值”越接近”饱和模型的对数似然值说明训练模型拟合度越好。</p>
+<p>模型的预测值 <span class="math notranslate nohighlight">\(\hat{y}_i\)</span> 就是分布 <span class="math notranslate nohighlight">\(p(y_i|x_i)\)</span> 的期望值
+<span class="math notranslate nohighlight">\(\mathbb{E}[p(y_i|x_i)]=\hat{\mu}_i\)</span> ，即 <span class="math notranslate nohighlight">\(\hat{y}_i=\hat{\mu}_i\)</span> 。
+所以这里我们用 <span class="math notranslate nohighlight">\(\hat{\mu}_i\)</span> 表示模型的预测值。
+现在回顾一下GLM中的指数族概率分布函数的形式 <a class="reference internal" href="#equation-eq-me-052">公式(8.1.9)</a>，</p>
+<div class="math notranslate nohighlight" id="equation-eq-me-052">
+<span class="eqno">(8.1.9)<a class="headerlink" href="#equation-eq-me-052" title="公式的永久链接">¶</a></span>\[p(y_i|\theta_i) = \exp \left \{\frac{\theta_i y_i - b(\theta_i)}{a(\phi)} + c(y_i,\phi) \right \}\]</div>
+<p>其中自然参数 <span class="math notranslate nohighlight">\(\theta_i\)</span> 可以表示成期望 <span class="math notranslate nohighlight">\(\mu_i\)</span> 的函数，
+所以对于拟合模型自然参数 <span class="math notranslate nohighlight">\(\theta_i\)</span> 可以写成 <span class="math notranslate nohighlight">\(\theta_i(\hat{\mu}_i)\)</span>
+，拟合模型的对数似然函数可以写成：</p>
+<div class="math notranslate nohighlight" id="equation-eq-34-51">
+<span class="eqno">(8.1.10)<a class="headerlink" href="#equation-eq-34-51" title="公式的永久链接">¶</a></span>\[\ln L_t =   \sum_{i=1}^N \frac{y_i \theta(\hat{\mu}_i) -b(\theta(\hat{\mu}_i))}{a(\phi)}
++ \sum_{i=1}^N  c(y_i;\phi)\]</div>
+<p>至此，我们把拟合模型的似然函数表示成了关于 <span class="math notranslate nohighlight">\(\hat{\mu}\)</span> 的函数。
+同理，对于饱和模型(saturated model)，模型是完美拟合数据的，所以其预测值是精确等于样本的观测值的，
+即 <span class="math notranslate nohighlight">\(\hat{y}_i=y_i\)</span> ，换句话说，
+对于饱和模型，满足 <span class="math notranslate nohighlight">\(\hat{y}_i=\hat{\mu}_i=y_i\)</span>
+。因此，饱和模型的对数似然函数为：</p>
+<div class="math notranslate nohighlight" id="equation-eq-34-52">
+<span class="eqno">(8.1.11)<a class="headerlink" href="#equation-eq-34-52" title="公式的永久链接">¶</a></span>\[\ln L_f =   \sum_{i=1}^N \frac{y_i \theta(y_i) -b(\theta(y_i))}{a(\phi)}
++ \sum_{i=1}^N  c(y_i;\phi)\]</div>
+<p>注意在 <code class="docutils literal notranslate"><span class="pre">GLM</span></code> 中，分散参数 <span class="math notranslate nohighlight">\(\phi\)</span> 与模型的期望 <span class="math notranslate nohighlight">\(\mu\)</span> 无关，
+模型关注的参数是协变量参数 <span class="math notranslate nohighlight">\(\beta\)</span> ，
+而分散参数 <span class="math notranslate nohighlight">\(\phi\)</span> 是冗余参数，并且与样本无关。
+因此分散参数没有下标 <span class="math notranslate nohighlight">\(i\)</span>，
+并且无论是饱和模型还是拟合模型，分散参数是相同的值。</p>
+<p>现在把 <a class="reference internal" href="../../../probability_model/25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#equation-eq-34-51">公式(18.3.3)</a> 和 <a class="reference internal" href="../../../probability_model/25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#equation-eq-34-52">公式(18.3.4)</a> 代入到偏差统计量 <a class="reference internal" href="#equation-eq-me-051">公式(8.1.8)</a>
+，两个对数似然函数中的项 <span class="math notranslate nohighlight">\(\sum_{i=1}^N  c(y_i;\phi)\)</span> 是相等的，可以抵消掉。</p>
+<div class="math notranslate nohighlight" id="equation-eq-34-53">
+<span class="eqno">(8.1.12)<a class="headerlink" href="#equation-eq-34-53" title="公式的永久链接">¶</a></span>\[D = \frac{2}{a(\phi)} \sum_{i=1}^N  [
+y_i \{ \theta(y_i) - \theta(\hat{\mu}_i) \} - b\{\theta(y_i)\} + b\{\theta(\hat{\mu}_i)\} ]\]</div>
+<p>在 <code class="docutils literal notranslate"><span class="pre">GLM</span></code> 的应用中，多数情况下 <span class="math notranslate nohighlight">\(a(\phi)=\phi\)</span> ,
+但有时会假设 <span class="math notranslate nohighlight">\(a(\phi)=\phi/w_i\)</span>
+此时 <span class="math notranslate nohighlight">\(w_i\)</span> 表示样本权重值，意味着每条观测样本都可以有不同的权重值，
+权重值 <span class="math notranslate nohighlight">\(w_i\)</span> 是已知的。
+偏差统计量 <span class="math notranslate nohighlight">\(D\)</span> 就变成：</p>
+<div class="math notranslate nohighlight" id="equation-glm-source-content-7">
+<span class="eqno">(8.1.13)<a class="headerlink" href="#equation-glm-source-content-7" title="公式的永久链接">¶</a></span>\[D = \frac{2w_i}{\phi} \sum_{i=1}^N  [
+y_i \{ \theta(y_i) - \theta(\hat{\mu}_i) \} - b\{\theta(y_i)\} + b\{\theta(\hat{\mu}_i)\} ]\]</div>
+<p>权重 <span class="math notranslate nohighlight">\(w_i\)</span> 并不是必要的，只有在实际使用场景中需要为每条观测样本设置不同权重时才需要，并且其值是事先已知的。
+因此在很多有关偏差得资料中并没有提及，在本书后续的讨论中，若无特别说明，默认也省略掉权重，
+并且假设 <span class="math notranslate nohighlight">\(a(\phi)=\phi\)</span> ，则偏差统计量的计算公式为</p>
+<div class="math notranslate nohighlight" id="equation-glm-source-content-8">
+<span class="eqno">(8.1.14)<a class="headerlink" href="#equation-glm-source-content-8" title="公式的永久链接">¶</a></span>\[D = \frac{2}{\phi} \sum_{i=1}^N  [
+y_i \{ \theta(y_i) - \theta(\hat{\mu}_i) \} - b\{\theta(y_i)\} + b\{\theta(\hat{\mu}_i)\} ]\]</div>
+<p>偏差统计量的计算依赖分散参数 <span class="math notranslate nohighlight">\(\phi\)</span> ，
+在 <code class="docutils literal notranslate"><span class="pre">GLM</span></code> 的众多分布中，离散分布都是不存在分散参数的，相当于 <span class="math notranslate nohighlight">\(\phi=1\)</span> ；
+连续值分布虽然存在分散参数 <span class="math notranslate nohighlight">\(\phi\)</span> ，但在使用过程中一般都假设分散参数 <span class="math notranslate nohighlight">\(\phi\)</span>
+是已知的常量，比如高斯模型通常假设 <span class="math notranslate nohighlight">\(\phi=1\)</span> 。
+鉴于此，早期很多资料默认把分散参数 <span class="math notranslate nohighlight">\(\phi\)</span> 从偏差统计量的计算中去掉了(相当于 <span class="math notranslate nohighlight">\(\phi=1\)</span>)，
+变成了</p>
+<div class="math notranslate nohighlight" id="equation-glm-source-content-9">
+<span class="eqno">(8.1.15)<a class="headerlink" href="#equation-glm-source-content-9" title="公式的永久链接">¶</a></span>\[D = 2 \sum_{i=1}^N  [
+y_i \{ \theta(y_i) - \theta(\hat{\mu}_i) \} - b\{\theta(y_i)\} + b\{\theta(\hat{\mu}_i)\} ]\]</div>
+<p>这造成了很多混淆，为了区分二者，把带有分散参数的称为尺度化偏差(scaled deviance)，用符号 <span class="math notranslate nohighlight">\(D^*\)</span> 表示;
+不带分散参数的称为偏差，用符号 <span class="math notranslate nohighlight">\(D\)</span> 表示。当 <span class="math notranslate nohighlight">\(\phi=1\)</span> 时，二者是等价的，它们的关系是</p>
+<div class="math notranslate nohighlight" id="equation-glm-source-content-10">
+<span class="eqno">(8.1.16)<a class="headerlink" href="#equation-glm-source-content-10" title="公式的永久链接">¶</a></span>\[D = \phi D^*
+\quad \text{或者} \quad
+D^* = \frac{D}{\phi}\]</div>
+<p>为了表述清晰统一，本书默认使用完整的带有分散参数的标准公式，并统一使用名称”偏差(deviance)” 和符号 <span class="math notranslate nohighlight">\(D\)</span> 表示，
+即偏差统计量(deviance statistic)，<span class="math notranslate nohighlight">\(D\)</span> ，定义为</p>
+<div class="math notranslate nohighlight" id="equation-glm-source-content-11">
+<span class="eqno">(8.1.17)<a class="headerlink" href="#equation-glm-source-content-11" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}D &amp;= 2 \{ \ell(y;y)-\ell(\hat{\mu};y)\}\\&amp;= \frac{2}{a(\phi)} \sum_{i=1}^N  [
+y_i \{ \theta(y_i) - \theta(\hat{\mu}_i) \} - b\{\theta(y_i)\} + b\{\theta(\hat{\mu}_i)\} ]\\&amp;= \frac{2}{\phi} \sum_{i=1}^N  [
+y_i \{ \theta(y_i) - \theta(\hat{\mu}_i) \} - b\{\theta(y_i)\} + b\{\theta(\hat{\mu}_i)\} ]\end{aligned}\end{align} \]</div>
+<p>偏差统计量是定义在整个观测样本上的，
+单条样本的偏差(deviance)通常称为单位偏差（unit deviance），习惯上用符号 <span class="math notranslate nohighlight">\(d_i(y_i,\hat{\mu}_i)\)</span> 表示，
+整个观测样本的偏差就是所有个体单位偏差的求和，<span class="math notranslate nohighlight">\(D=\sum_{i=1}^N d_i(y_i,\hat{\mu}_i)\)</span>。
+。</p>
+<p>偏差统计量就是对数似然比统计量的一个特例，比较的是拟合模型(我们训练出来的模型)和饱和模型的拟合度，
+饱和模型的对数似然值是可以直接计算出的，并且是当前观测样本集的似然值上限，
+因此偏差统计量可以用度量模型的拟合优度。
+当然由于偏差统计量是对数似然比的一个特例，其也继承了对数似然比统计量的特性，比如偏差统计量的渐近分布也是卡方分布。
+同样偏差值本身也不能直接用来判断模型的好坏，需要借助假设检验的手段才行，在下一章会详细讨论。</p>
+<p><strong>最小偏差与最大似然</strong></p>
+<p>偏差统计量是饱和模型的对数似然值和拟合模型对数似然值差值的2倍，
+在确定性观测样本集合模型下，饱和模型的对数似然值是一个常量，</p>
+<div class="math notranslate nohighlight" id="equation-glm-source-content-12">
+<span class="eqno">(8.1.18)<a class="headerlink" href="#equation-glm-source-content-12" title="公式的永久链接">¶</a></span>\[D = 2 [ \underbrace{\ell(y;y)}_{\text{常量}}-\ell(\hat{\mu};y) ]\]</div>
+<p>在进行参数估计时，最小化偏差就相当于最大化拟合模型的对数似然，
+因此 <strong>参数的最大化似然估计和最小化偏差估计是等价的</strong>。</p>
+<p><strong>偏差和最小二乘法的关系</strong></p>
+<p>对于标准连接的高斯分布模型，也就是传统的线性回归模型，
+有 <span class="math notranslate nohighlight">\(\theta=\eta=\mu,b(\theta)=\mu^2/2,a(\phi)=\sigma^2\)</span>
+，因此其偏差为：</p>
+<div class="math notranslate nohighlight" id="equation-glm-source-content-13">
+<span class="eqno">(8.1.19)<a class="headerlink" href="#equation-glm-source-content-13" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}D &amp;= 2  \sum_{i=1}^N  [ y_i \{ y_i - \hat{\mu}_i \} - y_i^2/2 +\hat{\mu}_i^2/2 ]\\&amp;= 2 \sum_{i=1}^N  [ y_i^2/2  - y_i \hat{\mu}_i  +\hat{\mu}_i^2/2 ]\\&amp;= \sum_{i=1}^N  (y_i-\hat{\mu}_i)^2\end{aligned}\end{align} \]</div>
+<p>可以看到，标准连接高斯分布的偏差(deviance)和平方和损失是一致的，实际上
+<strong>偏差(deviance)可以看做是传统线性回归模型最小二乘（平方损失）在GLM中的扩展</strong>。</p>
+<table class="docutils align-default" id="id9">
+<caption><span class="caption-number">表 8.1.1 </span><span class="caption-text">常见GLM模型的偏差（采用标准连接函数，并且 <span class="math notranslate nohighlight">\(\phi=1\)</span>）</span><a class="headerlink" href="#id9" title="永久链接至表格">¶</a></caption>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>分布</p></th>
+<th class="head"><p>偏差(deviance)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Gaussian(Normal)</p></td>
+<td><p><span class="math notranslate nohighlight">\(\sum_{i=1}^N (y_i-\hat{\mu}_i)^2\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>Poisson</p></td>
+<td><p><span class="math notranslate nohighlight">\(2 \sum_{i=1}^N \{ y_i\ln(y_i/\hat{\mu}_i) -(y_i-\hat{\mu}_i) \}\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p>Binomial</p></td>
+<td><p><span class="math notranslate nohighlight">\(2\sum_{i=1}^N\{ y_i\ln(y_i/\hat{u}_i)+(m-y_i)\ln[(m-y_i)/(m-\hat{\mu}_i)] \}\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>Gamma</p></td>
+<td><p><span class="math notranslate nohighlight">\(2\sum_{i=1}^N\{-\ln(y_i/\hat{\mu}_i)+(y_i-\hat{\mu}_i)/\hat{\mu}_i\}\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p>Inverse Gaussian</p></td>
+<td><p><span class="math notranslate nohighlight">\(\sum_{n=1}^N\{(y_i-\hat{\mu}_i)^2/(\hat{\mu}_i^2y_i)\}\)</span></p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>偏差统计量的抽样分布</strong></p>
+<p>偏差(deviance)是对数似然比统计量的一个特例，
+因此也是一个统计量，并且其渐近分布也是卡方分布。
+偏差统计量 <span class="math notranslate nohighlight">\(D\)</span> 是渐近服从卡方分布 <span class="math notranslate nohighlight">\(\chi^2\)</span> 的。</p>
+<div class="math notranslate nohighlight" id="equation-glm-source-content-14">
+<span class="eqno">(8.1.20)<a class="headerlink" href="#equation-glm-source-content-14" title="公式的永久链接">¶</a></span>\[\begin{align}
+D \sim \chi^2(N-p)
+\end{align}\]</div>
+<p>符号 <span class="math notranslate nohighlight">\(\chi^2(N-p)\)</span> 的意思是自由度为 <span class="math notranslate nohighlight">\(N-p\)</span> 的卡方分布，
+卡方分布的自由度就是其期望参数，自由度为 <span class="math notranslate nohighlight">\(N-p\)</span> ，也就意味着期望是 <span class="math notranslate nohighlight">\(N-p\)</span>。
+其中 <span class="math notranslate nohighlight">\(N\)</span> 是饱和模型的参数数量，同时也是观测样本的数量。
+<span class="math notranslate nohighlight">\(p\)</span> 是拟合模型的参数数量(包含截距参数)，</p>
+<p>注意，所谓渐近分布是指随着样本数量增加，变量逐渐服从某个概率分布。
+理论当 <span class="math notranslate nohighlight">\(N\)</span> 无限大时，变量才精确服从这个概率分布。
+实际上经验来看，当样本数量在几百个以上时误差已经基本可以忽略了，当然具体地还要看实际情况如何。
+在 <code class="docutils literal notranslate"><span class="pre">GLM</span></code> 中有一个特殊的情况是，标准连接的高斯模型其偏差是精确服从卡方分布的，而不是渐近的。</p>
+<p><strong>两个嵌套的模型的偏差统计量的差值，就相当于这两个嵌套模型的对数似然比统计量</strong>。
+当两个嵌套模型的偏差统计相减时，其中饱和模型的项就会抵消掉，最后就等于两个模型的对数似然值做差值，
+也就变成了对数似然比统计量。
+偏差统计量是 <code class="docutils literal notranslate"><span class="pre">GLM</span></code> 中最常用的统计量，有关如何利用偏差统计量进行模型检验的方法下章详细介绍。</p>
+</div>
+<div class="section" id="r-2">
+<h3><span class="section-number">8.1.4. </span>决定系数 <span class="math notranslate nohighlight">\(R^2\)</span><a class="headerlink" href="#r-2" title="永久链接至标题">¶</a></h3>
+<p>在传统线性回归模型（也叫 <code class="docutils literal notranslate"><span class="pre">OLS</span></code>，最小二乘回归，也是响应变量 <span class="math notranslate nohighlight">\(Y\)</span> 是高斯分布的 <code class="docutils literal notranslate"><span class="pre">GLM</span></code>）中，
+常用的一种度量拟合优度的方法是 <span class="math notranslate nohighlight">\(R^2\)</span>。
+原始版本的 <span class="math notranslate nohighlight">\(R^2\)</span> 是定义在 <code class="docutils literal notranslate"><span class="pre">OLS</span></code> 模型上的，在非 <code class="docutils literal notranslate"><span class="pre">OLS</span></code> 的模型中并不适用。
+有很多学者提出了很多变种 <span class="math notranslate nohighlight">\(R^2\)</span>，用在其它非 <code class="docutils literal notranslate"><span class="pre">OLS</span></code> 模型中，比如二分类的逻辑回归模型。
+本节我们先给出在 <code class="docutils literal notranslate"><span class="pre">OLS</span></code> 中 <span class="math notranslate nohighlight">\(R^2\)</span> 的定义，然后再给出用于 <code class="docutils literal notranslate"><span class="pre">GLM</span></code> 的变种版本。</p>
+<div class="section" id="id4">
+<h4><span class="section-number">8.1.4.1. </span>线性回归中的 <span class="math notranslate nohighlight">\(R^2\)</span><a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h4>
+<p><span class="math notranslate nohighlight">\(R^2\)</span> ，也称作决定系数（coefficient of determination），
+用来度量 <code class="docutils literal notranslate"><span class="pre">OLS</span></code> 模型对数据的拟合优度。
+我们先给出 <span class="math notranslate nohighlight">\(R^2\)</span> 的计算公式，然后再进行解释。</p>
+<p>令 <span class="math notranslate nohighlight">\(y_i\)</span> 表示样本的观测值，<span class="math notranslate nohighlight">\(\hat{y}_i\)</span> 表示模型对样本的预测值，
+<span class="math notranslate nohighlight">\(\bar{y}\)</span> 表示样本的均值。
+则 <span class="math notranslate nohighlight">\(R^2\)</span> 的计算法方法为</p>
+<div class="math notranslate nohighlight" id="equation-eq-me-101">
+<span class="eqno">(8.1.21)<a class="headerlink" href="#equation-eq-me-101" title="公式的永久链接">¶</a></span>\[R^2 = 1 - \frac{\sum_{i=1}^N(y_i -\hat{y}_i)^2}{\sum_{i=1}^N(y_i -\bar{y}_i)^2}\]</div>
+<p>我们首先看下公式中分子的部分，<span class="math notranslate nohighlight">\(\sum_{i=1}^N(y_i -\hat{y}_i)^2\)</span>。
+<span class="math notranslate nohighlight">\(\hat{y}_i\)</span> 是模型的预测值，<span class="math notranslate nohighlight">\(y_i\)</span> 是样本的真实观测值，
+二者的差值 <span class="math notranslate nohighlight">\(y_i -\hat{y}_i\)</span> 显然就是模型拟合误差，
+分子部分显然就是残差平方和（residual sum of squares），记作 <code class="docutils literal notranslate"><span class="pre">RSS</span></code> 。
+它是 <code class="docutils literal notranslate"><span class="pre">OLS</span></code> 模型的损失函数，也是优化的目标函数。
+<code class="docutils literal notranslate"><span class="pre">RSS</span></code> 越大意味着模型对数据拟合的越差，所以 <code class="docutils literal notranslate"><span class="pre">RSS</span></code> 越小越好，
+<code class="docutils literal notranslate"><span class="pre">RSS</span></code> 的取值范围是 <span class="math notranslate nohighlight">\([0,\infty]\)</span>，
+虽然理论上最小值是 <span class="math notranslate nohighlight">\(0\)</span>，<span class="math notranslate nohighlight">\(0\)</span> 代表着模型能完美拟合所有观测样本，
+然而实际应用中，是不可能得到 <span class="math notranslate nohighlight">\(0\)</span> 的，通常是得到一个正数，
+单纯看一个 <code class="docutils literal notranslate"><span class="pre">RSS</span></code> 值，缺乏一个参照标准，
+不能直观的判断出模型的拟合能力是否已经到达极限，还有没有优化提升的空间。
+<span class="math notranslate nohighlight">\(R^2\)</span> 的分母 <span class="math notranslate nohighlight">\(\sum_{i=1}^N(y_i -\bar{y}_i)^2\)</span>
+就是 <code class="docutils literal notranslate"><span class="pre">RSS</span></code> 的一个上限，它能给出 <code class="docutils literal notranslate"><span class="pre">RSS</span></code> 一个上限参照标准。</p>
+<p>现在我们来看下 <span class="math notranslate nohighlight">\(R^2\)</span> 中分母的解释。假设我们的模型不包含任何输入变量 <span class="math notranslate nohighlight">\(X\)</span>
+，模型只有一个截距参数，上文已经讲过，这样的模型称为空模型（null model）。
+空模型只有一个截距参数，只能学习到观测数据的均值，
+空模型输出的预测值就是 <span class="math notranslate nohighlight">\(\bar{y}\)</span>，
+因此分母部分可以看做是空模型的残差平方和。
+空模型是最简单最基本的模型，它的残差平方和就可以看做是一个最大的上限，
+可以称为总平方和（total sum of squares)，记作 <code class="docutils literal notranslate"><span class="pre">TSS</span></code>。
+<a class="reference internal" href="#equation-eq-me-101">公式(8.1.21)</a> 可以写为</p>
+<div class="math notranslate nohighlight" id="equation-glm-source-content-15">
+<span class="eqno">(8.1.22)<a class="headerlink" href="#equation-glm-source-content-15" title="公式的永久链接">¶</a></span>\[R^2 = 1 - \frac{RSS}{TSS}\]</div>
+<p>在 <code class="docutils literal notranslate"><span class="pre">OLS</span></code> 中，<code class="docutils literal notranslate"><span class="pre">TSS</span></code> 是 <code class="docutils literal notranslate"><span class="pre">RSS</span></code> 的一个理论上限，
+这使得 <span class="math notranslate nohighlight">\(\frac{RSS}{TSS}\)</span> 的取值在 <span class="math notranslate nohighlight">\([0,1]\)</span> 之间，
+其实越接近 <span class="math notranslate nohighlight">\(1\)</span> 表示模型的残差越大，模型拟合效果越差，
+模型的拟合效果与 <span class="math notranslate nohighlight">\(\frac{RSS}{TSS}\)</span> 的值是相反的，
+这不符合大家的习惯，因此，我们用 <span class="math notranslate nohighlight">\(1\)</span> 减去 <span class="math notranslate nohighlight">\(\frac{RSS}{TSS}\)</span>。
+理论上 <span class="math notranslate nohighlight">\(R^2\)</span> 的取值范围是 <span class="math notranslate nohighlight">\([0,1]\)</span>，
+越接近 <span class="math notranslate nohighlight">\(1\)</span> 意味着模型对数据的拟合效果越好。</p>
+<p><strong>方差解释</strong></p>
+<p><span class="math notranslate nohighlight">\(R^2\)</span> 的另一种解释是方差，
+<code class="docutils literal notranslate"><span class="pre">TSS</span></code> 是观测样本的全部方差，
+<code class="docutils literal notranslate"><span class="pre">TSS-RSS</span></code> 就是模型对数据方差的解释（explained sum of squares），
+表示模型可以解释（预测、拟合）的方差，记作 <code class="docutils literal notranslate"><span class="pre">ESS</span></code>。</p>
+<div class="math notranslate nohighlight" id="equation-glm-source-content-16">
+<span class="eqno">(8.1.23)<a class="headerlink" href="#equation-glm-source-content-16" title="公式的永久链接">¶</a></span>\[R^2 = 1 - \frac{RSS}{TSS}
+= \frac{TSS-RSS}{TSS} = \frac{ESS}{TSS}\]</div>
+<p><span class="math notranslate nohighlight">\(R^2\)</span> 就表示在空模型的基础上增加预测（特征）变量后的模型，
+对观测变量全部方差（TSS）解释的比例。
+假设计算出 <span class="math notranslate nohighlight">\(R^2=0.7\)</span>，
+这可以看做是预测（特征）变量 <span class="math notranslate nohighlight">\(X\)</span> 解释（拟合）了观测变量 <span class="math notranslate nohighlight">\(Y\)</span> 的 <span class="math notranslate nohighlight">\(70\%\)</span> 的方差，
+剩下的 <span class="math notranslate nohighlight">\(30\%\)</span> 是当前的 <span class="math notranslate nohighlight">\(X\)</span> 没有解释的，没解释的部分是 <code class="docutils literal notranslate"><span class="pre">RSS</span></code>。</p>
+<p>用 <span class="math notranslate nohighlight">\(V(y)\)</span> 表示观测样本的方差，
+<span class="math notranslate nohighlight">\(V(\hat{y})\)</span> 表示模型的方差，
+<span class="math notranslate nohighlight">\(V(\hat{\epsilon}) = V(y) - V(\hat{y})\)</span>，
+<span class="math notranslate nohighlight">\(R^2\)</span> 也可以定义成如下的形式。</p>
+<div class="math notranslate nohighlight" id="equation-glm-source-content-17">
+<span class="eqno">(8.1.24)<a class="headerlink" href="#equation-glm-source-content-17" title="公式的永久链接">¶</a></span>\[R^2 = \frac{V(\hat{y})}{V(y)} = \frac{V(\hat{y})}{V(\hat{y}) + V(\hat{\epsilon})}\]</div>
+<p><span class="math notranslate nohighlight">\(V(\hat{y})\)</span> 是拟合模型的方差，
+<span class="math notranslate nohighlight">\(V(y)\)</span> 是观测样本的方差，
+<span class="math notranslate nohighlight">\(V(\hat{\epsilon})\)</span> 是多出来的模型未能解释的部分。</p>
+<p><span class="math notranslate nohighlight">\(R^2\)</span> 还有另一个理解，就是看做相关性系数的平方。
+<span class="math notranslate nohighlight">\(X\)</span> 与 <span class="math notranslate nohighlight">\(Y\)</span> 的相关系数记作 <span class="math notranslate nohighlight">\(R\)</span>，
+它的平方就是 <span class="math notranslate nohighlight">\(R^2\)</span>。
+但是注意，<span class="math notranslate nohighlight">\(R^2\)</span> 本质是度量的 <span class="math notranslate nohighlight">\(\hat{Y}\)</span> 与 <span class="math notranslate nohighlight">\(Y\)</span> 的残差，
+严格来说，它并没有考虑 <span class="math notranslate nohighlight">\(X\)</span> 与 <span class="math notranslate nohighlight">\(Y\)</span> 存在线性关系时，
+会影响 <span class="math notranslate nohighlight">\(R^2\)</span> 的值。 <span class="math notranslate nohighlight">\(X\)</span> 与 <span class="math notranslate nohighlight">\(Y\)</span> 线性关系越强烈，
+<span class="math notranslate nohighlight">\(\hat{Y}\)</span> 与 <span class="math notranslate nohighlight">\(Y\)</span> 的残差就越小；
+反之，<span class="math notranslate nohighlight">\(X\)</span> 与 <span class="math notranslate nohighlight">\(Y\)</span> 线性关系越差，
+<span class="math notranslate nohighlight">\(\hat{Y}\)</span> 与 <span class="math notranslate nohighlight">\(Y\)</span> 的残差就越大；
+但这种关系毕竟是间接的，尽量不要使用 <span class="math notranslate nohighlight">\(R^2\)</span>
+去衡量 <span class="math notranslate nohighlight">\(X\)</span> 与 <span class="math notranslate nohighlight">\(Y\)</span> 线性关系，如果你不是很了解 <span class="math notranslate nohighlight">\(R^2\)</span>，非常容易得出错误的结论。
+建议仅用 <span class="math notranslate nohighlight">\(R^2\)</span> 来度量模型的拟合优度。</p>
+</div>
+<div class="section" id="id5">
+<h4><span class="section-number">8.1.4.2. </span>修正的 <span class="math notranslate nohighlight">\(R^2\)</span><a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h4>
+<p>实际上，上述版本 <span class="math notranslate nohighlight">\(R^2\)</span> 存在一个小小的瑕疵。
+<span class="math notranslate nohighlight">\(R^2\)</span> 用来度量模型对数据的拟合优度，
+然后实际上，只要添加了新的预测（特征）变量，
+<span class="math notranslate nohighlight">\(R^2\)</span> 的值都会增加，至少不会减少，
+无论新增的这个预测变量 <span class="math notranslate nohighlight">\(X\)</span> 是否和 <span class="math notranslate nohighlight">\(Y\)</span> 相关，
+也就是说即使新增加的 <span class="math notranslate nohighlight">\(X\)</span> 和 <span class="math notranslate nohighlight">\(Y\)</span> 完全不相关，
+添加之后也会导致 <span class="math notranslate nohighlight">\(R^2\)</span> 变大，
+这里我们省略证明过程。
+这就导致在多维（多个特征变量）模型中，
+<span class="math notranslate nohighlight">\(R^2\)</span> 的值不再可靠。
+针对这种情况，提出了改进版本的 <span class="math notranslate nohighlight">\(R^2\)</span>，
+修正的（Adjusted）:math:<cite>R^2</cite>，
+记作 <span class="math notranslate nohighlight">\(\bar{R}^2\)</span>，
+也可以记作 <span class="math notranslate nohighlight">\(R^2_{adj}\)</span>。</p>
+<div class="math notranslate nohighlight" id="equation-glm-source-content-18">
+<span class="eqno">(8.1.25)<a class="headerlink" href="#equation-glm-source-content-18" title="公式的永久链接">¶</a></span>\[\bar{R}^2 = 1 - \frac{RSS/\text{df}_{r}}{TSS/ \text{df}_{t}}\]</div>
+<p><span class="math notranslate nohighlight">\(\text{df}_{r}\)</span> 是 <code class="docutils literal notranslate"><span class="pre">RSS</span></code> 的自由度，其值为 <span class="math notranslate nohighlight">\(N-p-1\)</span>，
+<span class="math notranslate nohighlight">\(\text{df}_t\)</span> 是 <code class="docutils literal notranslate"><span class="pre">TSS</span></code> 的自由度，其值是 <span class="math notranslate nohighlight">\(N-1\)</span>。
+<span class="math notranslate nohighlight">\(N\)</span> 是观测样本的数量，<span class="math notranslate nohighlight">\(p\)</span> 是模型中特征变量 <span class="math notranslate nohighlight">\(X\)</span> 数量，
+注意 <span class="math notranslate nohighlight">\(p\)</span> 不包含截距。
+<span class="math notranslate nohighlight">\(N-p-1\)</span> 与 <span class="math notranslate nohighlight">\(N-1\)</span> 中的 <span class="math notranslate nohighlight">\(1\)</span> 表示截距参数。</p>
+<div class="math notranslate nohighlight" id="equation-glm-source-content-19">
+<span class="eqno">(8.1.26)<a class="headerlink" href="#equation-glm-source-content-19" title="公式的永久链接">¶</a></span>\[\bar{R}^2 = 1 - \frac{RSS}{TSS}\frac{N-1}{N-p-1}\]</div>
+<p>修正版的 <span class="math notranslate nohighlight">\(R^2\)</span> 会惩罚没有意义的特征，
+添加了无意义的特征后，<span class="math notranslate nohighlight">\(\bar{R}^2\)</span> 的值甚至会变小，
+这使得 <span class="math notranslate nohighlight">\(\bar{R}^2\)</span> 可以用来检验新增加的特征对模型是否有意义。
+在单特征的模型中，<span class="math notranslate nohighlight">\(\bar{R}^2\)</span> 与 <span class="math notranslate nohighlight">\(R^2\)</span> 的效果是一样的，
+在多特征的模型中，<span class="math notranslate nohighlight">\(\bar{R}^2\)</span> 是更好的，
+因此建议大家尽量使用 <span class="math notranslate nohighlight">\(\bar{R}^2\)</span>。
+<span class="math notranslate nohighlight">\(\bar{R}^2\)</span> 与 <span class="math notranslate nohighlight">\(R^2\)</span> 的关系为</p>
+<div class="math notranslate nohighlight" id="equation-glm-source-content-20">
+<span class="eqno">(8.1.27)<a class="headerlink" href="#equation-glm-source-content-20" title="公式的永久链接">¶</a></span>\[\bar{R}^2 = 1 - (1-R^2)\frac{N-1}{N-p-1}\]</div>
+</div>
+<div class="section" id="id6">
+<h4><span class="section-number">8.1.4.3. </span>偏差版本的 <span class="math notranslate nohighlight">\(R^2\)</span><a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h4>
+<p>不管是 <span class="math notranslate nohighlight">\(R^2\)</span> 还是 <span class="math notranslate nohighlight">\(\bar{R}^2\)</span>
+，都是定义在 <code class="docutils literal notranslate"><span class="pre">OLS</span></code> 模型的基础上的，
+对于 <code class="docutils literal notranslate"><span class="pre">GLM</span></code> 中的其它模型是不适用的。
+很多研究者提出了很多变种版本，
+用于适配 <code class="docutils literal notranslate"><span class="pre">GLM</span></code> 中其它模型，
+本节我们介绍其中一个基于偏差的版本。
+我们知道偏差（deviance）统计量是误差平方和的扩展，
+因此可以定义一个偏差版本的 <span class="math notranslate nohighlight">\(R^2\)</span>。</p>
+<p>用符号 <span class="math notranslate nohighlight">\(L_0\)</span> 表示空模型(null model)的似然，并且把空模型的偏差值定义为
+空偏差(null deviance)，用符号 <span class="math notranslate nohighlight">\(D_0\)</span> 表示。
+有些翻译把 “null deviance” 翻译成”零偏差”，
+个人觉得这非常容易产生混淆，”零偏差” 看上去好像是 <em>偏差值为0</em> ，
+然而这里指的是 “null model” 的偏差值，
+所以我们继续沿用”空”来翻译”null”。</p>
+<div class="math notranslate nohighlight" id="equation-glm-source-content-21">
+<span class="eqno">(8.1.28)<a class="headerlink" href="#equation-glm-source-content-21" title="公式的永久链接">¶</a></span>\[D_0 =2\phi(\ln L_f -\ln L_0)\]</div>
+<p>用符号 <span class="math notranslate nohighlight">\(D\)</span> 表示拟合模型的残差偏差统计量，
+可以用一张图来说明 <span class="math notranslate nohighlight">\(D_0\)</span> 和 <span class="math notranslate nohighlight">\(D\)</span> 之间的关系。
+我们拟合的模型，可以看做是在空模型的基础上增加预测变量 <span class="math notranslate nohighlight">\(X_1,X_2,\dots,X_p\)</span>
+得到更小的偏差(deviance)。</p>
+<div class="figure align-center" id="id10">
+<span id="fg-me-saturated-0012"></span><a class="reference internal image-reference" href="../../../_images/me_saturated_0012.jpg"><img alt="../../../_images/me_saturated_0012.jpg" src="../../../_images/me_saturated_0012.jpg" style="width: 568.0px; height: 350.0px;" /></a>
+<p class="caption"><span class="caption-number">图 8.1.2 </span><span class="caption-text">The residual deviance ( <span class="math notranslate nohighlight">\(D\)</span> ) and the null deviance (<span class="math notranslate nohighlight">\(D_0\)</span>).</span><a class="headerlink" href="#id10" title="永久链接至图片">¶</a></p>
+</div>
+<p>可以用 <span class="math notranslate nohighlight">\(D\)</span> 替代 <span class="math notranslate nohighlight">\(RSS\)</span>，
+<span class="math notranslate nohighlight">\(D_0\)</span> 替代 <span class="math notranslate nohighlight">\(TSS\)</span>，
+这样就得到一个偏差版本的 <span class="math notranslate nohighlight">\(R^2\)</span> 统计量。</p>
+<div class="math notranslate nohighlight" id="equation-glm-source-content-22">
+<span class="eqno">(8.1.29)<a class="headerlink" href="#equation-glm-source-content-22" title="公式的永久链接">¶</a></span>\[R^2_{D} = 1- \frac{D}{D_0}\]</div>
+</div>
+</div>
+<div class="section" id="ch-glm-gof-chi">
+<span id="id7"></span><h3><span class="section-number">8.1.5. </span>广义皮尔逊卡方统计量<a class="headerlink" href="#ch-glm-gof-chi" title="永久链接至标题">¶</a></h3>
+<p>在 <code class="docutils literal notranslate"><span class="pre">GLM</span></code> 中，另一个常用的拟合度统计量是广义皮尔逊卡方统计量(generalized Pearson chi-square statistic)
+，其计算公式为</p>
+<div class="math notranslate nohighlight" id="equation-eq-glm-me-302">
+<span class="eqno">(8.1.30)<a class="headerlink" href="#equation-eq-glm-me-302" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\chi^2 &amp;= \sum_{i=1}^N  \frac{(y_i-\hat{\mu}_i)^2}{a(\phi)\nu(\hat{\mu}_i)}\\&amp;= \sum_{i=1}^N  \frac{(y_i-\hat{\mu}_i)^2}{V(\hat{\mu}_i)}\end{aligned}\end{align} \]</div>
+<p>其中 <span class="math notranslate nohighlight">\(V(\mu_i)=a(\phi)\nu(\hat{\mu}_i)\)</span> 表示模型的方差。
+和偏差统计量类似的情况，很多资料中会省略分散函数 <span class="math notranslate nohighlight">\(a(\phi)\)</span> ，
+直接定义为如下形式</p>
+<div class="math notranslate nohighlight" id="equation-eq-glm-me-303">
+<span class="eqno">(8.1.31)<a class="headerlink" href="#equation-eq-glm-me-303" title="公式的永久链接">¶</a></span>\[\chi^2 = \sum_{i=1}^N  \frac{(y_i-\hat{\mu}_i)^2}{\nu(\hat{\mu}_i)}\]</div>
+<p>然而这是不准确的，非常容易产生误导，只有当 <span class="math notranslate nohighlight">\(a(\phi)=1\)</span> 时，才能省略掉。
+也有些资料把 <a class="reference internal" href="#equation-eq-glm-me-303">公式(8.1.31)</a> 称为皮尔逊卡方统计量，而把 <a class="reference internal" href="#equation-eq-glm-me-302">公式(8.1.30)</a> 称为尺度化(scaled)的皮尔逊卡方统计量。
+为了简单清晰表达，如无特别说明，本书中默认使用 <a class="reference internal" href="#equation-eq-glm-me-302">公式(8.1.30)</a> 的完整定义表示皮尔逊卡方统计量。</p>
+<p>顾名思义，皮尔逊卡方统计量的渐近分布是卡方分布，这和偏差统计量是一样的，
+同样其自由度(期望)是样本数量减去模型参数数量，<span class="math notranslate nohighlight">\(N-p-1\)</span> 。
+偏差统计量是基于最大似然估计的，因此其再基于最大似然估计的嵌套模型比较时有很大的优势，
+而皮尔逊卡方统计量胜在可解释性更强。
+对于高斯模型，有 <span class="math notranslate nohighlight">\(\nu(\mu)=1,a(\phi)=1\)</span> ，
+其皮尔逊卡方统计量、偏差统计量以及平方损失都是等价的，并且都是精确服从卡方分布的。</p>
+<p>平方损失，亦即残差的平方和(residual sum of squares，RSS)，是样本观测值和模型拟合值之间误差的平方和，这非常直观，易于理解。
+但是对于不同场景的观测样本，其取值范围差别很大，<code class="docutils literal notranslate"><span class="pre">RSS</span></code> 值难以直接评判大小。
+皮尔斯卡方统计量在 <code class="docutils literal notranslate"><span class="pre">RSS</span></code> 的基础上除以模型分方差，可以看成 <code class="docutils literal notranslate"><span class="pre">RSS</span></code> 的归一化版本，
+从误差的绝对值变成多少个标准差，有利于对其值进行直观上的大小比较。</p>
+<p>对于分散参数 <span class="math notranslate nohighlight">\(\phi\)</span> 值未知的模型和场景，可以利用皮尔逊卡方统计量得到分散参数 <span class="math notranslate nohighlight">\(\phi\)</span>
+的一个估计值。<span class="math notranslate nohighlight">\(\chi^2\)</span> 统计量的渐近分布是卡方分布，并且其期望为 <span class="math notranslate nohighlight">\(N-p-1\)</span>
+，因此有</p>
+<div class="math notranslate nohighlight" id="equation-glm-source-content-23">
+<span class="eqno">(8.1.32)<a class="headerlink" href="#equation-glm-source-content-23" title="公式的永久链接">¶</a></span>\[\mathbb{E}[\chi^2] = \mathbb{E} \left [
+    \sum_{i=1}^N  \frac{(y_i-\hat{\mu}_i)^2}{a(\phi)\nu(\hat{\mu}_i)}
+\right ] = N-p-1\]</div>
+<p>利用这个特点可以近似的得到 <span class="math notranslate nohighlight">\(a(\phi)\)</span> 。</p>
+<div class="math notranslate nohighlight" id="equation-glm-source-content-24">
+<span class="eqno">(8.1.33)<a class="headerlink" href="#equation-glm-source-content-24" title="公式的永久链接">¶</a></span>\[a(\phi) = \sum_{i=1}^N  \frac{(y_i-\hat{\mu}_i)^2}{(N-p-1)\nu(\hat{\mu}_i)}\]</div>
+<p>当 <span class="math notranslate nohighlight">\(a(\phi)=\phi\)</span> 时，分散参数的近似估计值为</p>
+<div class="math notranslate nohighlight" id="equation-glm-source-content-25">
+<span class="eqno">(8.1.34)<a class="headerlink" href="#equation-glm-source-content-25" title="公式的永久链接">¶</a></span>\[\hat{\phi} = \sum_{i=1}^N  \frac{(y_i-\hat{\mu}_i)^2}{(N-p-1)\nu(\hat{\mu}_i)}\]</div>
+<p>当 <span class="math notranslate nohighlight">\(a(\phi)=\phi / w_i\)</span> 时，分散参数的近似估计值为</p>
+<div class="math notranslate nohighlight" id="equation-glm-source-content-26">
+<span class="eqno">(8.1.35)<a class="headerlink" href="#equation-glm-source-content-26" title="公式的永久链接">¶</a></span>\[\hat{\phi} = \sum_{i=1}^N  \frac{ w_i (y_i-\hat{\mu}_i)^2}{(N-p-1)\nu(\hat{\mu}_i)}\]</div>
+</div>
+</div>
+<div class="section" id="residual-analysis">
+<h2><span class="section-number">8.2. </span>残差分析(Residual analysis)<a class="headerlink" href="#residual-analysis" title="永久链接至标题">¶</a></h2>
+<p>在评估模型时，残差(residual)用于衡量我们的每个样本观察值与拟合值之间的差异。
+一个观测值影响估计系数的程度是一种影响的度量。
+<code class="docutils literal notranslate"><span class="pre">Pierce</span></code> 和 <code class="docutils literal notranslate"><span class="pre">Schafer（1986）</span></code> 以及 <code class="docutils literal notranslate"><span class="pre">Cox和Snell（1968）</span></code> 对 <code class="docutils literal notranslate"><span class="pre">GLM</span></code> 中残差的各种定义提出了出色的结论。
+在以下各节中，我们介绍为 <code class="docutils literal notranslate"><span class="pre">GLM</span></code> 提出的几种残差的定义。
+但是目前的文献中，对 <code class="docutils literal notranslate"><span class="pre">GLM</span></code> 中各类残差的定义缺乏统一的术语，
+导致容易产生混淆，因此我们尽量保留使用英文术语，以方便与其他书籍和论文进行比较。</p>
+<p>通常残差(residual)也用符号 <span class="math notranslate nohighlight">\(r\)</span> 表示，这和响应函数 <span class="math notranslate nohighlight">\(r\)</span> 在符号上重复了，
+所以本节在出现响应函数的地方我们用连接函数的反函数 <span class="math notranslate nohighlight">\(g^{-1}\)</span> 表示。
+另外残差(residual)都是定义在单条样本上的，
+以下所有残差的定义中下标 <span class="math notranslate nohighlight">\(i\)</span> 都表示第 <span class="math notranslate nohighlight">\(i\)</span> 条样本。</p>
+<div class="section" id="response-residuals">
+<h3><span class="section-number">8.2.1. </span>Response residuals<a class="headerlink" href="#response-residuals" title="永久链接至标题">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">Response</span> <span class="pre">residuals</span></code>， 也叫作 <code class="docutils literal notranslate"><span class="pre">raw</span> <span class="pre">residuals</span></code>， 其定义十分简单直接，就是样本的观测值(真实值)
+<span class="math notranslate nohighlight">\(y_i\)</span> 和模型拟合值(预测值) <span class="math notranslate nohighlight">\(\hat{y}_i\)</span> 之间的差值。</p>
+<div class="math notranslate nohighlight" id="equation-glm-source-content-27">
+<span class="eqno">(8.2.1)<a class="headerlink" href="#equation-glm-source-content-27" title="公式的永久链接">¶</a></span>\[r_i^R = y_i -\hat{y}_i\]</div>
+<p>在 <code class="docutils literal notranslate"><span class="pre">GLM</span></code> 中，拟合值 <span class="math notranslate nohighlight">\(\hat{y}_i\)</span> 就是响应函数的输出值，并且表示响应变量的期望值
+<span class="math notranslate nohighlight">\(\hat{y}_i=\hat{\mu}_i=g^{-1}(\eta_i)\)</span>
+。因此在GLM中，上式也可以写成：</p>
+<div class="math notranslate nohighlight" id="equation-glm-source-content-28">
+<span class="eqno">(8.2.2)<a class="headerlink" href="#equation-glm-source-content-28" title="公式的永久链接">¶</a></span>\[r_i^R = y_i -\hat{\mu}_i\]</div>
+<p>在之后的残差定义中，我们都使用 <span class="math notranslate nohighlight">\(\hat{\mu}_i\)</span> 表示样本的拟合值。</p>
+</div>
+<div class="section" id="working-residuals">
+<h3><span class="section-number">8.2.2. </span>Working residuals<a class="headerlink" href="#working-residuals" title="永久链接至标题">¶</a></h3>
+<p>工作残差(working residuals)是在模型收敛时的残差，
+<code class="docutils literal notranslate"><span class="pre">working</span> <span class="pre">response</span></code> 和 <code class="docutils literal notranslate"><span class="pre">linear</span> <span class="pre">predictor</span></code> 之间的差值。</p>
+<div class="math notranslate nohighlight" id="equation-glm-source-content-29">
+<span class="eqno">(8.2.3)<a class="headerlink" href="#equation-glm-source-content-29" title="公式的永久链接">¶</a></span>\[r^W_i = (y_i -\hat{\mu}_i) \frac{\partial \eta_i}{\partial \hat{\mu}_i} = (y_i -\hat{\mu}_i) g'(\hat{\mu}_i)\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(\frac{\partial \eta}{\partial \mu}\)</span> 是连接函数的导数 <span class="math notranslate nohighlight">\(g'(\mu_i)\)</span>
+。这里我们回归一下IRLS算法迭代过程中 <span class="math notranslate nohighlight">\(Z\)</span> 项的计算公式，
+<code class="docutils literal notranslate"><span class="pre">working</span> <span class="pre">residuals</span></code> 就是 <span class="math notranslate nohighlight">\(Z\)</span> 的一部分。</p>
+<div class="math notranslate nohighlight" id="equation-glm-source-content-30">
+<span class="eqno">(8.2.4)<a class="headerlink" href="#equation-glm-source-content-30" title="公式的永久链接">¶</a></span>\[   Z^{(t)} = \left \{ (y-\mu)  \left ( \frac{\partial \eta}{\partial \mu} \right) + \eta^{(t)}
+\right \}_{(n\times 1 )}\]</div>
+</div>
+<div class="section" id="partial-residuals">
+<h3><span class="section-number">8.2.3. </span>Partial residuals<a class="headerlink" href="#partial-residuals" title="永久链接至标题">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">Partial</span> <span class="pre">residuals</span></code> 用于评估每个预测变量(predictor)的，
+并因此针对每个预测变量进行计算。
+O’Hara Hines和Carter（1993）讨论了这些残差在评估模型拟合中的图形使用。</p>
+<div class="math notranslate nohighlight" id="equation-glm-source-content-31">
+<span class="eqno">(8.2.5)<a class="headerlink" href="#equation-glm-source-content-31" title="公式的永久链接">¶</a></span>\[r^T_{ij} = r^W_{i} + x_{ij} \beta_j\]</div>
+<p>上式中 <span class="math notranslate nohighlight">\(r^W_{i}\)</span> 表示的是样本 <span class="math notranslate nohighlight">\(i\)</span> 的 <code class="docutils literal notranslate"><span class="pre">Working</span> <span class="pre">residuals</span></code>，
+<span class="math notranslate nohighlight">\(x_{ij} \beta_j\)</span> 仅是第 <span class="math notranslate nohighlight">\(j\)</span> 维输入特征的线性预测器。
+<code class="docutils literal notranslate"><span class="pre">Partial</span> <span class="pre">residuals</span></code> 评估的是单一维度特征的预测器的残差。</p>
+</div>
+<div class="section" id="pearson-residuals">
+<h3><span class="section-number">8.2.4. </span>Pearson residuals<a class="headerlink" href="#pearson-residuals" title="永久链接至标题">¶</a></h3>
+<p>皮尔逊残差(Pearson residuals)是工作残差(working residuals)的重新缩放版本。
+皮尔逊残差平方的总和等于皮尔逊卡平方统计量(Pearson chi-squared statistic)。</p>
+<div class="math notranslate nohighlight" id="equation-glm-source-content-32">
+<span class="eqno">(8.2.6)<a class="headerlink" href="#equation-glm-source-content-32" title="公式的永久链接">¶</a></span>\[r_i^P = \frac{y_i-\hat{\mu}_i}{\sqrt{\nu(\hat{\mu}_i)}}\]</div>
+<p>分母是方差函数的平方根，缩放将残差置于相似的方差尺度上。
+残差的绝对值较大，表明该模型无法满足特定的观察要求。
+检测异常值的常见诊断方法是绘制标准化的皮尔逊残差(standardized Pearson residuals)与观察值的关系。</p>
+</div>
+<div class="section" id="deviance-residuals">
+<h3><span class="section-number">8.2.5. </span>Deviance residuals<a class="headerlink" href="#deviance-residuals" title="永久链接至标题">¶</a></h3>
+<p>偏差(deviance)在推导 <code class="docutils literal notranslate"><span class="pre">GLM</span></code> 和结果推断中起着关键作用。
+偏差残差(deviance residual)是每个观察值相对于总体偏差(overall deviance)的增量。
+这些残差很常见，通常是标准化的(standardized)，学生化的(studentized)或两者兼而有之。
+偏差残差(deviance residual)是基于卡方分布的，其公式如下。</p>
+<div class="math notranslate nohighlight" id="equation-glm-source-content-33">
+<span class="eqno">(8.2.7)<a class="headerlink" href="#equation-glm-source-content-33" title="公式的永久链接">¶</a></span>\[r_i^D = sign(y_i - \hat{\mu}_i) \sqrt{ \hat{d}_i^2 }\]</div>
+<p><code class="docutils literal notranslate"><span class="pre">GLM</span></code> 中不同分布族 <span class="math notranslate nohighlight">\(\hat{d}_i^2\)</span> 计算法方法不同，表 xxxx 给出了各分布族的计算方法。
+通常，在模型检查中，偏差残差（标准化或非标准化残差）优于Pearson残差，
+因为其分布特性更接近于线性回归模型中产生的残差。</p>
+</div>
+<div class="section" id="score-residuals">
+<h3><span class="section-number">8.2.6. </span>Score residuals<a class="headerlink" href="#score-residuals" title="永久链接至标题">¶</a></h3>
+<p>这些是用于计算方差三明治估计的分数。 分数与已优化的分数函数（估计方程）有关。</p>
+<div class="math notranslate nohighlight" id="equation-glm-source-content-34">
+<span class="eqno">(8.2.8)<a class="headerlink" href="#equation-glm-source-content-34" title="公式的永久链接">¶</a></span>\[r_i^S = \frac{y_i-\hat{\mu}_i}{\nu(\hat{\mu}_i) g'(\hat{\mu}_i)}\]</div>
+</div>
+</div>
+<div class="section" id="model-selection">
+<h2><span class="section-number">8.3. </span>模型选择(model selection)<a class="headerlink" href="#model-selection" title="永久链接至标题">¶</a></h2>
+<p>模型选择(model selection)是指从给定数据的一组候选统计模型中选择出最佳模型的过程。
+模型选择是一个既可以应用于不同类型的模型（例如逻辑回归，SVM，KNN等），
+又可以应用于配置了不同超参数（例如SVM中的不同内核）的相同类型模型的过程。</p>
+<p>在深入探讨不同的模型选择(model selection)方法以及何时使用它们之前，
+我们需要弄清楚模型选择(model selection)与模型评估(model evaluation)之间的区别。
+模型选择(model selection)关注的是 <strong>模型训练阶段</strong> 的效果，
+在给定的数据集下，评价模型的训练误差，即哪个候选模型拟合的更好。
+模型评估(model evaluation)旨在评估所选模型的泛化误差(generalization error)，
+即所选模型在未知数据上的表现如何。</p>
+<p>但是为什么我们需要区分模型选择和模型评估？原因是过度拟合(overfitting)。
+一个模型可以在训练阶段表现的非常好，比如饱和模型(saturated model)可完美的拟合每一条训练集样本，
+但是其在未知数据上很可能表现的一塌糊涂。
+显然，一个好的机器学习模型，
+它不仅可以在训练过程中表现出色，而且可以在未知数据上表现出色。
+因此，在将模型交付生产之前，我们应该相当确定，当面对新数据时，模型的性能不会降低。</p>
+<p>训练一个模型是相对简单的事情，但选择一个”合适”的模型却是一件有挑战的事情。
+首先，我们需要克服“最佳”模型的想法。
+考虑到数据中的统计噪声，数据样本的不完整以及每种不同模型类型的局限性，
+所有模型都具有一定的预测误差。
+因此，完美或最佳模型的概念没有用。相反，我们必须寻求一个“足够好”的模型。</p>
+<p>选择最终模型时我们关心什么？
+不同的应用场景可能会有不同的要求，例如可维护性、有限的模型复杂性、较强的解释性，等等，
+有时，具有较低性能但更容易理解的模型可能是优选的。而有时更倾向于效果好的模型，无需关注计算复杂度。
+因此，“足够好”的模型可能涉及很多东西，并且特定于您的项目。</p>
+<p>通常有三种方法来来选择模型。</p>
+<ul class="simple">
+<li><p>Train, Validation, and Test datasets：利用大量样本集选择模型。</p></li>
+<li><p>概率测度(probabilistic measures)：通过样本误差和复杂度选择模型。</p></li>
+<li><p>重采样方法(resampling methods)：通过估计的样本外误差选择模型。</p></li>
+</ul>
+<p>在理想情况下，我们拥有足够多的数据，
+最简单可靠的模型选择方法，将数据分成训练集(training dataset)、验证集(validation dataset)、测试集(test dataset)。
+在训练集上拟合候选模型，在验证数据集上进行调整和优化，
+最后根据所选度量（例如准确性或误差）指标在测试数据集上选择表现最佳的模型。
+这种方法的致命问题是，它需要大量数据。
+鉴于我们很少有足够的数据，甚至无法判断什么将是足够的，因此对于大多数预测性建模问题而言，这是不切实际的。
+在数据不足的情况下，经常使用后两种方法：概率测度(probabilistic measures)和重采样方法(resampling methods)。</p>
+<p><strong>概率测度(probabilistic measures)</strong></p>
+<p>概率测度(probabilistic measures)依据候选模型在训练数据集上的 <strong>模型表现(model performance)</strong> 和
+<strong>模型的复杂性(model complexity)</strong> 对候选模型进行分析评分。
+模型复杂性的概念可用于创建有助于模型选择的度量。</p>
+<p>众所周知，训练误差偏向乐观，因此不是选择模型的良好基础。
+可以根据认为训练错误的乐观程度来惩罚表现。
+通常使用特定于算法的方法（通常为线性方法）来实现此目的，
+该方法会根据模型的复杂性对分数进行惩罚。
+历史上已经提出了各种“信息标准(Information Criterion)”，
+试图通过增加惩罚项来补偿最大似然性的偏差，以补偿更复杂模型的过度拟合。</p>
+<p>根据奥卡姆剃刀(Occam’s razor)的原理，给定具有相似预测或解释能力的候选模型，最简单的模型很可能是最佳选择。
+具有较少参数的模型复杂性更低，因此，首选简单模型，因为它平均而言可能会更好地泛化。
+四种常用的概率模型选择度量包括：</p>
+<ul class="simple">
+<li><p>赤池信息准则（Akaike Information Criterion,AIC）。</p></li>
+<li><p>贝叶斯信息准则（Bayesian Information Criterion,BIC）。</p></li>
+<li><p>最小描述长度（Minimum Description Length,MDL）。</p></li>
+<li><p>结构风险最小化（Structural Risk Minimization,SRM）。</p></li>
+</ul>
+<p>当使用更简单的线性模型（例如线性回归或逻辑回归）时，概率度量是适当的，
+其中模型复杂度损失的计算（例如样本偏差）是已知的并且易于处理的。</p>
+<p>例如 <em>赤池信息量准则(Akaike information criterion,AIC)</em> 和
+<em>贝叶斯信息准则(Bayesian information criterion,BIC)</em>
+，两者都会惩罚模型参数的数量，但会奖励训练集的拟合优度，
+因此，最佳模型是 <code class="docutils literal notranslate"><span class="pre">AIC/BIC</span></code> 最低的模型。
+<code class="docutils literal notranslate"><span class="pre">BIC</span></code> 会更严厉地惩罚模型复杂性，因此 <code class="docutils literal notranslate"><span class="pre">BIC</span></code> 倾向于“错误得多”但更简单的模型。
+虽然这允许在不使用验证集的情况下进行模型选择，但它只能严格应用于参数线性的模型，即使它通常也适用于更一般的情况，
+例如适用于广义线性模型，例如逻辑回归，等等。</p>
+<p><strong>重采样方法(resampling methods)</strong></p>
+<p>重采样方法旨在估计训练样本外数据的模型性能。
+这是通过将训练数据集分为子训练集和测试集，
+在子训练集上拟合模型并在测试集上对其进行评估来实现的。
+然后可以重复此过程多次，并报告每个试验的平均性能。</p>
+<p>这是对样本外数据的模型性能进行的蒙特卡洛估计，
+尽管每个试验并非严格独立，这取决于所选择的重采样方法，
+但是同一数据可能会在不同的训练数据集或测试数据集中多次出现。</p>
+<p>三种常见的重采样模型选择方法包括：</p>
+<ul class="simple">
+<li><p>随机训练/测试分组(Random train/test splits)。</p></li>
+<li><p>交叉验证(Cross-Validation)，k-fold, 留一法(LOOCV)等。</p></li>
+<li><p>Bootstrap。</p></li>
+</ul>
+<p>在概率测度(probabilistic measures)不可用的时候，
+可以大使用重采样方法。
+到目前为止，使用最广的是交叉验证方法系列。</p>
+<p>如果你有足够多的训练样本数据，可以直接将数据划分为训练集、验证集和测试集，选择合适的模型。
+数据量少的时候也可以使用重采样法解决。
+这两种方法简单直接，没有什么可细说的，
+本节我们详细介绍几种常用的概率测度方法。
+首先，我们定义一些符号</p>
+<div class="math notranslate nohighlight" id="equation-glm-source-content-35">
+<span class="eqno">(8.3.1)<a class="headerlink" href="#equation-glm-source-content-35" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}&amp;p = \text{模型的参数数量}\\&amp;N = \text{观测样本的数量}\\&amp;L= \text{模型的似然}\\&amp;\ell= \text{模型的对数似然}\\&amp;D= \text{模型的偏差 deviance}\\&amp;G^2 = \text{模型的似然比检验}\end{aligned}\end{align} \]</div>
+<p>接下来，我们详细介绍一下用于模型比较的 <code class="docutils literal notranslate"><span class="pre">AIC</span></code> 和 <code class="docutils literal notranslate"><span class="pre">BIC</span></code> 量度的公式，
+这些度量指标试图找到在模型拟合优度和模型复杂度之间的平衡点。</p>
+<div class="section" id="aic">
+<h3><span class="section-number">8.3.1. </span>AIC<a class="headerlink" href="#aic" title="永久链接至标题">¶</a></h3>
+<p>赤池信息准则(Akaike information criterion,AIC）是样本外预测误差的估计值，度量的是在给定数据集下统计模型的相对质量。
+在给定数据集的候选模型集合中，
+<code class="docutils literal notranslate"><span class="pre">AIC</span></code> 估计每个模型相对于其他模型的质量。因此，<code class="docutils literal notranslate"><span class="pre">AIC</span></code> 提供了一种模型选择的方法。</p>
+<p><code class="docutils literal notranslate"><span class="pre">AIC</span></code> 建立在信息论(information theory)的基础上。
+当使用统计模型来表征数据的生成过程时，几乎永远不会是精确的，
+统计模型一定会丢失一些信息。
+<code class="docutils literal notranslate"><span class="pre">AIC</span></code> 估计模型丢失的相对信息量：模型丢失的信息越少，该模型的质量越高。
+在估算模型丢失的信息量时，<code class="docutils literal notranslate"><span class="pre">AIC</span></code> 会在模型拟合优度(goodness of fit)和模型复杂性之间进行权衡。
+换句话说，<code class="docutils literal notranslate"><span class="pre">AIC</span></code> 同时处理过度拟合和欠拟合的风险。
+<code class="docutils literal notranslate"><span class="pre">Akaike</span> <span class="pre">information</span> <span class="pre">criterion</span></code> 是由制定该标准的统计学家 <code class="docutils literal notranslate"><span class="pre">Hirotugu</span> <span class="pre">Akaike</span></code> 命名的。
+现在，它构成了统计基础范例的基础，并且广泛用于统计推断(statistical inference)。</p>
+<p><code class="docutils literal notranslate"><span class="pre">AIC</span></code> 可用于比较嵌套模型或非嵌套模型。
+信息准则是对目标模型丢失的信息的度量，目的是找到信息丢失最少的模型。</p>
+<div class="math notranslate nohighlight" id="equation-glm-source-content-36">
+<span class="eqno">(8.3.2)<a class="headerlink" href="#equation-glm-source-content-36" title="公式的永久链接">¶</a></span>\[AIC= 2p-2 \ell\]</div>
+<p><span class="math notranslate nohighlight">\(\ell(M_k)\)</span> 代表了模型拟合能力，<span class="math notranslate nohighlight">\(p\)</span> 代表了模型的复杂程度。
+注意，<code class="docutils literal notranslate"><span class="pre">AIC</span></code> 的绝对值是没有意义的，模型之间的相对大小才有意义。
+当比较的两个模型拟合能力(似然)相差较大时，<code class="docutils literal notranslate"><span class="pre">AIC</span></code> 受到似然值的影响更大一些；
+当两个模型拟合能力(似然)相当时，<code class="docutils literal notranslate"><span class="pre">AIC</span></code> 受到模型参数数量 <span class="math notranslate nohighlight">\(p\)</span> 的影响更大一些。</p>
+<p>参数数量 <span class="math notranslate nohighlight">\(p\)</span> 的项是对较大的参数变量列表的一种惩罚，
+<code class="docutils literal notranslate"><span class="pre">AIC</span></code> 特别适合比较具有相同链接和方差函数但具有不同参数变量列表的 <code class="docutils literal notranslate"><span class="pre">GLM</span></code>。
+当模型嵌套时，我们将惩罚项视为从模型中消除候选预测变量所需的精度。</p>
+<p>我们需要注意如何计算 <code class="docutils literal notranslate"><span class="pre">AIC</span></code>，上面的定义包括模型对数似然。
+在 <code class="docutils literal notranslate"><span class="pre">GLM</span></code> 中，参数估计过程通常不是基于似然的，而是基于偏差(deviance)的，
+不能使用偏差值去算 <code class="docutils literal notranslate"><span class="pre">AIC</span></code> 的值，
+因为偏差的计算过程中不包括归一化项 <span class="math notranslate nohighlight">\(c(y_i,\phi)\)</span>
+，而在 <code class="docutils literal notranslate"><span class="pre">GLM</span></code> 中不同的分布拥有不同的归一化项。</p>
+<p>后来又衍生出了以几种 <code class="docutils literal notranslate"><span class="pre">AIC</span></code> 的变种版本，这里给出两种替代方法。
+第一种是 <code class="docutils literal notranslate"><span class="pre">Sugiura（1978）</span></code> 和 <code class="docutils literal notranslate"><span class="pre">Hurvich</span> <span class="pre">and</span> <span class="pre">Tsai（1989）</span></code> 提出的校正或有限样本(finite-sample)AIC。
+第二个是 <code class="docutils literal notranslate"><span class="pre">Hannan</span> <span class="pre">and</span> <span class="pre">Quinn（1979）</span></code> 描述的 <code class="docutils literal notranslate"><span class="pre">AIChq</span></code>。
+这些版本的公式(未缩放)为：</p>
+<div class="math notranslate nohighlight" id="equation-glm-source-content-37">
+<span class="eqno">(8.3.3)<a class="headerlink" href="#equation-glm-source-content-37" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}AICc &amp;= 2\frac{p(p+1)}{N-p-1}+ 2p -2 \ell\\AIChq &amp;= 2p\ln\{ \ln(N)\} -2 \ell\end{aligned}\end{align} \]</div>
+<p>我们如何确定两个 <code class="docutils literal notranslate"><span class="pre">AIC</span></code> 统计数据之间的差异是否足够大，足以使我们得出结论，一个模型比另一个模型更合适？
+特别是，具有较低 <code class="docutils literal notranslate"><span class="pre">AIC</span></code> 统计量的模型是否比其他模型更受青睐？
+尽管我们知道具有较小 <code class="docutils literal notranslate"><span class="pre">AIC</span></code> 的模型是更可取的，但尚无可用于计算p-值的特定统计检验。
+<code class="docutils literal notranslate"><span class="pre">Hilbe（2009）</span></code> 根据模拟研究设计了一个主观表，可用于做出比较无标度 <code class="docutils literal notranslate"><span class="pre">AIC</span></code> 度量的决策。</p>
+<div class="figure align-center" id="fg-me-saturated-0014">
+<a class="reference internal image-reference" href="../../../_images/me_saturated_0014.jpg"><img alt="../../../_images/me_saturated_0014.jpg" src="../../../_images/me_saturated_0014.jpg" style="width: 698.4000000000001px; height: 181.60000000000002px;" /></a>
+</div>
+<div class="section" id="bic">
+<h4><span class="section-number">8.3.1.1. </span>BIC<a class="headerlink" href="#bic" title="永久链接至标题">¶</a></h4>
+<p>在统计中，贝叶斯信息准则（BIC）或Schwarz信息准则（也称为SIC，SBC，SBIC）
+是用于在有限的一组模型中选择模型的标准，<code class="docutils literal notranslate"><span class="pre">BIC</span></code> 最低的模型是首选。
+它部分基于似然函数，并且与 <code class="docutils literal notranslate"><span class="pre">AIC</span></code> 密切相关。</p>
+<div class="math notranslate nohighlight" id="equation-glm-source-content-38">
+<span class="eqno">(8.3.4)<a class="headerlink" href="#equation-glm-source-content-38" title="公式的永久链接">¶</a></span>\[BIC_{\ell} = p\ln(N) - 2 \ell\]</div>
+<p>与 <code class="docutils literal notranslate"><span class="pre">AIC</span></code> 相反，<code class="docutils literal notranslate"><span class="pre">BIC</span></code> 包含的惩罚项随着样本数量的增加而变得更加严格。，
+该特征反映了可用于检测重要性的能力。
+<code class="docutils literal notranslate"><span class="pre">Raftery</span> <span class="pre">(1995)</span></code> 提出了一个基于偏差版本的 <code class="docutils literal notranslate"><span class="pre">BIC</span></code>，
+<code class="docutils literal notranslate"><span class="pre">Raftery</span></code> 的目的是使用替代版本的 <code class="docutils literal notranslate"><span class="pre">BIC</span></code> 在 <code class="docutils literal notranslate"><span class="pre">GLM</span></code> 模型之间进行选择。</p>
+<div class="math notranslate nohighlight" id="equation-glm-source-content-39">
+<span class="eqno">(8.3.5)<a class="headerlink" href="#equation-glm-source-content-39" title="公式的永久链接">¶</a></span>\[BIC_D = D - p \ln(N)\]</div>
+<p>当比较非嵌套模型时，可以根据两个模型的 <code class="docutils literal notranslate"><span class="pre">BIC</span></code> 统计数据之间的差的绝对值来评估模型的偏好程度。
+<code class="docutils literal notranslate"><span class="pre">Raftery（1995）</span></code> 给出的用于确定相对偏好的量表。</p>
+<div class="figure align-center" id="fg-me-saturated-0015">
+<a class="reference internal image-reference" href="../../../_images/me_saturated_0015.jpg"><img alt="../../../_images/me_saturated_0015.jpg" src="../../../_images/me_saturated_0015.jpg" style="width: 441.6px; height: 190.4px;" /></a>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="influence.html" class="btn btn-neutral float-right" title="9. 模型检验" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/estimate.html" class="btn btn-neutral float-left" title="7. 参数估计" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2018, zhangzhenhu(acmtiger@outlook.com) 禁止一切形式的转载！.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+    <script src="https://utteranc.es/client.js"
+            repo="zhangzhenhu/blog"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+
+
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

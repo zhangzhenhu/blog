@@ -1,0 +1,45 @@
+##################################################
+隐马尔可夫模型
+##################################################
+
+
+
+
+隐马尔可夫模型
+##################################################
+
+
+.. figure:: _static/743682-20160901172902418-1743725443.png
+
+马尔可夫模型和朴素贝叶斯模型的关系
+================================================
+
+
+
+.. math::
+    p(y \mid \vec{x}) = \frac{p(y) \cdot p(\vec{x} \mid y)}{p(\vec{x})}
+
+"the probability of a particular state is dependent only on the previous state"
+
+:math:`p(y)` 变成了 :math:`p(y_i|y_{i-1})`
+
+.. math::
+
+    p(\vec{y} \mid \vec{x}) = \prod_{i=1}^{n} p(y_{i} \mid y_{i-1}) \cdot p(x_{i} \mid y_{i})
+
+
+
+
+参考文献
+##################################################
+
+.. [#] David S. Batista : `Hidden Markov Model and Naive Bayes relationship`_
+.. [#] Dawei Shen : `Some Mathematics for HMM`_
+
+
+.. _`Hidden Markov Model and Naive Bayes relationship`: http://www.davidsbatista.net/blog/2017/11/11/HHM_and_Naive_Bayes/
+.. _`Some Mathematics for HMM`: https://pdfs.semanticscholar.org/4ce1/9ab0e07da9aa10be1c336400c8e4d8fc36c5.pdf
+
+.. [1] David S. Batista : `Conditional Random Fields for Sequence Prediction`_
+
+.. _`Conditional Random Fields for Sequence Prediction`: http://www.davidsbatista.net/blog/2017/11/13/Conditional_Random_Fields/

@@ -1,0 +1,1014 @@
+########################################
+负二项式模型
+########################################
+
+
+
+
+
+在计数数据中，应用最广泛的是泊松模型，
+而泊松模型假设模型的方差和期望相等，:math:`V(Y)=\mu`
+这在多数情况下是无法满足的，大多数计数数据的方差和期望是不相等的，
+比较常见的是方差大于期望，称之为过度分散现象。
+面对过度分散的数据，传统的泊松模型就不太适合了。
+本周讨论另一种计数模型，负二项式模型，它的方差为
+:math:`V(Y) = \mu+\alpha \mu^2`
+，其模型方差和期望不再是相等的，而是多了一个可变的参数 :math:`\alpha`
+，通过 :math:`\alpha` 可以调整方差和期望的关系，
+进而能适应各种方差的计数数据，
+负二项式分布可以更好地拟合过度分散的数据。
+
+
+
+负二项式分布
+#####################################
+
+回顾指数族的各种分布，可以发现很多分布都和伯努利分布有关，二项式分布描述的是 :math:`n` 次伯努利实验成功次数的概率分布，
+而泊松分布又是二项式分布的极限形式，描述的是单位时间窗口内事件发生次数的概率分布。
+指数分布又可以从泊松分布推导而来，描述的是下一次事件发生需要等待的时间。
+指数分布的更一般化就得到了 ``Gamma`` 分布。
+本章讨论的负二项式分布，从名字就可以看出一定是和二项式分布有关。
+事实上，二项式分布、几何分布、负二项分布都是伯努利实验的扩展。
+二项式分布描述的是n次实验中成功的次数；
+几何分布描述的是第一次成功之前失败的次数；
+负二项分布描述的是第r次成功之前失败的次数。
+二项式分布、泊松分布、几何分布、负二项式分布都是建立在伯努利试验过程的基础上，
+几何分布是负二项式分布的一个特例。
+
+负二项式分布可以有多种定义(理解)方式，
+有两种可以看做是二项式分布变种，另一种是可以看做是泊松-伽马混合模型。
+关于负二项分布的"负"有多种解释，
+最直观的一种就是，二项式分布描述的"成功"的次数，而负二项分布描述的是"失败"的次数，
+因此是"负"。
+
+
+
+从二项式分布推导
+=================================
+
+
+
+二项式分布表示的时进行 :math:`n` 次伯努利实验 **成功的次数** 的概率分布，其概率分布函数为
+
+.. math::
+    :label: eq_nb_010
+
+    f(y;n,\pi) =\binom{n}{y} \pi^y(1-\pi)^{n-y}
+
+其中 :math:`\pi` 是单次伯努利实验成功的概率，
+:math:`1-\pi` 是伯努利实验失败的概率。符号 :math:`\binom{n}{y}` 是组合数 :math:`C_{n}^y` ，
+表示 :math:`n` 次实验中有任意 :math:`y` 次成功的全部组合数。
+二项式分布的期望和方差分别是
+:math:`\mathbb{E}[Y]=n\pi` 和 :math:`V(Y) = n \pi(1-\pi)` 。
+负二项式分布可以看做是二项式分布的变种，
+并且有两种定义方式，事实上这两种定义方式是等价的。
+
+
+
+
+首先回顾一些组合数计算的转换公式，其一有，
+
+.. math::
+    :label: eq_nb_011
+
+    C_{a+b}^a=C_{a+b}^b
+
+
+
+其二，组合数的计算可以转换成多个 ``Gamma`` 函数的计算。
+``Gamma`` 函数是阶乘在实数域的扩展，:math:`\Gamma(n+1)=n!`,
+因此有
+
+.. math::
+    :label: eq_nb_013
+
+    C_n^k = \binom{n}{k} = \frac{n!}{k!(n-k)!}
+    = \frac{\Gamma(n+1)  }{\Gamma(k+1)\Gamma(n-k+1)}
+
+
+
+**第一种定义方式**
+
+随机变量 :math:`Y` 表示，伯努利实验中要得到成功 :math:`r` 次的结果，需要进行的实验总次数，
+:math:`r` 必须是一个正整数。注意，一共进行了 :math:`y` 次实验，最后一次实验一定是成功的，并且是第 :math:`r` 次成功。
+因此只需要在前面 :math:`y-1` 次实验中任意成功 :math:`r-1` 次即可，这符合二项式分布的定义，
+根据二项式分布的概率分布函数 :eq:`eq_nb_010` 可以得到 :math:`y-1` 次实验中成功 :math:`r-1` 的概率为
+:math:`Bin(y-1,r-1)` ，第 :math:`y` 次是成功的，其概率是 :math:`\pi`
+，因此实验总次数的变量 :math:`Y` 的概率分布函数为
+
+.. math::
+    :label: eq_nb_014
+
+    f(y;r,\pi) & = \underbrace{Bin(y-1,r-1)}_{\text{前(y-1)次}} \times
+    \underbrace{\pi}_{\text{第y次}}
+
+    &= \binom{y-1}{r-1} \pi^{r-1}(1-\pi)^{y-r} \pi
+
+    &= \binom{y-1}{r-1} \pi^{r}(1-\pi)^{y-r}
+
+    &= \frac{\Gamma(y)}{\Gamma(r)\Gamma(y-r-1)  } \pi^{r}(1-\pi)^{y-r}
+
+
+
+**第二种定义方式**
+
+
+变量 :math:`Y` 表示事件第 :math:`r` 次成功前失败的次数。
+注意是一共成功了 :math:`r` 次，在这之前失败了 :math:`y` 次，实验总次数是 :math:`y+r` 。
+由于第 :math:`y+r` 次一定是成功的，故只要在前面的 :math:`y+r-1` 次中找出成功的 :math:`r-1`
+次的组合次数即可，这符合二项式分布 :math:`Bin(y+r-1,r-1)` ，
+最终变量 :math:`Y` 的概率分布为
+
+
+.. math::
+    :label: eq_nb_015
+
+    f(y;r,\pi) &= \underbrace{ Bin(y+r-1,r-1) }_{\text{前(y+r-1)次}} \times
+    \underbrace{\pi}_{\text{第(y+r)次}}
+
+    &=\binom{y+r-1}{r-1} \pi^{r-1} (1-\pi)^{y} \pi
+
+    &=\binom{y+r-1}{r-1} \pi^{r} (1-\pi)^{y}
+
+    &=\binom{y+r-1}{y} \pi^{r} (1-\pi)^{y}
+
+    &= \frac{\Gamma(y+r)  }{\Gamma(y+1)\Gamma(r)}  \pi^{r}(1-\pi)^{y}
+
+
+无论哪种方式，:math:`r` 的含义都是一样的，
+:eq:`eq_nb_015` 是 :eq:`eq_nb_014` 的平移，相当于把 :math:`y`
+平移到 :math:`y+r` ，二者的概率分布曲线是完全一致的，
+只是对变量 :math:`Y` 的定义有些差异，但这不影响使用，
+二者可以看做是等价的。
+
+
+
+
+
+泊松-伽马混合分布
+=================================
+
+
+
+假设变量 :math:`Y` 是泊松变量，其概率质量函数为
+
+
+.. math::
+    :label: eq_nb_020
+
+    P(Y) = \frac{\lambda^y e^{-\lambda}} {y!}
+
+
+其中唯一的参数 :math:`\lambda` 是泊松分布的期望参数，
+在本书之前的所有内容中，都是假设概率分布的参数是数值参数，不是随机量。
+现在我们假设泊松分布的期望参数 :math:`\lambda` 也是一个随机量，
+并且它的概率分布是 ``Gamma`` 分布，我们采用 ``Gamma`` 分布 :eq:`eq_gamma_012`
+的参数化方法，两个参数分别是形状(shape)参数 :math:`\alpha` 和尺度(scale)参数 :math:`\beta` 。
+
+.. math::
+    :label: eq_nb_021
+
+    f(\lambda;\alpha,\beta) =
+    \frac{  \beta^{\alpha} }{ \Gamma(\alpha)} \lambda^{\alpha-1} e^{-\beta \lambda  }
+    \quad (\lambda,\alpha,\beta > 0)
+
+
+
+
+
+此时响应变量 :math:`Y` 和参数变量 :math:`\lambda` 的联合概率分布为
+:math:`p(Y,\lambda)=p(\lambda) p(Y|\lambda)` ，
+需要通过边缘化(积分消掉参数变量)的方法得到边缘概率 :math:`p(Y)` 。
+
+.. math::
+    :label: eq_nb_022
+
+    P(Y) = \int_0^{\infty} P(\lambda) P(Y|\lambda) d \lambda
+
+
+把 :eq:`eq_nb_020` 和 :eq:`eq_nb_021` 代入到  :eq:`eq_nb_022`
+，并计算积分得到变量 :math:`Y` 边缘概率分布函数。
+
+.. math::
+    :label: eq_nb_023
+
+    f(y) &=  \int_0^{\infty}
+    \frac{ \beta^{\alpha} \lambda^{\alpha-1} e^{-\beta \lambda  }   }{ \Gamma(\alpha)}
+    \frac{\lambda^y e^{-\lambda}} {y!} d \lambda
+
+    &= \int_0^{\infty} \frac{ \beta^{\alpha} }{ \Gamma(\alpha) y!}
+      \lambda^{\alpha-1} e^{- \beta \lambda } \lambda^y e^{-\lambda}  d \lambda
+
+    &= \int_0^{\infty} \frac{ \beta^{\alpha} }{ \Gamma(\alpha) y!}
+      \lambda^{\alpha+y-1} e^{- (\beta+1) \lambda }  d \lambda
+
+    &=  \frac{ \beta^{\alpha} }{ \Gamma(\alpha) y!} \int_0^{\infty}
+      \lambda^{\alpha+y-1} e^{- (\beta+1) \lambda }  d \lambda
+
+    &=  \frac{ \beta^{\alpha} }{ \Gamma(\alpha) y!}
+        \int_0^{\infty}
+        \frac{ \Gamma(\alpha+y)}{ (\beta+1)^{\alpha+y} }
+        \frac{  (\beta+1)^{\alpha+y} }{ \Gamma(\alpha+y)}
+        \lambda^{\alpha+y-1} e^{- (\beta+1) \lambda }  d \lambda
+
+    &=  \frac{ \beta^{\alpha} }{ \Gamma(\alpha) y!}
+        \frac{ \Gamma(\alpha+y)}{ (\beta+1)^{\alpha+y} }
+        \underbrace{\int_0^{\infty}
+        \underbrace{ \frac{  (\beta+1)^{\alpha+y} }{ \Gamma(\alpha+y)}
+        \lambda^{\alpha+y-1} e^{- (\beta+1) \lambda } }_{ Gamma(\alpha+y,\beta+1)  }  d \lambda }_{\text{积分为1}}
+
+    &=  \frac{ \beta^{\alpha} }{ \Gamma(\alpha) y!}
+        \frac{ \Gamma(\alpha+y)}{ (\beta+1)^{\alpha+y} }
+
+    &= \frac{\Gamma(y+\alpha)  }{\Gamma(y+1) \Gamma(\alpha) }
+        \frac{\beta^{\alpha}}{(\beta+1)^{\alpha} (\beta+1)^{y} }
+
+    &= \frac{\Gamma(y+\alpha)  }{\Gamma(y+1) \Gamma(\alpha) }
+        \left ( \frac{\beta}{\beta+1} \right )^{\alpha}
+        \left ( \frac{1}{\beta+1} \right )^{y}
+
+现在重新参数化 :eq:`eq_nb_023` ，令 :math:`r=\alpha,\pi=\beta/(\beta+1)`
+，则公式 :eq:`eq_nb_023` 可以转化成
+
+.. math::
+    :label: eq_nb_024
+
+    f(y;r,\pi) =\frac{\Gamma(y+r)  }{\Gamma(y+1) \Gamma(r) }
+    \pi^r (1-\pi)^y
+
+这和 :eq:`eq_nb_015` 完全一样的，可见泊松-伽马混合模型本质上就是负二项式分布。
+
+
+辅助参数 :math:`\alpha` 的影响
+================================================================
+
+负二项式分布有两个参数，一个是期望参数 :math:`\mu` ，
+一个是辅助参数 :math:`\alpha` ，
+根据前面的推导过程可知辅助参数 :math:`\alpha` 一定是大于0的，
+首先给 :math:`\alpha` 赋值一个接近 :math:`0` 的值，
+观察下当 :math:`\alpha \approx 0` 时负二项式分布的特点。
+:numref:`fg_nb_alpha_0.001` 是 :math:`\alpha=0.001` 时
+负二项式分布概率质量函数的曲线图。
+
+
+.. note::
+    注意，负二项式分布是离散变量的的分布，离散分布的概率分布函数称为概率质量函数，
+    概率质量函数应该是离散的点图，为了方便观测概率的变化规律，
+    我们把点图用线连接起来，观察曲线的变化。
+
+
+
+.. _fg_nb_alpha_0.001:
+
+.. figure:: pictures/负二项式分布_alpha_0.001.jpg
+    :scale: 70 %
+    :align: center
+
+    当 :math:`\alpha=0.001` 时，不同 :math:`\mu` 值下负二项式分布的概率质量函数
+
+
+
+对比下 :numref:`fg_nb_alpha_0.001` 和泊松分布的概率质量函数的分布图
+(:numref:`fg_poisson_002`)，可以发现二者基本是一致的。
+因此负二项式分布的辅助参数 :math:`\alpha=0` 时，就等价于泊松分布，
+**泊松分布可以看做是负二项式分布的一个特例** 。
+
+
+
+.. _fg_nb_alpha_0.33:
+
+.. figure:: pictures/负二项式分布_alpha_0.33.jpg
+    :scale: 70 %
+    :align: center
+
+    当 :math:`\alpha=0.33` 时，不同 :math:`\mu` 值下负二项式分布的概率质量函数。
+    相比于 :math:`\alpha=0.001` 时，曲线凸起的部分向左移动了。
+
+
+现在我们逐渐增大 :math:`\alpha` 的值，
+:numref:`fg_nb_alpha_0.33` 是 :math:`\alpha=0.33` 的分布图，
+可以看出曲线上凸起的部分向左移动了一些。
+我们继续增大 :math:`\alpha` 的值，
+如 :numref:`fg_nb_alpha_0.67` ，
+把 :math:`\alpha` 设置为 :math:`0.67` ，
+可以发现原来凸起的部分逐渐消失。
+
+
+.. _fg_nb_alpha_0.67:
+
+.. figure:: pictures/负二项式分布_alpha_0.67.jpg
+    :scale: 70 %
+    :align: center
+
+    当 :math:`\alpha=0.67` 时，图形左侧凸起逐渐消失了。
+
+把 :math:`\alpha` 的值进一步增大到 :math:`1.0` ，
+变成了 :numref:`fg_nb_alpha_0.67` 所示的图形，
+图形基本都变成了下凹的形状。
+:math:`\alpha=1.0` 的负二项式分布又叫做几何(geometric)分布，
+**几何分布是负二项式分布的一个特例**。
+对比下 :numref:`fg_nb_alpha_1.0` 和指数分布的图形( :numref:`Exponential_distribution_pdf` )
+，可以发现二者的图形几乎是一致的。
+**事实上几何分布是指数分布的离散版本，指数分布是一个连续值概率分布，而几何分布与指数分布是离散相关的**。
+
+.. note::
+    指数分布是连续值概率分布，连续值随机变量的概率分布函数叫做概率密度函数(probability density function,pdf)；
+    离散随机变量的概率分布函数叫做概率质量函数(probability mass function,pmf)。
+    概率密度函数的曲线图纵坐标不是概率值，需要积分才能得到概率值；
+    而概率质量函数的曲线图纵坐标直接就是对应的概率值。
+
+.. _fg_nb_alpha_1.0:
+
+.. figure:: pictures/负二项式分布_alpha_1.0.jpg
+    :scale: 70 %
+    :align: center
+
+    当 :math:`\alpha=1.0` 时，负二项式分布又称为几何分布，并且和指数分布是离散相关的。
+
+
+
+继续增大 :math:`\alpha` 的值，如 :numref:`fg_nb_alpha_1.5` 和
+:numref:`fg_nb_alpha_3.0` 所示，图形的左下角会越来越凹陷，
+并且随着 :math:`\alpha` 的增加，各个不同的期望 :math:`\mu` 值的曲线会逐渐重合在一起，
+这意味着当 :math:`\alpha` 足够大时，期望参数 :math:`\mu` 的影响力逐渐变小。
+
+
+.. _fg_nb_alpha_1.5:
+
+.. figure:: pictures/负二项式分布_alpha_1.5.jpg
+    :scale: 70 %
+    :align: center
+
+    当 :math:`\alpha=1.0` 时，不同 :math:`\mu` 值下负二项式分布的概率质量函数
+
+
+.. _fg_nb_alpha_3.0:
+
+.. figure:: pictures/负二项式分布_alpha_3.0.jpg
+    :scale: 70 %
+    :align: center
+
+    当 :math:`\alpha=1.0` 时，不同 :math:`\mu` 值下负二项式分布的概率质量函数
+
+
+最后我们固定 :math:`\mu` 的值，直接对比不同的 :math:`\alpha` 下图形的差异。
+:numref:`fg_nb_mu_4.0` 是 :math:`\mu` 固定为 :math:`4.0`
+，:math:`\alpha` 取不同值时负二项式分布的图形。
+可以看出，:math:`\alpha` 等于 :math:`0` 时，
+负二项式分布在期望值附近的概率时最大的，
+而随着 :math:`\alpha` 增大，负二项式分布中 :math:`0` 的概率逐步增大。
+
+.. _fg_nb_mu_4.0:
+
+.. figure:: pictures/负二项式分布_mu_4.0.jpg
+    :scale: 70 %
+    :align: center
+
+    固定 :math:`\mu=4.0` ，不同 :math:`\alpha` 的值对图形的影响。
+
+
+
+反过来，
+固定 :math:`\alpha` 的值，:math:`\mu` 越大，:math:`0` 的概率就越小，图形就越接近高斯分布。
+最后我们总结下负二项式分布中 :math:`\mu` 和 :math:`\alpha` 的关系。
+
+
+- 固定 :math:`\mu` ，:math:`\alpha` 越大，:math:`0` 的概率越大。
+- 固定 :math:`\alpha` ，:math:`\mu` 越大，:math:`0` 的概率越小。
+
+
+
+负二项回归模型
+##########################
+
+负二项式分布同样属于指数族分布，因此负二项式回归模型可以纳入到GLM框架中，
+作为GLM的一员。
+先把 :eq:`eq_nb_024` 作为负二项式分布的概率分布函数，并把它转化成指数族的形式。
+
+.. math::
+    :label: eq_nb_031
+
+    f(y;r,\pi) &= \exp \left \{ \ln \left [ \frac{\Gamma(y+r)  }{\Gamma(y+1) \Gamma(r) }
+    \pi^r (1-\pi)^y \right ] \right \}
+
+    &= \exp \left \{
+    y \ln (1-\pi) + r\ln \pi + \ln \frac{\Gamma(y+r)  }{\Gamma(y+1) \Gamma(r) }
+    \right \}
+
+因此，有
+
+.. math::
+
+    \text{自然参数} & \quad \theta = \ln (1-\pi)
+
+    & \quad \pi = 1- e^\theta
+
+    \text{累积分布函数} & \quad b(\theta) = - r\ln \pi = -r \ln (1-e^\theta)
+
+    \text{分散函数} & \quad a(\phi) = 1
+
+现在来看下负二项式分布的期望与方差，指数族分布的期望与方差函数可以分别由
+累积分布函数 :math:`b(\theta)` 的一阶导和二阶导得到。
+
+
+.. math::
+
+    b'(\theta) &= \frac{\partial b}{ \partial \pi} \frac{\partial \pi}{ \partial \theta}
+
+    &= \left (- \frac{r}{\pi} \right ) \{  -(1-\pi) \}
+
+    &= \frac{r(1-\pi)}{\pi}
+
+    &= \mu
+
+.. math::
+
+    b''(\theta) &= \frac{\partial^2 b}{ \partial \pi^2} \left (\frac{\partial \pi}{ \partial \theta} \right )^2
+    +  \frac{\partial b}{ \partial \pi} \frac{\partial^2 \pi}{ \partial \theta^2}
+
+    &= \left ( \frac{r}{\pi^2}  \right )(1-\pi)^2 + \frac{r}{\pi}(1-\pi)
+
+    &=\frac{r(1-\pi)^2  +r\pi(1-\pi)  }{\pi^2}
+
+    &= \frac{r(1-\pi)}{\pi^2}
+
+    &= \mu + \frac{\mu^2}{r}
+
+    &= \nu(\mu)
+
+
+有了方差函数后，可得到方差为
+
+.. math::
+
+    V(Y) = a(\phi)\nu(\mu) = \mu + \frac{\mu^2}{r}
+
+
+这个形式下的方差函数，参数 :math:`r` 在分母的位置，不是很"美观"，
+通常情况下会重新参数化一下，令 :math:`\alpha=1/r`
+，使用参数 :math:`\alpha` 重新参数化负二项式模型后，负二项式分布的期望和方差分别为
+
+.. math::
+
+    \text{期望} & \quad \mu = \frac{1-\pi}{\alpha \pi}
+
+      & \quad \pi = \frac{1}{1+\alpha \mu}
+
+    \text{方差} & \quad V(Y) = \mu + \alpha \mu^2
+
+
+负二项式分布的概率分布函数 :eq:`eq_nb_031` 用期望参数 :math:`\mu` 和 参数 :math:`\alpha`
+重新参数化后为
+
+.. math::
+    :label: eq_nb_035
+
+
+    f(y;\alpha,\mu)  &= \exp \left \{
+    y \ln (1-\pi) + r\ln \pi + \ln \frac{\Gamma(y+r)  }{\Gamma(y+1) \Gamma(r) }
+    \right \}
+
+    &= \exp \left \{
+    y \ln \left (\frac{\alpha \mu}{1+\alpha \mu} \right )- \frac{1}{\alpha} \ln (1+\alpha \mu) + \ln \frac{\Gamma(y+1/\alpha)  }{\Gamma(y+1) \Gamma(1/\alpha) }
+    \right \}
+
+:eq:`eq_nb_035` 是负二项式模型的标准指数族形式，其标准连接函数为
+
+.. math::
+
+    \eta = \theta = \ln \left (\frac{\alpha \mu}{1+\alpha \mu} \right )
+
+标准连接函数的响应函数为
+
+.. math::
+
+
+    \mu = \frac{\exp(\eta)}{\alpha[1-\exp(\eta)] }
+
+
+采用标准连接函数的负二项式模型通常简称为 ``NB-C`` 模型，
+
+因此有
+
+.. math::
+
+
+    \text{自然参数} & \quad \theta = \ln \left (\frac{\alpha \mu}{1+\alpha \mu} \right )
+
+
+    \text{累积分布函数} & \quad b(\theta) =  \frac{1}{\alpha} \ln (1+\alpha \mu)
+
+    \text{期望} & \quad b'(\theta) =  \mu
+
+    \text{方差函数} & \quad \nu(\mu) = b''(\theta) =  \mu + \alpha \mu^2
+
+    \text{分散函数} & \quad a(\phi) = 1
+
+    \text{方差} & \quad V(Y) =  a(\phi)\nu(\mu) = \mu + \alpha \mu^2
+
+    \text{标准连接函数} & \quad g(\mu) = \ln \left (\frac{\alpha \mu}{1+\alpha \mu} \right )
+
+    \text{标准连接函数一阶导}  & \quad g'(\mu) = \frac{1}{\mu+\alpha \mu^2}
+
+    \text{响应函数}  & \quad \mu = \frac{\exp(\eta)}{\alpha[1-\exp(\eta)] }
+
+
+
+参数估计
+#####################################################
+
+参数 :math:`\alpha` 通常被称为辅助(ancillary)参数或者尺度(scale)参数
+，
+只有 :math:`\alpha` 是一个常数的时，负二项式回归模型才能纳入到 ``GLM`` 的框架下，
+这是因为 ``GLM`` 框架的 ``IRLS`` 算法只能估计协变量参数 :math:`\beta` ，
+无法同时估计出额外的参数，需要在应用 ``IRLS`` 算法前通过其它的方法确定
+:math:`\alpha` 的值，然后把 :math:`\alpha` 的值代入到GLM中，当做一个常量值。
+我们先给出 ``NB-C`` 模型的 ``IRLS`` 算法过程，
+然后再讨论如何用最大似然估计同时估计参数 :math:`\alpha`
+和协变量参数 :math:`\beta`
+。
+
+IRLS
+===================================================
+
+``NB-C`` 模型的概率质量函数为 :eq:`eq_nb_035`
+，其对数似然函数为
+
+.. math::
+
+    \ell(\mu;y,\alpha) = \sum_{i=1}^N  \left \{
+    y_i \ln \left (\frac{\alpha \mu_i}{1+\alpha \mu_i} \right )
+    - \frac{1}{\alpha} \ln (1+\alpha \mu_i)
+    + \ln \Gamma(y_i+1/\alpha)
+    - \ln \Gamma(y_i+1) - \ln \Gamma(1/\alpha)
+    \right \}
+
+
+
+
+``NB-C`` 模型采用的标准连接函数，标准连接函数为
+
+.. math::
+
+    g(\mu) = \ln \left (\frac{\alpha \mu}{1+\alpha \mu} \right )
+    = - \ln [ 1+ 1/ (\alpha \mu ) ]
+
+标准连接函数的导数为
+
+.. math::
+
+    g'(\mu) = \frac{1}{\mu+\alpha \mu^2}
+
+
+依此可以给出 ``IRLS`` 算法过程中的权重矩阵 :math:`W` 和工作响应矩阵 :math:`Z`
+，分别为
+
+.. math::
+
+    W_{ii} &=  \frac{ 1}{ a(\phi) \nu(\hat{\mu}_i) ( g' )^2}
+
+    &=
+    \hat{\mu}_i + \alpha \hat{\mu}_i^2
+
+
+
+.. math::
+
+
+    Z_i &=  (y_i- \hat{\mu}_i) g'  + \eta_i
+
+     &=   \frac{(y_i- \hat{\mu}_i)}{\hat{\mu}_i + \alpha \hat{\mu}_i^2}  + \eta_i
+
+
+
+
+偏差统计量为
+
+.. math::
+
+    D = 2\sum_{i=1}^N \left \{
+        y_i \ln \left ( \frac{y_i}{ \hat{\mu}_i} \right )
+    - \left ( y_i + \frac{1}{\alpha} \right ) \ln \left (  \frac{1+\alpha y_i}{1+\alpha \hat{\mu}_i} \right )
+    \right \}
+
+
+``NB-C`` 模型IRLS算法过程:
+
+
+
+.. line-block::
+
+        :math:`\mu=\{y+mean(y)\}/2`
+        :math:`\eta=- \ln \{ 1/(\alpha\mu) +1 \}`
+        WHILE ( abs( :math:`\Delta Dev` ) > tolerance) {
+            :math:`W=\mu+\alpha \mu^2`
+            :math:`Z=\{ \eta +(y-\mu)/W \}`
+            :math:`\beta=(X^TWX)^{-1}X^TWZ`
+            :math:`\eta = X\beta`
+            :math:`\mu=1/\{ \alpha(e^{-\eta} -1 ) \}`
+            OldDev=Dev
+            Dev = :math:`2\sum \{ y\ln(y/\mu) -(y+1/\alpha)\ln[(1+\alpha y)/(1+\alpha \mu)] \}`
+            :math:`\Delta Dev` =Dev - OldDev
+        }
+        :math:`\chi^2=\sum [ (y-\mu)^2/(\mu+\alpha \mu^2)]`
+
+
+
+.. _fg_nb_irls:
+
+.. figure:: pictures/irls.png
+    :scale: 70 %
+    :align: center
+
+    ``NB-C`` 模型的 ``IRLS`` 算法过程
+
+
+参数 :math:`\alpha` 的估计
+=====================================
+
+
+.. math::
+
+    \frac{\partial \ell }{\partial \mu}
+    =  \sum_{i=1}^N \frac{y_i - \mu_i}{\mu_i (1+\alpha \mu_i )}
+
+.. math::
+
+    \frac{\partial \ell }{\partial \beta_j}
+    = \sum_{i=1}^N \frac{x_{ij} (y_i - \mu_i )}{1+\alpha \mu_i }
+
+
+
+
+.. math::
+
+
+    \frac{\partial \ell }{\partial \alpha} =  \sum_{i=1}^N
+    \left \{
+    \frac{1}{\alpha^2} \left [ \ln(1+\alpha \mu_i) +\frac{\alpha(y_i - \mu_i)}{1+\alpha \mu_i}  \right ]
+    + \psi \left ( y_i + \frac{1}{\alpha} \right )
+    - \psi \left ( \frac{1}{\alpha} \right )
+    \right \}
+
+
+.. math::
+
+    \frac{\partial^2 \ell}{\partial \beta_j \beta_k} = \sum_{i=1}^N
+    \left [
+    -x_{ij}x_{ik} \frac{\mu_i(1+\alpha y_i)}{(1+\alpha \mu_i)^2}
+    \right ]
+
+
+
+.. math::
+
+    \frac{\partial^2 \ell}{\partial \beta_j \partial \alpha } = \mathbb{E} \left [
+    - \sum_{i=1}^N
+    \frac{\mu_i(y_i - \mu_i)x_{ij}}{(1+\alpha \mu_i)^2}
+    \right ]
+
+
+.. math::
+
+    \frac{\partial^2 \ell}{\partial \alpha^2} = \sum_{i=1}^N
+    & \left \{
+    - \frac{1}{\alpha^3} \left [
+    \frac{\alpha(1+2\alpha \mu)(y_i-\mu_i) - \alpha \mu_i (1+\alpha \mu_i)}{(1+\alpha \mu_i)^2}
+    + 2\ln(1+\alpha \mu_i)
+    \right ] \right.
+
+    & \left. + \psi' \left ( y_i + \frac{1}{\alpha} \right )
+    - \psi' \left (  \frac{1}{\alpha} \right )
+    \right \}
+
+
+
+
+
+
+负二项式模型扩展
+#########################################
+
+
+
+
+对数连接函数
+===============================
+
+采用对数连接的负二项式模型简称为 ``NB-2`` 模型，:math:`\alpha=0` 的
+``NB-2`` 模型就等价于泊松模型。
+传统的泊松回归模型经常会面临过度分散的问题，
+``NB-2`` 模型通常会看做是泊松模型的"改进版"，
+是处理泊松过度分散数据最常用的方法，
+而标准连接的 ``NB-C`` 模型很少使用。
+
+
+
+
+把 ``NB-C`` 模型转换成 ``NB2`` 模型，只需要更换连接函数和响应函数(反连接函数)即可。
+
+- 连接函数： :math:`\eta=\ln(\mu)`
+- 响应函数： :math:`\mu=exp(\eta)`
+
+
+``NB2`` 模型的概率质量函数的指数族形式为
+
+.. math::
+    :label: eq_nb_51
+
+
+    f(y;\alpha,\mu)
+    = \exp \left \{
+    y \ln  ( \mu  )- \frac{1}{\alpha} \ln (1+\alpha \mu) + \ln \frac{\Gamma(y+1/\alpha)  }{\Gamma(y+1) \Gamma(1/\alpha) }
+    \right \}
+
+
+``NB2`` 模型的偏差统计量为
+
+.. math::
+
+    D = 2\sum_{i=1}^N \left \{
+        y_i \ln \left ( \frac{y_i}{ \hat{\mu}_i} \right )
+    - \frac{1}{\alpha}  \ln \left (  \frac{1+\alpha y_i}{1+\alpha \hat{\mu}_i} \right )
+    \right \}
+
+
+``NB2`` 模型的 ``IRLS`` 算法过程和 ``NB-C`` 模型几乎没有差别，
+只是把对应的连接函数及其导数部分替换一下即可。
+``NB2`` 模型关键组件为
+
+
+.. math::
+
+    \text{连接函数} \quad  &\eta = g(\mu) = \ln (\mu)
+
+    \text{连接函数一阶导} \quad  &g'(\mu) = 1/\mu
+
+    \text{连接函数二阶导} \quad  &g''(\mu) = -1/\mu^2
+
+    \text{方差} \quad  &V(\mu) = a(\phi)\nu(\mu) = \mu+\alpha \mu^2
+
+    \text{方差一阶导} \quad  &V'(\mu) = 1+ 2\alpha \mu
+
+    \text{方差的平方} \quad  &V^2(\mu) = ( \mu+\alpha \mu^2)^2
+
+``IRLS`` 算法过程的权重 :math:`W` 和工作响应 :math:`Z`
+分别为
+
+.. math::
+
+    W &= \text{diag} \left \{ \frac{ 1}{ V(\hat{\mu}) ( g' )^2}
+    \right \}_{(N\times N)}
+
+    &= \text{diag} \left \{
+    \frac{\mu}{1+\alpha \mu}
+    \right \}_{(N\times N)}
+
+
+
+.. math::
+
+
+    Z &=   \left \{ (y- \hat{\mu}) g'  + \eta
+    \right \}_{(N\times 1 )}
+
+     &=   \left \{ \frac{(y- \hat{\mu})}{\hat{\mu}}  + \eta
+    \right \}_{(N\times 1 )}
+
+
+
+
+
+在传统的GLM算法中，参数估计算法IRLS使用的是期望信息矩阵 ``EIM``
+，对于采用标准连接函数的 ``NB-C`` 模型来说，期望信息矩阵 ``EIM``
+和观测信息矩阵 ``OIM`` 是等价的。
+然而 ``NB-2`` 模型是非标准连接函数，此时期望信息矩阵 ``EIM`` 和
+观测信息矩阵 ``OIM`` 不再相等。
+在 ``NB-2`` 的参数估计过程中，要想利用观测信息矩阵 ``OIM``
+计算参数的标准误，就需要对IRLS算法做一些改动。
+
+.. note::
+    回顾一下，``GLM`` 的参数估计算法，传统的最大似然估计是利用观测信息矩阵 ``OIM`` 计算参数估计量的标准误，
+    ``IRLS`` 算法利用期望信息矩阵 ``EIM`` 替代了观测信息矩阵 ``OIM`` ，而利用 ``EIM``
+    计算出的参数估计量标准误是有一定误差的。对于采用标准连接函数的GLM模型，``OIM`` 和 ``EIM``
+    是等价的，使用 ``EIM`` 也没有关系。然而非标准连接的 ``GLM`` 模型，``OIM`` 和 ``EIM`` 是不一样的，
+    此时要想得到准确的参数估计量标准误，就需要对 ``IRLS`` 做一些改动。
+
+
+.. todo:
+
+    EIM 改成 OIM 需要对 W 和Z做的修改， 参考 Generalized Linear Models and Extensions 13.3 节
+    以及 《Negative Binomial Regression》 8.4.3节
+
+
+
+``NB-2`` 模型和泊松模型连接函数都是对数函数，两个模型不同的是方差，
+泊松模型的方差等于期望 :math:`\mu`
+，而 ``NB-2`` 模型的方差是 :math:`\mu+\alpha \mu^2`
+，``NB-2`` 模型的方差多出来一项 :math:`\alpha \mu^2`
+，就是这多出来的一项使得 ``NB-2`` 模型的理论方差不再是和期望相同，
+并且可以通过参数 :math:`\alpha` 调节方差和期望的大小关系，
+可以拟合泊松过度分散的数据，
+因此 ``NB-2`` 模型是最常用的用于替代泊松模型处理泊松过度分散数据的方案。
+
+
+参数 :math:`\alpha` 的估计
+================================================================
+
+辅助参数 :math:`\alpha` 和分散参数 :math:`\phi`
+是不同的。分散参数 :math:`\phi` 不影响协变量参数 :math:`\beta`
+的估计过程，因此可以在 ``IRLS`` 算法之后利用皮尔逊分散统计量估计。
+然而，辅助参数 :math:`\alpha` 是会影响协变量参数 :math:`\beta` 的估计过程的，
+所以 :math:`\alpha` 的估计是不同于 :math:`\phi` 的。
+
+
+负二项式模型中 :math:`\alpha` 参数的确定一般有两种方法，一种是在 ``IRLS`` 以外，
+用某种方法确定 :math:`\alpha` 的值，然后把它当成一个常量代入 ``IRLS`` 过程。
+此时负二项式模型就是一个标准的单参数 ``GLM`` 模型，可以使用 ``IRLS`` 进行协变量参数估计。
+
+
+如果需要模型自行估计 :math:`\alpha`
+，就需要修改 ``IRLS`` 算法的过程，在 ``IRLS`` 迭代的过程中插入 :math:`\alpha` 的估计的过程。
+在 ``IRLS`` 迭代的每一步中插入一个 :math:`\alpha` 的估计过程，
+:math:`\alpha` 和 :math:`\beta` 交替估计。
+
+在一个迭代步骤中，先假设 :math:`\alpha` 是已知的，执行 :math:`\beta` 的估计过程，
+然后再利用 :math:`\beta` 的估计值，估计 :math:`\alpha` 的值。
+
+在 :math:`\beta`  已知的情况下，可以利用皮尔逊分散统计量来估计 :math:`\alpha`
+。理论上，负二项式模型的分散统计量值为 :math:`1`
+，可以利用这个
+
+
+.. math::
+
+    \hat{\phi}=\frac{\chi^2}{N-p}
+    = \sum \frac{(y_i-\mu_i)^2}{(N-p)(\mu_i - \alpha \mu^2_i)}
+    = 1
+
+
+
+几何模型
+=====================================
+
+当 :math:`\alpha=1` 是，负二项式分布就变成了几何分布，
+几何分布是负二项式分布的一个特例。
+分别把 ``NB-C`` 模型和 ``NB-2`` 模型
+的 :math:`\alpha` 设置为 :math:`1` 就得到了
+标准连接和对数连接的几何分布。
+
+标准连接的 ``NB-C`` 模型的概率质量函数 :eq:`eq_nb_035`
+转换成几何分布的概率质量函数为
+
+
+.. math::
+    :label: eq_nb_55
+
+    f(y;\mu)
+    = \exp \left \{
+    y \ln  \left (\frac{\mu}{1+\mu}  \right  )-  \ln (1+\mu)
+    \right \}
+
+
+
+对数连接的 ``NB-2`` 模型的概率质量函数 :eq:`eq_nb_55`
+转换成几何分布的概率质量函数为
+
+
+
+.. math::
+    :label: eq_nb_56
+
+
+    f(y;\mu)
+    = \exp \left \{
+    y \ln  ( \mu  )-  \ln (1+\mu)
+    \right \}
+
+
+
+
+
+相比于负二项式分布，几何分布的概率质量函数没有了 ``Gamma``
+函数的部分，变得更加简洁一些。
+几何分布和指数分布的图形几乎是已知的，
+不同的是，指数分布是连续值分布，
+而几何分布是离散分布，一般称几何分布和指数分布是离散相关的。
+
+
+.. _fg_nb_geometric:
+
+.. figure:: pictures/负二项式分布_alpha_1.0.jpg
+    :scale: 70 %
+    :align: center
+
+    几何分布和指数分布近乎是一致的，
+
+
+几何分布的期望是 :math:`\mu`
+，方差是 :math:`\mu+\mu^2`
+，各个关键组件为
+
+.. math::
+
+
+
+    \text{自然参数} & \quad \theta = \ln \left (\frac{ \mu}{1+ \mu} \right )
+
+
+    \text{累积分布函数} & \quad b(\theta) =  \ln (1+\mu)
+
+    \text{期望} & \quad b'(\theta) =  \mu
+
+    \text{方差函数} & \quad \nu(\mu) = b''(\theta) =  \mu +  \mu^2
+
+    \text{分散函数} & \quad a(\phi) = 1
+
+    \text{方差} & \quad V(Y) =  a(\phi)\nu(\mu) = \mu + \mu^2 = \mu(1+\mu)
+
+    \text{标准连接函数} & \quad g(\mu) = \ln \left (\frac{ \mu}{1+ \mu} \right )
+
+    \text{标准连接函数一阶导}  & \quad g'(\mu) = \frac{1}{\mu+ \mu^2}
+
+
+
+标准连接的对数似然函数为
+
+.. math::
+
+    \ell(\mu;y)
+    &= \sum_{i=1}^N \left \{
+    y_i \ln  \left (\frac{\mu_i}{1+\mu_i}  \right  )-  \ln (1+\mu_i)
+    \right \}
+
+    &=\sum_{i=1}^N \left \{
+    y_i \ln (\mu_i) - (1+y_i) \ln (1+\mu_i)
+    \right \}
+
+
+标准连接的偏差统计量为
+
+.. math::
+
+
+    \mathcal{D} =2\sum_{i=1}^N \left \{
+    y_i \ln \left (\frac{y_i}{\mu_i} \right )
+    -(1+y_i) \ln \left ( \frac{1+y_i}{1+\mu_i} \right )
+    \right \}
+
+
+几何模型是一个单参数模型，因此可以直接应用 ``IRLS``
+算法进行参数估计。
+
+广义负二项式模型
+=================================================
+
+负二项式模型的方差函数为 :math:`\mu+\alpha \mu^2`
+，其中有一个 :math:`\mu` 的二次项，
+如果把二次项改成一次就变成了一个线性参数化方程，
+我们把方差函数为 :math:`\mu+ \alpha \mu` 的模型称为
+线性负二项式模型，简称为 ``NB-1`` 模型。
+泊松模型的方差等于期望 :math:`\mu`
+，而这些扩展模型都是在泊松方差的基础上乘上一个因子，
+不同的乘数因子形成了不同的泊松扩展模型。
+
+- 泊松： :math:`V=\mu`
+- NB1： :math:`V=\mu(1+\alpha )`
+- NB2： :math:`V=\mu(1+\alpha \mu)`
+- 几何： :math:`V=\mu(1+\mu)`
+
+
+
+
+``NB-1`` 模型，或者说线性负二项式模型，
+也可以看做是泊松-伽马混合模型，
+只不过在混合模型的定义和推导上和 ``NB-2`` 模型有些差别。
+
+
+``NB-1`` 模型方差函数是
+:math:`\mu+\alpha \mu`
+，``NB-2`` 模型方差函数是
+:math:`\mu+\alpha \mu^2`
+，二者的差别在于 :math:`\mu` 的幂次不一样，
+按照这个规律是不是可以有更高幂次的模型？
+更进一步，是不是可以把幂次也参数化？
+比如用参数 :math:`Q`
+参数化方差函数的最高幂次，
+则方差函数变为
+
+.. math::
+
+    V = \mu +\alpha \mu^Q
+
+其中 :math:`Q` 是一个待估计的的未知参数。
+把方差函数的幂次参数化，相当于对负二项式模型的方差函数进行了一般化扩展，
+因此我们称之为广义负二项式模型(generalized negative binomial)，
+一般简称为 ``NB-P`` 模型。
+
+``NB-P`` 模型是一个三参数模型，三个参数分别是
+期望参数 :math:`\mu` ，辅助参数 :math:`\alpha`
+，以及参数 :math:`Q`
+，显然已经不再属于 ``GLM`` 框架下的模型，
+无法用 ``GLM`` 原版的 ``IRLS`` 算法进行参数估计。
+
+

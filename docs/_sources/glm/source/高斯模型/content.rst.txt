@@ -1,0 +1,600 @@
+#################################################
+高斯模型
+#################################################
+
+1800年代，
+约翰·卡尔·弗里德里希·高斯（Johann Carl Friedrich Gauss）
+提出了最小二乘拟合方法和以他的名字命名的分布，高斯分布。
+高斯分布的概率密度函数具有对称的钟形形状，通常又被称为正态分布，
+高斯分布是统计学中应用最广泛的概率分布之一。
+传统的线性回归模型就是建立在高斯分布假设的基础上，
+传统线下回归模型也被称普通最小二乘(ordinary least-squares,OLS)模型。
+在最初时，GLM的理论被认为是对普通最小二乘（OLS）模型的扩展，
+因此我们先讨论OLS如何适合GLM框架。
+
+
+
+
+传统线性回归
+#################################################
+
+
+高斯分布是实数域的连续分布，其输入域是整个实数域 :math:`R=(-\infty,+\infty)`
+。用均值 :math:`\mu` 进行参数化的高斯概率密度函数可以表示为：
+
+.. math::
+
+
+    f(y;\mu,\sigma^2)=\frac{1}{\sqrt{2\pi \sigma^2}} \exp \left \{ - \frac{(y-\mu)^2}{2\sigma^2} \right \}
+
+
+其中 :math:`f(\cdot)` 表示在给定参数 :math:`\mu` 和 :math:`\sigma^2` 时，变量 :math:`y` 的概率密度函数的一般形式。
+:math:`y` 表示输出变量， :math:`\mu` 表示均值参数， :math:`\sigma^2` 表示尺度参数(scale parameter)。
+
+
+基于高斯分布的回归模型通常称为普通最小二乘(ordinary least-squares,OLS)模型，该回归模型通常是统计学模型的入门模型。
+在传统线性回归模型中，我们定义响应变量和特征变量的之间的关系是：
+
+.. math::
+    y = \beta^T x + \epsilon
+
+其中 :math:`\beta^T x` 是输入变量的线性预测器，:math:`\epsilon` 一个误差项，
+并且模型假设这个误差项服从均值为0的高斯分布，
+:math:`\epsilon \sim \mathcal{N}(0,\sigma^2)` 。
+因此，输出变量 :math:`y` 是一个服从高斯分布的变量 :math:`y \sim \mathcal{N}(\beta^Tx,\sigma^2)`
+。然后模型利用最大似然估计，估计出模型的参数，现在我们用GLM框架来解释OLS。
+
+
+高斯分布
+#################################################
+
+高斯回归模型
+#################################################
+
+
+当响应变量 :math:`Y` 数值范围是实数值时，并且其数据分布是近似高斯分布时，
+就可以为响应变量 :math:`Y` 建立高斯分布假设，本节我们讨论高斯模型在GLM框架下的解释。
+我们首先把高斯分布的概率密度函数转化成指数族的形式。
+
+.. math::
+   :label: eq_gaussian_010
+
+    f(y;\mu,\sigma^2) &=\frac{1}{\sqrt{2\pi \sigma^2}} \exp \left \{ - \frac{(y-\mu)^2}{2\sigma^2} \right \}
+
+    &= \exp \left \{ -\frac{(y-\mu)^2}{2\sigma^2} - \frac{1}{2} \ln (2\pi\sigma^2) \right \}
+
+    &= \exp \left \{ -\frac{y\mu - \mu^2/2}{\sigma^2} - \frac{y^2}{2\sigma^2} - \frac{1}{2} \ln (2\pi\sigma^2) \right \}
+
+
+
+和 :eq:`eq_34_EDF` 对比下，可以直接得到：
+
+
+.. math::
+    :label: eq_gaussian_0010
+
+    \theta &= \mu
+
+    b(\theta) &= \mu^2/2
+
+    a(\phi) &= \sigma^2
+
+
+
+:math:`\theta` 是自然参数，:math:`b(\theta)` 是累积函数(cumulant function)，:math:`a(\phi)` 是分散函数(dispersion function)。
+可以看到对于高斯分布，自然参数 :math:`\theta` 和期望值 :math:`\mu` 之间是恒等函数的关系。
+此外，分布的期望值 :math:`\mu` 和方差函数 :math:`\nu(\mu)` 是可以通过累计函数的导数求得的。
+期望 :math:`\mu` 可以通过累积函数 :math:`b(\theta)` 的一阶导数求得：
+
+.. math::
+
+
+    b'(\theta) &= \frac{\partial b}{\partial \theta}
+
+    &= \frac{\partial b}{\partial \mu} \frac{\partial \mu}{\partial \theta}
+
+    &= (\mu)(1) = \mu
+
+
+方差函数 :math:`\nu(\mu)` 可以通过累积函数 :math:`b(\theta)` 的二阶导数得到。
+
+.. math::
+
+
+    b''(\theta) &= \frac{\partial^2 b}{\partial \theta^2}
+
+    &= \frac{\partial }{\partial \theta} \left ( \frac{\partial b}{\partial \mu} \frac{\partial \mu}{\partial \theta} \right )
+
+    &= \frac{\partial }{\partial \theta}(\mu)
+
+    &= \frac{\partial }{\partial \mu} \mu \frac{\partial \mu}{\partial \theta}
+
+    &= (1)(1)=1 = \nu(\mu)
+
+
+分布方差可以通过分散函数 :math:`a(\phi)` 和方差函数 :math:`\nu(\mu)` 的乘积求得：
+
+.. math::
+
+    \mathrm{Var}(Y)=  a(\phi) \nu(\mu) = \sigma^2
+
+可以看到，**对于高斯分布，其方差是与期望无关的，只和尺度参数相关**。
+此外，通过 :eq:`eq_gaussian_0010` 可以看到，自然参数 :math:`\theta` 和期望值 :math:`\mu` 之间是恒等函数的关系，
+**因此高斯分布的标准连接函数就是恒等函数** 。
+对于高斯分布来说，标准连接函数(canonical link) :math:`g` 是恒等函数，即 :math:`\eta=\mu` 。
+
+.. math::
+
+    \eta=g(\mu)=\mu=\theta
+
+
+由于响应函数 :math:`r` 是连接函数 :math:`g` 的反函数，所以响应函数 :math:`r` 也是恒等函数。
+因此，高斯模型的预测值为：
+
+.. math::
+
+    \hat{y} = \mathbb{E}[Y] = \mu=r(\eta)=\eta =\beta^Tx
+
+显然，这和传统线性回归模型的定义方式是等价的。
+
+
+参数估计
+########################
+
+对于采用标准连接函数的高斯模型，满足 :math:`\theta=\mu=\eta=\beta^T x`
+，此时模型的概率函数表达式是简单的，对数似然函数的求导也比较方便，
+可以直接利用梯度下降法进行求解。
+在GLM框架，我们有一个适用于GLM框架下所有模型的参数估计算法，
+迭代重加权最小二乘法(Iteratively Reweighted Least Square,IRLS)。
+
+采用何种参数估计算法，直接影响着模型的概率函数的参数化方法。
+比如，如果采用IRLS算法，就用均值 :math:`\mu` 参数化模型
+；如果采用牛顿法N-R，就用线性预测器 :math:`\beta^T x` 参数化模型。
+
+
+
+
+似然函数
+============================
+
+
+
+根据 :eq:`eq_gaussian_010` ，可以方便的写出高斯模型的对数似然函数
+
+.. math::
+
+    \ell(\mu,\sigma^2;y)
+   &= \sum_{i=1}^N \left \{ \frac{y_i \mu_i - \mu_i^2/2}{\sigma^2} -
+    \frac{y_i^2}{2\sigma^2} - \frac{1}{2} \ln (2\pi\sigma^2) \right \}
+
+   &= -\frac{1}{2\sigma^2} \sum_{i=1}^N (y_i - \mu_i)^2  -  \frac{N}{2} \ln (2\pi\sigma^2)
+
+
+得分统计量(score statistic)是对数似然函数的一阶偏导数，
+
+.. math::
+
+   U = \frac{\partial \ell}{ \partial \mu_i} = \frac{1}{\sigma^2} \sum_{i=1}^N (Y_i-\mu_i)
+
+
+
+
+上述对数似然函数中是以 :math:`\mu` 参数化的模型，
+然而采用梯度下降法进行参数求解时，需要求出参数 :math:`\beta`
+的导数，并使用 :math:`\beta` 导数作为每次更新迭代的"梯度"，
+所以我们需要用 :math:`\beta^Tx` 对概率分布函数进行参数化。
+均值参数 :math:`\mu` 和线性预测器 :math:`\eta=\beta^Tx`
+之间可以通过响应函数(也可以叫做激活函数，连接函数的反函数)进行连接，
+我们用符号 :math:`r` 表示响应函数。
+高斯模型的标准连接函数是恒等函数，因此其标准响应函数也是恒等函数。
+
+
+.. math::
+
+   \mu = r(\eta)=r(\beta^Tx)=\beta^Tx
+
+
+现在我们用 :math:`\beta` 重新参数化对数似然函数。
+
+
+
+
+.. math::
+
+    \ell(\beta,\sigma^2;y) &= -\frac{1}{2\sigma^2} \sum_{i=1}^N (y_i - \mu_i)^2  -  \frac{N}{2} \ln (2\pi\sigma^2)
+
+    &= -\frac{1}{2\sigma^2} \sum_{i=1}^N (y_i - \beta^T x_i)^2  -  \frac{N}{2} \ln (2\pi\sigma^2)
+
+
+
+
+对于采用标准连接函数的高斯模型的对数似然函数的一阶偏导数为：
+
+
+.. math::
+
+
+    \frac{\partial \ell}{\partial \beta_j} &= \sum_{i=1}^N \frac{1}{\sigma^2}(y_i-\beta^T x_i)x_{jn}
+
+    \frac{\partial \ell}{\partial \sigma} &= \sum_{i=1}^N \frac{1}{\sigma}
+     \left \{ \left ( \frac{y_i-\beta^T x_i}{\sigma} \right )^2 -1 \right \}
+
+
+二阶偏导数为：
+
+.. math::
+
+
+    \frac{\partial^2 \ell}{\partial \beta_j\beta_k} &= - \sum_{i=1}^N \frac{1}{\sigma^2}x_{jn}x_{kn}
+
+    \frac{\partial^2 \ell}{\partial \beta_j \partial \sigma} &= -\sum_{i=1}^N \frac{2}{\sigma^3} (y_i-\beta^Tx_i) x_{jn}
+
+    \frac{\partial^2 \ell}{\partial \sigma \partial \sigma} &= -\sum_{i=1}^N
+    \frac{1}{\sigma^2} \left \{ 3\left ( \frac{y_i-\beta^T x_i}{\sigma} \right )^2 - 1\right \}
+
+有了参数的偏导数，就可以利用梯度下降法或者牛顿法迭代求解。
+这里我们虽然同时给出了 :math:`\sigma` 的偏导计算公式，但实际上在进行最大似然估计的过程中，
+通常是假设 :math:`\sigma` 是已知的，标准的最大似然估计算法是无法同时估计 :math:`\beta` 和 :math:`\sigma`
+的。
+
+
+
+IRLS
+============================
+
+梯度下降法或者牛顿法，需要把对数似然函数用 :math:`\beta` 进行参数化表示，并且求解参数的偏导数，
+在更换连接函数或者指数族分布时，都需要重新求一遍，比较麻烦。
+而IRLS算法提供了一种适用于GLM中全部模型和连接函数的统一的参数迭代求解法，使用起来比较简单。
+现在我们讨论下如何利用IRLS算法求解高斯模型的参数。
+首先回顾一下IRLS算法的过程，然后再给出采用标准连接函数的高斯模型的IRLS算法过程。
+IRLS算法参数更新公式为
+
+.. math::
+   :label: eq_gaussian_0029
+
+    \beta^{(t+1)} = (X^T W^{(t)} X)^{-1} X^T W^{(t)} Z^{(t)}
+
+
+其中 :math:`X` 是样本特征矩阵，:math:`W` 是权重矩阵，它是一个对角矩阵，
+计算方法如下：
+
+.. math::
+   :label: eq_gaussian_0030
+
+    W^{(t)}
+   = \text{diag} \left \{ \frac{ 1}{ a(\phi) \nu(\mu) ( g' )^2}
+    \right \}_{(N\times N)}
+
+
+其中，:math:`a(\phi)` 是分散函数，:math:`\nu(\mu)` 是方差函数，
+:math:`\frac{\partial \mu}{\partial \eta}` 是响应函数 :math:`r` 的导数，
+等价于连接函数 :math:`g` 的导数的倒数（反函数的导数是原函数导数的倒数）。
+:eq:`eq_gaussian_0029` 中 :math:`Z` 的计算方法如下：
+
+.. math::
+
+    Z^{(t)} =   \left \{ (y- \hat{\mu}) g'  + \eta^{(t)}
+    \right \}_{(N\times 1 )}
+
+:math:`\frac{\partial \eta}{\partial \mu}` 是连接函数 :math:`g` 对 :math:`\mu` 的导数。
+在IRLS算法的过程中，不需要把模型用 :math:`\beta` 进行参数化，
+只需要根据具体的分布和连接函数计算出 :math:`W` 和 :math:`Z` 即可。
+
+
+
+在采用标准连接函数的高斯模型中，连接函数 :math:`g` 和响应函数 :math:`r` 都是恒等函数，
+连接函数的导数是常数值。
+
+.. math::
+   g' = g'(\mu) = \mu' = 1
+
+此外，标准链接的高斯模型的方差函数也是常量， :math:`\nu(\mu)=1,a(\phi)=\sigma^2` 。
+所以在采用标准链接，以及方差为常量1的假设下，高斯模型 :math:`W` 和 :math:`Z` 可以通过下式计算。
+
+.. math::
+
+    W^{(t)}  &= \text{diag} \left \{ \frac{ 1}{ a(\phi) \nu(\mu) ( g' )^2}
+    \right \}_{(N\times N)} = {1}
+
+    Z^{(t)}
+    &=  \left \{ (y- \hat{\mu}) g'  + \eta^{(t)}
+    \right \}_{(n\times 1 )} = y
+
+参数 :math:`\beta` 的更新过程也就简化成：
+
+.. math::
+       \beta^{(t+1)} = (X^T X)^{-1} X^T  y
+
+我们看到这和最小二乘法的结果是一致的。
+
+
+
+
+
+
+
+
+拟合优度
+=======================================
+
+
+
+偏差统计量
+------------------------
+
+在传统线下回归模型中，是通过普通最小二乘法(OLS)定义出模型的损失函数，并极小化损失进行参数估计的。
+最小二乘定义的损失称为残差平方和(Residual Sum of Squares,RSS)，
+也叫平方残差和(sum of squared residuals,SSR)，
+又叫平方损失和(sum of squared estimate of errors,SSE)。
+然而在GLM中，我们通过最大化对数似然或者最小化偏差来估计模型的参数，
+最大化对数似然和最小化偏差二者其实的等价的。
+
+
+高斯分布的概率分布函数为
+
+
+.. math::
+
+    f(y;\beta,\sigma^2) =\frac{1}{\sqrt{2\pi \sigma^2}} \exp \left \{ - \frac{(y-\mu)^2}{2\sigma^2} \right \}
+
+
+
+我们知道似然函数就是所有样本的联合概率，
+模型对样本的预测值的对数似然函数称之为观测对数似然函数(observed log-likelihood function)，
+样本的真实值的对数似然函数称为饱和对数似然函数(saturated log-likelihood function)。
+我们首先写出样本的预测值的观测对数似然函数。
+
+.. math::
+
+    \ell(\hat{\mu},\sigma^2;y)=\sum_{i=1}^N \left \{ \frac{y_i \hat{\mu}_i - \hat{\mu}_i^2/2}{\sigma^2} -
+    \frac{y_i^2}{2\sigma^2} - \frac{1}{2} \ln (2\pi\sigma^2) \right \}
+
+
+
+其中 :math:`y_i` 是第 :math:`i` 条样本的真实值，
+:math:`\hat{\mu}_i` 是模型的期望参数，也是模型的拟合值（预测值）。
+:math:`\sigma^2` 是尺度参数，这里我们假设所有样本是共享尺度参数的，并且暂时认为是常量值，
+因此，上式的似然函数可以继续简化。
+
+.. math::
+
+    \ell(\hat{\mu},\sigma^2;y) &=\sum_{i=1}^N \left \{ \frac{y_i \hat{\mu}_i - \hat{\mu}_i^2/2}{\sigma^2} -
+    \frac{y_i^2}{2\sigma^2}  \right \}  - \frac{N}{2} \ln (2\pi\sigma^2)
+
+    &= \frac{1}{2\sigma^2}\sum_{i=1}^N \left \{ 2 y_i \hat{\mu}_i - \hat{\mu}_i^2 -
+    y_i^2 \right \}  - \frac{N}{2} \ln (2\pi\sigma^2)
+
+    &= - \frac{1}{2\sigma^2}\sum_{i=1}^N   (y_i-\hat{\mu}_i)^2   - \frac{N}{2} \ln (2\pi\sigma^2)
+
+
+我们发现上式就是OLS定义的平方损失的负数，显然殊途同归，在 :math:`\sigma^2` 是常量的假设下，
+最小化平方损失与最大化对数似然是等价的。
+
+
+
+
+现在我们来看下饱和模型的对数似然函数(saturated log likelihood)，在饱和模型中，
+:math:`\mu_i` 不再是模型的预测值，而是样本的真实值，因此对数似然函数是如下的形式。
+
+
+.. math::
+
+    \ell(y,\sigma^2;y) &=\sum_{i=1}^N \left \{ \frac{y_i^2 - y_i^2/2}{\sigma^2} -
+    \frac{y_i^2}{2\sigma^2} - \frac{1}{2} \ln (2\pi\sigma^2) \right \}
+
+    &= \sum_{i=1}^N \left \{- \frac{1}{2} \ln (2\pi\sigma^2) \right \}
+
+
+
+尺度偏差的计算方法是饱和对数似然和观测对数似然的差值的2倍，因此高斯模型的偏差 :math:`D` 为：
+
+.. math::
+   :label: eq_gaussian_040
+
+    D &= 2  \{ \ell(y,\sigma^2;y) - \ell(\hat{\mu},\sigma^2;y) \}
+
+    &= 2 \sum_{i=1}^N \left \{
+     - \frac{1}{2} \ln (2\pi\sigma^2)
+     - \frac{y_i \hat{\mu}_i - \hat{\mu}_i^2/2}{\sigma^2}
+    + \frac{y_i^2}{2\sigma^2}
+    + \frac{1}{2} \ln (2\pi\sigma^2)   \right \}
+
+    &= 2  \sum_{i=1}^N \left \{\frac{ y_i^2  -  2y_i \hat{\mu}_i  + \hat{\mu}_i^2 }{2\sigma^2}  \right \}
+
+    &= \frac{2}{2\sigma^2} \sum_{i=1}^N \left \{ y_i^2  -  2y_i \hat{\mu}_i  + \hat{\mu}_i^2   \right \}
+
+    &=  \frac{1}{\sigma^2} \sum_{i=1}^N  (y_i-\hat{\mu}_i)^2
+
+
+
+
+我们发现，在假设 :math:`\sigma^2=1` 的条件下，
+高斯模型偏差 :math:`D=\sum_{i=1}^N  (y_i-\hat{\mu}_i)^2` 就是平方和损失，在高斯模型中，最小化平方和损失与最小化偏差 :math:`D`
+是等价的，最小化偏差 :math:`D` 又和最大化似然是等价的。这里三者的计算公式中用的 :math:`\mu`
+，所以与连接函数无关的，因此任意连接函数都是成立的。
+**注意，这不是所有GLM模型都有的特性，仅是高斯模型独有的属性。**
+**在高斯模型中，最小二乘法定义的平方损失是模型偏差的一个特例，偏差是RSS在GLM中的扩展。**
+
+
+我们用符号 :math:`\hat{\beta}` 表示参数向量 :math:`\beta` 的估计值，
+偏差统计量 :math:`D` 就可以写成
+
+.. math::
+
+   D &= \frac{1}{\sigma^2} \sum_{i=1}^N   (y_i- x_i\hat{\beta}  )^2
+
+    &= \frac{1}{\sigma^2} (y - X \hat{\beta} )^T  (y - X\hat{\beta})
+
+
+符号 :math:`X` 表示输入数据矩阵，也叫设计矩阵(design matrix)，
+其中 :math:`y - X \hat{\beta}` 可以进行改写，
+用 :math:`\hat{\beta}` 的解析解 :math:`\hat{\beta}=(X^TX)^{-1}X^Ty` 替代。
+
+.. math::
+
+   y - X \hat{\beta} &= y - X(X^TX)^{-1}X^Ty
+
+   &= [ I - X(X^TX)^{-1} X^T  ]y
+
+   &= [ I - H]y
+
+其中定义矩阵 :math:`H=X(X^TX)^{-1} X^T`
+，矩阵 :math:`H` 被称为 **帽子矩阵(hat matrix)**。
+因此偏差 :math:`D` 中的二次项就可以写成
+
+.. math::
+
+   (y - X \hat{\beta} )^T  (y - X\hat{\beta}) =
+   \{[ I - H]y \}^T [ I - H]y
+   = y^T[I-H]y
+
+帽子矩阵 :math:`H` 是幂等的( :math:`H=H^T,HH=H`)
+，利用帽子矩阵可以推导出偏差统计量 :math:`D` 是精确服从卡方分布的，而不是渐近服从，
+这里不介绍推导过程了，有兴趣的可以查看 Graybill 1976。
+
+偏差统计量 :eq:`eq_gaussian_040` 移项可得
+
+.. math::
+
+   \sigma^2 D = \sum (y_i-\hat{\mu}_i)^2
+
+如果模型对数据拟合的比较好，则偏差统计量 :math:`D` 服从
+中心卡方分布 :math:`\chi^2(N-p)`
+，其期望值是 :math:`N-p`
+，我们用 :math:`D` 的期望值 :math:`N-p` 代替 :math:`D`
+就可以得到方差 :math:`\sigma^2` 的一个估计。
+
+.. math::
+   :label: eq_gaussian_050
+
+   \hat{\sigma}^2 = \frac{\sum (y_i-\hat{\mu}_i)^2}{N-p}
+
+
+在之前的章节中我们多次提到可以用样本的方差作为总体方差的一估计值
+
+
+.. math::
+   :label: eq_gaussian_051
+
+   \hat{\sigma}^2 = \frac {\sum (y_i-\bar{y})^2}{N-1}
+
+其中 :math:`\bar{y}` 表示样本的平均值，
+:eq:`eq_gaussian_051` 其实是 :eq:`eq_gaussian_050` 的一个特例。
+当模型只有一个参数时（线性预测器 :math:`\eta=\beta_0` 只有截距参数），
+也就是空模型，此时模型对所有样本的输出值都是一样的，并且就等于训练样本的平均值 :math:`\bar{y}`，
+相当于
+
+.. math::
+   \forall i ,\
+   \exists \
+   \hat{\mu}_i = \bar{y}
+
+当模型参数数量 :math:`p=1` 时，:eq:`eq_gaussian_050` 就变成了 :eq:`eq_gaussian_051`。
+
+皮尔逊卡方统计量
+-------------------------------
+
+高斯模型的方差统计量是常量，
+:math:`\nu(\mu)=1` ，
+根据皮尔逊卡方统计量的定义，高斯模型的皮尔逊卡方统计量为
+
+.. math::
+
+
+    \chi^2 = \sum_{i=1}^N (y_i-\hat{\mu}_i)^2
+
+对于高斯模型来说，皮尔逊卡方统计量，偏差，平方损失和，三者其实是等价的。
+
+其它连接函数
+######################################
+
+使用GLM作为模型构建框架的重要原因是能够轻松调整模型以适合特定的响应数据情况。
+标准链接(canonical-link)高斯模型假定响应数据为正态分布。
+尽管正态分布模型对于克服此假设具有一定的鲁棒性，但仍然有许多数据情况不适合正态分布。
+不幸的是，许多研究人员已将标准链接高斯模型用于不符合高斯模型假设的数据上。
+当然，许多研究人员很少接受非正态分布模型建模方面的培训。
+
+
+**对数高斯(log-Gaussian)模型**
+
+
+
+
+线性预测器 :math:`\eta=\beta^Tx` 的取值范围是整个实数域 :math:`R=(-\infty,+\infty)`
+，连接函数的主要作用就是将实数域的 :math:`\eta` 映射到响应数据的值域。
+当响应数据仍然服从高斯分布，但是其范围不再是整个实数域，而是大于0的实数域时，恒等函数的标准链接(canonical-link)函数将不再适用，
+这时就需要选取一个合适的连接函数，将 :math:`\eta` 从 :math:`R=(-\infty,+\infty)` 映射到
+:math:`R=(0,+\infty)` 。
+log-Gaussian模型仍然是基于高斯分布，但它的连接函数不再是标准链接(canonical-link)，
+而是对数连接函数，对数链接通常用于响应数据是非负值的情况。
+
+
+.. math::
+
+    \eta &= \ln \mu
+
+    \mu &= \exp \{ \eta\}
+
+
+
+在提出GLM框架之前，研究人员在遇到响应数据都是正数的情形时，采用的方法是把响应数据进行对数转化，
+:math:`y=\ln(y)` ，通过这种转换令数据符合整个实数域上的高斯模型假设，然后再利用标准高斯模型进行建模。
+然而事实证明，这种方法在易用性和效果上都不如采用对数连接函数的对数高斯模型。
+对数高斯模型的实现非常简单，只需要把标准高斯模型（采用恒等函数，标准连接函数）的连接函数替换成对数连接函数即可。
+
+
+
+.. math::
+
+    f(y;\beta,\sigma^2) &=\frac{1}{\sqrt{2\pi \sigma^2}} \exp \left \{ - \frac{(y-\exp(\beta^Tx))^2}{2\sigma^2} \right \}
+
+    &= \exp \left \{ -\frac{(y-\exp(\beta^Tx))^2}{2\sigma^2} - \frac{1}{2} \ln (2\pi\sigma^2) \right \}
+
+    &= \exp \left \{ -\frac{y\exp(\beta^Tx) - \exp(\beta^Tx)^2/2}{\sigma^2} - \frac{y^2}{2\sigma^2} - \frac{1}{2} \ln (2\pi\sigma^2) \right \}
+
+
+
+对数高斯模型的对数似然函数(log-likelihood)为：
+
+.. math::
+
+    \ell(\mu;y,\sigma^2) = \sum_{i=1}^N \left [
+    \frac{y_i \exp(\beta^Tx_i) - \{\exp(\beta^Tx_i)\}^2/2  }{\sigma^2}
+    -\frac{y_i^2}{2\sigma^2} - \frac{1}{2}\ln(2\pi\sigma^2)
+    \right ]
+
+
+对数高斯模型就是在标准高斯模型的基础上，把连接函数由 :math:`\eta=\mu` 改成了
+:math:`\eta=\ln(\mu)`
+，相应的响应函数由 :math:`\mu=\eta` 变成 :math:`\mu=\exp(\eta)`
+，对数连接函数及其响应函数的导数分别是
+
+.. math::
+
+    g' &= 1/\mu
+
+    r' &= \exp(\eta)
+
+标准连接函数的导数为1，然而对数连接函数的导数为 :math:`1/\mu` 。
+注意对 :eq:`eq_glm_estimate_ll_jac` 相应位置替换即可得到似然函数的梯度。
+同理，我们可以在不改变IRLS算法流程的情况下，仅需替换掉连接函数 :math:`g`
+，就能使用IRLS算法估计对数高斯模型的参数。
+
+
+标准或正态线性模型、最小二乘线性回归模型，使用恒等连接函数(identity link)，
+这是高斯分布模型的标准形式，
+它对于大多数较小的违反高斯分布假设的数据上都具有较强的鲁棒性。
+但是实际上，它用于对二值、比例和离散计数数据进行建模时，并不适用。
+
+从理论上讲，没有理由将高斯族模型的连接函数限制为恒等连接函数和对数连接函数。
+倒数连接函数，:math:`1/\mu`
+，已经被用于对比例数据进行建模。
+此外，幂连接函数也可能与高斯模型一起使用。
+
+
+
+
+
+
+
+

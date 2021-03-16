@@ -1,0 +1,678 @@
+########################################################
+指数族
+########################################################
+本章我们介绍一类特殊概率分布，叫做指数族分布(exponential family)。
+指数族分布并不是一个具体的概率分布，而是指一类分布，
+这类分布具有某些共同的特性，所以它们形成了一个概率分布族(family)。
+很多常见的概率分布都属于指数族，比如高斯分布、二项分布、多项式分布、
+泊松分布、gamma分布、beta分布等等。
+
+.. _ch_24_1:
+
+指数族的定义
+########################################################
+
+顾名思义，指数族的含义就是这类概率分布的概率密度(质量)函数是一个指数函数。
+一个概率分布的概率密度(质量)函数如果具有如下的形式，这个概率分布就属于指数族分布。
+
+
+.. math::
+    :label: eq_24_01
+
+    p(x|\theta) = \frac{1}{Z(\theta)} h(x) \exp \{\phi(\theta)^T T(x)  \}
+
+
+其中 :math:`x` 表示随机变量，:math:`\theta` 是分布的未知参数。
+:math:`T(x),h(x),\phi(\theta)` 都是 **已知的函数** ，
+通常 :math:`h(x)` 被称为基础度量值(base measure)，:math:`T(x)` 是充分统计量(sufficient statistic)，
+:math:`\phi(\theta)` 是关于参数 :math:`\theta` 的一个函数。
+:math:`\phi(\theta)` 和 :math:`T(x)` 可以是向量也可以是标量。
+如果两个都是标量(scalar-value)， :math:`\phi(\theta)^T T(x)` 就是两者的乘积；如果是向量(vector-value)，
+:math:`\phi(\theta)^T T(x)` 就是两者的內积。不管两者是标量还是向量， :math:`\phi(\theta)^T T(x)` 的结果都是一个实数数值。
+函数 :math:`Z(\theta)` 是这个分布的配分函数(partition function)，
+:math:`Z(\theta)` 就是对分子的积分。
+配分函数通常出现在概率密度(质量)函数中，是为了使得这个函数的输出值符合概率约束，
+即使得函数的输出值在 :math:`[0,1]` 范围内。
+
+
+.. math::
+    :label: eq_24_02
+
+    Z(\theta) = \mathop{\ln} \int h(x) exp\{ \phi(\theta)^T T(x) \} dx
+
+
+.. note::
+
+
+通常 :eq:`eq_24_01` 有多种变式，比如，我们令 :math:`g(\theta)=\frac{1}{Z(\theta)}` ，
+这样可以使得式子变得更加整洁。
+
+.. math::
+    :label: eq_24_03
+
+    p(x|\theta) = h(x) g(\theta) \exp \{\phi(\theta)^T T(x)  \}
+
+有时还会把 :math:`Z(\theta)` 移到指数的内部，
+其中 :math:`A(\theta) = \ln Z(\theta)` ，通常被称为对数配分函数(log-partition function)。
+
+.. math::
+    :label: eq_24_04
+
+     p(x|\theta) = h(x) \exp \{\phi(\theta)^T T(x) - A(\theta) \}
+
+
+
+也有一些资料会把 :math:`h(x)` 也移到指数内部，其中 :math:`S(x)=\ln h(x)` 。
+
+.. math::
+    :label: eq_24_05
+
+    p(x|\theta) =  \exp \{\phi(\theta)^T T(x) + S(x) - A(\theta) \}
+
+这些不同的表示都是同一个公式的变型而已，它们是等价的。
+
+**规范形式(The Canonical Form)**
+
+式中 :math:`\phi(\theta)` 是关于参数 :math:`\theta` 的一个函数，
+在指数族中，函数 :math:`\phi(\cdot)` 是一个双射函数（也称一一对应或一一映射），一一映射意味着
+函数 :math:`\phi(\cdot)` 是单调并且可导的，其一定存在反函数。
+我们定义 :math:`\eta=\phi(\theta)` ，
+因为 :math:`\eta` 和 :math:`\theta` 的值是一一映射的，
+所以二者是可以相互转化的。
+
+.. math::
+    \eta &= \phi(\theta)
+
+    \theta &= \phi^{-1} (\eta)
+
+
+鉴于此，通常可以用 :math:`\eta` 代替 :math:`\theta` 表示概率分布函数的未知参数，
+得到一个更简单的形式。
+
+.. math::
+    :label: eq_24_06
+
+    p(x|\eta) =  \exp \{ \eta^T T(x) + S(x) - A(\eta) \}
+
+
+通常把参数 :math:`\eta` 称为自然参数(natural parameter)或者规范参数(canonical parameter)。
+原来的形式中 :math:`A(\theta)` 是一个关于 :math:`\theta` 的函数，
+我们通过代入 :math:`\theta = \phi^{-1} (\eta)` 一定可以转化成关于自然参数 :math:`\eta`
+的函数 :math:`A(\eta)` 。
+
+使用规范参数(自然参数) :math:`\eta` 表示的形式称为指数族分布的规范形式(canonical form)，
+或者叫自然形式(natural form)，
+在规范形式下，分布的参数是 :math:`\eta` 。
+
+部分指数族分布 :math:`\phi(\cdot)` 是恒等函数，
+也就是 :math:`\eta=\phi(\theta)=\theta` ，这样的分布天然具有指数族的规范形式。
+事实上，对于指数族中的任意分布，都可以通过参数转化函数 :math:`\phi(\theta)` 把原始参数 :math:`\theta`
+转化成标准参数 :math:`\eta` ，然后以 :math:`\eta` 作为模型参数，进而得到规范形式(canonical form)。
+下面我们列举一些属于指数族分布的例子。
+
+
+
+伯努利分布
+======================
+
+
+伯努利分布的概率质量函数为：
+
+.. math::
+
+    p(x|\theta) = \theta^x(1-\theta)^{1-x}
+
+其中 :math:`\theta` 表示这个概率分布的参数，
+我们可以把右侧改写一下：
+
+
+.. math::
+
+    p(x|\theta) &= \theta^x(1-\theta)^{1-x}
+
+    &= exp \{  \ln  [ \theta^x (1-\theta)^{1-x}  ] \}
+
+    &= exp\{  x \ln \theta + (1-x) \ln (1-\theta)  \}
+
+    &= exp\{  x \ln \left( \frac{\theta}{1-\theta} \right) +  \ln (1- \theta)  \}
+
+
+和 :eq:`eq_24_06` 对比下，可以发现有：
+
+.. math::
+
+    \eta &=\phi(\theta) = \ln \left( \frac{\theta}{1-\theta} \right)
+
+    T(x) &=x
+
+    A(\eta) &= - ln (1-\theta) = ln(1+e^{\eta})
+
+    S(x) &= 0
+
+函数 :math:`\ln \left( \frac{\theta}{1-\theta} \right)` 被称为logit函数：
+
+.. math::
+
+    \eta=\phi(\theta)=logit(\theta)=\ln \left( \frac{\theta}{1-\theta} \right)
+
+
+``logit`` 函数的反函数是 ``logistic`` 函数。
+
+.. math::
+
+    \theta = \mathop{logistic}(\eta)=\frac{e^{\eta}}{1+e^{\eta}} = \frac{1}{1+e^{-\eta}}
+
+
+
+类别分布
+======================
+
+
+伯努利分布是只有两个取值的离散随机变量的概率分布，当随机变量的取值扩展到多个(大于2个并且有限集)的时候，就是称为类别分布，
+也可以认为是单一观测(一个样本，一次实验)的多项式分布。
+其概率质量函数为：
+
+.. math::
+
+    p(x|\theta) = \prod_{k=1}^m \theta_k^{x_k}
+
+其中m表示变量有m种取值，注意 :math:`x_k \in \{0,1\}` ，表示变量是否为第k个值，
+当变量值是第k个值时 :math:`x_k=1` ，否则为0。
+:math:`\theta_k` 表示 :math:`x_k=1` 的概率，并且有 :math:`\sum_{k=1}^m \theta_k=1` 。
+
+
+同样我们需要把上式变型成指数族形式。
+
+.. math::
+
+    p(x|\theta) = \prod_{k=1}^m \theta_k^{x_k}= \exp \{ \sum_{k=1}^m x_k \ln \theta_k \}
+
+
+然而我们注意到，其中m个参数 :math:`\theta_k` 是冗余的，因为有 :math:`\sum_{k=1}^m \theta_k=1` ，
+其中 :math:`\theta_m` 可以用 :math:`\theta_m=1-\sum_{k=1}^{m-1} \theta_k` 表示，
+模型只需要m-1个参数，而不需要m个参数。
+
+.. math::
+
+
+    p(x|\theta) &=  \exp \{ \sum_{k=1}^m x_k \ln \theta_k \}
+
+    &=  \exp \left \{ \sum_{k=1}^{m-1} x_k \ln \theta_k  +
+    \left (1-\sum_{k=1}^{m-1} x_k \right ) \ln \left (1-\sum_{k=1}^{m-1} \theta_k \right )   \right \}
+
+    &= \exp \left \{ \sum_{k=1}^{m-1} x_k \ln \left ( \frac{\theta_k}{1-\sum_{j=1}^{m-1} \theta_j} \right )
+    + \ln \left  (1-\sum_{k=1}^{m-1} \theta_k \right ) \right \}
+
+    &= \exp \left \{ \sum_{k=1}^{m-1} x_k \ln \left ( \frac{\theta_k}{ \theta_m} \right )
+    + \ln \left  (1-\sum_{k=1}^{m-1} \theta_k \right ) \right \}
+
+
+    &= \exp \left \{ \phi(\theta)^T T(x) - A(\theta) \right \}
+
+上式中的 :math:`\sum_{k=1}^{m-1} x_k \ln \left ( \frac{\theta_k}{ \theta_m} \right )`
+可以看做是向量 :math:`\phi(\theta) = [\phi(\theta_1),\dots,\phi(\theta_k),\dots,\phi(\theta_{m-1})]`
+和向量 :math:`T(x)=[x_1,\dots,x_k,\dots,x_{m-1}]` 的內积。
+和 :eq:`eq_24_06` 对比下，可以发现有：
+
+.. math::
+
+    \eta &= \phi(\theta) = [\phi(\theta_1),\dots,\phi(\theta_k),\dots,\phi(\theta_{m-1})]
+    ,\phi(\theta_k) = \ln \left ( \frac{\theta_k}{ \theta_m} \right )
+
+    T(x)&=[x_1,\dots,x_k,\dots,x_{m-1}]
+
+     A(\eta) &= - \ln \left  (1-\sum_{k=1}^{m-1} \theta_k \right )
+    = \ln \left (  \sum_{k=1}^m e^{\eta_k}  \right )
+
+    S(x) &= 0
+
+
+用 :math:`\eta` 表示 :math:`\theta` 有：
+
+.. math::
+
+    \theta_k = \frac{e^{\eta_k}}{\sum_{j=1}^m e^{\eta_j}}
+
+
+
+这个函数被称为softmax函数。
+
+
+
+泊松分布
+======================
+
+
+泊松(Poisson)分布的概率质量函数为：
+
+.. math::
+
+    p(x|\theta) = \frac{\theta^x e^{-\theta}}{x!}
+
+
+我们同样对它进行改写：
+
+.. math::
+
+    p(x|\theta) &= \frac{ \exp\{ \ln [ \theta^x e^{-\theta} ]  \}}{x!}
+
+    &= \frac{ \exp\{ x \ln  \theta   -\theta  \} }{x!}
+
+    &= \exp \{ x \ln  \theta   -\theta  -  \ln x! \}
+
+
+
+和 :eq:`eq_24_06` 对比可得：
+
+
+.. math::
+
+    \eta &= \phi(\theta) = \ln \theta
+
+    T(x) &= x
+
+    A(\eta) &=  \theta = e^{\eta}
+
+    S(x) &= - \ln x!
+
+
+:math:`\eta` 和 :math:`\theta` 的关系为：
+
+.. math::
+
+    \theta = e^{\eta}
+
+
+
+
+高斯分布
+======================
+
+这里我们只考虑单维高斯模型，高斯模型有两个参数，分别是均值参数 :math:`\mu`
+和方差参数 :math:`\sigma^2` ，高斯分布的概率密度函数为：
+
+.. math::
+
+    p(x|\mu,\sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}} exp \left \{ -\frac{1}{2\sigma^2}(x-\mu)^2 \right \}
+
+
+我们将其转化成指数族的标准形式。
+
+.. math::
+
+    p(x|\mu,\sigma^2) &= \frac{1}{\sqrt{2\pi\sigma^2}} exp \left \{ -\frac{1}{2\sigma^2}(x-\mu)^2 \right \}
+
+    & =  exp \left \{ -\frac{1}{2\sigma^2} x^2 + \frac{\mu}{\sigma^2} x -\frac{1}{2\sigma^2}\mu^2
+     -\ln \sigma - \frac{1}{2} \ln (2\pi) \right \}
+
+
+
+和 :eq:`eq_24_06` 对比可得：
+
+.. math::
+
+    \eta &= \phi(\theta)=\left [ \mu / \sigma^2 ,-1 /2 \sigma^2 \right ]
+
+    T(x) &= \left [ x ,x^2 \right ]
+
+
+    A(\eta) &= \frac{\mu^2}{2\sigma^2} +ln \sigma = -\frac{\eta_1^2}{4\eta_2} - \frac{1}{2}ln(-2\eta_2)
+
+    S(x) &= - \frac{1}{2} \ln (2\pi)
+
+
+注意单变量高斯模型是含有两个参数的，所以 :math:`\eta` 和 :math:`T(x)` 都是一个长度为2的向量。
+多维高斯模型同样也属于指数族，可以自己推导下。
+
+
+其它常见指数族
+==============================================
+
+
+请参考：`维基百科 https://en.wikipedia.org/wiki/Exponential_family#Table_of_distributions <https://en.wikipedia.org/wiki/Exponential_family#Table_of_distributions>`_
+
+
+
+
+
+
+
+
+
+
+
+
+
+.. _ch_24_moments:
+
+指数族的期望与方差
+####################################################
+
+
+    在数学和统计学中，矩（moment）是对变量分布和形态特点的一组度量。
+    n阶矩被定义为一变量的n次方与其概率密度函数（Probability Density Function, PDF）之积的积分。
+    在文献中n阶矩通常用符号 :math:`\mu_n` 表示，直接使用变量计算的矩被称为原始矩（raw moment），
+    移除均值后计算的矩被称为中心矩（central moment）。
+    变量的一阶原始矩等价于数学期望（expectation）、二至四阶中心矩被定义为方差（variance）、偏度（skewness）和峰度（kurtosis）。
+
+    -- 摘自百度百科
+
+
+通俗的讲，矩（moment）是描述一个随机变量的一系列指标，变量的期望(Expectation，或者叫均值，Mean)和方差(Variance)属于其中最简单的两个指标，
+这里只讨论这两种。
+
+指数族有一个特点，就是我们可以通过对 :math:`A(\eta)` 求导来得到 :math:`T(x)` 的矩，
+比如其一阶导数是 :math:`T(x)` 的期望，二阶导数是 :math:`T(x)` 的方差。
+在指数族分布中 :math:`A(\eta) = \mathop{\ln} \int h(x) exp\{ \eta^T T(x) \} dx`
+，其一阶导数为：
+
+.. math::
+    :label: eq_24_10
+
+    \frac{d A}{d \eta} &= \frac{d}{d \eta} \left \{
+    \mathop{\ln}  \int h(x) exp\{ \eta^T T(x) \} dx   \right \}
+
+    &= \frac{  \int T(x) exp\{ \eta^T T(x) \}h(x)dx    }
+    {    \int  exp\{ \eta^T T(x) \}h(x)dx   }
+
+    &= \int T(x) exp \{ \eta^T T(x) - A(\eta)    \} h(x) dx
+
+    &= \mathbb{E}[T(x)]
+
+
+我们看到 :math:`A(\eta)` 的一阶导数正好等于 :math:`T(x)` 的期望(均值)，对于伯努利分布、多项分布、泊松分布、高斯分布等这些
+:math:`T(x)=x` 的分布来说，:math:`T(x)` 的均值就是分布的均值。
+
+
+比如上面的示例中，对于伯努利分布，有 :math:`A(\eta)=ln(1+e^\eta)` ，
+其一阶导数为：
+
+.. math::
+    \frac{d A}{d \eta} &= \frac{d }{d \eta} ln(1+e^{\eta})
+
+    &= \frac{e^{\eta}}{1 + e^{\eta}}
+
+    &= \frac{1}{1+e^{-\eta}}
+
+    &= \mu
+
+
+对于高斯分布有：
+
+.. math::
+
+    A(\eta) = -\frac{\eta_1^2}{4\eta_2} - \frac{1}{2}ln(-2\eta_2)
+
+
+其中，:math:`\eta_1=\mu/\sigma^2,\eta_2=-1/2\sigma^2` ，我们计算 :math:`\eta_1` 的偏导数：
+
+
+.. math::
+
+    \frac{\partial A}{\partial \eta_1} &= \frac{\eta_1}{2\eta_2}
+
+    &= \frac{\mu/\sigma^2}{1/\sigma^2}
+
+    &= \mu
+
+
+现在我们看下 :math:`A(\eta)` 的二阶导数：
+
+
+.. math::
+
+    \frac{d^2 A}{d\eta^2} &=
+    \int T(x) exp \{ \eta T(x) -A(\eta)\}\ (T(x)- A'(\eta)) h(x) dx
+
+    &= \int T(x) exp \{\eta T(x) - A(\eta)\}(T(x)-\mathbb{E}[ T(x)] ) h(x) dx
+
+    &= \int T(x)^2 exp\{ \eta T(x)-A(\eta) \} h(x)dx -
+    \mathbb{E}[ T(x)] \int T(x) exp\{\eta T(x) -A(\eta)\} h(x) dx
+
+    &= \mathbb{E}[ T(x)^2] - (\mathbb{E}[ T(x)])^2
+
+    &= Var [ T(x)]
+
+:math:`A(\eta)` 的二阶导数正好是 :math:`T(x)` 的方差，对于 :math:`T(x)=x` 的分布，就是分布的方差。
+
+比如对于高斯分布，对于 :math:`\eta_1` 的二阶偏导数为：
+
+.. math::
+
+    \frac{\partial A}{\partial \eta_1} &=- \frac{1}{2\eta_2}
+
+    &= \sigma^2
+
+
+总结一下，对于指数族分布， 我们可以通过对 :math:`A{\eta}` 求导来计算分布中 :math:`T(x)` 期望和方差，
+当然通过高阶导数还能计算出更多的矩(Moment)。
+
+此外，我们发现函数 :math:`A{\eta}` 的二阶导数是 :math:`T(x)` 的方差，我们都知道方差肯定是大于等于0的，
+一个函数的二阶导数大于等于0，证明这个函数是一个凸函数(convex，碗状的)，
+对于凸函数，一阶导数和参数 :math:`\eta` 之间是一一对应关系，并且这种对应关系是可逆的。
+我们定义 :math:`A(\eta)` 的一阶导数用符号 :math:`\mu` 表示，则有 :math:`u\triangleq \mathbb{E}[T(x)]`
+， :math:`\mu` 和 :math:`\eta` 之间的关系可以用如下函数表示：
+
+.. math::
+
+    \mu = \frac{d A}{d \eta}
+
+并且这个函数是可逆的，也就是说已知 :math:`\mu` 就能求出 :math:`\eta` ；
+反过来，已知 :math:`\eta` 就能求出 :math:`\mu` 。
+比如对于伯努利分布：
+
+.. math::
+
+    \eta &= \frac{\mu}{1-\mu}
+
+    \mu &= \frac{1}{1+e^{-\eta}} \ \text{(logistic function)}
+
+对于多项式分布：
+
+.. math::
+
+    \eta_i &= \ln \left ( \frac{\mu_i}{1-\sum_{i=1}^{m-1}} \right )
+
+    \mu_i &= \frac{e^{\eta_i}}{\sum_{j=1}^{m} e^{\eta_j}} \ \text{(softmax function)}
+
+
+由于 :math:`\mu` 和 :math:`\eta` 是可逆的，所以对于指数族分布，也可以用 :math:`\mu` 去定义分布模型，也就是用
+:math:`\mu` 去当做模型的参数。事实上，我们常见的分布都是这么做的，比如伯努利分布、高斯分布等等。
+
+
+
+最大似然估计
+########################################################
+
+现在我们讨论下指数族的最大似然估计，
+我们知道指数族的自然参数 :math:`\eta` 和特定分布的原始参数 :math:`\theta` 是一一对应的，二者是存在可逆关系的，
+所有只要我们能估计出自然参数 :math:`\eta` ，就一定能通过逆函数 :math:`\phi(\cdot)^{-1}` 得到分布的真实参数
+:math:`\theta` 的估计值，也就是说对于指数族，我们只需要推导自然参数的估计量 :math:`\hat{eta}`  即可。
+
+我们用符号 :math:`\mathcal{D}` 表示随机变量的一个观测样本集，样本集的规模是N，
+并且样本集是满足IID(独立同分布)的。
+
+首先回顾一下指数族分布的标准形式：
+
+.. math::
+
+
+    p(x|\eta) =  exp \{\eta^T T(x) - A(\eta) + S(x) \}
+
+
+
+我们知道样本的似然就是所有样本发生的联合概率：
+
+.. math::
+
+    L(\eta;\mathcal{D}) &= p(\mathcal{D}|\eta)
+
+    &= p(x_1,\dots,x_N|\eta)
+
+    &= \prod_{i=1}^N  p(x_i|\eta)
+
+    &= \prod_{i=1}^N  \exp \{\eta^T T(x_i) - A(\eta) + S(x_i) \}
+
+    &=  \exp \{ \eta^T \sum_{i=1}^N  T(x_i) - N A(\eta) + \sum_{i=1}^N S(x_i) \}
+
+对比一下，我们发现指数族分布的联合概率仍然是指数族：
+
+.. math::
+
+    T(x) &\Longrightarrow \sum_{i=1}^N  T(x_i)
+
+    A(\eta) &\Longrightarrow N A(\eta)
+
+    S(x) &\Longrightarrow \sum_{i=1}^N S(x_i)
+
+
+
+现在我们为似然函数加上对数，得到对数似然函数：
+
+.. math::
+
+    \ell(\eta;\mathcal{D}) &= \ln L(\eta;\mathcal{D})
+
+    &=  \eta^T \sum_{i=1}^N  T(x_i) - N A(\eta) + \sum_{i=1}^N S(x_i)
+
+
+我们对参数 :math:`\eta` 求导：
+
+
+.. math::
+
+    \nabla_{\eta} \ell = \sum_{i=1}^{N} T(x_i) - N \nabla_{\eta} A(\eta)
+
+
+上述公式中的 :math:`\nabla_{\eta} A(\eta)` 表示对函数 :math:`A(\eta)` 关于 :math:`\eta` 求导，
+这里函数 :math:`A(\eta)` 是一个关于 :math:`\eta` 的函数。
+我们令这个导数为0，可得：
+
+.. math::
+    :label: eq_24_18
+
+    \nabla_{\eta} A(\eta) = \frac{1}{N} \sum_{i=1}^{N} T(x_i)
+
+
+
+由 :eq:`eq_24_10` 我们知道 :math:`A(\eta)` 的一阶导数等于 :math:`T(x)` 的期望 :math:`\mathbb{E}[T(x)]` ，
+即 :math:`\nabla_{\eta} A(\eta)=\mathbb{E}[T(x)]` 。
+我们令 :math:`\mu \triangleq \nabla_{\eta} A(\eta) =\mathbb{E}[T(x)]` ，
+结合公式 :eq:`eq_24_18` 有：
+
+.. math::
+    :label: eq_24_19
+
+    \mu_{ML}=\mathbb{E}[T(x)] =  \frac{1}{N} \sum_{i=1}^{N} T(x)
+
+
+从 :eq:`eq_24_19` 可以看出，指数族分布理论期望值(均值参数)等于样本的期望值(平均值)。
+均值参数的最大似然估计值，只和样本的统计量 :math:`\sum_{i=1}^N T(x)` 有关，
+而不再依赖样本的其它信息，所以 :math:`\sum_{i=1}^N T(x)` (或者说 :math:`T(x)` )是指数族的充分统计量。
+对于满足 :math:`T(x)=x` 的分布，比如伯努利分布、多项式分布、泊松分布等等，样本的均值就是 :math:`T(x)` 的均值，
+**样本的均值就是均值参数的最大似然估计值** 。
+同理，对于单变量的高斯分布，样本的方差就是方差参数的最大似然估计值。
+
+
+我们知道 :math:`\mu` 和 :math:`\eta` 是一一对应的，可以通过一个函数进行互相计算，最大似然估计给出了
+:math:`\mu_{ML}` 的估计值，我们就是可以换算出 :math:`\eta_{ML}` 。
+前文说过，事实上对于很多常见分布是直接用 :math:`\mu` 作为参数的，所以有了最大似然的估计值 :math:`\mu_{ML}`
+就直接是模型的参数估计值。
+:eq:`eq_24_19` 也直接说明了当样本数量趋近无穷大时，最大似然估计值和 :math:`\mu` 的真实值是一致的。
+
+
+
+
+
+
+最大似然估计与KL散度的关系
+#######################################
+
+本节我们讨论一下指数族的最大似然估计和KL散度的关系，在开始前我们先回顾一下KL散度的定义。
+
+.. glossary::
+
+    KL散度（Kullback–Leibler divergence)
+
+        KL散度（Kullback–Leibler divergence，简称KLD），在信息系统中称为相对熵（relative entropy），
+        在连续时间序列中称为randomness，在统计模型推断中称为信息增益（information gain），
+        也称信息散度（information divergence）。
+        KL散度是两个概率分布P和Q差别的 **非对称性** 的度量，可以理解成是用来度量两个分布的相似性。
+        一般用符号 :math:`D_{KL}(P \parallel Q)` 表示。
+
+
+对于离散随机变量，概率分布P和Q的KL散度按照下式定义：
+
+.. math::
+
+    D_{KL}(P \parallel Q) = \sum_{i} P(i) \ln \frac{P(i)}{Q(i)}
+
+或者：
+
+.. math::
+
+    D_{KL}(P \parallel Q) = -\sum_{i} P(i) \ln \frac{Q(i)}{P(i)}
+
+
+
+即按照概率P求得P和Q的对数商的平均值(期望)，其中对数的底可以是任意的。
+KL散度仅当概率P和Q各自总和均为1，且对于任何i皆满足
+:math:`Q(i)>0,P(i)>0` 时才有定义。
+式中出现 :math:`0\ln 0` 的情况，其值按0处理。
+
+对于连续随机变量，其概率分布P和Q可按积分方式定义为:
+
+.. math::
+
+    D_{KL}(P \parallel Q) = \int P(x) \ln \frac{P(x)}{Q(x)} dx
+
+相对熵的值为非负数 :math:`D_{KL}(P \parallel Q) \ge 0` ，
+由吉布斯不等式可知，当且仅当P = Q时 :math:`D_{KL}(P \parallel Q)` 为零。
+尽管从直觉上KL散度是个度量或距离函数, 但是它实际上并不是一个真正的度量或距离。
+因为KL散度不具有对称性：从分布P到Q的距离通常并不等于从Q到P的距离。
+
+.. math::
+
+    D_{KL}(P \parallel Q) \neq D_{KL}(Q \parallel P)
+
+
+
+我们可以根据信息理论量重写对数似然函数，其中
+:math:`x_m` 为随机变量的一个可能取值，
+:math:`\hat{p}_{\mathcal{D}}(x_m)` 表示在样本中变量值为 :math:`x_m`
+的样本出现的比例，乘以N后就是出现的次数。
+我们用 :math:`\hat{p}_{\mathcal{D}}(x_m)` 表示从样本中的到的经验分布。
+此外，定义 :math:`n_m` 表示样本中  :math:`x_m` 出现的次数，则有
+:math:`n_m=N \hat{p}_{\mathcal{D}}(x_m)` 。
+
+
+.. math::
+
+    \ell(\eta;\mathcal{D}) &= \sum_{i=1}^{N} \log p(x^{(i)};\eta)
+
+    &= \sum_{x_m \in \mathcal{X} } \log  p(x_m;\eta)^{n_{m}}
+
+    &= N \sum_{x_m \in \mathcal{X} } \hat{p}_{\mathcal{D}}(x_m) \log p(x_m;\eta)
+
+    &= N \sum_{x_m \in \mathcal{X} } \hat{p}_{\mathcal{D}}(x_m) [ \log p(x_m;\eta) -log \hat{p}_{\mathcal{D}}(x_m) + log  \hat{p}_{\mathcal{D}}(x_m) ]
+
+    &= N \sum_{x_m \in \mathcal{X} } \hat{p}_{\mathcal{D}}(x_m) [ \log \frac{p(x_m;\eta)}{\hat{p}_{\mathcal{D}}(x_m)} + log  \hat{p}_{\mathcal{D}}(x_m) ]
+
+    &= N \underbrace{\sum_{x_m \in \mathcal{X} } \hat{p}_{\mathcal{D}}(x_m)
+    \log \frac{p(x_m;\eta)}{\hat{p}_{\mathcal{D}}(x_m)}}_{\text{负的KL散度}}
+    + N \underbrace{ \sum_{x_m \in \mathcal{X} } \hat{p}_{\mathcal{D}}(x_m) log  \hat{p}_{\mathcal{D}}(x_m)}_{\text{经验分布的信息熵}}
+
+
+    &= N( H(\hat{p}_{\mathcal{D}}) - D( \hat{p}_{\mathcal{D}} \parallel p(x ; \eta)  ) )
+
+
+我们可以忽略熵项，因为它是经验分布的函数，与参数 :math:`\eta` 无关，在极大化过程中其值是固定值。
+因此，**最大化似然等同于最小化经验分布与真实分布的信息差异**
+:math:`D( \hat{p}_{\mathcal{D}} \parallel p(\cdot ; \eta))` 。
+
+回想一下，当两个分布是相同的分布时，KL散度为零。 在多项式情况下，
+由于我们在有限空间 :math:`\mathcal{X}` 上优化了所有分布的集合，我们可以精确地匹配分布，例如，
+令 :math:`p(\cdot;\eta)=\hat{p}_{\mathcal{D}}` ，即可使KL散度为零，得到精确匹配。
+然而，在大多数有趣的问题中，我们无法完全匹配数据分布(如果可以，我们只会过度拟合）。
+相反，我们通常优化由 :math:`\eta` 参数化的受限类分布，来得到近似解。
+

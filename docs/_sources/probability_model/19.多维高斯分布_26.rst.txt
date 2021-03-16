@@ -1,0 +1,23 @@
+########################################################
+多维高斯分布
+########################################################
+
+
+多维高斯分布一般使用参数 :math:`\mu` 和 参数 :math:`\Sigma` 表达，这里的 :math:`\mu` 是 :math:`n \times 1` 的向量，
+:math:`\Sigma` 是 :math:`n \times n` 的对称半正定矩阵。概率密度函数的形式为：
+
+.. math::
+    p(x|\mu, \Sigma) = \frac{1}{(2\pi)^{n/2} |\Sigma |^{1/2}}exp\{-\frac{1}{2}(x - \mu)^{T}\Sigma^{-1}(x - \mu)\}
+
+:math:`x` 是 :math:`n` 维向量，:math:`|\Sigma|` 是矩阵 :math:`\Sigma` 的行列式。
+
+对于随机变量 :math:`X` 符合分布 :math:`N(\mu, \Sigma)`, 均值为：
+
+.. math::
+    E[X] = \int_{x}xp(x;\mu, \Sigma)dx = \mu
+
+向量形式的随机变量 :math:`Z` 的方差为： :math:`Cov(Z) = E[(Z-E[Z])(Z-E[Z])^{T}]` ，
+或者定义为： :math:`Cov(Z) = E[ZZ^{T}] - (E[Z])(E[Z]^{T})`。如果 :math:`X \sim N(\mu, \Sigma)`，那么：
+
+.. math::
+    Cov(X) = \Sigma
