@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>3. 推荐与检验 &mdash; 张振虎的博客 张振虎 文档</title>
+  <title>3. 推断与检验 &mdash; 张振虎的博客 张振虎 文档</title>
   
 
   
@@ -136,7 +136,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../%E6%9C%80%E5%A4%A7%E4%BC%BC%E7%84%B6%E4%BC%B0%E8%AE%A1/content.html#id6">2.5. 总结</a></li>
 </ul>
 </li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">3. 推荐与检验</a><ul>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">3. 推断与检验</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id2">3.1. 统计量和充分统计量</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#ch-sample-distribution">3.2. 抽样分布</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#ch-sample-distribution-normal">3.2.1. 正态分布</a></li>
@@ -836,7 +836,7 @@
         
           <li><a href="../index.html">广义线性模型</a> &raquo;</li>
         
-      <li><span class="section-number">3. </span>推荐与检验</li>
+      <li><span class="section-number">3. </span>推断与检验</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -856,7 +856,7 @@
            <div itemprop="articleBody">
             
   <div class="section" id="ch-influence-and-test">
-<span id="id1"></span><h1><span class="section-number">3. </span>推荐与检验<a class="headerlink" href="#ch-influence-and-test" title="永久链接至标题">¶</a></h1>
+<span id="id1"></span><h1><span class="section-number">3. </span>推断与检验<a class="headerlink" href="#ch-influence-and-test" title="永久链接至标题">¶</a></h1>
 <p>上一章我们介绍了统计推断中应用最广泛的最大似然估计，
 然而当我们得到一个参数估计值后，
 我们期望知道这个估计值靠不靠谱，它与参数的真实值又相差多少，
@@ -1452,7 +1452,7 @@
 <span class="eqno">(3.4.6)<a class="headerlink" href="#equation-glm-source-content-50" title="公式的永久链接">¶</a></span>\[(\frac{\partial}{\partial \theta} \mathbb{E}[\hat{\theta}] )^2
 = ( \frac{\partial}{\partial \theta}  \theta)^2
 = 1\]</div>
-<p>因此 <strong>对于无偏估计量</strong>，<a class="reference internal" href="../../../probability_model/2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#equation-eq-2-50">公式(2.7.20)</a> 可以简化为：</p>
+<p>因此 <strong>对于无偏估计量</strong>，<a class="reference internal" href="#equation-eq-2-50">公式(3.4.5)</a> 可以简化为：</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-51">
 <span class="eqno">(3.4.7)<a class="headerlink" href="#equation-glm-source-content-51" title="公式的永久链接">¶</a></span>\[V(\hat{\theta}) \ge \frac{1}{I(\theta)}\]</div>
 <p><span class="math notranslate nohighlight">\(I(\theta)\)</span> 是费歇尔信息(Fisher-Information)矩阵。
@@ -1546,7 +1546,7 @@
 =\frac{\partial}{\partial \theta} 1
 =0\]</div>
 <p><span class="math notranslate nohighlight">\(S(\theta)\)</span> 关于样本变量的期望一定是等于0的，
-结合 <a class="reference internal" href="../../../probability_model/2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#equation-eq-2-33">公式(2.6.4)</a> 可以推导出 <span class="math notranslate nohighlight">\(S(\theta)\)</span> 的期望为：</p>
+结合 <a class="reference internal" href="#equation-eq-2-33">公式(3.4.13)</a> 可以推导出 <span class="math notranslate nohighlight">\(S(\theta)\)</span> 的期望为：</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-57">
 <span class="eqno">(3.4.15)<a class="headerlink" href="#equation-glm-source-content-57" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\mathop{\mathbb{E}}_{X} \left[ S(\theta) \right] &amp;= \mathop{\mathbb{E}}_{X} \left[ \nabla \ell(\theta;X) \right]\\&amp;= \int [\nabla \ell(\theta;X)] \, P(X ; \theta) \, \text{d}x\\&amp;= \int [\nabla \log P(X ; \theta)] \, P(X ; \theta) \, \text{d}x\\&amp;= \int \frac{\nabla P(X ; \theta)}{P(X ; \theta)} P(X ; \theta) \, \text{d} x\\&amp;= \int \nabla P(X ; \theta) \, \text{d} x\\&amp;= \nabla \int P(X; \theta) \, \text{d} x\\&amp;= \nabla 1\\&amp;= 0\end{aligned}\end{align} \]</div>
 <p><span class="math notranslate nohighlight">\(S(\theta)\)</span> 的二阶矩(second moment)，也就是其方差(Variance)，被称为 <code class="docutils literal notranslate"><span class="pre">Fisher</span> <span class="pre">information</span></code>，
@@ -1674,7 +1674,7 @@
 显然极大似然估计是一致性估计。
 由于似然估计是一致性估计，似然估计量是渐近收敛于参数真实值的，也就是估计量的偏差渐近为 <span class="math notranslate nohighlight">\(0\)</span>，
 因此可以得出似然估计量是 <strong>渐近无偏估计</strong> 。</p>
-<p>我们知道估计量的 <code class="docutils literal notranslate"><span class="pre">MSE</span></code> 是由偏差和方差组成的（ <a class="reference internal" href="../../../probability_model/2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#equation-eq-2-39">公式(2.7.2)</a> ），无偏性是对估计量的偏差的评价，
+<p>我们知道估计量的 <code class="docutils literal notranslate"><span class="pre">MSE</span></code> 是由偏差和方差组成的（ <a class="reference internal" href="#equation-eq-2-39">公式(3.4.3)</a> ），无偏性是对估计量的偏差的评价，
 而估计量的方差影响着估计值的稳定性，方差越小估计量就越稳定，
 并且最大似然估计量的方差符合 <code class="docutils literal notranslate"><span class="pre">CRLB</span></code> 的下界，就等于费歇尔信息的倒数，
 如果 <span class="math notranslate nohighlight">\(\theta\)</span> 是参数向量，估计量的方差为协方差矩阵，

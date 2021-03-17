@@ -134,7 +134,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../%E6%9C%80%E5%A4%A7%E4%BC%BC%E7%84%B6%E4%BC%B0%E8%AE%A1/content.html#id6">2.5. 总结</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html">3. 推荐与检验</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html">3. 推断与检验</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#id2">3.1. 统计量和充分统计量</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-sample-distribution">3.2. 抽样分布</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-sample-distribution-normal">3.2.1. 正态分布</a></li>
@@ -1216,14 +1216,14 @@ GLM的海森矩阵计算难度是比较大的，为了解决这个问题，
 <span class="eqno">()<a class="headerlink" href="#equation-eq-glm-estimate-031" title="公式的永久链接">¶</a></span>\[ \beta^{(t+1)} = \beta^{(t)} - \mathbb{E}[H(\beta^{(t)})]^{-1} U(\beta^t)\]</div>
 <p>对比下信息矩阵 <a class="reference internal" href="#equation-eq-glm-estimate-019">公式()</a> 和期望海森 <a class="reference internal" href="#equation-eq-glm-estimate-030">公式()</a>
 ，二者只差一个负号，是相反数的关系，这和我们在
-<a class="reference internal" href="../../../probability_model/2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#ch-2-fisher-information"><span class="std std-numref">节 2.6</span></a> 讨论的结论是一致的，</p>
+<a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-2-fisher-information"><span class="std std-numref">节 3.4.2</span></a> 讨论的结论是一致的，</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-estimate-bak-22">
 <span class="eqno">()<a class="headerlink" href="#equation-glm-source-estimate-bak-22" title="公式的永久链接">¶</a></span>\[\mathcal{J} = - \mathbb{E}[H]\]</div>
 <p>因此牛顿法的迭代过程 <a class="reference internal" href="#equation-eq-glm-estimate-031">公式()</a>
 经常也会写成</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-estimate-bak-23">
 <span class="eqno">()<a class="headerlink" href="#equation-glm-source-estimate-bak-23" title="公式的永久链接">¶</a></span>\[\beta^{(t+1)} = \beta^{(t)} + \mathcal{J}(\beta^{(t)})^{-1} U(\beta^t)\]</div>
-<p>在 <a class="reference internal" href="../../../probability_model/2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#ch-2-fisher-information"><span class="std std-numref">节 2.6</span></a> 讨论过，参数的最大似然估计估计量是一个统计量，
+<p>在 <a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-2-fisher-information"><span class="std std-numref">节 3.4.2</span></a> 讨论过，参数的最大似然估计估计量是一个统计量，
 并且其渐进服从正态分布，其方差可以通过信息矩阵 <span class="math notranslate nohighlight">\(\mathcal{J}\)</span> 计算得到。
 最终，Newton–Raphson 提供了如下功能：</p>
 <ol class="arabic simple">
@@ -1456,7 +1456,7 @@ WHILE(abs(Δ Dev)&gt;tolerance){
 </div>
 <div class="section" id="id9">
 <h3>估计量的标准误差<a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h3>
-<p>回顾一下在 <a class="reference internal" href="../../../probability_model/2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#ch-2-mle-estimator"><span class="std std-numref">节 2.7.3</span></a> 我们讲的最大似然估计量的评价，
+<p>回顾一下在 <a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-2-mle-estimator"><span class="std std-numref">节 3.4.3</span></a> 我们讲的最大似然估计量的评价，
 我们知道最大似然估计量的协方差矩阵就是 <span class="math notranslate nohighlight">\(I(\beta)^{-1}\)</span>
 ，显然在IRLS算法过程中已经计算出了 <span class="math notranslate nohighlight">\(I(\beta)^{-1}=- \mathbb{E}[H(\beta)]=(X^TW^{(t)} X)^{-1}\)</span>
 ，所以使用IRLS我们可以很方便的得到估计量的标准误差。</p>

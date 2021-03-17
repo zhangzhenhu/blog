@@ -136,7 +136,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../%E6%9C%80%E5%A4%A7%E4%BC%BC%E7%84%B6%E4%BC%B0%E8%AE%A1/content.html#id6">2.5. 总结</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html">3. 推荐与检验</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html">3. 推断与检验</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#id2">3.1. 统计量和充分统计量</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-sample-distribution">3.2. 抽样分布</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-sample-distribution-normal">3.2.1. 正态分布</a></li>
@@ -1283,7 +1283,7 @@ x_{ij} x_{ik}\]</div>
 <span class="eqno">(7.4.8)<a class="headerlink" href="#equation-eq-glm-estimate-031" title="公式的永久链接">¶</a></span>\[ \beta^{(t+1)} = \beta^{(t)} - \mathbb{E}[H(\beta^{(t)})]^{-1} U(\beta^t)\]</div>
 <p>对比下信息矩阵 <a class="reference internal" href="estimate_bak.html#equation-eq-glm-estimate-019">公式()</a> 和期望海森 <a class="reference internal" href="estimate_bak.html#equation-eq-glm-estimate-030">公式()</a>
 ，二者只差一个负号，是相反数的关系，这和我们在
-<a class="reference internal" href="../../../probability_model/2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#ch-2-fisher-information"><span class="std std-numref">节 2.6</span></a> 讨论的结论是一致的。</p>
+<a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-2-fisher-information"><span class="std std-numref">节 3.4.2</span></a> 讨论的结论是一致的。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-estimate-27">
 <span class="eqno">(7.4.9)<a class="headerlink" href="#equation-glm-source-estimate-27" title="公式的永久链接">¶</a></span>\[\mathcal{J} = - \mathbb{E}[H]\]</div>
 <p>可以看到在 <code class="docutils literal notranslate"><span class="pre">GLM</span></code> 中，信息矩阵 <span class="math notranslate nohighlight">\(\mathcal{J}\)</span> 可以通过对数似然函数的海森矩阵 <span class="math notranslate nohighlight">\(H\)</span> 得到。
@@ -1294,7 +1294,7 @@ x_{ij} x_{ik}\]</div>
 <span class="eqno">(7.4.10)<a class="headerlink" href="#equation-glm-source-estimate-28" title="公式的永久链接">¶</a></span>\[\beta^{(t+1)} = \beta^{(t)} + \mathcal{J}(\beta^{(t)})^{-1} U(\beta^t)\]</div>
 <p>我们这里描述的 Newton–Raphson 算法不支持分散参数 <span class="math notranslate nohighlight">\(\phi\)</span> 的估计，
 通常在进行协变量参数 <span class="math notranslate nohighlight">\(\beta\)</span> 的最大似然估计时，认为 <span class="math notranslate nohighlight">\(\phi\)</span> 是已知量。</p>
-<p>在 <a class="reference internal" href="../../../probability_model/2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#ch-2-fisher-information"><span class="std std-numref">节 2.6</span></a> 讨论过，参数的最大似然估计估计量是一个统计量，
+<p>在 <a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-2-fisher-information"><span class="std std-numref">节 3.4.2</span></a> 讨论过，参数的最大似然估计估计量是一个统计量，
 并且其渐进服从正态分布，其方差可以通过信息矩阵 <span class="math notranslate nohighlight">\(\mathcal{J}\)</span> 计算得到。
 最终，<code class="docutils literal notranslate"><span class="pre">Newton–Raphson</span></code> 提供了如下功能：</p>
 <ol class="arabic simple">
@@ -1635,7 +1635,7 @@ Z^{(t)} &amp;= \left \{ (y-\mu)  \left ( \frac{\partial \eta}{\partial \mu} \rig
 </div>
 <div class="section" id="id12">
 <h2><span class="section-number">7.6. </span>估计量的标准误差<a class="headerlink" href="#id12" title="永久链接至标题">¶</a></h2>
-<p>在 <a class="reference internal" href="../../../probability_model/2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#ch-2-mle-estimator"><span class="std std-numref">节 2.7.3</span></a> 讨论最大似然估计时，讲过参数的最大似然估计量是一个统计量，
+<p>在 <a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-2-mle-estimator"><span class="std std-numref">节 3.4.3</span></a> 讨论最大似然估计时，讲过参数的最大似然估计量是一个统计量，
 而统计量是一个随机量，统计量的概率分布称为抽样分布(sampling distribution)。
 期望参数的似然估计量 <span class="math notranslate nohighlight">\(\hat{\mu}\)</span> 的抽样分布是高斯分布。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-estimate-45">
