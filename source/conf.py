@@ -40,16 +40,16 @@ release = '张振虎'
 extensions = [
     # 'sphinx.ext.imgmath',
     'sphinx.ext.mathjax',
-    'sphinx.ext.githubpages',
+    # 'sphinx.ext.githubpages',
     'sphinx.ext.todo',
     # 'sphinxcontrib.video',
     # 'sphinxcontrib.proof',
-    'sphinxcontrib.tikz',
-    'sphinx.ext.githubpages',
-    'sphinx.ext.autosectionlabel',
+    # 'sphinxcontrib.tikz',
+    # 'sphinx.ext.githubpages',
+    # 'sphinx.ext.autosectionlabel',
     # 'sphinx.ext.todo',
     # 'recommonmark',
-    'sphinxcontrib.bibtex',
+    # 'sphinxcontrib.bibtex',
     'sphinx_rtd_theme',
 ]
 todo_include_todos = True
@@ -98,7 +98,7 @@ html_theme = 'sphinx_rtd_theme'
 # html_theme_options = {'google_analytics': False,
 #                       'mathjax_path': mathjax_path}
 # html_theme_path = ['themes']
-import os
+# import os
 
 # from PSphinxTheme import utils
 
@@ -153,7 +153,6 @@ html_extra_path =[
 #         # 'donate.html',
 #     ]
 # }
-todo_include_todos = True
 
 # -- Options for HTMLHelp output ---------------------------------------------
 
