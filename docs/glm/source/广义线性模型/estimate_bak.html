@@ -247,6 +247,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0/content.html#model-selection">8.3. 模型选择(model selection)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0/content.html#aic">8.3.1. AIC</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0/content.html#bic">8.3.2. BIC</a></li>
 </ul>
 </li>
 </ul>
@@ -1575,7 +1576,7 @@ LRT的计算公式如下：</p>
 <div class="math notranslate nohighlight" id="equation-eq-34-52">
 <span class="eqno">()<a class="headerlink" href="#equation-eq-34-52" title="公式的永久链接">¶</a></span>\[L_f = \exp \left \{  \sum_{i=1}^N \frac{y_i \theta(y_i) -b(\theta(y_i))}{a(\phi)}
 + \sum_{i=1}^N  c(y_i;\phi) \right \}\]</div>
-<p>把 <a class="reference internal" href="../../../probability_model/25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#equation-eq-34-51">公式(18.3.3)</a> 和 <a class="reference internal" href="../../../probability_model/25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#equation-eq-34-52">公式(18.3.4)</a> 代入到 <a class="reference internal" href="../../../probability_model/25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#equation-eq-34-50">公式(18.3.2)</a>
+<p>把 <a class="reference internal" href="../%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0/content.html#equation-eq-34-51">公式(8.1.10)</a> 和 <a class="reference internal" href="../%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0/content.html#equation-eq-34-52">公式(8.1.11)</a> 代入到 <a class="reference internal" href="../../../probability_model/25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#equation-eq-34-50">公式(18.3.2)</a>
 可得到GLM的偏差：</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-estimate-bak-43">
 <span class="eqno">()<a class="headerlink" href="#equation-glm-source-estimate-bak-43" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}D &amp;= 2 (\ln L_f -\ln L_m)\\&amp;= \frac{2}{a(\phi)} \sum_{i=1}^N  [ y_i \{ \theta(y_i) - \theta(\hat{\mu}_i) \} - b\{\theta(y_i)\} + b\{\theta(\hat{\mu}_i)\} ]\\&amp;\triangleq 2 \sum_{i=1}^N  [ y_i \{ \theta(y_i) - \theta(\hat{\mu}_i) \} - b\{\theta(y_i)\} + b\{\theta(\hat{\mu}_i)\} ]\end{aligned}\end{align} \]</div>

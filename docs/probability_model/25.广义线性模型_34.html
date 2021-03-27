@@ -249,6 +249,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../glm/source/%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0/content.html#model-selection">8.3. 模型选择(model selection)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../glm/source/%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0/content.html#aic">8.3.1. AIC</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../glm/source/%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0/content.html#bic">8.3.2. BIC</a></li>
 </ul>
 </li>
 </ul>
@@ -1979,7 +1980,7 @@ LRT的计算公式如下：</p>
 <div class="math notranslate nohighlight" id="equation-eq-34-52">
 <span class="eqno">(18.3.4)<a class="headerlink" href="#equation-eq-34-52" title="公式的永久链接">¶</a></span>\[L_f = \exp \left \{  \sum_{n=1}^N \frac{y_n \theta(y_n) -b(\theta(y_n))}{a(\phi)}
 + \sum_{n=1}^N  c(y_n;\phi) \right \}\]</div>
-<p>把 <a class="reference internal" href="#equation-eq-34-51">公式(18.3.3)</a> 和 <a class="reference internal" href="#equation-eq-34-52">公式(18.3.4)</a> 代入到 <a class="reference internal" href="#equation-eq-34-50">公式(18.3.2)</a>
+<p>把 <a class="reference internal" href="../glm/source/%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0/content.html#equation-eq-34-51">公式(8.1.10)</a> 和 <a class="reference internal" href="../glm/source/%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0/content.html#equation-eq-34-52">公式(8.1.11)</a> 代入到 <a class="reference internal" href="#equation-eq-34-50">公式(18.3.2)</a>
 可得到GLM的偏差：</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-25-34-42">
 <span class="eqno">(18.3.5)<a class="headerlink" href="#equation-probability-model-25-34-42" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}D &amp;= 2 (\ln L_f -\ln L_m)\\&amp;= \frac{2}{a(\phi)} \sum_{n=1}^N  [ y_n \{ \theta(y_n) - \theta(\hat{\mu}_n) \} - b\{\theta(y_n)\} + b\{\theta(\hat{\mu}_n)\} ]\\&amp;\triangleq 2 \sum_{n=1}^N  [ y_n \{ \theta(y_n) - \theta(\hat{\mu}_n) \} - b\{\theta(y_n)\} + b\{\theta(\hat{\mu}_n)\} ]\end{aligned}\end{align} \]</div>

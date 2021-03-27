@@ -249,6 +249,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#model-selection">8.3. 模型选择(model selection)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#aic">8.3.1. AIC</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bic">8.3.2. BIC</a></li>
 </ul>
 </li>
 </ul>
@@ -1041,7 +1042,7 @@ LR的计算公式如下：</p>
 而分散参数 <span class="math notranslate nohighlight">\(\phi\)</span> 是冗余参数，并且与样本无关。
 因此分散参数没有下标 <span class="math notranslate nohighlight">\(i\)</span>，
 并且无论是饱和模型还是拟合模型，分散参数是相同的值。</p>
-<p>现在把 <a class="reference internal" href="../../../probability_model/25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#equation-eq-34-51">公式(18.3.3)</a> 和 <a class="reference internal" href="../../../probability_model/25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#equation-eq-34-52">公式(18.3.4)</a> 代入到偏差统计量 <a class="reference internal" href="#equation-eq-me-051">公式(8.1.8)</a>
+<p>现在把 <a class="reference internal" href="#equation-eq-34-51">公式(8.1.10)</a> 和 <a class="reference internal" href="#equation-eq-34-52">公式(8.1.11)</a> 代入到偏差统计量 <a class="reference internal" href="#equation-eq-me-051">公式(8.1.8)</a>
 ，两个对数似然函数中的项 <span class="math notranslate nohighlight">\(\sum_{i=1}^N  c(y_i;\phi)\)</span> 是相等的，可以抵消掉。</p>
 <div class="math notranslate nohighlight" id="equation-eq-34-53">
 <span class="eqno">(8.1.12)<a class="headerlink" href="#equation-eq-34-53" title="公式的永久链接">¶</a></span>\[D = \frac{2}{a(\phi)} \sum_{i=1}^N  [
@@ -1560,8 +1561,9 @@ O’Hara Hines和Carter（1993）讨论了这些残差在评估模型拟合中�
 <div class="figure align-center" id="fg-me-saturated-0014">
 <a class="reference internal image-reference" href="../../../_images/me_saturated_0014.jpg"><img alt="../../../_images/me_saturated_0014.jpg" src="../../../_images/me_saturated_0014.jpg" style="width: 698.4000000000001px; height: 181.60000000000002px;" /></a>
 </div>
+</div>
 <div class="section" id="bic">
-<h4><span class="section-number">8.3.1.1. </span>BIC<a class="headerlink" href="#bic" title="永久链接至标题">¶</a></h4>
+<h3><span class="section-number">8.3.2. </span>BIC<a class="headerlink" href="#bic" title="永久链接至标题">¶</a></h3>
 <p>在统计中，贝叶斯信息准则（BIC）或Schwarz信息准则（也称为SIC，SBC，SBIC）
 是用于在有限的一组模型中选择模型的标准，<code class="docutils literal notranslate"><span class="pre">BIC</span></code> 最低的模型是首选。
 它部分基于似然函数，并且与 <code class="docutils literal notranslate"><span class="pre">AIC</span></code> 密切相关。</p>
@@ -1577,7 +1579,6 @@ O’Hara Hines和Carter（1993）讨论了这些残差在评估模型拟合中�
 <code class="docutils literal notranslate"><span class="pre">Raftery（1995）</span></code> 给出的用于确定相对偏好的量表。</p>
 <div class="figure align-center" id="fg-me-saturated-0015">
 <a class="reference internal image-reference" href="../../../_images/me_saturated_0015.jpg"><img alt="../../../_images/me_saturated_0015.jpg" src="../../../_images/me_saturated_0015.jpg" style="width: 441.6px; height: 190.4px;" /></a>
-</div>
 </div>
 </div>
 </div>

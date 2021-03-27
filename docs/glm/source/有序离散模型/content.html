@@ -249,6 +249,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0/content.html#model-selection">8.3. 模型选择(model selection)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0/content.html#aic">8.3.1. AIC</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0/content.html#bic">8.3.2. BIC</a></li>
 </ul>
 </li>
 </ul>
@@ -857,22 +858,44 @@
             
   <div class="section" id="id1">
 <h1><span class="section-number">20. </span>有序离散模型<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
-<p>有序多分类模型，可以看做是二分类逻辑回归模型的扩展，
-因此，有序多分类模型也被称为有序逻辑回归模型（Ordered Logistic Regression）。</p>
+<p>离散随机变量的模型中，最常用的是二分类的伯努利模型（逻辑回归模型），
+除此外，在本书之前的内容的中，我们已经讨论了很多离散模型，
+包括，多分类的类别模型，二项式模型，多项式模型，计数类的泊松分布等等，
+甚至还讨论了离散模型特有的一种现象，过度分散问题以及解决的方法。
+在众多离散模型中还有一类特殊的情况尚未讨论，那就是有序多分类的场景。
+在之前讨论类别分布的多分类模型时说过，类别模型有一个前提假设，
+就是类别变量的各个离散状态间是没有顺序相关的，即便通常会用整数值表示每个类别值，
+但模型本身是建立在顺序无关的假设之上的。
+然而，在实际上应用中这种假设过于强势，
+实际场景中存在很多有序的情况，
+本章我们针对有序多分类的回归模型进行详细的讨论。</p>
+<p>有序的多分类本身也是一个多分类的场景，和类别分布（多项式分布）的区别在于，它允许类别之间存在一定的大小顺序关系。
+为什么这里强调多分类，而不说二分类，这是因为对于二分类场景，有序和无序其实没有太差差别，
+有序的二分类可以按照无序的二分类来处理。
+但是当类别数多余两个时，有序和无序的处理方法就显然不同了。
+然而对于有序多分类模型的推导过程，可以看做是二分类逻辑回归模型的扩展，
+因此，有序多分类模型也被称为有序逻辑回归模型（ordered logistic regression）。</p>
 <div class="section" id="id2">
 <h2><span class="section-number">20.1. </span>有序逻辑回归<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">logistic</span></code> 函数是一个累计概率分布函数。</p>
+<p>我们先从二分类的场景说起，假设响应变量 <span class="math notranslate nohighlight">\(Y\)</span> 是二值离散变量，
+分别用 <span class="math notranslate nohighlight">\(0\)</span> 和 <span class="math notranslate nohighlight">\(1\)</span> 表示 <span class="math notranslate nohighlight">\(Y\)</span> 两个离散状态。
+在 <code class="docutils literal notranslate"><span class="pre">GLM</span></code> 的理论中，协变量（特征变量）向量 <span class="math notranslate nohighlight">\(X\)</span> 和参数向量 <span class="math notranslate nohighlight">\(\beta\)</span>
+组成线性预测器 <span class="math notranslate nohighlight">\(\eta=X^T \beta\)</span>，响应变量 <span class="math notranslate nohighlight">\(Y\)</span> 的期望 <span class="math notranslate nohighlight">\(\mu\)</span>
+和线性预测器 <span class="math notranslate nohighlight">\(\eta\)</span> 之间通过连接函数进行映射。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-0">
-<span class="eqno">(20.1.1)<a class="headerlink" href="#equation-glm-source-content-0" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}P(Y=1) &amp;= \frac{e^{x^T\beta}}{1+e^{x^T\beta}}\\P(Y=0) &amp;= 1-\frac{e^{x^T\beta}}{1+e^{x^T\beta}}
-= \frac{e^{-x^T\beta}}{1+e^{-x^T\beta}}\end{aligned}\end{align} \]</div>
-<p>线性预测器 <span class="math notranslate nohighlight">\(\eta=x^T \beta\)</span> 的取值范围是 <span class="math notranslate nohighlight">\((-\infty,\infty)\)</span>
-，</p>
-<p>假设有一个分割点 <span class="math notranslate nohighlight">\(c\)</span>
+<span class="eqno">(20.1.1)<a class="headerlink" href="#equation-glm-source-content-0" title="公式的永久链接">¶</a></span>\[\eta = g(\mu)\]</div>
+<p>线性预测器 <span class="math notranslate nohighlight">\(\eta\)</span> 的取值范围是 <span class="math notranslate nohighlight">\((-\infty,\infty)\)</span>
+，如果响应变量 <span class="math notranslate nohighlight">\(Y\)</span> 的两个值 <span class="math notranslate nohighlight">\(0\)</span> 和 <span class="math notranslate nohighlight">\(1\)</span>
+之间存在大小（顺序）关系，这里假设 <span class="math notranslate nohighlight">\(0&lt;1\)</span>。
+此时可以假设在线性预测器 <span class="math notranslate nohighlight">\(\eta\)</span> 的值域上有一个分割点 <span class="math notranslate nohighlight">\(c\)</span>
 ，当 <span class="math notranslate nohighlight">\(\eta\)</span> 的值落在区间 <span class="math notranslate nohighlight">\((-\infty,c]\)</span> 时，
 响应变量 <span class="math notranslate nohighlight">\(Y=0\)</span>
 ；反之，当 <span class="math notranslate nohighlight">\(\eta\)</span> 的值落在区间 <span class="math notranslate nohighlight">\((c,\infty)\)</span> 时，
 响应变量 <span class="math notranslate nohighlight">\(Y=0\)</span>
 。</p>
+<div class="figure align-center" id="fg-ordered-lr-003">
+<a class="reference internal image-reference" href="../../../_images/eta_分割.png"><img alt="../../../_images/eta_分割.png" src="../../../_images/eta_分割.png" style="width: 448.0px; height: 336.0px;" /></a>
+</div>
 <div class="math notranslate nohighlight" id="equation-eq-ordered-logistic-004">
 <span class="eqno">(20.1.2)<a class="headerlink" href="#equation-eq-ordered-logistic-004" title="公式的永久链接">¶</a></span>\[\begin{split}y=
 \begin{cases}
@@ -885,9 +908,12 @@
 <span class="math notranslate nohighlight">\(\eta\)</span> 与分割点 <span class="math notranslate nohighlight">\(c\)</span> 的距离为 <span class="math notranslate nohighlight">\(c-\eta\)</span>
 ，<span class="math notranslate nohighlight">\(c-\eta\)</span> 越大，<span class="math notranslate nohighlight">\(P(Y=0)\)</span> 也就越大，
 <span class="math notranslate nohighlight">\(c-\eta\)</span> 越小，<span class="math notranslate nohighlight">\(P(Y=0)\)</span> 也就越小。
-此时可以选择一个累计概率分布函数作为 <span class="math notranslate nohighlight">\(P(Y=0)\)</span> 与 <span class="math notranslate nohighlight">\(c-\eta\)</span>
-之间的关系，
-累计概率分布函数有多种选择，比如
+<span class="math notranslate nohighlight">\(c-\eta\)</span> 的值域范围是 <span class="math notranslate nohighlight">\((-\infty,\infty)\)</span>
+，而概率值的范围是 <span class="math notranslate nohighlight">\([0,1]\)</span>，
+因此需要添加一个连接函数对两个空间进行映射。
+根据之前的知识，累积概率分布函数可以作为实数域到 <span class="math notranslate nohighlight">\([0,1]\)</span>
+的映射函数。
+累积概率分布函数有多种选择，比如
 <code class="docutils literal notranslate"><span class="pre">logistic</span></code> ，<code class="docutils literal notranslate"><span class="pre">probit</span></code> ，<code class="docutils literal notranslate"><span class="pre">clog-log</span></code> 等等，
 这里以 <code class="docutils literal notranslate"><span class="pre">logistic</span></code> 为例。
 <span class="math notranslate nohighlight">\(P(Y=0)\)</span> 可以写成</p>
@@ -899,7 +925,7 @@
 <li><p>当 <span class="math notranslate nohighlight">\(\eta\)</span> 趋近于 <span class="math notranslate nohighlight">\(c\)</span> 时，<span class="math notranslate nohighlight">\(c-\eta\)</span> 趋近于 <span class="math notranslate nohighlight">\(0\)</span> ，<span class="math notranslate nohighlight">\(P(Y=0)\)</span> 趋近于 <span class="math notranslate nohighlight">\(0.5\)</span> 。</p></li>
 <li><p>当 <span class="math notranslate nohighlight">\(\eta\)</span> 趋近于 <span class="math notranslate nohighlight">\(\infty\)</span> 时，<span class="math notranslate nohighlight">\(c-\eta\)</span> 趋近于 <span class="math notranslate nohighlight">\(-\infty\)</span> ，<span class="math notranslate nohighlight">\(P(Y=0)\)</span> 趋近于 <span class="math notranslate nohighlight">\(0\)</span> 。</p></li>
 </ul>
-<p><span class="math notranslate nohighlight">\(P(Y=1)\)</span> 为</p>
+<p><span class="math notranslate nohighlight">\(P(Y=1)\)</span> 可以写为</p>
 <div class="math notranslate nohighlight" id="equation-eq-ordered-logistic-006">
 <span class="eqno">(20.1.4)<a class="headerlink" href="#equation-eq-ordered-logistic-006" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}P(Y=1) &amp;= 1- P(Y=0)\\&amp;= 1 - \frac{e^{c-\eta}}{1+e^{c-\eta}}\\&amp;= \frac{1}{1+e^{c-\eta}}\\&amp;= \frac{e^{ -(c-\eta)}}{1+e^{-(c-\eta)}}\\&amp;= \frac{e^{ \eta-c}}{1+e^{\eta-c}}\end{aligned}\end{align} \]</div>
 <p>线性预测器 <span class="math notranslate nohighlight">\(\eta\)</span> 展开为</p>
@@ -912,13 +938,16 @@
 <span class="math notranslate nohighlight">\(\beta_0-c \Rightarrow \beta_0\)</span>
 ，对于模型来说，<span class="math notranslate nohighlight">\(\eta-c\)</span> 和 <span class="math notranslate nohighlight">\(\eta\)</span> 是等价的。
 从这里可以看出，在逻辑回归模型中，线性部分的截距 <span class="math notranslate nohighlight">\(\beta_0\)</span> 是和分割点有关的。
-最后，利用分割点分方式推导出的逻辑回归和前面章节逻辑回归的定义是等价的。</p>
-<p>核心思想就是，在线性预测器 <span class="math notranslate nohighlight">\(\eta\)</span> 的空间中有一个分割点，当 <span class="math notranslate nohighlight">\(\eta\)</span> 的值落在分割点的左侧时，
+最后，利用分割点分方式推导出的逻辑回归和前面章节逻辑回归的定义是等价的。
+这意味着有序的二分类逻辑回归模型和传统的无序二分类逻辑回归模型是等价的，
+对于二分类来说，有序和无序没有差别。</p>
+<p>有序二分类的核心思想就是，在线性预测器 <span class="math notranslate nohighlight">\(\eta\)</span> 的空间中有一个分割点，当 <span class="math notranslate nohighlight">\(\eta\)</span> 的值落在分割点的左侧时，
 响应变量 <span class="math notranslate nohighlight">\(Y\)</span> 为 <span class="math notranslate nohighlight">\(0\)</span> 的概率大，
 当 <span class="math notranslate nohighlight">\(\eta\)</span> 的值落在分割点的右侧时，
 <span class="math notranslate nohighlight">\(Y\)</span> 为 <span class="math notranslate nohighlight">\(1\)</span> 的概率大，
-<span class="math notranslate nohighlight">\(Y\)</span> 的概率分布与间距 <span class="math notranslate nohighlight">\(c-\eta\)</span> 正相关，两者可以通过一个累计概率分布函数相连接。</p>
-<p>假设 <span class="math notranslate nohighlight">\(\eta\)</span> 的整个实数域空间中，有 <span class="math notranslate nohighlight">\(K+1\)</span> 个分割点，
+<span class="math notranslate nohighlight">\(Y\)</span> 的概率分布与间距 <span class="math notranslate nohighlight">\(c-\eta\)</span> 正相关，两者可以通过一个累积概率分布函数相连接。</p>
+<p>现在我们扩展到多类别（有序）的场景，
+假设 <span class="math notranslate nohighlight">\(\eta\)</span> 的整个实数域空间中，有 <span class="math notranslate nohighlight">\(K+1\)</span> 个分割点，
 <span class="math notranslate nohighlight">\({c_0,c_1,c_2,\dots,c_K}\)</span>
 ，并且令 <span class="math notranslate nohighlight">\(c_0=-\infty,c_{K}=+\infty\)</span>
 ，则整个空间被分成 <span class="math notranslate nohighlight">\(K\)</span> 个段，
@@ -934,8 +963,8 @@
 \vdots  \\
 K&amp; \text{if} \quad  c_{K-1} &lt; \eta &lt; c_K= +\infty
 \end{cases}\end{split}\]</div>
-<p>假设累计概率分布函数为 <span class="math notranslate nohighlight">\(F\)</span>
-，其一阶导数也就是对应的概率分布函数用符号 <span class="math notranslate nohighlight">\(f\)</span> 表示
+<p>假设累积概率分布函数为 <span class="math notranslate nohighlight">\(F\)</span>
+，其一阶导数（微分）也就是对应的概率密度（质量）函数用符号 <span class="math notranslate nohighlight">\(f\)</span> 表示
 。任意选择一个分割点 <span class="math notranslate nohighlight">\(c_k\)</span> ，
 <span class="math notranslate nohighlight">\(F(c_k - \eta)\)</span> 表示响应变量 <span class="math notranslate nohighlight">\(Y\)</span> 小于等于类别 <span class="math notranslate nohighlight">\(k\)</span>
 的概率。注意，<span class="math notranslate nohighlight">\(F(c_k - \eta)\)</span> 不是 <span class="math notranslate nohighlight">\(Y=k\)</span> 的概率
