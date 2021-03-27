@@ -92,13 +92,9 @@ pygments_style = 'sphinx'
 # mathjax_path = "MathJax/latest.js?config=TeX-AMS-MML_HTMLorMML"
 # mathjax_path = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js'
 # mathjax_path = "/book/build/_static/MathJax/es5//latest.js?""config=TeX-AMS-MML_HTMLorMML"
-import statsmodels
 
-# html_theme = 'alabaster'
 # ---sphinx-themes-----
-# html_theme = 'p-green'
 html_theme = 'sphinx_rtd_theme'
-# html_theme = 'scikit-learn-modern'
 # html_theme_options = {'google_analytics': False,
 #                       'mathjax_path': mathjax_path}
 # html_theme_path = ['themes']
