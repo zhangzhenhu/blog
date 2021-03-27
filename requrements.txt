@@ -1,0 +1,8 @@
+# PSphinxTheme
+# recommonmark
+sphinx
+sphinxcontrib-proof
+sphinxcontrib-bibtex
+sphinxcontrib-tikz
+sphinxcontrib-serializinghtml
+sphinx-rtd-theme
