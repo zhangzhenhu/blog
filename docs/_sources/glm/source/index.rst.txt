@@ -7,6 +7,10 @@
 ###########################
 
 
+.. meta::
+   :description lang=zh_CN: 广义线性模型
+   :keywords: 广义线性模型,逻辑回归,多分类,泊松回归,泊松模型,线性回归,指数分布,GLM,generalized linear model,Overdispersion,Logistic Regression,logit Regression
+
 
 
 
@@ -53,12 +57,3 @@
 
 
 
-.. raw:: html
-
-   <script src="https://utteranc.es/client.js"
-           repo="zhangzhenhu/zzh.github.io"
-           issue-term="pathname"
-           theme="github-light"
-           crossorigin="anonymous"
-           async>
-   </script>

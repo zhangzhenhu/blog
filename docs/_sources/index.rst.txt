@@ -7,8 +7,10 @@
 Welcome
 ==============================================
 
+由于 ``github`` 不稳定，本博客在 ``readthedocs`` 设有分号，同步更新，可任选其一。
 
-
+- readthedocs: https://zzh-blog.readthedocs.io/zh_CN/latest/index.html
+- github: https://zhangzhenhu.github.io/blog/index.html
 
 
 .. section-numbering::

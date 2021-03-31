@@ -2,6 +2,9 @@
 有序离散模型
 #####################################
 
+.. meta::
+    :description lang=zh_CN: 广义线性模型之有序逻辑回归
+    :keywords: 广义线性模型,有序逻辑回归,有序多分类,Ordinal Logistic Regression,Ordered logit
 
 离散随机变量的模型中，最常用的是二分类的伯努利模型（逻辑回归模型），
 除此外，在本书之前的内容的中，我们已经讨论了很多离散模型，
@@ -457,3 +460,10 @@ cauchit
 
 总结
 ################################################
+
+
+
+
+.. math::
+
+    P(O|S) =\Rightarrow P(O|S,I) =\underbrace{\frac{1}{1+e^{-(\theta-b)}}}_{IRT}
