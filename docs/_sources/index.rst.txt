@@ -25,6 +25,8 @@ Welcome
    audio/index.rst
    edm/index.rst
 
+   nlp/index.rst
+
 
 
 
