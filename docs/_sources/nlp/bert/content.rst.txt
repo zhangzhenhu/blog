@@ -416,7 +416,7 @@ Self-Attention
 Attention 机制
 ##################################
 
-
+深度学习中的注意力可以广义地解释为重要性权重
 
 其它参考资料
 ##################################
@@ -429,4 +429,6 @@ Attention 机制
 .. [#] `Visualizing A Neural Machine Translation Model (Mechanics of Seq2seq Models With Attention) <https://jalammar.github.io/visualizing-neural-machine-translation-mechanics-of-seq2seq-models-with-attention/>`_
 .. [#] `Attention? Attention! <https://lilianweng.github.io/lil-log/2018/06/24/attention-attention.html>`_
 .. [#] `一篇了解NLP中的注意力机制 <https://zhuanlan.zhihu.com/p/59837917>`_
+.. [#] `Transformers and Multi-Head Attention <https://uvadlc-notebooks.readthedocs.io/en/latest/tutorial_notebooks/tutorial6/Transformers_and_MHAttention.html>`_
+
 
