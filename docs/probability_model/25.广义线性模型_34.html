@@ -13,6 +13,7 @@
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
 
   
   
@@ -543,17 +544,16 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="8.%E6%B6%88%E5%85%83%E6%B3%95_lecture_7.html">8. 消元法(The Elimination Algorithm)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="8.%E6%B6%88%E5%85%83%E6%B3%95_lecture_7.html#id1">8.1. 什么是模型的推断</a></li>
-<li class="toctree-l3"><a class="reference internal" href="8.%E6%B6%88%E5%85%83%E6%B3%95_lecture_7.html#id2">8.2. 消元法</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="8.%E6%B6%88%E5%85%83%E6%B3%95_lecture_7.html#id3">8.2.1. 一个例子</a></li>
-<li class="toctree-l4"><a class="reference internal" href="8.%E6%B6%88%E5%85%83%E6%B3%95_lecture_7.html#ch-condition-margin">8.2.2. 条件概率和边缘概率</a></li>
-<li class="toctree-l4"><a class="reference internal" href="8.%E6%B6%88%E5%85%83%E6%B3%95_lecture_7.html#id5">8.2.3. 有向图的消元法</a></li>
-<li class="toctree-l4"><a class="reference internal" href="8.%E6%B6%88%E5%85%83%E6%B3%95_lecture_7.html#id6">8.2.4. 无向图的消元法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="8.%E6%B6%88%E5%85%83%E6%B3%95.html">8. 模型推断：消元法</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="8.%E6%B6%88%E5%85%83%E6%B3%95.html#id2">8.1. 什么是模型的推断</a></li>
+<li class="toctree-l3"><a class="reference internal" href="8.%E6%B6%88%E5%85%83%E6%B3%95.html#id3">8.2. 消元法</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="8.%E6%B6%88%E5%85%83%E6%B3%95.html#id4">8.2.1. 有向图消元算法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="8.%E6%B6%88%E5%85%83%E6%B3%95.html#ch-condition-margin">8.2.2. 条件概率和边缘概率</a></li>
+<li class="toctree-l4"><a class="reference internal" href="8.%E6%B6%88%E5%85%83%E6%B3%95.html#id6">8.2.3. 无向图的消元法</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="8.%E6%B6%88%E5%85%83%E6%B3%95_lecture_7.html#id7">8.3. 图消除</a></li>
-<li class="toctree-l3"><a class="reference internal" href="8.%E6%B6%88%E5%85%83%E6%B3%95_lecture_7.html#id9">8.4. 总结</a></li>
+<li class="toctree-l3"><a class="reference internal" href="8.%E6%B6%88%E5%85%83%E6%B3%95.html#id7">8.3. 图消除</a></li>
+<li class="toctree-l3"><a class="reference internal" href="8.%E6%B6%88%E5%85%83%E6%B3%95.html#id9">8.4. 总结</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="9.%E5%92%8C%E7%A7%AF%E7%AE%97%E6%B3%95_lecture_8.html">9. 加和乘积算法(sum-product algorithm)</a><ul>
@@ -1845,12 +1845,12 @@ GLM框架下的模型都可以以统计的形式运用IRLS算法进行参数估�
 GLM的对数似然函数的二阶偏导数如 <a class="reference internal" href="#equation-eq-34-36">公式(18.2.36)</a> 所示，
 显然其计算成本是高昂的，即使计算出来还面临着求逆矩阵的难题。
 那么是不是可以找到 <span class="math notranslate nohighlight">\(H(\beta^{(t)})^{-1}\)</span> 的一个近似替代值呢。
-我们在 <a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-2-fisher-information"><span class="std std-numref">节 3.4.2</span></a> 已经讲过 Fisher information
+我们在 <a class="reference internal" href="2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#ch-2-fisher-information"><span class="std std-numref">节 2.6</span></a> 已经讲过 Fisher information
 的定义，我们知道信息矩阵(information matrix)就等于海森矩阵(Hessian matrix)的期望的负数。</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-25-34-33">
 <span class="eqno">(18.2.43)<a class="headerlink" href="#equation-probability-model-25-34-33" title="公式的永久链接">¶</a></span>\[I(\beta) = - \mathop{\mathbb{E}}_{p(\mathcal{D} ; \beta)}[H(\beta^{(t)})]\]</div>
 <p>我们可以用 <span class="math notranslate nohighlight">\(I(\beta)\)</span> 代替 <span class="math notranslate nohighlight">\(-H(\beta^{(t)})\)</span>
-，回顾一下 <a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-2-fisher-information"><span class="std std-numref">节 3.4.2</span></a> 的内容，
+，回顾一下 <a class="reference internal" href="2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#ch-2-fisher-information"><span class="std std-numref">节 2.6</span></a> 的内容，
 信息矩阵 <span class="math notranslate nohighlight">\(I(\beta)\)</span> 就是 Score function (对数似然函数的一阶导数) 的方差，
 当然我们也可以直接对 <a class="reference internal" href="#equation-eq-34-36">公式(18.2.36)</a> 的求期望得到，结果是一样的。</p>
 <div class="math notranslate nohighlight" id="equation-eq-34-44">
@@ -1954,7 +1954,7 @@ IRLS算法的参数迭代仅仅依赖 <span class="math notranslate nohighlight"
 <div class="math notranslate nohighlight" id="equation-probability-model-25-34-37">
 <span class="eqno">(18.2.54)<a class="headerlink" href="#equation-probability-model-25-34-37" title="公式的永久链接">¶</a></span>\[\left|\frac{D(y-\mu^{new})-D(y,\mu^{old})   }{D(y,\mu^{old})} \right| &lt;\epsilon\]</div>
 <p><strong>估计量的标准误差</strong></p>
-<p>回顾一下在 <a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-2-mle-estimator"><span class="std std-numref">节 3.4.3</span></a> 我们讲的最大似然估计量的评价，
+<p>回顾一下在 <a class="reference internal" href="2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#ch-2-mle-estimator"><span class="std std-numref">节 2.7.3</span></a> 我们讲的最大似然估计量的评价，
 我们知道最大似然估计量的协方差矩阵就是 <span class="math notranslate nohighlight">\(I(\beta)^{-1}\)</span>
 ，显然在IRLS算法过程中已经计算出了 <span class="math notranslate nohighlight">\(I(\beta)^{-1}=- \mathbb{E}[H(\beta)]=(X^TW^{(t)} X)^{-1}\)</span>
 ，所以使用IRLS我们可以很方便的得到估计量的标准误差。</p>
@@ -2027,7 +2027,7 @@ LRT的计算公式如下：</p>
 <div class="math notranslate nohighlight" id="equation-eq-34-52">
 <span class="eqno">(18.3.4)<a class="headerlink" href="#equation-eq-34-52" title="公式的永久链接">¶</a></span>\[L_f = \exp \left \{  \sum_{n=1}^N \frac{y_n \theta(y_n) -b(\theta(y_n))}{a(\phi)}
 + \sum_{n=1}^N  c(y_n;\phi) \right \}\]</div>
-<p>把 <a class="reference internal" href="../glm/source/%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0/content.html#equation-eq-34-51">公式(8.1.10)</a> 和 <a class="reference internal" href="../glm/source/%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0/content.html#equation-eq-34-52">公式(8.1.11)</a> 代入到 <a class="reference internal" href="#equation-eq-34-50">公式(18.3.2)</a>
+<p>把 <a class="reference internal" href="#equation-eq-34-51">公式(18.3.3)</a> 和 <a class="reference internal" href="#equation-eq-34-52">公式(18.3.4)</a> 代入到 <a class="reference internal" href="#equation-eq-34-50">公式(18.3.2)</a>
 可得到GLM的偏差：</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-25-34-42">
 <span class="eqno">(18.3.5)<a class="headerlink" href="#equation-probability-model-25-34-42" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}D &amp;= 2 (\ln L_f -\ln L_m)\\&amp;= \frac{2}{a(\phi)} \sum_{n=1}^N  [ y_n \{ \theta(y_n) - \theta(\hat{\mu}_n) \} - b\{\theta(y_n)\} + b\{\theta(\hat{\mu}_n)\} ]\\&amp;\triangleq 2 \sum_{n=1}^N  [ y_n \{ \theta(y_n) - \theta(\hat{\mu}_n) \} - b\{\theta(y_n)\} + b\{\theta(\hat{\mu}_n)\} ]\end{aligned}\end{align} \]</div>

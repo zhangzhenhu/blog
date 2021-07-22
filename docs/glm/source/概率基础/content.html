@@ -13,6 +13,7 @@
   
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
 
   
   
@@ -543,17 +544,16 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../../probability_model/8.%E6%B6%88%E5%85%83%E6%B3%95_lecture_7.html">8. 消元法(The Elimination Algorithm)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/8.%E6%B6%88%E5%85%83%E6%B3%95_lecture_7.html#id1">8.1. 什么是模型的推断</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/8.%E6%B6%88%E5%85%83%E6%B3%95_lecture_7.html#id2">8.2. 消元法</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../probability_model/8.%E6%B6%88%E5%85%83%E6%B3%95_lecture_7.html#id3">8.2.1. 一个例子</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../probability_model/8.%E6%B6%88%E5%85%83%E6%B3%95_lecture_7.html#ch-condition-margin">8.2.2. 条件概率和边缘概率</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../probability_model/8.%E6%B6%88%E5%85%83%E6%B3%95_lecture_7.html#id5">8.2.3. 有向图的消元法</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../probability_model/8.%E6%B6%88%E5%85%83%E6%B3%95_lecture_7.html#id6">8.2.4. 无向图的消元法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../probability_model/8.%E6%B6%88%E5%85%83%E6%B3%95.html">8. 模型推断：消元法</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/8.%E6%B6%88%E5%85%83%E6%B3%95.html#id2">8.1. 什么是模型的推断</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/8.%E6%B6%88%E5%85%83%E6%B3%95.html#id3">8.2. 消元法</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../probability_model/8.%E6%B6%88%E5%85%83%E6%B3%95.html#id4">8.2.1. 有向图消元算法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../probability_model/8.%E6%B6%88%E5%85%83%E6%B3%95.html#ch-condition-margin">8.2.2. 条件概率和边缘概率</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../probability_model/8.%E6%B6%88%E5%85%83%E6%B3%95.html#id6">8.2.3. 无向图的消元法</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/8.%E6%B6%88%E5%85%83%E6%B3%95_lecture_7.html#id7">8.3. 图消除</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/8.%E6%B6%88%E5%85%83%E6%B3%95_lecture_7.html#id9">8.4. 总结</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/8.%E6%B6%88%E5%85%83%E6%B3%95.html#id7">8.3. 图消除</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/8.%E6%B6%88%E5%85%83%E6%B3%95.html#id9">8.4. 总结</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../probability_model/9.%E5%92%8C%E7%A7%AF%E7%AE%97%E6%B3%95_lecture_8.html">9. 加和乘积算法(sum-product algorithm)</a><ul>
@@ -931,7 +931,7 @@
 <p>我们可以把每一个概率模型都关联着一个 <em>试验</em>，
 试验的所有可能结果和这个概率模型的所有结果一一对应，该试验的所有可能结果就构成 <strong>样本空间</strong>，
 用 <span class="math notranslate nohighlight">\(\Omega\)</span> 表示样本空间，样本空间的子集称之为 <strong>随机事件</strong>，通常用大写的字母表示随机事件。</p>
-<p>我们以掷骰子为例，一个六面体的骰子，把投掷骰子的行为定义试验，投掷的结果有六种可能，
+<p>我们以掷骰子为例，一个六面体的骰子，把投掷骰子的行为定义为试验，投掷的结果有六种可能，
 这六种结果就构成了样本空间 <span class="math notranslate nohighlight">\(\Omega\)</span> ，空间 <span class="math notranslate nohighlight">\(\Omega\)</span> 中有六个样本点，
 点数为 <span class="math notranslate nohighlight">\(1\)</span> 的样本点(结果)就是一个 <em>随机事件</em>，
 同样点数为 <span class="math notranslate nohighlight">\(2\)</span> 的样本点(结果)也是一个 <em>随机事件</em>。
@@ -1003,9 +1003,9 @@
 则事件 <span class="math notranslate nohighlight">\(s_i\)</span> 发生的概率为</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-3">
 <span class="eqno">(1.1.4)<a class="headerlink" href="#equation-glm-source-content-3" title="公式的永久链接">¶</a></span>\[P(s_i) = \frac{\text{试验结果中}\omega_i \text{的次数} }{\text{试验的总次数}}\]</div>
-<p>并且，事件 <span class="math notranslate nohighlight">\(\{s_1,s_2,\cdots,s_n\}\)</span> 的概率是 <span class="math notranslate nohighlight">\(P(s_i)\)</span> 之和。</p>
+<p>并且，事件 <span class="math notranslate nohighlight">\(\{s_1,s_2,\cdots,s_N\}\)</span> 的概率是 <span class="math notranslate nohighlight">\(P(s_i)\)</span> 之和。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-4">
-<span class="eqno">(1.1.5)<a class="headerlink" href="#equation-glm-source-content-4" title="公式的永久链接">¶</a></span>\[P(s_1,s_2,\cdots,s_n) = P(s_1) + P(s_2)+\cdots + P(s_n)\]</div>
+<span class="eqno">(1.1.5)<a class="headerlink" href="#equation-glm-source-content-4" title="公式的永久链接">¶</a></span>\[P(s_1,s_2,\cdots,s_N) = P(s_1) + P(s_2)+\cdots + P(s_N)\]</div>
 </div>
 <div class="section" id="id5">
 <h3><span class="section-number">1.1.3. </span>连续模型<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
@@ -1036,11 +1036,11 @@
 <p>条件概率是给定 <em>部分信息</em> 的基础上对实验结果的一种推断。例如
 在连续两次抛掷骰子的试验中，已知两次抛掷的点数的总和为 <span class="math notranslate nohighlight">\(9\)</span>,第一次抛掷的点数为 <span class="math notranslate nohighlight">\(6\)</span> 的可能性有多大。
 换句话说，假设我们已经知道给定的事件 <span class="math notranslate nohighlight">\(B\)</span> 发生了，而希望知道令一个给定事件 <span class="math notranslate nohighlight">\(A\)</span> 发生的可能性。
-因此，我们需要构建一个新的概率律，它顾及了事件 <span class="math notranslate nohighlight">\(B\)</span> 已经发生的信息，求出任何事件 <span class="math notranslate nohighlight">\(A\)</span> 发生的概率。
-这个概率就是给定 <span class="math notranslate nohighlight">\(B\)</span> 发生之间事件 <span class="math notranslate nohighlight">\(A\)</span> 的 <strong>条件概率</strong> ，
+此时，我们需要构建一个新的概率律，它顾及了事件 <span class="math notranslate nohighlight">\(B\)</span> 已经发生的信息，求出任何事件 <span class="math notranslate nohighlight">\(A\)</span> 发生的概率。
+这个概率就是给定 <span class="math notranslate nohighlight">\(B\)</span> 发生之后事件 <span class="math notranslate nohighlight">\(A\)</span> 的 <strong>条件概率</strong> ，
 记作 <span class="math notranslate nohighlight">\(P(A|B)\)</span> ，读作 <span class="math notranslate nohighlight">\(B\)</span> 的条件下 <span class="math notranslate nohighlight">\(A\)</span> 的概率。
-当然，条件概率也必须符合三条概率公理。</p>
-<p>我们用实际的例子来说明条件概率。</p>
+当然，条件概率也必须符合三条概率公理。
+我们用实际的例子来说明条件概率。</p>
 <div class="topic">
 <p class="topic-title">例1：箱子里取球</p>
 <p>假设我们有两个箱子分别为 <span class="math notranslate nohighlight">\(a_1,a_2\)</span> ，箱子中分别装有红色球和白色球。
@@ -1188,9 +1188,9 @@ B &amp; A &amp; P(A,B) \\\hline
 <div class="math notranslate nohighlight" id="equation-glm-source-content-16">
 <span class="eqno">(1.4.1)<a class="headerlink" href="#equation-glm-source-content-16" title="公式的永久链接">¶</a></span>\[P(A_1,A_2,\cdots,A_N) = P(A_N)P(A_{N-1}|A_N)P(A_{N-2}|A_N,A_{N-1}) \cdots P(A_1|A_N,A_{N-1},\cdots,A_2)\]</div>
 <p>我们继续以箱子取球为例，
-为简化说明，我们重新定义事件 <span class="math notranslate nohighlight">\(B\)</span> 是事件 <span class="math notranslate nohighlight">\(B_{\text{正}},B_{\text{反}}\)</span> 的集合，
+为简化说明，我们重新定义事件 <span class="math notranslate nohighlight">\(B\)</span> 是事件 <span class="math notranslate nohighlight">\(\{ B_{\text{正}},B_{\text{反}} \}\)</span> 的集合，
 记作 <span class="math notranslate nohighlight">\(B=\{B_{\text{正}},B_{\text{反}}\}\)</span> 。
-同理，事件 <span class="math notranslate nohighlight">\(A\)</span> 是事件 <span class="math notranslate nohighlight">\(A_{\text{红}},B_{\text{白}}\)</span> 的集合，
+同理，事件 <span class="math notranslate nohighlight">\(A\)</span> 是事件 <span class="math notranslate nohighlight">\(\{A_{\text{红}},A_{\text{白}}\}\)</span> 的集合，
 记作 <span class="math notranslate nohighlight">\(A=\{A_{\text{红}},A_{\text{白}}\}\)</span> 。</p>
 <p>在这个例子中，先投掷硬币，然后根据硬币的朝向决定从哪个箱子里取球。
 因此事件 <span class="math notranslate nohighlight">\(B\)</span> 先发生，事件 <span class="math notranslate nohighlight">\(A\)</span> 后发生，
@@ -1433,7 +1433,7 @@ X &amp; P(X) \\\hline
 <span class="eqno">(1.6.7)<a class="headerlink" href="#equation-glm-source-content-31" title="公式的永久链接">¶</a></span>\[P(a \le X \le b) = \int_a^b f(x) dx\]</div>
 <p>一定要注意，对于连续值随机变量的概率分布函数 <span class="math notranslate nohighlight">\(f(x)\)</span>
 ，<span class="math notranslate nohighlight">\(f(x)\)</span> 的值并不是概率值，而是这一点的 <strong>密度值</strong> ，
-在一个区间上的积分结果随机变量落在这个区间的概率值。</p>
+在一个区间上的积分结果表示随机变量落在这个区间的概率值。</p>
 <p>如果我们把这个区间 <span class="math notranslate nohighlight">\([a,b]\)</span> 扩大到 <span class="math notranslate nohighlight">\(X\)</span> 的整个值域空间 <span class="math notranslate nohighlight">\(\mathcal{R}\)</span>
 ，此时相当于 <span class="math notranslate nohighlight">\(a=-\infty,b=\infty\)</span>，
 不管试验结果是什么，<span class="math notranslate nohighlight">\(X\)</span> 的值肯定会落在自己的值域空间，
@@ -1473,7 +1473,7 @@ X &amp; P(X) \\\hline
 \int_{-\infty}^{x} f_X(t) dt &amp;, \quad \text{若} X \text{是连续的}
 \end{aligned}
 \right.\end{split}\]</div>
-<p>累积分布函数表示 <span class="math notranslate nohighlight">\(F_X(x)\)</span> 将 <span class="math notranslate nohighlight">\(X\)</span> 取值的概率由 <span class="math notranslate nohighlight">\(-\infty\)</span> 累计到 <span class="math notranslate nohighlight">\(x\)</span> 。</p>
+<p>累积分布函数 <span class="math notranslate nohighlight">\(F_X(x)\)</span> 表示将 <span class="math notranslate nohighlight">\(X\)</span> 取值的概率由 <span class="math notranslate nohighlight">\(-\infty\)</span> 累计到 <span class="math notranslate nohighlight">\(x\)</span> 。</p>
 </div>
 <p>在一个概率模型中，随机变量可以有不同的类型，可以是离散的，也可以是连续的，甚至可以是既非离散也非连续的。
 但不管什么类型的随机变量，它们都会有一个相对应的累积分布函数。

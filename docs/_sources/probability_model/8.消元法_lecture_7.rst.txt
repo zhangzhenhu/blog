@@ -1,24 +1,112 @@
 ########################################################
-消元法(The Elimination Algorithm)
+模型推断：消元法
 ########################################################
+整个概率图模型的理论可以分为三大块：模型表示（Presentation）、
+模型推断（Inference）和模型学习（Learning）。
+我们已经讨论完模型的表示问题，
+本章开始我们讨论模型的推断问题。
+图模型中的概率推断问题一般有三类，分别是
 
-我们已经讨论完概率图模型的表示，本章我们讨论如何在图模型中计算条件概率、边缘概率--即模型的概率推断(probabilistic inference)问题。
+- 边缘概率（Marginal probabilities）查询。
+- 条件概率（Conditional probabilities）查询。
+- 最大后验概率（Maximum a posterior probabilities,MAP）查询。
+
+其中边缘概率查询和条件概率查询其实是等价的，在计算过程中没有太大区别，
+因此通常会把这两类问题合并在一起。
+在概率图模型中解决概率查询问题的算法有很多，
+根据是否可以得到精确结果可以划分为两大类，
+精确推断算法和近似推断算法，
+顾名思义，精确推断算法可以得到准确的查询概率值，
+而近似推断算法只能得到近似的结果。
+既然已经有精确推断算法了，为什么还要近似算法呢？
+显然，精确算法有它的局限性，不能解决所有的问题，
+所以才需要通过损失精度的方法去解决所面临问题。
+本章我们讨论图模型中可以精确进行概率查询的消元算法，
+消元法是图模型中进行概率查询的基础算法，属于入门必须课。
+
+
+.. digraph:: 模型推断
+    :align: center
+    :caption: 模型推断的类型和求解算法
+
+    graph [rankdir=LR,]
+    node [shape=box]
+
+    n1 [label="概率推断"]
+
+    n2 [label="推断问题"]
+    n21 [label="边缘概率"]
+    n22 [label="条件概率"]
+    n23 [label="最大后验概率"]
+
+
+    n3 [label="推断算法"]
+
+    n31 [label="精确推断（Exact influence）"]
+    n311 [label="消元法（Elimination algorithm）"]
+    n312 [label="置信传播（Belief propagation algorithm）"]
+    n313 [label="联结树算法（Junction Tree algorithm）"]
+
+    n32 [label="近似推断（Approximate inference）"]
+    n321 [label="采样法（Sampling algorithms）"]
+    n322 [label="变分法（Variational methods）"]
+
+
+    n1 -> {n2 n3}
+    n2-> {n21 n22 n23}
+
+    n3 ->{n31 n32}
+
+    n31->{n311 n312 n313}
+    n32->{n321 n322 }
+
+
+
+
+
+
+
+.. math::
+
+    \newcommand{\indep}{\perp  \!  \!\! \perp}
+    \newcommand{\notindep}{\not\! \perp  \!  \!\! \perp}
+
+    \mathcal{X} \indep \mathcal{Y} \mid \mathcal{Z}
+
+    \mathcal{X} \notindep \mathcal{Y} \mid \mathcal{Z}
+
+
+
+    X \independent Y
+
+    \newcommand{\nb}[1]{\text{ne}(#1)}
+    \newcommand{\pa}[1]{\text{pa}(#1)}
+    \newcommand{\ch}[1]{\text{ch}(#1)}
+    \newcommand{\de}[1]{\text{de}(#1)}
+    \newcommand{\an}[1]{\text{an}(#1)}
+    \newcommand{\nd}[1]{\text{nd}(#1)}
+    \newcommand{\can}[1]{\overline{\text{an}}(#1)}
+    \newcommand{\ind}{⫫} \newcommand{\dsep}{\perp_d}
+    \newcommand{\msep}{\perp_m}
+
+    X \ind Y
+
 
 什么是模型的推断
 ########################################################
 
-
-我们已经了解到概率图是对多个随机变量的联合概率分布的图形化表示，
+在前面的章节中，我们讨论了概率图模型的表示以及独立性的表达，
+从中了解到概率图是对多个随机变量的联合概率分布的图形化表示。
 实际应用中，我们经常需要基于图模型，计算其中部分结点变量的边缘概率或者条件概率。
-比如，我们用E、F和R表示图中两个没有交集的结点集合，E、F和R组成了图模型中的全部结点，
-:math:`\mathrm{x}_E,\mathrm{x}_F,\mathrm{x}_R`
-为对应的变量集合，图模型的联合概率分布为 :math:`p(\mathrm{x}_E,\mathrm{x}_F,\mathrm{x}_R)` 。
+比如，我们用E、F和R分别表示图中没有交集的结点集合，E、F和R组成了图模型中的全部结点，
+:math:`X_E,X_F,X_R`
+为对应的变量集合，图模型的联合概率分布为 :math:`P(X_E,X_F,X_R)` 。
 我们可能需要计算边缘概率 :math:`p(x_E,x_F)` 或者条件概率 :math:`p(x_F|x_E)` ，
-亦或者最大后验概率(MAP) :math:`max_{x_F} p(x_F|x_E)` ，
+亦或者最大后验概率(MAP) :math:`max_{X_F} p(x_F|x_E)` ，
 这就是图模型的概率推断问题(probabilistic inference problem)。
 本章我们先讨论模型推断中计算边缘概率和条件概率的问题，最大后验概率在后续章节讨论。
+在正式开始前，先通过一个例子直观的了解一下什么是模型推断。
 
-我们先用一个具体的实例阐述一下什么是模型推断，回到我们最开始用的箱子里取球的例子。
 
 .. topic:: 箱子里取球的概率问题
 
@@ -26,12 +114,13 @@
     :math:`a_2` 箱子中有8个红色球和2个白色球。 另外我们有一个特殊的硬币，投放后正面向上的概率是0.6，反面向上的概率是0.4。
     现在我们进行如下实验：
 
-    首先，投掷硬币，然后观察硬币的朝向。
+    首先投掷硬币，然后观察硬币的朝向。
     如果正面向上就从 :math:`a_1` 箱子随机取出一个球，并记录球的颜色；
     如果反面朝上，就从 :math:`a_2` 箱子中随机取出一个球，并记录下球的颜色。
 
-    我们设硬币朝向(或者说是决定的箱子)为随机变量A，则有 :math:`P(\text{正}(a_1))=0.6;P(\text{反}(a_2))=0.4` 。球的颜色记为随机变量B，
-    则有 :math:`P(\text{红}|a_1)=0.4;P(\text{白}|a_1)=0.6;P(\text{红}|a_2)=0.8;P(\text{白}|a_2)=0.2`
+    我们设硬币朝向(或者说是决定的箱子)为随机变量A，则有 :math:`p(A=\text{正}(a_1))=0.6;p(A=\text{反}(a_2))=0.4` 。球的颜色记为随机变量B，
+    则有 :math:`P(B=\text{红}|A=a_1)=0.4,\ P(B=\text{白}|A=a_1)=0.6 `,
+    :math:`P(B=\text{红}|A=a_2)=0.8,\ P(B=\text{白}|A=a_2)=0.2`。
 
 
 这个例子中有两个随机变量，分别是A和B，其联合概率分布为:
@@ -39,36 +128,56 @@
 .. math::
     P(A,B) = P(A)P(B|A)
 
-转化成有向图表示为:
+根据前几章的知识，可以用一个有向图表示这个联合概率分布。
 
-
-.. figure:: ./_static/20190222164747.png
-    :scale: 40%
+.. digraph:: AB
     :align: center
+    :caption: 随机变量A和B的有向图表示
+    :alt: alternate text
 
-    随机变量A和B组成的有向图
 
-假设有个人进行了一次实验，但是只告诉我们最后是红色球，并没有告诉我们硬币的朝向，也就是没有告知是从哪个箱子取出的。
-这时我们就需要根据观测变量B(球的颜色，也就是观测到随机变量B的取值为红色)去推断出未知的变量A，
-也就是计算条件概率 :math:`p(A=a|B=\text{红色})` ，
+    graph [rankdir=LR,]
+    node [shape=circle]
+
+    A -> B
+
+
+
+
+假设有个人进行了一次实验，但是只告诉我们取到的是红色球，让我们去猜测他是从哪个箱子取出来的。
+这时我们就需要根据观测变量B(球的颜色)去推断出未知的变量A（箱子），
+也就是计算条件概率分布 :math:`P(A|B=\text{红色})` ，
 这就是典型的模型推断问题，已知图中部分变量的值，去推断未知变量的概率分布。
+
+.. digraph:: AB2
+    :align: center
+    :caption: 变量B是观测变量
+    :alt: alternate text
+
+
+    graph [rankdir=LR,]
+    node [shape=circle]
+    B[style=filled]
+
+    A -> B
+
 
 
 模型的推断都是建立在贝叶斯推断（定理）的基础上的，根据贝叶斯定理有:
 
     .. math::
 
-        P(A|B=\text{观测值}) &= \frac{P(B=\text{观测值}|A) P(A)}{P(B)}
+        P(A|B=\text{观测值}) &= \frac{P(B=\text{观测值}|A) P(A)}{P(B=\text{观测值})}
 
         \text{后验概率分布}  &= \frac{\text{似然} \times \text{先验概率分布}}{\text{边缘概率分布}}
 
 .. hint::
 
-    如果有多个观测值，则其中的似然部分就是连乘式(全部观测值同时发生):
+    如果有多次观测（样本），则其中的似然部分就是连乘式(全部观测值同时发生):
 
     .. math::
 
-            P(A|B=\text{\{观测值集合\}}) = \frac{ [\prod_i^N P_i(B=\text{观测值}_i|A)] P(A)}{P(B)}
+            P(A|B=\text{\{观测值集合\}}) = \frac{ \left [ \prod_i^N P_i(B=\text{观测值}_i|A) \right ] P(A)}{P(B=\text{\{观测值集合\}})}
 
 
 
@@ -78,11 +187,12 @@
 
     - **计算最大后验估计。** 直接推断出未知变量的最大可能的取值。
 
-        我们需要计算一个最大可能(最大概率的)的  :math:`\mathbf{x}` 取值， :math:`\hat{x} = \mathop{\arg\min}_{x} P(x|y)` 。
+        我们需要计算一个最大可能(最大概率的)的  :math:`A` 取值， :math:`\hat{a} = \mathop{\arg\max}_{A} P(A|B=b)` 。
 
 
-有时我们会把观测变量记为证据(Evidence)变量 :math:`\mathbf{E}` ，观测值集合称为证据 :math:`\mathbf{e}` ，
-推断的变量称为 **查询变量** ，记为 :math:`\mathbf{X}` ，则有:
+有时我们会把图中观测变量集合记为证据(Evidence)变量集合 :math:`\mathbf{E}` ，
+观测值集合称为证据 :math:`\mathbf{e}` ，
+推断的变量集合称为 **查询变量** ，记为 :math:`\mathbf{X}` ，则有:
 
 .. math::
 
@@ -92,7 +202,7 @@
 
 然而，通常情况我们的模型是比较复杂的，模型中并不是只有观测变量和推断变量，除了这两类变量外，
 还存在其他的变量，既不是证据变量，也不是查询变量，我们称之为 **隐变量** ，
-用 :math:`\mathbf{W}=\mathcal{X}-\mathbf{X}-\mathbf{E}` 表示，
+用 :math:`\mathbf{W}=\mathcal{X}-\mathbf{X}-\mathbf{E}` 表示图中隐变量的集合，
 此时联合概率分布变为 :math:`P(\mathbf{X,W,e})` ，
 这时我就就需要边际化的方法得到:
 
@@ -159,6 +269,15 @@
 消元法
 ########################################################
 
+模型推断的算法有很多种，整体上可以分为两大类：精确推断和近似推断。
+精确推断算法，可以得出准确的结果，常见的有消元法、置信传播算法等等。
+近似推断算法，顾名思义，只能得到一个近似的结果，常见的有变分法、采样法等。
+其中，消元法是最基础的方法，算法过程非常直观，并且兼容性很好，
+在有向图和无向图中都可以使用，
+并且整个过程是等价的。
+然而消元法也有一些限制和不足，最典型的就是计算复杂度较高，
+但它非常适合作为入门算法。
+
 一个例子
 ============================
 
@@ -172,57 +291,56 @@
     深色阴影结点 :math:`\mathrm{x}_6` 是条件变量(证据变量)，浅色阴影结点是需要消除的变量，我们想要计算条件概率 :math:`p(x_1|x_6)` 。
     :math:`E=\{6\},F=\{1\},R=\{2,3,4,5\}`
 
-如 :numref:`fg_7_a1` 所示，我们用深度阴影(深色)的结点表示条件变量，通常我们也会称这些结点为 *证据结点(evidence nodes)* ，
-我们用E表示。图中的非阴影结点是我们要计算条件概率的结点，称之为 *查询结点(query nodes)* ，用符号F表示。
-剩余的轻度阴影(浅色)结点，是需要边际化消除的结点，用符号 :math:`R=V\backslash(E\cup F)` 表示。
-我们想要计算条件概率 :math:`p(x_F|x_E)` 。
 
-根据上节提到的贝叶斯定理，需要先计算边缘概率：
+.. _fg_7_a2:
+
+.. digraph:: example1
+    :align: center
+    :caption: 深色阴影结点 :math:`X_6` 是条件变量(证据变量)，浅色阴影结点是需要消除的变量（隐变量）。
+    :alt: alternate text
+
+    graph [rankdir=LR,]
+    node [shape=circle]
+
+    X1[label=<X<SUB>1</SUB>>]
+    X2[style=filled, label=<X<SUB>2</SUB>>]
+    X3[style=filled, label=<X<SUB>3</SUB>> ]
+    X4[style=filled, label=<X<SUB>4</SUB>>]
+    X5[style=filled, label=<X<SUB>5</SUB>>]
+    X6[style=filled, label=<X<SUB>6</SUB>>, fillcolor=dimgrey]
+
+
+    X1 -> {X2 X3}
+    X2 -> {X4 X6}
+    X3 -> X5
+    X5 -> X6
+
+
+
+
+
+如 :numref:`fg_7_a2` 所示，我们符号 :math:`V` 表示图中全部结点的集合，:math:`V=\{X_1,X_2,X_3,X_4,X_5,X_6\}`。
+其中深度阴影(深色)表示可以观测的结点，有时也称为 *证据结点(evidence nodes)* ，
+用 :math:`E=\{X_6\}` 表示。
+轻度阴影(浅色)结点表示隐变量集合，即无法进行观测的结点，
+用符号 :math:`W=\{ X_2,X_3,X_4,X_5\}` 表示。
+其中非阴影结点 :math:`X_1` 为 *查询结点(query nodes)* ，记为 :math:`F=\{X_1\}` 。
+我们要计算在已有证据结点观测值的条件下，查询结点的（边缘）概率分布。
+
+此外，我们约定用大写字母 :math:`X` 表示随机变量，
+对应的小写字母 :math:`x` 表示随机变量的一种可能取值(不固定)，
+用花式符号 :math:`\mathcal{X}` 表示变量的取值空间，即 :math:`x \in \mathcal{X}` 。
+头上有横线的符号 :math:`\bar{x}` 表示取值空间 :math:`\mathcal{X}` 中一个 *特定* 的值。
+
+
+假设图中所有结点都是二值离散的伯努利随机变量，只有 :math:`0` 或 :math:`1` 两个可能的取值，
+即 :math:`\mathcal{X}=\{0,1\}`。
+由于所有结点都是离散变量，
+图中所有的局部概率分布都可以用表格的形式给出。
 
 .. math::
 
-    p(x_E,x_F) = \sum_{x_R} p(x_E,x_F,x_R)
-
-然后在此基础上边际化得到 :math:`p(x_E)` ：
-
-.. math::
-
-    p(x_E) = \sum_{x_F} p(x_E,x_F)
-
-
-最后得到条件概率 :math:`p(x_F|x_E)` ：
-
-.. math::
-
-    p(x_F|x_E) = \frac{p(x_E,x_F)}{p(x_E)}
-
-
-
-这里我们假设要计算当 :math:`\mathrm{x}_6=\bar{x}_6` 时， :math:`\mathrm{x}_1=x_1` 的概率，
-即条件概率 :math:`p(x_1|\bar{x}_6)` 。一般我们用符号 :math:`\mathrm{x}` 表示随机变量；
-符号 :math:`\mathcal{X}` 表示变量的取值空间；
-小写符号 :math:`x` 表示变量的一种可能取值(不固定) :math:`x \in \mathcal{X}` ；
-头上有横线的符号 :math:`\bar{x}` 表示 *固定* 的一个取值。
-首先第一步，我们需要计算边缘概率 :math:`p(x_1,\bar{x}_6)` 。
-
-
-
-.. math::
-    :label: eq_7_1
-
-    p(x_1,\bar{x}_6) &= \sum_{x_2,x_3,x_4,x_5} p(x_1)p(x_2|x_1)p(x_3|x_1)p(x_4|x_2)p(x_5|x_3)p(\bar{x}_6|x_2,x_5)
-
-    &= \sum_{x_2} \sum_{x_3} \sum_{x_4} \sum_{x_5} p(x_1)p(x_2|x_1)p(x_3|x_1)p(x_4|x_2)p(x_5|x_3)p(\bar{x}_6|x_2,x_5)
-
-    &= p(x_1) \sum_{x_2} p(x_2|x_1) \sum_{x_3} p(x_3|x_1) \sum_{x_4} p(x_4|x_2) \sum_{x_5} p(x_5|x_3)p(\bar{x}_6|x_2,x_5)
-
-这里我们通过一个具体的实例，为大家演示一下计算过程。为了简单我们假设图中每个变量都是伯努利变量，
-并且我们给出这个联合概率分布中的每个局部条件分布。
-
-
-.. math::
-
-    p(x_{1}) =
+    P(X_{1}) =
     \begin{array}{|c|c|}
     \hline
     x_1&probability\\
@@ -236,7 +354,7 @@
 
 .. math::
 
-    p(x_{2}|x_1)=
+    P(X_{2}|X_1)=
     \begin{array}{|c|c|c|}
     \hline
     x_1&x_2&probability\\
@@ -251,7 +369,7 @@
 
 .. math::
 
-    p(x_{3}|x_1)=
+    P(X_{3}|X_1)=
     \begin{array}{|c|c|c|}
     \hline
     x_1&x_3&probability\\
@@ -268,7 +386,7 @@
 .. math::
 
 
-    p(x_{4}|x_2)=
+    P(X_{4}|X_2)=
     \begin{array}{|c|c|c|}
     \hline
     x_2&x_4&probability\\
@@ -284,7 +402,7 @@
 
 .. math::
 
-    p(x_{5}|x_3)=
+    P(X_{5}|X_3)=
     \begin{array}{|c|c|c|}
     \hline
     x_3&x_5&probability\\
@@ -299,7 +417,7 @@
 
 .. math::
 
-    p(x_{6}|x_3,x_5)=
+    P(X_{6}|X_2,X_5)=
     \begin{array}{|c|c|c|c|}
     \hline
     x_2&x_5&x_6&probability\\
@@ -317,6 +435,54 @@
     1&1&1&0.7\\
     \hline
     \end{array}
+
+
+
+
+
+
+
+
+在给定 :math:`X_E` 的观测值的条件下，计算出查询结点 :math:`X_F` 的条件概率分布 :math:`P(X_F|X_E=x_E)` 。
+由于图中存在隐变量，
+因此首先要消除隐变量，
+得到查询变量和证据变量的边缘概率分布。
+
+.. math::
+
+    P(X_E,X_F) = \sum_{X_W} P(X_E,X_F,X_W)
+
+然后在此基础上边际化得到 :math:`p(x_E)` ：
+
+.. math::
+
+    p(x_E) = \sum_{x_F} p(x_E,x_F)
+
+
+最后得到条件概率 :math:`p(x_F|x_E)` ：
+
+.. math::
+
+    p(x_F|x_E) = \frac{p(x_E,x_F)}{p(x_E)}
+
+
+这里我们假设要计算当 :math:`X_6=\bar{x}_6` 时， :math:`X_1=x_1` 的概率，
+即条件概率 :math:`p(X_1=x_1|X_6=\bar{x}_6)` 。
+
+
+第一步，计算边缘概率 :math:`p(X_1=x_1,X_6=\bar{x}_6)` 。
+
+
+
+.. math::
+    :label: eq_7_1
+
+    p(x_1,\bar{x}_6) &= \sum_{x_2,x_3,x_4,x_5} p(x_1)p(x_2|x_1)p(x_3|x_1)p(x_4|x_2)p(x_5|x_3)p(\bar{x}_6|x_2,x_5)
+
+    &= \sum_{x_2} \sum_{x_3} \sum_{x_4} \sum_{x_5} p(x_1)p(x_2|x_1)p(x_3|x_1)p(x_4|x_2)p(x_5|x_3)p(\bar{x}_6|x_2,x_5)
+
+    &= p(x_1) \sum_{x_2} p(x_2|x_1) \sum_{x_3} p(x_3|x_1) \sum_{x_4} p(x_4|x_2) \sum_{x_5} p(x_5|x_3)p(\bar{x}_6|x_2,x_5)
+
 
 
 这里我们假设 :math:`\bar{x}_6=1` ，按照 :eq:`eq_7_1` 中的消元顺序，我们需要先计算 :math:`\sum_{x_5} p(x_5|x_3)p(\bar{x}_6|x_2,x_5)`
@@ -359,7 +525,7 @@
 
 .. math::
 
-     p(\bar{x}_6=1|x_2,x_5) p(x_5|x_3)  =
+     p(\bar{x}_6=1|x_2,x_5) p(x_5|x_3)  &=
     \begin{array}{|c|c|c|}
     \hline
     x_2&x_5&probability\\
@@ -385,7 +551,8 @@
     1&1&0.7\\
     \hline
     \end{array}
-    =
+
+    &=
     \begin{array}{|c|c|c|c|}
     \hline
     x_2&x_5&x_3&message\\\hline

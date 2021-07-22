@@ -13,6 +13,7 @@
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
 
   
   
@@ -543,17 +544,16 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="8.%E6%B6%88%E5%85%83%E6%B3%95_lecture_7.html">8. 消元法(The Elimination Algorithm)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="8.%E6%B6%88%E5%85%83%E6%B3%95_lecture_7.html#id1">8.1. 什么是模型的推断</a></li>
-<li class="toctree-l3"><a class="reference internal" href="8.%E6%B6%88%E5%85%83%E6%B3%95_lecture_7.html#id2">8.2. 消元法</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="8.%E6%B6%88%E5%85%83%E6%B3%95_lecture_7.html#id3">8.2.1. 一个例子</a></li>
-<li class="toctree-l4"><a class="reference internal" href="8.%E6%B6%88%E5%85%83%E6%B3%95_lecture_7.html#ch-condition-margin">8.2.2. 条件概率和边缘概率</a></li>
-<li class="toctree-l4"><a class="reference internal" href="8.%E6%B6%88%E5%85%83%E6%B3%95_lecture_7.html#id5">8.2.3. 有向图的消元法</a></li>
-<li class="toctree-l4"><a class="reference internal" href="8.%E6%B6%88%E5%85%83%E6%B3%95_lecture_7.html#id6">8.2.4. 无向图的消元法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="8.%E6%B6%88%E5%85%83%E6%B3%95.html">8. 模型推断：消元法</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="8.%E6%B6%88%E5%85%83%E6%B3%95.html#id2">8.1. 什么是模型的推断</a></li>
+<li class="toctree-l3"><a class="reference internal" href="8.%E6%B6%88%E5%85%83%E6%B3%95.html#id3">8.2. 消元法</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="8.%E6%B6%88%E5%85%83%E6%B3%95.html#id4">8.2.1. 有向图消元算法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="8.%E6%B6%88%E5%85%83%E6%B3%95.html#ch-condition-margin">8.2.2. 条件概率和边缘概率</a></li>
+<li class="toctree-l4"><a class="reference internal" href="8.%E6%B6%88%E5%85%83%E6%B3%95.html#id6">8.2.3. 无向图的消元法</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="8.%E6%B6%88%E5%85%83%E6%B3%95_lecture_7.html#id7">8.3. 图消除</a></li>
-<li class="toctree-l3"><a class="reference internal" href="8.%E6%B6%88%E5%85%83%E6%B3%95_lecture_7.html#id9">8.4. 总结</a></li>
+<li class="toctree-l3"><a class="reference internal" href="8.%E6%B6%88%E5%85%83%E6%B3%95.html#id7">8.3. 图消除</a></li>
+<li class="toctree-l3"><a class="reference internal" href="8.%E6%B6%88%E5%85%83%E6%B3%95.html#id9">8.4. 总结</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="9.%E5%92%8C%E7%A7%AF%E7%AE%97%E6%B3%95_lecture_8.html">9. 加和乘积算法(sum-product algorithm)</a><ul>
@@ -930,7 +930,7 @@
 <span class="eqno">(10.3)<a class="headerlink" href="#equation-probability-model-11-lecture-11-2" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\max_{x_F}\ p(x_F|\bar{x}_E) &amp;\propto max_{x_F} \ p(x_F,\bar{x}_E)\\&amp;= \max_{x_F} \ p(x_F,x_E)\delta(x_E,\bar{x}_E)\\&amp;= \max_{\mathbf{x}} \ p(\mathbf{x})\delta(x_E,\bar{x}_E)\\&amp;\triangleq \max_{\mathbf{x}} \ p^E(\mathbf{x})\end{aligned}\end{align} \]</div>
 <div class="admonition note">
 <p class="admonition-title">注解</p>
-<p>如果对于公式中的符号 <span class="math notranslate nohighlight">\(\delta,E,\bar{x}_E\)</span> 不理解请回顾一下 <a class="reference internal" href="8.%E6%B6%88%E5%85%83%E6%B3%95_lecture_7.html#ch-condition-margin"><span class="std std-numref">节 8.2.2</span></a> 。</p>
+<p>如果对于公式中的符号 <span class="math notranslate nohighlight">\(\delta,E,\bar{x}_E\)</span> 不理解请回顾一下 <a class="reference internal" href="8.%E6%B6%88%E5%85%83%E6%B3%95.html#ch-condition-margin"><span class="std std-numref">节 8.2.2</span></a> 。</p>
 </div>
 <p>多数情况下，在最大后验估计中我们感兴趣的不是最大的后验概率值，而是取得最大后验概率时变量的状态。
 这里我们先讨论如何计算最大概率值，然后再讨论如何在这基础上追溯出变量的状态。</p>

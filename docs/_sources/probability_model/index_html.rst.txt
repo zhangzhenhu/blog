@@ -25,7 +25,7 @@
    5.无向图_lecture_3.rst
    6.因子图_lecture_4.rst
 
-   8.消元法_lecture_7.rst
+   8.消元法.rst
    9.和积算法_lecture_8.rst
    11.最大后验估计_lecture_11.rst
 

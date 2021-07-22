@@ -13,6 +13,7 @@
   
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
 
   
   
@@ -541,17 +542,16 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../../probability_model/8.%E6%B6%88%E5%85%83%E6%B3%95_lecture_7.html">8. 消元法(The Elimination Algorithm)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/8.%E6%B6%88%E5%85%83%E6%B3%95_lecture_7.html#id1">8.1. 什么是模型的推断</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/8.%E6%B6%88%E5%85%83%E6%B3%95_lecture_7.html#id2">8.2. 消元法</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../probability_model/8.%E6%B6%88%E5%85%83%E6%B3%95_lecture_7.html#id3">8.2.1. 一个例子</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../probability_model/8.%E6%B6%88%E5%85%83%E6%B3%95_lecture_7.html#ch-condition-margin">8.2.2. 条件概率和边缘概率</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../probability_model/8.%E6%B6%88%E5%85%83%E6%B3%95_lecture_7.html#id5">8.2.3. 有向图的消元法</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../probability_model/8.%E6%B6%88%E5%85%83%E6%B3%95_lecture_7.html#id6">8.2.4. 无向图的消元法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../probability_model/8.%E6%B6%88%E5%85%83%E6%B3%95.html">8. 模型推断：消元法</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/8.%E6%B6%88%E5%85%83%E6%B3%95.html#id2">8.1. 什么是模型的推断</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/8.%E6%B6%88%E5%85%83%E6%B3%95.html#id3">8.2. 消元法</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../probability_model/8.%E6%B6%88%E5%85%83%E6%B3%95.html#id4">8.2.1. 有向图消元算法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../probability_model/8.%E6%B6%88%E5%85%83%E6%B3%95.html#ch-condition-margin">8.2.2. 条件概率和边缘概率</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../probability_model/8.%E6%B6%88%E5%85%83%E6%B3%95.html#id6">8.2.3. 无向图的消元法</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/8.%E6%B6%88%E5%85%83%E6%B3%95_lecture_7.html#id7">8.3. 图消除</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/8.%E6%B6%88%E5%85%83%E6%B3%95_lecture_7.html#id9">8.4. 总结</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/8.%E6%B6%88%E5%85%83%E6%B3%95.html#id7">8.3. 图消除</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../probability_model/8.%E6%B6%88%E5%85%83%E6%B3%95.html#id9">8.4. 总结</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../probability_model/9.%E5%92%8C%E7%A7%AF%E7%AE%97%E6%B3%95_lecture_8.html">9. 加和乘积算法(sum-product algorithm)</a><ul>
@@ -1264,14 +1264,14 @@ GLM的海森矩阵计算难度是比较大的，为了解决这个问题，
 <span class="eqno">()<a class="headerlink" href="#equation-eq-glm-estimate-031" title="公式的永久链接">¶</a></span>\[ \beta^{(t+1)} = \beta^{(t)} - \mathbb{E}[H(\beta^{(t)})]^{-1} U(\beta^t)\]</div>
 <p>对比下信息矩阵 <a class="reference internal" href="#equation-eq-glm-estimate-019">公式()</a> 和期望海森 <a class="reference internal" href="#equation-eq-glm-estimate-030">公式()</a>
 ，二者只差一个负号，是相反数的关系，这和我们在
-<a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-2-fisher-information"><span class="std std-numref">节 3.4.2</span></a> 讨论的结论是一致的，</p>
+<a class="reference internal" href="../../../probability_model/2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#ch-2-fisher-information"><span class="std std-numref">节 2.6</span></a> 讨论的结论是一致的，</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-estimate-bak-22">
 <span class="eqno">()<a class="headerlink" href="#equation-glm-source-estimate-bak-22" title="公式的永久链接">¶</a></span>\[\mathcal{J} = - \mathbb{E}[H]\]</div>
 <p>因此牛顿法的迭代过程 <a class="reference internal" href="#equation-eq-glm-estimate-031">公式()</a>
 经常也会写成</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-estimate-bak-23">
 <span class="eqno">()<a class="headerlink" href="#equation-glm-source-estimate-bak-23" title="公式的永久链接">¶</a></span>\[\beta^{(t+1)} = \beta^{(t)} + \mathcal{J}(\beta^{(t)})^{-1} U(\beta^t)\]</div>
-<p>在 <a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-2-fisher-information"><span class="std std-numref">节 3.4.2</span></a> 讨论过，参数的最大似然估计估计量是一个统计量，
+<p>在 <a class="reference internal" href="../../../probability_model/2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#ch-2-fisher-information"><span class="std std-numref">节 2.6</span></a> 讨论过，参数的最大似然估计估计量是一个统计量，
 并且其渐进服从正态分布，其方差可以通过信息矩阵 <span class="math notranslate nohighlight">\(\mathcal{J}\)</span> 计算得到。
 最终，Newton–Raphson 提供了如下功能：</p>
 <ol class="arabic simple">
@@ -1504,7 +1504,7 @@ WHILE(abs(Δ Dev)&gt;tolerance){
 </div>
 <div class="section" id="id9">
 <h3>估计量的标准误差<a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h3>
-<p>回顾一下在 <a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-2-mle-estimator"><span class="std std-numref">节 3.4.3</span></a> 我们讲的最大似然估计量的评价，
+<p>回顾一下在 <a class="reference internal" href="../../../probability_model/2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#ch-2-mle-estimator"><span class="std std-numref">节 2.7.3</span></a> 我们讲的最大似然估计量的评价，
 我们知道最大似然估计量的协方差矩阵就是 <span class="math notranslate nohighlight">\(I(\beta)^{-1}\)</span>
 ，显然在IRLS算法过程中已经计算出了 <span class="math notranslate nohighlight">\(I(\beta)^{-1}=- \mathbb{E}[H(\beta)]=(X^TW^{(t)} X)^{-1}\)</span>
 ，所以使用IRLS我们可以很方便的得到估计量的标准误差。</p>
@@ -1623,7 +1623,7 @@ LRT的计算公式如下：</p>
 <div class="math notranslate nohighlight" id="equation-eq-34-52">
 <span class="eqno">()<a class="headerlink" href="#equation-eq-34-52" title="公式的永久链接">¶</a></span>\[L_f = \exp \left \{  \sum_{i=1}^N \frac{y_i \theta(y_i) -b(\theta(y_i))}{a(\phi)}
 + \sum_{i=1}^N  c(y_i;\phi) \right \}\]</div>
-<p>把 <a class="reference internal" href="../%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0/content.html#equation-eq-34-51">公式(8.1.10)</a> 和 <a class="reference internal" href="../%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0/content.html#equation-eq-34-52">公式(8.1.11)</a> 代入到 <a class="reference internal" href="../../../probability_model/25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#equation-eq-34-50">公式(18.3.2)</a>
+<p>把 <a class="reference internal" href="../../../probability_model/25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#equation-eq-34-51">公式(18.3.3)</a> 和 <a class="reference internal" href="../../../probability_model/25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#equation-eq-34-52">公式(18.3.4)</a> 代入到 <a class="reference internal" href="../../../probability_model/25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#equation-eq-34-50">公式(18.3.2)</a>
 可得到GLM的偏差：</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-estimate-bak-43">
 <span class="eqno">()<a class="headerlink" href="#equation-glm-source-estimate-bak-43" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}D &amp;= 2 (\ln L_f -\ln L_m)\\&amp;= \frac{2}{a(\phi)} \sum_{i=1}^N  [ y_i \{ \theta(y_i) - \theta(\hat{\mu}_i) \} - b\{\theta(y_i)\} + b\{\theta(\hat{\mu}_i)\} ]\\&amp;\triangleq 2 \sum_{i=1}^N  [ y_i \{ \theta(y_i) - \theta(\hat{\mu}_i) \} - b\{\theta(y_i)\} + b\{\theta(\hat{\mu}_i)\} ]\end{aligned}\end{align} \]</div>
