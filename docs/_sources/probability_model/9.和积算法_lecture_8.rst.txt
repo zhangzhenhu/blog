@@ -34,11 +34,63 @@
 树(tree)和多重树(polytree)是显著不同的。
 
 
-.. figure:: pictures/8_a1.jpg
-    :scale: 40 %
-    :align: center
 
-    (a)无向树；(b)有向树；(c)多树(polytree)
+
+.. digraph:: 树结构
+    :align: center
+    :caption: (a)无向树；(b)有向树；(c)多重树(polytree)
+
+    node[shape=circle, fixedsize=true,width=0.5];
+
+    subgraph cluster_a {
+
+        graph[label="(a)", labelloc="b", color=none];
+
+        edge [dir=none, ]
+
+        a[label=""]
+        b[label=""]
+        c[label=""]
+        d[label=""]
+        f[label=""]
+
+		a -> {b c};
+	    c -> {d f}
+    }
+    subgraph cluster_b {
+
+        graph[label="(b)", labelloc="b", color=none];
+	    a2[label=""];
+        b2[label=""];
+        c2[label=""];
+        d2[label=""];
+        f2[label=""];
+
+		a2 -> {b2 c2};
+	    c2 -> {d2 f2};
+
+	    label = "process #2";
+	    label="(b)";
+
+	}
+
+    subgraph cluster_c {
+
+    graph[label="(c)", labelloc="b", color=none];
+
+	    a3[label=""]
+        b3[label=""]
+        c3[label=""]
+        d3[label=""]
+        f3[label=""]
+
+		{a3 b3} ->  c3;
+	    {c3 d3} ->  f3;
+
+	    label = "(c)";
+
+	}
+
 
 
 任意的无向树可以转换为一个有向树，任意选择一个结点作为根节点(root)，所有无向边都改成从根结点出发向外扩散的有向边。
@@ -129,10 +181,32 @@
 ，把这个因子加入到激活列表中。 下面我们举例说明这个算法的效率依赖于消元顺序的选择。
 
 .. _fg_tree:
+
+.. digraph:: 一个树形概率图模型
+    :align: center
+    :caption: 一个树形概率图模型
+
+    node[shape=circle]
+
+    graph[labelloc="b", color=none];
+
+    edge [dir=none]
+
+    1[label=<X<SUB>1</SUB>>]
+    2[label=<X<SUB>2</SUB>>]
+    3[label=<X<SUB>3</SUB>>]
+    4[label=<X<SUB>4</SUB>>]
+    5[label=<X<SUB>5</SUB>>]
+
+
+    1 -> {2 3}
+    2 -> {4 5}
+
+
+..
 .. figure:: pictures/8_1.jpg
     :scale: 70 %
     :align: center
-
     一个树形概率图模型
 
 

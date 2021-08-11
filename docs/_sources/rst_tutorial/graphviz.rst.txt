@@ -1,0 +1,241 @@
+###########################
+graphviz demo
+###########################
+
+- 在线 graphviz: https://dreampuf.github.io/GraphvizOnline/#digraph%20graphname%20%7B%20%0A%20%20%20%20node%5Bshape%3Dcircle%5D%0A%0A%0A%09%20%0A%7D
+- 在线 graphviz: http://magjac.com/graphviz-visual-editor/
+
+
+
+https://www.tonyballantyne.com/graphs.html#orgheadline12
+
+https://candide-guevara.github.io/cs_related/2019/09/10/graphviz-examples.html
+
+
+https://www.worthe-it.co.za/blog/2017-09-19-quick-introduction-to-graphviz.html
+
+https://people.eecs.berkeley.edu/~jordan/graphical.html
+
+
+布局
+#################################
+
+.. code-block:: rst
+
+    .. digraph:: demo_1
+          a -> {b c d}
+          b -> {e f g}
+
+
+.. digraph:: a1_1
+
+      a -> {b c d}
+      b -> {e f g}
+
+
+
+.. code-block:: rst
+
+
+    .. digraph:: demo_2
+
+        rankdir=LR
+
+        a -> {b c d}
+        b -> {e f g}
+
+
+.. digraph:: a1_2
+
+    rankdir=LR
+
+    a -> {b c d}
+    b -> {e f g}
+
+
+
+
+.. code-block:: rst
+
+    .. digraph:: demo_3
+
+        layout=neato
+
+        a -> {b c d}
+        b -> {e f g}
+
+
+
+.. digraph:: a1_3
+
+    layout=neato
+
+    a -> {b c d}
+    b -> {e f g}
+
+
+
+
+.. code-block:: rst
+
+    .. digraph:: demo_4
+
+      layout=neato
+      edge [len=0.8] # change edge length
+      overlap=false  # prevents nodes from overlapping each other
+
+      # These options MIGHT work on other implementations
+      #overlap_scaling=0.5
+      #overlap_shrink=true
+
+      a -> {b c d}
+      b -> {e f g}
+
+
+.. digraph:: demo_4
+
+  layout=neato
+  edge [len=0.8] # change edge length
+  overlap=false  # prevents nodes from overlapping each other
+
+  # These options MIGHT work on other implementations
+  #overlap_scaling=0.5
+  #overlap_shrink=true
+
+  a -> {b c d}
+  b -> {e f g}
+
+
+
+.. code-block:: rst
+
+    .. digraph:: demo_5
+
+        # A couple of option to expand/compress differently on x and y dimensions.
+        layout=neato
+        overlap=false # you NEED THIS for `sep` to take effect
+        sep="+30,-5"  # expands 30 pixels on the x direction, but shrink y by 5
+
+        a -> {b c d}
+        b -> {e f g}
+
+
+.. digraph:: demo_5
+
+    # A couple of option to expand/compress differently on x and y dimensions.
+    layout=neato
+    overlap=false # you NEED THIS for `sep` to take effect
+    sep="+30,-5"  # expands 30 pixels on the x direction, but shrink y by 5
+
+    a -> {b c d}
+    b -> {e f g}
+
+
+
+.. code-block:: rst
+
+    .. digraph:: demo_9
+
+        newrank=true
+        subgraph cluster_cl {
+            a -> {b c}
+        }
+        r -> a
+        b -> d
+        # You can quickly get in WTF?! territory ...
+        # You would expect that rank_d <= rank_r, but nope ...
+        {rank=min d}
+
+
+.. digraph:: demo_9
+
+    newrank=true
+    subgraph cluster_cl {
+        a -> {b c}
+    }
+    r -> a
+    b -> d
+    # You can quickly get in WTF?! territory ...
+    # You would expect that rank_d <= rank_r, but nope ...
+    {rank=min d}
+
+
+
+
+.. code-block:: rst
+
+    .. digraph:: demo_10
+
+        a -> {b c}
+        # Heavy weight => short, straight and more vertical the edge.
+        a -> d [weight=3]
+
+
+.. digraph:: demo_10
+
+    a -> {b c}
+    # Heavy weight => short, straight and more vertical the edge.
+    a -> d [weight=3]
+
+
+
+
+
+
+
+
+
+其它
+#################################
+
+
+.. digraph:: 生成模型与判别模型
+    :align: center
+    :caption: （a）生成模型，对联合概率建模，然后推断出后验条件概率分布；（b）判别模型，直接对因子（ :math:`P(Y|X)` ）建模。
+
+    node[shape=circle]
+
+    subgraph cluster_1 {
+        graph[labelloc="b", color=none ,label="(a)"];
+
+        a_x1[label=<X<SUB>1</SUB>>]
+        a_x2[label=<X<SUB>2</SUB>>]
+        a_x3[label=<X<SUB>3</SUB>>]
+        a_xh[label="..."  color=none ]
+
+        a_xn[label=<X<SUB>n</SUB>>]
+	    a_y[label=Y]
+
+	    a_y -> a_xh[ style=invisible dir=none]
+	    a_y -> {a_x1 a_x2 a_x3 a_xn}
+
+    }
+
+    subgraph cluster_2 {
+        graph[labelloc="b", color=none ,label="(b)"];
+
+        b_x1[label=<X<SUB>1</SUB>>]
+        b_x2[label=<X<SUB>2</SUB>>]
+        b_x3[label=<X<SUB>3</SUB>>]
+        b_xh[label="..."  color=none ]
+
+        b_xn[label=<X<SUB>n</SUB>>]
+	    b_y[label=Y]
+
+	    b_s1[shape=box label="" width=0.1 height=0.1 ]
+	    b_s2[shape=box label="" width=0.1 height=0.1 ]
+	    b_s3[shape=box label="" width=0.1 height=0.1 ]
+	    b_sh[shape=box label="" width=0.1 height=0.1,color=none ]
+	    b_sn[shape=box label="" width=0.1 height=0.1 ]
+
+	    b_y -> b_sh[ style=invisible dir=none]
+	    b_y -> {b_s1 b_s2 b_s3 b_sn}[dir=none shape=obox ]
+	    b_s1 -> b_x1[dir=none]
+	    b_s2 -> b_x2[dir=none shape=box ]
+	    b_s3 -> b_x3[dir=none]
+	    b_sn -> b_xn[dir=none]
+	    b_sh -> b_xh[dir=none style=invisible]
+
+	    {rank="same"; b_x1 b_x2 b_x3 b_xh b_xn}
+    }
+

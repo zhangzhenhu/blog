@@ -86,7 +86,8 @@
     \newcommand{\an}[1]{\text{an}(#1)}
     \newcommand{\nd}[1]{\text{nd}(#1)}
     \newcommand{\can}[1]{\overline{\text{an}}(#1)}
-    \newcommand{\ind}{⫫} \newcommand{\dsep}{\perp_d}
+    \newcommand{\ind}{⫫}
+    \newcommand{\dsep}{\perp_d}
     \newcommand{\msep}{\perp_m}
 
     X \ind Y
