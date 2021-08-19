@@ -983,8 +983,8 @@
 <div class="section" id="id3">
 <h3><span class="section-number">6.1.1. </span>自然指数族<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h3>
 <p>在 <a class="reference internal" href="../../../probability_model/18.%E6%8C%87%E6%95%B0%E6%97%8F_24.html#ch-24-1"><span class="std std-numref">节 3.1</span></a> 我们讨论了指数族分布，所有指数族的概率密度(质量)函数都可以写成如下的形式。</p>
-<div class="math notranslate nohighlight" id="equation-eq-34-08">
-<span class="eqno">(6.1.1)<a class="headerlink" href="#equation-eq-34-08" title="公式的永久链接">¶</a></span>\[p(y|\theta) = \exp \{\theta^T T(y) - A(\theta) + S(y)\}\]</div>
+<div class="math notranslate nohighlight" id="equation-eq-glm-08">
+<span class="eqno">(6.1.1)<a class="headerlink" href="#equation-eq-glm-08" title="公式的永久链接">¶</a></span>\[p(y|\theta) = \exp \{\theta^T T(y) - A(\theta) + S(y)\}\]</div>
 <p>其中 <span class="math notranslate nohighlight">\(\theta\)</span>
 称为自然参数(natural parameter)或者规范参数(canonical parameter)，
 其代表了模型中所有的未知参数。
@@ -994,8 +994,8 @@
 <p>本章我们讨论的广义线性模型并不使用上述形式的指数族，而是指数族的一个子集，
 自然指数族(natural exponential family)，
 自然指数族是满足 <span class="math notranslate nohighlight">\(T(y)=y\)</span> 的指数族。</p>
-<div class="math notranslate nohighlight" id="equation-eq-34-09">
-<span class="eqno">(6.1.2)<a class="headerlink" href="#equation-eq-34-09" title="公式的永久链接">¶</a></span>\[p(y|\theta) = \exp \{\theta^T y - A(\theta) + S(y)\}\]</div>
+<div class="math notranslate nohighlight" id="equation-eq-glm-111">
+<span class="eqno">(6.1.2)<a class="headerlink" href="#equation-eq-glm-111" title="公式的永久链接">¶</a></span>\[p(y|\theta) = \exp \{\theta^T y - A(\theta) + S(y)\}\]</div>
 <p>指数族的这个形式被称为自然形式(natural form)或者规范形式(canonical form)，
 <strong>虽然指数族中大部分分布都可以写成上述自然形式，但是也有一些分布，虽然属于指数族，但是不能写成上述自然形式，</strong>
 <strong>比如对数正态分布(LogNormal distribution)。</strong></p>
@@ -1014,16 +1014,16 @@
 对于单参数的指数族分布，原始参数通常就是分布的期望 <span class="math notranslate nohighlight">\(\mu\)</span> ，此时 <span class="math notranslate nohighlight">\(\theta\)</span> 是 <span class="math notranslate nohighlight">\(\mu\)</span> 的函数。
 对于双参数的指数族分布，原始参数通常就是分布的期望 <span class="math notranslate nohighlight">\(\mu\)</span> 和方差 <span class="math notranslate nohighlight">\(\sigma^2\)</span> ，
 此时 <span class="math notranslate nohighlight">\(\theta\)</span> 是含有两个参数的向量，并 <span class="math notranslate nohighlight">\(\theta\)</span> 是期望 <span class="math notranslate nohighlight">\(\mu\)</span> 和 <span class="math notranslate nohighlight">\(\sigma^2\)</span> 的函数。</p>
-<p>指数族的规范形式( <a class="reference internal" href="../../../probability_model/25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#equation-eq-34-09">公式(19.1.12)</a> ) 规范参数 <span class="math notranslate nohighlight">\(\theta\)</span> 包含了所有参数，这不方便处理。
+<p>指数族的规范形式( <a class="reference internal" href="#equation-eq-glm-111">公式(6.1.2)</a> ) 规范参数 <span class="math notranslate nohighlight">\(\theta\)</span> 包含了所有参数，这不方便处理。
 因此我们把参数拆分一下，在规范形式的基础上再引入一个代表尺度(scale)的参数 <span class="math notranslate nohighlight">\(\phi\)</span>
 。</p>
-<div class="math notranslate nohighlight" id="equation-eq-34-edf">
-<span class="eqno">(6.1.3)<a class="headerlink" href="#equation-eq-34-edf" title="公式的永久链接">¶</a></span>\[p(y|\theta) = \exp \{\frac{\theta y - b(\theta)}{a(\phi)} + c(y,\phi)\}\]</div>
+<div class="math notranslate nohighlight" id="equation-eq-glm-121">
+<span class="eqno">(6.1.3)<a class="headerlink" href="#equation-eq-glm-121" title="公式的永久链接">¶</a></span>\[p(y|\theta) = \exp \{\frac{\theta y - b(\theta)}{a(\phi)} + c(y,\phi)\}\]</div>
 <p>这种形式的指数族通常被称为指数分散族(exponential dispersion family,EDF)，
 <span class="math notranslate nohighlight">\(a(\phi)\)</span> 称为分散函数(dispersion function)，是已知的。
 <span class="math notranslate nohighlight">\(\phi\)</span> 称为分散参数(dispersion parameter)。
 <span class="math notranslate nohighlight">\(\theta\)</span> 仍然称作自然参数(natural parameter)或者规范参数(canonical parameter)。</p>
-<p><a class="reference internal" href="../../../probability_model/25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#equation-eq-34-edf">公式(19.1.13)</a> 形式的指数族，其实就是对参数 <span class="math notranslate nohighlight">\(\theta\)</span> 进行了拆分，
+<p><a class="reference internal" href="#equation-eq-glm-121">公式(6.1.3)</a> 形式的指数族，其实就是对参数 <span class="math notranslate nohighlight">\(\theta\)</span> 进行了拆分，
 把期望参数和方差参数拆分开。
 <strong>使得自然参数</strong> <span class="math notranslate nohighlight">\(\theta\)</span> <strong>仅和期望</strong> <span class="math notranslate nohighlight">\(\mu\)</span> <strong>相关</strong> ，
 分散参数 <span class="math notranslate nohighlight">\(\phi\)</span> 和分布的方差参数相关。
@@ -1062,7 +1062,7 @@ GLM的软件工具包(Generalized Linear Interactive Modelling,GLIM)，
 如果你需要不同的样本有不同的值，那么就使用 <a class="reference internal" href="#equation-eq-glm-1010">公式(6.1.6)</a> 的形式。
 <a class="reference internal" href="#equation-eq-glm-1010">公式(6.1.6)</a> 的形式中，当所有样本拥有相同的 <span class="math notranslate nohighlight">\(w\)</span> 权重时，
 就等价于 <span class="math notranslate nohighlight">\(a(\phi)=\phi\)</span> 。</p>
-<p>通常在GLM中，只有参数 <span class="math notranslate nohighlight">\(\theta\)</span> 作为模型的未知参数，此时称为单参数模。
+<p>通常在 <code class="docutils literal notranslate"><span class="pre">GLM</span></code> 中，只有参数 <span class="math notranslate nohighlight">\(\theta\)</span> 作为模型的未知参数，此时称为单参数模。
 单参数模型指的是模型中只有 <span class="math notranslate nohighlight">\(\theta\)</span> 是未知参数，而 <span class="math notranslate nohighlight">\(\phi\)</span> 是已知的，
 反之，如果 <span class="math notranslate nohighlight">\(\theta\)</span> 和 <span class="math notranslate nohighlight">\(\phi\)</span> 都是未知的，则成为双参数模型。
 指数族的某些分布，是不存在分散参数的，
@@ -1071,10 +1071,10 @@ GLM的软件工具包(Generalized Linear Interactive Modelling,GLIM)，
 而分散参数 <span class="math notranslate nohighlight">\(\phi\)</span> 和分布的方差相关，它影响着方差的大小，
 具体的关系在之后的内容中会详细说明。</p>
 <p><strong>累积函数(cumulant function)</strong></p>
-<p>我们知道在 <a class="reference internal" href="../../../probability_model/25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#equation-eq-34-08">公式(19.1.11)</a> 的指数族形式中 <span class="math notranslate nohighlight">\(A(\theta)\)</span> 称为累积函数(cumulant function)，
+<p>我们知道在 <a class="reference internal" href="#equation-eq-glm-08">公式(6.1.1)</a> 的指数族形式中 <span class="math notranslate nohighlight">\(A(\theta)\)</span> 称为累积函数(cumulant function)，
 可以用 <span class="math notranslate nohighlight">\(A(\theta)\)</span> 的导数求出分布的矩，一阶导数是分布的期望，
 二阶导数是分布的方差。
-然而在GLM中我们使用的是 <a class="reference internal" href="../../../probability_model/25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#equation-eq-34-edf">公式(19.1.13)</a> 的形式，
+然而在GLM中我们使用的是 <a class="reference internal" href="#equation-eq-glm-121">公式(6.1.3)</a> 的形式，
 其中 <span class="math notranslate nohighlight">\(b(\theta)\)</span> 本质上就是 <span class="math notranslate nohighlight">\(A(\theta)\)</span>
 ，二者关系是：</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-4">
@@ -1089,7 +1089,7 @@ GLM的软件工具包(Generalized Linear Interactive Modelling,GLIM)，
 ，所以 <span class="math notranslate nohighlight">\(b(\theta)\)</span> 的二阶导数不再分布的方差，需要再乘上 <span class="math notranslate nohighlight">\(a(\phi)\)</span> 才能得到分布的方差。</p>
 <p><strong>方差结构</strong></p>
 <p>在 <code class="docutils literal notranslate"><span class="pre">EDF</span></code> (指数分散族，Exponential Dispersion Family)中，
-分布的方差可以表示成两部分的乘积（ <a class="reference internal" href="../../../probability_model/25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#equation-eq-34-20">公式(19.1.18)</a> ），
+分布的方差可以表示成两部分的乘积（ <a class="reference internal" href="#equation-eq-34-20">公式(6.1.9)</a> ），
 一部分是分散函数 <span class="math notranslate nohighlight">\(a(\phi)\)</span>
 ，另一部分是累计函数的二阶导数 <span class="math notranslate nohighlight">\(b''(\theta)\)</span> 。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-6">
@@ -1211,7 +1211,7 @@ GLM的软件工具包(Generalized Linear Interactive Modelling,GLIM)，
 <div class="math notranslate nohighlight" id="equation-glm-source-content-10">
 <span class="eqno">(6.1.14)<a class="headerlink" href="#equation-glm-source-content-10" title="公式的永久链接">¶</a></span>\[f(y) = \exp \{ \frac{y\mu-\frac{1}{2}\mu^2}{\sigma^2} - \frac{y^2}{2\sigma^2}
 - \frac{1}{2} \ln (2\pi\sigma^2) \}\]</div>
-<p>和 <a class="reference internal" href="../../../probability_model/25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#equation-eq-34-edf">公式(19.1.13)</a> 进行对比，各个标准项为：</p>
+<p>和 <a class="reference internal" href="#equation-eq-glm-121">公式(6.1.3)</a> 进行对比，各个标准项为：</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-11">
 <span class="eqno">(6.1.15)<a class="headerlink" href="#equation-glm-source-content-11" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\theta &amp;=\mu\\b(\theta) &amp;= \frac{1}{2}\mu^2\\a(\phi) &amp;= \sigma^2\end{aligned}\end{align} \]</div>
 <p>高斯分布的均值和方差为：</p>
@@ -1272,7 +1272,7 @@ GLM的软件工具包(Generalized Linear Interactive Modelling,GLIM)，
 <p class="caption"><span class="caption-number">图 6.2.1 </span><span class="caption-text">广义线性模型变量之间的关系</span><a class="headerlink" href="#id9" title="永久链接至图片">¶</a></p>
 </div>
 <p>广义线性模型是对经典线性模型的扩展，将输出变量 <span class="math notranslate nohighlight">\(Y\)</span> 的条件概率分布扩展到指数族分布，
-<a class="reference internal" href="../../../probability_model/25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#fg-34-1"><span class="std std-numref">图 19.1.1</span></a> 展示了广义线性模型框架下各个变量之间的关系。</p>
+<a class="reference internal" href="#fg-34-1"><span class="std std-numref">图 6.2.1</span></a> 展示了广义线性模型框架下各个变量之间的关系。</p>
 <ul class="simple">
 <li><p>输入变量 <span class="math notranslate nohighlight">\(X\)</span> 和系数 <span class="math notranslate nohighlight">\(\beta\)</span> 组成一个线性关系， <span class="math notranslate nohighlight">\(\eta=\beta^T x\)</span> ，
 <span class="math notranslate nohighlight">\(\eta\)</span> 被称为线性预测器(linear predictor)，<span class="math notranslate nohighlight">\(\beta\)</span> 是定义的未知参数。</p></li>
@@ -1308,7 +1308,7 @@ GLM的软件工具包(Generalized Linear Interactive Modelling,GLIM)，
 <div class="math notranslate nohighlight" id="equation-glm-source-content-17">
 <span class="eqno">(6.2.7)<a class="headerlink" href="#equation-glm-source-content-17" title="公式的永久链接">¶</a></span>\[f(y) = \exp \{ \frac{y\mu-\frac{1}{2}\mu^2}{\sigma^2} - \frac{y^2}{2\sigma^2}
 - \frac{1}{2} \ln (2\pi\sigma^2) \}\]</div>
-<p>和 <a class="reference internal" href="../../../probability_model/25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#equation-eq-34-edf">公式(19.1.13)</a> 进行对比，各个标准项为：</p>
+<p>和 <a class="reference internal" href="#equation-eq-glm-121">公式(6.1.3)</a> 进行对比，各个标准项为：</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-18">
 <span class="eqno">(6.2.8)<a class="headerlink" href="#equation-glm-source-content-18" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\theta &amp;=\mu\\b(\theta) &amp;= \frac{1}{2}\mu^2\\a(\phi) &amp;= \sigma^2\end{aligned}\end{align} \]</div>
 <p>可以看到，高斯分布的自然参数 <span class="math notranslate nohighlight">\(\theta\)</span> 和其期望 <span class="math notranslate nohighlight">\(\mu\)</span> 之间的关系为恒等函数，

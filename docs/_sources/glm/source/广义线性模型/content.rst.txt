@@ -71,7 +71,7 @@
 在 :numref:`ch_24_1` 我们讨论了指数族分布，所有指数族的概率密度(质量)函数都可以写成如下的形式。
 
 .. math::
-    :label: eq_34_08
+    :label: eq_glm_08
 
     p(y|\theta) = \exp \{\theta^T T(y) - A(\theta) + S(y)\}
 
@@ -90,7 +90,7 @@
 
 
 .. math::
-    :label: eq_34_09
+    :label: eq_glm_111
 
     p(y|\theta) = \exp \{\theta^T y - A(\theta) + S(y)\}
 
@@ -117,13 +117,13 @@
 此时 :math:`\theta` 是含有两个参数的向量，并 :math:`\theta` 是期望 :math:`\mu` 和 :math:`\sigma^2` 的函数。
 
 
-指数族的规范形式( :eq:`eq_34_09` ) 规范参数 :math:`\theta` 包含了所有参数，这不方便处理。
+指数族的规范形式( :eq:`eq_glm_111` ) 规范参数 :math:`\theta` 包含了所有参数，这不方便处理。
 因此我们把参数拆分一下，在规范形式的基础上再引入一个代表尺度(scale)的参数 :math:`\phi`
 。
 
 
 .. math::
-    :label: eq_34_EDF
+    :label: eq_glm_121
 
     p(y|\theta) = \exp \{\frac{\theta y - b(\theta)}{a(\phi)} + c(y,\phi)\}
 
@@ -134,7 +134,7 @@
 :math:`\phi` 称为分散参数(dispersion parameter)。
 :math:`\theta` 仍然称作自然参数(natural parameter)或者规范参数(canonical parameter)。
 
-:eq:`eq_34_EDF` 形式的指数族，其实就是对参数 :math:`\theta` 进行了拆分，
+:eq:`eq_glm_121` 形式的指数族，其实就是对参数 :math:`\theta` 进行了拆分，
 把期望参数和方差参数拆分开。
 **使得自然参数** :math:`\theta` **仅和期望** :math:`\mu` **相关** ，
 分散参数 :math:`\phi` 和分布的方差参数相关。
@@ -198,7 +198,7 @@ GLM的软件工具包(Generalized Linear Interactive Modelling,GLIM)，
 
 
 
-通常在GLM中，只有参数 :math:`\theta` 作为模型的未知参数，此时称为单参数模。
+通常在 ``GLM`` 中，只有参数 :math:`\theta` 作为模型的未知参数，此时称为单参数模。
 单参数模型指的是模型中只有 :math:`\theta` 是未知参数，而 :math:`\phi` 是已知的，
 反之，如果 :math:`\theta` 和 :math:`\phi` 都是未知的，则成为双参数模型。
 指数族的某些分布，是不存在分散参数的，
@@ -213,10 +213,10 @@ GLM的软件工具包(Generalized Linear Interactive Modelling,GLIM)，
 
 **累积函数(cumulant function)**
 
-我们知道在 :eq:`eq_34_08` 的指数族形式中 :math:`A(\theta)` 称为累积函数(cumulant function)，
+我们知道在 :eq:`eq_glm_08` 的指数族形式中 :math:`A(\theta)` 称为累积函数(cumulant function)，
 可以用 :math:`A(\theta)` 的导数求出分布的矩，一阶导数是分布的期望，
 二阶导数是分布的方差。
-然而在GLM中我们使用的是 :eq:`eq_34_EDF` 的形式，
+然而在GLM中我们使用的是 :eq:`eq_glm_121` 的形式，
 其中 :math:`b(\theta)` 本质上就是 :math:`A(\theta)`
 ，二者关系是：
 
@@ -350,7 +350,7 @@ GLM的软件工具包(Generalized Linear Interactive Modelling,GLIM)，
     - \frac{1}{2} \ln (2\pi\sigma^2) \}
 
 
-和 :eq:`eq_34_EDF` 进行对比，各个标准项为：
+和 :eq:`eq_glm_121` 进行对比，各个标准项为：
 
 .. math::
 
@@ -532,7 +532,7 @@ GLM的软件工具包(Generalized Linear Interactive Modelling,GLIM)，
     f(y) = \exp \{ \frac{y\mu-\frac{1}{2}\mu^2}{\sigma^2} - \frac{y^2}{2\sigma^2}
     - \frac{1}{2} \ln (2\pi\sigma^2) \}
 
-和 :eq:`eq_34_EDF` 进行对比，各个标准项为：
+和 :eq:`eq_glm_121` 进行对比，各个标准项为：
 
 .. math::
 
