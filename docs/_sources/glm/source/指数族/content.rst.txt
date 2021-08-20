@@ -19,18 +19,18 @@
 .. math::
     :label: eq_24_01
 
-    p(x|\theta) = \frac{1}{Z(\theta)} h(x) \exp \{\phi(\theta)^T T(x)  \}
+    p(x|\lambda) = \frac{1}{Z(\lambda)} h(x) \exp \{\phi(\lambda)^T T(x)  \}
 
 
-其中 :math:`x` 表示随机变量，:math:`\theta` 是分布的未知参数。
-:math:`T(x),h(x),\phi(\theta)` 都是 **已知的函数** ，
+其中 :math:`x` 表示随机变量，:math:`\lambda` 是分布的未知参数。
+:math:`T(x),h(x),\phi(\lambda)` 都是 **已知的函数** ，
 通常 :math:`h(x)` 被称为基础度量值(base measure)，:math:`T(x)` 是充分统计量(sufficient statistic)，
-:math:`\phi(\theta)` 是关于参数 :math:`\theta` 的一个函数。
-:math:`\phi(\theta)` 和 :math:`T(x)` 可以是向量也可以是标量。
-如果两个都是标量(scalar-value)， :math:`\phi(\theta)^T T(x)` 就是两者的乘积；如果是向量(vector-value)，
-:math:`\phi(\theta)^T T(x)` 就是两者的內积。不管两者是标量还是向量， :math:`\phi(\theta)^T T(x)` 的结果都是一个实数数值。
-函数 :math:`Z(\theta)` 是这个分布的配分函数(partition function)，
-:math:`Z(\theta)` 就是对分子的积分。
+:math:`\phi(\lambda)` 是关于参数 :math:`\lambda` 的一个函数。
+:math:`\phi(\lambda)` 和 :math:`T(x)` 可以是向量也可以是标量。
+如果两个都是标量(scalar-value)， :math:`\phi(\lambda)^T T(x)` 就是两者的乘积；如果是向量(vector-value)，
+:math:`\phi(\lambda)^T T(x)` 就是两者的內积。不管两者是标量还是向量， :math:`\phi(\lambda)^T T(x)` 的结果都是一个实数数值。
+函数 :math:`Z(\lambda)` 是这个分布的配分函数(partition function)，
+:math:`Z(\lambda)` 就是对分子的积分。
 配分函数通常出现在概率密度(质量)函数中，是为了使得这个函数的输出值符合概率约束，
 即使得函数的输出值在 :math:`[0,1]` 范围内。
 
@@ -38,27 +38,27 @@
 .. math::
     :label: eq_24_02
 
-    Z(\theta) = \mathop{\ln} \int h(x) exp\{ \phi(\theta)^T T(x) \} dx
+    Z(\lambda) = \mathop{\ln} \int h(x) exp\{ \phi(\lambda)^T T(x) \} dx
 
 
 .. note::
 
 
-通常 :eq:`eq_24_01` 有多种变式，比如，我们令 :math:`g(\theta)=\frac{1}{Z(\theta)}` ，
+通常 :eq:`eq_24_01` 有多种变式，比如，我们令 :math:`g(\lambda)=\frac{1}{Z(\lambda)}` ，
 这样可以使得式子变得更加整洁。
 
 .. math::
     :label: eq_24_03
 
-    p(x|\theta) = h(x) g(\theta) \exp \{\phi(\theta)^T T(x)  \}
+    p(x|\lambda) = h(x) g(\lambda) \exp \{\phi(\lambda)^T T(x)  \}
 
-有时还会把 :math:`Z(\theta)` 移到指数的内部，
-其中 :math:`A(\theta) = \ln Z(\theta)` ，通常被称为对数配分函数(log-partition function)。
+有时还会把 :math:`Z(\lambda)` 移到指数的内部，
+其中 :math:`A(\lambda) = \ln Z(\lambda)` ，通常被称为对数配分函数(log-partition function)。
 
 .. math::
     :label: eq_24_04
 
-     p(x|\theta) = h(x) \exp \{\phi(\theta)^T T(x) - A(\theta) \}
+     p(x|\lambda) = h(x) \exp \{\phi(\lambda)^T T(x) - A(\lambda) \}
 
 
 
@@ -67,47 +67,47 @@
 .. math::
     :label: eq_24_05
 
-    p(x|\theta) =  \exp \{\phi(\theta)^T T(x) + S(x) - A(\theta) \}
+    p(x|\lambda) =  \exp \{\phi(\lambda)^T T(x) + S(x) - A(\lambda) \}
 
 这些不同的表示都是同一个公式的变型而已，它们是等价的。
 
 **规范形式(The Canonical Form)**
 
-式中 :math:`\phi(\theta)` 是关于参数 :math:`\theta` 的一个函数，
+式中 :math:`\phi(\lambda)` 是关于参数 :math:`\lambda` 的一个函数，
 在指数族中，函数 :math:`\phi(\cdot)` 是一个双射函数（也称一一对应或一一映射），一一映射意味着
 函数 :math:`\phi(\cdot)` 是单调并且可导的，其一定存在反函数。
-我们定义 :math:`\eta=\phi(\theta)` ，
-因为 :math:`\eta` 和 :math:`\theta` 的值是一一映射的，
+我们定义 :math:`\theta=\phi(\lambda)` ，
+因为 :math:`\theta` 和 :math:`\lambda` 的值是一一映射的，
 所以二者是可以相互转化的。
 
 .. math::
-    \eta &= \phi(\theta)
+    \theta &= \phi(\lambda)
 
-    \theta &= \phi^{-1} (\eta)
+    \lambda &= \phi^{-1} (\theta)
 
 
-鉴于此，通常可以用 :math:`\eta` 代替 :math:`\theta` 表示概率分布函数的未知参数，
+鉴于此，通常可以用 :math:`\theta` 代替 :math:`\lambda` 表示概率分布函数的未知参数，
 得到一个更简单的形式。
 
 .. math::
     :label: eq_24_06
 
-    p(x|\eta) =  \exp \{ \eta^T T(x) + S(x) - A(\eta) \}
+    p(x|\theta) =  \exp \{ \theta^T T(x) + S(x) - A(\theta) \}
 
 
-通常把参数 :math:`\eta` 称为自然参数(natural parameter)或者规范参数(canonical parameter)。
-原来的形式中 :math:`A(\theta)` 是一个关于 :math:`\theta` 的函数，
-我们通过代入 :math:`\theta = \phi^{-1} (\eta)` 一定可以转化成关于自然参数 :math:`\eta`
-的函数 :math:`A(\eta)` 。
+通常把参数 :math:`\theta` 称为自然参数(natural parameter)或者规范参数(canonical parameter)。
+原来的形式中 :math:`A(\lambda)` 是一个关于 :math:`\lambda` 的函数，
+我们通过代入 :math:`\lambda = \phi^{-1} (\theta)` 一定可以转化成关于自然参数 :math:`\theta`
+的函数 :math:`A(\theta)` 。
 
-使用规范参数(自然参数) :math:`\eta` 表示的形式称为指数族分布的规范形式(canonical form)，
+使用规范参数(自然参数) :math:`\theta` 表示的形式称为指数族分布的规范形式(canonical form)，
 或者叫自然形式(natural form)，
-在规范形式下，分布的参数是 :math:`\eta` 。
+在规范形式下，分布的参数是 :math:`\theta` 。
 
 部分指数族分布 :math:`\phi(\cdot)` 是恒等函数，
-也就是 :math:`\eta=\phi(\theta)=\theta` ，这样的分布天然具有指数族的规范形式。
-事实上，对于指数族中的任意分布，都可以通过参数转化函数 :math:`\phi(\theta)` 把原始参数 :math:`\theta`
-转化成标准参数 :math:`\eta` ，然后以 :math:`\eta` 作为模型参数，进而得到规范形式(canonical form)。
+也就是 :math:`\theta=\phi(\lambda)=\lambda` ，这样的分布天然具有指数族的规范形式。
+事实上，对于指数族中的任意分布，都可以通过参数转化函数 :math:`\phi(\lambda)` 把原始参数 :math:`\lambda`
+转化成标准参数 :math:`\theta` ，然后以 :math:`\theta` 作为模型参数，进而得到规范形式(canonical form)。
 下面我们列举一些属于指数族分布的例子。
 
 
@@ -120,47 +120,47 @@
 
 .. math::
 
-    p(x|\theta) = \theta^x(1-\theta)^{1-x}
+    p(x|\lambda) = \lambda^x(1-\lambda)^{1-x}
 
-其中 :math:`\theta` 表示这个概率分布的参数，
+其中 :math:`\lambda` 表示这个概率分布的参数，
 我们可以把右侧改写一下：
 
 
 .. math::
 
-    p(x|\theta) &= \theta^x(1-\theta)^{1-x}
+    p(x|\lambda) &= \lambda^x(1-\lambda)^{1-x}
 
-    &= exp \{  \ln  [ \theta^x (1-\theta)^{1-x}  ] \}
+    &= exp \{  \ln  [ \lambda^x (1-\lambda)^{1-x}  ] \}
 
-    &= exp\{  x \ln \theta + (1-x) \ln (1-\theta)  \}
+    &= exp\{  x \ln \lambda + (1-x) \ln (1-\lambda)  \}
 
-    &= exp\{  x \ln \left( \frac{\theta}{1-\theta} \right) +  \ln (1- \theta)  \}
+    &= exp\{  x \ln \left( \frac{\lambda}{1-\lambda} \right) +  \ln (1- \lambda)  \}
 
 
 和 :eq:`eq_24_06` 对比下，可以发现有：
 
 .. math::
 
-    \eta &=\phi(\theta) = \ln \left( \frac{\theta}{1-\theta} \right)
+    \theta &=\phi(\lambda) = \ln \left( \frac{\lambda}{1-\lambda} \right)
 
     T(x) &=x
 
-    A(\eta) &= - ln (1-\theta) = ln(1+e^{\eta})
+    A(\theta) &= - ln (1-\lambda) = ln(1+e^{\theta})
 
     S(x) &= 0
 
-函数 :math:`\ln \left( \frac{\theta}{1-\theta} \right)` 被称为logit函数：
+函数 :math:`\ln \left( \frac{\lambda}{1-\lambda} \right)` 被称为logit函数：
 
 .. math::
 
-    \eta=\phi(\theta)=logit(\theta)=\ln \left( \frac{\theta}{1-\theta} \right)
+    \theta=\phi(\lambda)=logit(\lambda)=\ln \left( \frac{\lambda}{1-\lambda} \right)
 
 
 ``logit`` 函数的反函数是 ``logistic`` 函数。
 
 .. math::
 
-    \theta = \mathop{logistic}(\eta)=\frac{e^{\eta}}{1+e^{\eta}} = \frac{1}{1+e^{-\eta}}
+    \lambda = \mathop{logistic}(\theta)=\frac{e^{\theta}}{1+e^{\theta}} = \frac{1}{1+e^{-\theta}}
 
 
 
@@ -174,64 +174,64 @@
 
 .. math::
 
-    p(x|\theta) = \prod_{k=1}^m \theta_k^{x_k}
+    p(x|\lambda) = \prod_{k=1}^m \lambda_k^{x_k}
 
 其中m表示变量有m种取值，注意 :math:`x_k \in \{0,1\}` ，表示变量是否为第k个值，
 当变量值是第k个值时 :math:`x_k=1` ，否则为0。
-:math:`\theta_k` 表示 :math:`x_k=1` 的概率，并且有 :math:`\sum_{k=1}^m \theta_k=1` 。
+:math:`\lambda_k` 表示 :math:`x_k=1` 的概率，并且有 :math:`\sum_{k=1}^m \lambda_k=1` 。
 
 
 同样我们需要把上式变型成指数族形式。
 
 .. math::
 
-    p(x|\theta) = \prod_{k=1}^m \theta_k^{x_k}= \exp \{ \sum_{k=1}^m x_k \ln \theta_k \}
+    p(x|\lambda) = \prod_{k=1}^m \lambda_k^{x_k}= \exp \{ \sum_{k=1}^m x_k \ln \lambda_k \}
 
 
-然而我们注意到，其中m个参数 :math:`\theta_k` 是冗余的，因为有 :math:`\sum_{k=1}^m \theta_k=1` ，
-其中 :math:`\theta_m` 可以用 :math:`\theta_m=1-\sum_{k=1}^{m-1} \theta_k` 表示，
+然而我们注意到，其中m个参数 :math:`\lambda_k` 是冗余的，因为有 :math:`\sum_{k=1}^m \lambda_k=1` ，
+其中 :math:`\lambda_m` 可以用 :math:`\lambda_m=1-\sum_{k=1}^{m-1} \lambda_k` 表示，
 模型只需要m-1个参数，而不需要m个参数。
 
 .. math::
 
 
-    p(x|\theta) &=  \exp \{ \sum_{k=1}^m x_k \ln \theta_k \}
+    p(x|\lambda) &=  \exp \{ \sum_{k=1}^m x_k \ln \lambda_k \}
 
-    &=  \exp \left \{ \sum_{k=1}^{m-1} x_k \ln \theta_k  +
-    \left (1-\sum_{k=1}^{m-1} x_k \right ) \ln \left (1-\sum_{k=1}^{m-1} \theta_k \right )   \right \}
+    &=  \exp \left \{ \sum_{k=1}^{m-1} x_k \ln \lambda_k  +
+    \left (1-\sum_{k=1}^{m-1} x_k \right ) \ln \left (1-\sum_{k=1}^{m-1} \lambda_k \right )   \right \}
 
-    &= \exp \left \{ \sum_{k=1}^{m-1} x_k \ln \left ( \frac{\theta_k}{1-\sum_{j=1}^{m-1} \theta_j} \right )
-    + \ln \left  (1-\sum_{k=1}^{m-1} \theta_k \right ) \right \}
+    &= \exp \left \{ \sum_{k=1}^{m-1} x_k \ln \left ( \frac{\lambda_k}{1-\sum_{j=1}^{m-1} \lambda_j} \right )
+    + \ln \left  (1-\sum_{k=1}^{m-1} \lambda_k \right ) \right \}
 
-    &= \exp \left \{ \sum_{k=1}^{m-1} x_k \ln \left ( \frac{\theta_k}{ \theta_m} \right )
-    + \ln \left  (1-\sum_{k=1}^{m-1} \theta_k \right ) \right \}
+    &= \exp \left \{ \sum_{k=1}^{m-1} x_k \ln \left ( \frac{\lambda_k}{ \lambda_m} \right )
+    + \ln \left  (1-\sum_{k=1}^{m-1} \lambda_k \right ) \right \}
 
 
-    &= \exp \left \{ \phi(\theta)^T T(x) - A(\theta) \right \}
+    &= \exp \left \{ \phi(\lambda)^T T(x) - A(\lambda) \right \}
 
-上式中的 :math:`\sum_{k=1}^{m-1} x_k \ln \left ( \frac{\theta_k}{ \theta_m} \right )`
-可以看做是向量 :math:`\phi(\theta) = [\phi(\theta_1),\dots,\phi(\theta_k),\dots,\phi(\theta_{m-1})]`
+上式中的 :math:`\sum_{k=1}^{m-1} x_k \ln \left ( \frac{\lambda_k}{ \lambda_m} \right )`
+可以看做是向量 :math:`\phi(\lambda) = [\phi(\lambda_1),\dots,\phi(\lambda_k),\dots,\phi(\lambda_{m-1})]`
 和向量 :math:`T(x)=[x_1,\dots,x_k,\dots,x_{m-1}]` 的內积。
 和 :eq:`eq_24_06` 对比下，可以发现有：
 
 .. math::
 
-    \eta &= \phi(\theta) = [\phi(\theta_1),\dots,\phi(\theta_k),\dots,\phi(\theta_{m-1})]
-    ,\phi(\theta_k) = \ln \left ( \frac{\theta_k}{ \theta_m} \right )
+    \theta &= \phi(\lambda) = [\phi(\lambda_1),\dots,\phi(\lambda_k),\dots,\phi(\lambda_{m-1})]
+    ,\phi(\lambda_k) = \ln \left ( \frac{\lambda_k}{ \lambda_m} \right )
 
     T(x)&=[x_1,\dots,x_k,\dots,x_{m-1}]
 
-     A(\eta) &= - \ln \left  (1-\sum_{k=1}^{m-1} \theta_k \right )
-    = \ln \left (  \sum_{k=1}^m e^{\eta_k}  \right )
+     A(\theta) &= - \ln \left  (1-\sum_{k=1}^{m-1} \lambda_k \right )
+    = \ln \left (  \sum_{k=1}^m e^{\theta_k}  \right )
 
     S(x) &= 0
 
 
-用 :math:`\eta` 表示 :math:`\theta` 有：
+用 :math:`\theta` 表示 :math:`\lambda` 有：
 
 .. math::
 
-    \theta_k = \frac{e^{\eta_k}}{\sum_{j=1}^m e^{\eta_j}}
+    \lambda_k = \frac{e^{\theta_k}}{\sum_{j=1}^m e^{\theta_j}}
 
 
 
@@ -247,18 +247,18 @@
 
 .. math::
 
-    p(x|\theta) = \frac{\theta^x e^{-\theta}}{x!}
+    p(x|\lambda) = \frac{\lambda^x e^{-\lambda}}{x!}
 
 
 我们同样对它进行改写：
 
 .. math::
 
-    p(x|\theta) &= \frac{ \exp\{ \ln [ \theta^x e^{-\theta} ]  \}}{x!}
+    p(x|\lambda) &= \frac{ \exp\{ \ln [ \lambda^x e^{-\lambda} ]  \}}{x!}
 
-    &= \frac{ \exp\{ x \ln  \theta   -\theta  \} }{x!}
+    &= \frac{ \exp\{ x \ln  \lambda   -\lambda  \} }{x!}
 
-    &= \exp \{ x \ln  \theta   -\theta  -  \ln x! \}
+    &= \exp \{ x \ln  \lambda   -\lambda  -  \ln x! \}
 
 
 
@@ -267,20 +267,20 @@
 
 .. math::
 
-    \eta &= \phi(\theta) = \ln \theta
+    \theta &= \phi(\lambda) = \ln \lambda
 
     T(x) &= x
 
-    A(\eta) &=  \theta = e^{\eta}
+    A(\theta) &=  \lambda = e^{\theta}
 
     S(x) &= - \ln x!
 
 
-:math:`\eta` 和 :math:`\theta` 的关系为：
+:math:`\theta` 和 :math:`\lambda` 的关系为：
 
 .. math::
 
-    \theta = e^{\eta}
+    \lambda = e^{\theta}
 
 
 
@@ -311,17 +311,17 @@
 
 .. math::
 
-    \eta &= \phi(\theta)=\left [ \mu / \sigma^2 ,-1 /2 \sigma^2 \right ]
+    \theta &= \phi(\lambda)=\left [ \mu / \sigma^2 ,-1 /2 \sigma^2 \right ]
 
     T(x) &= \left [ x ,x^2 \right ]
 
 
-    A(\eta) &= \frac{\mu^2}{2\sigma^2} +ln \sigma = -\frac{\eta_1^2}{4\eta_2} - \frac{1}{2}ln(-2\eta_2)
+    A(\theta) &= \frac{\mu^2}{2\sigma^2} +ln \sigma = -\frac{\theta_1^2}{4\theta_2} - \frac{1}{2}ln(-2\theta_2)
 
     S(x) &= - \frac{1}{2} \ln (2\pi)
 
 
-注意单变量高斯模型是含有两个参数的，所以 :math:`\eta` 和 :math:`T(x)` 都是一个长度为2的向量。
+注意单变量高斯模型是含有两个参数的，所以 :math:`\theta` 和 :math:`T(x)` 都是一个长度为2的向量。
 多维高斯模型同样也属于指数族，可以自己推导下。
 
 
@@ -361,38 +361,38 @@
 通俗的讲，矩（moment）是描述一个随机变量的一系列指标，变量的期望(Expectation，或者叫均值，Mean)和方差(Variance)属于其中最简单的两个指标，
 这里只讨论这两种。
 
-指数族有一个特点，就是我们可以通过对 :math:`A(\eta)` 求导来得到 :math:`T(x)` 的矩，
+指数族有一个特点，就是我们可以通过对 :math:`A(\theta)` 求导来得到 :math:`T(x)` 的矩，
 比如其一阶导数是 :math:`T(x)` 的期望，二阶导数是 :math:`T(x)` 的方差。
-在指数族分布中 :math:`A(\eta) = \mathop{\ln} \int h(x) exp\{ \eta^T T(x) \} dx`
+在指数族分布中 :math:`A(\theta) = \mathop{\ln} \int h(x) exp\{ \theta^T T(x) \} dx`
 ，其一阶导数为：
 
 .. math::
     :label: eq_24_10
 
-    \frac{d A}{d \eta} &= \frac{d}{d \eta} \left \{
-    \mathop{\ln}  \int h(x) exp\{ \eta^T T(x) \} dx   \right \}
+    \frac{d A}{d \theta} &= \frac{d}{d \theta} \left \{
+    \mathop{\ln}  \int h(x) exp\{ \theta^T T(x) \} dx   \right \}
 
-    &= \frac{  \int T(x) exp\{ \eta^T T(x) \}h(x)dx    }
-    {    \int  exp\{ \eta^T T(x) \}h(x)dx   }
+    &= \frac{  \int T(x) exp\{ \theta^T T(x) \}h(x)dx    }
+    {    \int  exp\{ \theta^T T(x) \}h(x)dx   }
 
-    &= \int T(x) exp \{ \eta^T T(x) - A(\eta)    \} h(x) dx
+    &= \int T(x) exp \{ \theta^T T(x) - A(\theta)    \} h(x) dx
 
     &= \mathbb{E}[T(x)]
 
 
-我们看到 :math:`A(\eta)` 的一阶导数正好等于 :math:`T(x)` 的期望(均值)，对于伯努利分布、多项分布、泊松分布、高斯分布等这些
+我们看到 :math:`A(\theta)` 的一阶导数正好等于 :math:`T(x)` 的期望(均值)，对于伯努利分布、多项分布、泊松分布、高斯分布等这些
 :math:`T(x)=x` 的分布来说，:math:`T(x)` 的均值就是分布的均值。
 
 
-比如上面的示例中，对于伯努利分布，有 :math:`A(\eta)=ln(1+e^\eta)` ，
+比如上面的示例中，对于伯努利分布，有 :math:`A(\theta)=ln(1+e^\theta)` ，
 其一阶导数为：
 
 .. math::
-    \frac{d A}{d \eta} &= \frac{d }{d \eta} ln(1+e^{\eta})
+    \frac{d A}{d \theta} &= \frac{d }{d \theta} ln(1+e^{\theta})
 
-    &= \frac{e^{\eta}}{1 + e^{\eta}}
+    &= \frac{e^{\theta}}{1 + e^{\theta}}
 
-    &= \frac{1}{1+e^{-\eta}}
+    &= \frac{1}{1+e^{-\theta}}
 
     &= \mu
 
@@ -401,82 +401,82 @@
 
 .. math::
 
-    A(\eta) = -\frac{\eta_1^2}{4\eta_2} - \frac{1}{2}ln(-2\eta_2)
+    A(\theta) = -\frac{\theta_1^2}{4\theta_2} - \frac{1}{2}ln(-2\theta_2)
 
 
-其中，:math:`\eta_1=\mu/\sigma^2,\eta_2=-1/2\sigma^2` ，我们计算 :math:`\eta_1` 的偏导数：
+其中，:math:`\theta_1=\mu/\sigma^2,\theta_2=-1/2\sigma^2` ，我们计算 :math:`\theta_1` 的偏导数：
 
 
 .. math::
 
-    \frac{\partial A}{\partial \eta_1} &= \frac{\eta_1}{2\eta_2}
+    \frac{\partial A}{\partial \theta_1} &= -\frac{\theta_1}{2\theta_2}
 
     &= \frac{\mu/\sigma^2}{1/\sigma^2}
 
     &= \mu
 
 
-现在我们看下 :math:`A(\eta)` 的二阶导数：
+现在我们看下 :math:`A(\theta)` 的二阶导数：
 
 
 .. math::
 
-    \frac{d^2 A}{d\eta^2} &=
-    \int T(x) exp \{ \eta T(x) -A(\eta)\}\ (T(x)- A'(\eta)) h(x) dx
+    \frac{d^2 A}{d\theta^2} &=
+    \int T(x) exp \{ \theta T(x) -A(\theta)\}\ (T(x)- A'(\theta)) h(x) dx
 
-    &= \int T(x) exp \{\eta T(x) - A(\eta)\}(T(x)-\mathbb{E}[ T(x)] ) h(x) dx
+    &= \int T(x) exp \{\theta T(x) - A(\theta)\}(T(x)-\mathbb{E}[ T(x)] ) h(x) dx
 
-    &= \int T(x)^2 exp\{ \eta T(x)-A(\eta) \} h(x)dx -
-    \mathbb{E}[ T(x)] \int T(x) exp\{\eta T(x) -A(\eta)\} h(x) dx
+    &= \int T(x)^2 exp\{ \theta T(x)-A(\theta) \} h(x)dx -
+    \mathbb{E}[ T(x)] \int T(x) exp\{\theta T(x) -A(\theta)\} h(x) dx
 
     &= \mathbb{E}[ T(x)^2] - (\mathbb{E}[ T(x)])^2
 
     &= Var [ T(x)]
 
-:math:`A(\eta)` 的二阶导数正好是 :math:`T(x)` 的方差，对于 :math:`T(x)=x` 的分布，就是分布的方差。
+:math:`A(\theta)` 的二阶导数正好是 :math:`T(x)` 的方差，对于 :math:`T(x)=x` 的分布，就是分布的方差。
 
-比如对于高斯分布，对于 :math:`\eta_1` 的二阶偏导数为：
+比如对于高斯分布，对于 :math:`\theta_1` 的二阶偏导数为：
 
 .. math::
 
-    \frac{\partial A}{\partial \eta_1} &=- \frac{1}{2\eta_2}
+    \frac{\partial A}{\partial \theta_1} &=- \frac{1}{2\theta_2}
 
     &= \sigma^2
 
 
-总结一下，对于指数族分布， 我们可以通过对 :math:`A{\eta}` 求导来计算分布中 :math:`T(x)` 期望和方差，
+总结一下，对于指数族分布， 我们可以通过对 :math:`A{\theta}` 求导来计算分布中 :math:`T(x)` 期望和方差，
 当然通过高阶导数还能计算出更多的矩(Moment)。
 
-此外，我们发现函数 :math:`A{\eta}` 的二阶导数是 :math:`T(x)` 的方差，我们都知道方差肯定是大于等于0的，
+此外，我们发现函数 :math:`A{\theta}` 的二阶导数是 :math:`T(x)` 的方差，我们都知道方差肯定是大于等于0的，
 一个函数的二阶导数大于等于0，证明这个函数是一个凸函数(convex，碗状的)，
-对于凸函数，一阶导数和参数 :math:`\eta` 之间是一一对应关系，并且这种对应关系是可逆的。
-我们定义 :math:`A(\eta)` 的一阶导数用符号 :math:`\mu` 表示，则有 :math:`u\triangleq \mathbb{E}[T(x)]`
-， :math:`\mu` 和 :math:`\eta` 之间的关系可以用如下函数表示：
+对于凸函数，一阶导数和参数 :math:`\theta` 之间是一一对应关系，并且这种对应关系是可逆的。
+我们定义 :math:`A(\theta)` 的一阶导数用符号 :math:`\mu` 表示，则有 :math:`u\triangleq \mathbb{E}[T(x)]`
+， :math:`\mu` 和 :math:`\theta` 之间的关系可以用如下函数表示：
 
 .. math::
 
-    \mu = \frac{d A}{d \eta}
+    \mu = \frac{d A}{d \theta}
 
-并且这个函数是可逆的，也就是说已知 :math:`\mu` 就能求出 :math:`\eta` ；
-反过来，已知 :math:`\eta` 就能求出 :math:`\mu` 。
+并且这个函数是可逆的，也就是说已知 :math:`\mu` 就能求出 :math:`\theta` ；
+反过来，已知 :math:`\theta` 就能求出 :math:`\mu` 。
 比如对于伯努利分布：
 
 .. math::
 
-    \eta &= \frac{\mu}{1-\mu}
+    \theta &= \frac{\mu}{1-\mu}
 
-    \mu &= \frac{1}{1+e^{-\eta}} \ \text{(logistic function)}
+    \mu &= \frac{1}{1+e^{-\theta}} \ \text{(logistic function)}
 
 对于多项式分布：
 
 .. math::
 
-    \eta_i &= \ln \left ( \frac{\mu_i}{1-\sum_{i=1}^{m-1}} \right )
+    \theta_i &= \ln \left ( \frac{\mu_i}{1-\sum_{i=1}^{m-1}} \right )
 
-    \mu_i &= \frac{e^{\eta_i}}{\sum_{j=1}^{m} e^{\eta_j}} \ \text{(softmax function)}
+    \mu_i &= \frac{e^{\theta_i}}{\sum_{j=1}^{m} e^{\theta_j}} \ \text{(softmax function)}
 
 
-由于 :math:`\mu` 和 :math:`\eta` 是可逆的，所以对于指数族分布，也可以用 :math:`\mu` 去定义分布模型，也就是用
+由于 :math:`\mu` 和 :math:`\theta` 是可逆的，所以对于指数族分布，也可以用 :math:`\mu` 去定义分布模型，也就是用
 :math:`\mu` 去当做模型的参数。事实上，我们常见的分布都是这么做的，比如伯努利分布、高斯分布等等。
 
 
@@ -485,9 +485,9 @@
 ########################################################
 
 现在我们讨论下指数族的最大似然估计，
-我们知道指数族的自然参数 :math:`\eta` 和特定分布的原始参数 :math:`\theta` 是一一对应的，二者是存在可逆关系的，
-所有只要我们能估计出自然参数 :math:`\eta` ，就一定能通过逆函数 :math:`\phi(\cdot)^{-1}` 得到分布的真实参数
-:math:`\theta` 的估计值，也就是说对于指数族，我们只需要推导自然参数的估计量 :math:`\hat{eta}`  即可。
+我们知道指数族的自然参数 :math:`\theta` 和特定分布的原始参数 :math:`\lambda` 是一一对应的，二者是存在可逆关系的，
+所有只要我们能估计出自然参数 :math:`\theta` ，就一定能通过逆函数 :math:`\phi(\cdot)^{-1}` 得到分布的真实参数
+:math:`\lambda` 的估计值，也就是说对于指数族，我们只需要推导自然参数的估计量 :math:`\hat{eta}`  即可。
 
 我们用符号 :math:`\mathcal{D}` 表示随机变量的一个观测样本集，样本集的规模是N，
 并且样本集是满足IID(独立同分布)的。
@@ -497,7 +497,7 @@
 .. math::
 
 
-    p(x|\eta) =  exp \{\eta^T T(x) - A(\eta) + S(x) \}
+    p(x|\theta) =  exp \{\theta^T T(x) - A(\theta) + S(x) \}
 
 
 
@@ -505,15 +505,15 @@
 
 .. math::
 
-    L(\eta;\mathcal{D}) &= p(\mathcal{D}|\eta)
+    L(\theta;\mathcal{D}) &= p(\mathcal{D}|\theta)
 
-    &= p(x_1,\dots,x_N|\eta)
+    &= p(x_1,\dots,x_N|\theta)
 
-    &= \prod_{i=1}^N  p(x_i|\eta)
+    &= \prod_{i=1}^N  p(x_i|\theta)
 
-    &= \prod_{i=1}^N  \exp \{\eta^T T(x_i) - A(\eta) + S(x_i) \}
+    &= \prod_{i=1}^N  \exp \{\theta^T T(x_i) - A(\theta) + S(x_i) \}
 
-    &=  \exp \{ \eta^T \sum_{i=1}^N  T(x_i) - N A(\eta) + \sum_{i=1}^N S(x_i) \}
+    &=  \exp \{ \theta^T \sum_{i=1}^N  T(x_i) - N A(\theta) + \sum_{i=1}^N S(x_i) \}
 
 对比一下，我们发现指数族分布的联合概率仍然是指数族：
 
@@ -521,7 +521,7 @@
 
     T(x) &\Longrightarrow \sum_{i=1}^N  T(x_i)
 
-    A(\eta) &\Longrightarrow N A(\eta)
+    A(\theta) &\Longrightarrow N A(\theta)
 
     S(x) &\Longrightarrow \sum_{i=1}^N S(x_i)
 
@@ -531,33 +531,33 @@
 
 .. math::
 
-    \ell(\eta;\mathcal{D}) &= \ln L(\eta;\mathcal{D})
+    \ell(\theta;\mathcal{D}) &= \ln L(\theta;\mathcal{D})
 
-    &=  \eta^T \sum_{i=1}^N  T(x_i) - N A(\eta) + \sum_{i=1}^N S(x_i)
+    &=  \theta^T \sum_{i=1}^N  T(x_i) - N A(\theta) + \sum_{i=1}^N S(x_i)
 
 
-我们对参数 :math:`\eta` 求导：
+我们对参数 :math:`\theta` 求导：
 
 
 .. math::
 
-    \nabla_{\eta} \ell = \sum_{i=1}^{N} T(x_i) - N \nabla_{\eta} A(\eta)
+    \nabla_{\theta} \ell = \sum_{i=1}^{N} T(x_i) - N \nabla_{\theta} A(\theta)
 
 
-上述公式中的 :math:`\nabla_{\eta} A(\eta)` 表示对函数 :math:`A(\eta)` 关于 :math:`\eta` 求导，
-这里函数 :math:`A(\eta)` 是一个关于 :math:`\eta` 的函数。
+上述公式中的 :math:`\nabla_{\theta} A(\theta)` 表示对函数 :math:`A(\theta)` 关于 :math:`\theta` 求导，
+这里函数 :math:`A(\theta)` 是一个关于 :math:`\theta` 的函数。
 我们令这个导数为0，可得：
 
 .. math::
     :label: eq_24_18
 
-    \nabla_{\eta} A(\eta) = \frac{1}{N} \sum_{i=1}^{N} T(x_i)
+    \nabla_{\theta} A(\theta) = \frac{1}{N} \sum_{i=1}^{N} T(x_i)
 
 
 
-由 :eq:`eq_24_10` 我们知道 :math:`A(\eta)` 的一阶导数等于 :math:`T(x)` 的期望 :math:`\mathbb{E}[T(x)]` ，
-即 :math:`\nabla_{\eta} A(\eta)=\mathbb{E}[T(x)]` 。
-我们令 :math:`\mu \triangleq \nabla_{\eta} A(\eta) =\mathbb{E}[T(x)]` ，
+由 :eq:`eq_24_10` 我们知道 :math:`A(\theta)` 的一阶导数等于 :math:`T(x)` 的期望 :math:`\mathbb{E}[T(x)]` ，
+即 :math:`\nabla_{\theta} A(\theta)=\mathbb{E}[T(x)]` 。
+我们令 :math:`\mu \triangleq \nabla_{\theta} A(\theta) =\mathbb{E}[T(x)]` ，
 结合公式 :eq:`eq_24_18` 有：
 
 .. math::
@@ -574,8 +574,8 @@
 同理，对于单变量的高斯分布，样本的方差就是方差参数的最大似然估计值。
 
 
-我们知道 :math:`\mu` 和 :math:`\eta` 是一一对应的，可以通过一个函数进行互相计算，最大似然估计给出了
-:math:`\mu_{ML}` 的估计值，我们就是可以换算出 :math:`\eta_{ML}` 。
+我们知道 :math:`\mu` 和 :math:`\theta` 是一一对应的，可以通过一个函数进行互相计算，最大似然估计给出了
+:math:`\mu_{ML}` 的估计值，我们就是可以换算出 :math:`\theta_{ML}` 。
 前文说过，事实上对于很多常见分布是直接用 :math:`\mu` 作为参数的，所以有了最大似然的估计值 :math:`\mu_{ML}`
 就直接是模型的参数估计值。
 :eq:`eq_24_19` 也直接说明了当样本数量趋近无穷大时，最大似然估计值和 :math:`\mu` 的真实值是一致的。
@@ -648,31 +648,31 @@ KL散度仅当概率P和Q各自总和均为1，且对于任何i皆满足
 
 .. math::
 
-    \ell(\eta;\mathcal{D}) &= \sum_{i=1}^{N} \log p(x^{(i)};\eta)
+    \ell(\theta;\mathcal{D}) &= \sum_{i=1}^{N} \log p(x^{(i)};\theta)
 
-    &= \sum_{x_m \in \mathcal{X} } \log  p(x_m;\eta)^{n_{m}}
+    &= \sum_{x_m \in \mathcal{X} } \log  p(x_m;\theta)^{n_{m}}
 
-    &= N \sum_{x_m \in \mathcal{X} } \hat{p}_{\mathcal{D}}(x_m) \log p(x_m;\eta)
+    &= N \sum_{x_m \in \mathcal{X} } \hat{p}_{\mathcal{D}}(x_m) \log p(x_m;\theta)
 
-    &= N \sum_{x_m \in \mathcal{X} } \hat{p}_{\mathcal{D}}(x_m) [ \log p(x_m;\eta) -log \hat{p}_{\mathcal{D}}(x_m) + log  \hat{p}_{\mathcal{D}}(x_m) ]
+    &= N \sum_{x_m \in \mathcal{X} } \hat{p}_{\mathcal{D}}(x_m) [ \log p(x_m;\theta) -log \hat{p}_{\mathcal{D}}(x_m) + log  \hat{p}_{\mathcal{D}}(x_m) ]
 
-    &= N \sum_{x_m \in \mathcal{X} } \hat{p}_{\mathcal{D}}(x_m) [ \log \frac{p(x_m;\eta)}{\hat{p}_{\mathcal{D}}(x_m)} + log  \hat{p}_{\mathcal{D}}(x_m) ]
+    &= N \sum_{x_m \in \mathcal{X} } \hat{p}_{\mathcal{D}}(x_m) [ \log \frac{p(x_m;\theta)}{\hat{p}_{\mathcal{D}}(x_m)} + log  \hat{p}_{\mathcal{D}}(x_m) ]
 
     &= N \underbrace{\sum_{x_m \in \mathcal{X} } \hat{p}_{\mathcal{D}}(x_m)
-    \log \frac{p(x_m;\eta)}{\hat{p}_{\mathcal{D}}(x_m)}}_{\text{负的KL散度}}
+    \log \frac{p(x_m;\theta)}{\hat{p}_{\mathcal{D}}(x_m)}}_{\text{负的KL散度}}
     + N \underbrace{ \sum_{x_m \in \mathcal{X} } \hat{p}_{\mathcal{D}}(x_m) log  \hat{p}_{\mathcal{D}}(x_m)}_{\text{经验分布的信息熵}}
 
 
-    &= N( H(\hat{p}_{\mathcal{D}}) - D( \hat{p}_{\mathcal{D}} \parallel p(x ; \eta)  ) )
+    &= N( H(\hat{p}_{\mathcal{D}}) - D( \hat{p}_{\mathcal{D}} \parallel p(x ; \theta)  ) )
 
 
-我们可以忽略熵项，因为它是经验分布的函数，与参数 :math:`\eta` 无关，在极大化过程中其值是固定值。
+我们可以忽略熵项，因为它是经验分布的函数，与参数 :math:`\theta` 无关，在极大化过程中其值是固定值。
 因此，**最大化似然等同于最小化经验分布与真实分布的信息差异**
-:math:`D( \hat{p}_{\mathcal{D}} \parallel p(\cdot ; \eta))` 。
+:math:`D( \hat{p}_{\mathcal{D}} \parallel p(\cdot ; \theta))` 。
 
 回想一下，当两个分布是相同的分布时，KL散度为零。 在多项式情况下，
 由于我们在有限空间 :math:`\mathcal{X}` 上优化了所有分布的集合，我们可以精确地匹配分布，例如，
-令 :math:`p(\cdot;\eta)=\hat{p}_{\mathcal{D}}` ，即可使KL散度为零，得到精确匹配。
+令 :math:`p(\cdot;\theta)=\hat{p}_{\mathcal{D}}` ，即可使KL散度为零，得到精确匹配。
 然而，在大多数有趣的问题中，我们无法完全匹配数据分布(如果可以，我们只会过度拟合）。
-相反，我们通常优化由 :math:`\eta` 参数化的受限类分布，来得到近似解。
+相反，我们通常优化由 :math:`\theta` 参数化的受限类分布，来得到近似解。
 
