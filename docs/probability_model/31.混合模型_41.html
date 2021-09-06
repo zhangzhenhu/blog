@@ -35,6 +35,8 @@
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/translations.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"Macros": {"RR": "{\\bf R}", "bold": ["{\\bf #1}", 1]}}})</script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -687,9 +689,16 @@
 </ul>
 </li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">20. 混合模型</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id2">20.1. 混合模型</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id3">20.2. 高斯混合模型</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id4">20.3. 参数估计</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">20.1. 一般混合模型</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id3">20.1.1. 模型的有向图表示</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id4">20.1.2. 参数估计</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id7">20.2. 高斯混合模型</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id8">20.2.1. 模型的表示</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id9">20.2.2. 参数估计</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="32.%E5%9B%A0%E5%AD%90%E5%88%86%E6%9E%90_42.html">21. 因子分析</a></li>
@@ -807,7 +816,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../%E5%9B%A0%E6%9E%9C%E6%8E%A8%E6%96%AD/%E3%80%8A%E7%BB%9F%E8%AE%A1%E5%9B%A0%E6%9E%9C%E6%8E%A8%E6%96%AD%E6%8E%A8%E7%90%86%E5%85%A5%E9%97%A8%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E7%AC%AC%E4%B8%89%E7%AB%A0.html">1. 第三章 干预的效果</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../%E5%9B%A0%E6%9E%9C%E6%8E%A8%E6%96%AD/%E3%80%8A%E7%BB%9F%E8%AE%A1%E5%9B%A0%E6%9E%9C%E6%8E%A8%E6%96%AD%E6%8E%A8%E7%90%86%E5%85%A5%E9%97%A8%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E7%AC%AC%E4%B8%89%E7%AB%A0.html#id2">1.1. 第3.1节 干预</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../%E5%9B%A0%E6%9E%9C%E6%8E%A8%E6%96%AD/%E3%80%8A%E7%BB%9F%E8%AE%A1%E5%9B%A0%E6%9E%9C%E6%8E%A8%E6%96%AD%E6%8E%A8%E7%90%86%E5%85%A5%E9%97%A8%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E7%AC%AC%E4%B8%89%E7%AB%A0.html#id3">1.2. 第3.2节 校正公式</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../%E5%9B%A0%E6%9E%9C%E6%8E%A8%E6%96%AD/%E3%80%8A%E7%BB%9F%E8%AE%A1%E5%9B%A0%E6%9E%9C%E6%8E%A8%E6%96%AD%E6%8E%A8%E7%90%86%E5%85%A5%E9%97%A8%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E7%AC%AC%E4%B8%89%E7%AB%A0.html#id8">1.3. 后门准则</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E5%9B%A0%E6%9E%9C%E6%8E%A8%E6%96%AD/%E3%80%8A%E7%BB%9F%E8%AE%A1%E5%9B%A0%E6%9E%9C%E6%8E%A8%E6%96%AD%E6%8E%A8%E7%90%86%E5%85%A5%E9%97%A8%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E7%AC%AC%E4%B8%89%E7%AB%A0.html#id8">1.3. 第3.3节 后门准则</a></li>
 </ul>
 </li>
 </ul>
@@ -955,18 +964,283 @@
             
   <div class="section" id="id1">
 <h1><span class="section-number">20. </span>混合模型<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
-<p>我们已经讨论了很多概率分布，包括离散变量、连续变量，
-但这些已知概率分布并不能涵盖自然界中所有随机变量的分布。
-已知的任意概率分布都有自己的特点和适用范围，
-那么当遇到一个未知的复杂的随机变量时，我们又该如何表示它的概率分布呢。</p>
+<p>我们在 <a class="reference internal" href="13.%E4%B8%8D%E5%AE%8C%E6%95%B4%E8%A7%82%E6%B5%8B%E7%9A%84%E5%8F%82%E6%95%B0%E5%AD%A6%E4%B9%A0_lecture_22.html#ch-em"><span class="std std-numref">第12章</span></a>
+讨论了不完整观测数据的模型学习问题，介绍了EM算法。
+本章我们讨论不完整观测数据的模型案例，
+混合模型（mixture model），它是一个典型的应用EM解决不完整观测数据的模型，
+混合模型是一类模型，其中最常用的是高斯混合模型（Gaussian mixture model,GMM）。
+我们先介绍一般形式的混合模型，再讨论高斯混合模型，
+并且在本章最后介绍一下聚类场景中最基本的模型K-means与EM算法的关系。</p>
 <div class="section" id="id2">
-<h2><span class="section-number">20.1. </span>混合模型<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
-</div>
+<h2><span class="section-number">20.1. </span>一般混合模型<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>在实际应用中，经常会遇到观测数据并不是从某个单一的总体分布中采样得到，
+而是来源于多个拥有不同参数的相同分布。
+这里首先给出一个概念：参数分布族(parametric family of distributions)。</p>
+<dl class="glossary simple">
+<dt id="term-parametric-family-of-distributions">参数分布族(parametric family of distributions)<a class="headerlink" href="#term-parametric-family-of-distributions" title="Permalink to this term">¶</a></dt><dd><p>参数分布族是指，属于同一种概率分布仅仅参数值不同的一类分布的集合，
+比如拥有不同均值和方差的高斯分布组成的分布集合。</p>
+</dd>
+</dl>
+<p>假设有一份某地小学生的身高数据，已知身高数据可以看做近似服从高斯分布，
+这份数据中含有全部六个年级的学生，并且男生女生都有。
+按照过去一般的处理逻辑，可以用一个高斯分布去拟合这份数据，
+然而由于不同年龄段的孩子身高差异较大，用一个单一的高斯模型并不能很好的拟合数据，
+此时可以用多个高斯分布去分别拟合不同年龄段不同性别的身高数据，
+这些高斯分布拥有不同的均值和方差参数，但他们都是高斯分布，而不是什么其它的分布。
+这就是一个典型的混合分布的例子，数据来源于一个参数分布族，
+即不同参数的同一种分布。</p>
 <div class="section" id="id3">
-<h2><span class="section-number">20.2. </span>高斯混合模型<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<h3><span class="section-number">20.1.1. </span>模型的有向图表示<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h3>
+<p>现在我们用概率图的语言来描述混合模型，
+首先定义一个离散类别变量，记作 <span class="math notranslate nohighlight">\(Z\)</span>
+，随机变量 <span class="math notranslate nohighlight">\(Z\)</span> 用于表示当前数据来源于哪一个具体的分布。
+假设数据来源于 <span class="math notranslate nohighlight">\(K\)</span> 个不同参数的分布，
+则类别变量 <span class="math notranslate nohighlight">\(Z\)</span> 有 <span class="math notranslate nohighlight">\(K\)</span> 个取值，
+<span class="math notranslate nohighlight">\(Z_i=z_k\)</span> 表示第 <span class="math notranslate nohighlight">\(i\)</span>
+条观测样本来源于第 <span class="math notranslate nohighlight">\(k\)</span> 个分布。
+用 <span class="math notranslate nohighlight">\(X\)</span> 表示观测变量，
+观测变量 <span class="math notranslate nohighlight">\(X\)</span> 一共有 <span class="math notranslate nohighlight">\(K\)</span> 个分量，
+每个分量 <span class="math notranslate nohighlight">\(X_k\)</span> 有不同的参数。
+混合模型的有向图可以用
+<a class="reference internal" href="#fg-mixture-1-00"><span class="std std-numref">图 20.1.1</span></a>
+所示，其中 <span class="math notranslate nohighlight">\(\lambda\)</span>
+表示类别变量 <span class="math notranslate nohighlight">\(Z\)</span> 的参数，
+<span class="math notranslate nohighlight">\(\theta_k\)</span>
+表示观测变量 <span class="math notranslate nohighlight">\(X_k\)</span> 的参数。</p>
+<div class="figure align-center" id="id10">
+<span id="fg-mixture-1-00"></span><div class="graphviz"><object data="../_images/graphviz-1579d0adb14c38b0946701ab211047a553cb00e1.svg" type="image/svg+xml" class="graphviz">
+<p class="warning">digraph 混合模型的有向图表示 {
+node[shape=circle,fixedsize=true,width=0.5];
+rankdir = LR
+
+lambda[label=&quot;𝜆&quot; shape=&quot;plaintext&quot;]
+
+
+
+subgraph cluster_a {
+
+    Z[label=&lt;Z&lt;SUB&gt;i&lt;/SUB&gt;&gt;];
+    X[label=&lt;X&lt;SUB&gt;i&lt;/SUB&gt;&gt;];
+    Z -&gt; {X};
+
+    label=&quot;N&quot;;
+
+
+}
+
+subgraph cluster_b {
+    theta[label=&lt;𝜃&lt;SUB&gt;k&lt;/SUB&gt;&gt; shape=&quot;plaintext&quot;]
+    label=&quot;K&quot;;
+}
+
+lambda -&gt;Z
+theta-&gt;X
+}</p></object></div>
+<p class="caption"><span class="caption-number">图 20.1.1 </span><span class="caption-text">混合模型的有向图表示</span><a class="headerlink" href="#id10" title="永久链接至图片">¶</a></p>
+</div>
+<p>在混合模型中，一条样本由两个变量空值，样本的生成过程为：</p>
+<ol class="arabic simple">
+<li><p>首先，从变量 <span class="math notranslate nohighlight">\(Z\)</span> 进行采样，假设采样值为 <span class="math notranslate nohighlight">\(z_k\)</span> 。</p></li>
+<li><p>然后，从变量 <span class="math notranslate nohighlight">\(X\)</span> 的第 <span class="math notranslate nohighlight">\(k\)</span> 个分量（记作 <span class="math notranslate nohighlight">\(X_k\)</span>）中采样得到 <span class="math notranslate nohighlight">\(x\)</span> 。</p></li>
+</ol>
+<p>模型的联合概率分布可以写为</p>
+<div class="math notranslate nohighlight" id="equation-eq-mixture-01-04">
+<span class="eqno">(20.1.13)<a class="headerlink" href="#equation-eq-mixture-01-04" title="公式的永久链接">¶</a></span>\[P(Z,X;\lambda,\theta) = P(Z;\lambda)P(X|Z;\theta)\]</div>
+<p>其中变量 <span class="math notranslate nohighlight">\(Z\)</span> 是一个类别变量，它的边缘概率分布可以写为</p>
+<div class="math notranslate nohighlight" id="equation-eq-mixture-01-05">
+<span class="eqno">(20.1.14)<a class="headerlink" href="#equation-eq-mixture-01-05" title="公式的永久链接">¶</a></span>\[P(Z;\lambda) = \prod_{k=1}^K \lambda_k^{z_k} ,\quad \sum_{k=1}^K \lambda_k = 1\]</div>
+<p>响应的变量 <span class="math notranslate nohighlight">\(X\)</span> 有 <span class="math notranslate nohighlight">\(K\)</span> 个分量，所有分量都属于同一种概率分布，只是参数不同。
+条件概率分布 <span class="math notranslate nohighlight">\(P(X|Z;\theta)\)</span> 就表示每个分量的概率分布，
+可以写为</p>
+<div class="math notranslate nohighlight" id="equation-eq-mixture-01-06">
+<span class="eqno">(20.1.15)<a class="headerlink" href="#equation-eq-mixture-01-06" title="公式的永久链接">¶</a></span>\[P(X|Z;\theta) = \prod_{k=1}^K P(X;\theta_k)^{z_k}\]</div>
+<p>分量 <span class="math notranslate nohighlight">\(X_k\)</span> 的具体分布取决于你的实际场景（数据），
+当 <span class="math notranslate nohighlight">\(X_k\)</span> 是高斯分布时就被称为高斯混合模型，
+这里我们暂时不关心它的具体形式，下一节再讨论高斯混合模型。</p>
 </div>
 <div class="section" id="id4">
-<h2><span class="section-number">20.3. </span>参数估计<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
+<h3><span class="section-number">20.1.2. </span>参数估计<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
+<div class="section" id="id5">
+<h4><span class="section-number">20.1.2.1. </span>完整观测数据<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h4>
+<p>首先假设 <span class="math notranslate nohighlight">\(Z\)</span> 和 <span class="math notranslate nohighlight">\(X\)</span> 都能观测到，
+即观测数据中同时包含了 <span class="math notranslate nohighlight">\(Z\)</span> 和 <span class="math notranslate nohighlight">\(X\)</span> 的值，
+此时称为完整观测数据，
+数据的对数似然函数为</p>
+<div class="math notranslate nohighlight" id="equation-eq-mixture-02-02">
+<span class="eqno">(20.1.16)<a class="headerlink" href="#equation-eq-mixture-02-02" title="公式的永久链接">¶</a></span>\[\begin{split}\ell &amp;= \sum_i^N \ln P(Z_i,X_i;\lambda,\theta)\\
+&amp;= \sum_i^N \ln  P(Z_i;\lambda)P(X_i|Z_i;\theta) \\
+&amp;=  \sum_i^N \ln  P(Z_i;\lambda) +  \sum_i^N \ln P(X_i|Z_i;\theta)\\
+&amp;=  \sum_i^N \ln  P(Z_i;\lambda) +  \sum_i^N \ln \prod_{k=1}^K P(X_i;\theta_k)^{z_k} \\
+&amp;=  \sum_i^N \ln  P(Z_i;\lambda) +  \sum_i^N \sum_{k=1}^K  {z_k} \ln  P(X_i;\theta_k)\end{split}\]</div>
+<p>可以看到，在完整观测数据的情况下，
+<span class="math notranslate nohighlight">\(P(Z_i;\lambda)\)</span> 和 <span class="math notranslate nohighlight">\(P(X_k;\theta_k)\)</span>
+可以分别独立的使用观测数据进行参数估计，估计过程比较简单。
+这里就不赘述了，如果读者不理解这步之后的估计过程，可以重新学习本书之前的章节。</p>
+</div>
+<div class="section" id="id6">
+<h4><span class="section-number">20.1.2.2. </span>不完整观测数据<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h4>
+<p>然而在实际应用场景中，类别变量 <span class="math notranslate nohighlight">\(Z\)</span> 通常是不可观测的，
+即我们并不知道样本是从 <span class="math notranslate nohighlight">\(X\)</span> 的哪个分量取得的，
+通常把模型中不可观测的变量称为隐变量或者潜在变量。
+此时观测样本只有 <span class="math notranslate nohighlight">\(X\)</span> 的值，
+似然函数（所有样本的联合概率）为</p>
+<div class="math notranslate nohighlight" id="equation-eq-mixture-02-03">
+<span class="eqno">(20.1.17)<a class="headerlink" href="#equation-eq-mixture-02-03" title="公式的永久链接">¶</a></span>\[P(X_1,X_2,\cdots,X_N;\theta) = \prod_{i=1}^N P(X_i;\theta)\]</div>
+<p>根据图模型的推断理论，需要在联合概率的基础上通过边际化（消元）的方法得到边缘概率
+<span class="math notranslate nohighlight">\(P(X_i;\theta)\)</span> ，</p>
+<div class="math notranslate nohighlight" id="equation-eq-mixture-02-04">
+<span class="eqno">(20.1.18)<a class="headerlink" href="#equation-eq-mixture-02-04" title="公式的永久链接">¶</a></span>\[P(X_i;\theta) = \sum_z P(X_i,Z_i;\lambda,\theta)\]</div>
+<p>此时对数似然函数为</p>
+<div class="math notranslate nohighlight" id="equation-eq-mixture-02-05">
+<span class="eqno">(20.1.19)<a class="headerlink" href="#equation-eq-mixture-02-05" title="公式的永久链接">¶</a></span>\[\begin{split}\ell &amp;= \sum_{i=1}^N \ln P(X_i;\theta) \\
+&amp;= \sum_{i=1}^N \ln  \sum_z P(X_i,Z_i;\lambda,\theta)\end{split}\]</div>
+<p>可以看到上式中对数 <span class="math notranslate nohighlight">\(\ln\)</span> 内部存在一个求和符号，
+这使得无法对公式进一步的拆解，这种情况下很难对其求偏导，
+给参数估计带来了极大的困难。
+在含有隐变量的模型中，需要对隐变量进行消元，以便得到观测变量的边缘概率，
+而这个消元操作（求和或者积分）会出现在对数似然函数的对数内部，
+最终导致对数似然函数无法分解，使得参数估计无比困难。
+EM算法就是对这一问题的有效解决，通过 Jensen 不等式的理论，
+可以在等价的情况下，把对数内部的求和操作转换到对数外部。</p>
+</div>
+<div class="section" id="em">
+<h4><span class="section-number">20.1.2.3. </span>EM算法<a class="headerlink" href="#em" title="永久链接至标题">¶</a></h4>
+<p>EM算法的具体推导过程这里不再赘述，读者可以回顾一下
+<a class="reference internal" href="13.%E4%B8%8D%E5%AE%8C%E6%95%B4%E8%A7%82%E6%B5%8B%E7%9A%84%E5%8F%82%E6%95%B0%E5%AD%A6%E4%B9%A0_lecture_22.html#ch-em"><span class="std std-numref">第12章</span></a> 的内容，
+这里仅给出E步和M步的具体内容。</p>
+<p><strong>E-步骤：</strong> 得到隐变量的后验概率分布</p>
+<p>用 <span class="math notranslate nohighlight">\(\gamma(Z_i)\)</span> 表示 <span class="math notranslate nohighlight">\(Z_i\)</span> 的后验概率分布的概率质量函数，
+根据贝叶斯公式有</p>
+<div class="math notranslate nohighlight" id="equation-eq-mixture-02-06">
+<span class="eqno">(20.1.20)<a class="headerlink" href="#equation-eq-mixture-02-06" title="公式的永久链接">¶</a></span>\[\begin{split}\gamma(Z_i) &amp;= P(Z_i|X_i;\lambda^{t-1},\theta^{t-1}) \\
+&amp;= \frac{P(X_i,Z_i;\lambda^{t-1},\theta^{t-1})}{P(X_i)} \\
+&amp;= \frac{P(Z_i;\lambda^{t-1})P(X_i|Z_i;\theta^{t-1})}{\sum_z  P(Z_i;\lambda^{t-1})P(X_i|Z_i;\theta^{t-1}) }\end{split}\]</div>
+<p>具体的 <span class="math notranslate nohighlight">\(\gamma(Z=z_k)\)</span> 为</p>
+<div class="math notranslate nohighlight" id="equation-eq-mixture-02-07">
+<span class="eqno">(20.1.21)<a class="headerlink" href="#equation-eq-mixture-02-07" title="公式的永久链接">¶</a></span>\[\begin{split}\gamma(Z_i=z_k)
+&amp;= \frac{P(Z_i=z_k;\lambda^{t-1})P(X_i|Z_i=z_k;\theta^{t-1})}{\sum_{k=1}^K P(Z_i=z_k;\lambda^{t-1})P(X_i|Z_i=z_k;\theta^{t-1})}\\
+&amp;= \frac{P(Z_i=z_k;\lambda^{t-1})P(X_i;\theta_k^{t-1})}{\sum_{k=1}^K P(Z_i=z_k;\lambda^{t-1})P(X_i;\theta_k^{t-1})  }\end{split}\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(\lambda^{t-1},\theta^{t-1}\)</span> 都是已知量，其值使用上一轮迭代得到的估计值。
+这一步的结果，
+就是为每一条样本 <span class="math notranslate nohighlight">\(X_i\)</span>
+计算一个后验概率分布 <span class="math notranslate nohighlight">\(\gamma_{ik}\)</span>，其表示样本 <span class="math notranslate nohighlight">\(X_i\)</span>
+来自于各个分量的概率，
+也可以认为是各个分量对样本 <span class="math notranslate nohighlight">\(X_i\)</span>
+的”贡献”。</p>
+<p><strong>M-步骤：</strong> 极大化期望，得到参数的解。</p>
+<p>极大化的目标函数记作 <span class="math notranslate nohighlight">\(Q\)</span>，其形式为</p>
+<div class="math notranslate nohighlight" id="equation-eq-mixture-02-08">
+<span class="eqno">(20.1.22)<a class="headerlink" href="#equation-eq-mixture-02-08" title="公式的永久链接">¶</a></span>\[\begin{split}Q &amp;= \sum_{i=1}^N \sum_{k=1}^K \gamma(Z_i=z_k;\lambda^{t-1},\theta^{t-1})
+\ln P(X_i,Z_i=z_k;\lambda^{t},\theta^{t}) \\
+&amp;= \sum_{i=1}^N \sum_{k=1}^K \gamma(Z_i=z_k;\lambda^{t-1},\theta^{t-1})
+\ln \left [ P(Z_i;\lambda^{t})P(X_i|Z_i=z_k;\theta^{t})\right ] \\
+&amp;= \sum_{i=1}^N \sum_{k=1}^K \gamma(Z_i=z_k;\lambda^{t-1},\theta^{t-1})
+\left [ \ln P(Z_i=z_k;\lambda^{t}) + \ln P(X_i|Z_i=z_k;\theta^{t}) \right ] \\
+&amp;= \sum_{i=1}^N \sum_{k=1}^K \gamma(Z_i=z_k;\lambda^{t-1},\theta^{t-1})
+\left [ \ln P(Z_i=z_k;\lambda^{t}) + \ln P(X_{i};\theta^{t}) \right ] \\
+&amp;= \left [ \sum_{i=1}^N \sum_{k=1}^K \gamma(Z_i=z_k;\lambda^{t-1},\theta^{t-1})\ln P(Z_i=z_k;\lambda^{t})
+\right ] \\
+&amp;\quad + \left [ \sum_{i=1}^N \sum_{k=1}^K \gamma(Z_i=z_k;\lambda^{t-1},\theta^{t-1}) \ln P(X_{i};\theta^{t}) \right ]\end{split}\]</div>
+<p>令 <span class="math notranslate nohighlight">\(\gamma_{ik}=\gamma(Z_i=z_k;\lambda^{t-1},\theta^{t-1})\)</span>
+，上式的一个简洁表示为</p>
+<div class="math notranslate nohighlight" id="equation-eq-mixture-02-09">
+<span class="eqno">(20.1.23)<a class="headerlink" href="#equation-eq-mixture-02-09" title="公式的永久链接">¶</a></span>\[Q = \left [ \sum_{i=1}^N \sum_{k=1}^K  \gamma_{ik} \ln P(Z_i=z_k;\lambda^{t})
+\right ] +
+\left [ \sum_{i=1}^N \sum_{k=1}^K \gamma_{ik} \ln P(X_{i};\theta^{t}) \right ]\]</div>
+<p>可以看到在 <a class="reference internal" href="#equation-eq-mixture-02-09">公式(20.1.23)</a> 中，对数内的联合概率项已经可以分解开，和完整观测的对数似然函数一样，
+可以独立的估计每一项局部条件概率的参数。
+稍微有点区别的是，每一项前面多了一个系数 <span class="math notranslate nohighlight">\(\gamma_{ik}\)</span>
+，并且需要对这个系数进行求和。
+<span class="math notranslate nohighlight">\(\gamma_{ik}\)</span> 可以看做是一个权重，可以理解成每一个分量对观测样本的”贡献”
+，事实上，它含义就是在取得观测样本的条件下，观测样本 <span class="math notranslate nohighlight">\(i\)</span>
+来自于第 <span class="math notranslate nohighlight">\(k\)</span> 个分量的概率。</p>
+</div>
+</div>
+</div>
+<div class="section" id="id7">
+<h2><span class="section-number">20.2. </span>高斯混合模型<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h2>
+<p>当观测变量 <span class="math notranslate nohighlight">\(X\)</span> 是高斯分布时，就称为高斯混合模型（Gaussian mixture model,GMM）
+，高斯混合模型是应用最广的混合模型。
+此时构成 <span class="math notranslate nohighlight">\(X\)</span> 的每个分量都是一个高斯变量，
+记作 <span class="math notranslate nohighlight">\(X_k \sim \mathcal{N}(\mu_k,\sigma^2_k)\)</span></p>
+<div class="section" id="id8">
+<h3><span class="section-number">20.2.1. </span>模型的表示<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h3>
+<p>高斯混合模型的有向图表示为</p>
+<div class="figure align-center" id="id11">
+<span id="fg-mixture-2-00"></span><div class="graphviz"><object data="../_images/graphviz-f7ffb5633d31ac5b6eea588ffdc9e5a9db187a54.svg" type="image/svg+xml" class="graphviz">
+<p class="warning">digraph 高斯混合模型的有向图表示 {
+node[shape=circle,fixedsize=true,width=0.5];
+rankdir = LR
+
+lambda[label=&quot;𝜆&quot; shape=&quot;plaintext&quot;]
+
+
+
+subgraph cluster_a {
+
+    Z[label=&lt;Z&lt;SUB&gt;i&lt;/SUB&gt;&gt;];
+    X[label=&lt;X&lt;SUB&gt;i&lt;/SUB&gt;&gt;];
+    Z -&gt; {X};
+
+    label=&quot;N&quot;;
+
+
+}
+
+subgraph cluster_b {
+    mu[label=&lt;𝜇&lt;SUB&gt;k&lt;/SUB&gt;&gt; shape=&quot;plaintext&quot;]
+    sigma[label=&lt;𝜎&lt;SUP&gt;2&lt;/SUP&gt;&lt;SUB&gt;k&lt;/SUB&gt;&gt; shape=&quot;plaintext&quot;]
+    label=&quot;K&quot;;
+}
+
+lambda -&gt;Z
+mu,sigma-&gt;X
+}</p></object></div>
+<p class="caption"><span class="caption-number">图 20.2.1 </span><span class="caption-text">高斯混合模型的有向图表示</span><a class="headerlink" href="#id11" title="永久链接至图片">¶</a></p>
+</div>
+<p>同理，模型的联合概率分布为</p>
+<div class="math notranslate nohighlight" id="equation-eq-mixture-03-04">
+<span class="eqno">(20.2.9)<a class="headerlink" href="#equation-eq-mixture-03-04" title="公式的永久链接">¶</a></span>\[P(Z,X;\lambda,\mu,\sigma^2) = P(Z;\lambda)P(X|Z;\mu,\sigma^2)\]</div>
+<p>类别变量 <span class="math notranslate nohighlight">\(Z\)</span> 的边缘概率分布 <span class="math notranslate nohighlight">\(P(Z;\lambda)\)</span> 为</p>
+<div class="math notranslate nohighlight" id="equation-eq-mixture-03-05">
+<span class="eqno">(20.2.10)<a class="headerlink" href="#equation-eq-mixture-03-05" title="公式的永久链接">¶</a></span>\[P(Z;\lambda) = \prod_{k=1}^K \lambda_k^{z_k} ,\quad \sum_{k=1}^K \lambda_k = 1\]</div>
+<p>条件概率分布 <span class="math notranslate nohighlight">\(P(X|Z)\)</span> 为</p>
+<div class="math notranslate nohighlight" id="equation-eq-mixture-03-06">
+<span class="eqno">(20.2.11)<a class="headerlink" href="#equation-eq-mixture-03-06" title="公式的永久链接">¶</a></span>\[P(X|Z) = \prod_{k=1}^K P(X_k;\theta_k)^{z_k}
+=  \prod_{k=1}^K \mathcal{N}(X;\mu_k,\sigma^2_k)^{z_k}\]</div>
+<p>单一分量 <span class="math notranslate nohighlight">\(X_k\)</span> 的概率密度函数为</p>
+<div class="math notranslate nohighlight" id="equation-probability-model-31-41-0">
+<span class="eqno">(20.2.12)<a class="headerlink" href="#equation-probability-model-31-41-0" title="公式的永久链接">¶</a></span>\[P(X_k;\theta_k) = \mathcal{N}(X;\mu_k,\sigma^2_k)\]</div>
+</div>
+<div class="section" id="id9">
+<h3><span class="section-number">20.2.2. </span>参数估计<a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h3>
+<p>按照上一节混合模型的 EM 算法的过程填充相应的部分即可。</p>
+<p><strong>E-步骤：</strong> 计算隐变量 <span class="math notranslate nohighlight">\(Z\)</span> 的后验概率</p>
+<div class="math notranslate nohighlight" id="equation-eq-mixture-03-07">
+<span class="eqno">(20.2.13)<a class="headerlink" href="#equation-eq-mixture-03-07" title="公式的永久链接">¶</a></span>\[\begin{split}\gamma_{ik}
+&amp;= \frac{P(Z_i=z_k;\lambda^{t-1})P(X_{i}=x_i;\theta_k^{t-1})}
+{\sum_{k=1}^K P(Z_i=z_k;\lambda^{t-1})P(X_{i}=x_i;\theta_k^{t-1})  }\\
+&amp;= \frac{ \lambda_k   \mathcal{N}(x_i; \mu_k,\sigma^2_k)   }
+{\sum_{k=1}^K \lambda_k   \mathcal{N}(x_i ; \mu_k,\sigma^2_k) }\end{split}\]</div>
+<p>在这一步中，所有参数认为是已知的，使用上一轮迭代得到的估计值。</p>
+<p><strong>M-步骤：</strong> 极大化Q函数得到参数的解。</p>
+<p>目标函数为</p>
+<div class="math notranslate nohighlight" id="equation-eq-mixture-03-09">
+<span class="eqno">(20.2.14)<a class="headerlink" href="#equation-eq-mixture-03-09" title="公式的永久链接">¶</a></span>\[\begin{split}Q &amp;= \left [ \sum_{i=1}^N \sum_{k=1}^K  \gamma_{ik} \ln P(Z_i=z_k;\lambda^{t}) \right ]
+ + \left [ \sum_{i=1}^N \sum_{k=1}^K \gamma_{ik} \ln P(X_{i}=x_i;\theta^{t}_k) \right ] \\
+&amp;= \left [ \sum_{i=1}^N \sum_{k=1}^K  \gamma_{ik} \lambda_k \right ]
++ \left [ \sum_{i=1}^N \sum_{k=1}^K \gamma_{ik} \ln  \mathcal{N}(x_i ; \mu_k,\sigma^2_k)  \right ]\end{split}\]</div>
+<p>在这一步骤中，<span class="math notranslate nohighlight">\(\gamma_{ik}\)</span> 由上一步计算得到，其值是已知的；
+所有模型参数是未知的，需要极大化求解。
+对于高斯混合模型来讲，可以直接令目标函数参数的偏导数为零得到参数估计值。</p>
+<div class="math notranslate nohighlight" id="equation-probability-model-31-41-1">
+<span class="eqno">(20.2.15)<a class="headerlink" href="#equation-probability-model-31-41-1" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\lambda_k &amp;= \frac{N_k}{N}\\\mu_k &amp;= \frac{\sum_{i=1}^N \gamma_{ik} x_i  }{N_k}\\
+\sigma^2_k &amp;= \frac{  \sum_{i=1}^N \gamma_{ik} (x_i- \mu_k)^2   }{N_k}\end{aligned}\end{align} \]</div>
+<p>其中</p>
+<div class="math notranslate nohighlight" id="equation-probability-model-31-41-2">
+<span class="eqno">(20.2.16)<a class="headerlink" href="#equation-probability-model-31-41-2" title="公式的永久链接">¶</a></span>\[N_k = \sum_{i=1}^N \gamma_{ik}\]</div>
+<p>得到参数值后检查是否收敛，如果没有收敛则重复执行E步骤和M步骤，直到参数收敛为止。</p>
+</div>
 </div>
 </div>
 
