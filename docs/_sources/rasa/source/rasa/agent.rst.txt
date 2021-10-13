@@ -1,0 +1,135 @@
+###################################
+agent
+###################################
+
+
+
+
+.. digraph:: load_agent
+
+    graph [rankdir=TB, clusterrank="local"];
+    subgraph cluster_G {
+
+        graph [style="filled,rounded", fillcolor="#80808018", label=""];
+        rasa__core__agent [label="rasa.core.agent", style="filled", fillcolor="#ffffffb2", fontcolor="#000000", group="0"];
+        subgraph cluster_rasa__core__agent {
+
+            graph [style="filled,rounded", fillcolor="#80808018", label="rasa.core.agent"];
+            rasa__core__agent__Agent [label="Agent\n(rasa/core/agent.py:332)", style="filled", fillcolor="#ff6565b2", fontcolor="#000000", group="0"];
+            rasa__core__agent___load_and_set_updated_model [label="_load_and_set_updated_model\n(rasa/core/agent.py:119)", style="filled", fillcolor="#ff6565b2", fontcolor="#000000", group="0"];
+            rasa__core__agent___load_domain_and_policy_ensemble [label="_load_domain_and_policy_ensemble\n(rasa/core/agent.py:97)", style="filled", fillcolor="#ff6565b2", fontcolor="#000000", group="0"];
+            rasa__core__agent___load_interpreter [label="_load_interpreter\n(rasa/core/agent.py:78)", style="filled", fillcolor="#ff6565b2", fontcolor="#000000", group="0"];
+            rasa__core__agent___pull_model_and_fingerprint [label="_pull_model_and_fingerprint\n(rasa/core/agent.py:175)", style="filled", fillcolor="#ff6565b2", fontcolor="#000000", group="0"];
+            rasa__core__agent___run_model_pulling_worker [label="_run_model_pulling_worker\n(rasa/core/agent.py:245)", style="filled", fillcolor="#ff6565b2", fontcolor="#000000", group="0"];
+            rasa__core__agent___update_model_from_server [label="_update_model_from_server\n(rasa/core/agent.py:143)", style="filled", fillcolor="#ff6565b2", fontcolor="#000000", group="0"];
+            rasa__core__agent__load_agent [label="load_agent\n(rasa/core/agent.py:272)", style="filled", fillcolor="#ff6565b2", fontcolor="#000000", group="0"];
+            rasa__core__agent__load_from_server [label="load_from_server\n(rasa/core/agent.py:58)", style="filled", fillcolor="#ff6565b2", fontcolor="#000000", group="0"];
+            rasa__core__agent__schedule_model_pulling [label="schedule_model_pulling\n(rasa/core/agent.py:259)", style="filled", fillcolor="#ff6565b2", fontcolor="#000000", group="0"];
+
+
+        }
+    }
+        rasa__core__agent__load_from_server -> rasa__core__agent___update_model_from_server [style="solid",  color="#000000"];
+        rasa__core__agent__load_from_server -> rasa__core__agent__schedule_model_pulling [style="solid",  color="#000000"];
+        rasa__core__agent___load_and_set_updated_model -> rasa__core__agent___load_domain_and_policy_ensemble [style="solid",  color="#000000"];
+        rasa__core__agent___load_and_set_updated_model -> rasa__core__agent___load_interpreter [style="solid",  color="#000000"];
+        rasa__core__agent___update_model_from_server -> rasa__core__agent___load_and_set_updated_model [style="solid",  color="#000000"];
+        rasa__core__agent___update_model_from_server -> rasa__core__agent___pull_model_and_fingerprint [style="solid",  color="#000000"];
+        rasa__core__agent___run_model_pulling_worker -> rasa__core__agent___update_model_from_server [style="solid",  color="#000000"];
+        rasa__core__agent__schedule_model_pulling -> rasa__core__agent___run_model_pulling_worker [style="solid",  color="#000000"];
+        rasa__core__agent__load_agent -> rasa__core__agent__load_from_server [style="solid",  color="#000000"];
+        rasa__core__agent__load_agent -> rasa__core__agent__Agent__load_local_model [style="solid",  color="#000000"];
+        rasa__core__agent__load_agent -> rasa__core__agent__Agent____init__ [style="solid",  color="#000000"];
+        rasa__core__agent__load_agent -> rasa__core__agent__Agent__load_from_remote_storage [style="solid",  color="#000000"];
+        rasa__core__agent__load_agent -> rasa__core__agent__Agent [style="solid",  color="#000000"];
+        rasa__core__agent__Agent____init__ -> rasa__core__agent__Agent___create_lock_store [style="solid",  color="#000000"];
+        rasa__core__agent__Agent____init__ -> rasa__core__agent__Agent__create_tracker_store [style="solid",  color="#000000"];
+        rasa__core__agent__Agent____init__ -> rasa__core__agent__Agent___create_domain [style="solid",  color="#000000"];
+        rasa__core__agent__Agent____init__ -> rasa__core__agent__Agent___create_ensemble [style="solid",  color="#000000"];
+        rasa__core__agent__Agent____init__ -> rasa__core__agent__Agent___set_fingerprint [style="solid",  color="#000000"];
+        rasa__core__agent__Agent__update_model -> rasa__core__agent__Agent___create_domain [style="solid",  color="#000000"];
+        rasa__core__agent__Agent__update_model -> rasa__core__agent__Agent___set_fingerprint [style="solid",  color="#000000"];
+        rasa__core__agent__Agent__load -> rasa__core__agent__Agent____init__ [style="solid",  color="#000000"];
+        rasa__core__agent__Agent__is_core_ready -> rasa__core__agent__Agent__is_ready [style="solid",  color="#000000"];
+        rasa__core__agent__Agent__is_ready -> rasa__core__agent__Agent__create_tracker_store [style="solid",  color="#000000"];
+        rasa__core__agent__Agent__parse_message_using_nlu_interpreter -> rasa__core__agent__Agent__create_processor [style="solid",  color="#000000"];
+        rasa__core__agent__Agent__handle_message -> rasa__core__agent__Agent__create_processor [style="solid",  color="#000000"];
+        rasa__core__agent__Agent__handle_message -> rasa__core__agent__Agent__is_ready [style="solid",  color="#000000"];
+        rasa__core__agent__Agent__handle_message -> rasa__core__agent__Agent__handle_message__noop [style="solid",  color="#000000"];
+        rasa__core__agent__Agent__predict_next -> rasa__core__agent__Agent__create_processor [style="solid",  color="#000000"];
+        rasa__core__agent__Agent__log_message -> rasa__core__agent__Agent__create_processor [style="solid",  color="#000000"];
+        rasa__core__agent__Agent__execute_action -> rasa__core__agent__Agent__create_processor [style="solid",  color="#000000"];
+        rasa__core__agent__Agent__execute_action -> rasa__core__agent__Agent___create_domain [style="solid",  color="#000000"];
+        rasa__core__agent__Agent__trigger_intent -> rasa__core__agent__Agent__create_processor [style="solid",  color="#000000"];
+        rasa__core__agent__Agent__handle_text -> rasa__core__agent__Agent__handle_message [style="solid",  color="#000000"];
+        rasa__core__agent__Agent___are_all_featurizers_using_a_max_history -> rasa__core__agent__Agent___are_all_featurizers_using_a_max_history__has_max_history_featurizer [style="solid",  color="#000000"];
+        rasa__core__agent__Agent__load_data -> rasa__core__agent__Agent___create_domain [style="solid",  color="#000000"];
+        rasa__core__agent__Agent__load_data -> rasa__core__agent__Agent___are_all_featurizers_using_a_max_history [style="solid",  color="#000000"];
+        rasa__core__agent__Agent__load_data -> rasa__core__agent__Agent___max_history [style="solid",  color="#000000"];
+        rasa__core__agent__Agent__train -> rasa__core__agent__Agent__is_core_ready [style="solid",  color="#000000"];
+        rasa__core__agent__Agent__train -> rasa__core__agent__Agent___set_fingerprint [style="solid",  color="#000000"];
+        rasa__core__agent__Agent__train -> rasa__core__agent__Agent___create_domain [style="solid",  color="#000000"];
+        rasa__core__agent__Agent__persist -> rasa__core__agent__Agent__is_core_ready [style="solid",  color="#000000"];
+        rasa__core__agent__Agent__persist -> rasa__core__agent__Agent___clear_model_directory [style="solid",  color="#000000"];
+        rasa__core__agent__Agent__visualize -> rasa__core__agent__Agent___create_domain [style="solid",  color="#000000"];
+        rasa__core__agent__Agent__visualize -> rasa__core__agent__Agent___max_history [style="solid",  color="#000000"];
+        rasa__core__agent__Agent__create_processor -> rasa__core__agent__Agent___create_lock_store [style="solid",  color="#000000"];
+        rasa__core__agent__Agent__create_processor -> rasa__core__agent__Agent__create_tracker_store [style="solid",  color="#000000"];
+        rasa__core__agent__Agent__create_processor -> rasa__core__agent__Agent__is_ready [style="solid",  color="#000000"];
+        rasa__core__agent__Agent__create_processor -> rasa__core__agent__Agent___create_domain [style="solid",  color="#000000"];
+        rasa__core__agent__Agent__load_local_model -> rasa__core__agent__Agent__load [style="solid",  color="#000000"];
+        rasa__core__agent__Agent__load_local_model -> rasa__core__agent__Agent____init__ [style="solid",  color="#000000"];
+        rasa__core__agent__Agent__load_from_remote_storage -> rasa__core__agent__Agent__load [style="solid",  color="#000000"];
+
+
+
+.. digraph:: load_agent
+
+    graph [rankdir=TB, clusterrank="local"];
+
+
+    subgraph cluster_rasa__core__agent__Agent {
+
+        graph [style="filled,rounded", fillcolor="#80808018", label="rasa.core.agent.Agent"];
+        rasa__core__agent__Agent____init__ [label="__init__\n(rasa/core/agent.py:339)", style="filled", fillcolor="#ff3232b2", fontcolor="#000000", group="0"];
+        rasa__core__agent__Agent___are_all_featurizers_using_a_max_history [label="_are_all_featurizers_using_a_max_history\n(rasa/core/agent.py:658)", style="filled", fillcolor="#ff3232b2", fontcolor="#000000", group="0"];
+        rasa__core__agent__Agent___clear_model_directory [label="_clear_model_directory\n(rasa/core/agent.py:745)", style="filled", fillcolor="#ff3232b2", fontcolor="#000000", group="0"];
+        rasa__core__agent__Agent___create_domain [label="_create_domain\n(rasa/core/agent.py:841)", style="filled", fillcolor="#ff3232b2", fontcolor="#000000", group="0"];
+        rasa__core__agent__Agent___create_ensemble [label="_create_ensemble\n(rasa/core/agent.py:878)", style="filled", fillcolor="#ff3232b2", fontcolor="#000000", group="0"];
+        rasa__core__agent__Agent___create_lock_store [label="_create_lock_store\n(rasa/core/agent.py:871)", style="filled", fillcolor="#ff3232b2", fontcolor="#000000", group="0"];
+        rasa__core__agent__Agent___max_history [label="_max_history\n(rasa/core/agent.py:645)", style="filled", fillcolor="#ff3232b2", fontcolor="#000000", group="0"];
+        rasa__core__agent__Agent___set_fingerprint [label="_set_fingerprint\n(rasa/core/agent.py:738)", style="filled", fillcolor="#ff3232b2", fontcolor="#000000", group="0"];
+        rasa__core__agent__Agent__create_processor [label="create_processor\n(rasa/core/agent.py:818)", style="filled", fillcolor="#ff3232b2", fontcolor="#000000", group="0"];
+        rasa__core__agent__Agent__create_tracker_store [label="create_tracker_store\n(rasa/core/agent.py:859)", style="filled", fillcolor="#ff3232b2", fontcolor="#000000", group="0"];
+        rasa__core__agent__Agent__execute_action [label="execute_action\n(rasa/core/agent.py:559)", style="filled", fillcolor="#ff3232b2", fontcolor="#000000", group="0"];
+        rasa__core__agent__Agent__handle_message [label="handle_message\n(rasa/core/agent.py:519)", style="filled", fillcolor="#ff3232b2", fontcolor="#000000", group="0"];
+        rasa__core__agent__Agent__handle_text [label="handle_text\n(rasa/core/agent.py:590)", style="filled", fillcolor="#ff3232b2", fontcolor="#000000", group="0"];
+        rasa__core__agent__Agent__is_core_ready [label="is_core_ready\n(rasa/core/agent.py:476)", style="filled", fillcolor="#ff3232b2", fontcolor="#000000", group="0"];
+        rasa__core__agent__Agent__is_ready [label="is_ready\n(rasa/core/agent.py:480)", style="filled", fillcolor="#ff3232b2", fontcolor="#000000", group="0"];
+        rasa__core__agent__Agent__load [label="load\n(rasa/core/agent.py:405)", style="filled", fillcolor="#ff3232b2", fontcolor="#000000", group="0"];
+        rasa__core__agent__Agent__load_data [label="load_data\n(rasa/core/agent.py:673)", style="filled", fillcolor="#ff3232b2", fontcolor="#000000", group="0"];
+        rasa__core__agent__Agent__load_from_remote_storage [label="load_from_remote_storage\n(rasa/core/agent.py:933)", style="filled", fillcolor="#ff3232b2", fontcolor="#000000", group="0"];
+        rasa__core__agent__Agent__load_local_model [label="load_local_model\n(rasa/core/agent.py:896)", style="filled", fillcolor="#ff3232b2", fontcolor="#000000", group="0"];
+        rasa__core__agent__Agent__log_message [label="log_message\n(rasa/core/agent.py:548)", style="filled", fillcolor="#ff3232b2", fontcolor="#000000", group="0"];
+        rasa__core__agent__Agent__parse_message_using_nlu_interpreter [label="parse_message_using_nlu_interpreter\n(rasa/core/agent.py:487)", style="filled", fillcolor="#ff3232b2", fontcolor="#000000", group="0"];
+        rasa__core__agent__Agent__persist [label="persist\n(rasa/core/agent.py:772)", style="filled", fillcolor="#ff3232b2", fontcolor="#000000", group="0"];
+        rasa__core__agent__Agent__predict_next [label="predict_next\n(rasa/core/agent.py:539)", style="filled", fillcolor="#ff3232b2", fontcolor="#000000", group="0"];
+        rasa__core__agent__Agent__toggle_memoization [label="toggle_memoization\n(rasa/core/agent.py:625)", style="filled", fillcolor="#ff3232b2", fontcolor="#000000", group="0"];
+        rasa__core__agent__Agent__train [label="train\n(rasa/core/agent.py:718)", style="filled", fillcolor="#ff3232b2", fontcolor="#000000", group="0"];
+        rasa__core__agent__Agent__trigger_intent [label="trigger_intent\n(rasa/core/agent.py:576)", style="filled", fillcolor="#ff3232b2", fontcolor="#000000", group="0"];
+        rasa__core__agent__Agent__update_model [label="update_model\n(rasa/core/agent.py:375)", style="filled", fillcolor="#ff3232b2", fontcolor="#000000", group="0"];
+        rasa__core__agent__Agent__visualize [label="visualize\n(rasa/core/agent.py:789)", style="filled", fillcolor="#ff3232b2", fontcolor="#000000", group="0"];
+        subgraph cluster_rasa__core__agent__Agent___are_all_featurizers_using_a_max_history {
+
+            graph [style="filled,rounded", fillcolor="#80808018", label="rasa.core.agent.Agent._are_all_featurizers_using_a_max_history"];
+            rasa__core__agent__Agent___are_all_featurizers_using_a_max_history__has_max_history_featurizer [label="has_max_history_featurizer\n(rasa/core/agent.py:661)", style="filled", fillcolor="#ff0000b2", fontcolor="#000000", group="0"];
+        }
+        subgraph cluster_rasa__core__agent__Agent__handle_message {
+
+            graph [style="filled,rounded", fillcolor="#80808018", label="rasa.core.agent.Agent.handle_message"];
+            rasa__core__agent__Agent__handle_message__noop [label="noop\n(rasa/core/agent.py:527)", style="filled", fillcolor="#ff0000b2", fontcolor="#000000", group="0"];
+        }
+    }
+
+
+.. graphviz:: agent.dot

@@ -203,10 +203,12 @@
     2 -> {4 5}
 
 
-..
+
+
 .. figure:: pictures/8_1.jpg
     :scale: 70 %
     :align: center
+
     一个树形概率图模型
 
 

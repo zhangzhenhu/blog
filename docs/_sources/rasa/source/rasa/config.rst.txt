@@ -1,0 +1,75 @@
+###############################
+配置文件
+###############################
+
+
+- endpoints.yml : rasa的下游服务配置，rasa依赖的外部服务接口配置文件。
+- credentials.yml: rasa上游服务配置，rasa对外提供的服务接口配置文件。
+
+
+
+config.yml
+###############################
+
+.. code-block:: yaml
+
+    language: zh
+    pipeline:
+      - name: JiebaTokenizer
+        dictionary_path: ./data/entities
+      - name: extends.RegexFeaturizer
+      - name: extends.LookupEntityExtractor
+      - name: EntitySynonymMapper
+      #- name: extends.WordVectorFeaturizer
+      #  vector_file: /Users/zhangzhenhu/Downloads/word_vectors.txt
+      - name: CountVectorsFeaturizer
+      - name: CountVectorsFeaturizer
+        analyzer: char_wb
+        min_ngram: 1
+        max_ngram: 4
+      - name: LexicalSyntacticFeaturizer
+      - name: DIETClassifier
+        entity_recognition: false
+        epochs: 10
+        model_confidence: linear_norm
+        constrain_similarities: True
+      - name: ResponseSelector
+        epochs: 30
+        retrieval_intent: faq
+        model_confidence: linear_norm
+        constrain_similarities: True
+      - name: ResponseSelector
+        epochs: 30
+        retrieval_intent: chitchat
+        model_confidence: linear_norm
+        constrain_similarities: True
+      - name: FallbackClassifier
+        threshold: 0.5
+    policies:
+      - name: RulePolicy
+        # When an action confidence is below the threshold,
+        # Rasa will run the action action_default_fallback.
+        # This will send the response utter_default and revert back to the state of the conversation before the user message that caused the fallback,
+        # so it will not influence the prediction of future actions.
+        # see more https://rasa.com/docs/rasa/fallback-handoff#handling-low-action-confidence
+        core_fallback_threshold: 0.4
+        core_fallback_action_name: "action_default_fallback"
+        enable_fallback_prediction: True
+    #  - name: MemoizationPolicy
+    #    max_history: 1
+    #  - name: TEDPolicy
+    #  - name: MappingPolicy
+    #  - name: FormPolicy
+    #  - name: FallbackPolicy
+    #    nlu_threshold: 0.4
+    #    core_threshold: 0.3
+    #    fallback_action_name: action_default_fallback
+
+
+
+endpoints.yml
+###############################
+
+
+credentials.yml
+###############################

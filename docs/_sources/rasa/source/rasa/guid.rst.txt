@@ -1,0 +1,248 @@
+####################################
+概述
+####################################
+
+
+基本概念
+###################################
+
+``rasa`` 是一个开源的 *多轮任务式* 问答机器人框架，同时也支持单轮的 ``FAQ`` 类问答，
+基于 ``Python`` 语言开发。
+
+作为问答机器人，需要理解人类的语言（意图），并能给出合适的回答。
+因此一个完整问答机器人，有两个关键的功能（阶段）：
+
+- 自然语言理解（Neural Language Understanding,NLU）。负责理解人类语言的语义，并判断出对方的意图，也就平时所说的意图识别。
+- 自然语言生成（Neural Language Generation,NLG）。根据对方的意图，给出对应的回答。
+  ``NLG`` 除了在问答机器人场景应用外，还包括很多任务，典型的有：
+
+    - Machine Translation
+    - (Abstractive) Summarization
+    - Dialogue (chit-chat and task-based)
+    - Creative writing: storytelling, poetry-generation
+    - Freeform Question Answering (i.e. answer is generated, not extracted from text or knowledge base)
+    - Image captioning
+
+
+``rasa`` 中也包含这两部分，但重点还是 ``NLU`` 的部分，毕竟意图识别是关键的一步，这里依赖各种 ``NLP`` 相关技术。
+``rasa`` 中的 ``NLG`` 部分主要是通过规则实现，每种意图下应该给出什么样的回复（响应行为）。
+
+
+**Pipeline的定义**
+
+``rasa`` 把整个 ``NLU`` 的过程定义成一个 ``pipeline``。``pipeline`` 是一个组件(Component)的容器，
+其内包含多个组件(Component)，每个组件完成一个 ``NLP`` 的任务，``pipeline`` 依次（串行）执行其内的全部组件，
+完成全部的 ``NLU`` 任务。
+按照具体的任务的不同，``rasa`` 把组件分成如下几种：
+
+- 语言模型（Language Model）。一般是各种预训练好的语言模型，用于之后的分词器、实体识别、特征抽取等等，如果后续的组件不依赖语言模型，则这个组件可以没有。
+- 分词器（tokenizer）。用于对输入的文本进行分词，支持 ``jieba`` 分词。
+- 特征抽取（Featurizer）。抽取输入文本的特征，可以是 ``token`` 序列特征，也可以是整个句子的特征。
+- 意图识别（Intent Classifier）。一般是多分类意图模型，``rasa`` 中预制了多种分类器，甚至有 ``rasa`` 团队自研的 transformer模型（``DIET``）。
+- 实体识别（Entity Extractor）。
+- FAQ单轮问答选择器（Selector）。因为起初 ``rasa`` 是多轮任务式的问答机器人，如果要实现单轮问答，需要加这个特殊的组件。
+
+以上所有组件，都可以个性化自定义，只需要从基类中派生实现自己的子类即可。
+可以通过 ``yaml`` 格式的配置文件 ``config.yml`` 定制 ``pipeline`` 中包含的组件，
+
+.. code-block:: yaml
+
+    # 指定此 pipeline 的支持的语种
+    language: zh
+    # NLU 部分
+    # 此 pipeline 包含的组件列表
+    pipeline:
+      #- name: talbot.PaddleTokenizer
+      #  dictionary_path: ./data/entities
+      - name: JiebaTokenizer
+        dictionary_path: ./data/entities
+    #  - name: talbot.PaddleLAC
+      #  dictionary_path: ./data/entities
+      - name: talbot.RegexFeaturizer
+      #- name: CRFEntityExtractor
+      - name: talbot.LookupEntityExtractor
+      - name: EntitySynonymMapper
+      #- name: talbot.WordVectorFeaturizer
+      #  vector_file: /Users/zhangzhenhu/Downloads/word_vectors.txt
+      - name: CountVectorsFeaturizer
+      - name: CountVectorsFeaturizer
+        analyzer: char_wb
+        min_ngram: 1
+        max_ngram: 4
+      - name: LexicalSyntacticFeaturizer
+      - name: DIETClassifier
+        entity_recognition: false
+        epochs: 10
+        model_confidence: linear_norm
+        constrain_similarities: True
+      - name: ResponseSelector
+        epochs: 30
+        retrieval_intent: faq
+        model_confidence: linear_norm
+        constrain_similarities: True
+      - name: talbot.nlu.intent.response_selector.ResponseSelector
+        epochs: 30
+        retrieval_intent: chitchat
+        model_confidence: linear_norm
+        constrain_similarities: True
+      - name: FallbackClassifier
+        threshold: 0.5
+
+    # NLG 部分
+    policies:
+      - name: RulePolicy
+        # When an action confidence is below the threshold,
+        # Rasa will run the action action_default_fallback.
+        # This will send the response utter_default and revert back to the state of the conversation before the user message that caused the fallback,
+        # so it will not influence the prediction of future actions.
+        # see more https://rasa.com/docs/rasa/fallback-handoff#handling-low-action-confidence
+        core_fallback_threshold: 0.4
+        core_fallback_action_name: "action_default_fallback"
+        enable_fallback_prediction: True
+    #  - name: MemoizationPolicy
+    #    max_history: 1
+    #  - name: TEDPolicy
+    #  - name: MappingPolicy
+    #  - name: FormPolicy
+    #  - name: FallbackPolicy
+    #    nlu_threshold: 0.4
+    #    core_threshold: 0.3
+    #    fallback_action_name: action_default_fallback
+
+
+作为一个现代化的问答机器人，必然要应用各类模型技术来解决意图识别的问题。
+因此一个完整的机器人系统有两个关键的步骤：
+
+1. 模型训练，训练各种相关的算法模型。
+2. 预测服务，部署线上服务。
+
+``rasa`` 同时提供这两部分功能的支持，下面我们简单介绍一下这两部分。
+
+
+模型训练
+###################################
+
+对于模型训练的功能，``rasa`` 提供了几个配套的命令来支持：
+
+- ``rasa train`` 命令，用于训练模型。
+
+    .. code-block:: shell
+
+        rasa train \
+        -c "${CONFIG_PATH}/config.yml" \ // 配置文件的
+        --out "${PROJECT_HOME}/models" \ // 模型输出路径
+        --domain "${PROJECT_HOME}/domain/" \  // 训练数据
+        --debug
+
+- ``rasa shell`` 命令，用于调试模型。
+- ``rasa test`` 命令，用于评估模型。
+
+
+有关各个命令更详细的说明，可以参考 :ref:`rasa-shell` 。
+这里比较重要的训练数据的定义，
+``rasa`` 支持意图样本、实体标注样本、近义词转换样本等等，
+完整的说明可以参见官方文档： `training-data-format <https://rasa.com/docs/rasa/training-data-format>`_ 。
+
+
+
+
+
+线上服务
+###################################
+
+
+``rasa`` 是一个问答机器人的 **服务** 框架，提供的机器人服务，
+它对外提供接口服务，
+因此它需要一个 *接口服务层*，
+``rasa`` 的接口服务层采用的是名为 ``Sanic`` 的开源异步 ``Web Server`` 框架。
+
+
+
+
+.. figure:: https://rasa.com/docs/rasa/img/architecture.png
+
+    此图来自 ``rasa`` 官方文档： https://rasa.com/docs/rasa/arch-overview
+
+:Bot User: 表示对话的另一方，也就是消息发送方。
+:Input/Output Channels: ``rasa`` 中负责处理接口请求的部分，``Input Channel`` 负责接口的入参处理，``Output Channel`` 负责接口的出参。
+:Agent: ``rasa`` 线上服务的核心功能的调度者/管理者。``Agent`` 自身并不做任何 ``NLP`` 的工作，从名字也能看出，它是一个 *代理*，
+    负责衔接 ``NLU`` 和 ``NLG``，以及其它子系统。
+:NLU Pipeline:
+:Lock Store: 分布锁。``Sanic`` 是一个多进程的 ``Web Server``，因此 ``rasa`` 也是可以并行的，这时对于同一个会话就需要有一个分布锁，以保证能按照对话的顺序执行。
+    这里实现分布锁，可以有多种方法，可以是基于的 ``redis``，也可以是其它关系型数据库。
+:Tracker Store: 用于存储对话上下文信息的数据库，``rasa`` 内置了几种数据库的支持，包括: ``InMemoryTrackerStore``、
+    ``SQLTrackerStore``、``RedisTrackerStore``、``MongoTrackerStore`` 等，也可以自己实现。
+:Filesystem: 用于加载模型的地址，可以是本地存储系统，也可以是各种网络存储系统。
+:Action Server: 根据已经确定的意图，生成对应的回应或者说动作(action)。
+
+
+
+
+
+``Agent`` 仅仅是一个功能代理，真正负责模型训练和预测的是另外两个模块
+
+- ``rasa.nlu.model.Trainer`` 负责模型训练功能。
+- ``rasa.nlu.model.Interpreter`` 负责加载训练好的模型，并用来预测。
+
+
+如果想在其它场景独立使用 ``rasa`` 训练好的 ``NLU`` 模型，可以按照如下方式
+
+.. code-block:: python
+
+    from rasa.nlu.model import Interpreter
+    from rasa.model import get_model
+
+    unpacked_model = get_model(model_path)
+    nlu_model = os.path.join(unpacked_model, "nlu")
+    interpreter = Interpreter.load(nlu_model)
+    intent = interpreter.parse("我家宝宝生病了，明天的课不能上了")
+    print(intent)
+
+
+名词解释
+###################################
+
+
+
+
+:Sanic:
+    python3的一个异步web server库。rasa的接口服务层是用Sanic实现的
+
+:channel:
+    在机器人服务中，一般接收消息和发送消息是采用异步方式的，也就接收消息和发送消息是分开的。上层服务调用机器人接收消息的接口，把消息发送给机器人后，即刻结束调用，不等待机器人的回复消息。机器人接收到消息，然后生成回复消息，再主动调用上层服务的一个接口把机器人回复消息发送给 上层服务。所以，一个channel包含一个 InputChannel 和一个 OutputChannel，InputChannel 负责接收上层发给机器人的消息，OutputChannel 是机器人发给上层回复消息的接口。通过利用 blueprint ，rasa可以同时支持启动多个channel。
+
+:InputChannel:
+    InputChannel 对外提供的接口api，上层服务调用这个接口传递消息给机器人。当然rasa是利用Sanic对外提供web api，每个 InputChannel 拥有一个独立的 url 前缀路径，用于区分不同的channel，对应着一个 web server blueprint。因此每个 input_channel 需要定义一个 sanic.Blueprint，并且通过 InputChannel.blueprint() 方法返回。
+
+:OutputChannel:
+    负责把机器人回复的消息发送给上层服务，其负责调用上层服务提供的接口发送消息。
+
+
+:blueprint:
+    可以被理解成web server 对外输出的一个module，直观来讲就是一个url的子路径(前缀)，
+    用url prefix 进行功能集合的划分，每个 url prefix 表示一个功能子集，称为一个 blueprint。
+    比如: Blueprint(prefix="/admin/") 负责管理功；
+    Blueprint(prefix="/rest/") 负责rest服务channel；
+    Blueprint(prefix="/socketio/") 负责socketio服务channel；
+    Blueprint(prefix="/ding/") 负责dingding服务channel。
+
+:Agent:
+    在rasa中，Agent是web server 接口层之上的处理过程，负责统筹管理Interpreter、Policy、对话管理等。
+
+:NLU:
+    Natural Language Understanding 的简称，负责自然语言理解，是一个相对独立的模块，其全部代码都在rasa.nlu。
+    NLU负责对输入的自然语言文本query进行处理，包括分词、特征抽取、实体识别、意图识别等过程。
+
+:Interpreter:
+    NLU模块的==预测过程==入口类，在rasa.nlu.model中。
+    负责加载训练好的nlu模型，对文本query进行NLU相关处理。
+    rasa.nlu.model:Train 是NLU模块的==训练过程==入口类。
+
+:Policy:
+    特指策略模块，当NLU模块确定了意图后，负责action决策，根据意图预测action。
+
+:endpoints.yml:
+    rasa的下游服务配置，rasa依赖的外部服务接口配置文件。
+
+:credentials.yml:
+    rasa上游服务配置，rasa对外提供的服务接口配置文件，也就是 channel 的配置信息。

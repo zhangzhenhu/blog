@@ -24,10 +24,10 @@ Welcome
    probability_model/index_html.rst
    audio/index.rst
    edm/index.rst
-   因果推断/index.rst
    nlp/index.rst
    rst_tutorial/latex.rst
    rst_tutorial/graphviz.rst
+   读书笔记/index.rst
 
 
 

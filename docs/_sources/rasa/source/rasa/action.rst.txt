@@ -1,0 +1,79 @@
+
+
+``tracker.latest_message``
+
+
+
+``message.parser_data`` 的数据示例
+
+.. code-block:: python
+
+    message.parser_data = {'intent': {'id': 2187953341620536324, 'name': 'faq', 'confidence': 1.0}, 'entities': [],
+                       'text': '我家宝宝生病了，可以调课吗',
+                       'message_id': 'ddf06b209d7b4cb7a59ce4d2d1947943', 'metadata': {},
+                       'intent_ranking': [{'id': 2187953341620536324, 'name': 'faq', 'confidence': 1.0},
+                                          {'id': -5528488272703486544, 'name': 'out_of_scope', 'confidence': 0.0},
+                                          {'id': -1758082537705908013, 'name': 'inform', 'confidence': 0.0},
+                                          {'id': 4441111363109969973, 'name': 'chitchat', 'confidence': 0.0},
+                                          {'id': -6750986967637227135, 'name': 'center_query', 'confidence': 0.0}],
+                       'response_selector': {'all_retrieval_intents': ['chitchat', 'faq'],
+                                             'faq': {'response': {'id': -524404827408157367,
+                                                                  'responses': [{'metadata': {
+                                                                      'id': '7e2aae69981f2a068e67b8d11528743a',
+                                                                      'title': '如果有事情要请假的话，怎么办？能补课吗？'},
+                                                                      'text': '如果有事情要请假的话，怎么办？能补课吗？_7e2aae69981f2a068e67b8d11528743a'}],
+                                                                  'response_templates': [{
+                                                                      'metadata': {
+                                                                          'id': '7e2aae69981f2a068e67b8d11528743a',
+                                                                          'title': '如果有事情要请假的话，怎么办？能补课吗？'},
+                                                                      'text': '如果有事情要请假的话，怎么办？能补课吗？_7e2aae69981f2a068e67b8d11528743a'}],
+                                                                  'confidence': 0.04686744138598442,
+                                                                  'intent_response_key': 'faq/如果有事情要请假的话，怎么办？能补课吗？_7e2aae69981f2a068e67b8d11528743a',
+                                                                  'utter_action': 'utter_faq/如果有事情要请假的话，怎么办？能补课吗？_7e2aae69981f2a068e67b8d11528743a',
+                                                                  'template_name': 'utter_faq/如果有事情要请假的话，怎么办？能补课吗？_7e2aae69981f2a068e67b8d11528743a'},
+                                                     'ranking': [{'id': -524404827408157367,
+                                                                  'confidence': 0.04686744138598442,
+                                                                  'intent_response_key': 'faq/如果有事情要请假的话，怎么办？能补课吗？_7e2aae69981f2a068e67b8d11528743a'},
+                                                                 {'id': 5794007381314923946,
+                                                                  'confidence': 0.03821340575814247,
+                                                                  'intent_response_key': 'faq/临时有事，不能正常上课怎么办_87ad0f192d2fc5b1574bda4b2d6613be'},
+                                                                 {'id': 1124368946457730797,
+                                                                  'confidence': 0.03693592548370361,
+                                                                  'intent_response_key': 'faq/缺席的课是否可以补课_dadf7582a0204867e26dc3e9437fe0e0'},
+                                                                 {'id': -9081537194700668532,
+                                                                  'confidence': 0.032448653131723404,
+                                                                  'intent_response_key': 'faq/调课次数用完是否支持继续调课_a433e9c6b4c072b05fd64cf906237aaa'},
+                                                                 {'id': -8233668308361642822,
+                                                                  'confidence': 0.032415371388196945,
+                                                                  'intent_response_key': 'faq/调课之后能否再次调课_72bb97992fbba16eebd4b317e82b7bd8'},
+                                                                 {'id': -7176192259915171923,
+                                                                  'confidence': 0.028029754757881165,
+                                                                  'intent_response_key': 'faq/如何操作调课_2b0a90341d78b64c674b644f2d105696'},
+                                                                 {'id': -8515371481593459747,
+                                                                  'confidence': 0.027895107865333557,
+                                                                  'intent_response_key': 'faq/有几次调课机会？如何操作？_3f59408cb7f99200927877d5ae4f8e6a'},
+                                                                 {'id': 6687757846701713947,
+                                                                  'confidence': 0.024804186075925827,
+                                                                  'intent_response_key': 'faq/调课没有可调班级怎么办_8bdecc136690156e7bfb6d9a7ee7cb7e'},
+                                                                 {'id': -5537847404669556558,
+                                                                  'confidence': 0.024085551500320435,
+                                                                  'intent_response_key': 'faq/如何取消调课_e60bcb30790e7804a07f32852336cb4e'},
+                                                                 {'id': 5586709369407745390,
+                                                                  'confidence': 0.022542603313922882,
+                                                                  'intent_response_key': 'faq/优惠券不能用_eceb59c5a6a240c3c53d2558b573a8e1'}]},
+                                             'chitchat': {'response': {'id': 188711398124956922, 'responses': [
+                                                 {'text': '如果您后期有其他问题可以随时联系我们，您的满意是我们无限的动力，期待与您再次相遇；请对本次服务进行评价，谢谢！'}],
+                                                                       'response_templates': [
+                                                                           {
+                                                                               'text': '如果您后期有其他问题可以随时联系我们，您的满意是我们无限的动力，期待与您再次相遇；请对本次服务进行评价，谢谢！'}],
+                                                                       'confidence': 1.0,
+                                                                       'intent_response_key': 'chitchat/thanks',
+                                                                       'utter_action': 'utter_chitchat/thanks',
+                                                                       'template_name': 'utter_chitchat/thanks'},
+                                                          'ranking': [
+                                                              {'id': 188711398124956922, 'confidence': 1.0,
+                                                               'intent_response_key': 'chitchat/thanks'},
+                                                              {'id': -8031414443790621118, 'confidence': 0.0,
+                                                               'intent_response_key': 'chitchat/greet'}]}
+                                             }
+                       }
