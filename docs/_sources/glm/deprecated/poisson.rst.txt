@@ -1,0 +1,216 @@
+泊松(Poisson)分布
+#############################
+
+
+泊松(Poisson)分布的直观理解是，在一个单位时间或者空间间隔内，随机事件发生次数的概率。
+泊松分布可以看成是二项式分布的极限情况，下面我们通过一个例子来阐述。
+
+推导过程
+====================================
+
+泊松分布实际上是二项分布的试验(trials)次数 :math:`N` 趋近于无穷时的场景，我们用一个例子说明。
+假设一个交通观察员需要对某个路口的车流量进行建模，然后用模型预测未来一个小时内从这个路口通过的车次。
+为了简化问题，我们假设路口的交通量不存在高峰期低峰期，即交通量不会随着时间的变化而变化，
+并且每个时间片段内通过的车辆是互不影响的，即前一小时内车辆通过与否不影响下一个小时车辆。
+观察员首先根据这个路口历史上车辆通过情况，计算出平均每小时通过车辆的数量为
+:math:`\lambda`
+。我们把一个小时内从路口通过的车次数看做一个随机变量，用符号 :math:`X` 表示，
+那么 :math:`\lambda` 就是变量 :math:`X` 的数学期望。
+
+.. math::
+
+    \mathbb{E}[X] = \lambda
+
+
+
+我们把一辆车通过与否看做是一个伯努利变量，类似投硬币实验，1表示车辆通过，0表示车辆不通过。
+把一个小时的时间区间均分成 :math:`N` 个时间片段，比如每分钟作为一个片段，这时 :math:`N=60` 。
+每个时间片段有车辆通过就是一次成功的实验(类似于投硬币正面向上)，
+没有车辆通过就是一次失败的实验(类似于投硬币反面向上)，
+这样就把一小时内车辆通过问题转化成一个二项分布问题，
+在 :math:`N` 次实验中有k次成功(车辆通过)概率分布函数可以写成：
+
+.. math::
+    :label: eq_poisson_201
+
+    p(X=k) = \binom{N}{k} p^k \left ( 1-p  \right )^{N-k}
+
+
+其中 :math:`p` 是一次实验的成功概率，我们已经通过历史数据知道平均每小时( :math:`N` 次实验)中通过的车次数为
+:math:`\lambda`
+，意味着n次实验中有 :math:`\lambda` 次成功，
+单次实验成功的概率(平均一分钟内通过车辆数)为：
+
+.. math::
+
+    p = \frac{\lambda}{N}
+
+
+但是我们并不能保证每分钟只有一辆车通过，我们需要保证一个时间片段内只有一辆车通过(一次实验)
+以上的二项分布的假设才有意义。
+理论上，我们只要把一小时的时间区间拆的足够小，比如拆成每秒，甚至是每毫秒为一个时间片段，
+这样就能尽量保证每个时间片段内只会有一辆车通过。
+:math:`N` 越大时间片段就越小，极限情况，我们可以把一小时分割成每个车辆通过的"瞬间"。
+换句话说，只要 :math:`N \to \infty`
+上述假设就是成立的，因此我们为 :eq:`eq_poisson_201`
+加上极限操作。
+
+
+.. math::
+    :label: eq_poisson_202
+
+    p(X=k) = \lim_{N \to \infty} \binom{N}{k} p^k \left ( 1-p  \right )^{N-k}
+
+
+
+
+我们发现 :eq:`eq_poisson_202` 就是二项分布的极限情况，表示的是路口未来一小时内通过的车辆数的概率分布，
+:math:`p(X=k)` 表示在一小时内通过车辆数为 :math:`k`
+的概率。
+:math:`\lambda` 表示这个时间区间内通过车辆数的期望值，
+至于这个时间区间是一小时还是两小时并不重要，
+只要是一个固定的时间区间就行，
+所以可以看成是单位时间区间内，或者 :math:`t` 时间区间内。
+
+
+
+:eq:`eq_poisson_202` 带有极限操作，事实上可以通过一些变换去掉极限符号，
+现在我们尝试对其进行一些变换。
+
+
+
+.. math::
+    :label: eq_poisson_210
+
+    p(X=k) &=
+    \lim_{N \to \infty} \binom{N}{k}
+    p^k
+    \left ( 1-p  \right )^{N-k}
+
+    &=
+    \lim_{N \to \infty} \frac{N!}{(N-k)!k!}
+    \left (\frac{\lambda}{N} \right )^k
+    \left ( 1-\frac{\lambda}{N} \right )^{N-k}
+
+    &=
+    \lim_{N \to \infty} \frac{N!}{(N-k)!k!} \frac{\lambda^k}{N^k}
+    \left ( 1-\frac{\lambda}{N} \right )^N
+    \left ( 1-\frac{\lambda}{N} \right )^{-k}
+
+结合如下两个等式，
+
+.. math::
+    :label: eq_poisson_211
+
+    \frac{N!}{(N-k)!}
+    = \frac{N (N-1) \cdots 2\times  1}{(N-k)(N-k-1) \cdots 2\times 1}
+    = \underbrace{N (N-1) \cdots  (N-k+1)}_{\text{k个}}
+
+.. math::
+    :label: eq_poisson_212
+
+    \lim_{x \to a} f(x)g(x) = \lim_{x \to a} f(x)  \lim_{x \to a}g(x)
+
+
+
+:eq:`eq_poisson_210` 变成：
+
+.. math::
+    :label: eq_poisson_213
+
+    p(X=k) &= \lim_{N \to \infty} \frac{N (N-1) \cdots  (N-k+1)}{N^k}
+    \frac{\lambda^k}{k!}
+        \left ( 1-\frac{\lambda}{N} \right )^N
+    \left ( 1-\frac{\lambda}{N} \right )^{-k}
+
+    &=\frac{\lambda^k}{k!} \lim_{N \to \infty} \left [ \frac{N (N-1) \cdots  (N-k+1)}{N^k} \right ]
+      \lim_{N \to \infty} \left [ \left ( 1-\frac{\lambda}{N} \right )^N \right ]
+    \lim_{N \to \infty}\left [  \left ( 1-\frac{\lambda}{N} \right )^{-k}\right ]
+
+其中各个极限都可以有近似表示。
+
+.. math::
+    :label: eq_poisson_214
+
+
+    \lim_{N \to \infty}  \frac{N (N-1) \cdots  (N-k+1)}{N^k} = 1
+
+    \lim_{N \to \infty}  \left ( 1-\frac{\lambda}{N} \right )^N =
+    \lim_{N \to \infty}  \left ( 1+\frac{-\lambda}{N} \right )^N = e^{-\lambda}
+
+    \lim_{N \to \infty}\left [  \left ( 1-\frac{\lambda}{N} \right )^{-k}\right ] = 1
+
+.. math::
+    :label: eq_poisson_215
+
+
+    p(X=k|N) = \frac{\lambda^k}{k!} \times 1 \times  e^{-\lambda} \times 1
+        =\frac{\lambda^k}{k!}  e^{-\lambda}
+
+上式就表示在单位(固定)时间区间内，随机事件发生k次的概率，这就是泊松分布。
+上式稍微整理下，就得到泊松分布的概率质量函数。
+
+.. math::
+    :label: eq_poisson_216
+
+
+    p(x) = \frac{\lambda^x}{x!}  e^{-\lambda}
+
+
+
+其中变量 :math:`x` 表示在单位时间内事件发生的次数，显然 :math:`x` 是一个离散变量，
+因此泊松分布是一个离散变量分布。
+:math:`\lambda` 是变量 :math:`x` 的期望值，表示在单位时间内事件发生的平均次数，
+因此通常也可以用 :math:`\mu` 代替 :math:`\lambda` 。
+
+
+.. math::
+    :label: eq_poisson_217
+
+    p(x) = \frac{\mu^x}{x!}  e^{-\mu}
+
+
+
+二项式分布 :math:`Binomial(k,n)` 表示进行 :math:`n` 实验成功 :math:`k` 次的概率，
+需要知道 :math:`n` 的值才行，并且没有时间区间的概念。
+而泊松分布 :math:`Poisson(\lambda)` 表示单位时间内事件发生 :math:`x` 次的概率，
+其用单位时间的概念替代了 :math:`n` 的作用，并且这个单位时间具体多长并不重要，只是把整体时间分成相同长度的小片段。
+
+
+注意，在泊松分布中，**各个时间区间之间是相互独立的** ，互不影响，
+也就是不会因为当前时间区间内有车辆通过，而导致下一个时间区间内通过的车辆受到影响。
+泊松分布的应用并不是仅限于固定的时间区间，理论上只要是固定的区间(fixed interval)即可，
+比如固定大小的时间、长度、空间、面积、体积等等。
+
+
+泊松分布的特性
+=================================
+
+通过泊松分布的概率质量函数 :eq:`eq_poisson_217` ，可以看到泊松分布是一个单参数的分布，
+其唯一的参数就是分布的期望值 :math:`\mu` 。
+理论上，泊松变量 :math:`X` 可以取0值，
+但泊松分布的期望值 :math:`\mu` 一定是大于0的。
+现在我们看下不同的 :math:`\mu` 值下分布的差异。
+
+
+.. _fg_poisson_002:
+
+.. figure:: pictures/泊松分布.jpg
+    :scale: 70 %
+    :align: center
+
+    不同均值参数下泊松分布的概率质量函数
+
+
+哈哈哈
+
+:numref:`fg_poisson_002` 是不同的 :math:`\mu` 下，泊松分布的概率分布曲线。
+从中可以看出当 :math:`\mu <4` 是，图形是有偏的；
+当 :math:`\mu>4` 时，图形逐渐变成一个对称结构，并且在 :math:`\mu` 点处概率最大。
+
+
+分布的矩
+-------------------------------
+
+
+

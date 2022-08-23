@@ -1,99 +1,51 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="zh-CN" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>1. 第三章 干预的效果 &mdash; 张振虎的博客 张振虎 文档</title>
-  
-
-  
-  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
     <link rel="canonical" href="https://zhangzhenhu.github.io/blog/读书笔记/《统计因果推断推理入门》读书笔记/第三章.html" />
-
-  
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
         <script src="../../_static/translations.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2.7.7/unpacked/MathJax.min.js"></script>
         <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"Macros": {"RR": "{\\bf R}", "bold": ["{\\bf #1}", 1]}}})</script>
-    
-    <script type="text/javascript" src="../../_static/js/theme.js"></script>
-
-    
+    <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../genindex.html" />
     <link rel="search" title="搜索" href="../../search.html" />
     <link rel="next" title="《深度学习推荐系统》读书笔记" href="../%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/content.html" />
     <link rel="prev" title="《统计因果推断推理入门》读书笔记" href="index.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../../index.html" class="icon icon-home"> 张振虎的博客
-          
-
-          
           </a>
-
-          
-            
-            
               <div class="version">
                 acmtiger@outlook.com
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="在文档中搜索" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">目录:</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">目录:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../glm/source/index.html">广义线性模型</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../glm/source/%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80/content.html">1. 概率基础</a><ul>
@@ -141,7 +93,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#id2">3.1. 统计量和充分统计量</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-sample-distribution">3.2. 抽样分布</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-sample-distribution-normal">3.2.1. 正态分布</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#t">3.2.2. t分布</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#t">3.2.2. 学生t分布</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#id5">3.2.3. 卡方分布</a></li>
 </ul>
 </li>
@@ -746,7 +698,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../audio/feature.html#id18">1.5. 分帧与加窗</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../audio/feature.html#id19">1.5.1. 预加重处理</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../audio/feature.html#id20">1.5.2. 分帧与加窗</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../audio/feature.html#id20">1.5.2. 分帧与加窗处理</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../audio/feature.html#id21">1.6. 声音的感官度量</a><ul>
@@ -788,26 +740,26 @@
 <li class="toctree-l2"><a class="reference internal" href="../../edm/bkt.html">1. 贝叶斯知识追踪(Bayesian Knowledge Tracing,BKT)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../edm/bkt.html#id1">1.1. 简介</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../edm/bkt.html#hidden-markov-model-hmm">1.2. 隐马尔科夫模型(Hidden Markov Model,HMM)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../edm/bkt.html#id5">1.3. 贝叶斯知识追踪(Bayesian Knowledge Tracing,BKT)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../edm/bkt.html#bayesian-knowledge-tracing">1.3. 贝叶斯知识追踪(Bayesian Knowledge Tracing)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../edm/bkt.html#bkt">1.3.1. BKT的参数估计</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../edm/bkt.html#item-response-theory-irt">1.4. 项目反映理论(Item Response Theory,IRT)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../edm/bkt.html#bktirt">1.5. BKT结合IRT</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../edm/bkt.html#id6">1.6. 实验</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../edm/bkt.html#id7">1.6.1. 数据集</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../edm/bkt.html#id8">1.6.2. 实验方法</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../edm/bkt.html#id9">1.6.3. 实验结果</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../edm/bkt.html#id10">1.6.4. 项目代码</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../edm/bkt.html#id5">1.6. 实验</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../edm/bkt.html#id6">1.6.1. 数据集</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../edm/bkt.html#id7">1.6.2. 实验方法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../edm/bkt.html#id8">1.6.3. 实验结果</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../edm/bkt.html#id9">1.6.4. 项目代码</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../edm/bkt.html#id11">1.7. 未来工作</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../edm/bkt.html#id12">1.7.1. 题目难度的计算</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../edm/bkt.html#id10">1.7. 未来工作</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../edm/bkt.html#id11">1.7.1. 题目难度的计算</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../edm/bkt.html#irt">1.7.2. 多参数IRT模型</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../edm/bkt.html#id13">1.7.3. 参数估计算法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../edm/bkt.html#id12">1.7.3. 参数估计算法</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../edm/bkt.html#id14">1.8. 参考文献</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../edm/bkt.html#id13">1.8. 参考文献</a></li>
 </ul>
 </li>
 </ul>
@@ -904,79 +856,36 @@
 </li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../index.html">张振虎的博客</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="../index.html">读书笔记</a> &raquo;</li>
-        
           <li><a href="index.html">《统计因果推断推理入门》读书笔记</a> &raquo;</li>
-        
       <li><span class="section-number">1. </span>第三章 干预的效果</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
-            <a href="../../_sources/读书笔记/《统计因果推断推理入门》读书笔记/第三章.rst.txt" rel="nofollow"> View page source</a>
-          
-        
+            <a href="../../_sources/读书笔记/《统计因果推断推理入门》读书笔记/第三章.rst.txt" rel="nofollow"> 查看页面源码</a>
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="id1">
-<h1><span class="section-number">1. </span>第三章 干预的效果<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
-<div class="section" id="id2">
-<h2><span class="section-number">1.1. </span>第3.1节 干预<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+             
+  <section id="id1">
+<h1><span class="section-number">1. </span>第三章 干预的效果<a class="headerlink" href="#id1" title="永久链接至标题"></a></h1>
+<section id="id2">
+<h2><span class="section-number">1.1. </span>第3.1节 干预<a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
 <p>回答两个问题：</p>
 <ol class="arabic simple">
 <li><p>什么是干预？</p></li>
@@ -992,37 +901,37 @@
 切断后就截断了混杂因子的影响。</p>
 </dd>
 </dl>
-</div>
-<div class="section" id="id3">
-<h2><span class="section-number">1.2. </span>第3.2节 校正公式<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
-<div class="section" id="id4">
-<h3><span class="section-number">1.2.1. </span>干预前<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id3">
+<h2><span class="section-number">1.2. </span>第3.2节 校正公式<a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
+<section id="id4">
+<h3><span class="section-number">1.2.1. </span>干预前<a class="headerlink" href="#id4" title="永久链接至标题"></a></h3>
 <p>图3.3是表示的是原始的模型，<span class="math notranslate nohighlight">\(X\)</span> 和 <span class="math notranslate nohighlight">\(Y\)</span> 存在共同因子 <span class="math notranslate nohighlight">\(Z\)</span>。
 在图模型3.3的联合概率分布为</p>
 <div class="math notranslate nohighlight" id="equation-eq-causal-inference-3-21">
-<span class="eqno">(1.2.11)<a class="headerlink" href="#equation-eq-causal-inference-3-21" title="公式的永久链接">¶</a></span>\[P(X,Y,Z) = P(Z)P(X|Z)P(Y|X,Z)\]</div>
+<span class="eqno">(1.2.11)<a class="headerlink" href="#equation-eq-causal-inference-3-21" title="公式的永久链接"></a></span>\[P(X,Y,Z) = P(Z)P(X|Z)P(Y|X,Z)\]</div>
 <p>在此基础上求条件概率 <span class="math notranslate nohighlight">\(P(Y|X)\)</span> 的过程为</p>
 <div class="math notranslate nohighlight" id="equation-eq-causal-inference-3-22">
-<span class="eqno">(1.2.12)<a class="headerlink" href="#equation-eq-causal-inference-3-22" title="公式的永久链接">¶</a></span>\[\begin{split}P(Y|X) &amp;= \frac{P(X,Y)}{P(X)} \\
+<span class="eqno">(1.2.12)<a class="headerlink" href="#equation-eq-causal-inference-3-22" title="公式的永久链接"></a></span>\[\begin{split}P(Y|X) &amp;= \frac{P(X,Y)}{P(X)} \\
 &amp;= \frac{\sum_z P(X,Y,Z)}{P(X)} \\
 &amp;= \frac{\sum_z P(Z)P(X|Z)P(Y|X,Z)}{P(X)}\end{split}\]</div>
 <p>我们发现条件概率 <span class="math notranslate nohighlight">\(P(Y|X)\)</span> 的表达式中含有项 <span class="math notranslate nohighlight">\(P(X|Z)\)</span>
 ，此项表示 <span class="math notranslate nohighlight">\(Z\)</span> 到 <span class="math notranslate nohighlight">\(X\)</span> 传递的信息，
 故：<strong>图模型3.3的条件概率</strong> <span class="math notranslate nohighlight">\(P(Y|X)\)</span> <strong>不能表示</strong>
 <span class="math notranslate nohighlight">\(X\)</span> 到 <span class="math notranslate nohighlight">\(Y\)</span> <strong>的直接因果关系，其中混入了混杂因子信息</strong>。</p>
-</div>
-<div class="section" id="id5">
-<h3><span class="section-number">1.2.2. </span>干预后<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id5">
+<h3><span class="section-number">1.2.2. </span>干预后<a class="headerlink" href="#id5" title="永久链接至标题"></a></h3>
 <p>现在来看，我们对 <span class="math notranslate nohighlight">\(X\)</span> 进行干预后的变化。
 就像上一节所讨论的，对 <span class="math notranslate nohighlight">\(X\)</span> 进行干预，就相当于强制 <span class="math notranslate nohighlight">\(X\)</span> 为某一个值，
 使其不再受到其父节点（ <span class="math notranslate nohighlight">\(Z\)</span> )的影响，
 干预后的结果就等价于图3.4所示的图模型。</p>
 <p>干预后的图模型3.4的联合概率分布为</p>
 <div class="math notranslate nohighlight" id="equation-eq-causal-inference-3-23">
-<span class="eqno">(1.2.13)<a class="headerlink" href="#equation-eq-causal-inference-3-23" title="公式的永久链接">¶</a></span>\[P(X,Y,Z) = P(Z)P(X)P(Y|X,Z)\]</div>
+<span class="eqno">(1.2.13)<a class="headerlink" href="#equation-eq-causal-inference-3-23" title="公式的永久链接"></a></span>\[P(X,Y,Z) = P(Z)P(X)P(Y|X,Z)\]</div>
 <p>在此基础上求条件概率 <span class="math notranslate nohighlight">\(P(Y|X)\)</span> 的过程为</p>
 <div class="math notranslate nohighlight" id="equation-eq-causal-inference-3-24">
-<span class="eqno">(1.2.14)<a class="headerlink" href="#equation-eq-causal-inference-3-24" title="公式的永久链接">¶</a></span>\[\begin{split}P(Y|X) &amp;= \frac{P(X,Y)}{P(X)} \\
+<span class="eqno">(1.2.14)<a class="headerlink" href="#equation-eq-causal-inference-3-24" title="公式的永久链接"></a></span>\[\begin{split}P(Y|X) &amp;= \frac{P(X,Y)}{P(X)} \\
 &amp;= \frac{\sum_z P(X,Y,Z)}{P(X)} \\
 &amp;= \frac{\sum_z P(Z)P(X)P(Y|X,Z)}{P(X)} \\
 &amp;= \sum_z P(Z)P(Y|X,Z)\end{split}\]</div>
@@ -1038,10 +947,10 @@
 <p>为了区分干预前后，引入了 <em>do</em> 算子，
 用 <em>do</em> 算子表示干预后的条件概率分布，记作</p>
 <div class="math notranslate nohighlight" id="equation-eq-causal-inference-3-2-5">
-<span class="eqno">(1.2.15)<a class="headerlink" href="#equation-eq-causal-inference-3-2-5" title="公式的永久链接">¶</a></span>\[P(Y| do(X=x)) = \sum_z P(Z)P(Y|X=x,Z=z)\]</div>
-</div>
-<div class="section" id="id6">
-<h3><span class="section-number">1.2.3. </span>前后变化<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h3>
+<span class="eqno">(1.2.15)<a class="headerlink" href="#equation-eq-causal-inference-3-2-5" title="公式的永久链接"></a></span>\[P(Y| do(X=x)) = \sum_z P(Z)P(Y|X=x,Z=z)\]</div>
+</section>
+<section id="id6">
+<h3><span class="section-number">1.2.3. </span>前后变化<a class="headerlink" href="#id6" title="永久链接至标题"></a></h3>
 <p>对比下 <a class="reference internal" href="#equation-eq-causal-inference-3-22">公式(1.2.12)</a>
 和 <a class="reference internal" href="#equation-eq-causal-inference-3-24">公式(1.2.14)</a>
 ，干预后就相当于从图模型3.3中去掉了变量 <span class="math notranslate nohighlight">\(Z\)</span>
@@ -1060,7 +969,7 @@
 <p><strong>图3.5</strong></p>
 <p>关于图3.5，在这个情况下，干预前后图模型是没有变化的，</p>
 <div class="math notranslate nohighlight" id="equation-0">
-<span class="eqno">(1.2.16)<a class="headerlink" href="#equation-0" title="公式的永久链接">¶</a></span>\[\begin{split}P(Y| do(X)) &amp;= P(Y| X) \\
+<span class="eqno">(1.2.16)<a class="headerlink" href="#equation-0" title="公式的永久链接"></a></span>\[\begin{split}P(Y| do(X)) &amp;= P(Y| X) \\
 &amp;= \frac{\sum_z P(X,Y,Z)}{P(X)} \\
 &amp;= \frac{\sum_z P(X)P(Z|X)P(Y|X,Z)}{P(X)} \\
 &amp;= \sum_z P(Z|X)P(Y|X,Z)\end{split}\]</div>
@@ -1069,13 +978,13 @@
 ，<a class="reference internal" href="#equation-eq-causal-inference-3-2-5">公式(1.2.15)</a>
 就可以写成更一般化的形式</p>
 <div class="math notranslate nohighlight" id="equation-eq-causal-inference-3-2-10">
-<span class="eqno">(1.2.17)<a class="headerlink" href="#equation-eq-causal-inference-3-2-10" title="公式的永久链接">¶</a></span>\[ P(Y| do(X=x)) = \sum_z P(PA)P(Y|X=x,PA=z)\]</div>
+<span class="eqno">(1.2.17)<a class="headerlink" href="#equation-eq-causal-inference-3-2-10" title="公式的永久链接"></a></span>\[ P(Y| do(X=x)) = \sum_z P(PA)P(Y|X=x,PA=z)\]</div>
 <p>和联合概率的关系为</p>
 <div class="math notranslate nohighlight" id="equation-eq-causal-inference-3-2-11">
-<span class="eqno">(1.2.18)<a class="headerlink" href="#equation-eq-causal-inference-3-2-11" title="公式的永久链接">¶</a></span>\[ P(Y| do(X=x)) = \sum_z \frac{P(X,Y,PA)}{P(X|PA)}\]</div>
-</div>
-<div class="section" id="id7">
-<h3><span class="section-number">1.2.4. </span>校正变量<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h3>
+<span class="eqno">(1.2.18)<a class="headerlink" href="#equation-eq-causal-inference-3-2-11" title="公式的永久链接"></a></span>\[ P(Y| do(X=x)) = \sum_z \frac{P(X,Y,PA)}{P(X|PA)}\]</div>
+</section>
+<section id="id7">
+<h3><span class="section-number">1.2.4. </span>校正变量<a class="headerlink" href="#id7" title="永久链接至标题"></a></h3>
 <p>如果单纯的看 <a class="reference internal" href="#equation-eq-causal-inference-3-2-5">公式(1.2.15)</a>，
 可以看做是用 <span class="math notranslate nohighlight">\(Z\)</span> 变量对 <span class="math notranslate nohighlight">\(P(Y|X=x,Z=z)\)</span>
 进行了校正，进而得到因果关系 <span class="math notranslate nohighlight">\(P(Y|do(X=x))\)</span>
@@ -1083,39 +992,52 @@
 <p>校正变量选择并不是唯一的，选取校正变量的准则是它们能否阻断 <span class="math notranslate nohighlight">\(X\)</span> 和 <span class="math notranslate nohighlight">\(Y\)</span> 之间的混杂路径，
 换句话说，我们需要选取一些能够完全阻断混杂路径的节点集合对条件概率 <span class="math notranslate nohighlight">\(P(Y|X)\)</span> 进行校正，
 校正后的结果就是因果关系 <span class="math notranslate nohighlight">\(P(Y|do(X=x))\)</span> 。</p>
-</div>
-<div class="section" id="abtest">
-<h3><span class="section-number">1.2.5. </span>关于ABTest<a class="headerlink" href="#abtest" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="abtest">
+<h3><span class="section-number">1.2.5. </span>关于ABTest<a class="headerlink" href="#abtest" title="永久链接至标题"></a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">ABTest</span></code> 的过程是随机分成两组，一组进行干预（ <span class="math notranslate nohighlight">\(X=1\)</span> ）,
 另一种不进行干预 （ <span class="math notranslate nohighlight">\(X=0\)</span> ）,
 然后分别观察两组在某个指标（ <span class="math notranslate nohighlight">\(Y=1\)</span> ）上的差异。
-这个过程中，随机选取的行为就相当于阻断了混杂因子 <span class="math notranslate nohighlight">\(Z\)</span> 对 <span class="math notranslate nohighlight">\(X\)</span> 的影响。</p>
-<p>因为两组是随机分配的，相当于两组的 <span class="math notranslate nohighlight">\(Z\)</span> 是等价的，<span class="math notranslate nohighlight">\(X=0\)</span> 的状态与 <span class="math notranslate nohighlight">\(Z\)</span> 无关。</p>
-</div>
-</div>
-<div class="section" id="id8">
-<h2><span class="section-number">1.3. </span>第3.3节 后门准则<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h2>
+这个过程中，随机选取的行为就相当于阻断了混杂因子 <span class="math notranslate nohighlight">\(Z\)</span> 对 <span class="math notranslate nohighlight">\(X\)</span> 的影响。
+因为两组是随机分配的，相当于两组的 <span class="math notranslate nohighlight">\(Z\)</span> 是等价的，
+<span class="math notranslate nohighlight">\(X\)</span> 的状态与 <span class="math notranslate nohighlight">\(Z\)</span> 无关，等价于去掉了 <span class="math notranslate nohighlight">\(P(X|Z)\)</span>
+。</p>
+<p>此时，你得到的实验数据（观测数据）就已经是干预后模型（也就是已经去掉了 <span class="math notranslate nohighlight">\(P(X|Z)\)</span> ）的观测数据了，
+直接从观测数据中计算出的 <span class="math notranslate nohighlight">\(P(Y|X)\)</span> 就等价于 <span class="math notranslate nohighlight">\(P(Y|do(X))\)</span></p>
+</section>
+</section>
+<section id="id8">
+<h2><span class="section-number">1.3. </span>第3.3节 后门准则<a class="headerlink" href="#id8" title="永久链接至标题"></a></h2>
 <p>后门准则的核心就是选取一些后门变量作为校正变量，
 这里需要注意的就是对撞节点。</p>
 <ul class="simple">
 <li><p>对于一个复杂的模型，可作为校正变量的选择有多种，只要能完全阻断全部混杂路径的变量集合集合。</p></li>
 <li><p>理论上，不同的选择得到因果结果应该是一样的，因此可以用不同选择的结果进行交叉验证。</p></li>
 <li><p>如果全部节点都是可观测的，甚至可以验证图模型结构和观测数据是否一致。</p></li>
+<li><p>是否能够利用后门准则有个前提，那就是：<strong>所有的校正变量（符合后门准则的变量集合）都是可观测到的，否则得不到</strong> <span class="math notranslate nohighlight">\(P(Z)\)</span>, <strong>没办法校正</strong> 。</p></li>
+<li><p>当存在不可观测混淆（后门）变量时，有几种方法解决：工具变量法（Instrumental Variable,IV）、前面准则（中介变量）、回归断点设计（regression discontinuity desing,RDD）。</p></li>
 </ul>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/content.html" class="btn btn-neutral float-right" title="《深度学习推荐系统》读书笔记" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="index.html" class="btn btn-neutral float-left" title="《统计因果推断推理入门》读书笔记" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="《统计因果推断推理入门》读书笔记" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/content.html" class="btn btn-neutral float-right" title="《深度学习推荐系统》读书笔记" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2018, zhangzhenhu(acmtiger@outlook.com) 禁止一切形式的转载！.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
+  
 
 
     <script src="https://utteranc.es/client.js"
@@ -1128,42 +1050,16 @@
 
 
 
-  <div role="contentinfo">
-    <p>
-        &#169; 版权所有 2018, zhangzhenhu(acmtiger@outlook.com) 禁止一切形式的转载！.
-
-    </p>
-  </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-
-
-
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

@@ -1,99 +1,51 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="zh-CN" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>7. 因子图 &mdash; 张振虎的博客 张振虎 文档</title>
-  
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
     <link rel="canonical" href="https://zhangzhenhu.github.io/blog/probability_model/6.因子图_lecture_4.html" />
-
-  
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/translations.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2.7.7/unpacked/MathJax.min.js"></script>
         <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"Macros": {"RR": "{\\bf R}", "bold": ["{\\bf #1}", 1]}}})</script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
+    <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
     <link rel="next" title="8. 模型推断：消元法" href="8.%E6%B6%88%E5%85%83%E6%B3%95.html" />
     <link rel="prev" title="6. 无向图(Undirected Graphical Models)" href="5.%E6%97%A0%E5%90%91%E5%9B%BE_lecture_3.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../index.html" class="icon icon-home"> 张振虎的博客
-          
-
-          
           </a>
-
-          
-            
-            
               <div class="version">
                 acmtiger@outlook.com
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="在文档中搜索" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">目录:</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">目录:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../glm/source/index.html">广义线性模型</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../glm/source/%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80/content.html">1. 概率基础</a><ul>
@@ -141,7 +93,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#id2">3.1. 统计量和充分统计量</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-sample-distribution">3.2. 抽样分布</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-sample-distribution-normal">3.2.1. 正态分布</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#t">3.2.2. t分布</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#t">3.2.2. 学生t分布</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#id5">3.2.3. 卡方分布</a></li>
 </ul>
 </li>
@@ -746,7 +698,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../audio/feature.html#id18">1.5. 分帧与加窗</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../audio/feature.html#id19">1.5.1. 预加重处理</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../audio/feature.html#id20">1.5.2. 分帧与加窗</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../audio/feature.html#id20">1.5.2. 分帧与加窗处理</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../audio/feature.html#id21">1.6. 声音的感官度量</a><ul>
@@ -788,26 +740,26 @@
 <li class="toctree-l2"><a class="reference internal" href="../edm/bkt.html">1. 贝叶斯知识追踪(Bayesian Knowledge Tracing,BKT)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id1">1.1. 简介</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#hidden-markov-model-hmm">1.2. 隐马尔科夫模型(Hidden Markov Model,HMM)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id5">1.3. 贝叶斯知识追踪(Bayesian Knowledge Tracing,BKT)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#bayesian-knowledge-tracing">1.3. 贝叶斯知识追踪(Bayesian Knowledge Tracing)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#bkt">1.3.1. BKT的参数估计</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#item-response-theory-irt">1.4. 项目反映理论(Item Response Theory,IRT)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#bktirt">1.5. BKT结合IRT</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id6">1.6. 实验</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id7">1.6.1. 数据集</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id8">1.6.2. 实验方法</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id9">1.6.3. 实验结果</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id10">1.6.4. 项目代码</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id5">1.6. 实验</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id6">1.6.1. 数据集</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id7">1.6.2. 实验方法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id8">1.6.3. 实验结果</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id9">1.6.4. 项目代码</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id11">1.7. 未来工作</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id12">1.7.1. 题目难度的计算</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id10">1.7. 未来工作</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id11">1.7.1. 题目难度的计算</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#irt">1.7.2. 多参数IRT模型</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id13">1.7.3. 参数估计算法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id12">1.7.3. 参数估计算法</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id14">1.8. 参考文献</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id13">1.8. 参考文献</a></li>
 </ul>
 </li>
 </ul>
@@ -904,79 +856,37 @@
 </li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">张振虎的博客</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="index_html.html">概率图</a> &raquo;</li>
-        
       <li><span class="section-number">7. </span>因子图</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
-            <a href="../_sources/probability_model/6.因子图_lecture_4.rst.txt" rel="nofollow"> View page source</a>
-          
-        
+            <a href="../_sources/probability_model/6.因子图_lecture_4.rst.txt" rel="nofollow"> 查看页面源码</a>
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="id1">
-<h1><span class="section-number">7. </span>因子图<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+             
+  <section id="id1">
+<h1><span class="section-number">7. </span>因子图<a class="headerlink" href="#id1" title="永久链接至标题"></a></h1>
 <p>至此我们已经讨论了概率图模型的两类图形–有向图和无向图，这两类都是从条件独立性的角度表征概率分布。
 本章节我们开始讨论另一类图模型–因子图(Factor graph)，因子图不关注条件独立属性，直接表达概率分布的因子分解。</p>
-<div class="section" id="id2">
-<h2><span class="section-number">7.1. </span>因子图的定义<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<section id="id2">
+<h2><span class="section-number">7.1. </span>因子图的定义<a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
 <p>有向图和无向图都使得若干个变量的一个全局函数(联合概率分布)表示为这些变量子集上的因子的乘积。
 因子图显示的表示出了这个分解，方法是：在表示变量的结点的基础上，引入额外的结点表示因子本身。
 因子图能够用来表达上述传统的有向和无向图模型无法表达的结构。</p>
@@ -984,17 +894,19 @@
 一张图 <span class="math notranslate nohighlight">\(\mathcal{G}=(\mathcal{V}, \mathcal{E}, \mathcal{F})\)</span> ，
 除了变量结点集合 <span class="math notranslate nohighlight">\(\mathcal{V}\)</span> 以外还含有因子结点集合 <span class="math notranslate nohighlight">\(\mathcal{F}\)</span> 。
 此外，该图被约束为变量节点和因子节点之间的二分图，即 <strong>仅有变量结点和因子结点之间存在边</strong> 。</p>
-<div class="figure align-center" id="id7">
+<figure class="align-center" id="id7">
 <a class="reference internal image-reference" href="../_images/4_1.jpg"><img alt="../_images/4_1.jpg" src="../_images/4_1.jpg" style="width: 321.0px; height: 182.4px;" /></a>
-<p class="caption"><span class="caption-number">图 7.1.1 </span><span class="caption-text">一般因子图。 <span class="math notranslate nohighlight">\(f_a\)</span> 是关于 <span class="math notranslate nohighlight">\(X_1\)</span> 和 <span class="math notranslate nohighlight">\(X_3\)</span> 的函数，
+<figcaption>
+<p><span class="caption-number">图 7.1.1 </span><span class="caption-text">一般因子图。 <span class="math notranslate nohighlight">\(f_a\)</span> 是关于 <span class="math notranslate nohighlight">\(X_1\)</span> 和 <span class="math notranslate nohighlight">\(X_3\)</span> 的函数，
 <span class="math notranslate nohighlight">\(f_b\)</span> 是关于 <span class="math notranslate nohighlight">\(X_3\)</span> 和 <span class="math notranslate nohighlight">\(X_4\)</span> 的函数，
 <span class="math notranslate nohighlight">\(f_c\)</span> 是关于 <span class="math notranslate nohighlight">\(X_2,X_4\)</span> 和 <span class="math notranslate nohighlight">\(X_5\)</span> 的函数，
-<span class="math notranslate nohighlight">\(f_d\)</span> 是关于 <span class="math notranslate nohighlight">\(X_1\)</span> 和 <span class="math notranslate nohighlight">\(X_3\)</span> 的函数，</span><a class="headerlink" href="#id7" title="永久链接至图片">¶</a></p>
-</div>
+<span class="math notranslate nohighlight">\(f_d\)</span> 是关于 <span class="math notranslate nohighlight">\(X_1\)</span> 和 <span class="math notranslate nohighlight">\(X_3\)</span> 的函数，</span><a class="headerlink" href="#id7" title="永久链接至图片"></a></p>
+</figcaption>
+</figure>
 <p>其中，圆形结点代表随机变量，方形结点代表”因子”，所谓”因子(factor)”其实就是定义在一些变量上的函数，可以类比于无向图中的势函数 <span class="math notranslate nohighlight">\(\psi\)</span> 。
 与因子图相关联的联合概率分布由下式给出，联合概率分布就是图中所有因子的乘积乘以一个归一化系数Z。</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-6-lecture-4-0">
-<span class="eqno">(7.1.29)<a class="headerlink" href="#equation-probability-model-6-lecture-4-0" title="公式的永久链接">¶</a></span>\[p\left(x_{1}, \ldots, x_{N}\right)=\frac{1}{Z} \prod_{j=1}^{m} f_{j}\left(x_{f_{j}}\right)\]</div>
+<span class="eqno">(7.1.29)<a class="headerlink" href="#equation-probability-model-6-lecture-4-0" title="公式的永久链接"></a></span>\[p\left(x_{1}, \ldots, x_{N}\right)=\frac{1}{Z} \prod_{j=1}^{m} f_{j}\left(x_{f_{j}}\right)\]</div>
 <div class="topic">
 <p class="topic-title">因子图上的一些约束</p>
 <ul class="simple">
@@ -1006,50 +918,58 @@
 也不需要向有向图那样定义在局部条件概率上。每个因子函数可以定义在任意结点上，
 同一个节点集上也可以定义多个不同的因子。相比有向图和无向图，能表达出更细粒度的分解。
 因子图的这个特性，使得编码某些类型（特别是代数）约束非常容易。</p>
-</div>
-<div class="section" id="id3">
-<h2><span class="section-number">7.2. </span>图模型之间的转换<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
-<div class="section" id="id4">
-<h3><span class="section-number">7.2.1. </span>转换为因子图<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
-<div class="figure align-center" id="id8">
+</section>
+<section id="id3">
+<h2><span class="section-number">7.2. </span>图模型之间的转换<a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
+<section id="id4">
+<h3><span class="section-number">7.2.1. </span>转换为因子图<a class="headerlink" href="#id4" title="永久链接至标题"></a></h3>
+<figure class="align-center" id="id8">
 <a class="reference internal image-reference" href="../_images/4_3.png"><img alt="../_images/4_3.png" src="../_images/4_3.png" style="width: 371.4px; height: 216.6px;" /></a>
-<p class="caption"><span class="caption-number">图 7.2.1 </span><span class="caption-text">用因子图表达无向图</span><a class="headerlink" href="#id8" title="永久链接至图片">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">图 7.2.1 </span><span class="caption-text">用因子图表达无向图</span><a class="headerlink" href="#id8" title="永久链接至图片"></a></p>
+</figcaption>
+</figure>
 <p>首先，我们先写出上图中无向图(左)的概率分布的因子分解式:</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-6-lecture-4-1">
-<span class="eqno">(7.2.2)<a class="headerlink" href="#equation-probability-model-6-lecture-4-1" title="公式的永久链接">¶</a></span>\[p_{\mathbf{x}}(\mathbf{x}) \propto f_{134}\left(x_{1}, x_{3}, x_{4}\right) f_{234}\left(x_{2}, x_{3}, x_{4}\right)\]</div>
+<span class="eqno">(7.2.2)<a class="headerlink" href="#equation-probability-model-6-lecture-4-1" title="公式的永久链接"></a></span>\[p_{\mathbf{x}}(\mathbf{x}) \propto f_{134}\left(x_{1}, x_{3}, x_{4}\right) f_{234}\left(x_{2}, x_{3}, x_{4}\right)\]</div>
 <p>直观的看上去，无向图的因子分解式和因子图的分解式具有相同的模式，我们只需要把势函数(potentials)看做是因子结点(factor nodes)。
 通常，我们可以通过为每个最大团定义因子节点，将无向图模型转换为因子图。</p>
 <p>类似的，为了将有向图转换为因子图，变量结点维持不变，我们添加额外的因子结点对应于条件概率分布，最后添加上合适的边。
 <strong>同一个无向图可能存在多个不同的因子图。同一个有向图也可能存在多个不同的因子图。</strong></p>
-<div class="figure align-center" id="id9">
+<figure class="align-center" id="id9">
 <a class="reference internal image-reference" href="../_images/4_a1.png"><img alt="../_images/4_a1.png" src="../_images/4_a1.png" style="width: 458.09999999999997px; height: 127.19999999999999px;" /></a>
-<p class="caption"><span class="caption-number">图 7.2.2 </span><span class="caption-text">(a)一个无向图，仅有一个最大团的 <span class="math notranslate nohighlight">\(\psi\left(x_{1}, x_{2}, x_{3}\right)\)</span> 。
+<figcaption>
+<p><span class="caption-number">图 7.2.2 </span><span class="caption-text">(a)一个无向图，仅有一个最大团的 <span class="math notranslate nohighlight">\(\psi\left(x_{1}, x_{2}, x_{3}\right)\)</span> 。
 (b)表示和无向图相同概率分布的因子图，其因子满足 <span class="math notranslate nohighlight">\(f\left(x_{1}, x_{2}, x_{3}\right)=\psi\left(x_{1}, x_{2}, x_{3}\right)\)</span> 。
-(c)表示相同概率分布的另一个的因子图，其因子满足 <span class="math notranslate nohighlight">\(f_{a}\left(x_{1}, x_{2}, x_{3}\right) f_{b}\left(x_{1}, x_{2}\right)=\psi\left(x_{1}, x_{2}, x_{3}\right)\)</span> 。</span><a class="headerlink" href="#id9" title="永久链接至图片">¶</a></p>
-</div>
-<div class="figure align-center" id="id10">
+(c)表示相同概率分布的另一个的因子图，其因子满足 <span class="math notranslate nohighlight">\(f_{a}\left(x_{1}, x_{2}, x_{3}\right) f_{b}\left(x_{1}, x_{2}\right)=\psi\left(x_{1}, x_{2}, x_{3}\right)\)</span> 。</span><a class="headerlink" href="#id9" title="永久链接至图片"></a></p>
+</figcaption>
+</figure>
+<figure class="align-center" id="id10">
 <a class="reference internal image-reference" href="../_images/4_a2.png"><img alt="../_images/4_a2.png" src="../_images/4_a2.png" style="width: 449.7px; height: 125.1px;" /></a>
-<p class="caption"><span class="caption-number">图 7.2.3 </span><span class="caption-text">(a)一个有向图，可以分解为 <span class="math notranslate nohighlight">\(p\left(x_{1}\right) p\left(x_{2}\right) p\left(x_{3} | x_{1}, x_{2}\right)\)</span> 。
+<figcaption>
+<p><span class="caption-number">图 7.2.3 </span><span class="caption-text">(a)一个有向图，可以分解为 <span class="math notranslate nohighlight">\(p\left(x_{1}\right) p\left(x_{2}\right) p\left(x_{3} | x_{1}, x_{2}\right)\)</span> 。
 (b)一个因子图，表示相同的概率分布，它的因子满足 <span class="math notranslate nohighlight">\(f\left(x_{1}, x_{2}, x_{3}\right)=p\left(x_{1}\right) p\left(x_{2}\right) p\left(x_{3} | x_{1}, x_{2}\right)\)</span> 。
-(c)另一个因子图，表示相同的概率分布，其因子满足 <span class="math notranslate nohighlight">\(f_{a}\left(x_{1}\right)=p\left(x_{1}\right), f_{b}\left(x_{2}\right)=p\left(x_{2}\right), f_{c}\left(x_{1}, x_{2}, x_{3}\right)=p\left(x_{3} | x_{1}, x_{2}\right)\)</span></span><a class="headerlink" href="#id10" title="永久链接至图片">¶</a></p>
-</div>
-</div>
-<div class="section" id="id5">
-<h3><span class="section-number">7.2.2. </span>因子图转换为有向图<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
+(c)另一个因子图，表示相同的概率分布，其因子满足 <span class="math notranslate nohighlight">\(f_{a}\left(x_{1}\right)=p\left(x_{1}\right), f_{b}\left(x_{2}\right)=p\left(x_{2}\right), f_{c}\left(x_{1}, x_{2}, x_{3}\right)=p\left(x_{3} | x_{1}, x_{2}\right)\)</span></span><a class="headerlink" href="#id10" title="永久链接至图片"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="id5">
+<h3><span class="section-number">7.2.2. </span>因子图转换为有向图<a class="headerlink" href="#id5" title="永久链接至标题"></a></h3>
 <p>选定拓扑顺序为 <span class="math notranslate nohighlight">\(\mathrm{x}_{1}, \ldots, \mathrm{x}_{n}\)</span> 的一系列结点。
 按照顺序对于每个结点，找到一个最小的集合 <span class="math notranslate nohighlight">\(U \subset\left\{\mathrm{x}_{1}, \ldots, \mathrm{x}_{i-1}\right\}\)</span> 使得
 <span class="math notranslate nohighlight">\(\mathrm{x}_{i} \perp \!\!\! \perp \left\{\mathrm{x}_{1}, \ldots \mathrm{x}_{i-1}\right\}-U | U\)</span> 得到满足，并且把 <span class="math notranslate nohighlight">\(U\)</span> 中的结点设置为
 <span class="math notranslate nohighlight">\(\mathrm{x}_{i}\)</span> 的父结点。</p>
 <p>这相当于使用因子图所暗示的条件独立性尽可能地减少每个 <span class="math notranslate nohighlight">\(p（\mathrm{x}_i | \mathrm{x}_1，...，\mathrm{x}_{i-1})\)</span> 的复杂性。参考图3的示例。</p>
-<div class="figure align-center" id="id11">
+<figure class="align-center" id="id11">
 <a class="reference internal image-reference" href="../_images/4_5.png"><img alt="../_images/4_5.png" src="../_images/4_5.png" style="width: 337.5px; height: 239.7px;" /></a>
-<p class="caption"><span class="caption-number">图 7.2.4 </span><span class="caption-text">把一个因子图转换为一个有向图，然后再把有向图转换为无向图</span><a class="headerlink" href="#id11" title="永久链接至图片">¶</a></p>
-</div>
-</div>
-</div>
-<div class="section" id="id6">
-<h2><span class="section-number">7.3. </span>图模型的评价<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h2>
+<figcaption>
+<p><span class="caption-number">图 7.2.4 </span><span class="caption-text">把一个因子图转换为一个有向图，然后再把有向图转换为无向图</span><a class="headerlink" href="#id11" title="永久链接至图片"></a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+<section id="id6">
+<h2><span class="section-number">7.3. </span>图模型的评价<a class="headerlink" href="#id6" title="永久链接至标题"></a></h2>
 <div class="admonition important">
 <p class="admonition-title">重要</p>
 <p><strong>重要的是要认识到转换过程不是无损的。</strong></p>
@@ -1058,8 +978,8 @@
 </div>
 <p>我们怎么知道我们已经提出了“好”的转换。
 我们希望转换的图形接近原始图形以获得一些接近的定义。 我们将通过I-maps，D-maps和P-map探索这些概念。</p>
-<div class="section" id="i-map">
-<h3><span class="section-number">7.3.1. </span>I-map<a class="headerlink" href="#i-map" title="永久链接至标题">¶</a></h3>
+<section id="i-map">
+<h3><span class="section-number">7.3.1. </span>I-map<a class="headerlink" href="#i-map" title="永久链接至标题"></a></h3>
 <p>考虑一个概率分布D和一个图模型 <span class="math notranslate nohighlight">\(\mathcal{G}\)</span> ，令 <span class="math notranslate nohighlight">\(CI(D)\)</span> 表示分布D满足的条件独立性集合，
 令 <span class="math notranslate nohighlight">\(CI(\mathcal{G})\)</span> 表示图 <span class="math notranslate nohighlight">\(\mathcal{G}\)</span> 实现的条件独立性集合。</p>
 <p><strong>定义1 I-map</strong>:</p>
@@ -1069,9 +989,9 @@
 ，分布D也同样都满足。<em>分布是超集，图是子集。</em></p>
 </div></blockquote>
 <p>完全图始终是任何分布的I-map的示例，因为它意味着没有条件独立性。</p>
-</div>
-<div class="section" id="d-map">
-<h3><span class="section-number">7.3.2. </span>D-map<a class="headerlink" href="#d-map" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="d-map">
+<h3><span class="section-number">7.3.2. </span>D-map<a class="headerlink" href="#d-map" title="永久链接至标题"></a></h3>
 <p><strong>定义2 D-map</strong>:</p>
 <blockquote>
 <div><p>如果满足 <span class="math notranslate nohighlight">\(CI(\mathcal{G}) \supset CI(D)\)</span> ，我们说图 <span class="math notranslate nohighlight">\(\mathcal{G}\)</span> 是分布D的一个
@@ -1079,9 +999,9 @@
 <em>分布是子集，图是超集。</em></p>
 </div></blockquote>
 <p>没有边的图是任何分布的D图的示例，因为它意味着每个结点都条件独立性。</p>
-</div>
-<div class="section" id="p-map">
-<h3><span class="section-number">7.3.3. </span>P-map<a class="headerlink" href="#p-map" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="p-map">
+<h3><span class="section-number">7.3.3. </span>P-map<a class="headerlink" href="#p-map" title="永久链接至标题"></a></h3>
 <p><strong>定义3 P-map</strong>:</p>
 <blockquote>
 <div><p>如果满足 <span class="math notranslate nohighlight">\(CI(\mathcal{G}) = CI(D)\)</span> ，我们说图 <span class="math notranslate nohighlight">\(\mathcal{G}\)</span> 是分布D的一个
@@ -1089,32 +1009,41 @@
 </div></blockquote>
 <p>示例： 考虑三个不同的分布，分别具有如下因子:</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-6-lecture-4-2">
-<span class="eqno">(7.3.7)<a class="headerlink" href="#equation-probability-model-6-lecture-4-2" title="公式的永久链接">¶</a></span>\[\begin{split}\begin{array}{l}{p_{1}=p_{\mathrm{x}} p_{\mathrm{y}} p_{\mathrm{z}}} \\
+<span class="eqno">(7.3.7)<a class="headerlink" href="#equation-probability-model-6-lecture-4-2" title="公式的永久链接"></a></span>\[\begin{split}\begin{array}{l}{p_{1}=p_{\mathrm{x}} p_{\mathrm{y}} p_{\mathrm{z}}} \\
  {p_{2}=p_{\mathrm{z} | \mathrm{x}, \mathrm{y}} p_{\mathrm{x}} p_{\mathrm{y}}} \\
   {p_{3}=p_{\mathrm{z} | \mathrm{x}, \mathrm{y}} p_{\mathrm{x} | \mathrm{y}} p_{\mathrm{y}}}\end{array}\end{split}\]</div>
 <p>下图中，左(a)是 <span class="math notranslate nohighlight">\(p_1\)</span> 的一个I-map，是 <span class="math notranslate nohighlight">\(p_3\)</span> 的一个D-map， <span class="math notranslate nohighlight">\(p_2\)</span> 的一个P-map；
 根据，Hammersley-Clifford定理右(b)是下面分布的一个I-map。</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-6-lecture-4-3">
-<span class="eqno">(7.3.8)<a class="headerlink" href="#equation-probability-model-6-lecture-4-3" title="公式的永久链接">¶</a></span>\[p(x, y, w, z)=\frac{1}{Z} f_{1}(x, w) f_{2}(w, y) f_{3}(z, y) f_{4}(x, z)\]</div>
-<div class="figure align-center" id="id12">
+<span class="eqno">(7.3.8)<a class="headerlink" href="#equation-probability-model-6-lecture-4-3" title="公式的永久链接"></a></span>\[p(x, y, w, z)=\frac{1}{Z} f_{1}(x, w) f_{2}(w, y) f_{3}(z, y) f_{4}(x, z)\]</div>
+<figure class="align-center" id="id12">
 <a class="reference internal image-reference" href="../_images/4_7.png"><img alt="../_images/4_7.png" src="../_images/4_7.png" style="width: 321.59999999999997px; height: 183.29999999999998px;" /></a>
-<p class="caption"><span class="caption-number">图 7.3.2 </span><span class="caption-text">两个图例。</span><a class="headerlink" href="#id12" title="永久链接至图片">¶</a></p>
-</div>
-</div>
-</div>
-</div>
+<figcaption>
+<p><span class="caption-number">图 7.3.2 </span><span class="caption-text">两个图例。</span><a class="headerlink" href="#id12" title="永久链接至图片"></a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="8.%E6%B6%88%E5%85%83%E6%B3%95.html" class="btn btn-neutral float-right" title="8. 模型推断：消元法" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="5.%E6%97%A0%E5%90%91%E5%9B%BE_lecture_3.html" class="btn btn-neutral float-left" title="6. 无向图(Undirected Graphical Models)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="5.%E6%97%A0%E5%90%91%E5%9B%BE_lecture_3.html" class="btn btn-neutral float-left" title="6. 无向图(Undirected Graphical Models)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="8.%E6%B6%88%E5%85%83%E6%B3%95.html" class="btn btn-neutral float-right" title="8. 模型推断：消元法" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2018, zhangzhenhu(acmtiger@outlook.com) 禁止一切形式的转载！.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
+  
 
 
     <script src="https://utteranc.es/client.js"
@@ -1127,42 +1056,16 @@
 
 
 
-  <div role="contentinfo">
-    <p>
-        &#169; 版权所有 2018, zhangzhenhu(acmtiger@outlook.com) 禁止一切形式的转载！.
-
-    </p>
-  </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-
-
-
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

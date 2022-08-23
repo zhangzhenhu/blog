@@ -1436,7 +1436,7 @@
 
 
 .. math::
-    :label: eq_probability_031
+    :label: eq_probability_081
 
 
     P(X) = \left \{
@@ -1467,11 +1467,12 @@
         0 & \quad &otherwise
         \end{aligned}
         \right.
+
     当满足 :math:`x=a` 是函数输出值为 :math:`1`，反之函数输出值为 :math:`0`。
 
 
 
-利用指示函数可以把 :eq:`eq_probability_031` 改写成如下更简洁的形式。
+利用指示函数可以把 :eq:`eq_probability_081` 改写成如下更简洁的形式。
 
 .. math::
 

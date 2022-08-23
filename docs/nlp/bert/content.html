@@ -1,99 +1,51 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="zh-CN" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>2. Attention&amp;Transformer&amp;Bert 简介 &mdash; 张振虎的博客 张振虎 文档</title>
-  
-
-  
-  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
     <link rel="canonical" href="https://zhangzhenhu.github.io/blog/nlp/bert/content.html" />
-
-  
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
         <script src="../../_static/translations.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2.7.7/unpacked/MathJax.min.js"></script>
         <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"Macros": {"RR": "{\\bf R}", "bold": ["{\\bf #1}", 1]}}})</script>
-    
-    <script type="text/javascript" src="../../_static/js/theme.js"></script>
-
-    
+    <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../genindex.html" />
     <link rel="search" title="搜索" href="../../search.html" />
     <link rel="next" title="latex demo" href="../../rst_tutorial/latex.html" />
     <link rel="prev" title="1. 文本去重" href="../%E6%96%87%E6%9C%AC%E5%8E%BB%E9%87%8D/content.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../../index.html" class="icon icon-home"> 张振虎的博客
-          
-
-          
           </a>
-
-          
-            
-            
               <div class="version">
                 acmtiger@outlook.com
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="在文档中搜索" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">目录:</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">目录:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../glm/source/index.html">广义线性模型</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../glm/source/%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80/content.html">1. 概率基础</a><ul>
@@ -141,7 +93,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#id2">3.1. 统计量和充分统计量</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-sample-distribution">3.2. 抽样分布</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-sample-distribution-normal">3.2.1. 正态分布</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#t">3.2.2. t分布</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#t">3.2.2. 学生t分布</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#id5">3.2.3. 卡方分布</a></li>
 </ul>
 </li>
@@ -746,7 +698,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../audio/feature.html#id18">1.5. 分帧与加窗</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../audio/feature.html#id19">1.5.1. 预加重处理</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../audio/feature.html#id20">1.5.2. 分帧与加窗</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../audio/feature.html#id20">1.5.2. 分帧与加窗处理</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../audio/feature.html#id21">1.6. 声音的感官度量</a><ul>
@@ -788,26 +740,26 @@
 <li class="toctree-l2"><a class="reference internal" href="../../edm/bkt.html">1. 贝叶斯知识追踪(Bayesian Knowledge Tracing,BKT)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../edm/bkt.html#id1">1.1. 简介</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../edm/bkt.html#hidden-markov-model-hmm">1.2. 隐马尔科夫模型(Hidden Markov Model,HMM)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../edm/bkt.html#id5">1.3. 贝叶斯知识追踪(Bayesian Knowledge Tracing,BKT)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../edm/bkt.html#bayesian-knowledge-tracing">1.3. 贝叶斯知识追踪(Bayesian Knowledge Tracing)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../edm/bkt.html#bkt">1.3.1. BKT的参数估计</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../edm/bkt.html#item-response-theory-irt">1.4. 项目反映理论(Item Response Theory,IRT)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../edm/bkt.html#bktirt">1.5. BKT结合IRT</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../edm/bkt.html#id6">1.6. 实验</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../edm/bkt.html#id7">1.6.1. 数据集</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../edm/bkt.html#id8">1.6.2. 实验方法</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../edm/bkt.html#id9">1.6.3. 实验结果</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../edm/bkt.html#id10">1.6.4. 项目代码</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../edm/bkt.html#id5">1.6. 实验</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../edm/bkt.html#id6">1.6.1. 数据集</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../edm/bkt.html#id7">1.6.2. 实验方法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../edm/bkt.html#id8">1.6.3. 实验结果</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../edm/bkt.html#id9">1.6.4. 项目代码</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../edm/bkt.html#id11">1.7. 未来工作</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../edm/bkt.html#id12">1.7.1. 题目难度的计算</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../edm/bkt.html#id10">1.7. 未来工作</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../edm/bkt.html#id11">1.7.1. 题目难度的计算</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../edm/bkt.html#irt">1.7.2. 多参数IRT模型</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../edm/bkt.html#id13">1.7.3. 参数估计算法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../edm/bkt.html#id12">1.7.3. 参数估计算法</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../edm/bkt.html#id14">1.8. 参考文献</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../edm/bkt.html#id13">1.8. 参考文献</a></li>
 </ul>
 </li>
 </ul>
@@ -904,75 +856,33 @@
 </li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../index.html">张振虎的博客</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="../index.html">自然语言处理</a> &raquo;</li>
-        
       <li><span class="section-number">2. </span>Attention&amp;Transformer&amp;Bert 简介</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
-            <a href="../../_sources/nlp/bert/content.rst.txt" rel="nofollow"> View page source</a>
-          
-        
+            <a href="../../_sources/nlp/bert/content.rst.txt" rel="nofollow"> 查看页面源码</a>
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="attention-transformer-bert">
-<h1><span class="section-number">2. </span>Attention&amp;Transformer&amp;Bert 简介<a class="headerlink" href="#attention-transformer-bert" title="永久链接至标题">¶</a></h1>
+             
+  <section id="attention-transformer-bert">
+<h1><span class="section-number">2. </span>Attention&amp;Transformer&amp;Bert 简介<a class="headerlink" href="#attention-transformer-bert" title="永久链接至标题"></a></h1>
 <p><code class="docutils literal notranslate"><span class="pre">Transformer</span></code> 模型是2017年谷歌发表的论文《attention is all you need》中提出的 seq2seq 模型，
 它是一个基于神经网络的模型，它的输入可以是一个序列，输出是另一个序列。
 而 <code class="docutils literal notranslate"><span class="pre">attention</span></code> 是 <code class="docutils literal notranslate"><span class="pre">Transformer</span></code> 模型中用于提取特征的一种算法或者机制，可以把它看做是神经网络中的一个层。</p>
@@ -983,49 +893,59 @@ Bert 并不是一个具体的算法，直白的讲，它就是一个预训练好
 这个预训练好的模型（参数）可以应用于各类NLP任务，比如文本分类、翻译、标注等等。</p>
 <p>本文基本是翻译自博客 ：The Illustrated Transformer (<a class="reference external" href="https://jalammar.github.io/illustrated-transformer/">https://jalammar.github.io/illustrated-transformer/</a>)。
 英语阅读无障碍的同学可以直接阅读英文博客。</p>
-<div class="section" id="transformer">
-<h2><span class="section-number">2.1. </span>Transformer 从宏观到微观<a class="headerlink" href="#transformer" title="永久链接至标题">¶</a></h2>
-<div class="section" id="seq2seq">
-<h3><span class="section-number">2.1.1. </span>seq2seq<a class="headerlink" href="#seq2seq" title="永久链接至标题">¶</a></h3>
-<div class="figure align-center" id="id15">
+<section id="transformer">
+<h2><span class="section-number">2.1. </span>Transformer 从宏观到微观<a class="headerlink" href="#transformer" title="永久链接至标题"></a></h2>
+<section id="seq2seq">
+<h3><span class="section-number">2.1.1. </span>seq2seq<a class="headerlink" href="#seq2seq" title="永久链接至标题"></a></h3>
+<figure class="align-center" id="id15">
 <a class="reference internal image-reference" href="../../_images/the_transformer_1.png"><img alt="../../_images/the_transformer_1.png" src="../../_images/the_transformer_1.png" style="width: 1127.0px; height: 294.0px;" /></a>
-<p class="caption"><span class="caption-number">图 2.1.1 </span><span class="caption-text">图片来源：<a class="reference external" href="https://jalammar.github.io/illustrated-transformer/">https://jalammar.github.io/illustrated-transformer/</a></span><a class="headerlink" href="#id15" title="永久链接至图片">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">图 2.1.1 </span><span class="caption-text">图片来源：<a class="reference external" href="https://jalammar.github.io/illustrated-transformer/">https://jalammar.github.io/illustrated-transformer/</a></span><a class="headerlink" href="#id15" title="永久链接至图片"></a></p>
+</figcaption>
+</figure>
 <p>首先，<code class="docutils literal notranslate"><span class="pre">Transformer</span></code> 就是一个 <code class="docutils literal notranslate"><span class="pre">seq2seq</span></code> 的模型，它的输入可以是一个序列，输出是另一个序列。
 输入序列可以是一段文本，输出序列可以是另一种语言对应的文本，这样就可以用来做翻译。
 此外，模型对输入序列的长度并没有特别限制，输入和输出序列的长度也可以不一样。</p>
 <p>输入和输出序列并不是必须是文本序列，任意序列数据都是可以的，比如用户的点击行为序列。</p>
-<div class="figure align-center" id="id16">
+<figure class="align-center" id="id16">
 <a class="reference internal image-reference" href="../../_images/The_transformer_encoders_decoders.png"><img alt="../../_images/The_transformer_encoders_decoders.png" src="../../_images/The_transformer_encoders_decoders.png" style="width: 756.0px; height: 474.0px;" /></a>
-<p class="caption"><span class="caption-number">图 2.1.2 </span><span class="caption-text">图片来源：<a class="reference external" href="https://jalammar.github.io/illustrated-transformer/">https://jalammar.github.io/illustrated-transformer/</a></span><a class="headerlink" href="#id16" title="永久链接至图片">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">图 2.1.2 </span><span class="caption-text">图片来源：<a class="reference external" href="https://jalammar.github.io/illustrated-transformer/">https://jalammar.github.io/illustrated-transformer/</a></span><a class="headerlink" href="#id16" title="永久链接至图片"></a></p>
+</figcaption>
+</figure>
 <p><code class="docutils literal notranslate"><span class="pre">Transformer</span></code> 内部可以拆成两个单元，一个是编码(encoder)单元，一个是解码（decoder）单元。
 编码单元负责抽取输入序列的特征，解码单元负责把编码特征解码成输出序列</p>
-<div class="figure align-center" id="id17">
+<figure class="align-center" id="id17">
 <a class="reference internal image-reference" href="../../_images/The_transformer_encoder_decoder_stack.png"><img alt="../../_images/The_transformer_encoder_decoder_stack.png" src="../../_images/The_transformer_encoder_decoder_stack.png" style="width: 1218.0px; height: 793.0px;" /></a>
-<p class="caption"><span class="caption-number">图 2.1.3 </span><span class="caption-text">图片来源：<a class="reference external" href="https://jalammar.github.io/illustrated-transformer/">https://jalammar.github.io/illustrated-transformer/</a></span><a class="headerlink" href="#id17" title="永久链接至图片">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">图 2.1.3 </span><span class="caption-text">图片来源：<a class="reference external" href="https://jalammar.github.io/illustrated-transformer/">https://jalammar.github.io/illustrated-transformer/</a></span><a class="headerlink" href="#id17" title="永久链接至图片"></a></p>
+</figcaption>
+</figure>
 <p>无论是编码单元，还是解码单元，其内部都是一个重复的堆叠结构。
 编码单元是编码层（encoder layer）的重复堆叠，每一层都是完全一样的结构。
 同理，解码单元是解码层（decoder layer）的重复堆叠。
 重复堆叠的次数并没有固定的限制，但层数越多，模型就越复杂（参数越多），好处是模型表达能力变强，
 缺点是模型（计算）性能下降，需要的训练数据也更多，模型的训练和推理时间都变长。</p>
-<div class="figure align-center" id="id18">
+<figure class="align-center" id="id18">
 <a class="reference internal image-reference" href="../../_images/Transformer_encoder.png"><img alt="../../_images/Transformer_encoder.png" src="../../_images/Transformer_encoder.png" style="width: 792.0px; height: 411.0px;" /></a>
-<p class="caption"><span class="caption-number">图 2.1.4 </span><span class="caption-text">图片来源：<a class="reference external" href="https://jalammar.github.io/illustrated-transformer/">https://jalammar.github.io/illustrated-transformer/</a></span><a class="headerlink" href="#id18" title="永久链接至图片">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">图 2.1.4 </span><span class="caption-text">图片来源：<a class="reference external" href="https://jalammar.github.io/illustrated-transformer/">https://jalammar.github.io/illustrated-transformer/</a></span><a class="headerlink" href="#id18" title="永久链接至图片"></a></p>
+</figcaption>
+</figure>
 <p>编码层（encoder layer）内部又分为两层，<code class="docutils literal notranslate"><span class="pre">Self-Attention</span></code> 层和前馈网络层（FFNN），
 有关 <code class="docutils literal notranslate"><span class="pre">Self-Attention</span></code> 的细节我们下一节再讨论，
 前馈网络层（FFNN）就是简单的全连接层。</p>
-<div class="figure align-center" id="id19">
+<figure class="align-center" id="id19">
 <a class="reference internal image-reference" href="../../_images/Transformer_decoder.png"><img alt="../../_images/Transformer_decoder.png" src="../../_images/Transformer_decoder.png" style="width: 879.0px; height: 279.0px;" /></a>
-<p class="caption"><span class="caption-number">图 2.1.5 </span><span class="caption-text">图片来源：<a class="reference external" href="https://jalammar.github.io/illustrated-transformer/">https://jalammar.github.io/illustrated-transformer/</a></span><a class="headerlink" href="#id19" title="永久链接至图片">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">图 2.1.5 </span><span class="caption-text">图片来源：<a class="reference external" href="https://jalammar.github.io/illustrated-transformer/">https://jalammar.github.io/illustrated-transformer/</a></span><a class="headerlink" href="#id19" title="永久链接至图片"></a></p>
+</figcaption>
+</figure>
 <p>解码层内部也是类似的结构，不过它比编码层多了一个特殊的层（Encode-Decoder Attention），
 我们暂时先不用管它。</p>
-</div>
-<div class="section" id="id1">
-<h3><span class="section-number">2.1.2. </span>模型的输入<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id1">
+<h3><span class="section-number">2.1.2. </span>模型的输入<a class="headerlink" href="#id1" title="永久链接至标题"></a></h3>
 <p>我们知道计算机只能处理数值数据，计算机是无法直接处理人类语言符号的，我们需要把语言符号转成数值类型数据。</p>
 <div class="topic">
 <p class="topic-title">Token</p>
@@ -1046,21 +966,25 @@ Bert 并不是一个具体的算法，直白的讲，它就是一个预训练好
 word2vec、glove、Elmo等等，以及我们今天讨论的 BERT。</p>
 <p><code class="docutils literal notranslate"><span class="pre">Transformer</span></code> 的输入层就是把每个 <code class="docutils literal notranslate"><span class="pre">token</span></code> 先映射到一个嵌入向量(embedding vector)，
 把 <code class="docutils literal notranslate"><span class="pre">token</span></code> 变成一个嵌入向量的序列后，再传递给编码层。</p>
-<div class="figure align-center" id="id20">
+<figure class="align-center" id="id20">
 <a class="reference internal image-reference" href="../../_images/embeddings.png"><img alt="../../_images/embeddings.png" src="../../_images/embeddings.png" style="width: 824.0px; height: 99.0px;" /></a>
-<p class="caption"><span class="caption-number">图 2.1.6 </span><span class="caption-text">图片来源：<a class="reference external" href="https://jalammar.github.io/illustrated-transformer/">https://jalammar.github.io/illustrated-transformer/</a></span><a class="headerlink" href="#id20" title="永久链接至图片">¶</a></p>
-</div>
-<div class="figure align-center" id="id21">
+<figcaption>
+<p><span class="caption-number">图 2.1.6 </span><span class="caption-text">图片来源：<a class="reference external" href="https://jalammar.github.io/illustrated-transformer/">https://jalammar.github.io/illustrated-transformer/</a></span><a class="headerlink" href="#id20" title="永久链接至图片"></a></p>
+</figcaption>
+</figure>
+<figure class="align-center" id="id21">
 <a class="reference internal image-reference" href="../../_images/encoder_with_tensors.png"><img alt="../../_images/encoder_with_tensors.png" src="../../_images/encoder_with_tensors.png" style="width: 757.4px; height: 485.79999999999995px;" /></a>
-<p class="caption"><span class="caption-number">图 2.1.7 </span><span class="caption-text">图片来源：<a class="reference external" href="https://jalammar.github.io/illustrated-transformer/">https://jalammar.github.io/illustrated-transformer/</a></span><a class="headerlink" href="#id21" title="永久链接至图片">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">图 2.1.7 </span><span class="caption-text">图片来源：<a class="reference external" href="https://jalammar.github.io/illustrated-transformer/">https://jalammar.github.io/illustrated-transformer/</a></span><a class="headerlink" href="#id21" title="永久链接至图片"></a></p>
+</figcaption>
+</figure>
 <p>这里一个关键的特点是，序列中的 <code class="docutils literal notranslate"><span class="pre">token</span></code> 是独立输入到模型的，</p>
-</div>
-</div>
-<div class="section" id="self-attention">
-<h2><span class="section-number">2.2. </span>Self-Attention<a class="headerlink" href="#self-attention" title="永久链接至标题">¶</a></h2>
-<div class="section" id="id2">
-<h3><span class="section-number">2.2.1. </span>什么是注意力？<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h3>
+</section>
+</section>
+<section id="self-attention">
+<h2><span class="section-number">2.2. </span>Self-Attention<a class="headerlink" href="#self-attention" title="永久链接至标题"></a></h2>
+<section id="id2">
+<h3><span class="section-number">2.2.1. </span>什么是注意力？<a class="headerlink" href="#id2" title="永久链接至标题"></a></h3>
 <p>假设我们要翻译如下的英文句子</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>”The animal didn&#39;t cross the street because it was too tired。&quot;
 </pre></div>
@@ -1071,22 +995,26 @@ word2vec、glove、Elmo等等，以及我们今天讨论的 BERT。</p>
 序列中的token并不是孤立的，互相之间是存在某些关联的，而这种联系对于整个序列来说是至关重要的。
 如果你熟悉 <code class="docutils literal notranslate"><span class="pre">RNN</span></code> 系列的模型，你知道它是通过隐状态来记录序列前面的信息的。
 <code class="docutils literal notranslate"><span class="pre">Attention</span></code> 是 <code class="docutils literal notranslate"><span class="pre">Transformer</span></code> 中用于学习 token 之间关联关系的机制。</p>
-<div class="figure align-center" id="id22">
+<figure class="align-center" id="id22">
 <a class="reference internal image-reference" href="../../_images/transformer_self-attention_visualization.png"><img alt="../../_images/transformer_self-attention_visualization.png" src="../../_images/transformer_self-attention_visualization.png" style="width: 349.6px; height: 330.40000000000003px;" /></a>
-<p class="caption"><span class="caption-number">图 2.2.1 </span><span class="caption-text">图片来源：<a class="reference external" href="https://jalammar.github.io/illustrated-transformer/">https://jalammar.github.io/illustrated-transformer/</a></span><a class="headerlink" href="#id22" title="永久链接至图片">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">图 2.2.1 </span><span class="caption-text">图片来源：<a class="reference external" href="https://jalammar.github.io/illustrated-transformer/">https://jalammar.github.io/illustrated-transformer/</a></span><a class="headerlink" href="#id22" title="永久链接至图片"></a></p>
+</figcaption>
+</figure>
 <p>一言以蔽之，<code class="docutils literal notranslate"><span class="pre">Attention</span></code> 就是用来衡量一个序列中 token 之间的关联关系及其强弱的。
 注意，不要崇拜它，<code class="docutils literal notranslate"><span class="pre">Attention</span></code> 不是什么神迹，它的能力其实并不强。
 其实它对 token 之间关系的表达能力是比较弱的。</p>
-</div>
-<div class="section" id="id3">
-<h3><span class="section-number">2.2.2. </span>加权求和<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id3">
+<h3><span class="section-number">2.2.2. </span>加权求和<a class="headerlink" href="#id3" title="永久链接至标题"></a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">Attention</span></code> 并不复杂，事实上还很简单，复杂程度和树模型、SVM相比差远了，
 所以请不要恐慌。</p>
-<div class="figure align-center" id="id23">
+<figure class="align-center" id="id23">
 <a class="reference internal image-reference" href="../../_images/encoder_with_tensors_2.png"><img alt="../../_images/encoder_with_tensors_2.png" src="../../_images/encoder_with_tensors_2.png" style="width: 887.5999999999999px; height: 539.6999999999999px;" /></a>
-<p class="caption"><span class="caption-number">图 2.2.2 </span><span class="caption-text">图片来源：<a class="reference external" href="https://jalammar.github.io/illustrated-transformer/">https://jalammar.github.io/illustrated-transformer/</a></span><a class="headerlink" href="#id23" title="永久链接至图片">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">图 2.2.2 </span><span class="caption-text">图片来源：<a class="reference external" href="https://jalammar.github.io/illustrated-transformer/">https://jalammar.github.io/illustrated-transformer/</a></span><a class="headerlink" href="#id23" title="永久链接至图片"></a></p>
+</figcaption>
+</figure>
 <p>编码层输入的是 token 对应的嵌入向量序列，输出也是每个token一个向量，
 输入和输出按照 token 是一一对应的，每个 token 有一个输入也有一个输出。
 <strong>核心问题就是：如何得到每个token的输出向量？</strong>
@@ -1100,9 +1028,9 @@ word2vec、glove、Elmo等等，以及我们今天讨论的 BERT。</p>
 <li><p>Key：</p></li>
 <li><p>Value：值向量，表达 token 的信息</p></li>
 </ul>
-<div class="figure align-center">
+<figure class="align-center">
 <a class="reference internal image-reference" href="../../_images/transformer_self_attention_vectors.png"><img alt="../../_images/transformer_self_attention_vectors.png" src="../../_images/transformer_self_attention_vectors.png" style="width: 612.5px; height: 386.4px;" /></a>
-</div>
+</figure>
 <p>符号 <span class="math notranslate nohighlight">\(x_i\)</span> 表示 <code class="docutils literal notranslate"><span class="pre">Self-Attention</span></code> 层的第 <span class="math notranslate nohighlight">\(i\)</span> 个 <code class="docutils literal notranslate"><span class="pre">token</span></code> 的输入向量，
 <code class="docutils literal notranslate"><span class="pre">Self-Attention</span></code> 层内部存在三个矩阵，
 分别是 <span class="math notranslate nohighlight">\(W^Q,W^K,W^V\)</span>。</p>
@@ -1111,16 +1039,16 @@ word2vec、glove、Elmo等等，以及我们今天讨论的 BERT。</p>
 其中 <span class="math notranslate nohighlight">\(P\)</span> 的值是可以人为指定的，一般是 <span class="math notranslate nohighlight">\(64\)</span>。</p>
 <p>对于第 <span class="math notranslate nohighlight">\(i\)</span> 个 <code class="docutils literal notranslate"><span class="pre">token</span></code> 来说，有</p>
 <div class="math notranslate nohighlight" id="equation-nlp-bert-content-0">
-<span class="eqno">(2.2.56)<a class="headerlink" href="#equation-nlp-bert-content-0" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}q_i  = x_i \boldsymbol{\cdot} W^Q\\k_i  = x_i \boldsymbol{\cdot} W^K\\v_i  = x_i \boldsymbol{\cdot} W^V\end{aligned}\end{align} \]</div>
+<span class="eqno">(2.2.56)<a class="headerlink" href="#equation-nlp-bert-content-0" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}q_i  = x_i \boldsymbol{\cdot} W^Q\\k_i  = x_i \boldsymbol{\cdot} W^K\\v_i  = x_i \boldsymbol{\cdot} W^V\end{aligned}\end{align} \]</div>
 <p>第 <span class="math notranslate nohighlight">\(i\)</span> 个 <code class="docutils literal notranslate"><span class="pre">token</span></code> 的输出向量计算方法为：</p>
 <ol class="arabic">
 <li><p>用 <span class="math notranslate nohighlight">\(q_i\)</span> 依次乘以（点积、內积）其它 token 的 key 向量，得到一系列的 score。</p>
 <blockquote>
 <div><div class="math notranslate nohighlight" id="equation-nlp-bert-content-1">
-<span class="eqno">(2.2.57)<a class="headerlink" href="#equation-nlp-bert-content-1" title="公式的永久链接">¶</a></span>\[s_{ij} = q_i \boldsymbol{\cdot} k_j\]</div>
-<div class="figure align-center">
+<span class="eqno">(2.2.57)<a class="headerlink" href="#equation-nlp-bert-content-1" title="公式的永久链接"></a></span>\[s_{ij} = q_i \boldsymbol{\cdot} k_j\]</div>
+<figure class="align-center">
 <a class="reference internal image-reference" href="../../_images/transformer_self_attention_score.png"><img alt="../../_images/transformer_self_attention_score.png" src="../../_images/transformer_self_attention_score.png" style="width: 479.49999999999994px; height: 250.6px;" /></a>
-</div>
+</figure>
 </div></blockquote>
 </li>
 <li><p>把 <span class="math notranslate nohighlight">\(s_{ij}\)</span> 除以 <span class="math notranslate nohighlight">\(\sqrt{d_k}\)</span> 进行缩放， <span class="math notranslate nohighlight">\(d_k\)</span> 表示 Key 向量的长度。原因是 <span class="math notranslate nohighlight">\(s_{ij}\)</span> 是通过內积得到的，
@@ -1129,73 +1057,73 @@ word2vec、glove、Elmo等等，以及我们今天讨论的 BERT。</p>
 <span class="math notranslate nohighlight">\(\mathop{softmax}\)</span> 确保权重值为正并且和为 1 。</p>
 <blockquote>
 <div><div class="math notranslate nohighlight" id="equation-nlp-bert-content-2">
-<span class="eqno">(2.2.58)<a class="headerlink" href="#equation-nlp-bert-content-2" title="公式的永久链接">¶</a></span>\[a_{ij} = \frac{ e^{s_{ij}} }{\sum e^{s_{ij}} }\]</div>
-<div class="figure align-center">
+<span class="eqno">(2.2.58)<a class="headerlink" href="#equation-nlp-bert-content-2" title="公式的永久链接"></a></span>\[a_{ij} = \frac{ e^{s_{ij}} }{\sum e^{s_{ij}} }\]</div>
+<figure class="align-center">
 <a class="reference internal image-reference" href="../../_images/self-attention_softmax.png"><img alt="../../_images/self-attention_softmax.png" src="../../_images/self-attention_softmax.png" style="width: 606.9px; height: 382.2px;" /></a>
-</div>
+</figure>
 </div></blockquote>
 </li>
 <li><p>对所有 token 的 value 向量进行加权求和，得到当前第 <span class="math notranslate nohighlight">\(i\)</span> 个 token 的输出向量。</p>
 <blockquote>
 <div><div class="math notranslate nohighlight" id="equation-nlp-bert-content-3">
-<span class="eqno">(2.2.59)<a class="headerlink" href="#equation-nlp-bert-content-3" title="公式的永久链接">¶</a></span>\[z_i = \sum_{j} a_{ij} v_j\]</div>
-<div class="figure align-center">
+<span class="eqno">(2.2.59)<a class="headerlink" href="#equation-nlp-bert-content-3" title="公式的永久链接"></a></span>\[z_i = \sum_{j} a_{ij} v_j\]</div>
+<figure class="align-center">
 <a class="reference internal image-reference" href="../../_images/self-attention-output.png"><img alt="../../_images/self-attention-output.png" src="../../_images/self-attention-output.png" style="width: 550.1999999999999px; height: 522.9px;" /></a>
-</div>
+</figure>
 </div></blockquote>
 </li>
 </ol>
 <p><strong>矩阵实现</strong></p>
 <p>上面我们是以单个 <code class="docutils literal notranslate"><span class="pre">token</span></code> 的视角对 <code class="docutils literal notranslate"><span class="pre">Self-Attention</span></code> 的过程进行描述的，
 现在看下如果利用矩阵操作，对整个序列进行处理。</p>
-<div class="figure align-center">
+<figure class="align-center">
 <a class="reference internal image-reference" href="../../_images/self-attention-matrix-calculation.png"><img alt="../../_images/self-attention-matrix-calculation.png" src="../../_images/self-attention-matrix-calculation.png" style="width: 406.7px; height: 460.59999999999997px;" /></a>
-</div>
+</figure>
 <p>我们把输入的向量 <span class="math notranslate nohighlight">\(x_i\)</span> 序列，拼接成一个矩阵 <span class="math notranslate nohighlight">\(X\)</span> ，
 <span class="math notranslate nohighlight">\(X\)</span> 矩阵的第 <span class="math notranslate nohighlight">\(i\)</span> 行就是第 <span class="math notranslate nohighlight">\(i\)</span> 个 <code class="docutils literal notranslate"><span class="pre">token</span></code> 的输入向量 <span class="math notranslate nohighlight">\(x_i\)</span>
 。得到 <span class="math notranslate nohighlight">\(q、k、v\)</span> 的过程完全可以通过矩阵实现。
 最后的加权求和过程，也可以在矩阵上实现。</p>
-<div class="figure align-center">
+<figure class="align-center">
 <a class="reference internal image-reference" href="../../_images/self-attention-matrix-calculation-2.png"><img alt="../../_images/self-attention-matrix-calculation-2.png" src="../../_images/self-attention-matrix-calculation-2.png" style="width: 625.0999999999999px; height: 244.29999999999998px;" /></a>
-</div>
-</div>
-<div class="section" id="id4">
-<h3><span class="section-number">2.2.3. </span>位置编码<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
+</figure>
+</section>
+<section id="id4">
+<h3><span class="section-number">2.2.3. </span>位置编码<a class="headerlink" href="#id4" title="永久链接至标题"></a></h3>
 <p>回顾一下整个过程，我们发现 <code class="docutils literal notranslate"><span class="pre">Attention</span></code> 机制没有考虑到 <code class="docutils literal notranslate"><span class="pre">token</span></code> 在序列中的位置，
 序列中 <code class="docutils literal notranslate"><span class="pre">token</span></code> 的位置不影响最终的输出，这明显是不行的。</p>
 <p><code class="docutils literal notranslate"><span class="pre">Transformer</span></code> 的解决方法就是为每一个 <span class="math notranslate nohighlight">\(x_i\)</span> 加上编码了位置信息的常量向量。</p>
-<div class="figure align-center">
+<figure class="align-center">
 <a class="reference internal image-reference" href="../../_images/transformer_positional_encoding_vectors.png"><img alt="../../_images/transformer_positional_encoding_vectors.png" src="../../_images/transformer_positional_encoding_vectors.png" style="width: 862.8px; height: 475.79999999999995px;" /></a>
-</div>
+</figure>
 <div class="math notranslate nohighlight" id="equation-nlp-bert-content-4">
-<span class="eqno">(2.2.60)<a class="headerlink" href="#equation-nlp-bert-content-4" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}x = x +position_enc(x)\\x \rightarrow encoding(x)\end{aligned}\end{align} \]</div>
+<span class="eqno">(2.2.60)<a class="headerlink" href="#equation-nlp-bert-content-4" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}x = x +position_enc(x)\\x \rightarrow encoding(x)\end{aligned}\end{align} \]</div>
 <div class="math notranslate nohighlight" id="equation-nlp-bert-content-5">
-<span class="eqno">(2.2.61)<a class="headerlink" href="#equation-nlp-bert-content-5" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}PE(pos,2i) = sin (pos / 10000^{2i/d_{model}})\\PE(pos,2i+1) = cos (pos / 10000^{2i/d_{model}})\end{aligned}\end{align} \]</div>
+<span class="eqno">(2.2.61)<a class="headerlink" href="#equation-nlp-bert-content-5" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}PE(pos,2i) = sin (pos / 10000^{2i/d_{model}})\\PE(pos,2i+1) = cos (pos / 10000^{2i/d_{model}})\end{aligned}\end{align} \]</div>
 <p><span class="math notranslate nohighlight">\(pos\)</span> 表示 <code class="docutils literal notranslate"><span class="pre">token</span></code> 在序列中的位置，<span class="math notranslate nohighlight">\(d_{model}\)</span> 表示编码向量的长度（等于嵌入向量的长度），
 <span class="math notranslate nohighlight">\(i\)</span> 表示编码向量中的位置。</p>
-<div class="figure align-center">
+<figure class="align-center">
 <a class="reference internal image-reference" href="../../_images/transformer_positional_encoding_seq.png"><img alt="../../_images/transformer_positional_encoding_seq.png" src="../../_images/transformer_positional_encoding_seq.png" style="width: 480.0px; height: 260.0px;" /></a>
-</div>
+</figure>
 <p>注意， <span class="math notranslate nohighlight">\(position\ vector\)</span> 是常量，不需要模型学习。
 一个例子如下。</p>
-<div class="figure align-center">
+<figure class="align-center">
 <a class="reference internal image-reference" href="../../_images/transformer_positional_encoding_example.png"><img alt="../../_images/transformer_positional_encoding_example.png" src="../../_images/transformer_positional_encoding_example.png" style="width: 626.4px; height: 174.0px;" /></a>
-</div>
+</figure>
 <p><strong>那么，这个位置编码到底是什么呢？</strong></p>
 <p>在下图中，第一行是一个位置的编码向量。
 每行包含 512 个值——每个值都在 1 到 -1 之间。
 我们对它们进行了颜色编码，使其更加直观。</p>
-<div class="figure align-center">
+<figure class="align-center">
 <a class="reference internal image-reference" href="../../_images/attention-is-all-you-need-positional-encoding.png"><img alt="../../_images/attention-is-all-you-need-positional-encoding.png" src="../../_images/attention-is-all-you-need-positional-encoding.png" style="width: 649.6px; height: 387.20000000000005px;" /></a>
-</div>
+</figure>
 <p>我们需要知道的是，实现位置编码的方法并不唯一，这里的方法是论文 《Attention is all you need》
 中的方法，除此之外也可以采用其它的方法。</p>
-<div class="figure align-center">
+<figure class="align-center">
 <a class="reference internal image-reference" href="../../_images/1_7LPcSJYhSgjPJZWJnp22XA.png"><img alt="../../_images/1_7LPcSJYhSgjPJZWJnp22XA.png" src="../../_images/1_7LPcSJYhSgjPJZWJnp22XA.png" style="width: 720.0px; height: 520.0px;" /></a>
-</div>
-</div>
-<div class="section" id="multi-head">
-<h3><span class="section-number">2.2.4. </span>多头注意力（Multi-head）<a class="headerlink" href="#multi-head" title="永久链接至标题">¶</a></h3>
+</figure>
+</section>
+<section id="multi-head">
+<h3><span class="section-number">2.2.4. </span>多头注意力（Multi-head）<a class="headerlink" href="#multi-head" title="永久链接至标题"></a></h3>
 <p>明白了 <code class="docutils literal notranslate"><span class="pre">Attention</span></code> 机制后，就能发现所谓的 <code class="docutils literal notranslate"><span class="pre">Attention</span></code> 就是每个
 <code class="docutils literal notranslate"><span class="pre">token</span></code> 在某个层面上可以与序列中其它 <code class="docutils literal notranslate"><span class="pre">token</span></code> 存在联系。
 但 <code class="docutils literal notranslate"><span class="pre">Attention</span></code> 通过 <code class="docutils literal notranslate"><span class="pre">softmax</span></code> 归一化了权重，
@@ -1205,29 +1133,29 @@ word2vec、glove、Elmo等等，以及我们今天讨论的 BERT。</p>
 的联系怎么办？
 此时，可以平行计算多次  <code class="docutils literal notranslate"><span class="pre">Attention</span></code> 机制，
 每一次 <code class="docutils literal notranslate"><span class="pre">Attention</span></code> 表示不同层面的表达。</p>
-<div class="figure align-center">
+<figure class="align-center">
 <a class="reference internal image-reference" href="../../_images/transformer_attention_heads_qkv.png"><img alt="../../_images/transformer_attention_heads_qkv.png" src="../../_images/transformer_attention_heads_qkv.png" style="width: 786.0px; height: 464.4px;" /></a>
-</div>
+</figure>
 <p>我们把一次 <code class="docutils literal notranslate"><span class="pre">Attention</span></code> 称为一个 <code class="docutils literal notranslate"><span class="pre">head</span></code> ，
 多次 <code class="docutils literal notranslate"><span class="pre">Attention</span></code> 就称为多头机制(Multi-head)。
 注意，在多头注意力中，各个 <code class="docutils literal notranslate"><span class="pre">head</span></code> 之间的参数（<span class="math notranslate nohighlight">\(Q、K、V、W^Q、W^K、W^V\)</span>）都是独立的。</p>
-<div class="figure align-center">
+<figure class="align-center">
 <a class="reference internal image-reference" href="../../_images/transformer_attention_heads_z.png"><img alt="../../_images/transformer_attention_heads_z.png" src="../../_images/transformer_attention_heads_z.png" style="width: 610.8px; height: 289.8px;" /></a>
-</div>
+</figure>
 <p>在 <code class="docutils literal notranslate"><span class="pre">Transformer</span></code> 中默认用的 <span class="math notranslate nohighlight">\(8\)</span> 头，每个头都会产生一个 <span class="math notranslate nohighlight">\(Z\)</span> 。
 这里就需要把这多个 <span class="math notranslate nohighlight">\(Z\)</span> 合并成一个，合并的方法也比较简单。
 先把多个 <span class="math notranslate nohighlight">\(Z\)</span>  拼接，然后通过一个权重矩阵映射。</p>
-<div class="figure align-center">
+<figure class="align-center">
 <a class="reference internal image-reference" href="../../_images/transformer_attention_heads_weight_matrix_o.png"><img alt="../../_images/transformer_attention_heads_weight_matrix_o.png" src="../../_images/transformer_attention_heads_weight_matrix_o.png" style="width: 823.1999999999999px; height: 455.4px;" /></a>
-</div>
-</div>
-</div>
-<div class="section" id="attention">
-<h2><span class="section-number">2.3. </span>Attention 机制<a class="headerlink" href="#attention" title="永久链接至标题">¶</a></h2>
+</figure>
+</section>
+</section>
+<section id="attention">
+<h2><span class="section-number">2.3. </span>Attention 机制<a class="headerlink" href="#attention" title="永久链接至标题"></a></h2>
 <p>深度学习中的注意力可以广义地解释为重要性权重</p>
-</div>
-<div class="section" id="id5">
-<h2><span class="section-number">2.4. </span>其它参考资料<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="id5">
+<h2><span class="section-number">2.4. </span>其它参考资料<a class="headerlink" href="#id5" title="永久链接至标题"></a></h2>
 <dl class="footnote brackets">
 <dt class="label" id="id6"><span class="brackets">1</span></dt>
 <dd><p><a class="reference external" href="https://jalammar.github.io/illustrated-transformer/">The Illustrated Transformer</a></p>
@@ -1257,20 +1185,27 @@ word2vec、glove、Elmo等等，以及我们今天讨论的 BERT。</p>
 <dd><p><a class="reference external" href="https://uvadlc-notebooks.readthedocs.io/en/latest/tutorial_notebooks/tutorial6/Transformers_and_MHAttention.html">Transformers and Multi-Head Attention</a></p>
 </dd>
 </dl>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../../rst_tutorial/latex.html" class="btn btn-neutral float-right" title="latex demo" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="../%E6%96%87%E6%9C%AC%E5%8E%BB%E9%87%8D/content.html" class="btn btn-neutral float-left" title="1. 文本去重" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../%E6%96%87%E6%9C%AC%E5%8E%BB%E9%87%8D/content.html" class="btn btn-neutral float-left" title="1. 文本去重" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../../rst_tutorial/latex.html" class="btn btn-neutral float-right" title="latex demo" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2018, zhangzhenhu(acmtiger@outlook.com) 禁止一切形式的转载！.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
+  
 
 
     <script src="https://utteranc.es/client.js"
@@ -1283,42 +1218,16 @@ word2vec、glove、Elmo等等，以及我们今天讨论的 BERT。</p>
 
 
 
-  <div role="contentinfo">
-    <p>
-        &#169; 版权所有 2018, zhangzhenhu(acmtiger@outlook.com) 禁止一切形式的转载！.
-
-    </p>
-  </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-
-
-
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

@@ -1,97 +1,49 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="zh-CN" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>神经网络(Neural Network) &mdash; 张振虎的博客 张振虎 文档</title>
-  
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
     <link rel="canonical" href="https://zhangzhenhu.github.io/blog/deep_learn/NeuralNetwork.html" />
-
-  
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/translations.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2.7.7/unpacked/MathJax.min.js"></script>
         <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"Macros": {"RR": "{\\bf R}", "bold": ["{\\bf #1}", 1]}}})</script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
+    <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../index.html" class="icon icon-home"> 张振虎的博客
-          
-
-          
           </a>
-
-          
-            
-            
               <div class="version">
                 acmtiger@outlook.com
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="在文档中搜索" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">目录:</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">目录:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../glm/source/index.html">广义线性模型</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../glm/source/%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80/content.html">1. 概率基础</a><ul>
@@ -139,7 +91,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#id2">3.1. 统计量和充分统计量</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-sample-distribution">3.2. 抽样分布</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-sample-distribution-normal">3.2.1. 正态分布</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#t">3.2.2. t分布</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#t">3.2.2. 学生t分布</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#id5">3.2.3. 卡方分布</a></li>
 </ul>
 </li>
@@ -744,7 +696,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../audio/feature.html#id18">1.5. 分帧与加窗</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../audio/feature.html#id19">1.5.1. 预加重处理</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../audio/feature.html#id20">1.5.2. 分帧与加窗</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../audio/feature.html#id20">1.5.2. 分帧与加窗处理</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../audio/feature.html#id21">1.6. 声音的感官度量</a><ul>
@@ -786,26 +738,26 @@
 <li class="toctree-l2"><a class="reference internal" href="../edm/bkt.html">1. 贝叶斯知识追踪(Bayesian Knowledge Tracing,BKT)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id1">1.1. 简介</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#hidden-markov-model-hmm">1.2. 隐马尔科夫模型(Hidden Markov Model,HMM)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id5">1.3. 贝叶斯知识追踪(Bayesian Knowledge Tracing,BKT)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#bayesian-knowledge-tracing">1.3. 贝叶斯知识追踪(Bayesian Knowledge Tracing)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#bkt">1.3.1. BKT的参数估计</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#item-response-theory-irt">1.4. 项目反映理论(Item Response Theory,IRT)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#bktirt">1.5. BKT结合IRT</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id6">1.6. 实验</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id7">1.6.1. 数据集</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id8">1.6.2. 实验方法</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id9">1.6.3. 实验结果</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id10">1.6.4. 项目代码</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id5">1.6. 实验</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id6">1.6.1. 数据集</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id7">1.6.2. 实验方法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id8">1.6.3. 实验结果</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id9">1.6.4. 项目代码</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id11">1.7. 未来工作</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id12">1.7.1. 题目难度的计算</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id10">1.7. 未来工作</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id11">1.7.1. 题目难度的计算</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#irt">1.7.2. 多参数IRT模型</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id13">1.7.3. 参数估计算法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id12">1.7.3. 参数估计算法</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id14">1.8. 参考文献</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id13">1.8. 参考文献</a></li>
 </ul>
 </li>
 </ul>
@@ -902,75 +854,34 @@
 </li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">张振虎的博客</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-        
       <li>神经网络(Neural Network)</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
-            <a href="../_sources/deep_learn/NeuralNetwork.rst.txt" rel="nofollow"> View page source</a>
-          
-        
+            <a href="../_sources/deep_learn/NeuralNetwork.rst.txt" rel="nofollow"> 查看页面源码</a>
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="neural-network">
-<h1>神经网络(Neural Network)<a class="headerlink" href="#neural-network" title="永久链接至标题">¶</a></h1>
-<div class="section" id="id1">
-<h2>一、深度学习是什么<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+             
+  <section id="neural-network">
+<h1>神经网络(Neural Network)<a class="headerlink" href="#neural-network" title="永久链接至标题"></a></h1>
+<section id="id1">
+<h2>一、深度学习是什么<a class="headerlink" href="#id1" title="永久链接至标题"></a></h2>
 <p>神经网络是机器学习中的一类算法，神经网络如下图所示：</p>
 <img alt="http://upload-images.jianshu.io/upload_images/2256672-c6f640c11a06ac2e.png" src="http://upload-images.jianshu.io/upload_images/2256672-c6f640c11a06ac2e.png" />
 <p>上图中每个圆圈都是一个神经元，每条线表示神经元之间的连接。我们可以看到，上面的神经元被分成了多层，层与层之间的神经元有连接，而层内之间的神经元
@@ -981,12 +892,12 @@
 多的神经元。而深层网络用少得多的神经元就能拟合同样的函数。也就是为了拟合一个函数，要么使用一个浅而宽的网络，要么使用一个深而窄的网络。而后者往往更
 节约资源。</p>
 <p>深层网络也有劣势，就是它不太容易训练。简单的说，你需要大量的数据，很多的技巧才能训练好一个深层网络。这是个手艺活。</p>
-</div>
-<div class="section" id="id2">
-<h2>感知器<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="id2">
+<h2>感知器<a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
 <p>为了理解神经网络，我们应该先理解神经网络的组成单元——<strong>神经元</strong>。神经元也叫做 <strong>感知器</strong>。感知器算法在上个世纪50-70年代很流行，也成功解决了很多问题。</p>
-<div class="section" id="id3">
-<h3>感知器的定义<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h3>
+<section id="id3">
+<h3>感知器的定义<a class="headerlink" href="#id3" title="永久链接至标题"></a></h3>
 <p>下图是一个感知器：</p>
 <img alt="http://upload-images.jianshu.io/upload_images/2256672-801d65e79bfc3162.png" src="http://upload-images.jianshu.io/upload_images/2256672-801d65e79bfc3162.png" />
 <p>可以看到，一个感知器有如下组成部分：</p>
@@ -996,36 +907,36 @@
 <li><p><strong>激活函数</strong> 感知器的激活函数有很多，比如可以选择下面的 <strong>阶跃函数</strong> <span class="math notranslate nohighlight">\(f\)</span> 来作为激活函数：</p></li>
 </ul>
 <div class="math notranslate nohighlight" id="equation-deep-learn-neuralnetwork-0">
-<span class="eqno">()<a class="headerlink" href="#equation-deep-learn-neuralnetwork-0" title="公式的永久链接">¶</a></span>\[\begin{split}f(z)=\begin{cases} 1\quad \quad z&gt;0 \\ 0\quad \quad otherwise \end{cases}\end{split}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-deep-learn-neuralnetwork-0" title="公式的永久链接"></a></span>\[\begin{split}f(z)=\begin{cases} 1\quad \quad z&gt;0 \\ 0\quad \quad otherwise \end{cases}\end{split}\]</div>
 <ul class="simple">
 <li><p><strong>输出</strong> 感知器的输出由下面的公式来计算</p></li>
 </ul>
 <div class="math notranslate nohighlight" id="equation-deep-learn-neuralnetwork-1">
-<span class="eqno">()<a class="headerlink" href="#equation-deep-learn-neuralnetwork-1" title="公式的永久链接">¶</a></span>\[y=f(w\cdot x+b)\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-deep-learn-neuralnetwork-1" title="公式的永久链接"></a></span>\[y=f(w\cdot x+b)\]</div>
 <div class="admonition note">
 <p class="admonition-title">注解</p>
 <p>感知器可以实现and函数，和or函数，却不能实现异或</p>
 </div>
 <img alt="http://upload-images.jianshu.io/upload_images/2256672-acff576747ef4259.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/360" src="http://upload-images.jianshu.io/upload_images/2256672-acff576747ef4259.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/360" />
 <img alt="http://upload-images.jianshu.io/upload_images/2256672-9b651d237936781c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/360" src="http://upload-images.jianshu.io/upload_images/2256672-9b651d237936781c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/360" />
-</div>
-<div class="section" id="id4">
-<h3>感知器的训练<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
-</div>
-<div class="section" id="id5">
-<h3>编程实现感知器<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
-</div>
-</div>
-<div class="section" id="id6">
-<h2>神经元<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="id4">
+<h3>感知器的训练<a class="headerlink" href="#id4" title="永久链接至标题"></a></h3>
+</section>
+<section id="id5">
+<h3>编程实现感知器<a class="headerlink" href="#id5" title="永久链接至标题"></a></h3>
+</section>
+</section>
+<section id="id6">
+<h2>神经元<a class="headerlink" href="#id6" title="永久链接至标题"></a></h2>
 <p>神经元和感知器本质上是一样的，只不过通常情况下感知器的激活函数是 <strong>阶跃函数</strong>；而神经元的激活函数往往是sigmoid函数或tanh函数。如下图所示：</p>
 <img alt="http://upload-images.jianshu.io/upload_images/2256672-49f06e2e9d3eb29f.gif" src="http://upload-images.jianshu.io/upload_images/2256672-49f06e2e9d3eb29f.gif" />
 <p>计算一个神经元的输出的方法和计算一个感知器的输出是一样的。假设神经元的输入是向量 <span class="math notranslate nohighlight">\(\overrightarrow { x }\)</span> ，权重向量是 <span class="math notranslate nohighlight">\(\overrightarrow { w }\)</span> (偏置项是 <span class="math notranslate nohighlight">\({ w }_{ 0 }\)</span>)，激活函数是sigmoid函数，则其输出 <span class="math notranslate nohighlight">\(y\)</span>：</p>
 <div class="math notranslate nohighlight" id="equation-deep-learn-neuralnetwork-2">
-<span class="eqno">()<a class="headerlink" href="#equation-deep-learn-neuralnetwork-2" title="公式的永久链接">¶</a></span>\[y=sigmoid({ \overrightarrow { w }  }^{ T }\overrightarrow { x } )\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-deep-learn-neuralnetwork-2" title="公式的永久链接"></a></span>\[y=sigmoid({ \overrightarrow { w }  }^{ T }\overrightarrow { x } )\]</div>
 <p>sigmoid函数的定义如下：</p>
 <div class="math notranslate nohighlight" id="equation-deep-learn-neuralnetwork-3">
-<span class="eqno">()<a class="headerlink" href="#equation-deep-learn-neuralnetwork-3" title="公式的永久链接">¶</a></span>\[sigmoid(x)=\frac { 1 }{ 1+{ e }^{ -x } }\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-deep-learn-neuralnetwork-3" title="公式的永久链接"></a></span>\[sigmoid(x)=\frac { 1 }{ 1+{ e }^{ -x } }\]</div>
 <p>sigmoid函数是一个非线性函数，值域是(0,1)。函数图像如下图所示</p>
 <img alt="http://upload-images.jianshu.io/upload_images/2256672-e7e64f57dc6b1c64.jpg" src="http://upload-images.jianshu.io/upload_images/2256672-e7e64f57dc6b1c64.jpg" />
 <dl class="simple">
@@ -1034,8 +945,8 @@
 </dd>
 </dl>
 <p>可以看到，sigmoid函数的导数非常有趣，它可以用sigmoid函数自身来表示。这样，一旦计算出sigmoid函数的值，计算它的导数的值就非常方便。</p>
-<div class="section" id="id7">
-<h3>神经网络的定义<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h3>
+<section id="id7">
+<h3>神经网络的定义<a class="headerlink" href="#id7" title="永久链接至标题"></a></h3>
 <img alt="http://upload-images.jianshu.io/upload_images/2256672-92111b104ce0d571.jpeg" src="http://upload-images.jianshu.io/upload_images/2256672-92111b104ce0d571.jpeg" />
 <p>神经网络其实就是按照一定规则连接起来的多个神经元。上图展示了一个全连接(full connected, FC)神经网络，通过观察上面的图，我们可以发现它的规则包括：</p>
 <ul class="simple">
@@ -1049,19 +960,19 @@
 <li><p>每个连接都有一个权值。</p></li>
 </ul>
 <p>上面这些规则定义了全连接神经网络的结构。事实上还存在很多其它结构的神经网络，比如卷积神经网络(CNN)、循环神经网络(RNN)，他们都具有不同的连接规则。</p>
-</div>
-<div class="section" id="id8">
-<h3>计算神经网络的输出<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id8">
+<h3>计算神经网络的输出<a class="headerlink" href="#id8" title="永久链接至标题"></a></h3>
 <p><strong>前传</strong></p>
-</div>
-<div class="section" id="id9">
-<h3>神经网络的训练<a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id9">
+<h3>神经网络的训练<a class="headerlink" href="#id9" title="永久链接至标题"></a></h3>
 <p>现在，我们需要知道一个神经网络的每个连接上的权值是如何得到的。我们可以说神经网络是一个模型，那么这些权值就是模型的参数，也就是模型要学习的东西。
 然而，一个神经网络的连接方式、网络的层数、每层的节点数这些参数，则不是学习出来的，而是人为事先设置的。对于这些人为设置的参数，我们称之为超参数(Hyper-Parameters)。</p>
 <p>接下来，我们将要介绍神经网络的训练算法：反向传播算法。</p>
-</div>
-<div class="section" id="back-propagation">
-<h3>反向传播算法(Back Propagation)<a class="headerlink" href="#back-propagation" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="back-propagation">
+<h3>反向传播算法(Back Propagation)<a class="headerlink" href="#back-propagation" title="永久链接至标题"></a></h3>
 <p>假设神经元的激活函数f为函数sigmoid函数</p>
 <p>设每个训练样本为 <span class="math notranslate nohighlight">\((\overrightarrow { x } ,\overrightarrow { t } )\)</span>，其中向量 <span class="math notranslate nohighlight">\(\overrightarrow { x }\)</span> 是训练样本的特征，
 而 <span class="math notranslate nohighlight">\(\overrightarrow { t }\)</span> 是样本的目标值。</p>
@@ -1072,43 +983,43 @@
 <li><p>对于输出层节点i，</p></li>
 </ul>
 <div class="math notranslate nohighlight" id="equation-deep-learn-neuralnetwork-4">
-<span class="eqno">()<a class="headerlink" href="#equation-deep-learn-neuralnetwork-4" title="公式的永久链接">¶</a></span>\[{ \delta  }_{ i }={ y }_{ i }(1-{ y }_{ i })({ t }_{ i }-{ y }_{ i })\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-deep-learn-neuralnetwork-4" title="公式的永久链接"></a></span>\[{ \delta  }_{ i }={ y }_{ i }(1-{ y }_{ i })({ t }_{ i }-{ y }_{ i })\]</div>
 <p>其中， <span class="math notranslate nohighlight">\({ \delta  }_{ i }\)</span> 是节点的误差项， <span class="math notranslate nohighlight">\({ y }_{ i }\)</span> 是节点的输出值， <span class="math notranslate nohighlight">\({ t }_{ i }\)</span> 是样本对应于节点 <span class="math notranslate nohighlight">\(i\)</span> 的目标值。
 举个例子，根据上图，对于输出层节点8来说，它的输出值是 <span class="math notranslate nohighlight">\({ y }_{ 1 }\)</span>，而样本的目标值是 <span class="math notranslate nohighlight">\({ t }_{ i }\)</span>，带入上面的公式得到
 节点8的误差项 <span class="math notranslate nohighlight">\({ \delta  }_{ 8 }\)</span> 应该是</p>
 <div class="math notranslate nohighlight" id="equation-deep-learn-neuralnetwork-5">
-<span class="eqno">()<a class="headerlink" href="#equation-deep-learn-neuralnetwork-5" title="公式的永久链接">¶</a></span>\[{ \delta  }_{ 8 }={ y }_{ 1 }(1-{ y }_{ 1 })({ t }_{ 1 }-{ y }_{ 1 })\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-deep-learn-neuralnetwork-5" title="公式的永久链接"></a></span>\[{ \delta  }_{ 8 }={ y }_{ 1 }(1-{ y }_{ 1 })({ t }_{ 1 }-{ y }_{ 1 })\]</div>
 <ul class="simple">
 <li><p>对于隐藏层节点，</p></li>
 </ul>
 <div class="math notranslate nohighlight" id="equation-deep-learn-neuralnetwork-6">
-<span class="eqno">()<a class="headerlink" href="#equation-deep-learn-neuralnetwork-6" title="公式的永久链接">¶</a></span>\[{ \delta  }_{ i }={ a }_{ i }(1-{ a }_{ i })\sum _{ k\in outputs }^{  }{ { w }_{ ki }{ \delta  }_{ k } }\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-deep-learn-neuralnetwork-6" title="公式的永久链接"></a></span>\[{ \delta  }_{ i }={ a }_{ i }(1-{ a }_{ i })\sum _{ k\in outputs }^{  }{ { w }_{ ki }{ \delta  }_{ k } }\]</div>
 <p>其中， <span class="math notranslate nohighlight">\({ a }_{ i }\)</span> 是节点 <span class="math notranslate nohighlight">\(i\)</span> 的输出值， <span class="math notranslate nohighlight">\({ w }_{ ki }\)</span> 是节点到它的下一层节点 <span class="math notranslate nohighlight">\(k\)</span> 的连接的
 权重， <span class="math notranslate nohighlight">\({ \delta  }_{ k }\)</span> 是节点的下一层节点的误差项。例如，对于隐藏层节点4来说，计算方法如下：</p>
 <div class="math notranslate nohighlight" id="equation-deep-learn-neuralnetwork-7">
-<span class="eqno">()<a class="headerlink" href="#equation-deep-learn-neuralnetwork-7" title="公式的永久链接">¶</a></span>\[{ \delta  }_{ 4 }={ a }_{ 4 }(1-{ a }_{ 4 })({ w }_{ 84 }{ \delta  }_{ 8 }+{ w }_{ 94 }{ \delta  }_{ 9 })\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-deep-learn-neuralnetwork-7" title="公式的永久链接"></a></span>\[{ \delta  }_{ 4 }={ a }_{ 4 }(1-{ a }_{ 4 })({ w }_{ 84 }{ \delta  }_{ 8 }+{ w }_{ 94 }{ \delta  }_{ 9 })\]</div>
 <p>最后，更新每个连接上的权值：</p>
 <div class="math notranslate nohighlight" id="equation-deep-learn-neuralnetwork-8">
-<span class="eqno">()<a class="headerlink" href="#equation-deep-learn-neuralnetwork-8" title="公式的永久链接">¶</a></span>\[{ w }_{ ij }\leftarrow { w }_{ ij }+\eta { \delta  }_{ j }{ x }_{ ij }\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-deep-learn-neuralnetwork-8" title="公式的永久链接"></a></span>\[{ w }_{ ij }\leftarrow { w }_{ ij }+\eta { \delta  }_{ j }{ x }_{ ij }\]</div>
 <p>其中， <span class="math notranslate nohighlight">\({ w }_{ ij }\)</span> 是节点到节点 <span class="math notranslate nohighlight">\(i\)</span> 的权重， <span class="math notranslate nohighlight">\(\eta\)</span> 是一个成为学习速率的常数， <span class="math notranslate nohighlight">\({ \delta  }_{ j }\)</span> 是节点的误差项，
 <span class="math notranslate nohighlight">\({ x }_{ ij }\)</span> 是节点传递给节点的输入。例如，权重 <span class="math notranslate nohighlight">\({ w }_{ 84 }\)</span> 的更新方法如下：</p>
 <div class="math notranslate nohighlight" id="equation-deep-learn-neuralnetwork-9">
-<span class="eqno">()<a class="headerlink" href="#equation-deep-learn-neuralnetwork-9" title="公式的永久链接">¶</a></span>\[{ w }_{ 84 }\leftarrow { w }_{ 84 }+\eta { \delta  }_{ 8 }{ a }_{ 4 }\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-deep-learn-neuralnetwork-9" title="公式的永久链接"></a></span>\[{ w }_{ 84 }\leftarrow { w }_{ 84 }+\eta { \delta  }_{ 8 }{ a }_{ 4 }\]</div>
 <p>偏置项的输入值永远为1。例如，节点4的偏置项 <span class="math notranslate nohighlight">\({ w }_{ 4b }\)</span> 应该按照下面的方法计算：</p>
 <div class="math notranslate nohighlight" id="equation-deep-learn-neuralnetwork-10">
-<span class="eqno">()<a class="headerlink" href="#equation-deep-learn-neuralnetwork-10" title="公式的永久链接">¶</a></span>\[{ w }_{ 4b }\leftarrow { w }_{ 4b }+\eta { \delta  }_{ 4 }\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-deep-learn-neuralnetwork-10" title="公式的永久链接"></a></span>\[{ w }_{ 4b }\leftarrow { w }_{ 4b }+\eta { \delta  }_{ 4 }\]</div>
 <p>我们已经介绍了神经网络每个节点误差项的计算和权重更新方法。显然，计算一个节点的误差项，需要先计算每个与其相连的下一层节点的误差项。这就要求误差项的
 计算顺序必须是从输出层开始，然后反向依次计算每个隐藏层的误差项，直到与输入层相连的那个隐藏层。这就是反向传播算法的名字的含义。当所有节点的误差项
 计算完毕后，我们就可以来更新权重。</p>
-</div>
-<div class="section" id="id10">
-<h3>神经网络的实现<a class="headerlink" href="#id10" title="永久链接至标题">¶</a></h3>
-</div>
-</div>
-<div class="section" id="id11">
-<h2>卷积神经网络<a class="headerlink" href="#id11" title="永久链接至标题">¶</a></h2>
-<div class="section" id="id12">
-<h3>视觉感知<a class="headerlink" href="#id12" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id10">
+<h3>神经网络的实现<a class="headerlink" href="#id10" title="永久链接至标题"></a></h3>
+</section>
+</section>
+<section id="id11">
+<h2>卷积神经网络<a class="headerlink" href="#id11" title="永久链接至标题"></a></h2>
+<section id="id12">
+<h3>视觉感知<a class="headerlink" href="#id12" title="永久链接至标题"></a></h3>
 <p>一、画面识别的任务是什么？</p>
 <blockquote>
 <div><p>学习知识的第一步就是明确任务，清楚该知识的输入输出。卷积神经网络最初是服务于画面识别的，所以我们先来看看画面识别的实质是什么。</p>
@@ -1142,30 +1053,30 @@
 <p class="admonition-title">注解</p>
 <p><strong>图片被识别成什么不仅仅取决于图片本身，还取决于图片是如何被观察的。</strong></p>
 </div>
-</div>
-<div class="section" id="id13">
-<h3>图像表达<a class="headerlink" href="#id13" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id13">
+<h3>图像表达<a class="headerlink" href="#id13" title="永久链接至标题"></a></h3>
 <p>在自然界中，通过物体反光看到物体，那么在计算机中，图像又是如何被表达和存储的呢？</p>
-<div class="figure align-default">
+<figure class="align-default">
 <img alt="https://pic2.zhimg.com/v2-d2859e5c486ed704492ab80079e99535_b.gif" src="https://pic2.zhimg.com/v2-d2859e5c486ed704492ab80079e99535_b.gif" />
-</div>
+</figure>
 <p>图像在计算机中是一堆按顺序排列的数字，数值为0到255。0表示最暗，255表示 <strong>最亮</strong>。</p>
 <p>上图是只有黑白颜色的灰度图，而更普遍的图片表达方式是RGB颜色模型，即红（Red）、绿（Green）、蓝（Blue）三原色的色光以不同的比例相加，以产生多种多样的色光。</p>
 <p>这样，RGB颜色模型中，单个矩阵就扩展成了有序排列的三个矩阵，也可以用三维张量去理解，其中的每一个矩阵又叫这个图片的一个channel。</p>
 <p>在电脑中，一张图片是数字构成的“长方体”。可用 宽width, 高height, 深depth 来描述，如图。</p>
 <img alt="https://pic1.zhimg.com/80/v2-0d24890b2e0d73f4ce4ad17ebfb2d0c4_hd.png" src="https://pic1.zhimg.com/80/v2-0d24890b2e0d73f4ce4ad17ebfb2d0c4_hd.png" />
 <p>那么如何处理这样的数字长方体。</p>
-</div>
-<div class="section" id="id14">
-<h3>画面不变性<a class="headerlink" href="#id14" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id14">
+<h3>画面不变性<a class="headerlink" href="#id14" title="永久链接至标题"></a></h3>
 <p>在决定如何处理“数字长方体”之前，需要清楚所建立的网络拥有什么样的特点。 我们知道一个物体不管在画面左侧还是右侧，都会被识别为同一物体，这一特点就是
 <strong>不变性（invariance）</strong>，如下图所示。</p>
 <img alt="https://pic3.zhimg.com/80/v2-b9aed3dd68b9818561faa7d8ed24ea5a_hd.png" src="https://pic3.zhimg.com/80/v2-b9aed3dd68b9818561faa7d8ed24ea5a_hd.png" />
 <p>我们希望所建立的网络可以尽可能的满足这些不变性特点。</p>
 <p>为了理解卷积神经网络对这些不变性特点的贡献，我们将用不具备这些不变性特点的前馈神经网络来进行比较。</p>
-</div>
-<div class="section" id="id15">
-<h3>图片识别–前馈神经网络<a class="headerlink" href="#id15" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id15">
+<h3>图片识别–前馈神经网络<a class="headerlink" href="#id15" title="永久链接至标题"></a></h3>
 <p>方便起见，我们用depth只有1的灰度图来举例。 想要完成的任务是：在宽长为4x4的图片中识别是否有下图所示的“横折”。 图中，黄色圆点表示值为0的像素，
 深色圆点表示值为1的像素。 我们知道不管这个横折在图片中的什么位置，都会被认为是相同的横折。</p>
 <img alt="https://pic2.zhimg.com/80/v2-18c11c6f485e9f1bbc9a50eb3d248439_hd.png" src="https://pic2.zhimg.com/80/v2-18c11c6f485e9f1bbc9a50eb3d248439_hd.png" />
@@ -1178,52 +1089,52 @@
 <p>解决办法是用大量物体位于不同位置的数据训练，同时增加网络的隐藏层个数从而扩大网络学习这些变体的能力。</p>
 <p>然而这样做十分不效率，因为我们知道在左侧的“横折”也好，还是在右侧的“横折”也罢，大家都是“横折”。 为什么相同的东西在位置变了之后要重新学习？
 有没有什么方法可以将中间所学到的规律也运用在其他的位置？ 换句话说， <strong>也就是让不同位置用相同的权重</strong>。</p>
-</div>
-<div class="section" id="id16">
-<h3>图片识别–卷积神经网络<a class="headerlink" href="#id16" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id16">
+<h3>图片识别–卷积神经网络<a class="headerlink" href="#id16" title="永久链接至标题"></a></h3>
 <p>卷积神经网络就是让权重在不同位置共享的神经网络。</p>
-</div>
-<div class="section" id="id17">
-<h3>局部连接<a class="headerlink" href="#id17" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id17">
+<h3>局部连接<a class="headerlink" href="#id17" title="永久链接至标题"></a></h3>
 <p>在卷积神经网络中，我们先选择一个局部区域，用这个局部区域去扫描整张图片。 局部区域所圈起来的所有节点会被连接到下一层的一个节点上。</p>
 <p>为了更好的和前馈神经网络做比较，我将这些以矩阵排列的节点展成了向量。 下图展示了被红色方框所圈中编号为0,1,4,5的节点是如何通过
 <span class="math notranslate nohighlight">\({w}_{1},{w}_{2},{w}_{3},{w}_{4}\)</span> 连接到下一层的节点0上的。</p>
 <img alt="https://pic1.zhimg.com/80/v2-e877b9099b1139c1a34b0bf66bf92aa4_hd.png" src="https://pic1.zhimg.com/80/v2-e877b9099b1139c1a34b0bf66bf92aa4_hd.png" />
 <p>这个带有连接强弱的红色方框就叫做 filter 或 kernel 或 feature detector。 而filter的范围叫做filter size，这里所展示的是2x2的filter size。</p>
 <div class="math notranslate nohighlight" id="equation-deep-learn-neuralnetwork-11">
-<span class="eqno">()<a class="headerlink" href="#equation-deep-learn-neuralnetwork-11" title="公式的永久链接">¶</a></span>\[\begin{split}\begin{bmatrix} { w }_{ 1 } &amp; { w }_{ 2 } \\ { w }_{ 3 } &amp; { w }_{ 4 } \end{bmatrix}\end{split}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-deep-learn-neuralnetwork-11" title="公式的永久链接"></a></span>\[\begin{split}\begin{bmatrix} { w }_{ 1 } &amp; { w }_{ 2 } \\ { w }_{ 3 } &amp; { w }_{ 4 } \end{bmatrix}\end{split}\]</div>
 <p>第二层的节点0的数值就是局部区域的线性组合，即被圈中节点的数值乘以对应的权重后相加。 用x表示输入值，y表示输出值，用图中标注数字表示角标，则下面列
 出了两种计算编号为0的输出值 <span class="math notranslate nohighlight">\({y}_{0}\)</span> 的表达式。</p>
 <p><strong>注：</strong> 在局部区域的线性组合后，也会和前馈神经网络一样，加上一个偏移量 <span class="math notranslate nohighlight">\({b}_{0}\)</span> 。</p>
 <img alt="deep_learn/image/加权求和.png" src="deep_learn/image/加权求和.png" />
-</div>
-<div class="section" id="id18">
-<h3>空间共享<a class="headerlink" href="#id18" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id18">
+<h3>空间共享<a class="headerlink" href="#id18" title="永久链接至标题"></a></h3>
 <p>当filter扫到其他位置计算输出节点 <span class="math notranslate nohighlight">\({y}_{i}\)</span>  时， <span class="math notranslate nohighlight">\({w}_{1},{w}_{2},{w}_{3},{w}_{4}\)</span> ，包括 <span class="math notranslate nohighlight">\({b}_{0}\)</span> 是共用的。</p>
 <p>下面这张动态图展示了当filter扫过不同区域时，节点的链接方式。 动态图的最后一帧则显示了所有连接。 可以注意到，每个输出节点并非像前馈神经网络中那样
 与全部的输入节点连接，而是部分连接。 这也就是为什么大家也叫前馈神经网络（feedforward neural network）为fully-connected neural network。
 图中显示的是一步一步的移动filter来扫描全图，一次移动多少叫做stride。</p>
-<div class="figure align-default">
+<figure class="align-default">
 <img alt="https://pic1.zhimg.com/v2-4fd0400ccebc8adb2dffe24aac163e70_b.gif" src="https://pic1.zhimg.com/v2-4fd0400ccebc8adb2dffe24aac163e70_b.gif" />
-</div>
+</figure>
 <div class="admonition note">
 <p class="admonition-title">注解</p>
 <p><strong>空间共享也就是卷积神经网络所引入的先验知识</strong>。</p>
 </div>
-</div>
-<div class="section" id="id19">
-<h3>卷积输出表达<a class="headerlink" href="#id19" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id19">
+<h3>卷积输出表达<a class="headerlink" href="#id19" title="永久链接至标题"></a></h3>
 <p>如先前在图像表达中提到的，图片不用向量去表示是为了保留图片平面结构的信息。 同样的，卷积后的输出若用上图的排列方式则丢失了平面结构信息。 所以我们
 依然用矩阵的方式排列它们，就得到了下图所展示的连接。</p>
 <img alt="https://pic2.zhimg.com/80/v2-e1691956fd1beb5d7a637924a1a73d91_hd.png" src="https://pic2.zhimg.com/80/v2-e1691956fd1beb5d7a637924a1a73d91_hd.png" />
 <p>下面这张图。在看这张图的时候请结合上图的连接一起理解，即输入（绿色）的每九个节点连接到输出（粉红色）的一个节点上的。</p>
-<div class="figure align-default">
+<figure class="align-default">
 <img alt="https://pic3.zhimg.com/v2-7fce29335f9b43bce1b373daa40cccba_b.gif" src="https://pic3.zhimg.com/v2-7fce29335f9b43bce1b373daa40cccba_b.gif" />
-</div>
+</figure>
 <p>经过一个feature detector计算后得到的粉红色区域也叫做一个“Feature Map”。</p>
-</div>
-<div class="section" id="depth">
-<h3>Depth维的处理<a class="headerlink" href="#depth" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="depth">
+<h3>Depth维的处理<a class="headerlink" href="#depth" title="永久链接至标题"></a></h3>
 <p>现在我们已经知道了depth维度只有1的灰度图是如何处理的。 但前文提过，图片的普遍表达方式是下图这样有3个channels的RGB颜色模型。 当depth为复数的
 时候，每个feature detector是如何卷积的？</p>
 <img alt="https://pic1.zhimg.com/80/v2-0d24890b2e0d73f4ce4ad17ebfb2d0c4_hd.png" src="https://pic1.zhimg.com/80/v2-0d24890b2e0d73f4ce4ad17ebfb2d0c4_hd.png" />
@@ -1237,20 +1148,20 @@
 </ul>
 <p><strong>注意</strong>：三个channels的权重并不共享。 即当深度变为3后，权重也跟着扩增到了三组，不同channels用的是自己的权重。</p>
 <div class="math notranslate nohighlight" id="equation-deep-learn-neuralnetwork-12">
-<span class="eqno">()<a class="headerlink" href="#equation-deep-learn-neuralnetwork-12" title="公式的永久链接">¶</a></span>\[\begin{split}\begin{bmatrix} { w }_{ 1 } &amp; { w }_{ 2 } \\ { w }_{ 3 } &amp; { w }_{ 4 } \end{bmatrix},\begin{bmatrix} { w }_{ 1 } &amp; { w }_{ 2 } \\ { w }_{ 3 } &amp; { w }_{ 4 } \end{bmatrix},\begin{bmatrix} { w }_{ 1 } &amp; { w }_{ 2 } \\ { w }_{ 3 } &amp; { w }_{ 4 } \end{bmatrix}\end{split}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-deep-learn-neuralnetwork-12" title="公式的永久链接"></a></span>\[\begin{split}\begin{bmatrix} { w }_{ 1 } &amp; { w }_{ 2 } \\ { w }_{ 3 } &amp; { w }_{ 4 } \end{bmatrix},\begin{bmatrix} { w }_{ 1 } &amp; { w }_{ 2 } \\ { w }_{ 3 } &amp; { w }_{ 4 } \end{bmatrix},\begin{bmatrix} { w }_{ 1 } &amp; { w }_{ 2 } \\ { w }_{ 3 } &amp; { w }_{ 4 } \end{bmatrix}\end{split}\]</div>
 <p>当filter扫到其他位置计算输出节点 <span class="math notranslate nohighlight">\({y}_{i}\)</span> 时，那12个权重在不同位置是共用的，如下面的动态图所展示。 透明黑框圈中的12个节点会连接到被白色边框选中的黄色节点上。</p>
-<div class="figure align-default">
+<figure class="align-default">
 <img alt="https://pic3.zhimg.com/v2-0bc83b72ef50099b70a10cc3ab528f62_b.gif" src="https://pic3.zhimg.com/v2-0bc83b72ef50099b70a10cc3ab528f62_b.gif" />
-</div>
+</figure>
 <p>每个filter会在width维, height维上，以局部连接和空间共享，并贯串整个depth维的方式得到一个Feature Map。</p>
-</div>
-<div class="section" id="zero-padding">
-<h3>Zero padding<a class="headerlink" href="#zero-padding" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="zero-padding">
+<h3>Zero padding<a class="headerlink" href="#zero-padding" title="永久链接至标题"></a></h3>
 <p>有个问题，4x4的图片被2x2的filter卷积后变成了3x3的图片，每次卷积后都会小一圈的话，经过若干层后岂不是变的越来越小？ Zero padding就可以在这时
 帮助控制Feature Map的输出尺寸，同时避免了边缘信息被一步步舍弃的问题。</p>
-</div>
-<div class="section" id="id20">
-<h3>形状、概念抓取<a class="headerlink" href="#id20" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id20">
+<h3>形状、概念抓取<a class="headerlink" href="#id20" title="永久链接至标题"></a></h3>
 <p>知道了每个filter在做什么之后，我们再来思考这样的一个filter会抓取到什么样的信息。</p>
 <p>我们知道不同的形状都可由细小的“零件”组合而成的。比如下图中，用2x2的范围所形成的16种形状可以组合成格式各样的“更大”形状。</p>
 <p>卷积的每个filter可以探测特定的形状。又由于Feature Map保持了抓取后的空间结构。若将探测到细小图形的Feature Map作为新的输入再次卷积后，则可以
@@ -1263,9 +1174,9 @@
 <p>下图展现了在人脸识别中经过层层的卷积后，所能够探测的形状、概念也变得越来越抽象和复杂。</p>
 <img alt="https://pic2.zhimg.com/80/v2-c78b8d059715bb5f42c93716a98d5a69_hd.jpg" src="https://pic2.zhimg.com/80/v2-c78b8d059715bb5f42c93716a98d5a69_hd.jpg" />
 <p><strong>卷积神经网络会尽可能寻找最能解释训练数据的抓取方式。</strong></p>
-</div>
-<div class="section" id="filters">
-<h3>多filters<a class="headerlink" href="#filters" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="filters">
+<h3>多filters<a class="headerlink" href="#filters" title="永久链接至标题"></a></h3>
 <p>每个filter可以抓取探测特定的形状的存在。 假如我们要探测下图的长方框形状时，可以用4个filters去探测4个基础“零件”。</p>
 <img alt="https://pic1.zhimg.com/80/v2-6df64fccc9a8e2f696626f85233acb3c_hd.png" src="https://pic1.zhimg.com/80/v2-6df64fccc9a8e2f696626f85233acb3c_hd.png" />
 <img alt="https://pic4.zhimg.com/80/v2-65461a21a909eca2e190c54db59a2c8f_hd.png" src="https://pic4.zhimg.com/80/v2-65461a21a909eca2e190c54db59a2c8f_hd.png" />
@@ -1274,32 +1185,32 @@
 <p><strong>卷积层的输入是长方体，输出也是长方体。</strong></p>
 <p>这样卷积后输出的长方体可以作为新的输入送入另一个卷积层中处理。</p>
 <img alt="https://pic1.zhimg.com/80/v2-a9983c3cee935b68c73965bc1abe268c_hd.png" src="https://pic1.zhimg.com/80/v2-a9983c3cee935b68c73965bc1abe268c_hd.png" />
-</div>
-<div class="section" id="id21">
-<h3>加入非线性<a class="headerlink" href="#id21" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id21">
+<h3>加入非线性<a class="headerlink" href="#id21" title="永久链接至标题"></a></h3>
 <p>和前馈神经网络一样，经过线性组合和偏移后，会加入非线性增强模型的拟合能力。</p>
 <p>卷积神经网络中，激活函数往往不选择sigmoid或tanh函数，而是选择relu函数。Relu函数的定义是：</p>
 <p>f(x)=max(0,x)</p>
 <p>Relu函数图像如下图所示：</p>
-<div class="figure align-default">
+<figure class="align-default">
 <img alt="http://upload-images.jianshu.io/upload_images/2256672-0ac9923bebd3c9dd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/640" src="http://upload-images.jianshu.io/upload_images/2256672-0ac9923bebd3c9dd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/640" />
-</div>
+</figure>
 <p>相较于sigmoid，优势如下：</p>
 <ul class="simple">
 <li><p><strong>速度快</strong>  和sigmoid函数需要计算指数和倒数相比，relu函数其实就是一个max(0,x)，计算代价小很多。</p></li>
-<li><p><strong>减轻梯度消失问题</strong> 回忆下计算梯度的公式 <span class="math notranslate nohighlight">\(\nabla =\sigma \prime \delta x\)</span>。其中 <span class="math notranslate nohighlight">\(\sigma \prime\)</span> 是sigmoid函数的导数。在使用反向传播算法</p></li>
-</ul>
-<p>进行梯度计算时，每经过一层sigmoid神经元，梯度就要乘上一个 <span class="math notranslate nohighlight">\(\sigma \prime\)</span>，从下图可以看出，<span class="math notranslate nohighlight">\(\sigma \prime\)</span> 函数最大值是1/4。因此，乘一个 <span class="math notranslate nohighlight">\(\sigma \prime\)</span>
+<li><p><strong>减轻梯度消失问题</strong> 回忆下计算梯度的公式 <span class="math notranslate nohighlight">\(\nabla =\sigma \prime \delta x\)</span>。其中 <span class="math notranslate nohighlight">\(\sigma \prime\)</span> 是sigmoid函数的导数。在使用反向传播算法
+进行梯度计算时，每经过一层sigmoid神经元，梯度就要乘上一个 <span class="math notranslate nohighlight">\(\sigma \prime\)</span>，从下图可以看出，<span class="math notranslate nohighlight">\(\sigma \prime\)</span> 函数最大值是1/4。因此，乘一个 <span class="math notranslate nohighlight">\(\sigma \prime\)</span>
 会导致梯度越来越小，这对于深层网络的训练是个很大的问题。而relu函数的导数是1，不会导致梯度变小。当然，激活函数仅仅是导致梯度减小的一个因素，但无论如何在这方面relu的表现强于sigmoid。
-使用relu激活函数可以让你训练更深的网络。</p>
+使用relu激活函数可以让你训练更深的网络。</p></li>
+</ul>
 <img alt="http://upload-images.jianshu.io/upload_images/2256672-ad98d6b22f1a66ab.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/360" src="http://upload-images.jianshu.io/upload_images/2256672-ad98d6b22f1a66ab.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/360" />
 <ul class="simple">
-<li><p><strong>稀疏性</strong> 采用sigmoid激活函数的人工神经网络，其激活率大约是50%。有论文声称人工神经网络在15%-30%的激活率时是比较理想的。</p></li>
+<li><p><strong>稀疏性</strong> 采用sigmoid激活函数的人工神经网络，其激活率大约是50%。有论文声称人工神经网络在15%-30%的激活率时是比较理想的。
+因为relu函数在输入小于0时是完全不激活的，因此可以获得一个更低的激活率。</p></li>
 </ul>
-<p>因为relu函数在输入小于0时是完全不激活的，因此可以获得一个更低的激活率。</p>
-</div>
-<div class="section" id="max-pooling">
-<h3>Max pooling<a class="headerlink" href="#max-pooling" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="max-pooling">
+<h3>Max pooling<a class="headerlink" href="#max-pooling" title="永久链接至标题"></a></h3>
 <p>在卷积后还会有一个pooling的操作，尽管有其他的比如average pooling等，最最常用的是max pooling。</p>
 <p>max pooling的操作如下图所示：整个图片被不重叠的分割成若干个同样大小的小块（pooling size）。每个小块内只取最大的数字，再舍弃其他节点后，
 保持原有的平面结构得出output。</p>
@@ -1318,16 +1229,16 @@
 </div>
 <img alt="https://pic1.zhimg.com/80/v2-8e9d7ec0662e903e475bd93a64067554_hd.png" src="https://pic1.zhimg.com/80/v2-8e9d7ec0662e903e475bd93a64067554_hd.png" />
 <p>但是Max pooling也有不好的地方。有些周边信息对某个概念是否存在的判定也有影响。</p>
-</div>
-<div class="section" id="id22">
-<h3>全连接层<a class="headerlink" href="#id22" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id22">
+<h3>全连接层<a class="headerlink" href="#id22" title="永久链接至标题"></a></h3>
 <p>当抓取到足以用来识别图片的特征后，接下来的任务就是如何进行分类。全连接层就可以用来将最后的输出映射到线性可分的空间。所以通常卷积网络的最后会将末端得到的长方体平摊（flatten）成一个长长的向量，并送入全连接层配合输出层进行分类。</p>
 <p>卷积神经网络大致就是convolutional layer, pooling layer, Relu layer, fully-connected layer的组合，如下图所示</p>
 <img alt="https://pic4.zhimg.com/80/v2-cf87890eb8f2358f23a1ac78eb764257_hd.png" src="https://pic4.zhimg.com/80/v2-cf87890eb8f2358f23a1ac78eb764257_hd.png" />
 <p>模型将特征抓取层和分类层合在了一起。 负责特征抓取的卷积层主要是用来学习“如何观察”。</p>
-</div>
-<div class="section" id="id23">
-<h3>卷积层的训练<a class="headerlink" href="#id23" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id23">
+<h3>卷积层的训练<a class="headerlink" href="#id23" title="永久链接至标题"></a></h3>
 <p>和全连接神经网络相比，卷积神经网络的训练要复杂一些。但训练的原理是一样的：利用链式求导计算损失函数对每个权重的偏导数（梯度），然后根据梯度下降
 公式更新权重。训练算法依然是反向传播算法。</p>
 <p>回顾下反向传播算法，分为三个步骤：</p>
@@ -1357,82 +1268,90 @@
 用 <span class="math notranslate nohighlight">\({ \delta  }_{ i,j }^{ l }\)</span> 表示第l层第j行第第i列的误差项；
 用 <span class="math notranslate nohighlight">\({ f }^{ l-1 }\)</span>  表示第 <span class="math notranslate nohighlight">\(l-1\)</span> 层的激活函数。它们之间的关系如下：</p>
 <div class="math notranslate nohighlight" id="equation-deep-learn-neuralnetwork-13">
-<span class="eqno">()<a class="headerlink" href="#equation-deep-learn-neuralnetwork-13" title="公式的永久链接">¶</a></span>\[\begin{split}\begin{matrix} net^{ l }=conv(W^{ l },a^{ l-1 })+w_{ b } \\ a^{ l-1 }_{ i,j }=f^{ l-1 }(net^{ l-1 }_{ i,j }) \end{matrix}\end{split}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-deep-learn-neuralnetwork-13" title="公式的永久链接"></a></span>\[\begin{split}\begin{matrix} net^{ l }=conv(W^{ l },a^{ l-1 })+w_{ b } \\ a^{ l-1 }_{ i,j }=f^{ l-1 }(net^{ l-1 }_{ i,j }) \end{matrix}\end{split}\]</div>
 <p><span class="math notranslate nohighlight">\({net}^{l}\)</span> 、 <span class="math notranslate nohighlight">\({W}^{l}\)</span> 、 <span class="math notranslate nohighlight">\({a}^{l-1}\)</span> 都是数组， <span class="math notranslate nohighlight">\({W}^{l}\)</span>  是由 <span class="math notranslate nohighlight">\({w}_{m,n}\)</span>  组成的数组，conv表示卷积操作。</p>
 <p>在这里，假设第l中的每个  <span class="math notranslate nohighlight">\({\delta}^{l}\)</span>  值都已经算好，我们要做的是计算第 <span class="math notranslate nohighlight">\(l-1\)</span> 层每个神经元的误差项 <span class="math notranslate nohighlight">\({\delta }^{l-1}\)</span>。</p>
 <p>根据链式求导法则：</p>
 <div class="math notranslate nohighlight" id="equation-deep-learn-neuralnetwork-14">
-<span class="eqno">()<a class="headerlink" href="#equation-deep-learn-neuralnetwork-14" title="公式的永久链接">¶</a></span>\[\begin{split}\begin{align}\delta^{l-1}_{i,j}&amp;=\frac{\partial{E_d}}{\partial{net^{l-1}_{i,j}}}\\&amp;=\frac{\partial{E_d}}{\partial{a^{l-1}_{i,j}}}\frac{\partial{a^{l-1}_{i,j}}}{\partial{net^{l-1}_{i,j}}}\end{align}\end{split}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-deep-learn-neuralnetwork-14" title="公式的永久链接"></a></span>\[\begin{split}\begin{align}\delta^{l-1}_{i,j}&amp;=\frac{\partial{E_d}}{\partial{net^{l-1}_{i,j}}}\\&amp;=\frac{\partial{E_d}}{\partial{a^{l-1}_{i,j}}}\frac{\partial{a^{l-1}_{i,j}}}{\partial{net^{l-1}_{i,j}}}\end{align}\end{split}\]</div>
 <p>先求第一项 <span class="math notranslate nohighlight">\(\frac { \partial { E_{ d } } }{ \partial { a^{ l-1 }_{ i,j } } }\)</span></p>
 <p>例1，计算 <span class="math notranslate nohighlight">\(\frac { \partial { E_{ d } } }{ \partial { a^{ l-1 }_{ 1,1 } } }\)</span>, <span class="math notranslate nohighlight">\({ a }_{ 1,1 }^{ l-1 }\)</span>
 仅与 <span class="math notranslate nohighlight">\({ net }_{ 1,1 }^{ l }\)</span>  的计算有关</p>
 <div class="math notranslate nohighlight" id="equation-deep-learn-neuralnetwork-15">
-<span class="eqno">()<a class="headerlink" href="#equation-deep-learn-neuralnetwork-15" title="公式的永久链接">¶</a></span>\[net^j_{1,1}=w_{1,1}a^{l-1}_{1,1}+w_{1,2}a^{l-1}_{1,2}+w_{2,1}a^{l-1}_{2,1}+w_{2,2}a^{l-1}_{2,2}+w_b\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-deep-learn-neuralnetwork-15" title="公式的永久链接"></a></span>\[net^j_{1,1}=w_{1,1}a^{l-1}_{1,1}+w_{1,2}a^{l-1}_{1,2}+w_{2,1}a^{l-1}_{2,1}+w_{2,2}a^{l-1}_{2,2}+w_b\]</div>
 <p>因此：</p>
 <div class="math notranslate nohighlight" id="equation-deep-learn-neuralnetwork-16">
-<span class="eqno">()<a class="headerlink" href="#equation-deep-learn-neuralnetwork-16" title="公式的永久链接">¶</a></span>\[\begin{split}\begin{align}\frac{\partial{E_d}}{\partial{a^{l-1}_{1,1}}}&amp;=\frac{\partial{E_d}}{\partial{net^{l}_{1,1}}}\frac{\partial{net^{l}_{1,1}}}{\partial{a^{l-1}_{1,1}}}\\&amp;=\delta^l_{1,1}w_{1,1}\end{align}\end{split}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-deep-learn-neuralnetwork-16" title="公式的永久链接"></a></span>\[\begin{split}\begin{align}\frac{\partial{E_d}}{\partial{a^{l-1}_{1,1}}}&amp;=\frac{\partial{E_d}}{\partial{net^{l}_{1,1}}}\frac{\partial{net^{l}_{1,1}}}{\partial{a^{l-1}_{1,1}}}\\&amp;=\delta^l_{1,1}w_{1,1}\end{align}\end{split}\]</div>
 <p>例2，计算 <span class="math notranslate nohighlight">\(\frac { \partial { E_{ d } } }{ \partial { a^{ l-1 }_{ 1,2 } } }\)</span>, <span class="math notranslate nohighlight">\({ a }_{ 1,2 }^{ l-1 }\)</span>
 与  <span class="math notranslate nohighlight">\({ net }_{ 1,1 }^{ l }、{ net }_{ 1,2 }^{ l }\)</span>  的计算都有关：</p>
 <div class="math notranslate nohighlight" id="equation-deep-learn-neuralnetwork-17">
-<span class="eqno">()<a class="headerlink" href="#equation-deep-learn-neuralnetwork-17" title="公式的永久链接">¶</a></span>\[\begin{split}net^j_{1,1}=w_{1,1}a^{l-1}_{1,1}+w_{1,2}a^{l-1}_{1,2}+w_{2,1}a^{l-1}_{2,1}+w_{2,2}a^{l-1}_{2,2}+w_b\\net^j_{1,2}=w_{1,1}a^{l-1}_{1,2}+w_{1,2}a^{l-1}_{1,3}+w_{2,1}a^{l-1}_{2,2}+w_{2,2}a^{l-1}_{2,3}+w_b\\\end{split}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-deep-learn-neuralnetwork-17" title="公式的永久链接"></a></span>\[\begin{split}net^j_{1,1}=w_{1,1}a^{l-1}_{1,1}+w_{1,2}a^{l-1}_{1,2}+w_{2,1}a^{l-1}_{2,1}+w_{2,2}a^{l-1}_{2,2}+w_b\\net^j_{1,2}=w_{1,1}a^{l-1}_{1,2}+w_{1,2}a^{l-1}_{1,3}+w_{2,1}a^{l-1}_{2,2}+w_{2,2}a^{l-1}_{2,3}+w_b\\\end{split}\]</div>
 <p>因此：</p>
 <div class="math notranslate nohighlight" id="equation-deep-learn-neuralnetwork-18">
-<span class="eqno">()<a class="headerlink" href="#equation-deep-learn-neuralnetwork-18" title="公式的永久链接">¶</a></span>\[\begin{split}\begin{align}\frac{\partial{E_d}}{\partial{a^{l-1}_{1,2}}}&amp;=\frac{\partial{E_d}}{\partial{net^{l}_{1,1}}}\frac{\partial{net^{l}_{1,1}}}{\partial{a^{l-1}_{1,2}}}+\frac{\partial{E_d}}{\partial{net^{l}_{1,2}}}\frac{\partial{net^{l}_{1,2}}}{\partial{a^{l-1}_{1,2}}}\\&amp;=\delta^l_{1,1}w_{1,2}+\delta^l_{1,2}w_{1,1}\end{align}\end{split}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-deep-learn-neuralnetwork-18" title="公式的永久链接"></a></span>\[\begin{split}\begin{align}\frac{\partial{E_d}}{\partial{a^{l-1}_{1,2}}}&amp;=\frac{\partial{E_d}}{\partial{net^{l}_{1,1}}}\frac{\partial{net^{l}_{1,1}}}{\partial{a^{l-1}_{1,2}}}+\frac{\partial{E_d}}{\partial{net^{l}_{1,2}}}\frac{\partial{net^{l}_{1,2}}}{\partial{a^{l-1}_{1,2}}}\\&amp;=\delta^l_{1,1}w_{1,2}+\delta^l_{1,2}w_{1,1}\end{align}\end{split}\]</div>
 <p>例3，计算 <span class="math notranslate nohighlight">\(\frac { \partial { E_{ d } } }{ \partial { a^{ l-1 }_{ 2,2 } } }\)</span>, <span class="math notranslate nohighlight">\({ a }_{ 2,2 }^{ l-1 }\)</span>
 与  <span class="math notranslate nohighlight">\({ net }_{ 1,1 }^{ l }\)</span>、<span class="math notranslate nohighlight">\({ net }_{ 1,2 }^{ l }\)</span>、<span class="math notranslate nohighlight">\({ net }_{ 2,1 }^{ l }\)</span>、<span class="math notranslate nohighlight">\({ net }_{ 2,2 }^{ l }\)</span> 的计算都有关：</p>
 <div class="math notranslate nohighlight" id="equation-deep-learn-neuralnetwork-19">
-<span class="eqno">()<a class="headerlink" href="#equation-deep-learn-neuralnetwork-19" title="公式的永久链接">¶</a></span>\[\begin{split}net^j_{1,1}=w_{1,1}a^{l-1}_{1,1}+w_{1,2}a^{l-1}_{1,2}+w_{2,1}a^{l-1}_{2,1}+w_{2,2}a^{l-1}_{2,2}+w_b\\
+<span class="eqno">()<a class="headerlink" href="#equation-deep-learn-neuralnetwork-19" title="公式的永久链接"></a></span>\[\begin{split}net^j_{1,1}=w_{1,1}a^{l-1}_{1,1}+w_{1,2}a^{l-1}_{1,2}+w_{2,1}a^{l-1}_{2,1}+w_{2,2}a^{l-1}_{2,2}+w_b\\
 net^j_{1,2}=w_{1,1}a^{l-1}_{1,2}+w_{1,2}a^{l-1}_{1,3}+w_{2,1}a^{l-1}_{2,2}+w_{2,2}a^{l-1}_{2,3}+w_b\\
 net^j_{2,1}=w_{1,1}a^{l-1}_{2,1}+w_{1,2}a^{l-1}_{2,2}+w_{2,1}a^{l-1}_{3,1}+w_{2,2}a^{l-1}_{3,2}+w_b\\
 net^j_{2,2}=w_{1,1}a^{l-1}_{2,2}+w_{1,2}a^{l-1}_{2,3}+w_{2,1}a^{l-1}_{3,2}+w_{2,2}a^{l-1}_{3,3}+w_b\end{split}\]</div>
 <div class="admonition note">
 <p class="admonition-title">注解</p>
-<p>总结下规律，计算 <span class="math notranslate nohighlight">\(\frac { \partial { E_{ d } } }{ \partial { a^{ l-1 } } }\)</span>，相当于把第l层的sensitive map周围补一圈0，在与180度翻转</p>
+<p>总结下规律，计算 <span class="math notranslate nohighlight">\(\frac { \partial { E_{ d } } }{ \partial { a^{ l-1 } } }\)</span>，相当于把第l层的sensitive map周围补一圈0，在与180度翻转
+后的filter进行cross-correlation，就能得到想要的结果</p>
 </div>
-<p>后的filter进行cross-correlation，就能得到想要的结果</p>
 <img alt="http://upload-images.jianshu.io/upload_images/2256672-2fb37b0a3ff0e1f9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/640" src="http://upload-images.jianshu.io/upload_images/2256672-2fb37b0a3ff0e1f9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/640" />
 <p>因为卷积相当于将filter旋转180度的cross-correlation，因此上图的计算可以用卷积公式完美的表达:</p>
 <div class="math notranslate nohighlight" id="equation-deep-learn-neuralnetwork-20">
-<span class="eqno">()<a class="headerlink" href="#equation-deep-learn-neuralnetwork-20" title="公式的永久链接">¶</a></span>\[\frac{\partial{E_d}}{\partial{a_l}}=\delta^l*W^l\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-deep-learn-neuralnetwork-20" title="公式的永久链接"></a></span>\[\frac{\partial{E_d}}{\partial{a_l}}=\delta^l*W^l\]</div>
 <p>上式中的 <span class="math notranslate nohighlight">\({W}^{l}\)</span>  表示第层的filter的权重数组。</p>
 <p><strong>现在再来求第二项</strong> <span class="math notranslate nohighlight">\(\frac{\partial{a^{l-1}_{i,j}}}{\partial{net^{l-1}_{i,j}}}\)</span>。因为：</p>
 <div class="math notranslate nohighlight" id="equation-deep-learn-neuralnetwork-21">
-<span class="eqno">()<a class="headerlink" href="#equation-deep-learn-neuralnetwork-21" title="公式的永久链接">¶</a></span>\[a^{l-1}_{i,j}=f(net^{l-1}_{i,j})\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-deep-learn-neuralnetwork-21" title="公式的永久链接"></a></span>\[a^{l-1}_{i,j}=f(net^{l-1}_{i,j})\]</div>
 <p>所以求激活函数f的导数就行了。</p>
 <div class="math notranslate nohighlight" id="equation-deep-learn-neuralnetwork-22">
-<span class="eqno">()<a class="headerlink" href="#equation-deep-learn-neuralnetwork-22" title="公式的永久链接">¶</a></span>\[\frac{\partial{a^{l-1}_{i,j}}}{\partial{net^{l-1}_{i,j}}}=f'(net^{l-1}_{i,j})\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-deep-learn-neuralnetwork-22" title="公式的永久链接"></a></span>\[\frac{\partial{a^{l-1}_{i,j}}}{\partial{net^{l-1}_{i,j}}}=f'(net^{l-1}_{i,j})\]</div>
 <p><strong>将第一项和第二项组合起来，我们得到最终的公式：</strong></p>
 <div class="math notranslate nohighlight" id="equation-deep-learn-neuralnetwork-23">
-<span class="eqno">()<a class="headerlink" href="#equation-deep-learn-neuralnetwork-23" title="公式的永久链接">¶</a></span>\[\begin{split}\begin{align}\delta^{l-1}_{i,j}&amp;=\frac{\partial{E_d}}{\partial{net^{l-1}_{i,j}}}\\&amp;=\frac{\partial{E_d}}{\partial{a^{l-1}_{i,j}}}\frac{\partial{a^{l-1}_{i,j}}}{\partial{net^{l-1}_{i,j}}}\\&amp;=\sum_m\sum_n{w^l_{m,n}\delta^l_{i+m,j+n}}f'(net^{l-1}_{i,j})\qquad(式7)\end{align}\end{split}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-deep-learn-neuralnetwork-23" title="公式的永久链接"></a></span>\[\begin{split}\begin{align}\delta^{l-1}_{i,j}&amp;=\frac{\partial{E_d}}{\partial{net^{l-1}_{i,j}}}\\&amp;=\frac{\partial{E_d}}{\partial{a^{l-1}_{i,j}}}\frac{\partial{a^{l-1}_{i,j}}}{\partial{net^{l-1}_{i,j}}}\\&amp;=\sum_m\sum_n{w^l_{m,n}\delta^l_{i+m,j+n}}f'(net^{l-1}_{i,j})\qquad(式7)\end{align}\end{split}\]</div>
 <p>写成卷积的形式：</p>
 <div class="math notranslate nohighlight" id="equation-deep-learn-neuralnetwork-24">
-<span class="eqno">()<a class="headerlink" href="#equation-deep-learn-neuralnetwork-24" title="公式的永久链接">¶</a></span>\[\delta^{l-1}=\delta^l*W^l\circ f'(net^{l-1})\qquad\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-deep-learn-neuralnetwork-24" title="公式的永久链接"></a></span>\[\delta^{l-1}=\delta^l*W^l\circ f'(net^{l-1})\qquad\]</div>
 <p>其中，符号表示将矩阵中每个对应元素相乘。 <span class="math notranslate nohighlight">\(\delta^{l-1}\)</span>、 <span class="math notranslate nohighlight">\(\delta^l\)</span>、 <span class="math notranslate nohighlight">\({net}^{l-1}\)</span> 都是矩阵。</p>
 <p><strong>卷积步长为S时的误差传递</strong></p>
 <img alt="http://upload-images.jianshu.io/upload_images/2256672-754f37eb7603e99f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/640" src="http://upload-images.jianshu.io/upload_images/2256672-754f37eb7603e99f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/640" />
 <div class="admonition note">
 <p class="admonition-title">注解</p>
-<p>如上图，上面是步长为1时的卷积结果，下面是步长为2时的卷积结果。我们可以看出，因为步长为2，得到的feature map跳过了步长为1时相应的部分。</p>
+<p>如上图，上面是步长为1时的卷积结果，下面是步长为2时的卷积结果。我们可以看出，因为步长为2，得到的feature map跳过了步长为1时相应的部分。
+因此，当我们反向计算误差项时，我们可以对步长为S的sensitivity map相应的位置进行补0，将其『还原』成步长为1时的sensitivity map,在求解。</p>
 </div>
-<p>因此，当我们反向计算误差项时，我们可以对步长为S的sensitivity map相应的位置进行补0，将其『还原』成步长为1时的sensitivity map,在求解。</p>
 <p><strong>输入层深度为D时的误差传递</strong></p>
 <p>当输入层深度为D时，filter的深度也必须为D，<span class="math notranslate nohighlight">\(l-1\)</span> 层的 <span class="math notranslate nohighlight">\({d}_{i}\)</span> 通道只与filter的 <span class="math notranslate nohighlight">\({d}_{i}\)</span> 通道的权重进行计算。
 因此，反向计算误差项时，用filter的第 <span class="math notranslate nohighlight">\({d}_{i}\)</span> 通道权重对第l层的 sensitive map进行卷积，得到第 <span class="math notranslate nohighlight">\(l-1\)</span> 层 <span class="math notranslate nohighlight">\({d}_{i}\)</span> 通道的sensitivity map。如下图所示</p>
 <img alt="http://upload-images.jianshu.io/upload_images/2256672-af2da9701a03dc3c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/640" src="http://upload-images.jianshu.io/upload_images/2256672-af2da9701a03dc3c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/640" />
-</div>
-<div class="section" id="inception">
-<h3>尺寸不变性与inception<a class="headerlink" href="#inception" title="永久链接至标题">¶</a></h3>
-</div>
-</div>
-</div>
+</section>
+<section id="inception">
+<h3>尺寸不变性与inception<a class="headerlink" href="#inception" title="永久链接至标题"></a></h3>
+</section>
+</section>
+</section>
 
 
            </div>
-           
           </div>
           <footer>
 
   <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2018, zhangzhenhu(acmtiger@outlook.com) 禁止一切形式的转载！.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
+  
 
 
     <script src="https://utteranc.es/client.js"
@@ -1445,42 +1364,16 @@ net^j_{2,2}=w_{1,1}a^{l-1}_{2,2}+w_{1,2}a^{l-1}_{2,3}+w_{2,1}a^{l-1}_{3,2}+w_{2,
 
 
 
-  <div role="contentinfo">
-    <p>
-        &#169; 版权所有 2018, zhangzhenhu(acmtiger@outlook.com) 禁止一切形式的转载！.
-
-    </p>
-  </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-
-
-
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

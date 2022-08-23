@@ -1,99 +1,51 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="zh-CN" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>graphviz demo &mdash; 张振虎的博客 张振虎 文档</title>
-  
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
     <link rel="canonical" href="https://zhangzhenhu.github.io/blog/rst_tutorial/graphviz.html" />
-
-  
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/translations.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2.7.7/unpacked/MathJax.min.js"></script>
         <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"Macros": {"RR": "{\\bf R}", "bold": ["{\\bf #1}", 1]}}})</script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
+    <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
     <link rel="next" title="读书笔记" href="../%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/index.html" />
     <link rel="prev" title="latex demo" href="latex.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../index.html" class="icon icon-home"> 张振虎的博客
-          
-
-          
           </a>
-
-          
-            
-            
               <div class="version">
                 acmtiger@outlook.com
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="在文档中搜索" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">目录:</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">目录:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../glm/source/index.html">广义线性模型</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../glm/source/%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80/content.html">1. 概率基础</a><ul>
@@ -141,7 +93,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#id2">3.1. 统计量和充分统计量</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-sample-distribution">3.2. 抽样分布</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-sample-distribution-normal">3.2.1. 正态分布</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#t">3.2.2. t分布</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#t">3.2.2. 学生t分布</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#id5">3.2.3. 卡方分布</a></li>
 </ul>
 </li>
@@ -746,7 +698,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../audio/feature.html#id18">1.5. 分帧与加窗</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../audio/feature.html#id19">1.5.1. 预加重处理</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../audio/feature.html#id20">1.5.2. 分帧与加窗</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../audio/feature.html#id20">1.5.2. 分帧与加窗处理</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../audio/feature.html#id21">1.6. 声音的感官度量</a><ul>
@@ -788,26 +740,26 @@
 <li class="toctree-l2"><a class="reference internal" href="../edm/bkt.html">1. 贝叶斯知识追踪(Bayesian Knowledge Tracing,BKT)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id1">1.1. 简介</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#hidden-markov-model-hmm">1.2. 隐马尔科夫模型(Hidden Markov Model,HMM)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id5">1.3. 贝叶斯知识追踪(Bayesian Knowledge Tracing,BKT)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#bayesian-knowledge-tracing">1.3. 贝叶斯知识追踪(Bayesian Knowledge Tracing)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#bkt">1.3.1. BKT的参数估计</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#item-response-theory-irt">1.4. 项目反映理论(Item Response Theory,IRT)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#bktirt">1.5. BKT结合IRT</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id6">1.6. 实验</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id7">1.6.1. 数据集</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id8">1.6.2. 实验方法</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id9">1.6.3. 实验结果</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id10">1.6.4. 项目代码</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id5">1.6. 实验</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id6">1.6.1. 数据集</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id7">1.6.2. 实验方法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id8">1.6.3. 实验结果</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id9">1.6.4. 项目代码</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id11">1.7. 未来工作</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id12">1.7.1. 题目难度的计算</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id10">1.7. 未来工作</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id11">1.7.1. 题目难度的计算</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#irt">1.7.2. 多参数IRT模型</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id13">1.7.3. 参数估计算法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id12">1.7.3. 参数估计算法</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id14">1.8. 参考文献</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id13">1.8. 参考文献</a></li>
 </ul>
 </li>
 </ul>
@@ -904,73 +856,32 @@
 </li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">张振虎的博客</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-        
       <li>graphviz demo</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
-            <a href="../_sources/rst_tutorial/graphviz.rst.txt" rel="nofollow"> View page source</a>
-          
-        
+            <a href="../_sources/rst_tutorial/graphviz.rst.txt" rel="nofollow"> 查看页面源码</a>
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="graphviz-demo">
-<h1>graphviz demo<a class="headerlink" href="#graphviz-demo" title="永久链接至标题">¶</a></h1>
+             
+  <section id="graphviz-demo">
+<h1>graphviz demo<a class="headerlink" href="#graphviz-demo" title="永久链接至标题"></a></h1>
 <ul class="simple">
 <li><p>在线 graphviz: <a class="reference external" href="https://dreampuf.github.io/GraphvizOnline/#digraph%20graphname%20%7B%20%0A%20%20%20%20node%5Bshape%3Dcircle%5D%0A%0A%0A%09%20%0A%7D">https://dreampuf.github.io/GraphvizOnline/#digraph%20graphname%20%7B%20%0A%20%20%20%20node%5Bshape%3Dcircle%5D%0A%0A%0A%09%20%0A%7D</a></p></li>
 <li><p>在线 graphviz: <a class="reference external" href="http://magjac.com/graphviz-visual-editor/">http://magjac.com/graphviz-visual-editor/</a></p></li>
@@ -979,8 +890,8 @@
 <p><a class="reference external" href="https://candide-guevara.github.io/cs_related/2019/09/10/graphviz-examples.html">https://candide-guevara.github.io/cs_related/2019/09/10/graphviz-examples.html</a></p>
 <p><a class="reference external" href="https://www.worthe-it.co.za/blog/2017-09-19-quick-introduction-to-graphviz.html">https://www.worthe-it.co.za/blog/2017-09-19-quick-introduction-to-graphviz.html</a></p>
 <p><a class="reference external" href="https://people.eecs.berkeley.edu/~jordan/graphical.html">https://people.eecs.berkeley.edu/~jordan/graphical.html</a></p>
-<div class="section" id="id1">
-<h2>布局<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<section id="id1">
+<h2>布局<a class="headerlink" href="#id1" title="永久链接至标题"></a></h2>
 <div class="highlight-rst notranslate"><div class="highlight"><pre><span></span><span class="p">..</span> <span class="ow">digraph</span><span class="p">::</span> demo_1
       a -&gt; {b c d}
       b -&gt; {e f g}
@@ -1107,10 +1018,10 @@ a -&gt; {b c}
 # Heavy weight =&gt; short, straight and more vertical the edge.
 a -&gt; d [weight=3]
 }</p></object></div>
-</div>
-<div class="section" id="id2">
-<h2>其它<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
-<div class="figure align-center" id="id3">
+</section>
+<section id="id2">
+<h2>其它<a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
+<figure class="align-center" id="id3">
 <div class="graphviz"><object data="../_images/graphviz-b20c3c45737b18ba8abe22bc4b0775d7d2526d65.svg" type="image/svg+xml" class="graphviz">
 <p class="warning">digraph 生成模型与判别模型 {
 node[shape=circle]
@@ -1159,22 +1070,31 @@ subgraph cluster_2 {
         {rank=&quot;same&quot;; b_x1 b_x2 b_x3 b_xh b_xn}
 }
 }</p></object></div>
-<p class="caption"><span class="caption-number">图 3 </span><span class="caption-text">（a）生成模型，对联合概率建模，然后推断出后验条件概率分布；（b）判别模型，直接对因子（ <span class="math notranslate nohighlight">\(P(Y|X)\)</span> ）建模。</span><a class="headerlink" href="#id3" title="永久链接至图片">¶</a></p>
-</div>
-</div>
-</div>
+<figcaption>
+<p><span class="caption-number">图 3 </span><span class="caption-text">（a）生成模型，对联合概率建模，然后推断出后验条件概率分布；（b）判别模型，直接对因子（ <span class="math notranslate nohighlight">\(P(Y|X)\)</span> ）建模。</span><a class="headerlink" href="#id3" title="永久链接至图片"></a></p>
+</figcaption>
+</figure>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/index.html" class="btn btn-neutral float-right" title="读书笔记" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="latex.html" class="btn btn-neutral float-left" title="latex demo" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="latex.html" class="btn btn-neutral float-left" title="latex demo" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/index.html" class="btn btn-neutral float-right" title="读书笔记" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2018, zhangzhenhu(acmtiger@outlook.com) 禁止一切形式的转载！.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
+  
 
 
     <script src="https://utteranc.es/client.js"
@@ -1187,42 +1107,16 @@ subgraph cluster_2 {
 
 
 
-  <div role="contentinfo">
-    <p>
-        &#169; 版权所有 2018, zhangzhenhu(acmtiger@outlook.com) 禁止一切形式的转载！.
-
-    </p>
-  </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-
-
-
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

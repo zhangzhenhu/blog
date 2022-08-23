@@ -1,99 +1,51 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="zh-CN" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>15. Gamma 模型 &mdash; 张振虎的博客 张振虎 文档</title>
-  
-
-  
-  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
     <link rel="canonical" href="https://zhangzhenhu.github.io/blog/glm/source/gamma模型/content.html" />
-
-  
   <!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
         <script src="../../../_static/doctools.js"></script>
         <script src="../../../_static/translations.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2.7.7/unpacked/MathJax.min.js"></script>
         <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"Macros": {"RR": "{\\bf R}", "bold": ["{\\bf #1}", 1]}}})</script>
-    
-    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-
-    
+    <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../../genindex.html" />
     <link rel="search" title="搜索" href="../../../search.html" />
     <link rel="next" title="16. 过度分散" href="../%E8%BF%87%E5%BA%A6%E5%88%86%E6%95%A3/content.html" />
     <link rel="prev" title="14. 指数模型" href="../%E6%8C%87%E6%95%B0%E6%A8%A1%E5%9E%8B/content.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../../../index.html" class="icon icon-home"> 张振虎的博客
-          
-
-          
           </a>
-
-          
-            
-            
               <div class="version">
                 acmtiger@outlook.com
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="在文档中搜索" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">目录:</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">目录:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">广义线性模型</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80/content.html">1. 概率基础</a><ul>
@@ -141,7 +93,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#id2">3.1. 统计量和充分统计量</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-sample-distribution">3.2. 抽样分布</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-sample-distribution-normal">3.2.1. 正态分布</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#t">3.2.2. t分布</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#t">3.2.2. 学生t分布</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#id5">3.2.3. 卡方分布</a></li>
 </ul>
 </li>
@@ -746,7 +698,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../audio/feature.html#id18">1.5. 分帧与加窗</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../audio/feature.html#id19">1.5.1. 预加重处理</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../audio/feature.html#id20">1.5.2. 分帧与加窗</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../audio/feature.html#id20">1.5.2. 分帧与加窗处理</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../audio/feature.html#id21">1.6. 声音的感官度量</a><ul>
@@ -788,26 +740,26 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../edm/bkt.html">1. 贝叶斯知识追踪(Bayesian Knowledge Tracing,BKT)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id1">1.1. 简介</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#hidden-markov-model-hmm">1.2. 隐马尔科夫模型(Hidden Markov Model,HMM)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id5">1.3. 贝叶斯知识追踪(Bayesian Knowledge Tracing,BKT)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#bayesian-knowledge-tracing">1.3. 贝叶斯知识追踪(Bayesian Knowledge Tracing)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#bkt">1.3.1. BKT的参数估计</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#item-response-theory-irt">1.4. 项目反映理论(Item Response Theory,IRT)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#bktirt">1.5. BKT结合IRT</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id6">1.6. 实验</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id7">1.6.1. 数据集</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id8">1.6.2. 实验方法</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id9">1.6.3. 实验结果</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id10">1.6.4. 项目代码</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id5">1.6. 实验</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id6">1.6.1. 数据集</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id7">1.6.2. 实验方法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id8">1.6.3. 实验结果</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id9">1.6.4. 项目代码</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id11">1.7. 未来工作</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id12">1.7.1. 题目难度的计算</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id10">1.7. 未来工作</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id11">1.7.1. 题目难度的计算</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#irt">1.7.2. 多参数IRT模型</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id13">1.7.3. 参数估计算法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id12">1.7.3. 参数估计算法</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id14">1.8. 参考文献</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id13">1.8. 参考文献</a></li>
 </ul>
 </li>
 </ul>
@@ -904,85 +856,43 @@
 </li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../../index.html">张振虎的博客</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="../index.html">广义线性模型</a> &raquo;</li>
-        
       <li><span class="section-number">15. </span>Gamma 模型</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
-            <a href="../../../_sources/glm/source/gamma模型/content.rst.txt" rel="nofollow"> View page source</a>
-          
-        
+            <a href="../../../_sources/glm/source/gamma模型/content.rst.txt" rel="nofollow"> 查看页面源码</a>
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="gamma">
-<h1><span class="section-number">15. </span>Gamma 模型<a class="headerlink" href="#gamma" title="永久链接至标题">¶</a></h1>
+             
+  <section id="gamma">
+<h1><span class="section-number">15. </span>Gamma 模型<a class="headerlink" href="#gamma" title="永久链接至标题"></a></h1>
 <p>指数分布是预测 <strong>下一次</strong> 时间发生等待的时间，
 更进一步，如果需要预测第k次事件发生需要等待的时间呢？
 这就是 Gamma 分布。
 在介绍 Gamma 分布之前，先简单的介绍一下 Gamma 函数。</p>
-<div class="section" id="id1">
-<h2><span class="section-number">15.1. </span>Gamma 函数<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<section id="id1">
+<h2><span class="section-number">15.1. </span>Gamma 函数<a class="headerlink" href="#id1" title="永久链接至标题"></a></h2>
 <p><a class="reference external" href="https://www.probabilitycourse.com/chapter4/4_2_4_Gamma_distribution.php">https://www.probabilitycourse.com/chapter4/4_2_4_Gamma_distribution.php</a></p>
-</div>
-<div class="section" id="id2">
-<h2><span class="section-number">15.2. </span>Gamma 分布<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="id2">
+<h2><span class="section-number">15.2. </span>Gamma 分布<a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
 <p>在之前的章节我们已经讨论了如何从泊松过程推导出指数分布，
 Gamma 分布的推导的过程是类似的。
 不同的地方在于指数分布是等待下一次事件发生，
@@ -995,13 +905,13 @@ Gamma 分布的推导的过程是类似的。
 <p>泊松分布表示单位时间窗口内事件发生次数的概率分布，
 泊松分布的概率分布函数为：</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-gamma-content-0">
-<span class="eqno">(15.2.1)<a class="headerlink" href="#equation-glm-source-gamma-content-0" title="公式的永久链接">¶</a></span>\[p(k) = \frac{\lambda^k}{k!}  e^{-\lambda}\]</div>
+<span class="eqno">(15.2.1)<a class="headerlink" href="#equation-glm-source-gamma-content-0" title="公式的永久链接"></a></span>\[p(k) = \frac{\lambda^k}{k!}  e^{-\lambda}\]</div>
 <p>其表示在一个单位时间内事件发生 <span class="math notranslate nohighlight">\(k\)</span> 次的概率，唯一的参数 <span class="math notranslate nohighlight">\(\lambda\)</span> 表示单位时间内事件发生次数的平均值，
 也就是 <span class="math notranslate nohighlight">\(k\)</span> 的期望值，<span class="math notranslate nohighlight">\(\mathbb{E}[x]=\lambda\)</span> 。
 现在要想计算 <span class="math notranslate nohighlight">\(t\)</span> 个单位时间内事件发生的次数，只需要用 <span class="math notranslate nohighlight">\(\lambda t\)</span> 替换上式中的 <span class="math notranslate nohighlight">\(\lambda\)</span> 即可，
 <span class="math notranslate nohighlight">\(t\)</span> 个时间单元内事件发生 <span class="math notranslate nohighlight">\(k\)</span> 次的概率为：</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-gamma-content-1">
-<span class="eqno">(15.2.2)<a class="headerlink" href="#equation-glm-source-gamma-content-1" title="公式的永久链接">¶</a></span>\[p(k;t) = \frac{(\lambda t)^k}{k!}  e^{-\lambda t}\]</div>
+<span class="eqno">(15.2.2)<a class="headerlink" href="#equation-glm-source-gamma-content-1" title="公式的永久链接"></a></span>\[p(k;t) = \frac{(\lambda t)^k}{k!}  e^{-\lambda t}\]</div>
 <div class="admonition note">
 <p class="admonition-title">注解</p>
 <p>为什么用 <span class="math notranslate nohighlight">\(\lambda t\)</span> 替换 <span class="math notranslate nohighlight">\(\lambda\)</span> 就可以？</p>
@@ -1012,7 +922,7 @@ Gamma 分布的推导的过程是类似的。
 这个 <span class="math notranslate nohighlight">\(t\)</span> 倍的时间片段也可以看做是一个”单位时间”，这个新的”单位时间”组成一个新的泊松分布，
 并且其平均值参数 <span class="math notranslate nohighlight">\(\lambda_{new}\)</span> 也是原来的 <span class="math notranslate nohighlight">\(t\)</span> 倍，即 <span class="math notranslate nohighlight">\(\lambda_{new} =  \lambda t\)</span>。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-gamma-content-2">
-<span class="eqno">(15.2.3)<a class="headerlink" href="#equation-glm-source-gamma-content-2" title="公式的永久链接">¶</a></span>\[p(k) = \frac{(\lambda_{new})^k}{k!}  e^{-\lambda_{new}} = \frac{(\lambda t)^k}{k!}  e^{-\lambda t}\]</div>
+<span class="eqno">(15.2.3)<a class="headerlink" href="#equation-glm-source-gamma-content-2" title="公式的永久链接"></a></span>\[p(k) = \frac{(\lambda_{new})^k}{k!}  e^{-\lambda_{new}} = \frac{(\lambda t)^k}{k!}  e^{-\lambda t}\]</div>
 </div>
 <p>泊松分布表示的是 <em>一个单位时间片段内</em> 随机事件发生 <strong>次数</strong> 的概率分布，
 指数分布表示的是随机事件 <em>第一次</em> 发生的需要的 <strong>时间</strong> 的概率分布。
@@ -1027,17 +937,17 @@ Gamma 分布就是指数分布的扩展，能够表达事件发生任意次数�
 第 <span class="math notranslate nohighlight">\(k\)</span> 次发生的时间一定是大于 <span class="math notranslate nohighlight">\(t\)</span> 。
 因此 <span class="math notranslate nohighlight">\(p(T&gt;t;k)\)</span> 可以看成是在 <span class="math notranslate nohighlight">\(t\)</span> 个时间单元内，事件发生 <span class="math notranslate nohighlight">\(0,1,2,...,k-1\)</span> 次的概率之和。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-gamma-content-3">
-<span class="eqno">(15.2.4)<a class="headerlink" href="#equation-glm-source-gamma-content-3" title="公式的永久链接">¶</a></span>\[p(T&gt;t;k) = \sum_{i=0}^{k-1} p(i;t)
+<span class="eqno">(15.2.4)<a class="headerlink" href="#equation-glm-source-gamma-content-3" title="公式的永久链接"></a></span>\[p(T&gt;t;k) = \sum_{i=0}^{k-1} p(i;t)
 = \sum_{i=0}^{k-1} \frac{(\lambda t)^{i}}{i!}  e^{-\lambda t}\]</div>
 <p>现在我们得到了第 <span class="math notranslate nohighlight">\(k\)</span> 次事件发生时间大于 <span class="math notranslate nohighlight">\(t\)</span> 的概率 <span class="math notranslate nohighlight">\(p(T&gt;t;k)\)</span>
 ，反过来，第 <span class="math notranslate nohighlight">\(k\)</span> 次事件发生时间小于等于 <span class="math notranslate nohighlight">\(t\)</span> 的概率为：</p>
 <div class="math notranslate nohighlight" id="equation-eq-gamma-008">
-<span class="eqno">(15.2.5)<a class="headerlink" href="#equation-eq-gamma-008" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}p(T\le t;k) &amp;= 1-p(T&gt;t;k)\\&amp;= 1- \sum_{i=0}^{k-1} \frac{(\lambda t)^{i}}{i!}  e^{-\lambda t}\end{aligned}\end{align} \]</div>
+<span class="eqno">(15.2.5)<a class="headerlink" href="#equation-eq-gamma-008" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}p(T\le t;k) &amp;= 1-p(T&gt;t;k)\\&amp;= 1- \sum_{i=0}^{k-1} \frac{(\lambda t)^{i}}{i!}  e^{-\lambda t}\end{aligned}\end{align} \]</div>
 <p>显然 <a class="reference internal" href="#equation-eq-gamma-008">公式(15.2.5)</a> 是一个累积分布函数(Cumulative Distribution Function)，
 是概率密度函数的积分，对其进行微分可以得到概率密度函数，
 这里省略微分的过程，直接给出结果</p>
 <div class="math notranslate nohighlight" id="equation-eq-gamma-009">
-<span class="eqno">(15.2.6)<a class="headerlink" href="#equation-eq-gamma-009" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}f(t)
+<span class="eqno">(15.2.6)<a class="headerlink" href="#equation-eq-gamma-009" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}f(t)
 &amp;= \frac{\lambda e^{-\lambda t}(\lambda t)^{k-1}}{(k-1)!}\\&amp;= \frac{\lambda^k e^{-\lambda t}t^{k-1}}{\Gamma(k)}\end{aligned}\end{align} \]</div>
 <p><a class="reference internal" href="#equation-eq-gamma-009">公式(15.2.6)</a> 就是 Gamma 分布的概率密度函数，其表示随机事件发生 <span class="math notranslate nohighlight">\(k\)</span> 次所需时间 <span class="math notranslate nohighlight">\(t\)</span>
 的概率分布。注意，<span class="math notranslate nohighlight">\(f(t)\)</span> 不是具体的时间值，而是时间 <span class="math notranslate nohighlight">\(t\)</span> 的概率分布。
@@ -1057,12 +967,12 @@ Gamma 分布就是指数分布的扩展，能够表达事件发生任意次数�
 </div>
 <p>Gamma 分布的期望和方差分别为：</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-gamma-content-4">
-<span class="eqno">(15.2.7)<a class="headerlink" href="#equation-glm-source-gamma-content-4" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\mathbb{E}[T] &amp;= \frac{k}{\lambda}\\Var(T) &amp;=  \frac{k}{\lambda^2}\end{aligned}\end{align} \]</div>
+<span class="eqno">(15.2.7)<a class="headerlink" href="#equation-glm-source-gamma-content-4" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\mathbb{E}[T] &amp;= \frac{k}{\lambda}\\Var(T) &amp;=  \frac{k}{\lambda^2}\end{aligned}\end{align} \]</div>
 <p><span class="math notranslate nohighlight">\(k\)</span> 是事件发生总次数，<span class="math notranslate nohighlight">\(\lambda\)</span> 是事件发生速率，
 显然事件发生 <span class="math notranslate nohighlight">\(k\)</span> 次所需要的平均时间就是 <span class="math notranslate nohighlight">\(k/\lambda\)</span> ，这和 Gamma 分布的期望是一致的。</p>
 <p>当 <span class="math notranslate nohighlight">\(k=1\)</span> 时，Gamma分布就退化为指数分布:</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-gamma-content-5">
-<span class="eqno">(15.2.8)<a class="headerlink" href="#equation-glm-source-gamma-content-5" title="公式的永久链接">¶</a></span>\[f(t;k=1,\lambda) =  \lambda e^{-\lambda t} \quad  (\lambda ,t &gt; 0)\]</div>
+<span class="eqno">(15.2.8)<a class="headerlink" href="#equation-glm-source-gamma-content-5" title="公式的永久链接"></a></span>\[f(t;k=1,\lambda) =  \lambda e^{-\lambda t} \quad  (\lambda ,t &gt; 0)\]</div>
 <p>因此有 <span class="math notranslate nohighlight">\(Gamma(1,\lambda) = Exponential(\lambda)\)</span>
 成立，更一般的，如果有 <span class="math notranslate nohighlight">\(n\)</span> 个独立的指数分布 <span class="math notranslate nohighlight">\(Exponential(\lambda)\)</span> 随机变量，
 就可以得到一个 Gamma 分布的随机变量 <span class="math notranslate nohighlight">\(Gamma(n,\lambda)\)</span>
@@ -1070,39 +980,43 @@ Gamma 分布就是指数分布的扩展，能够表达事件发生任意次数�
 <p>现在我们来看下形状参数和速率参数分别对概率分布函数的影响是怎样的。
 <a class="reference internal" href="#fg-gamma-001"><span class="std std-numref">图 15.2.1</span></a> 展示了形状参数 <span class="math notranslate nohighlight">\(k\)</span> 对概率分布函数的影响，
 <a class="reference internal" href="#fg-gamma-002"><span class="std std-numref">图 15.2.2</span></a> 展示了速率参数 <span class="math notranslate nohighlight">\(\lambda\)</span> 对概率分布函数的影响。</p>
-<div class="figure align-center" id="id9">
+<figure class="align-center" id="id9">
 <span id="fg-gamma-001"></span><a class="reference internal image-reference" href="../../../_images/gamma_k.png"><img alt="../../../_images/gamma_k.png" src="../../../_images/gamma_k.png" style="width: 448.0px; height: 336.0px;" /></a>
-<p class="caption"><span class="caption-number">图 15.2.1 </span><span class="caption-text">Gamma分布不同 <span class="math notranslate nohighlight">\(k\)</span> 值下图形比较</span><a class="headerlink" href="#id9" title="永久链接至图片">¶</a></p>
-</div>
-<div class="figure align-center" id="id10">
+<figcaption>
+<p><span class="caption-number">图 15.2.1 </span><span class="caption-text">Gamma分布不同 <span class="math notranslate nohighlight">\(k\)</span> 值下图形比较</span><a class="headerlink" href="#id9" title="永久链接至图片"></a></p>
+</figcaption>
+</figure>
+<figure class="align-center" id="id10">
 <span id="fg-gamma-002"></span><a class="reference internal image-reference" href="../../../_images/gamma_lambda.png"><img alt="../../../_images/gamma_lambda.png" src="../../../_images/gamma_lambda.png" style="width: 448.0px; height: 336.0px;" /></a>
-<p class="caption"><span class="caption-number">图 15.2.2 </span><span class="caption-text">Gamma分布不同 <span class="math notranslate nohighlight">\(\lambda\)</span> 值下图形比较</span><a class="headerlink" href="#id10" title="永久链接至图片">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">图 15.2.2 </span><span class="caption-text">Gamma分布不同 <span class="math notranslate nohighlight">\(\lambda\)</span> 值下图形比较</span><a class="headerlink" href="#id10" title="永久链接至图片"></a></p>
+</figcaption>
+</figure>
 <p>通常 Gamma 分布的概率密度函有多种参数化方式，
 在计量经济学和其它一些自然科学领域，经常使用形状参数和尺度参数进行参数化表示。</p>
 <p><strong>常见参数化方式1：</strong></p>
 <p>令参数 <span class="math notranslate nohighlight">\(\alpha=k\)</span> 表式形状参数，参数 <span class="math notranslate nohighlight">\(\beta=1/\lambda\)</span> 表示尺度参数，
 服从 Gamma 分布的随机变量 <span class="math notranslate nohighlight">\(X\)</span> 的概率密度函数为</p>
 <div class="math notranslate nohighlight" id="equation-eq-gamma-011">
-<span class="eqno">(15.2.9)<a class="headerlink" href="#equation-eq-gamma-011" title="公式的永久链接">¶</a></span>\[f(x;\alpha,\beta) = \frac{ x^{\alpha-1} e^{-\frac{x}{\beta} }}{\beta^{\alpha} \Gamma(\alpha)}
+<span class="eqno">(15.2.9)<a class="headerlink" href="#equation-eq-gamma-011" title="公式的永久链接"></a></span>\[f(x;\alpha,\beta) = \frac{ x^{\alpha-1} e^{-\frac{x}{\beta} }}{\beta^{\alpha} \Gamma(\alpha)}
 \quad (x,\alpha,\beta &gt; 0)\]</div>
 <p>这种形式常见于计量经济学和其它一些自然科学领域。
 这种形式下，<code class="docutils literal notranslate"><span class="pre">Gamma</span></code> 分布的期望和方差为别为</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-gamma-content-6">
-<span class="eqno">(15.2.10)<a class="headerlink" href="#equation-glm-source-gamma-content-6" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\mathbb{E}[X] &amp;= \alpha \beta\\Var(X) &amp;=  \alpha \beta^2\end{aligned}\end{align} \]</div>
+<span class="eqno">(15.2.10)<a class="headerlink" href="#equation-glm-source-gamma-content-6" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\mathbb{E}[X] &amp;= \alpha \beta\\Var(X) &amp;=  \alpha \beta^2\end{aligned}\end{align} \]</div>
 <p><strong>常见参数化方式2：</strong></p>
 <p>令参数 <span class="math notranslate nohighlight">\(\alpha=k\)</span> 表式形状参数，参数 <span class="math notranslate nohighlight">\(\beta=\lambda\)</span> 表示尺度参数，
 这种方式下， 尺度参数 <span class="math notranslate nohighlight">\(\beta\)</span> 和 <a class="reference internal" href="#equation-eq-gamma-011">公式(15.2.9)</a> 是倒数关系，这只是不同的参数化方法而已，
 二者是等价的，这时 <code class="docutils literal notranslate"><span class="pre">Gamma</span></code> 分布的概率分布函数写成</p>
 <div class="math notranslate nohighlight" id="equation-eq-gamma-012">
-<span class="eqno">(15.2.11)<a class="headerlink" href="#equation-eq-gamma-012" title="公式的永久链接">¶</a></span>\[f(x;\alpha,\beta) = \frac{ x^{\alpha-1} e^{-\beta x  }  \beta^{\alpha} }{ \Gamma(\alpha)}
+<span class="eqno">(15.2.11)<a class="headerlink" href="#equation-eq-gamma-012" title="公式的永久链接"></a></span>\[f(x;\alpha,\beta) = \frac{ x^{\alpha-1} e^{-\beta x  }  \beta^{\alpha} }{ \Gamma(\alpha)}
 \quad (x,\alpha,\beta &gt; 0)\]</div>
 <p>此时的期望和方差为别为</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-gamma-content-7">
-<span class="eqno">(15.2.12)<a class="headerlink" href="#equation-glm-source-gamma-content-7" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\mathbb{E}[X] &amp;= \frac{\alpha}{\beta}\\Var(X) &amp;=  \frac{\alpha} {\beta^2}\end{aligned}\end{align} \]</div>
-</div>
-<div class="section" id="id3">
-<h2><span class="section-number">15.3. </span>Gamma 回归模型<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<span class="eqno">(15.2.12)<a class="headerlink" href="#equation-glm-source-gamma-content-7" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\mathbb{E}[X] &amp;= \frac{\alpha}{\beta}\\Var(X) &amp;=  \frac{\alpha} {\beta^2}\end{aligned}\end{align} \]</div>
+</section>
+<section id="id3">
+<h2><span class="section-number">15.3. </span>Gamma 回归模型<a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
 <p>在GLM中，Gamma模型用于响应数据只能取大于或等于0的连续值数据进行建模。</p>
 <p>Gamma 分布是是一个双参数分布，包含形状参数 <span class="math notranslate nohighlight">\(\alpha\)</span> 和尺度化参数 <span class="math notranslate nohighlight">\(\beta\)</span>
 ，形状参数 <span class="math notranslate nohighlight">\(\alpha\)</span> 表示事件的发生次数，尺度化参数 <span class="math notranslate nohighlight">\(\beta\)</span> 表示平均一次事件发生需要的时间。
@@ -1114,13 +1028,13 @@ Gamma 分布就是指数分布的扩展，能够表达事件发生任意次数�
 通常这个值一个经验值，需要根据观测数据分布情况</p>
 <p>GLM中指数族分布的标准形式为</p>
 <div class="math notranslate nohighlight" id="equation-eq-gamma-012-1">
-<span class="eqno">(15.3.1)<a class="headerlink" href="#equation-eq-gamma-012-1" title="公式的永久链接">¶</a></span>\[f(y;\theta,\phi) = \exp \left \{\frac{\theta y - b(\theta)}{a(\phi)} + c(y,\phi) \right \}\]</div>
+<span class="eqno">(15.3.1)<a class="headerlink" href="#equation-eq-gamma-012-1" title="公式的永久链接"></a></span>\[f(y;\theta,\phi) = \exp \left \{\frac{\theta y - b(\theta)}{a(\phi)} + c(y,\phi) \right \}\]</div>
 <p>现在我们把 Gamma 分布的概率密度函数转化成上述指数族分布的标准形式，
 首先，从上文已知 Gamma 分布的期望为 <span class="math notranslate nohighlight">\(\mu=\alpha \beta\)</span>
 。令 <span class="math notranslate nohighlight">\(\phi = 1/\alpha\)</span> ，则有 <span class="math notranslate nohighlight">\(\alpha = 1 / \phi ,\beta=\mu / \alpha=\mu \phi\)</span>
 ，代入到 <a class="reference internal" href="#equation-eq-gamma-011">公式(15.2.9)</a> 可得</p>
 <div class="math notranslate nohighlight" id="equation-eq-gamma-013">
-<span class="eqno">(15.3.2)<a class="headerlink" href="#equation-eq-gamma-013" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}f(y;\mu,\phi) &amp;=  \frac{ y^{\alpha-1} e^{-\frac{y}{\beta} }}{\beta^{\alpha} \Gamma(\alpha)}\\&amp;= \exp \left [
+<span class="eqno">(15.3.2)<a class="headerlink" href="#equation-eq-gamma-013" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}f(y;\mu,\phi) &amp;=  \frac{ y^{\alpha-1} e^{-\frac{y}{\beta} }}{\beta^{\alpha} \Gamma(\alpha)}\\&amp;= \exp \left [
     -\frac{y}{\beta} + (\alpha-1) \ln y - \alpha \ln \beta  - \ln \Gamma(\alpha)
 \right ]\\&amp;= \exp \left [
     -y / \beta  - \alpha \ln \beta  + (\alpha-1) \ln y   - \ln \Gamma(\alpha)
@@ -1137,27 +1051,27 @@ Gamma 分布就是指数分布的扩展，能够表达事件发生任意次数�
 \right ]\end{aligned}\end{align} \]</div>
 <p>和 <a class="reference internal" href="#equation-eq-gamma-011">公式(15.2.9)</a> 对比下，可以直接得到各个重要组件的形式。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-gamma-content-8">
-<span class="eqno">(15.3.3)<a class="headerlink" href="#equation-glm-source-gamma-content-8" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\theta &amp;= 1/\mu\\b(\theta) &amp;= -\ln(\mu)\\a(\phi) &amp;= - \phi\end{aligned}\end{align} \]</div>
+<span class="eqno">(15.3.3)<a class="headerlink" href="#equation-glm-source-gamma-content-8" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\theta &amp;= 1/\mu\\b(\theta) &amp;= -\ln(\mu)\\a(\phi) &amp;= - \phi\end{aligned}\end{align} \]</div>
 <p>显然 Gamma模型的标准连接函数就是倒数函数， <span class="math notranslate nohighlight">\(\eta=g(\mu) = \theta= 1/\mu\)</span> 。
 现在我们看下 Gamma 分布的期望和方差函数。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-gamma-content-9">
-<span class="eqno">(15.3.4)<a class="headerlink" href="#equation-glm-source-gamma-content-9" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}b'(\theta) &amp;= \frac{\partial b}{\partial \mu} \frac{\partial \mu}{\partial \theta}\\&amp;= \left ( - \frac{1}{\mu} \right )(-\mu^2)\\&amp;=\mu\\b''(\theta) &amp;= \frac{\partial^2 b}{\partial \mu^2} \left ( \frac{\partial \mu}{\partial \theta} \right )
+<span class="eqno">(15.3.4)<a class="headerlink" href="#equation-glm-source-gamma-content-9" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}b'(\theta) &amp;= \frac{\partial b}{\partial \mu} \frac{\partial \mu}{\partial \theta}\\&amp;= \left ( - \frac{1}{\mu} \right )(-\mu^2)\\&amp;=\mu\\b''(\theta) &amp;= \frac{\partial^2 b}{\partial \mu^2} \left ( \frac{\partial \mu}{\partial \theta} \right )
 + \frac{\partial b}{\partial \mu} \frac{\partial^2\mu}{\partial \theta^2}\\&amp;= (1)(-\mu^2)\\&amp;= -\mu^2\end{aligned}\end{align} \]</div>
 <p>注意， <span class="math notranslate nohighlight">\(b''(\theta)\)</span> 是方差函数，体现的是方差和均值的关系，
 显然 <strong>Gamma 分布的方差是和其均值相关的</strong> ，Gamma 分布的方差为：</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-gamma-content-10">
-<span class="eqno">(15.3.5)<a class="headerlink" href="#equation-glm-source-gamma-content-10" title="公式的永久链接">¶</a></span>\[Var(y) = b''(\theta) a(\phi) = -\mu^2(-\phi) = \phi\mu^2\]</div>
+<span class="eqno">(15.3.5)<a class="headerlink" href="#equation-glm-source-gamma-content-10" title="公式的永久链接"></a></span>\[Var(y) = b''(\theta) a(\phi) = -\mu^2(-\phi) = \phi\mu^2\]</div>
 <p>最后我们整理一下 Gamma 模型的一些关键组件。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-gamma-content-11">
-<span class="eqno">(15.3.6)<a class="headerlink" href="#equation-glm-source-gamma-content-11" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\text{标准连接函数：}  &amp; \eta = g(\mu) = \frac{1}{\mu}\\\text{反链接(响应)函数：}  &amp; \mu = r(\eta) = \frac{1}{\eta}\\\text{方差函数：}  &amp; \nu(\mu)=\mu^2\\\text{分散函数：}  &amp; a(\phi) = -\phi\\\text{标准连接函数导数：} &amp; g'=-\frac{1}{\mu^2}\end{aligned}\end{align} \]</div>
-</div>
-<div class="section" id="id4">
-<h2><span class="section-number">15.4. </span>参数估计<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
-<div class="section" id="id5">
-<h3><span class="section-number">15.4.1. </span>似然函数<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
+<span class="eqno">(15.3.6)<a class="headerlink" href="#equation-glm-source-gamma-content-11" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\text{标准连接函数：}  &amp; \eta = g(\mu) = \frac{1}{\mu}\\\text{反链接(响应)函数：}  &amp; \mu = r(\eta) = \frac{1}{\eta}\\\text{方差函数：}  &amp; \nu(\mu)=\mu^2\\\text{分散函数：}  &amp; a(\phi) = -\phi\\\text{标准连接函数导数：} &amp; g'=-\frac{1}{\mu^2}\end{aligned}\end{align} \]</div>
+</section>
+<section id="id4">
+<h2><span class="section-number">15.4. </span>参数估计<a class="headerlink" href="#id4" title="永久链接至标题"></a></h2>
+<section id="id5">
+<h3><span class="section-number">15.4.1. </span>似然函数<a class="headerlink" href="#id5" title="永久链接至标题"></a></h3>
 <p>概率分布函数的指数族形式 <a class="reference internal" href="#equation-eq-gamma-013">公式(15.3.2)</a> ，直接去掉底数就得到了其对数似然函数。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-gamma-content-12">
-<span class="eqno">(15.4.1)<a class="headerlink" href="#equation-glm-source-gamma-content-12" title="公式的永久链接">¶</a></span>\[\ell(\mu,\phi;y) = \sum_{i=1}^N \left \{
+<span class="eqno">(15.4.1)<a class="headerlink" href="#equation-glm-source-gamma-content-12" title="公式的永久链接"></a></span>\[\ell(\mu,\phi;y) = \sum_{i=1}^N \left \{
 \frac{y_i / \mu_i -(- \ln \mu_i)}{-\phi}
 + \frac{ 1-\phi}{\phi} \ln y_i
 - \frac{\ln \phi}{ \phi }
@@ -1166,37 +1080,37 @@ Gamma 分布就是指数分布的扩展，能够表达事件发生任意次数�
 <p>根据 <a class="reference internal" href="../%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/estimate.html#equation-eq-glm-estimate-ll-score">公式(7.1.12)</a>
 ，标准连接函数的Gamma模型的似然函数的一阶偏导为</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-gamma-content-13">
-<span class="eqno">(15.4.2)<a class="headerlink" href="#equation-glm-source-gamma-content-13" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}U_j = \frac{\partial \ell}{\partial \beta_j}
+<span class="eqno">(15.4.2)<a class="headerlink" href="#equation-glm-source-gamma-content-13" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}U_j = \frac{\partial \ell}{\partial \beta_j}
 &amp;= \sum_{i=1}^N \frac{y_i-\mu_i}{a(\phi) \nu(\mu_i)g(\mu_i)' }  x_{ij}\\&amp;= - \sum_{i=1}^N \frac{y_i-\mu_i}{-\phi \mu_i^2 \eta_i^2 }  x_{ij}\end{aligned}\end{align} \]</div>
-</div>
-<div class="section" id="irls">
-<h3><span class="section-number">15.4.2. </span>IRLS<a class="headerlink" href="#irls" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="irls">
+<h3><span class="section-number">15.4.2. </span>IRLS<a class="headerlink" href="#irls" title="永久链接至标题"></a></h3>
 <p>只需要给出 <span class="math notranslate nohighlight">\(W\)</span> 和 <span class="math notranslate nohighlight">\(Z\)</span> 的计算等式就可以应用IRLS算法。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-gamma-content-14">
-<span class="eqno">(15.4.3)<a class="headerlink" href="#equation-glm-source-gamma-content-14" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}W &amp;= \text{diag} \left \{ \frac{ 1}{ a(\phi) \nu(\hat{\mu}) ( g' )^2}
+<span class="eqno">(15.4.3)<a class="headerlink" href="#equation-glm-source-gamma-content-14" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}W &amp;= \text{diag} \left \{ \frac{ 1}{ a(\phi) \nu(\hat{\mu}) ( g' )^2}
 \right \}_{(N\times N)}\\&amp;= \text{diag} \left \{ \frac{ -\hat{\mu}^2}{ \phi}
 \right \}_{(N\times N)}\end{aligned}\end{align} \]</div>
 <div class="math notranslate nohighlight" id="equation-glm-source-gamma-content-15">
-<span class="eqno">(15.4.4)<a class="headerlink" href="#equation-glm-source-gamma-content-15" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}Z &amp;=   \left \{ (y- \hat{\mu}) g'  + \eta
+<span class="eqno">(15.4.4)<a class="headerlink" href="#equation-glm-source-gamma-content-15" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}Z &amp;=   \left \{ (y- \hat{\mu}) g'  + \eta
 \right \}_{(N\times 1 )}\\ &amp;=   \left \{ \frac{-(y- \hat{\mu})}{ \hat{\mu}^2}  + \eta
 \right \}_{(N\times 1 )}\end{aligned}\end{align} \]</div>
-</div>
-<div class="section" id="id6">
-<h3><span class="section-number">15.4.3. </span>拟合优度<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id6">
+<h3><span class="section-number">15.4.3. </span>拟合优度<a class="headerlink" href="#id6" title="永久链接至标题"></a></h3>
 <p>Gamma模型的偏差统计量为</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-gamma-content-16">
-<span class="eqno">(15.4.5)<a class="headerlink" href="#equation-glm-source-gamma-content-16" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}D &amp;= 2 \{ \ell(y;y)  - \ell(\hat{\mu};y)\}\\&amp;= 2 \sum_{i=1}^N \frac{1+\ln(y_i)-y_i/\hat{\mu}_i-\ln(\hat{\mu}_i)  }{-\phi}\\&amp;=   \frac{2}{\phi} \sum_{i=1}^N
+<span class="eqno">(15.4.5)<a class="headerlink" href="#equation-glm-source-gamma-content-16" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}D &amp;= 2 \{ \ell(y;y)  - \ell(\hat{\mu};y)\}\\&amp;= 2 \sum_{i=1}^N \frac{1+\ln(y_i)-y_i/\hat{\mu}_i-\ln(\hat{\mu}_i)  }{-\phi}\\&amp;=   \frac{2}{\phi} \sum_{i=1}^N
  \left \{ \frac{y_i - \hat{\mu}_i}{\hat{\mu}_i} - \ln \left (  \frac{y_i}{\hat{\mu}_i} \right ) \right \}\end{aligned}\end{align} \]</div>
 <p>Gamma模型的皮尔逊卡方统计量为</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-gamma-content-17">
-<span class="eqno">(15.4.6)<a class="headerlink" href="#equation-glm-source-gamma-content-17" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\chi^2
+<span class="eqno">(15.4.6)<a class="headerlink" href="#equation-glm-source-gamma-content-17" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\chi^2
 &amp;= \sum_{i=1}^N \frac{ (y_i-\hat{\mu}_i)^2}{\nu{\hat{\mu}_i}}\\&amp;= \sum_{i=1}^N \frac{ (y_i-\hat{\mu}_i)^2}{\hat{\mu}_i^2}\end{aligned}\end{align} \]</div>
-</div>
-</div>
-<div class="section" id="id7">
-<h2><span class="section-number">15.5. </span>其他连接函数<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h2>
-<div class="section" id="id8">
-<h3><span class="section-number">15.5.1. </span>对数 Gamma 模型<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h3>
+</section>
+</section>
+<section id="id7">
+<h2><span class="section-number">15.5. </span>其他连接函数<a class="headerlink" href="#id7" title="永久链接至标题"></a></h2>
+<section id="id8">
+<h3><span class="section-number">15.5.1. </span>对数 Gamma 模型<a class="headerlink" href="#id8" title="永久链接至标题"></a></h3>
 <p>前面我们提到，在给定一组特定的解释变量或预测变量的情况下，倒数链接估计模型响应的每单位速率。
 对数链接的 Gamma 表示响应的对数率。
 该模型规范与指数回归相同。
@@ -1212,16 +1126,16 @@ LOS数据通常使用泊松或负二项式回归进行估计，因为LOS的元�
 因此，对数伽马技术正在曾经使用过高斯技术的研究人员中得到越来越多的使用。</p>
 <p>对数 gamma 模型是值其连接函数是对数函数，其响应函数(反链接)是指数函数。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-gamma-content-18">
-<span class="eqno">(15.5.1)<a class="headerlink" href="#equation-glm-source-gamma-content-18" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\eta &amp;= \ln (\mu)\\\mu &amp;= e^{\eta}\end{aligned}\end{align} \]</div>
+<span class="eqno">(15.5.1)<a class="headerlink" href="#equation-glm-source-gamma-content-18" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\eta &amp;= \ln (\mu)\\\mu &amp;= e^{\eta}\end{aligned}\end{align} \]</div>
 <p>对数连接函数的一阶导数是 <span class="math notranslate nohighlight">\(g'(\mu)=1\mu\)</span> ，
 可以轻松的使用IRLS算法进行参数估计。
 但是由于对数连接函数表示规范连接函数，
 IRLS算法的估计量和ML算法的估计量有不同的标准误差(standard errors)。
 但是，除了极端情况外，标准误差的差异通常很小。
 在较大数据集时，使用不同的估算方法通常不会产生任何推断差异。</p>
-</div>
-<div class="section" id="identity-gamma">
-<h3><span class="section-number">15.5.2. </span>恒等(identity) Gamma 模型<a class="headerlink" href="#identity-gamma" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="identity-gamma">
+<h3><span class="section-number">15.5.2. </span>恒等(identity) Gamma 模型<a class="headerlink" href="#identity-gamma" title="永久链接至标题"></a></h3>
 <p>恒等连接函数 <span class="math notranslate nohighlight">\(\eta=\mu\)</span> ，假设 <span class="math notranslate nohighlight">\(\mu\)</span> 和 <span class="math notranslate nohighlight">\(\eta\)</span> 之间存在一一对应的关系。
 高斯模型的规范链接就是恒等函数，但是Gamma模型中恒等函数不是规范链接。</p>
 <p>在同一模型家族的不同链接之间进行选择有时可能很困难。
@@ -1236,21 +1150,28 @@ McCullagh和Nelder（1989）支持最小偏差的方法。
 2和6之间差值时，两个模型之间就有了一定的区别。
 而6和10之间的差值，则说明两个模型有了明显的区别。
 绝对差值大于10，那就肯定是BIC值较小的那个模型更好了。</p>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../%E8%BF%87%E5%BA%A6%E5%88%86%E6%95%A3/content.html" class="btn btn-neutral float-right" title="16. 过度分散" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="../%E6%8C%87%E6%95%B0%E6%A8%A1%E5%9E%8B/content.html" class="btn btn-neutral float-left" title="14. 指数模型" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../%E6%8C%87%E6%95%B0%E6%A8%A1%E5%9E%8B/content.html" class="btn btn-neutral float-left" title="14. 指数模型" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../%E8%BF%87%E5%BA%A6%E5%88%86%E6%95%A3/content.html" class="btn btn-neutral float-right" title="16. 过度分散" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2018, zhangzhenhu(acmtiger@outlook.com) 禁止一切形式的转载！.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
+  
 
 
     <script src="https://utteranc.es/client.js"
@@ -1263,42 +1184,16 @@ McCullagh和Nelder（1989）支持最小偏差的方法。
 
 
 
-  <div role="contentinfo">
-    <p>
-        &#169; 版权所有 2018, zhangzhenhu(acmtiger@outlook.com) 禁止一切形式的转载！.
-
-    </p>
-  </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-
-
-
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

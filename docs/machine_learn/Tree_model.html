@@ -1,97 +1,49 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="zh-CN" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>5. 树模型 &mdash; 张振虎的博客 张振虎 文档</title>
-  
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
     <link rel="canonical" href="https://zhangzhenhu.github.io/blog/machine_learn/Tree_model.html" />
-
-  
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/translations.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2.7.7/unpacked/MathJax.min.js"></script>
         <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"Macros": {"RR": "{\\bf R}", "bold": ["{\\bf #1}", 1]}}})</script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
+    <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../index.html" class="icon icon-home"> 张振虎的博客
-          
-
-          
           </a>
-
-          
-            
-            
               <div class="version">
                 acmtiger@outlook.com
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="在文档中搜索" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">目录:</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">目录:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../glm/source/index.html">广义线性模型</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../glm/source/%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80/content.html">1. 概率基础</a><ul>
@@ -139,7 +91,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#id2">3.1. 统计量和充分统计量</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-sample-distribution">3.2. 抽样分布</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-sample-distribution-normal">3.2.1. 正态分布</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#t">3.2.2. t分布</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#t">3.2.2. 学生t分布</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#id5">3.2.3. 卡方分布</a></li>
 </ul>
 </li>
@@ -744,7 +696,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../audio/feature.html#id18">1.5. 分帧与加窗</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../audio/feature.html#id19">1.5.1. 预加重处理</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../audio/feature.html#id20">1.5.2. 分帧与加窗</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../audio/feature.html#id20">1.5.2. 分帧与加窗处理</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../audio/feature.html#id21">1.6. 声音的感官度量</a><ul>
@@ -786,26 +738,26 @@
 <li class="toctree-l2"><a class="reference internal" href="../edm/bkt.html">1. 贝叶斯知识追踪(Bayesian Knowledge Tracing,BKT)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id1">1.1. 简介</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#hidden-markov-model-hmm">1.2. 隐马尔科夫模型(Hidden Markov Model,HMM)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id5">1.3. 贝叶斯知识追踪(Bayesian Knowledge Tracing,BKT)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#bayesian-knowledge-tracing">1.3. 贝叶斯知识追踪(Bayesian Knowledge Tracing)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#bkt">1.3.1. BKT的参数估计</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#item-response-theory-irt">1.4. 项目反映理论(Item Response Theory,IRT)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#bktirt">1.5. BKT结合IRT</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id6">1.6. 实验</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id7">1.6.1. 数据集</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id8">1.6.2. 实验方法</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id9">1.6.3. 实验结果</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id10">1.6.4. 项目代码</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id5">1.6. 实验</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id6">1.6.1. 数据集</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id7">1.6.2. 实验方法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id8">1.6.3. 实验结果</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id9">1.6.4. 项目代码</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id11">1.7. 未来工作</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id12">1.7.1. 题目难度的计算</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id10">1.7. 未来工作</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id11">1.7.1. 题目难度的计算</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#irt">1.7.2. 多参数IRT模型</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id13">1.7.3. 参数估计算法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id12">1.7.3. 参数估计算法</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id14">1.8. 参考文献</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id13">1.8. 参考文献</a></li>
 </ul>
 </li>
 </ul>
@@ -902,83 +854,42 @@
 </li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">张振虎的博客</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-        
       <li><span class="section-number">5. </span>树模型</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
-            <a href="../_sources/machine_learn/Tree_model.rst.txt" rel="nofollow"> View page source</a>
-          
-        
+            <a href="../_sources/machine_learn/Tree_model.rst.txt" rel="nofollow"> 查看页面源码</a>
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="id1">
-<h1><span class="section-number">5. </span>树模型<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
-<div class="section" id="id2">
-<h2><span class="section-number">5.1. </span>树模型基础<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+             
+  <section id="id1">
+<h1><span class="section-number">5. </span>树模型<a class="headerlink" href="#id1" title="永久链接至标题"></a></h1>
+<section id="id2">
+<h2><span class="section-number">5.1. </span>树模型基础<a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
 <p>决策树由结点和有向边组成。结点有两种类型：内部结点和叶结点，其中内部结点表示一个特征或属性，叶结点表示一个类。</p>
 <p>决策树（Decision Tree）是一种基本的分类与回归方法，当决策树用于分类时称为分类树，用于回归时称为回归树。</p>
-<div class="section" id="id3">
-<h3><span class="section-number">5.1.1. </span>分类树<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h3>
+<section id="id3">
+<h3><span class="section-number">5.1.1. </span>分类树<a class="headerlink" href="#id3" title="永久链接至标题"></a></h3>
 <p>下图为分类树的可视化结果：</p>
-<div class="figure align-center">
+<figure class="align-center">
 <img alt="../_images/分类树模型.png" src="../_images/分类树模型.png" />
-</div>
+</figure>
 <ul class="simple">
 <li><p>ID3</p></li>
 </ul>
@@ -986,13 +897,13 @@
 <p>信息增益（information gain）表示得知特征X的信息而使得类Y的信息的不确定性减少的程度。特征a对训练数据集D
 D的信息增益g(D,A)定义为集合D的经验熵H(D)与在给定特征A的条件下D的条件熵H(D∣A))之差，即：</p>
 <div class="math notranslate nohighlight" id="equation-machine-learn-tree-model-0">
-<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-tree-model-0" title="公式的永久链接">¶</a></span>\[g(D, A) = H(D) - H(D|A) \tag{1}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-tree-model-0" title="公式的永久链接"></a></span>\[g(D, A) = H(D) - H(D|A) \tag{1}\]</div>
 <p>其中</p>
 <div class="math notranslate nohighlight" id="equation-machine-learn-tree-model-1">
-<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-tree-model-1" title="公式的永久链接">¶</a></span>\[H(D) = -\sum_{i=1}^{|D|} P(i)logP(i) \tag{2}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-tree-model-1" title="公式的永久链接"></a></span>\[H(D) = -\sum_{i=1}^{|D|} P(i)logP(i) \tag{2}\]</div>
 <p>上式中 <span class="math notranslate nohighlight">\(P(i)\)</span> 代表了类别标签为i的样本占总样本的比例。</p>
 <div class="math notranslate nohighlight" id="equation-machine-learn-tree-model-2">
-<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-tree-model-2" title="公式的永久链接">¶</a></span>\[H(D|A) = -\sum_{d=1}^{|D|} \sum_{a=1}^{|A|} p(d,a) log(p(d|a)) \tag{3}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-tree-model-2" title="公式的永久链接"></a></span>\[H(D|A) = -\sum_{d=1}^{|D|} \sum_{a=1}^{|A|} p(d,a) log(p(d|a)) \tag{3}\]</div>
 <p>ID3算法的核心是在决策树各个结点上应用信息增益准则选择特征，递归地构建决策树。
 具体方法是：从根结点开始，对结点计算所有可能的特征的信息增益，选择信息增益最大的特征作为结点的特征，由该特征的不同取值建立子结点。
 之后，再对子结点递归地调用以上方法，构建决策树，直到所有特征的信息增益均很小或没有特征可以选择为止，最终得到一个决策树。</p>
@@ -1003,31 +914,31 @@ D的信息增益g(D,A)定义为集合D的经验熵H(D)与在给定特征A的条�
 <p>如前文所说，信息增益准则对可取值数目较多的属性有所偏好，为减少这种偏好可能带来的不利影响，
 C4.5决策树算法不直接使用信息增益来选择划分属性，而是综合考虑了带划分属性的取值数量，使用信息增益率来选择最优划分属性，定义如下：</p>
 <div class="math notranslate nohighlight" id="equation-machine-learn-tree-model-3">
-<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-tree-model-3" title="公式的永久链接">¶</a></span>\[g_r(D, A) = \frac{g(D,A)}{H_A(D)} \tag{4}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-tree-model-3" title="公式的永久链接"></a></span>\[g_r(D, A) = \frac{g(D,A)}{H_A(D)} \tag{4}\]</div>
 <p>其中</p>
 <div class="math notranslate nohighlight" id="equation-machine-learn-tree-model-4">
-<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-tree-model-4" title="公式的永久链接">¶</a></span>\[H_A(D) = -\sum_{i=1}^{|A|} P(i)logP(i) \tag{5}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-tree-model-4" title="公式的永久链接"></a></span>\[H_A(D) = -\sum_{i=1}^{|A|} P(i)logP(i) \tag{5}\]</div>
 <p>P(i)为特征值为i的样本的比例。</p>
 <ul class="simple">
 <li><p>基尼系数</p></li>
 </ul>
 <p>数据集D的纯度还可用基尼值来度量，定义如下：</p>
 <div class="math notranslate nohighlight" id="equation-machine-learn-tree-model-5">
-<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-tree-model-5" title="公式的永久链接">¶</a></span>\[Gini(D) = \sum_{d=1}^{|D|} P(d)(1-P(i)) \tag{6}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-tree-model-5" title="公式的永久链接"></a></span>\[Gini(D) = \sum_{d=1}^{|D|} P(d)(1-P(i)) \tag{6}\]</div>
 <p>当D为二分类时：</p>
 <div class="math notranslate nohighlight" id="equation-machine-learn-tree-model-6">
-<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-tree-model-6" title="公式的永久链接">¶</a></span>\[Gini(D) = 2P(1-P) \tag{7}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-tree-model-6" title="公式的永久链接"></a></span>\[Gini(D) = 2P(1-P) \tag{7}\]</div>
 <p>直观来说，Gini(D)反映了从数据集D中随机抽取两个样本，其类别标记不一致的概率。</p>
 <p>对于给定的特征A，Gini(D,A)定义如下：</p>
 <div class="math notranslate nohighlight" id="equation-machine-learn-tree-model-7">
-<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-tree-model-7" title="公式的永久链接">¶</a></span>\[Gini(D,A) = \sum_d^{|D|} \frac{|D_d|}{D} Gini(D_d) \tag{8}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-tree-model-7" title="公式的永久链接"></a></span>\[Gini(D,A) = \sum_d^{|D|} \frac{|D_d|}{D} Gini(D_d) \tag{8}\]</div>
 <ul class="simple">
 <li><p>连续值处理</p></li>
 </ul>
 <p>连续属性离散化：</p>
 <p>给定样本集D和连续属性a，a在D上的取值按大小排序为{a1,a2,…….,an}，我们可以定义划分点集合为：</p>
 <div class="math notranslate nohighlight" id="equation-machine-learn-tree-model-8">
-<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-tree-model-8" title="公式的永久链接">¶</a></span>\[T_a = \{\frac{a_i+a_{i+1}}{2} , 1 \ge i \le n-1\} \tag{9}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-tree-model-8" title="公式的永久链接"></a></span>\[T_a = \{\frac{a_i+a_{i+1}}{2} , 1 \ge i \le n-1\} \tag{9}\]</div>
 <ul class="simple">
 <li><p>缺失值处理</p></li>
 </ul>
@@ -1036,7 +947,7 @@ C4.5决策树算法不直接使用信息增益来选择划分属性，而是综�
 </ol>
 <p>该问题即为如何计算属性有缺失值时的信息增益，定义如下：</p>
 <div class="math notranslate nohighlight" id="equation-machine-learn-tree-model-9">
-<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-tree-model-9" title="公式的永久链接">¶</a></span>\[g_m(D, A) = p*g(\widetilde{D}, A) \tag{10}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-tree-model-9" title="公式的永久链接"></a></span>\[g_m(D, A) = p*g(\widetilde{D}, A) \tag{10}\]</div>
 <p>其中 <span class="math notranslate nohighlight">\(\widetilde{D}\)</span> D中样本在属性A上有数值的样本，<span class="math notranslate nohighlight">\(p\)</span> 为 <span class="math notranslate nohighlight">\(\widetilde{D}\)</span> 在样本总数的比例。</p>
 <ol class="loweralpha simple" start="2">
 <li><p>给定划分属性，若样本在该属性上的值是缺失的，那么该如何对这个样本进行划分？</p></li>
@@ -1074,17 +985,17 @@ C4.5决策树算法不直接使用信息增益来选择划分属性，而是综�
 <p>代价复杂度剪枝综合考虑了剪枝后的错分类代价与模型复杂度的降低，对于节点T来讲，该系数定义如下：</p>
 <p>剪枝前代价复杂度系数为：</p>
 <div class="math notranslate nohighlight" id="equation-machine-learn-tree-model-10">
-<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-tree-model-10" title="公式的永久链接">¶</a></span>\[C_{\alpha}(T) = C(T)+ \alpha|T| \tag{11}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-tree-model-10" title="公式的永久链接"></a></span>\[C_{\alpha}(T) = C(T)+ \alpha|T| \tag{11}\]</div>
 <p>其中C(T)定义如下：</p>
 <div class="math notranslate nohighlight" id="equation-machine-learn-tree-model-11">
-<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-tree-model-11" title="公式的永久链接">¶</a></span>\[C(T) = \sum_{t \in leaf} N_t·H(t) \tag{12}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-tree-model-11" title="公式的永久链接"></a></span>\[C(T) = \sum_{t \in leaf} N_t·H(t) \tag{12}\]</div>
 <p>其形式类似于数据在节点T的条件熵，只是系数由原来的样本比例变为现在的样本数量。</p>
 <p>剪枝后代价复杂度系数为：</p>
 <div class="math notranslate nohighlight" id="equation-machine-learn-tree-model-12">
-<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-tree-model-12" title="公式的永久链接">¶</a></span>\[C_{\alpha}(t) = C(t)+ \alpha \tag{13}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-tree-model-12" title="公式的永久链接"></a></span>\[C_{\alpha}(t) = C(t)+ \alpha \tag{13}\]</div>
 <p>则节点T对应的剪枝系数 <span class="math notranslate nohighlight">\(\alpha\)</span> 定义如下：</p>
 <div class="math notranslate nohighlight" id="equation-machine-learn-tree-model-13">
-<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-tree-model-13" title="公式的永久链接">¶</a></span>\[\alpha_t = \frac{C_{\alpha}(t) - C_{\alpha}(T)}{|T|-1} \tag{14}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-tree-model-13" title="公式的永久链接"></a></span>\[\alpha_t = \frac{C_{\alpha}(t) - C_{\alpha}(T)}{|T|-1} \tag{14}\]</div>
 <p>较大的 <span class="math notranslate nohighlight">\(\alpha\)</span> 倾向于选择简单的模型，较小的 <span class="math notranslate nohighlight">\(\alpha\)</span> 倾向于选择较复杂的模型，当 <span class="math notranslate nohighlight">\(\alpha\)</span> 为零时，则不考虑模型的复杂性。</p>
 <p>剪枝主要步骤如下：</p>
 <p>对于给定的决策树T：</p>
@@ -1101,13 +1012,13 @@ C4.5决策树算法不直接使用信息增益来选择划分属性，而是综�
 <p>对于一个叶子节点，有N个样本，其中E表示错误样本的数量，则该叶子结点的错误率定义为 <span class="math notranslate nohighlight">\(\frac{E+0.5}{N}\)</span> ，
 那么对于一个子树来讲，定义为 <span class="math notranslate nohighlight">\(\frac{\sum E_i+0.5·|L|}{\sum N_i}\)</span>, 其中|L|为该子树下的叶子结点数量，<span class="math notranslate nohighlight">\(N_i\)</span> 为节点i下的样本数量。</p>
 <p>对于待剪枝子树，若该子树删除后形成的叶子结点的错误率小于该子树的错误率，则对该子树进行剪枝。</p>
-</div>
-<div class="section" id="id4">
-<h3><span class="section-number">5.1.2. </span>回归树<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id4">
+<h3><span class="section-number">5.1.2. </span>回归树<a class="headerlink" href="#id4" title="永久链接至标题"></a></h3>
 <p>下图为回归树的可视化结果：</p>
-<div class="figure align-center">
+<figure class="align-center">
 <img alt="../_images/回归树模型.png" src="../_images/回归树模型.png" />
-</div>
+</figure>
 <ol class="arabic simple">
 <li><p>回归树的构建思想：在训练集的输入空间中，递归的将每个区域划分为两个子区域并决定每个子区域上的输出值构建二叉决策树。</p></li>
 </ol>
@@ -1116,7 +1027,7 @@ C4.5决策树算法不直接使用信息增益来选择划分属性，而是综�
 <li><p>选择最优切分变量j和切分点s</p></li>
 </ul>
 <div class="math notranslate nohighlight" id="equation-machine-learn-tree-model-14">
-<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-tree-model-14" title="公式的永久链接">¶</a></span>\[min_{j,s}[\sum_{x_i \in c_1} (y_i - \hat{y_{c_1}})^2 + \sum_{x_j \in c_2} (y_j - \hat{y_{c_2}})^2] \tag{1}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-tree-model-14" title="公式的永久链接"></a></span>\[min_{j,s}[\sum_{x_i \in c_1} (y_i - \hat{y_{c_1}})^2 + \sum_{x_j \in c_2} (y_j - \hat{y_{c_2}})^2] \tag{1}\]</div>
 <p>上式中 <span class="math notranslate nohighlight">\(c_1\)</span> 与 <span class="math notranslate nohighlight">\(c_2\)</span> 表示根据切分点s划分的左右两个集合，遍历变量j，对固定的切分变量j扫描切分点s，选择满足上式的j、s对。</p>
 <ul class="simple">
 <li><p>对切分区域计算两个区域的输出平均值，用于下面的步骤。</p></li>
@@ -1124,18 +1035,18 @@ C4.5决策树算法不直接使用信息增益来选择划分属性，而是综�
 <li><p>将输入空间划分为M个区域 R1，R2，…….,RM，生成回归树如下：</p></li>
 </ul>
 <div class="math notranslate nohighlight" id="equation-machine-learn-tree-model-15">
-<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-tree-model-15" title="公式的永久链接">¶</a></span>\[f(x) = \sum_{m=1}^M \hat{c_m}I(x \in RM) \tag{2}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-tree-model-15" title="公式的永久链接"></a></span>\[f(x) = \sum_{m=1}^M \hat{c_m}I(x \in RM) \tag{2}\]</div>
 <ol class="arabic simple" start="2">
 <li><p>回归树的剪枝</p></li>
 </ol>
 <p>在回归树的剪枝中，我们常使用代价复杂度剪枝，定义如下：</p>
 <div class="math notranslate nohighlight" id="equation-machine-learn-tree-model-16">
-<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-tree-model-16" title="公式的永久链接">¶</a></span>\[\sum_{m=1}^|T| \sum_{x \in R_m} (y_i - \hat{y_{R_m}})^2 + \alpha|T| \tag{3}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-tree-model-16" title="公式的永久链接"></a></span>\[\sum_{m=1}^|T| \sum_{x \in R_m} (y_i - \hat{y_{R_m}})^2 + \alpha|T| \tag{3}\]</div>
 <p>其中 <span class="math notranslate nohighlight">\(|T|\)</span> 为节点T下分支数，<span class="math notranslate nohighlight">\(R_m\)</span> 为这些分支中对应下标为m的分支下的数据集。</p>
 <p>接着进行与分类树的剪枝相同的操作，得到最优的剪枝回归树。</p>
-</div>
-<div class="section" id="id5">
-<h3><span class="section-number">5.1.3. </span>决策树的优缺点<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id5">
+<h3><span class="section-number">5.1.3. </span>决策树的优缺点<a class="headerlink" href="#id5" title="永久链接至标题"></a></h3>
 <ul class="simple">
 <li><p>计算复杂度不高</p></li>
 <li><p>对中间缺失值不敏感</p></li>
@@ -1145,23 +1056,23 @@ C4.5决策树算法不直接使用信息增益来选择划分属性，而是综�
 <li><p>可以直接处理定性的预测变量而不需创建哑变量</p></li>
 <li><p>决策树的预测准确性一般比回归和分类方法弱，但可以通过用集成学习方法组合大量决策树，显著提升树的预测效果</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="id6">
-<h2><span class="section-number">5.2. </span>组合树模型<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h2>
+</section>
+</section>
+<section id="id6">
+<h2><span class="section-number">5.2. </span>组合树模型<a class="headerlink" href="#id6" title="永久链接至标题"></a></h2>
 <p>组合树模型有两种组合方式，bagging与boosting，在偏差-方差方面，bagging更关注于解决方差问题，而boosting更关注于解决偏差问题。</p>
 <p>并行方式，将尽可能独立的基学习器集成在一起，提升模型的准确性和泛化能力。</p>
-<div class="section" id="id7">
-<h3><span class="section-number">5.2.1. </span>随机森林<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h3>
+<section id="id7">
+<h3><span class="section-number">5.2.1. </span>随机森林<a class="headerlink" href="#id7" title="永久链接至标题"></a></h3>
 <ul class="simple">
 <li><p>样本随机</p></li>
 <li><p>特征随机</p></li>
 <li><p>参数随机</p></li>
 <li><p>模型随机</p></li>
 </ul>
-</div>
-<div class="section" id="id8">
-<h3><span class="section-number">5.2.2. </span>极端随机树<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id8">
+<h3><span class="section-number">5.2.2. </span>极端随机树<a class="headerlink" href="#id8" title="永久链接至标题"></a></h3>
 <ul class="simple">
 <li><p>分裂随机</p></li>
 <li><p>特征随机</p></li>
@@ -1172,13 +1083,13 @@ C4.5决策树算法不直接使用信息增益来选择划分属性，而是综�
 <p>1、随机森林应用的是Bagging模型，极端随机树使用所有的样本。</p>
 <p>2、随机森林是在特征子集中选择最优的特征，而极端随机树的特征是随机选取的，相对随机森林来讲，更大程度上降低了方差，但是增大了偏差。</p>
 <p>基于bagging的模型，自主采样过程会形成占样本数约36.8%的不在训练集出现的验证集，用作对模型的泛化性能进行包外估计（out-of-bag estimate）。</p>
-<div class="section" id="boosting">
-<h4><span class="section-number">5.2.2.1. </span>boosting<a class="headerlink" href="#boosting" title="永久链接至标题">¶</a></h4>
+<section id="boosting">
+<h4><span class="section-number">5.2.2.1. </span>boosting<a class="headerlink" href="#boosting" title="永久链接至标题"></a></h4>
 <p>串行方式，是一种可将弱学习器提升为强学习器的算法。</p>
-</div>
-</div>
-<div class="section" id="adaboost">
-<h3><span class="section-number">5.2.3. </span>AdaBoost<a class="headerlink" href="#adaboost" title="永久链接至标题">¶</a></h3>
+</section>
+</section>
+<section id="adaboost">
+<h3><span class="section-number">5.2.3. </span>AdaBoost<a class="headerlink" href="#adaboost" title="永久链接至标题"></a></h3>
 <p>AdaBoost 算法思想：</p>
 <p>（1）初始化训练数据（每个样本）的权值分布：如果有N个样本，则每一个训练的样本点最开始时都被赋予相同的权重：1/N。</p>
 <p>（2）训练弱分类器。具体训练过程中，如果某个样本已经被准确地分类，那么在构造下一个训练集中，它的权重就被降低；相反，如果某个样本点没有被准确地分类，那么它的权重就得到提高。同时，得到弱分类器对应的话语权。然后，更新权值后的样本集被用于训练下一个分类器，整个训练过程如此迭代地进行下去。</p>
@@ -1188,35 +1099,43 @@ C4.5决策树算法不直接使用信息增益来选择划分属性，而是综�
 <li><p>分类器权重更新公式：</p></li>
 </ul>
 <div class="math notranslate nohighlight" id="equation-machine-learn-tree-model-17">
-<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-tree-model-17" title="公式的永久链接">¶</a></span>\[\alpha_t = \frac{1}{2} ln(\frac{1-e_t}{e}) \tag{1}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-tree-model-17" title="公式的永久链接"></a></span>\[\alpha_t = \frac{1}{2} ln(\frac{1-e_t}{e}) \tag{1}\]</div>
 <p>其中e为当前分类器的错误率。</p>
 <ul class="simple">
 <li><p>样本更新公式：</p></li>
 </ul>
 <div class="math notranslate nohighlight" id="equation-machine-learn-tree-model-18">
-<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-tree-model-18" title="公式的永久链接">¶</a></span>\[D_{t+1}(x) = \frac{D_t(x)·e^(-f(x) \alpha_th_t(x))}{Z_t}  \tag{2}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-tree-model-18" title="公式的永久链接"></a></span>\[D_{t+1}(x) = \frac{D_t(x)·e^(-f(x) \alpha_th_t(x))}{Z_t}  \tag{2}\]</div>
 <p>其中 <span class="math notranslate nohighlight">\(Z_t\)</span> 为规范化因子，确保新生成的样本权值满足分布。</p>
-</div>
-<div class="section" id="gradient-tree-boosting">
-<h3><span class="section-number">5.2.4. </span>Gradient Tree Boosting<a class="headerlink" href="#gradient-tree-boosting" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="gradient-tree-boosting">
+<h3><span class="section-number">5.2.4. </span>Gradient Tree Boosting<a class="headerlink" href="#gradient-tree-boosting" title="永久链接至标题"></a></h3>
 <p>算法核心：针对上轮的模型，可以得到基于上轮模型输出结果的损失，我们便是要最小化这个损失，所以根据定义的损失函数对上轮模型的输出结果求偏导，进而在当前模型下拟合上述负梯度，最后将上轮结果与本轮拟合负梯度进行相加，则可以迭代的得到最后的模型。</p>
-</div>
-<div class="section" id="xgboost">
-<h3><span class="section-number">5.2.5. </span>xgboost<a class="headerlink" href="#xgboost" title="永久链接至标题">¶</a></h3>
-</div>
-</div>
-<div class="section" id="id9">
-<h2><span class="section-number">5.3. </span>树模型应用场景<a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h2>
-</div>
-</div>
+</section>
+<section id="xgboost">
+<h3><span class="section-number">5.2.5. </span>xgboost<a class="headerlink" href="#xgboost" title="永久链接至标题"></a></h3>
+</section>
+</section>
+<section id="id9">
+<h2><span class="section-number">5.3. </span>树模型应用场景<a class="headerlink" href="#id9" title="永久链接至标题"></a></h2>
+</section>
+</section>
 
 
            </div>
-           
           </div>
           <footer>
 
   <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2018, zhangzhenhu(acmtiger@outlook.com) 禁止一切形式的转载！.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
+  
 
 
     <script src="https://utteranc.es/client.js"
@@ -1229,42 +1148,16 @@ C4.5决策树算法不直接使用信息增益来选择划分属性，而是综�
 
 
 
-  <div role="contentinfo">
-    <p>
-        &#169; 版权所有 2018, zhangzhenhu(acmtiger@outlook.com) 禁止一切形式的转载！.
-
-    </p>
-  </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-
-
-
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

@@ -1,97 +1,49 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="zh-CN" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>伽马(Gamma)分布 &mdash; 张振虎的博客 张振虎 文档</title>
-  
-
-  
-  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
     <link rel="canonical" href="https://zhangzhenhu.github.io/blog/glm/source/gamma模型/gamma.html" />
-
-  
   <!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
         <script src="../../../_static/doctools.js"></script>
         <script src="../../../_static/translations.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2.7.7/unpacked/MathJax.min.js"></script>
         <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"Macros": {"RR": "{\\bf R}", "bold": ["{\\bf #1}", 1]}}})</script>
-    
-    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-
-    
+    <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../../genindex.html" />
     <link rel="search" title="搜索" href="../../../search.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../../../index.html" class="icon icon-home"> 张振虎的博客
-          
-
-          
           </a>
-
-          
-            
-            
               <div class="version">
                 acmtiger@outlook.com
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="在文档中搜索" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">目录:</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">目录:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../index.html">广义线性模型</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80/content.html">1. 概率基础</a><ul>
@@ -902,82 +854,41 @@
 </li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../../index.html">张振虎的博客</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
       <li>伽马(Gamma)分布</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
-            <a href="../../../_sources/glm/source/gamma模型/gamma.rst.txt" rel="nofollow"> View page source</a>
-          
-        
+            <a href="../../../_sources/glm/source/gamma模型/gamma.rst.txt" rel="nofollow"> 查看页面源码</a>
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="gamma">
-<h1>伽马(Gamma)分布<a class="headerlink" href="#gamma" title="永久链接至标题">¶</a></h1>
+             
+  <section id="gamma">
+<h1>伽马(Gamma)分布<a class="headerlink" href="#gamma" title="永久链接至标题"></a></h1>
 <p>指数分布是预测 <strong>下一次</strong> 时间发生等待的时间，
 更进一步，如果需要预测第k次事件发生需要等待的时间呢？
 这就是 Gamma 分布。
 在介绍 Gamma 分布之前，先简单的介绍一下 Gamma 函数。</p>
-<div class="section" id="id1">
-<h2>Gamma 函数<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
-</div>
-<div class="section" id="id2">
-<h2>推导过程<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<section id="id1">
+<h2>Gamma 函数<a class="headerlink" href="#id1" title="永久链接至标题"></a></h2>
+</section>
+<section id="id2">
+<h2>推导过程<a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
 <p>在之前的章节我们已经讨论了如何从泊松过程推导出指数分布，
 Gamma 分布的推导的过程是类似的。
 不同的地方在于指数分布是等待下一次事件发生，
@@ -989,42 +900,50 @@ Gamma 分布的推导的过程是类似的。
 <span class="math notranslate nohighlight">\(p(x=k;t)\)</span> 表示在泊松过程中 <span class="math notranslate nohighlight">\(t\)</span> 个时间单元内事件发生 <span class="math notranslate nohighlight">\(k\)</span> 次的概率。</p>
 <p>首先回顾一下泊松分布的概率分布函数：</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-gamma-gamma-0">
-<span class="eqno">()<a class="headerlink" href="#equation-glm-source-gamma-gamma-0" title="公式的永久链接">¶</a></span>\[p(x) = \frac{\lambda^x}{x!}  e^{-\lambda}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-glm-source-gamma-gamma-0" title="公式的永久链接"></a></span>\[p(x) = \frac{\lambda^x}{x!}  e^{-\lambda}\]</div>
 <p>其表示在单位时间内时间发生 <span class="math notranslate nohighlight">\(x\)</span> 次的概率，唯一的参数 <span class="math notranslate nohighlight">\(\lambda\)</span> 表示单位时间内事件发生次数的平均值，
 也就是 <span class="math notranslate nohighlight">\(x\)</span> 的期望值，<span class="math notranslate nohighlight">\(\mathbb{E}[x]=\lambda\)</span> 。
 现在要想计算 <span class="math notranslate nohighlight">\(t\)</span> 个单位时间内发生的次数，只需要用 <span class="math notranslate nohighlight">\(\lambda t\)</span> 替换上式即可，
 <span class="math notranslate nohighlight">\(t\)</span> 个时间单元内事件发生次数的概率为：</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-gamma-gamma-1">
-<span class="eqno">()<a class="headerlink" href="#equation-glm-source-gamma-gamma-1" title="公式的永久链接">¶</a></span>\[p(x;t) = \frac{(\lambda t)^x}{x!}  e^{-\lambda t}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-glm-source-gamma-gamma-1" title="公式的永久链接"></a></span>\[p(x;t) = \frac{(\lambda t)^x}{x!}  e^{-\lambda t}\]</div>
 <p>因此在 <span class="math notranslate nohighlight">\(t\)</span> 个单位时间内，事件发生 <span class="math notranslate nohighlight">\(k\)</span> 次的概率就是：</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-gamma-gamma-2">
-<span class="eqno">()<a class="headerlink" href="#equation-glm-source-gamma-gamma-2" title="公式的永久链接">¶</a></span>\[p(x=k;t) = \frac{(\lambda t)^k}{k!}  e^{-\lambda t}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-glm-source-gamma-gamma-2" title="公式的永久链接"></a></span>\[p(x=k;t) = \frac{(\lambda t)^k}{k!}  e^{-\lambda t}\]</div>
 <p><span class="math notranslate nohighlight">\(p(T&gt;t;k)\)</span> 可以理解成在 <span class="math notranslate nohighlight">\(t\)</span> 个时间单元内，事件发生次数小于等于 <span class="math notranslate nohighlight">\(k-1\)</span> 次，
 <span class="math notranslate nohighlight">\(t\)</span> 个时间单元内最多只发生 <span class="math notranslate nohighlight">\(k-1\)</span> 次，
 第 <span class="math notranslate nohighlight">\(k\)</span> 次尚未发生，那么第 <span class="math notranslate nohighlight">\(k\)</span> 次发生的时间一定是大于 <span class="math notranslate nohighlight">\(t\)</span> 。
 因此 <span class="math notranslate nohighlight">\(p(T&gt;t;k)\)</span> 可以看成是 <span class="math notranslate nohighlight">\(k-1\)</span> 次 <span class="math notranslate nohighlight">\(p(x=k;t)\)</span> 的求和。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-gamma-gamma-3">
-<span class="eqno">()<a class="headerlink" href="#equation-glm-source-gamma-gamma-3" title="公式的永久链接">¶</a></span>\[p(T&gt;t;k) = \sum_{i=0}^{k-1} p(k_i;t)
+<span class="eqno">()<a class="headerlink" href="#equation-glm-source-gamma-gamma-3" title="公式的永久链接"></a></span>\[p(T&gt;t;k) = \sum_{i=0}^{k-1} p(k_i;t)
 = \sum_{i=0}^{k-1} \frac{(\lambda t)^{k_i}}{k_i!}  e^{-\lambda t}\]</div>
 <p>现在我们得到了第 <span class="math notranslate nohighlight">\(k\)</span> 次事件发生时间大于 <span class="math notranslate nohighlight">\(t\)</span> 的概率 <span class="math notranslate nohighlight">\(p(T&gt;t;k)\)</span>
 ，反过来，第 <span class="math notranslate nohighlight">\(k\)</span> 次事件发生时间小于等于 <span class="math notranslate nohighlight">\(t\)</span> 的概率为：</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-gamma-gamma-4">
-<span class="eqno">()<a class="headerlink" href="#equation-glm-source-gamma-gamma-4" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}p(T\le t;k) &amp;= 1-p(T&gt;t;k)\\&amp;= 1- \sum_{i=0}^{k-1} \frac{(\lambda t)^{k_i}}{k_i!}  e^{-\lambda t}\end{aligned}\end{align} \]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-glm-source-gamma-gamma-4" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}p(T\le t;k) &amp;= 1-p(T&gt;t;k)\\&amp;= 1- \sum_{i=0}^{k-1} \frac{(\lambda t)^{k_i}}{k_i!}  e^{-\lambda t}\end{aligned}\end{align} \]</div>
 <p>上式就是 Gamma 分布的累积分布函数，通过对其进行微分得到概率密度函数，
 这里省略推导过程，直接给出结果</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-gamma-gamma-5">
-<span class="eqno">()<a class="headerlink" href="#equation-glm-source-gamma-gamma-5" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}f(t)
+<span class="eqno">()<a class="headerlink" href="#equation-glm-source-gamma-gamma-5" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}f(t)
 &amp;= \frac{\lambda e^{-\lambda t}(\lambda t)^{k-1}}{(k-1)!}\\&amp;= \frac{\lambda^k e^{-\lambda t}t^{k-1}}{\Gamma(k)}\end{aligned}\end{align} \]</div>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
-           
           </div>
           <footer>
 
   <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2018, zhangzhenhu(acmtiger@outlook.com) 禁止一切形式的转载！.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
+  
 
 
     <script src="https://utteranc.es/client.js"
@@ -1037,42 +956,16 @@ Gamma 分布的推导的过程是类似的。
 
 
 
-  <div role="contentinfo">
-    <p>
-        &#169; 版权所有 2018, zhangzhenhu(acmtiger@outlook.com) 禁止一切形式的转载！.
-
-    </p>
-  </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-
-
-
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

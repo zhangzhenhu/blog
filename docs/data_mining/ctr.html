@@ -1,97 +1,49 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="zh-CN" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>推荐算法之从FM到DeepFM &mdash; 张振虎的博客 张振虎 文档</title>
-  
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
     <link rel="canonical" href="https://zhangzhenhu.github.io/blog/data_mining/ctr.html" />
-
-  
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/translations.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2.7.7/unpacked/MathJax.min.js"></script>
         <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"Macros": {"RR": "{\\bf R}", "bold": ["{\\bf #1}", 1]}}})</script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
+    <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../index.html" class="icon icon-home"> 张振虎的博客
-          
-
-          
           </a>
-
-          
-            
-            
               <div class="version">
                 acmtiger@outlook.com
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="在文档中搜索" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">目录:</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">目录:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../glm/source/index.html">广义线性模型</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../glm/source/%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80/content.html">1. 概率基础</a><ul>
@@ -139,7 +91,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#id2">3.1. 统计量和充分统计量</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-sample-distribution">3.2. 抽样分布</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-sample-distribution-normal">3.2.1. 正态分布</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#t">3.2.2. t分布</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#t">3.2.2. 学生t分布</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#id5">3.2.3. 卡方分布</a></li>
 </ul>
 </li>
@@ -744,7 +696,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../audio/feature.html#id18">1.5. 分帧与加窗</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../audio/feature.html#id19">1.5.1. 预加重处理</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../audio/feature.html#id20">1.5.2. 分帧与加窗</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../audio/feature.html#id20">1.5.2. 分帧与加窗处理</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../audio/feature.html#id21">1.6. 声音的感官度量</a><ul>
@@ -786,26 +738,26 @@
 <li class="toctree-l2"><a class="reference internal" href="../edm/bkt.html">1. 贝叶斯知识追踪(Bayesian Knowledge Tracing,BKT)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id1">1.1. 简介</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#hidden-markov-model-hmm">1.2. 隐马尔科夫模型(Hidden Markov Model,HMM)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id5">1.3. 贝叶斯知识追踪(Bayesian Knowledge Tracing,BKT)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#bayesian-knowledge-tracing">1.3. 贝叶斯知识追踪(Bayesian Knowledge Tracing)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#bkt">1.3.1. BKT的参数估计</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#item-response-theory-irt">1.4. 项目反映理论(Item Response Theory,IRT)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#bktirt">1.5. BKT结合IRT</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id6">1.6. 实验</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id7">1.6.1. 数据集</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id8">1.6.2. 实验方法</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id9">1.6.3. 实验结果</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id10">1.6.4. 项目代码</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id5">1.6. 实验</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id6">1.6.1. 数据集</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id7">1.6.2. 实验方法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id8">1.6.3. 实验结果</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id9">1.6.4. 项目代码</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id11">1.7. 未来工作</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id12">1.7.1. 题目难度的计算</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id10">1.7. 未来工作</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id11">1.7.1. 题目难度的计算</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#irt">1.7.2. 多参数IRT模型</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id13">1.7.3. 参数估计算法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id12">1.7.3. 参数估计算法</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id14">1.8. 参考文献</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id13">1.8. 参考文献</a></li>
 </ul>
 </li>
 </ul>
@@ -902,76 +854,35 @@
 </li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">张振虎的博客</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-        
       <li>推荐算法之从FM到DeepFM</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
-            <a href="../_sources/data_mining/ctr.rst.txt" rel="nofollow"> View page source</a>
-          
-        
+            <a href="../_sources/data_mining/ctr.rst.txt" rel="nofollow"> 查看页面源码</a>
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="fmdeepfm">
-<h1>推荐算法之从FM到DeepFM<a class="headerlink" href="#fmdeepfm" title="永久链接至标题">¶</a></h1>
+             
+  <section id="fmdeepfm">
+<h1>推荐算法之从FM到DeepFM<a class="headerlink" href="#fmdeepfm" title="永久链接至标题"></a></h1>
 <p>推荐与ctr</p>
-<div class="section" id="latent-factor">
-<h2>一、潜在因子（Latent Factor）算法<a class="headerlink" href="#latent-factor" title="永久链接至标题">¶</a></h2>
+<section id="latent-factor">
+<h2>一、潜在因子（Latent Factor）算法<a class="headerlink" href="#latent-factor" title="永久链接至标题"></a></h2>
 <p>这种算法是在NetFlix（没错，就是用大数据捧火《纸牌屋》的那家公司）的推荐算法竞赛中获奖的算法，最早被应用于电影推荐中。
 下面仅利用基础的矩阵知识来介绍下这种算法。</p>
 <p>这种算法的思想是这样：每个用户（user）都有自己的偏好，比如A喜欢带有小清新的、吉他伴奏的、王菲等元素（latent factor），
@@ -1004,7 +915,7 @@
 <p>因此我们对张三推荐四首歌中得分最高的B，对李四推荐得分最高的C，王五推荐B。</p>
 <p>如果用矩阵表示即为：</p>
 <div class="math notranslate nohighlight" id="equation-data-mining-ctr-0">
-<span class="eqno">()<a class="headerlink" href="#equation-data-mining-ctr-0" title="公式的永久链接">¶</a></span>\[\tilde{R} =QP^{T}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-data-mining-ctr-0" title="公式的永久链接"></a></span>\[\tilde{R} =QP^{T}\]</div>
 <p>下面问题来了，这个潜在因子（latent factor）是怎么得到的呢？</p>
 <p>由于面对海量的让用户自己给音乐分类并告诉我们自己的偏好系数显然是不现实的，<strong>事实上我们能获得的数据只有用户行为数据</strong>。</p>
 <p>首先进行量化：单曲循环=5, 分享=4, 收藏=3, 主动播放=2 , 听完=1, 跳过=-2 , 拉黑=-5，在分析时能获得的实际评分矩阵 <span class="math notranslate nohighlight">\(R\)</span> ，也就是输入矩阵大概是这个样子：</p>
@@ -1029,9 +940,9 @@
 <blockquote>
 <div><img alt="../_images/mf10.jpg" src="../_images/mf10.jpg" />
 </div></blockquote>
-</div>
-<div class="section" id="fm-factorization-machine">
-<h2>FM（Factorization Machine）<a class="headerlink" href="#fm-factorization-machine" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="fm-factorization-machine">
+<h2>FM（Factorization Machine）<a class="headerlink" href="#fm-factorization-machine" title="永久链接至标题"></a></h2>
 <p>由Konstanz大学Steffen Rendle（现任职于Google）于2010年最早提出的，<strong>旨在解决稀疏数据下的特征组合问题</strong></p>
 <p>下面以一个示例引入FM模型。假设一个广告分类的问题，根据用户和广告位相关的特征，预测用户是否点击了广告。</p>
 <blockquote>
@@ -1100,9 +1011,9 @@
 <p>2.FM提升了模型预估能力
 FM可以很方便的计算样本中没有出现的交叉项参数，提升了预估能力</p>
 </div>
-</div>
-<div class="section" id="ffm-field-aware-factorization-machine">
-<h2>FFM(Field-aware Factorization Machine)<a class="headerlink" href="#ffm-field-aware-factorization-machine" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="ffm-field-aware-factorization-machine">
+<h2>FFM(Field-aware Factorization Machine)<a class="headerlink" href="#ffm-field-aware-factorization-machine" title="永久链接至标题"></a></h2>
 <p>FFM是FM的升级模型，通过引入 <span class="math notranslate nohighlight">\(field\)</span> 的概念，FFM把相同性质的特征归于同一个 <span class="math notranslate nohighlight">\(field\)</span> 。以上面的广告分类为例，
 “Day=26/11/15”、“Day=1/7/14”、“Day=19/2/15”这三个特征都是代表日期的，可以放到同一个 <span class="math notranslate nohighlight">\(field\)</span> 中。
 同理，商品的末级品类编码生成了550个特征，这550个特征都是说明商品所属的品类，因此它们也可以放到同一个 <span class="math notranslate nohighlight">\(field\)</span> 中。
@@ -1132,11 +1043,11 @@ FM可以看作FFM的特例，是把所有特征都归属到一个 <span class="m
 <div><img alt="../_images/ffm4.png" src="../_images/ffm4.png" />
 </div></blockquote>
 <p>其中，红色是 <span class="math notranslate nohighlight">\(field\)</span> 编号，蓝色是特征编号，绿色是此样本的特征取值。二次项的系数是通过与特征 <span class="math notranslate nohighlight">\(field\)</span> 相关的隐向量点积得到的，二次项共有 <span class="math notranslate nohighlight">\(\frac { n(n-1) }{ 2 }\)</span> 个。</p>
-</div>
-<div class="section" id="deepfm">
-<h2>DeepFm<a class="headerlink" href="#deepfm" title="永久链接至标题">¶</a></h2>
-<div class="section" id="id3">
-<h3>DeepFm的提出背景<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="deepfm">
+<h2>DeepFm<a class="headerlink" href="#deepfm" title="永久链接至标题"></a></h2>
+<section id="id3">
+<h3>DeepFm的提出背景<a class="headerlink" href="#id3" title="永久链接至标题"></a></h3>
 <p>CTR预估数据特点：</p>
 <ul class="simple">
 <li><ol class="arabic simple">
@@ -1194,9 +1105,9 @@ FM可以看作FFM的特例，是把所有特征都归属到一个 <span class="m
 <img alt="../_images/deepfmbk2.jpg" src="../_images/deepfmbk2.jpg" />
 </div></blockquote>
 <p>串行结构代表是FNN，<strong>DeepFM就是并行结构中的一种典型代表</strong> 。</p>
-</div>
-<div class="section" id="id4">
-<h3>DeepFm原理<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id4">
+<h3>DeepFm原理<a class="headerlink" href="#id4" title="永久链接至标题"></a></h3>
 <p>首先给出论文模型图，由于文章画的很好，就直接贴图了：</p>
 <blockquote>
 <div><img alt="../_images/deepfm1.jpg" src="../_images/deepfm1.jpg" />
@@ -1209,8 +1120,8 @@ FM可以看作FFM的特例，是把所有特征都归属到一个 <span class="m
 <blockquote>
 <div><img alt="../_images/deepfm2.jpg" src="../_images/deepfm2.jpg" />
 </div></blockquote>
-<div class="section" id="embeddingfm">
-<h4>embedding和FM<a class="headerlink" href="#embeddingfm" title="永久链接至标题">¶</a></h4>
+<section id="embeddingfm">
+<h4>embedding和FM<a class="headerlink" href="#embeddingfm" title="永久链接至标题"></a></h4>
 <p>模型在embedding的过程中，也是借助了FM的方式, 通过隐向量与X的内积运算，将稀疏的X向量转化为K维度的稠密向量，
 即得到embedding向量数据，用于接下来DNN的输入以及FM的输出，回顾二阶FM的公式如下：</p>
 <blockquote>
@@ -1262,22 +1173,22 @@ FM可以看作FFM的特例，是把所有特征都归属到一个 <span class="m
 <p>当然，<strong>FM中的一阶特征，则直接在embedding之前对于特征进行组合即可</strong>。</p>
 <p>模型当中的FM中涉及的参数同样会参与到梯度下降中，也就是说embedding层不会只是初始化使用，实质上这里可以理解为是直接用神经网络来做了embedding，
 无疑他比FM本身的embedding能力来得更强。</p>
-</div>
-</div>
-<div class="section" id="dnn">
-<h3>DNN<a class="headerlink" href="#dnn" title="永久链接至标题">¶</a></h3>
+</section>
+</section>
+<section id="dnn">
+<h3>DNN<a class="headerlink" href="#dnn" title="永久链接至标题"></a></h3>
 <p>DNN部分依然采用了全连接的深度神经网络的方式，只是在最后激活输出时，会对FM和DNN的结果一起做embedding</p>
 <p>超参数建议：</p>
 <img alt="../_images/deepfm9.jpg" src="../_images/deepfm9.jpg" />
 <p><strong>PS: constant效果最好，就是隐藏层每一层的神经元的数量 相同</strong> (神经元总个数的不变的情况下，平均到每一层效果最好)。</p>
-</div>
-</div>
-<div class="section" id="wide-deep">
-<h2>Wide&amp;Deep<a class="headerlink" href="#wide-deep" title="永久链接至标题">¶</a></h2>
+</section>
+</section>
+<section id="wide-deep">
+<h2>Wide&amp;Deep<a class="headerlink" href="#wide-deep" title="永久链接至标题"></a></h2>
 <p>LR+DNN</p>
 <p>Wide &amp; Deep 模型的核心思想是结合 <strong>线性模型的记忆能力</strong> 和 <strong>DNN 模型的泛化能力</strong> ，从而提升整体模型性能。</p>
-<div class="section" id="motivation">
-<h3>一、Motivation<a class="headerlink" href="#motivation" title="永久链接至标题">¶</a></h3>
+<section id="motivation">
+<h3>一、Motivation<a class="headerlink" href="#motivation" title="永久链接至标题"></a></h3>
 <p>推荐系统的主要挑战之一，是同时解决Memorization和Generalization，理解这两个概念是理解整个模型思路的关键，下面分别进行解释。</p>
 <ul>
 <li><p>Memorization</p>
@@ -1316,9 +1227,9 @@ NN很难为users和items学习到有效的embedding。这种情况下，大部�
 </div></blockquote>
 </li>
 </ul>
-</div>
-<div class="section" id="model">
-<h3>二、Model<a class="headerlink" href="#model" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="model">
+<h3>二、Model<a class="headerlink" href="#model" title="永久链接至标题"></a></h3>
 <ul>
 <li><p>模型结构</p>
 <blockquote>
@@ -1329,11 +1240,11 @@ NN很难为users和items学习到有效的embedding。这种情况下，大部�
 <p>Deep 该部分是前馈神经网络，网络会对一些sparse特征（如ID类特征）学习一个低维的dense embeddings（维度量级通常在O(10)到O(100)之间），
 然后和一些原始dense特征一起作为网络的输入。每一层隐层计算：</p>
 <div class="math notranslate nohighlight" id="equation-data-mining-ctr-1">
-<span class="eqno">()<a class="headerlink" href="#equation-data-mining-ctr-1" title="公式的永久链接">¶</a></span>\[{ a }^{ l+1 }=f({ W }^{ l }{ a }^{ l }+{ b }^{ l })\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-data-mining-ctr-1" title="公式的永久链接"></a></span>\[{ a }^{ l+1 }=f({ W }^{ l }{ a }^{ l }+{ b }^{ l })\]</div>
 <p>其中 <span class="math notranslate nohighlight">\(a^l\)</span> , <span class="math notranslate nohighlight">\(b^l\)</span> , <span class="math notranslate nohighlight">\(W^l\)</span> 是第 <span class="math notranslate nohighlight">\(l\)</span> 层的激活值、偏置和权重，<span class="math notranslate nohighlight">\(f\)</span> 是激活函数。</p>
 <p>损失函数 模型选取logistic loss作为损失函数，此时Wide &amp; Deep最后的预测输出为：</p>
 <div class="math notranslate nohighlight" id="equation-data-mining-ctr-2">
-<span class="eqno">()<a class="headerlink" href="#equation-data-mining-ctr-2" title="公式的永久链接">¶</a></span>\[p(y=1|x)\quad =\quad \sigma ({ w }_{ wide }^{ T }\left[ x,\phi (x) \right] +{ w }_{ deep }^{ T }{ a }^{ { l }_{ f } }+b)\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-data-mining-ctr-2" title="公式的永久链接"></a></span>\[p(y=1|x)\quad =\quad \sigma ({ w }_{ wide }^{ T }\left[ x,\phi (x) \right] +{ w }_{ deep }^{ T }{ a }^{ { l }_{ f } }+b)\]</div>
 <p>其中 <span class="math notranslate nohighlight">\(\sigma\)</span> 表示sigmoid函数， <span class="math notranslate nohighlight">\(\phi({x})\)</span> 表示叉乘特征， <span class="math notranslate nohighlight">\({a}^{l_f}\)</span> 表示NN最后一层激活值。</p>
 </div></blockquote>
 </li>
@@ -1344,10 +1255,10 @@ NN很难为users和items学习到有效的embedding。这种情况下，大部�
 </div></blockquote>
 </li>
 </ul>
-</div>
-</div>
-<div class="section" id="deep-cross">
-<h2>Deep&amp;Cross<a class="headerlink" href="#deep-cross" title="永久链接至标题">¶</a></h2>
+</section>
+</section>
+<section id="deep-cross">
+<h2>Deep&amp;Cross<a class="headerlink" href="#deep-cross" title="永久链接至标题"></a></h2>
 <p>Deep&amp;Cross是Google 对 Wide &amp; Deep工作的一个后续研究，文中提出 Deep &amp; Cross Network，将Wide部分替换为由特殊网络结构实现的Cross，
 自动构造有限高阶的交叉特征，并学习对应权重，告别了繁琐的人工叉乘。</p>
 <p>Deep &amp; Cross 由斯坦福与Google联合发表在AdKDD 2017上的论文《Deep &amp; Cross Network for Ad Click Predictions》。</p>
@@ -1380,7 +1291,7 @@ NN很难为users和items学习到有效的embedding。这种情况下，大部�
 </ol>
 <blockquote>
 <div><div class="math notranslate nohighlight" id="equation-data-mining-ctr-3">
-<span class="eqno">()<a class="headerlink" href="#equation-data-mining-ctr-3" title="公式的永久链接">¶</a></span>\[{ x }_{ 0 }=[~ { x }_{ embed,1 }^{ T },~ { x }_{ embed,2 }^{ T },~ ...,~ { x }_{ embed,k }^{ T },~ { x }_{ dense }^{ T }]^{ T }\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-data-mining-ctr-3" title="公式的永久链接"></a></span>\[{ x }_{ 0 }=[~ { x }_{ embed,1 }^{ T },~ { x }_{ embed,2 }^{ T },~ ...,~ { x }_{ embed,k }^{ T },~ { x }_{ dense }^{ T }]^{ T }\]</div>
 </div></blockquote>
 </li>
 </ul>
@@ -1394,7 +1305,7 @@ NN很难为users和items学习到有效的embedding。这种情况下，大部�
 </div></blockquote>
 <dl>
 <dt>即：</dt><dd><div class="math notranslate nohighlight" id="equation-data-mining-ctr-4">
-<span class="eqno">()<a class="headerlink" href="#equation-data-mining-ctr-4" title="公式的永久链接">¶</a></span>\[{ x }_{ l+1 }={ x }_{ 0 }{ x }_{ l }^{ T }{ w }_{ l }+b+{ x }_{ l }=f({ x }_{ l },{ w }_{ l },{ b }_{ l })+{ x }_{ l },\quad 其中{ x }_{ l+1 }{ ;x }_{ l };{ x }_{ 0 }\in R\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-data-mining-ctr-4" title="公式的永久链接"></a></span>\[{ x }_{ l+1 }={ x }_{ 0 }{ x }_{ l }^{ T }{ w }_{ l }+b+{ x }_{ l }=f({ x }_{ l },{ w }_{ l },{ b }_{ l })+{ x }_{ l },\quad 其中{ x }_{ l+1 }{ ;x }_{ l };{ x }_{ 0 }\in R\]</div>
 </dd>
 </dl>
 <p>Cross Layer 设计的巧妙之处全部体现在上面的计算公式中，我们先看一些明显的细节：</p>
@@ -1444,7 +1355,7 @@ NN很难为users和items学习到有效的embedding。这种情况下，大部�
 <blockquote>
 <div><p>设初始输入 <span class="math notranslate nohighlight">\({x}_0\)</span> 维度为 <span class="math notranslate nohighlight">\(d\)</span> ，Deep和Cross层数分别为 <span class="math notranslate nohighlight">\(L_{cross}\)</span> 和 <span class="math notranslate nohighlight">\(L_{deep}\)</span> ，为便于分析，设Deep每层神经元个数为 <span class="math notranslate nohighlight">\(m\)</span> ，则两部分的参数量为：</p>
 <div class="math notranslate nohighlight" id="equation-data-mining-ctr-5">
-<span class="eqno">()<a class="headerlink" href="#equation-data-mining-ctr-5" title="公式的永久链接">¶</a></span>\[Cross: d*L_{cross}*2 ~~~VS~~~ Deep: (d*m+m)+(m^2+m)*(L_{deep}-1)\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-data-mining-ctr-5" title="公式的永久链接"></a></span>\[Cross: d*L_{cross}*2 ~~~VS~~~ Deep: (d*m+m)+(m^2+m)*(L_{deep}-1)\]</div>
 <p>可以看到Cross的参数量随 d 增大仅呈“线性增长”！相比于Deep部分，对整体模型的复杂度影响不大，这得益于Cross的特殊网络设计，
 对于模型在业界落地并实际上线来说，这是一个相当诱人的特点。</p>
 <div class="admonition note">
@@ -1462,9 +1373,9 @@ NN很难为users和items学习到有效的embedding。这种情况下，大部�
 </div></blockquote>
 </li>
 </ul>
-</div>
-<div class="section" id="din">
-<h2>阿里DIN<a class="headerlink" href="#din" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="din">
+<h2>阿里DIN<a class="headerlink" href="#din" title="永久链接至标题"></a></h2>
 <p>Deep Interest Network(DIN) <strong>针对电子商务领域(e-commerce industry)的CTR预估</strong>，
 <strong>重点在于充分利用/挖掘用户历史行为数据中的信息</strong>。</p>
 <div class="admonition note">
@@ -1529,8 +1440,8 @@ NN很难为users和items学习到有效的embedding。这种情况下，大部�
 <li><p>社交网络中的信息推流排序(feeds ranking)</p></li>
 </ul>
 </div></blockquote>
-<div class="section" id="id5">
-<h3>系统概览<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
+<section id="id5">
+<h3>系统概览<a class="headerlink" href="#id5" title="永久链接至标题"></a></h3>
 <img alt="https://pic1.zhimg.com/80/v2-a23baf1a2a8b5c0cee0dbde204985c70_hd.jpg" src="https://pic1.zhimg.com/80/v2-a23baf1a2a8b5c0cee0dbde204985c70_hd.jpg" />
 <p>阿里推荐系统工作流程就像上图所示：</p>
 <blockquote>
@@ -1554,9 +1465,9 @@ NN很难为users和items学习到有效的embedding。这种情况下，大部�
 </ul>
 </div></blockquote>
 <p>这是一个闭环的系统，对于用户行为数据(User Behavior Data)，系统自己生产并消费。</p>
-</div>
-<div class="section" id="id6">
-<h3>训练数据<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id6">
+<h3>训练数据<a class="headerlink" href="#id6" title="永久链接至标题"></a></h3>
 <p>前面提到，电子商务领域，充分利用User Behavior Data非常关键，而它又有着非常显著的特点：</p>
 <blockquote>
 <div><ul class="simple">
@@ -1586,17 +1497,17 @@ Pooling可以用sum或average。最终得到一个固定长度的Embedding Vecto
 DIN使用Attention机制去更好的建模局部激活。
 <strong>也就是说：在Embedding Layer -&gt; Pooling Layer得到用户兴趣表示的时候，赋予不同的历史行为不同的权重，实现局部激活。</strong>
 从最终反向训练的角度来看，就是根据当前的候选广告，来反向的激活用户历史的兴趣爱好，赋予不同历史行为不同的权重。</p>
-</div>
-<div class="section" id="id7">
-<h3>特征设计<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id7">
+<h3>特征设计<a class="headerlink" href="#id7" title="永久链接至标题"></a></h3>
 <p>论文中作者把特征分为四大类，并没有进行特征组合/交叉特征。而是通过DNN去学习特征间的交互信息。特征如下：</p>
 <img alt="https://pic1.zhimg.com/80/v2-39dcdd90fe00b48b50967543fe0bf980_hd.jpg" src="https://pic1.zhimg.com/80/v2-39dcdd90fe00b48b50967543fe0bf980_hd.jpg" />
 <p>可以看到特征主要包括：用户特征、用户行为特征、广告特征、上下文特征。
 其中，只有用户行为特征中会出现multi-hot
 原因就是一个用户会购买多个good_id,也会访问多个shop_id，另一个表现就是这样导致了每个用户的样本长度都是不同的.</p>
-</div>
-<div class="section" id="id8">
-<h3>评价指标<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id8">
+<h3>评价指标<a class="headerlink" href="#id8" title="永久链接至标题"></a></h3>
 <p>模型使用的评价指标是GAUC，我们先来看一下GAUC的计算公式：</p>
 <img alt="https://pic1.zhimg.com/80/v2-2387b4e753f67f78b74cc2687e6668a8_hd.jpg" src="https://pic1.zhimg.com/80/v2-2387b4e753f67f78b74cc2687e6668a8_hd.jpg" />
 <p>我们首先要肯定的是，AUC是要分用户看的，我们的模型的预测结果，只要能够保证对每个用户来说，他想要的结果排在前面就好了。</p>
@@ -1608,9 +1519,9 @@ AUC并不是很高，因为有5个正样本排在了后面，但是分开看的�
 10个负样本，另一个用户有5个正样本，50个负样本，这种差异同样需要消除。那么GAUC的计算，不仅将每个用户的AUC分开计算，
 同时根据用户的展示数或者点击数来对每个用户的AUC进行加权处理。进一步消除了用户偏差对模型的影响。通过实验证明，
 GAUC确实是一个更加合理的评价指标。</p>
-</div>
-<div class="section" id="id9">
-<h3>模型原理<a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id9">
+<h3>模型原理<a class="headerlink" href="#id9" title="永久链接至标题"></a></h3>
 <p><strong>base模型</strong></p>
 <img alt="https://pic4.zhimg.com/80/v2-f9db847981d748788138ad653e9f0c1b_hd.jpg" src="https://pic4.zhimg.com/80/v2-f9db847981d748788138ad653e9f0c1b_hd.jpg" />
 <p><strong>DIN</strong></p>
@@ -1684,30 +1595,38 @@ GAUC确实是一个更加合理的评价指标。</p>
 <p class="admonition-title">注解</p>
 <dl>
 <dt>softmax:</dt><dd><div class="math notranslate nohighlight" id="equation-data-mining-ctr-6">
-<span class="eqno">()<a class="headerlink" href="#equation-data-mining-ctr-6" title="公式的永久链接">¶</a></span>\[\frac { { e }^{ { y }_{ i } } }{ \sum _{ j }^{ n }{ { e }^{ { y }_{ j } } }  }\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-data-mining-ctr-6" title="公式的永久链接"></a></span>\[\frac { { e }^{ { y }_{ i } } }{ \sum _{ j }^{ n }{ { e }^{ { y }_{ j } } }  }\]</div>
 </dd>
 <dt>logloss:</dt><dd><div class="math notranslate nohighlight" id="equation-data-mining-ctr-7">
-<span class="eqno">()<a class="headerlink" href="#equation-data-mining-ctr-7" title="公式的永久链接">¶</a></span>\[-{ y }_{ i }\sum _{ i }^{ n }{ log\tilde { { y }_{ i } }  }\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-data-mining-ctr-7" title="公式的永久链接"></a></span>\[-{ y }_{ i }\sum _{ i }^{ n }{ log\tilde { { y }_{ i } }  }\]</div>
 </dd>
 </dl>
 </div>
-</div>
-<div class="section" id="id10">
-<h3>激活函数<a class="headerlink" href="#id10" title="永久链接至标题">¶</a></h3>
-</div>
-<div class="section" id="id11">
-<h3>自适应正则化<a class="headerlink" href="#id11" title="永久链接至标题">¶</a></h3>
-</div>
-</div>
-</div>
+</section>
+<section id="id10">
+<h3>激活函数<a class="headerlink" href="#id10" title="永久链接至标题"></a></h3>
+</section>
+<section id="id11">
+<h3>自适应正则化<a class="headerlink" href="#id11" title="永久链接至标题"></a></h3>
+</section>
+</section>
+</section>
 
 
            </div>
-           
           </div>
           <footer>
 
   <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2018, zhangzhenhu(acmtiger@outlook.com) 禁止一切形式的转载！.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
+  
 
 
     <script src="https://utteranc.es/client.js"
@@ -1720,42 +1639,16 @@ GAUC确实是一个更加合理的评价指标。</p>
 
 
 
-  <div role="contentinfo">
-    <p>
-        &#169; 版权所有 2018, zhangzhenhu(acmtiger@outlook.com) 禁止一切形式的转载！.
-
-    </p>
-  </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-
-
-
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

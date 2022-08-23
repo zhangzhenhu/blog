@@ -1,99 +1,51 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="zh-CN" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>1. 音频特征 &mdash; 张振虎的博客 张振虎 文档</title>
-  
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
     <link rel="canonical" href="https://zhangzhenhu.github.io/blog/audio/feature.html" />
-
-  
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/translations.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2.7.7/unpacked/MathJax.min.js"></script>
         <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"Macros": {"RR": "{\\bf R}", "bold": ["{\\bf #1}", 1]}}})</script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
+    <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
     <link rel="next" title="教育领域数据挖掘" href="../edm/index.html" />
     <link rel="prev" title="语音技术" href="index.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../index.html" class="icon icon-home"> 张振虎的博客
-          
-
-          
           </a>
-
-          
-            
-            
               <div class="version">
                 acmtiger@outlook.com
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="在文档中搜索" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">目录:</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">目录:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../glm/source/index.html">广义线性模型</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../glm/source/%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80/content.html">1. 概率基础</a><ul>
@@ -141,7 +93,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#id2">3.1. 统计量和充分统计量</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-sample-distribution">3.2. 抽样分布</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-sample-distribution-normal">3.2.1. 正态分布</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#t">3.2.2. t分布</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#t">3.2.2. 学生t分布</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#id5">3.2.3. 卡方分布</a></li>
 </ul>
 </li>
@@ -746,7 +698,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#id18">1.5. 分帧与加窗</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#id19">1.5.1. 预加重处理</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id20">1.5.2. 分帧与加窗</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id20">1.5.2. 分帧与加窗处理</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#id21">1.6. 声音的感官度量</a><ul>
@@ -788,26 +740,26 @@
 <li class="toctree-l2"><a class="reference internal" href="../edm/bkt.html">1. 贝叶斯知识追踪(Bayesian Knowledge Tracing,BKT)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id1">1.1. 简介</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#hidden-markov-model-hmm">1.2. 隐马尔科夫模型(Hidden Markov Model,HMM)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id5">1.3. 贝叶斯知识追踪(Bayesian Knowledge Tracing,BKT)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#bayesian-knowledge-tracing">1.3. 贝叶斯知识追踪(Bayesian Knowledge Tracing)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#bkt">1.3.1. BKT的参数估计</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#item-response-theory-irt">1.4. 项目反映理论(Item Response Theory,IRT)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#bktirt">1.5. BKT结合IRT</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id6">1.6. 实验</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id7">1.6.1. 数据集</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id8">1.6.2. 实验方法</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id9">1.6.3. 实验结果</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id10">1.6.4. 项目代码</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id5">1.6. 实验</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id6">1.6.1. 数据集</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id7">1.6.2. 实验方法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id8">1.6.3. 实验结果</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id9">1.6.4. 项目代码</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id11">1.7. 未来工作</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id12">1.7.1. 题目难度的计算</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id10">1.7. 未来工作</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id11">1.7.1. 题目难度的计算</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#irt">1.7.2. 多参数IRT模型</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id13">1.7.3. 参数估计算法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id12">1.7.3. 参数估计算法</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id14">1.8. 参考文献</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id13">1.8. 参考文献</a></li>
 </ul>
 </li>
 </ul>
@@ -904,84 +856,42 @@
 </li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">张振虎的博客</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="index.html">语音技术</a> &raquo;</li>
-        
       <li><span class="section-number">1. </span>音频特征</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
-            <a href="../_sources/audio/feature.rst.txt" rel="nofollow"> View page source</a>
-          
-        
+            <a href="../_sources/audio/feature.rst.txt" rel="nofollow"> 查看页面源码</a>
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="id1">
-<h1><span class="section-number">1. </span>音频特征<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
-<div class="section" id="id2">
-<h2><span class="section-number">1.1. </span>认识声音<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+             
+  <section id="id1">
+<h1><span class="section-number">1. </span>音频特征<a class="headerlink" href="#id1" title="永久链接至标题"></a></h1>
+<section id="id2">
+<h2><span class="section-number">1.1. </span>认识声音<a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
 <p>中学时，我们学过声音是由物体的 <strong>振动</strong> 产生的。
 物体振动时激励着它周围的空气质点振动，由于空气具有可压缩性，
 在质点的相互作用下，振动物体四周的空气就交替地产生压缩与膨胀，并且逐渐向外传播，从而形成声波。</p>
 <img alt="https://pic2.zhimg.com/80/fba827f8709a8e6d78a2776d5c6d0e05_hd.jpg" src="https://pic2.zhimg.com/80/fba827f8709a8e6d78a2776d5c6d0e05_hd.jpg" />
-<div class="figure align-default">
+<figure class="align-default">
 <img alt="../_images/1.gif" src="../_images/1.gif" />
-</div>
+</figure>
 <p>当空气的这种波动传递到人耳时，人耳感受到的 <strong>气压的变化</strong> ，也就感受到了声音。</p>
 <div class="admonition hint">
 <p class="admonition-title">提示</p>
@@ -1002,77 +912,81 @@
 <p>空气中无任何质点波动时，存在大气压，也就是静压强 <span class="math notranslate nohighlight">\(P_{atm}\)</span>，而当物体振动时，
 必然导致振动物体附近的空气压强发生变化，产生压强波动 <span class="math notranslate nohighlight">\(P_{var}\)</span>，也就是说声波导致的压强波动是叠加在大气压之上的，即</p>
 <div class="math notranslate nohighlight" id="equation-audio-feature-0">
-<span class="eqno">(1.1.15)<a class="headerlink" href="#equation-audio-feature-0" title="公式的永久链接">¶</a></span>\[P_{total}=P_{atm}+P_{var}\]</div>
+<span class="eqno">(1.1.15)<a class="headerlink" href="#equation-audio-feature-0" title="公式的永久链接"></a></span>\[P_{total}=P_{atm}+P_{var}\]</div>
 <p>而 <span class="math notranslate nohighlight">\(P_{atm}=1.01325×105Pa\)</span> 。</p>
 <div class="admonition hint">
 <p class="admonition-title">提示</p>
 <p>人耳感受到的声音大小其实就是气压大小，气压越大，对人耳产生的压力越大，人感受到的声音越响亮。</p>
 </div>
-<div class="figure align-center" id="id41">
+<figure class="align-center" id="id41">
 <img alt="../_images/640.png" src="../_images/640.png" />
-<p class="caption"><span class="caption-number">图 1.1.1 </span><span class="caption-text">图片来源网络</span><a class="headerlink" href="#id41" title="永久链接至图片">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">图 1.1.1 </span><span class="caption-text">图片来源网络</span><a class="headerlink" href="#id41" title="永久链接至图片"></a></p>
+</figcaption>
+</figure>
 <p>通常说来，声波可以在弹性媒介中传播，如空气、液体和固体等，但不能在真空中传播。
 弹性介质中粒子的运动产生任何振动行为（如振动的平板，扬声器等）都可以当成一个声源。
 振动的粒子的前后运动使介质产生交替的按正弦变化的稠密（C）和稀疏（R）部分，如下图所示。产生的压力波在介质中以速度c进行传播。</p>
-<div class="figure align-center" id="id42">
+<figure class="align-center" id="id42">
 <img alt="../_images/2.gif" src="../_images/2.gif" />
-<p class="caption"><span class="caption-number">图 1.1.2 </span><span class="caption-text">图片来源网络</span><a class="headerlink" href="#id42" title="永久链接至图片">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">图 1.1.2 </span><span class="caption-text">图片来源网络</span><a class="headerlink" href="#id42" title="永久链接至图片"></a></p>
+</figcaption>
+</figure>
 <p>声波的传播速度c（m/s）依赖于弹性介质的物理特性，通常是</p>
 <div class="math notranslate nohighlight" id="equation-audio-feature-1">
-<span class="eqno">(1.1.16)<a class="headerlink" href="#equation-audio-feature-1" title="公式的永久链接">¶</a></span>\[c_{\text{固体}}&gt;c_{\text{液体}}&gt;c_{\text{气体}}\]</div>
-</div>
-<div class="section" id="id3">
-<h2><span class="section-number">1.2. </span>认识声波<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<span class="eqno">(1.1.16)<a class="headerlink" href="#equation-audio-feature-1" title="公式的永久链接"></a></span>\[c_{\text{固体}}&gt;c_{\text{液体}}&gt;c_{\text{气体}}\]</div>
+</section>
+<section id="id3">
+<h2><span class="section-number">1.2. </span>认识声波<a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
 <p>上文说道，声音是有物体的振动产生的。但物体究竟是如何振动的呢？产生的声波又是什么样的呢？</p>
-<div class="section" id="id4">
-<h3><span class="section-number">1.2.1. </span>物体的振动以及简谐振动<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
+<section id="id4">
+<h3><span class="section-number">1.2.1. </span>物体的振动以及简谐振动<a class="headerlink" href="#id4" title="永久链接至标题"></a></h3>
 <div class="topic">
 <p class="topic-title">振动</p>
 <p>振动（英语：vibration），指一个物体相对于静止参照物或处于平衡状态的物体的往复运动。
 一般来说振动的基础是一个系统在两个能量形式间的能量转换，
 振动可以是周期性的（如单摆）或随机性的（如轮胎在碎石路上的运动）。</p>
-<p>来自：<a class="reference external" href="https://zh.wikipedia.org/wiki/%E6%8C%AF%E5%8A%A8">维基百科</a></p>
+<p>来自：<a class="reference external" href="https://zh.wikipedia.org/wiki/%E6%8C%AF%E5%8A%A8">维基百科:振动</a></p>
 </div>
 <div class="topic">
 <p class="topic-title">简谐振动（Simple harmonic motion)</p>
 <p>简谐运动，或称简谐振动、谐振、SHM（Simple Harmonic Motion），即是最基本也是最简单的一种机械振动。
 当某物体进行简谐运动时，物体所受的力跟位移成正比，并且力总是指向平衡位置。</p>
-<p>来自：<a class="reference external" href="https://zh.wikipedia.org/wiki/%E7%B0%A1%E8%AB%A7%E9%81%8B%E5%8B%95">维基百科</a></p>
+<p>来自：<a class="reference external" href="https://zh.wikipedia.org/wiki/%E7%B0%A1%E8%AB%A7%E9%81%8B%E5%8B%95">维基百科:简谐运动</a></p>
 </div>
 <p>比如下图中的弹簧运动就是简谐振动</p>
-<div class="figure align-default">
+<figure class="align-default">
 <img alt="https://upload.wikimedia.org/wikipedia/commons/9/9d/Simple_harmonic_oscillator.gif" src="https://upload.wikimedia.org/wikipedia/commons/9/9d/Simple_harmonic_oscillator.gif" />
-</div>
+</figure>
 <p>其位移随时间变化的曲线就是正弦曲线。</p>
-<div class="figure align-default">
+<figure class="align-default">
 <img alt="https://upload.wikimedia.org/wikipedia/commons/b/b9/Harmonische_Schwingung_2.png" src="https://upload.wikimedia.org/wikipedia/commons/b/b9/Harmonische_Schwingung_2.png" />
-</div>
+</figure>
 <p>又比如钟摆运动</p>
-<div class="figure align-default">
+<figure class="align-default">
 <img alt="../_images/955618dd59b057094ba31f2bf1b0b226_hd.jpg" src="../_images/955618dd59b057094ba31f2bf1b0b226_hd.jpg" />
-</div>
+</figure>
 <div class="admonition hint">
 <p class="admonition-title">提示</p>
 <p>简谐振动只是一种理想状态，现实下运动物体会受到阻尼影响，如果没有持续的动力支撑，会慢慢衰减。</p>
-<div class="figure align-default">
+<figure class="align-default">
 <a class="reference internal image-reference" href="https://upload.wikimedia.org/wikipedia/commons/2/2b/Damped_spring.gif"><img alt="https://upload.wikimedia.org/wikipedia/commons/2/2b/Damped_spring.gif" src="https://upload.wikimedia.org/wikipedia/commons/2/2b/Damped_spring.gif" style="height: 150px;" /></a>
-</div>
-<div class="figure align-default">
+</figure>
+<figure class="align-default">
 <a class="reference internal image-reference" href="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Damped_oscillation_graph.svg/496px-Damped_oscillation_graph.svg.png"><img alt="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Damped_oscillation_graph.svg/496px-Damped_oscillation_graph.svg.png" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Damped_oscillation_graph.svg/496px-Damped_oscillation_graph.svg.png" style="width: 200px; height: 150px;" /></a>
-</div>
+</figure>
 </div>
 <div class="admonition important">
 <p class="admonition-title">重要</p>
 <p>简谐振动是周期性的，产生的是正弦曲线。非简谐运动产生的不是正弦曲线。</p>
 </div>
 <p><strong>正弦曲线的数学表示：</strong></p>
-<div class="figure align-center">
+<figure class="align-center">
 <img alt="../_images/3.png" src="../_images/3.png" />
-</div>
+</figure>
 <div class="math notranslate nohighlight" id="equation-audio-feature-2">
-<span class="eqno">(1.2.10)<a class="headerlink" href="#equation-audio-feature-2" title="公式的永久链接">¶</a></span>\[A(t) = A_0 sin(2\pi ft+\theta) =  A_0 sin(2\pi\frac{t}{T}+\theta)\]</div>
+<span class="eqno">(1.2.10)<a class="headerlink" href="#equation-audio-feature-2" title="公式的永久链接"></a></span>\[A(t) = A_0 sin(2\pi ft+\theta) =  A_0 sin(2\pi\frac{t}{T}+\theta)\]</div>
 <p>其中，</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(A_0\)</span> ：振幅，振动幅值，也就是曲线的最大值(绝对值)。</p></li>
@@ -1081,30 +995,30 @@
 <li><p>θ：初相位，0时刻，波形的起始位置（角度），  <span class="math notranslate nohighlight">\([0,2\pi]\)</span> 之间。</p></li>
 </ul>
 <p>正弦曲线也可以看做是圆周运动在y轴上的 <strong>投影</strong> 。</p>
-<div class="figure align-default">
+<figure class="align-default">
 <img alt="../_images/81ca9447d6c45c162c2d76df75a6690a_hd.jpg" src="../_images/81ca9447d6c45c162c2d76df75a6690a_hd.jpg" />
-</div>
+</figure>
 <p>圆周的半径是振幅A，一次圆周运动的时间是周期T，0时刻起始位置和横轴的夹角是初相位 <span class="math notranslate nohighlight">\(\theta\)</span></p>
 <div class="admonition note">
 <p class="admonition-title">注解</p>
 <p>正弦曲线和余弦曲线是一样的，只是相位差了90度。所以下文中除非特别说明，否则我们默认都是正弦曲线。</p>
 </div>
-</div>
-<div class="section" id="id7">
-<h3><span class="section-number">1.2.2. </span>什么是声波<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id7">
+<h3><span class="section-number">1.2.2. </span>什么是声波<a class="headerlink" href="#id7" title="永久链接至标题"></a></h3>
 <p>声音是由物体振动产生的，物体振动会影响介质（通常是空气）的压力变换，并在介质中传播，这种传播成为 <strong>声波</strong> 。</p>
 <p>观测传播介质（空气）中一个点的压力随时间变化，就得到了声波。</p>
-<div class="figure align-default">
+<figure class="align-default">
 <img alt="http://www.physicsclassroom.com/Class/sound/u11l1c1.gif" src="http://www.physicsclassroom.com/Class/sound/u11l1c1.gif" />
-</div>
-<div class="figure align-default">
+</figure>
+<figure class="align-default">
 <img alt="http://www.physicsclassroom.com/Class/sound/u11l1c2.gif" src="http://www.physicsclassroom.com/Class/sound/u11l1c2.gif" />
-</div>
+</figure>
 <p>我们观测声波传播路径上任意一个点，测量这个点的气压随时间的变化，这样就变成了横轴为时间，纵轴为压力变化的图像.</p>
 <p>声波是由物体的振动引起的，所以声波也是一种正弦波。对于声波可以用正弦函数描述。</p>
-<div class="figure align-default">
+<figure class="align-default">
 <img alt="http://www.physicsclassroom.com/mmedia/waves/edl.gif" src="http://www.physicsclassroom.com/mmedia/waves/edl.gif" />
-</div>
+</figure>
 <div class="admonition warning">
 <p class="admonition-title">警告</p>
 <p>简谐振动产生的正弦曲线的纵坐标是位移变化。然后声波的曲线其纵轴不是位移，而是压力。</p>
@@ -1119,12 +1033,12 @@
 </div>
 <p>波形越紧密说明单位时间内振动的次数越多，频率越高，音高越高。</p>
 <p>人和动物既可作为发声的声源，也可作为接受声音的接受者，但当作为声源和接受者时，二者的频率范围是不相同的，如下表所示。作为声源时频率范围较窄，而作为接受者时频率范围较宽</p>
-<div class="figure align-default">
+<figure class="align-default">
 <img alt="../_images/v2-bd9dd4c4bcf3275f7b66b77bc03114a6_hd.jpg" src="../_images/v2-bd9dd4c4bcf3275f7b66b77bc03114a6_hd.jpg" />
-</div>
-</div>
-<div class="section" id="id8">
-<h3><span class="section-number">1.2.3. </span>纯音和复合音<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h3>
+</figure>
+</section>
+<section id="id8">
+<h3><span class="section-number">1.2.3. </span>纯音和复合音<a class="headerlink" href="#id8" title="永久链接至标题"></a></h3>
 <p>相应于振动，声波也分为周期性声波和非周期性声波，最简单的周期声波是单频的声波，也称为纯音。
 它是由简谐振动产生的频率固定、并按正弦变化的声波。与单频音相对应的是复合声，复合声（也称为复声）是由一些频率不同的单频音组成，</p>
 <p>维基百科的定义</p>
@@ -1233,16 +1147,16 @@
 <p class="admonition-title">小技巧</p>
 <p>人发出的语音声音是复合声音。</p>
 </div>
-</div>
-<div class="section" id="spectrum">
-<h3><span class="section-number">1.2.4. </span>频谱 Spectrum<a class="headerlink" href="#spectrum" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="spectrum">
+<h3><span class="section-number">1.2.4. </span>频谱 Spectrum<a class="headerlink" href="#spectrum" title="永久链接至标题"></a></h3>
 <p>上文说道，声波是正弦波，可以用正弦函数表示，并且声波是可以叠加的，我们看下多个正弦曲线是如何叠加的。</p>
-<div class="figure align-default">
+<figure class="align-default">
 <img alt="../_images/波形叠加.gif" src="../_images/波形叠加.gif" />
-</div>
-<div class="figure align-default">
+</figure>
+<figure class="align-default">
 <img alt="https://upload.wikimedia.org/wikipedia/commons/7/7e/Fourier_series_sawtooth_wave_circles_animation.gif" src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Fourier_series_sawtooth_wave_circles_animation.gif" />
-</div>
+</figure>
 <div class="topic">
 <p class="topic-title">TODO</p>
 <p>多个纯音叠加到一起的案例</p>
@@ -1264,9 +1178,9 @@ Fourier 对热传递很感兴趣，于 1807 年在法国科学学会上发表了
 </dd>
 </dl>
 </div>
-<div class="figure align-default">
+<figure class="align-default">
 <img alt="https://upload.wikimedia.org/wikipedia/commons/2/2b/Fourier_series_and_transform.gif" src="https://upload.wikimedia.org/wikipedia/commons/2/2b/Fourier_series_and_transform.gif" />
-</div>
+</figure>
 <p>任何 <strong>周期</strong> 函数，都可以看作是不同振幅，不同相位正弦波的叠加。</p>
 <img alt="../_images/40cf849e55ed95732a60b52d4019d609_hd.jpg" src="../_images/40cf849e55ed95732a60b52d4019d609_hd.jpg" />
 <p>我们知道，一个正弦信号的全部信息由它的频率、幅度以及初相位这三个参数来决定，也即，
@@ -1291,26 +1205,26 @@ Fourier 对热传递很感兴趣，于 1807 年在法国科学学会上发表了
 <p>如两个单频信号幅值和频率相同，但相位相反，那么，当对这两个信号进行平均时，那么，它们的幅值将为0。
 在汽车排气系统中，有一种主动消音机制，就是先接收声音，然后将声音反相回放回去，从而达到消音的目的，
 利用的就是这个原理。</p>
-<div class="figure align-default">
+<figure class="align-default">
 <img alt="../_images/6a8f58f7a37efe769dba075c2816d994_hd.jpg" src="../_images/6a8f58f7a37efe769dba075c2816d994_hd.jpg" />
-</div>
+</figure>
 <p>对于已经抵消了正弦信号，傅里叶变换是无法还原的。原因不需要解释吧！！！</p>
 </div>
 <div class="admonition tip">
 <p class="admonition-title">小技巧</p>
 <ul class="simple">
 <li><p>更加通俗易懂的理解傅里叶变换的讲解，请阅读： <a class="reference external" href="https://zhuanlan.zhihu.com/p/19763358">傅里叶分析之掐死教程（完整版）</a></p></li>
-<li><p>从技术层面介绍傅里叶变换的操作原理，请阅读：  <code class="xref download docutils literal notranslate"><span class="pre">FFT的理解</span></code></p></li>
+<li><p>从技术层面介绍傅里叶变换的操作原理，请阅读：  <a class="reference download internal" download="" href="../_downloads/e629cb860f9737f236d7f4c34c24a462/FFT%E7%9A%84%E7%90%86%E8%A7%A3.pdf"><code class="xref download docutils literal notranslate"><span class="pre">FFT的理解</span></code></a></p></li>
 </ul>
 </div>
 <p>对时域信号作傅立叶变换，得到的直接结果即为频谱Spectrum。它是复数，复数的实部和虚部分别保存幅值和相位信息。
 同时显示同一频谱的幅值和相位的图形称为波德图(bode)，如下图所示。</p>
 <img alt="../_images/cfcbddbfd80c3f2023cb6fd43184f0f3_hd.jpg" src="../_images/cfcbddbfd80c3f2023cb6fd43184f0f3_hd.jpg" />
-</div>
-<div class="section" id="id10">
-<h3><span class="section-number">1.2.5. </span>名词<a class="headerlink" href="#id10" title="永久链接至标题">¶</a></h3>
-<div class="section" id="id11">
-<h4><span class="section-number">1.2.5.1. </span>频率–基频–音高<a class="headerlink" href="#id11" title="永久链接至标题">¶</a></h4>
+</section>
+<section id="id10">
+<h3><span class="section-number">1.2.5. </span>名词<a class="headerlink" href="#id10" title="永久链接至标题"></a></h3>
+<section id="id11">
+<h4><span class="section-number">1.2.5.1. </span>频率–基频–音高<a class="headerlink" href="#id11" title="永久链接至标题"></a></h4>
 <p>单位时间内(每秒)物体振动的次数，称为“频率”，用 f 表示，单位为赫兹。物体振动越快，频率就越高;物体振动越慢，频率就越低。</p>
 <p>物体振动一周所 经历的时间，称为“周期”，记作 T，单位为秒。周期与频率之间具有以下关系: T=1/f。</p>
 <p>在一个自然的复合音里，有一个振幅最大、频率最低的分音，也就是第一谐波，这个分音(或第一谐波)一般还被称为“基音”，它的振动频率被称为“基频”。
@@ -1320,33 +1234,33 @@ Fourier 对热传递很感兴趣，于 1807 年在法国科学学会上发表了
 这个复合波的基频并不等于 300 赫兹，而是等于 100 赫兹。</p>
 <p>音高是人耳对物体振动频率的听觉感受,其高低主要决定于声波频率。一般来说，振动频率越高，感受到的音高也越高;振动频率越低，感受到的音高也越低。
 对复合波音高的感知，主要决定于基频。一般来说，女同志的音高比男的高，童声的音高比成人高。</p>
-</div>
-<div class="section" id="id12">
-<h4><span class="section-number">1.2.5.2. </span>基音–陪音–谐波–分音–泛音<a class="headerlink" href="#id12" title="永久链接至标题">¶</a></h4>
+</section>
+<section id="id12">
+<h4><span class="section-number">1.2.5.2. </span>基音–陪音–谐波–分音–泛音<a class="headerlink" href="#id12" title="永久链接至标题"></a></h4>
 <p>一个复合音是由多个频率不同的纯音组成的，
 通过一定的方法可以把复合音 分解为一定数目的纯音，这些被分解出来的纯音在物理学上被称为“分音”，
 在 电声学上被称为“谐波”。其中，那个振幅最大、频率最低的分音，被称为“基 音”，也被称为“第一谐波”;
 其他分音的振幅一般都比基音的振幅小，而频率 都是基音的整数倍，这些音被称为“陪音”，在音乐中也被称为“泛音”。</p>
-</div>
-</div>
-</div>
-<div class="section" id="id13">
-<h2><span class="section-number">1.3. </span>语音学<a class="headerlink" href="#id13" title="永久链接至标题">¶</a></h2>
-<div class="section" id="id14">
-<h3><span class="section-number">1.3.1. </span>发声原理<a class="headerlink" href="#id14" title="永久链接至标题">¶</a></h3>
-</div>
-<div class="section" id="id15">
-<h3><span class="section-number">1.3.2. </span>听觉感应<a class="headerlink" href="#id15" title="永久链接至标题">¶</a></h3>
-</div>
-</div>
-<div class="section" id="id16">
-<h2><span class="section-number">1.4. </span>数字信号处理<a class="headerlink" href="#id16" title="永久链接至标题">¶</a></h2>
+</section>
+</section>
+</section>
+<section id="id13">
+<h2><span class="section-number">1.3. </span>语音学<a class="headerlink" href="#id13" title="永久链接至标题"></a></h2>
+<section id="id14">
+<h3><span class="section-number">1.3.1. </span>发声原理<a class="headerlink" href="#id14" title="永久链接至标题"></a></h3>
+</section>
+<section id="id15">
+<h3><span class="section-number">1.3.2. </span>听觉感应<a class="headerlink" href="#id15" title="永久链接至标题"></a></h3>
+</section>
+</section>
+<section id="id16">
+<h2><span class="section-number">1.4. </span>数字信号处理<a class="headerlink" href="#id16" title="永久链接至标题"></a></h2>
 <p>对于人类的语音信号而言，实际处理一般经过以下步骤：</p>
 <p>人嘴说话——&gt;声电转换——&gt;采样（模数转换）——&gt;量化（将数字信号用适当的数值表示）——&gt;编码（数据压缩）——&gt;
 传输（网络或者其他方式）
 ——&gt;解码（数据还原）——&gt;反采样（数模转换）——&gt;电声转换——&gt;人耳听声。</p>
-<div class="section" id="id17">
-<h3><span class="section-number">1.4.1. </span>模数转换<a class="headerlink" href="#id17" title="永久链接至标题">¶</a></h3>
+<section id="id17">
+<h3><span class="section-number">1.4.1. </span>模数转换<a class="headerlink" href="#id17" title="永久链接至标题"></a></h3>
 <p>麦克风设备感受空气压力变化，并且把压力转换成电信号，这里电信号也就是模拟信号，随时间连续变化的电信号。
 然后需要把模拟信号转换成计算机的数字信号。</p>
 <p><strong>模拟信号</strong> 到 <strong>数字信号转换</strong> (analog-to-digital conversion,A/D转化，模数转换)的过程分为两步：</p>
@@ -1362,9 +1276,9 @@ Fourier 对热传递很感兴趣，于 1807 年在法国科学学会上发表了
 所以在电脑上录音的本质就是把模拟声音信号转换成数字信号。
 反之，在播放时则是把数字信号还原成模拟声音信号输出。</p>
 </div>
-<div class="figure align-default">
+<figure class="align-default">
 <img alt="../_images/2239910-bf5220a5229bc71b.png" src="../_images/2239910-bf5220a5229bc71b.png" />
-</div>
+</figure>
 <dl class="field-list simple">
 <dt class="field-odd">采样率</dt>
 <dd class="field-odd"><p></p></dd>
@@ -1406,9 +1320,9 @@ Fourier 对热传递很感兴趣，于 1807 年在法国科学学会上发表了
 <p>位宽越大，精度越高，声音的音质越好。与声音大小（幅值大小）无关！！！！</p>
 <p>个人理解：实数值转整数，也是一种采样离散化。采样时时间维度的离散化，量化是振幅的离散化。</p>
 </div>
-</div>
-<div class="section" id="wav">
-<h3><span class="section-number">1.4.2. </span>音频文件–WAV<a class="headerlink" href="#wav" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="wav">
+<h3><span class="section-number">1.4.2. </span>音频文件–WAV<a class="headerlink" href="#wav" title="永久链接至标题"></a></h3>
 <div class="topic">
 <p class="topic-title">PCM</p>
 <p>脉冲编码调制（英文：Pulse-code modulation，缩写：PCM）是一种模拟信号的数字化方法。
@@ -1428,9 +1342,9 @@ PCM将信号的强度依照同样的间距分成数段，然后用独特的数�
 固定长度的文件头+PCM音量数据流 组成一个wav文件存储在计算机中。</p>
 </div>
 <p>文件头中记录着pcm音频流的一些信息，比如采样率、量化位数、声道数等等。</p>
-<div class="figure align-default">
+<figure class="align-default">
 <img alt="https://upload.wikimedia.org/wikipedia/commons/8/8c/Wave_format.png" src="https://upload.wikimedia.org/wikipedia/commons/8/8c/Wave_format.png" />
-</div>
+</figure>
 <p>利用python查看一个wav文件的信息：</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">soundfile</span> <span class="k">as</span> <span class="nn">sf</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">sf</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;wave/比较平缓.wav&quot;</span><span class="p">)</span>
@@ -1456,15 +1370,15 @@ PCM将信号的强度依照同样的间距分成数段，然后用独特的数�
 <span class="go">array([ 0,  1,  2,  1,  0,  0, -2, -2, -2, -3], dtype=int16)</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="id18">
-<h2><span class="section-number">1.5. </span>分帧与加窗<a class="headerlink" href="#id18" title="永久链接至标题">¶</a></h2>
-<div class="section" id="id19">
-<h3><span class="section-number">1.5.1. </span>预加重处理<a class="headerlink" href="#id19" title="永久链接至标题">¶</a></h3>
-</div>
-<div class="section" id="id20">
-<h3><span class="section-number">1.5.2. </span>分帧与加窗<a class="headerlink" href="#id20" title="永久链接至标题">¶</a></h3>
+</section>
+</section>
+<section id="id18">
+<h2><span class="section-number">1.5. </span>分帧与加窗<a class="headerlink" href="#id18" title="永久链接至标题"></a></h2>
+<section id="id19">
+<h3><span class="section-number">1.5.1. </span>预加重处理<a class="headerlink" href="#id19" title="永久链接至标题"></a></h3>
+</section>
+<section id="id20">
+<h3><span class="section-number">1.5.2. </span>分帧与加窗处理<a class="headerlink" href="#id20" title="永久链接至标题"></a></h3>
 <p>我们已经知道采集到音频数据，是时间轴上的数据序列，声波随着之间变化，声波在整个时间轴上是 <strong>非周期性</strong> 的，这导致计算机很难处理。
 但在一个很短的时间切片内（10ms-50ms），声波是可以近似看为周期性的。所以我们可以把长序列数据切片，每片称为一帧。</p>
 <img alt="../_images/v2-55d8a7b5a55fe081cc778783d34d2b3a_hd.png" src="../_images/v2-55d8a7b5a55fe081cc778783d34d2b3a_hd.png" />
@@ -1513,19 +1427,19 @@ PCM将信号的强度依照同样的间距分成数段，然后用独特的数�
 对每一帧信号都做这样的傅里叶变换，就可以知道音高和口型随时间的变化情况，也就能识别出一句话说的是什么了。</p>
 <p>对于声音数据的分析，可以分为时域分析和频域分析。时域分析是指</p>
 <p>语音信号的时域分析就是分析和提取语音信号的时域参数，也就是直接对波形进行处理。</p>
-</div>
-</div>
-<div class="section" id="id21">
-<h2><span class="section-number">1.6. </span>声音的感官度量<a class="headerlink" href="#id21" title="永久链接至标题">¶</a></h2>
-<div class="section" id="sound-pressure-level-spl">
-<h3><span class="section-number">1.6.1. </span>声压与声压级(Sound Pressure Level,SPL)<a class="headerlink" href="#sound-pressure-level-spl" title="永久链接至标题">¶</a></h3>
+</section>
+</section>
+<section id="id21">
+<h2><span class="section-number">1.6. </span>声音的感官度量<a class="headerlink" href="#id21" title="永久链接至标题"></a></h2>
+<section id="sound-pressure-level-spl">
+<h3><span class="section-number">1.6.1. </span>声压与声压级(Sound Pressure Level,SPL)<a class="headerlink" href="#sound-pressure-level-spl" title="永久链接至标题"></a></h3>
 <p>声压是定量描述声波的最基本物理量，它是由生扰动产生的逾量压强，是空间位置和时间的函数。
 由于声压的测量比较容易实现，而且通过声压的测量也可以间接求得质点振速等其它声学参量，
 因此，声压已经成为人们最为普遍采用的定量描述声波性质的物理量。</p>
 <p>通常讲声压指的是有效声压，即在一定时间间隔内将瞬时声压对时间求方均根值所得。</p>
 <p>设语音长度为T，离散点数为N，则有效声压的计算公式为</p>
 <div class="math notranslate nohighlight" id="equation-audio-feature-3">
-<span class="eqno">(1.6.28)<a class="headerlink" href="#equation-audio-feature-3" title="公式的永久链接">¶</a></span>\[p_e = \sqrt{\frac{\sum_{i=1}^N x^2}{N}}\]</div>
+<span class="eqno">(1.6.28)<a class="headerlink" href="#equation-audio-feature-3" title="公式的永久链接"></a></span>\[p_e = \sqrt{\frac{\sum_{i=1}^N x^2}{N}}\]</div>
 <p>式中，x表示语音信号采样点的幅值。</p>
 <div class="admonition hint">
 <p class="admonition-title">提示</p>
@@ -1546,34 +1460,34 @@ PCM将信号的强度依照同样的间距分成数段，然后用独特的数�
 而非100+100=200dB），而电压增加一倍代表增益提升6dB。</p>
 </div>
 <div class="math notranslate nohighlight" id="equation-audio-feature-4">
-<span class="eqno">(1.6.29)<a class="headerlink" href="#equation-audio-feature-4" title="公式的永久链接">¶</a></span>\[L_p = 20 lg \frac{p_e}{p_{ref}}\]</div>
+<span class="eqno">(1.6.29)<a class="headerlink" href="#equation-audio-feature-4" title="公式的永久链接"></a></span>\[L_p = 20 lg \frac{p_e}{p_{ref}}\]</div>
 <p>式中， <span class="math notranslate nohighlight">\(p_e\)</span> 为待测声压的有效值； <span class="math notranslate nohighlight">\(p_{ref}\)</span> 为参考声压（一般是标准大气压）。</p>
-</div>
-<div class="section" id="intensity-level-il">
-<h3><span class="section-number">1.6.2. </span>声强与声强级(Intensity Level,IL）<a class="headerlink" href="#intensity-level-il" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="intensity-level-il">
+<h3><span class="section-number">1.6.2. </span>声强与声强级(Intensity Level,IL）<a class="headerlink" href="#intensity-level-il" title="永久链接至标题"></a></h3>
 <p>在物理学中，声波在单位时间内作用在与传递方向垂直的单位面积上的能量称为声强。声强用I表示，单位为瓦/平米。</p>
 <p>日常生活中能听到的声音其强度范围很大，最大和最小之间可大 <span class="math notranslate nohighlight">\(10^{12}\)</span> 倍。</p>
 <p>心理物理学的研究表明，人对声音强弱的感觉并不是与声强成正比，而是与其对数成正比的。
 当人耳听到两个强度不同的声音时，感觉的大小大致上与两个声强比值的对数成比例。
 因此，用对数尺度来表示声音强度的等级，其单位为分贝(dB)。</p>
 <div class="math notranslate nohighlight" id="equation-audio-feature-5">
-<span class="eqno">(1.6.30)<a class="headerlink" href="#equation-audio-feature-5" title="公式的永久链接">¶</a></span>\[L_{I} = 10 lg(I/I_0)\]</div>
+<span class="eqno">(1.6.30)<a class="headerlink" href="#equation-audio-feature-5" title="公式的永久链接"></a></span>\[L_{I} = 10 lg(I/I_0)\]</div>
 <p>在声学中用 <span class="math notranslate nohighlight">\(1x10^{-12} W/m^2\)</span> 作为参考声强( <span class="math notranslate nohighlight">\(I_0\)</span> )。</p>
-</div>
-<div class="section" id="id22">
-<h3><span class="section-number">1.6.3. </span>声压与声强的关系<a class="headerlink" href="#id22" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id22">
+<h3><span class="section-number">1.6.3. </span>声压与声强的关系<a class="headerlink" href="#id22" title="永久链接至标题"></a></h3>
 <p>对于球面波和平面波，声压与声强的关系是</p>
 <div class="math notranslate nohighlight" id="equation-audio-feature-6">
-<span class="eqno">(1.6.31)<a class="headerlink" href="#equation-audio-feature-6" title="公式的永久链接">¶</a></span>\[I=P^2/ \rho \cdot c\]</div>
+<span class="eqno">(1.6.31)<a class="headerlink" href="#equation-audio-feature-6" title="公式的永久链接"></a></span>\[I=P^2/ \rho \cdot c\]</div>
 <p>式中， <span class="math notranslate nohighlight">\(\rho\)</span> 为空气密度; c 为声速。在标准大气压和 <span class="math notranslate nohighlight">\(20^oC\)</span> 的环境下， <span class="math notranslate nohighlight">\(\rho \cdot c =408\)</span> 。
 该数值为国际单位值，也叫瑞利，称为空气对声波的特性阻抗。</p>
 <div class="admonition hint">
 <p class="admonition-title">提示</p>
 <p>声压反应的是压力，声强反应的是能量，如果忽略 <span class="math notranslate nohighlight">\(\rho \text{和} c\)</span>  ，二者就是平方关系。</p>
 </div>
-</div>
-<div class="section" id="id23">
-<h3><span class="section-number">1.6.4. </span>响度<a class="headerlink" href="#id23" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id23">
+<h3><span class="section-number">1.6.4. </span>响度<a class="headerlink" href="#id23" title="永久链接至标题"></a></h3>
 <div class="topic">
 <p class="topic-title">响度</p>
 <p>响度（loudness又称音响或音量），是与 <strong>声压级</strong> （中文维基百科这里写的是声强，应该是错误的，
@@ -1585,9 +1499,9 @@ PCM将信号的强度依照同样的间距分成数段，然后用独特的数�
 <strong>人耳对声音的感觉，不仅和声压有关，还和频率有关</strong> 。声压级相同，频率不同的声音，听起来响亮程度也不同。如空压机和电锯，同是100dB声压级的噪声，听起来电锯声要响的多。</p>
 <p>按照人耳对声音的感觉特性，依据声压和频率定出人对声音的主观音响感觉量，称为响度级，单位为方，符号是phon。
 根据国际协议规定，0dB声强级的1000Hz的纯音的响度级定义为0 phon。其他频率声音的声级与响度级的对应关系，要从等响度曲线才能查出。</p>
-<div class="figure align-default">
+<figure class="align-default">
 <img alt="https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Lindos1.svg/1024px-Lindos1.svg.png" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Lindos1.svg/1024px-Lindos1.svg.png" />
-</div>
+</figure>
 <div class="topic">
 <p class="topic-title">关于响度的认识
 虽然人而表现为声压敏感组织，但从人耳接受声波并对声波进行分析的方式来说，振幅因素和响度其实并没有直接的的关系。
@@ -1598,9 +1512,9 @@ PCM将信号的强度依照同样的间距分成数段，然后用独特的数�
 可以简单理解成，相同声强的两个声音，频率越丰富的，人耳感觉到的响度越大。</p>
 <p>从某种意义上说，提高响度的所有途经，均是为了激发更多的毛细胞，从而达到增加临界带宽数量的目的。</p>
 </div>
-</div>
-<div class="section" id="id24">
-<h3><span class="section-number">1.6.5. </span>音量计算<a class="headerlink" href="#id24" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id24">
+<h3><span class="section-number">1.6.5. </span>音量计算<a class="headerlink" href="#id24" title="永久链接至标题"></a></h3>
 <p>人耳感受声音强度的感知量是 <strong>响度</strong> ，响度受到声压和频率同时影响的。
 但在实际的应用中，音频数据的频率是很难获得的，所以通常都是直接使用 <strong>声压级</strong> 来表示音量的大小。</p>
 <p>但是计算声压级时是需要用有 <strong>效声压</strong> 除以 <strong>基准声压</strong> 的，基准声压表示的标准大气压。</p>
@@ -1608,15 +1522,15 @@ PCM将信号的强度依照同样的间距分成数段，然后用独特的数�
 <p><strong>有效声压：</strong> ， 我们用音频采样的振幅值替代。</p>
 <p><strong>基准声压：</strong> ， 基准声压就类似一个对比的基准线，把音频采样的振幅值归一化到[-1,1]之间即可，归一化的方法就是振幅除以采样位宽的最大值。</p>
 <div class="math notranslate nohighlight" id="equation-audio-feature-7">
-<span class="eqno">(1.6.32)<a class="headerlink" href="#equation-audio-feature-7" title="公式的永久链接">¶</a></span>\[volume=80 + 20lg \frac{\sum_{i=1}^N abs(x_i)}{N}\]</div>
+<span class="eqno">(1.6.32)<a class="headerlink" href="#equation-audio-feature-7" title="公式的永久链接"></a></span>\[volume=80 + 20lg \frac{\sum_{i=1}^N abs(x_i)}{N}\]</div>
 <p>为什么没用平方，平方容易受到一些极大值点的影响，不够平稳。</p>
 <div class="admonition warning">
 <p class="admonition-title">警告</p>
 <p>利用音频采样计算的音量值，并不是实际的感知量响度，也不是物理量声压级，不能表示真实的声音大小，仅仅是一种相对值表示，其值本身没啥意义。</p>
 </div>
-</div>
-<div class="section" id="id25">
-<h3><span class="section-number">1.6.6. </span>频率与音高<a class="headerlink" href="#id25" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id25">
+<h3><span class="section-number">1.6.6. </span>频率与音高<a class="headerlink" href="#id25" title="永久链接至标题"></a></h3>
 <p>物体在1秒内振动的次数叫频率。其单位是赫兹，简称赫，符号为Hz。物体振动得越快，频率越大。
 频率是物理量，其对应的感知量是音高，即用人的主观感觉来评价所听到的是高调还是低调。
 音调跟发声体振动的频率关系是：频率越大，音调越高；频率越小，音调越低。</p>
@@ -1627,34 +1541,34 @@ PCM将信号的强度依照同样的间距分成数段，然后用独特的数�
 <p class="topic-title">总结</p>
 <p>声音感知量和物理量之间不是线性关系。</p>
 </div>
-</div>
-</div>
-<div class="section" id="id26">
-<h2><span class="section-number">1.7. </span>时域分析<a class="headerlink" href="#id26" title="永久链接至标题">¶</a></h2>
+</section>
+</section>
+<section id="id26">
+<h2><span class="section-number">1.7. </span>时域分析<a class="headerlink" href="#id26" title="永久链接至标题"></a></h2>
 <p>语音信号的时域分析是指对语音波形执行直接的操作，而将频域信号处理定义为对语音信号的傅里叶表示执行操作。</p>
 <p>短时的意思是对语音波形的一帧（短时间片段）进行操作。</p>
-<div class="section" id="id27">
-<h3><span class="section-number">1.7.1. </span>短时能量<a class="headerlink" href="#id27" title="永久链接至标题">¶</a></h3>
+<section id="id27">
+<h3><span class="section-number">1.7.1. </span>短时能量<a class="headerlink" href="#id27" title="永久链接至标题"></a></h3>
 <dl class="field-list simple">
 <dt class="field-odd">定义</dt>
 <dd class="field-odd"><p>当前声音片段的能量大小。能量越大响度越大。</p>
 </dd>
 </dl>
 <div class="math notranslate nohighlight" id="equation-audio-feature-8">
-<span class="eqno">(1.7.3)<a class="headerlink" href="#equation-audio-feature-8" title="公式的永久链接">¶</a></span>\[E=\sum_{m=1}^N (x[m])^2\]</div>
-</div>
-<div class="section" id="id28">
-<h3><span class="section-number">1.7.2. </span>短时平均幅度<a class="headerlink" href="#id28" title="永久链接至标题">¶</a></h3>
+<span class="eqno">(1.7.3)<a class="headerlink" href="#equation-audio-feature-8" title="公式的永久链接"></a></span>\[E=\sum_{m=1}^N (x[m])^2\]</div>
+</section>
+<section id="id28">
+<h3><span class="section-number">1.7.2. </span>短时平均幅度<a class="headerlink" href="#id28" title="永久链接至标题"></a></h3>
 <dl class="field-list simple">
 <dt class="field-odd">定义</dt>
 <dd class="field-odd"><p>当前声音片段的平均幅度。</p>
 </dd>
 </dl>
 <div class="math notranslate nohighlight" id="equation-audio-feature-9">
-<span class="eqno">(1.7.4)<a class="headerlink" href="#equation-audio-feature-9" title="公式的永久链接">¶</a></span>\[M = \frac{1}{N} \sum_{m=1}^N |x[m]|\]</div>
-</div>
-<div class="section" id="id29">
-<h3><span class="section-number">1.7.3. </span>短时过零率<a class="headerlink" href="#id29" title="永久链接至标题">¶</a></h3>
+<span class="eqno">(1.7.4)<a class="headerlink" href="#equation-audio-feature-9" title="公式的永久链接"></a></span>\[M = \frac{1}{N} \sum_{m=1}^N |x[m]|\]</div>
+</section>
+<section id="id29">
+<h3><span class="section-number">1.7.3. </span>短时过零率<a class="headerlink" href="#id29" title="永久链接至标题"></a></h3>
 <dl class="field-list simple">
 <dt class="field-odd">定义</dt>
 <dd class="field-odd"><p></p></dd>
@@ -1665,20 +1579,20 @@ PCM将信号的强度依照同样的间距分成数段，然后用独特的数�
 <dd class="field-odd"><p></p></dd>
 </dl>
 <div class="math notranslate nohighlight" id="equation-audio-feature-10">
-<span class="eqno">(1.7.5)<a class="headerlink" href="#equation-audio-feature-10" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}Z = \sum_{m=1}^N |sgn(x[m])-sgn(x[m-1])|\\\begin{split}sgn(x[m])=\left\{
+<span class="eqno">(1.7.5)<a class="headerlink" href="#equation-audio-feature-10" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}Z = \sum_{m=1}^N |sgn(x[m])-sgn(x[m-1])|\\\begin{split}sgn(x[m])=\left\{
 \begin{aligned}
 1 ,\  &amp; x[m] \ge 0 \\
 -1,\   &amp; x[m] \lt 0 \\
 \end{aligned}
 \right.\end{split}\end{aligned}\end{align} \]</div>
-<div class="section" id="id30">
-<h4><span class="section-number">1.7.3.1. </span>短时自相关函数<a class="headerlink" href="#id30" title="永久链接至标题">¶</a></h4>
+<section id="id30">
+<h4><span class="section-number">1.7.3.1. </span>短时自相关函数<a class="headerlink" href="#id30" title="永久链接至标题"></a></h4>
 <p>省略</p>
-</div>
-</div>
-</div>
-<div class="section" id="id31">
-<h2><span class="section-number">1.8. </span>频域分析<a class="headerlink" href="#id31" title="永久链接至标题">¶</a></h2>
+</section>
+</section>
+</section>
+<section id="id31">
+<h2><span class="section-number">1.8. </span>频域分析<a class="headerlink" href="#id31" title="永久链接至标题"></a></h2>
 <p>某些比较宽泛的语音特征（例如，能量、基音、浊音的出现、塞音的成阻、擦音，等等）可以直接从波形上来解释，但是，
 在语音识别（以及人的听觉处理）等很多计算机应用中，要求对组成声音的频率做出不同的表示，并以此作为这些应用的基础。</p>
 <p>傅里叶分析指出，每一个复杂波都可以表示为很多频率不同的正弦波的总和。</p>
@@ -1692,9 +1606,9 @@ PCM将信号的强度依照同样的间距分成数段，然后用独特的数�
 <li><p>非周期性离散信号 – 离散时域傅立叶变换(Discrete Time Fourier Transform)</p></li>
 <li><p>周期性离散信号 – 离散傅立叶变换(Discrete Fourier Transform)</p></li>
 </ul>
-<div class="figure align-default">
+<figure class="align-default">
 <img alt="../_images/type_of_transform.png" src="../_images/type_of_transform.png" />
-</div>
+</figure>
 <p>相关名词解释:</p>
 <dl class="field-list simple">
 <dt class="field-odd">FT（Fourier Transformation）</dt>
@@ -1729,20 +1643,20 @@ PCM将信号的强度依照同样的间距分成数段，然后用独特的数�
 </div>
 <p>在用计算机处理音频信号时，我们使用的是 DFT（Discrete Fourier Transform）离散傅里叶变换，具体算法是 FFT（Fast Fourier Transformation）。
 比如scipy和numpy都有提供相应的功能函数。</p>
-<div class="section" id="spectrum-spectrogram">
-<h3><span class="section-number">1.8.1. </span>声谱(spectrum)和时频谱(spectrogram)<a class="headerlink" href="#spectrum-spectrogram" title="永久链接至标题">¶</a></h3>
+<section id="spectrum-spectrogram">
+<h3><span class="section-number">1.8.1. </span>声谱(spectrum)和时频谱(spectrogram)<a class="headerlink" href="#spectrum-spectrogram" title="永久链接至标题"></a></h3>
 <p>声谱表示某一时刻（一帧语音信号）经过FFT得到的频率成分，其横轴是频率，纵轴是振幅（或者能量）。
 而时频谱(spectrogram)表示这些不同的频率成分是如何使波形随着时间的改变而改变的，也就是把每帧的声谱(spectrum)拼接（按照时间轴）起来，
 其横轴是时间，纵轴是频率，颜色深浅表示振幅（能量）</p>
-<div class="figure align-default">
+<figure class="align-default">
 <img alt="../_images/1160281-20181221224530922-479480973.png" src="../_images/1160281-20181221224530922-479480973.png" />
-</div>
-<div class="figure align-default">
+</figure>
+<figure class="align-default">
 <img alt="../_images/1160281-20181221224541923-1780314401.png" src="../_images/1160281-20181221224541923-1780314401.png" />
-</div>
-<div class="figure align-default">
+</figure>
+<figure class="align-default">
 <img alt="../_images/1160281-20181221224554397-162344585.png" src="../_images/1160281-20181221224554397-162344585.png" />
-</div>
+</figure>
 <p>一段声音的声波和频谱示例</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">specshow</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">sr</span><span class="p">):</span>
     <span class="n">D</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">librosa</span><span class="o">.</span><span class="n">stft</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
@@ -1757,21 +1671,21 @@ PCM将信号的强度依照同样的间距分成数段，然后用独特的数�
 <span class="n">specshow</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">sr</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="figure align-default">
+<figure class="align-default">
 <img alt="../_images/声波示例.png" src="../_images/声波示例.png" />
-</div>
-<div class="figure align-default">
+</figure>
+<figure class="align-default">
 <img alt="../_images/频谱示例.png" src="../_images/频谱示例.png" />
-</div>
+</figure>
 <p>对时域信号进行傅立叶变换(FFT)时，
 可以用多种不同的函数来表示计算结果，如频谱、自谱、功率谱密度等等，并且这些函数还有不同的格式，如Peak，RMS和Peak-Peak。
 到底用哪个函数来表示更贴切，它们有什么区别呢？在讨论这些谱函数之前，让我们明确一下Peak，RMS和Peak-Peak的定义。</p>
 <p>基频</p>
 <p>共振峰</p>
 <p>包络</p>
-</div>
-<div class="section" id="short-time-fourier-transform-stft">
-<h3><span class="section-number">1.8.2. </span>短时傅里叶变换 Short-time Fourier transform (STFT)<a class="headerlink" href="#short-time-fourier-transform-stft" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="short-time-fourier-transform-stft">
+<h3><span class="section-number">1.8.2. </span>短时傅里叶变换 Short-time Fourier transform (STFT)<a class="headerlink" href="#short-time-fourier-transform-stft" title="永久链接至标题"></a></h3>
 <p>把音频的每一帧利用快速傅里叶变换FFT转化成频域数据。</p>
 <p>时域信号-&gt;分帧-&gt;每一帧单独处理-&gt;加窗-&gt;FFT-&gt;频域结果（复数）-&gt;所有帧结果拼接成时间序列</p>
 <img alt="../_images/20170301204438041.jpeg" src="../_images/20170301204438041.jpeg" />
@@ -1921,9 +1835,9 @@ at frame <cite>t</cite></p>
 <p>要理解能量谱和功率谱，首先要弄明白能量有限信号和功率有限信号（参看之前的文章能量信号和功率信号的分别）。</p>
 <p>能量谱也叫能量谱密度，能量谱密度描述了信号或时间序列的能量如何随频率分布。能量谱是原信号傅立叶变换的平方。</p>
 <p>更多讨论可以参看： <a class="reference external" href="https://zhuanlan.zhihu.com/p/34989414">信号频域分析方法的理解（频谱、能量谱、功率谱、倒频谱、小波分析）</a></p>
-</div>
-<div class="section" id="id33">
-<h3><span class="section-number">1.8.3. </span>倒频谱<a class="headerlink" href="#id33" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id33">
+<h3><span class="section-number">1.8.3. </span>倒频谱<a class="headerlink" href="#id33" title="永久链接至标题"></a></h3>
 <p>倒频谱（Cepstrum）也叫倒谱、二次谱和对数功率谱等。倒频谱的工程型定义是：
 <strong>信号功率谱对数值进行傅立叶逆变换的结果。（信号→求功率谱→求对数→求傅里叶逆变换）</strong></p>
 <p>为什么翻译作倒频谱呢？我个人的理解是，频谱（功率谱）反应的频率特征点横坐标是频率f（Hz），在倒频谱中对应的特征点的横坐标是时间t（s），而f与t互为倒数。从这里也可以看出，虽然倒频谱也叫“频谱”，其横坐标却并不是频率，而是时间。</p>
@@ -1952,37 +1866,37 @@ at frame <cite>t</cite></p>
 频响函数FRF
 相干函数</p>
 <p><a class="reference external" href="https://zhuanlan.zhihu.com/p/22513006">https://zhuanlan.zhihu.com/p/22513006</a></p>
-</div>
-<div class="section" id="id34">
-<h3><span class="section-number">1.8.4. </span>色谱图<a class="headerlink" href="#id34" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id34">
+<h3><span class="section-number">1.8.4. </span>色谱图<a class="headerlink" href="#id34" title="永久链接至标题"></a></h3>
 <p>librosa.feature.chroma_stft</p>
 <p>色度特征是色度向量（Chroma Vector）和色度图谱（Chromagram）的统称。色度向量是一个含有12个元素的向量，
 这些元素分别代表一段时间（如1帧）内12个音级中的能量，不同八度的同一音级能量累加，色度图谱则是色度向量的序列。</p>
-</div>
-</div>
-<div class="section" id="id35">
-<h2><span class="section-number">1.9. </span>小波域特征<a class="headerlink" href="#id35" title="永久链接至标题">¶</a></h2>
-<div class="section" id="id36">
-<h3><span class="section-number">1.9.1. </span>离散小波域变换<a class="headerlink" href="#id36" title="永久链接至标题">¶</a></h3>
-</div>
-<div class="section" id="id37">
-<h3><span class="section-number">1.9.2. </span>小波域过零率<a class="headerlink" href="#id37" title="永久链接至标题">¶</a></h3>
-</div>
-<div class="section" id="id38">
-<h3><span class="section-number">1.9.3. </span>小波域质心<a class="headerlink" href="#id38" title="永久链接至标题">¶</a></h3>
-</div>
-<div class="section" id="id39">
-<h3><span class="section-number">1.9.4. </span>小波域子带能量<a class="headerlink" href="#id39" title="永久链接至标题">¶</a></h3>
-</div>
-</div>
-<div class="section" id="mfcc">
-<h2><span class="section-number">1.10. </span>语音识别的音频特征–MFCC<a class="headerlink" href="#mfcc" title="永久链接至标题">¶</a></h2>
+</section>
+</section>
+<section id="id35">
+<h2><span class="section-number">1.9. </span>小波域特征<a class="headerlink" href="#id35" title="永久链接至标题"></a></h2>
+<section id="id36">
+<h3><span class="section-number">1.9.1. </span>离散小波域变换<a class="headerlink" href="#id36" title="永久链接至标题"></a></h3>
+</section>
+<section id="id37">
+<h3><span class="section-number">1.9.2. </span>小波域过零率<a class="headerlink" href="#id37" title="永久链接至标题"></a></h3>
+</section>
+<section id="id38">
+<h3><span class="section-number">1.9.3. </span>小波域质心<a class="headerlink" href="#id38" title="永久链接至标题"></a></h3>
+</section>
+<section id="id39">
+<h3><span class="section-number">1.9.4. </span>小波域子带能量<a class="headerlink" href="#id39" title="永久链接至标题"></a></h3>
+</section>
+</section>
+<section id="mfcc">
+<h2><span class="section-number">1.10. </span>语音识别的音频特征–MFCC<a class="headerlink" href="#mfcc" title="永久链接至标题"></a></h2>
 <p>前文讲过用逆傅里叶变换抽取倒谱时，每一个帧有12个倒谱系数。下面我们再加上第13个特征：帧的能量。</p>
 <p>能量与发音的识别是相关的，因此，它是探测发音的一个有用线索（元音和咝音比塞[se]音具有更多的能量）。
 一个帧的 <strong>能量(energy)</strong> 是该帧在某一时段内的样本幂的总和，因此，从时间样本 <span class="math notranslate nohighlight">\(t_1\)</span> 到时间样本 <span class="math notranslate nohighlight">\(t_2\)</span> 的窗口内(一帧),
 信号的能量是</p>
 <div class="math notranslate nohighlight" id="equation-audio-feature-11">
-<span class="eqno">(1.10.1)<a class="headerlink" href="#equation-audio-feature-11" title="公式的永久链接">¶</a></span>\[Energy = \sum_{t=t_1}^{t_2} x[t]^2\]</div>
+<span class="eqno">(1.10.1)<a class="headerlink" href="#equation-audio-feature-11" title="公式的永久链接"></a></span>\[Energy = \sum_{t=t_1}^{t_2} x[t]^2\]</div>
 <p>语音信号的另外一个重要的事实是：从一帧到下一帧，语音信号是不恒定的。共振峰在转换时的斜坡的变化，塞音从成阻到爆破的变化，
 这些都可能给语音的探测提供有用的线索。由于这样的原因，我们还可以加上倒谱特征中与时间变化有联系的一些特征。</p>
 <p>我们使用对13个特征（12个倒谱系数+1个能量系数）的每一个特征都加上 <strong>Delta特征（Delta feature）</strong> ，
@@ -1990,7 +1904,7 @@ at frame <cite>t</cite></p>
 <p>Delta特征表示的每一个倒谱/能量特征帧与帧之间的变化，双Delta特征表示的每一个Delta特征帧与帧之间的变化。</p>
 <p>一种简单的计算法方法是帧与帧之间的差。</p>
 <div class="math notranslate nohighlight" id="equation-audio-feature-12">
-<span class="eqno">(1.10.2)<a class="headerlink" href="#equation-audio-feature-12" title="公式的永久链接">¶</a></span>\[d(t)=\frac{c(t+1)-c(t-1)}{2}\]</div>
+<span class="eqno">(1.10.2)<a class="headerlink" href="#equation-audio-feature-12" title="公式的永久链接"></a></span>\[d(t)=\frac{c(t+1)-c(t-1)}{2}\]</div>
 <p>除了这种简单的估计方法之外，更为普遍的做法是使用各个帧的更加广泛的上下文信息，对于帧与帧之间的倾斜程度进行更加精细的计算。</p>
 <p>在我们给12个倒谱特征加了能量特征并进一步加了Delta特征和双Delta特征之后，最后得到39各MFCC特征:</p>
 <ul class="simple">
@@ -2002,9 +1916,9 @@ at frame <cite>t</cite></p>
 <li><p>1个双Delta能量系数</p></li>
 </ul>
 <p>每一帧，总共39个特征。</p>
-</div>
-<div class="section" id="id40">
-<h2><span class="section-number">1.11. </span>参考资料<a class="headerlink" href="#id40" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="id40">
+<h2><span class="section-number">1.11. </span>参考资料<a class="headerlink" href="#id40" title="永久链接至标题"></a></h2>
 <p>什么是频响函数FRF？ <a class="reference external" href="https://zhuanlan.zhihu.com/p/22513076">https://zhuanlan.zhihu.com/p/22513076</a>
 什么是泄漏？ <a class="reference external" href="https://zhuanlan.zhihu.com/p/22523642">https://zhuanlan.zhihu.com/p/22523642</a></p>
 <p>各种谱函数的区别是什么，何时用何种函数？  <a class="reference external" href="https://zhuanlan.zhihu.com/p/22513006">https://zhuanlan.zhihu.com/p/22513006</a></p>
@@ -2021,20 +1935,27 @@ Lesson 17 - Fourier Transforms
 <p>librosa 音频处理库 <a class="reference external" href="https://www.jianshu.com/p/bf6cb803f25e">https://www.jianshu.com/p/bf6cb803f25e</a></p>
 <p>音频特征提取——常用音频特征  <a class="reference external" href="https://www.cnblogs.com/xingshansi/p/6815217.html">https://www.cnblogs.com/xingshansi/p/6815217.html</a></p>
 <p>不同元音辅音在声音频谱的表现是什么样子？  <a class="reference external" href="https://www.zhihu.com/question/27126800">https://www.zhihu.com/question/27126800</a></p>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../edm/index.html" class="btn btn-neutral float-right" title="教育领域数据挖掘" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="index.html" class="btn btn-neutral float-left" title="语音技术" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="语音技术" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../edm/index.html" class="btn btn-neutral float-right" title="教育领域数据挖掘" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2018, zhangzhenhu(acmtiger@outlook.com) 禁止一切形式的转载！.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
+  
 
 
     <script src="https://utteranc.es/client.js"
@@ -2047,42 +1968,16 @@ Lesson 17 - Fourier Transforms
 
 
 
-  <div role="contentinfo">
-    <p>
-        &#169; 版权所有 2018, zhangzhenhu(acmtiger@outlook.com) 禁止一切形式的转载！.
-
-    </p>
-  </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-
-
-
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

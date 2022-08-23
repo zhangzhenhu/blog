@@ -1,97 +1,49 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="zh-CN" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>泊松(Poisson)分布 &mdash; 张振虎的博客 张振虎 文档</title>
-  
-
-  
-  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
     <link rel="canonical" href="https://zhangzhenhu.github.io/blog/glm/source/泊松模型/poisson.html" />
-
-  
   <!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
         <script src="../../../_static/doctools.js"></script>
         <script src="../../../_static/translations.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2.7.7/unpacked/MathJax.min.js"></script>
         <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"Macros": {"RR": "{\\bf R}", "bold": ["{\\bf #1}", 1]}}})</script>
-    
-    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-
-    
+    <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../../genindex.html" />
     <link rel="search" title="搜索" href="../../../search.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../../../index.html" class="icon icon-home"> 张振虎的博客
-          
-
-          
           </a>
-
-          
-            
-            
               <div class="version">
                 acmtiger@outlook.com
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="在文档中搜索" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">目录:</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">目录:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../index.html">广义线性模型</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80/content.html">1. 概率基础</a><ul>
@@ -902,77 +854,36 @@
 </li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../../index.html">张振虎的博客</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
       <li>泊松(Poisson)分布</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
-            <a href="../../../_sources/glm/source/泊松模型/poisson.rst.txt" rel="nofollow"> View page source</a>
-          
-        
+            <a href="../../../_sources/glm/source/泊松模型/poisson.rst.txt" rel="nofollow"> 查看页面源码</a>
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="poisson">
-<h1>泊松(Poisson)分布<a class="headerlink" href="#poisson" title="永久链接至标题">¶</a></h1>
+             
+  <section id="poisson">
+<h1>泊松(Poisson)分布<a class="headerlink" href="#poisson" title="永久链接至标题"></a></h1>
 <p>泊松(Poisson)分布的直观理解是，在一个单位时间或者空间间隔内，随机事件发生次数的概率。
 泊松分布可以看成是二项式分布的极限情况，下面我们通过一个例子来阐述。</p>
-<div class="section" id="id1">
-<h2>推导过程<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<section id="id1">
+<h2>推导过程<a class="headerlink" href="#id1" title="永久链接至标题"></a></h2>
 <p>泊松分布实际上是二项分布的试验(trials)次数 <span class="math notranslate nohighlight">\(N\)</span> 趋近于无穷时的场景，我们用一个例子说明。
 假设一个交通观察员需要对某个路口的车流量进行建模，然后用模型预测未来一个小时内从这个路口通过的车次。
 为了简化问题，我们假设路口的交通量不存在高峰期低峰期，即交通量不会随着时间的变化而变化，
@@ -982,7 +893,7 @@
 。我们把一个小时内从路口通过的车次数看做一个随机变量，用符号 <span class="math notranslate nohighlight">\(X\)</span> 表示，
 那么 <span class="math notranslate nohighlight">\(\lambda\)</span> 就是变量 <span class="math notranslate nohighlight">\(X\)</span> 的数学期望。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-poisson-0">
-<span class="eqno">()<a class="headerlink" href="#equation-glm-source-poisson-0" title="公式的永久链接">¶</a></span>\[\mathbb{E}[X] = \lambda\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-glm-source-poisson-0" title="公式的永久链接"></a></span>\[\mathbb{E}[X] = \lambda\]</div>
 <p>我们把一辆车通过与否看做是一个伯努利变量，类似投硬币实验，1表示车辆通过，0表示车辆不通过。
 把一个小时的时间区间均分成 <span class="math notranslate nohighlight">\(N\)</span> 个时间片段，比如每分钟作为一个片段，这时 <span class="math notranslate nohighlight">\(N=60\)</span> 。
 每个时间片段有车辆通过就是一次成功的实验(类似于投硬币正面向上)，
@@ -990,13 +901,13 @@
 这样就把一小时内车辆通过问题转化成一个二项分布问题，
 在 <span class="math notranslate nohighlight">\(N\)</span> 次实验中有k次成功(车辆通过)概率分布函数可以写成：</p>
 <div class="math notranslate nohighlight" id="equation-eq-poisson-201">
-<span class="eqno">()<a class="headerlink" href="#equation-eq-poisson-201" title="公式的永久链接">¶</a></span>\[p(X=k) = \binom{N}{k} p^k \left ( 1-p  \right )^{N-k}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-eq-poisson-201" title="公式的永久链接"></a></span>\[p(X=k) = \binom{N}{k} p^k \left ( 1-p  \right )^{N-k}\]</div>
 <p>其中 <span class="math notranslate nohighlight">\(p\)</span> 是一次实验的成功概率，我们已经通过历史数据知道平均每小时( <span class="math notranslate nohighlight">\(N\)</span> 次实验)中通过的车次数为
 <span class="math notranslate nohighlight">\(\lambda\)</span>
 ，意味着n次实验中有 <span class="math notranslate nohighlight">\(\lambda\)</span> 次成功，
 单次实验成功的概率(平均一分钟内通过车辆数)为：</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-poisson-1">
-<span class="eqno">()<a class="headerlink" href="#equation-glm-source-poisson-1" title="公式的永久链接">¶</a></span>\[p = \frac{\lambda}{N}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-glm-source-poisson-1" title="公式的永久链接"></a></span>\[p = \frac{\lambda}{N}\]</div>
 <p>但是我们并不能保证每分钟只有一辆车通过，我们需要保证一个时间片段内只有一辆车通过(一次实验)
 以上的二项分布的假设才有意义。
 理论上，我们只要把一小时的时间区间拆的足够小，比如拆成每秒，甚至是每毫秒为一个时间片段，
@@ -1006,7 +917,7 @@
 上述假设就是成立的，因此我们为 <a class="reference internal" href="#equation-eq-poisson-201">公式()</a>
 加上极限操作。</p>
 <div class="math notranslate nohighlight" id="equation-eq-poisson-202">
-<span class="eqno">()<a class="headerlink" href="#equation-eq-poisson-202" title="公式的永久链接">¶</a></span>\[p(X=k) = \lim_{N \to \infty} \binom{N}{k} p^k \left ( 1-p  \right )^{N-k}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-eq-poisson-202" title="公式的永久链接"></a></span>\[p(X=k) = \lim_{N \to \infty} \binom{N}{k} p^k \left ( 1-p  \right )^{N-k}\]</div>
 <p>我们发现 <a class="reference internal" href="#equation-eq-poisson-202">公式()</a> 就是二项分布的极限情况，表示的是路口未来一小时内通过的车辆数的概率分布，
 <span class="math notranslate nohighlight">\(p(X=k)\)</span> 表示在一小时内通过车辆数为 <span class="math notranslate nohighlight">\(k\)</span>
 的概率。
@@ -1017,7 +928,7 @@
 <p><a class="reference internal" href="#equation-eq-poisson-202">公式()</a> 带有极限操作，事实上可以通过一些变换去掉极限符号，
 现在我们尝试对其进行一些变换。</p>
 <div class="math notranslate nohighlight" id="equation-eq-poisson-210">
-<span class="eqno">()<a class="headerlink" href="#equation-eq-poisson-210" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}p(X=k) &amp;=
+<span class="eqno">()<a class="headerlink" href="#equation-eq-poisson-210" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}p(X=k) &amp;=
 \lim_{N \to \infty} \binom{N}{k}
 p^k
 \left ( 1-p  \right )^{N-k}\\&amp;=
@@ -1029,14 +940,14 @@ p^k
 \left ( 1-\frac{\lambda}{N} \right )^{-k}\end{aligned}\end{align} \]</div>
 <p>结合如下两个等式，</p>
 <div class="math notranslate nohighlight" id="equation-eq-poisson-211">
-<span class="eqno">()<a class="headerlink" href="#equation-eq-poisson-211" title="公式的永久链接">¶</a></span>\[\frac{N!}{(N-k)!}
+<span class="eqno">()<a class="headerlink" href="#equation-eq-poisson-211" title="公式的永久链接"></a></span>\[\frac{N!}{(N-k)!}
 = \frac{N (N-1) \cdots 2\times  1}{(N-k)(N-k-1) \cdots 2\times 1}
 = \underbrace{N (N-1) \cdots  (N-k+1)}_{\text{k个}}\]</div>
 <div class="math notranslate nohighlight" id="equation-eq-poisson-212">
-<span class="eqno">()<a class="headerlink" href="#equation-eq-poisson-212" title="公式的永久链接">¶</a></span>\[\lim_{x \to a} f(x)g(x) = \lim_{x \to a} f(x)  \lim_{x \to a}g(x)\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-eq-poisson-212" title="公式的永久链接"></a></span>\[\lim_{x \to a} f(x)g(x) = \lim_{x \to a} f(x)  \lim_{x \to a}g(x)\]</div>
 <p><a class="reference internal" href="#equation-eq-poisson-210">公式()</a> 变成：</p>
 <div class="math notranslate nohighlight" id="equation-eq-poisson-213">
-<span class="eqno">()<a class="headerlink" href="#equation-eq-poisson-213" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}p(X=k) &amp;= \lim_{N \to \infty} \frac{N (N-1) \cdots  (N-k+1)}{N^k}
+<span class="eqno">()<a class="headerlink" href="#equation-eq-poisson-213" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}p(X=k) &amp;= \lim_{N \to \infty} \frac{N (N-1) \cdots  (N-k+1)}{N^k}
 \frac{\lambda^k}{k!}
     \left ( 1-\frac{\lambda}{N} \right )^N
 \left ( 1-\frac{\lambda}{N} \right )^{-k}\\&amp;=\frac{\lambda^k}{k!} \lim_{N \to \infty} \left [ \frac{N (N-1) \cdots  (N-k+1)}{N^k} \right ]
@@ -1044,21 +955,21 @@ p^k
 \lim_{N \to \infty}\left [  \left ( 1-\frac{\lambda}{N} \right )^{-k}\right ]\end{aligned}\end{align} \]</div>
 <p>其中各个极限都可以有近似表示。</p>
 <div class="math notranslate nohighlight" id="equation-eq-poisson-214">
-<span class="eqno">()<a class="headerlink" href="#equation-eq-poisson-214" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\lim_{N \to \infty}  \frac{N (N-1) \cdots  (N-k+1)}{N^k} = 1\\\lim_{N \to \infty}  \left ( 1-\frac{\lambda}{N} \right )^N =
+<span class="eqno">()<a class="headerlink" href="#equation-eq-poisson-214" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\lim_{N \to \infty}  \frac{N (N-1) \cdots  (N-k+1)}{N^k} = 1\\\lim_{N \to \infty}  \left ( 1-\frac{\lambda}{N} \right )^N =
 \lim_{N \to \infty}  \left ( 1+\frac{-\lambda}{N} \right )^N = e^{-\lambda}\\\lim_{N \to \infty}\left [  \left ( 1-\frac{\lambda}{N} \right )^{-k}\right ] = 1\end{aligned}\end{align} \]</div>
 <div class="math notranslate nohighlight" id="equation-eq-poisson-215">
-<span class="eqno">()<a class="headerlink" href="#equation-eq-poisson-215" title="公式的永久链接">¶</a></span>\[p(X=k|N) = \frac{\lambda^k}{k!} \times 1 \times  e^{-\lambda} \times 1
+<span class="eqno">()<a class="headerlink" href="#equation-eq-poisson-215" title="公式的永久链接"></a></span>\[p(X=k|N) = \frac{\lambda^k}{k!} \times 1 \times  e^{-\lambda} \times 1
     =\frac{\lambda^k}{k!}  e^{-\lambda}\]</div>
 <p>上式就表示在单位(固定)时间区间内，随机事件发生k次的概率，这就是泊松分布。
 上式稍微整理下，就得到泊松分布的概率质量函数。</p>
 <div class="math notranslate nohighlight" id="equation-eq-poisson-216">
-<span class="eqno">()<a class="headerlink" href="#equation-eq-poisson-216" title="公式的永久链接">¶</a></span>\[p(x) = \frac{\lambda^x}{x!}  e^{-\lambda}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-eq-poisson-216" title="公式的永久链接"></a></span>\[p(x) = \frac{\lambda^x}{x!}  e^{-\lambda}\]</div>
 <p>其中变量 <span class="math notranslate nohighlight">\(x\)</span> 表示在单位时间内事件发生的次数，显然 <span class="math notranslate nohighlight">\(x\)</span> 是一个离散变量，
 因此泊松分布是一个离散变量分布。
 <span class="math notranslate nohighlight">\(\lambda\)</span> 是变量 <span class="math notranslate nohighlight">\(x\)</span> 的期望值，表示在单位时间内事件发生的平均次数，
 因此通常也可以用 <span class="math notranslate nohighlight">\(\mu\)</span> 代替 <span class="math notranslate nohighlight">\(\lambda\)</span> 。</p>
 <div class="math notranslate nohighlight" id="equation-eq-poisson-217">
-<span class="eqno">()<a class="headerlink" href="#equation-eq-poisson-217" title="公式的永久链接">¶</a></span>\[p(x) = \frac{\mu^x}{x!}  e^{-\mu}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-eq-poisson-217" title="公式的永久链接"></a></span>\[p(x) = \frac{\mu^x}{x!}  e^{-\mu}\]</div>
 <p>二项式分布 <span class="math notranslate nohighlight">\(Binomial(k,n)\)</span> 表示进行 <span class="math notranslate nohighlight">\(n\)</span> 实验成功 <span class="math notranslate nohighlight">\(k\)</span> 次的概率，
 需要知道 <span class="math notranslate nohighlight">\(n\)</span> 的值才行，并且没有时间区间的概念。
 而泊松分布 <span class="math notranslate nohighlight">\(Poisson(\lambda)\)</span> 表示单位时间内事件发生 <span class="math notranslate nohighlight">\(x\)</span> 次的概率，
@@ -1067,35 +978,45 @@ p^k
 也就是不会因为当前时间区间内有车辆通过，而导致下一个时间区间内通过的车辆受到影响。
 泊松分布的应用并不是仅限于固定的时间区间，理论上只要是固定的区间(fixed interval)即可，
 比如固定大小的时间、长度、空间、面积、体积等等。</p>
-</div>
-<div class="section" id="id2">
-<h2>泊松分布的特性<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="id2">
+<h2>泊松分布的特性<a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
 <p>通过泊松分布的概率质量函数 <a class="reference internal" href="#equation-eq-poisson-217">公式()</a> ，可以看到泊松分布是一个单参数的分布，
 其唯一的参数就是分布的期望值 <span class="math notranslate nohighlight">\(\mu\)</span> 。
 理论上，泊松变量 <span class="math notranslate nohighlight">\(X\)</span> 可以取0值，
 但泊松分布的期望值 <span class="math notranslate nohighlight">\(\mu\)</span> 一定是大于0的。
 现在我们看下不同的 <span class="math notranslate nohighlight">\(\mu\)</span> 值下分布的差异。</p>
-<div class="figure align-center" id="id4">
+<figure class="align-center" id="id4">
 <span id="fg-poisson-002"></span><a class="reference internal image-reference" href="../../../_images/泊松分布.jpg"><img alt="../../../_images/泊松分布.jpg" src="../../../_images/泊松分布.jpg" style="width: 448.0px; height: 336.0px;" /></a>
-<p class="caption"><span class="caption-text">不同均值参数下泊松分布的概率质量函数</span><a class="headerlink" href="#id4" title="永久链接至图片">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-text">不同均值参数下泊松分布的概率质量函数</span><a class="headerlink" href="#id4" title="永久链接至图片"></a></p>
+</figcaption>
+</figure>
 <p>哈哈哈</p>
 <p><code class="xref std std-numref docutils literal notranslate"><span class="pre">fg_poisson_002</span></code> 是不同的 <span class="math notranslate nohighlight">\(\mu\)</span> 下，泊松分布的概率分布曲线。
 从中可以看出当 <span class="math notranslate nohighlight">\(\mu &lt;4\)</span> 是，图形是有偏的；
 当 <span class="math notranslate nohighlight">\(\mu&gt;4\)</span> 时，图形逐渐变成一个对称结构，并且在 <span class="math notranslate nohighlight">\(\mu\)</span> 点处概率最大。</p>
-<div class="section" id="id3">
-<h3>分布的矩<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h3>
-</div>
-</div>
-</div>
+<section id="id3">
+<h3>分布的矩<a class="headerlink" href="#id3" title="永久链接至标题"></a></h3>
+</section>
+</section>
+</section>
 
 
            </div>
-           
           </div>
           <footer>
 
   <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2018, zhangzhenhu(acmtiger@outlook.com) 禁止一切形式的转载！.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
+  
 
 
     <script src="https://utteranc.es/client.js"
@@ -1108,42 +1029,16 @@ p^k
 
 
 
-  <div role="contentinfo">
-    <p>
-        &#169; 版权所有 2018, zhangzhenhu(acmtiger@outlook.com) 禁止一切形式的转载！.
-
-    </p>
-  </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-
-
-
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

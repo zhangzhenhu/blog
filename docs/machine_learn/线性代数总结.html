@@ -1,97 +1,49 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="zh-CN" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>6. 线性代数总结 &mdash; 张振虎的博客 张振虎 文档</title>
-  
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
     <link rel="canonical" href="https://zhangzhenhu.github.io/blog/machine_learn/线性代数总结.html" />
-
-  
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/translations.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2.7.7/unpacked/MathJax.min.js"></script>
         <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"Macros": {"RR": "{\\bf R}", "bold": ["{\\bf #1}", 1]}}})</script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
+    <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../index.html" class="icon icon-home"> 张振虎的博客
-          
-
-          
           </a>
-
-          
-            
-            
               <div class="version">
                 acmtiger@outlook.com
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="在文档中搜索" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">目录:</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">目录:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../glm/source/index.html">广义线性模型</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../glm/source/%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80/content.html">1. 概率基础</a><ul>
@@ -139,7 +91,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#id2">3.1. 统计量和充分统计量</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-sample-distribution">3.2. 抽样分布</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-sample-distribution-normal">3.2.1. 正态分布</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#t">3.2.2. t分布</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#t">3.2.2. 学生t分布</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#id5">3.2.3. 卡方分布</a></li>
 </ul>
 </li>
@@ -744,7 +696,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../audio/feature.html#id18">1.5. 分帧与加窗</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../audio/feature.html#id19">1.5.1. 预加重处理</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../audio/feature.html#id20">1.5.2. 分帧与加窗</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../audio/feature.html#id20">1.5.2. 分帧与加窗处理</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../audio/feature.html#id21">1.6. 声音的感官度量</a><ul>
@@ -786,26 +738,26 @@
 <li class="toctree-l2"><a class="reference internal" href="../edm/bkt.html">1. 贝叶斯知识追踪(Bayesian Knowledge Tracing,BKT)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id1">1.1. 简介</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#hidden-markov-model-hmm">1.2. 隐马尔科夫模型(Hidden Markov Model,HMM)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id5">1.3. 贝叶斯知识追踪(Bayesian Knowledge Tracing,BKT)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#bayesian-knowledge-tracing">1.3. 贝叶斯知识追踪(Bayesian Knowledge Tracing)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#bkt">1.3.1. BKT的参数估计</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#item-response-theory-irt">1.4. 项目反映理论(Item Response Theory,IRT)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#bktirt">1.5. BKT结合IRT</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id6">1.6. 实验</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id7">1.6.1. 数据集</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id8">1.6.2. 实验方法</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id9">1.6.3. 实验结果</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id10">1.6.4. 项目代码</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id5">1.6. 实验</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id6">1.6.1. 数据集</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id7">1.6.2. 实验方法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id8">1.6.3. 实验结果</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id9">1.6.4. 项目代码</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id11">1.7. 未来工作</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id12">1.7.1. 题目难度的计算</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id10">1.7. 未来工作</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id11">1.7.1. 题目难度的计算</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#irt">1.7.2. 多参数IRT模型</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id13">1.7.3. 参数估计算法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id12">1.7.3. 参数估计算法</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id14">1.8. 参考文献</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id13">1.8. 参考文献</a></li>
 </ul>
 </li>
 </ul>
@@ -902,75 +854,34 @@
 </li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">张振虎的博客</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-        
       <li><span class="section-number">6. </span>线性代数总结</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
-            <a href="../_sources/machine_learn/线性代数总结.rst.txt" rel="nofollow"> View page source</a>
-          
-        
+            <a href="../_sources/machine_learn/线性代数总结.rst.txt" rel="nofollow"> 查看页面源码</a>
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="id1">
-<h1><span class="section-number">6. </span>线性代数总结<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
-<div class="section" id="id2">
-<h2><span class="section-number">6.1. </span>线性空间<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+             
+  <section id="id1">
+<h1><span class="section-number">6. </span>线性代数总结<a class="headerlink" href="#id1" title="永久链接至标题"></a></h1>
+<section id="id2">
+<h2><span class="section-number">6.1. </span>线性空间<a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
 <p><strong>线性空间:</strong></p>
 <blockquote>
 <div><p>也称之为向量空间，可以简单认为是附加了加法和数量乘法运算的世界(不严谨)。</p>
@@ -988,7 +899,7 @@
 <li><p>(当前空间中的)任何向量 <span class="math notranslate nohighlight">\(\vec{v}\)</span> 都可以表示成</p>
 <blockquote>
 <div><div class="math notranslate nohighlight" id="equation-machine-learn-0">
-<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-0" title="公式的永久链接">¶</a></span>\[\vec{v} = x_1\vec{e}_1 + \cdots + x_n\vec{e}_n\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-0" title="公式的永久链接"></a></span>\[\vec{v} = x_1\vec{e}_1 + \cdots + x_n\vec{e}_n\]</div>
 <p>的形式( <span class="math notranslate nohighlight">\((x_1,\cdots,x_n)\)</span> 为任意数)</p>
 </div></blockquote>
 </li>
@@ -1001,9 +912,9 @@
 <div><p>若任意向量 <span class="math notranslate nohighlight">\(\vec{x}\)</span> 都可以用 <span class="math notranslate nohighlight">\((\vec{e}_1,\cdots,\vec{e}_n)\)</span> 的线性组合来表示，且表示方法唯一，
 则  <span class="math notranslate nohighlight">\((\vec{e}_1,\cdots,\vec{e}_n)\)</span> 称为基底。</p>
 </div></blockquote>
-</div>
-<div class="section" id="id3">
-<h2><span class="section-number">6.2. </span>矩阵<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="id3">
+<h2><span class="section-number">6.2. </span>矩阵<a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
 <p><strong>矩阵就是映射:</strong></p>
 <div class="admonition important">
 <p class="admonition-title">重要</p>
@@ -1043,16 +954,16 @@ c是常数，<span class="math notranslate nohighlight">\(\mathbf{f(x)}\)</span>
 <p><strong>矩阵的乘积=映射的合成：</strong></p>
 <p>简而言之，”先A后B”便是BA，写成式子就是</p>
 <div class="math notranslate nohighlight" id="equation-machine-learn-1">
-<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-1" title="公式的永久链接">¶</a></span>\[(BA)\mathbf(x) = B(A\mathbf{x})\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-1" title="公式的永久链接"></a></span>\[(BA)\mathbf(x) = B(A\mathbf{x})\]</div>
 <p>多个矩阵的情况:</p>
 <div class="math notranslate nohighlight" id="equation-machine-learn-2">
-<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-2" title="公式的永久链接">¶</a></span>\[D(C(BA)) = D((CB)A) = (D(CB))A = ((DC)B)A = (DC)(BA)\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-2" title="公式的永久链接"></a></span>\[D(C(BA)) = D((CB)A) = (D(CB))A = ((DC)B)A = (DC)(BA)\]</div>
 <p>无论括号怎么加，最后结果都是一样的。因此，我们可以不加任何括号，都直接写成 <em>DCBA</em> 的样子。</p>
 <p><strong>零矩阵:</strong></p>
 <p>所有元素是0的矩阵称为 <strong>零矩阵</strong> 。零矩阵表示的映射是将所有的点都映射到原点的映射。</p>
 <p><span class="math notranslate nohighlight">\(A \neq O \text{且} B \neq O\)</span> 的情况下，也有可能得到 BA=O。例如:</p>
 <div class="math notranslate nohighlight" id="equation-machine-learn-3">
-<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-3" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\begin{split}  A= \left ( \begin{matrix}
+<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-3" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\begin{split}  A= \left ( \begin{matrix}
  1 &amp; 0 \\
  0 &amp; 0 \\
 \end{matrix} \right ) ,
@@ -1079,9 +990,9 @@ c是常数，<span class="math notranslate nohighlight">\(\mathbf{f(x)}\)</span>
 对角线元素是负数的情况，表示反向拉伸。</p>
 <p>另外，单位矩阵是对角矩阵的一种。</p>
 </div>
-</div>
-<div class="section" id="id4">
-<h2><span class="section-number">6.3. </span>矩阵的运算<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="id4">
+<h2><span class="section-number">6.3. </span>矩阵的运算<a class="headerlink" href="#id4" title="永久链接至标题"></a></h2>
 <ul class="simple">
 <li><p>-A = (-1)A</p></li>
 <li><p>A - B = A + (-B)</p></li>
@@ -1095,7 +1006,7 @@ c是常数，<span class="math notranslate nohighlight">\(\mathbf{f(x)}\)</span>
 </ul>
 <p><strong>矩阵的乘方=映射的迭代：</strong></p>
 <div class="math notranslate nohighlight" id="equation-machine-learn-4">
-<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-4" title="公式的永久链接">¶</a></span>\[AA = A^2, \ AAA=A^3, \cdots\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-4" title="公式的永久链接"></a></span>\[AA = A^2, \ AAA=A^3, \cdots\]</div>
 <div class="admonition important">
 <p class="admonition-title">重要</p>
 <p>AB 和 BA 是不相等的。</p>
@@ -1104,9 +1015,9 @@ c是常数，<span class="math notranslate nohighlight">\(\mathbf{f(x)}\)</span>
 <p class="topic-title"><span class="math notranslate nohighlight">\(A^0\)</span> 是什么？</p>
 <p>规定，<span class="math notranslate nohighlight">\(A^0=I\)</span> ,其中 I 是单位矩阵。</p>
 </div>
-</div>
-<div class="section" id="id5">
-<h2><span class="section-number">6.4. </span>逆矩阵=逆映射<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="id5">
+<h2><span class="section-number">6.4. </span>逆矩阵=逆映射<a class="headerlink" href="#id5" title="永久链接至标题"></a></h2>
 <p>对于 <strong>方阵A</strong> ，它的逆映射对应的矩阵称之为A的 <strong>逆矩阵</strong> ，记为 <span class="math notranslate nohighlight">\(A^{-1}\)</span> 。<strong>不是所有方阵都存在逆矩阵</strong> 。</p>
 <div class="admonition note">
 <p class="admonition-title">注解</p>
@@ -1120,11 +1031,11 @@ c是常数，<span class="math notranslate nohighlight">\(\mathbf{f(x)}\)</span>
 </ul>
 <p><strong>对角矩阵的情况</strong></p>
 <div class="math notranslate nohighlight" id="equation-machine-learn-5">
-<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-5" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}A= diag(a_1,\cdots,a_n)\\A^{-1} = diag(1/a_1,\cdots,1/a_n)\end{aligned}\end{align} \]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-5" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}A= diag(a_1,\cdots,a_n)\\A^{-1} = diag(1/a_1,\cdots,1/a_n)\end{aligned}\end{align} \]</div>
 <p>注意，对角矩阵中，只要有一个元素为0，则不存在逆矩阵。</p>
-</div>
-<div class="section" id="id6">
-<h2><span class="section-number">6.5. </span>行列式=体积扩大率<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="id6">
+<h2><span class="section-number">6.5. </span>行列式=体积扩大率<a class="headerlink" href="#id6" title="永久链接至标题"></a></h2>
 <p><strong>行列式可以看做是，原空间的基向量围成的图形，经过方阵A的变换后，体积扩大率，</strong> 记作 det A=c 。</p>
 <div class="admonition tip">
 <p class="admonition-title">小技巧</p>
@@ -1133,17 +1044,25 @@ c是常数，<span class="math notranslate nohighlight">\(\mathbf{f(x)}\)</span>
 </div>
 <p><strong>行列式的性质</strong></p>
 <div class="math notranslate nohighlight" id="equation-machine-learn-6">
-<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-6" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}det I = 1\\det (AB) = (detA) (detB)\\det(A^T) = det A\end{aligned}\end{align} \]</div>
-</div>
-</div>
+<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-6" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}det I = 1\\det (AB) = (detA) (detB)\\det(A^T) = det A\end{aligned}\end{align} \]</div>
+</section>
+</section>
 
 
            </div>
-           
           </div>
           <footer>
 
   <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2018, zhangzhenhu(acmtiger@outlook.com) 禁止一切形式的转载！.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
+  
 
 
     <script src="https://utteranc.es/client.js"
@@ -1156,42 +1075,16 @@ c是常数，<span class="math notranslate nohighlight">\(\mathbf{f(x)}\)</span>
 
 
 
-  <div role="contentinfo">
-    <p>
-        &#169; 版权所有 2018, zhangzhenhu(acmtiger@outlook.com) 禁止一切形式的转载！.
-
-    </p>
-  </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-
-
-
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

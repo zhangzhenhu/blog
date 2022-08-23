@@ -1,99 +1,51 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="zh-CN" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>1. 概率基础 &mdash; 张振虎的博客 张振虎 文档</title>
-  
-
-  
-  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
     <link rel="canonical" href="https://zhangzhenhu.github.io/blog/glm/source/概率基础/content.html" />
-
-  
   <!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
         <script src="../../../_static/doctools.js"></script>
         <script src="../../../_static/translations.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2.7.7/unpacked/MathJax.min.js"></script>
         <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"Macros": {"RR": "{\\bf R}", "bold": ["{\\bf #1}", 1]}}})</script>
-    
-    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-
-    
+    <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../../genindex.html" />
     <link rel="search" title="搜索" href="../../../search.html" />
     <link rel="next" title="2. 最大似然估计" href="../%E6%9C%80%E5%A4%A7%E4%BC%BC%E7%84%B6%E4%BC%B0%E8%AE%A1/content.html" />
     <link rel="prev" title="广义线性模型" href="../index.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../../../index.html" class="icon icon-home"> 张振虎的博客
-          
-
-          
           </a>
-
-          
-            
-            
               <div class="version">
                 acmtiger@outlook.com
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="在文档中搜索" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">目录:</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">目录:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">广义线性模型</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">1. 概率基础</a><ul>
@@ -141,7 +93,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#id2">3.1. 统计量和充分统计量</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-sample-distribution">3.2. 抽样分布</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-sample-distribution-normal">3.2.1. 正态分布</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#t">3.2.2. t分布</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#t">3.2.2. 学生t分布</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#id5">3.2.3. 卡方分布</a></li>
 </ul>
 </li>
@@ -746,7 +698,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../audio/feature.html#id18">1.5. 分帧与加窗</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../audio/feature.html#id19">1.5.1. 预加重处理</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../audio/feature.html#id20">1.5.2. 分帧与加窗</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../audio/feature.html#id20">1.5.2. 分帧与加窗处理</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../audio/feature.html#id21">1.6. 声音的感官度量</a><ul>
@@ -788,26 +740,26 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../edm/bkt.html">1. 贝叶斯知识追踪(Bayesian Knowledge Tracing,BKT)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id1">1.1. 简介</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#hidden-markov-model-hmm">1.2. 隐马尔科夫模型(Hidden Markov Model,HMM)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id5">1.3. 贝叶斯知识追踪(Bayesian Knowledge Tracing,BKT)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#bayesian-knowledge-tracing">1.3. 贝叶斯知识追踪(Bayesian Knowledge Tracing)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#bkt">1.3.1. BKT的参数估计</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#item-response-theory-irt">1.4. 项目反映理论(Item Response Theory,IRT)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#bktirt">1.5. BKT结合IRT</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id6">1.6. 实验</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id7">1.6.1. 数据集</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id8">1.6.2. 实验方法</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id9">1.6.3. 实验结果</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id10">1.6.4. 项目代码</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id5">1.6. 实验</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id6">1.6.1. 数据集</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id7">1.6.2. 实验方法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id8">1.6.3. 实验结果</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id9">1.6.4. 项目代码</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id11">1.7. 未来工作</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id12">1.7.1. 题目难度的计算</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id10">1.7. 未来工作</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id11">1.7.1. 题目难度的计算</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#irt">1.7.2. 多参数IRT模型</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id13">1.7.3. 参数估计算法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id12">1.7.3. 参数估计算法</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id14">1.8. 参考文献</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id13">1.8. 参考文献</a></li>
 </ul>
 </li>
 </ul>
@@ -904,81 +856,39 @@
 </li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../../index.html">张振虎的博客</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="../index.html">广义线性模型</a> &raquo;</li>
-        
       <li><span class="section-number">1. </span>概率基础</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
-            <a href="../../../_sources/glm/source/概率基础/content.rst.txt" rel="nofollow"> View page source</a>
-          
-        
+            <a href="../../../_sources/glm/source/概率基础/content.rst.txt" rel="nofollow"> 查看页面源码</a>
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="id1">
-<h1><span class="section-number">1. </span>概率基础<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+             
+  <section id="id1">
+<h1><span class="section-number">1. </span>概率基础<a class="headerlink" href="#id1" title="永久链接至标题"></a></h1>
 <p>广义线性模型的理论大量依赖概率论的知识，因此本章先回顾一下概率论的一些基础知识。
 为了帮助非数学专业的读者更容易理解和入门，
 本章乃至本书都是采用大白话的方式进行讲解，
 并不追求严谨的学术定义，所以一些描述可能并不严谨。</p>
-<div class="section" id="id2">
-<h2><span class="section-number">1.1. </span>概率模型<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<section id="id2">
+<h2><span class="section-number">1.1. </span>概率模型<a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
 <p>在日常生活中，经常会遇到某些”事情”的结果是不确定的，
 比如投掷一枚硬币，其结果可能正面朝上，也可能反面朝上，更有可能是立着。
 一般来说，如果一件”事情”的结果是不确定的，那么就意味着这件”事情”多个可能的结果。
@@ -990,8 +900,8 @@
 如果可以把每种结果的可能性量化出来，就可以帮助我们对结果进行预判。
 最典型的例子就是赌博，投掷一枚骰子的结果是随机的，如果能清楚的知道每个点数的可能性的大小，
 就可以一直押注最大可能性的点数，这样就稳赚不赔了。</p>
-<div class="section" id="id3">
-<h3><span class="section-number">1.1.1. </span>概率律<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h3>
+<section id="id3">
+<h3><span class="section-number">1.1.1. </span>概率律<a class="headerlink" href="#id3" title="永久链接至标题"></a></h3>
 <p><strong>概率模型</strong> 就是对不确定现象的数学描述，每种可能结果发生的可能性的量化结果就是 <strong>概率律</strong>。
 比如正常的投掷一枚正常的硬币，其结果是正面向上的概率是 <span class="math notranslate nohighlight">\(0.5\)</span> ，反面向上的概率也是 <span class="math notranslate nohighlight">\(0.5\)</span>
 ，至于立起来的结果，我们认为其几乎不可能发生，因此立起来的概率是 <span class="math notranslate nohighlight">\(0\)</span> 。
@@ -1038,30 +948,30 @@
 并且，同一个样本空间中，所有随机事件发生的频率之和为 <span class="math notranslate nohighlight">\(1\)</span>
 ，这是因为所有事件发生的频次相加就等于试验总次数。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-0">
-<span class="eqno">(1.1.1)<a class="headerlink" href="#equation-glm-source-content-0" title="公式的永久链接">¶</a></span>\[\frac{n_1}{N} + \dots + \frac{n_i}{N} = \frac{N}{N} = 1\]</div>
+<span class="eqno">(1.1.1)<a class="headerlink" href="#equation-glm-source-content-0" title="公式的永久链接"></a></span>\[\frac{n_1}{N} + \dots + \frac{n_i}{N} = \frac{N}{N} = 1\]</div>
 <p>假定我们已经确定了样本空间 <span class="math notranslate nohighlight">\(\Omega\)</span> 以及与之关联的试验，
 <strong>概率律</strong> 确定了任何结果或者任何结果的集合（称为随机事件）的似然（可能性）程度。
 更精确一点的说，它给每一个事件 <span class="math notranslate nohighlight">\(A\)</span> ，确定一个数 <span class="math notranslate nohighlight">\(P(A)\)</span>，
 称为事件 <span class="math notranslate nohighlight">\(A\)</span> 的概率，
 概率律需要满足下面几条公理。</p>
 <dl class="glossary">
-<dt id="term-0">概率公理<a class="headerlink" href="#term-0" title="Permalink to this term">¶</a></dt><dd><ul>
+<dt id="term-0">概率公理<a class="headerlink" href="#term-0" title="Permalink to this term"></a></dt><dd><ul>
 <li><p><strong>非负性</strong>。 对一切事件 <span class="math notranslate nohighlight">\(A\)</span> ，满足 <span class="math notranslate nohighlight">\(P(A) \ge 0\)</span></p></li>
 <li><p><strong>可加性</strong>。 设 <span class="math notranslate nohighlight">\(A\)</span> 和 <span class="math notranslate nohighlight">\(B\)</span> 是两个互不相容的事件，则它们的并满足：</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-1">
-<span class="eqno">(1.1.2)<a class="headerlink" href="#equation-glm-source-content-1" title="公式的永久链接">¶</a></span>\[P(A \cup B) = P(A) + P(B)\]</div>
+<span class="eqno">(1.1.2)<a class="headerlink" href="#equation-glm-source-content-1" title="公式的永久链接"></a></span>\[P(A \cup B) = P(A) + P(B)\]</div>
 <p>更一般地，若 <span class="math notranslate nohighlight">\(A_1,A_2,\cdots\)</span> 是互不相容的事件序列，则它们的并满足</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-2">
-<span class="eqno">(1.1.3)<a class="headerlink" href="#equation-glm-source-content-2" title="公式的永久链接">¶</a></span>\[P(A_1 \cup A_2 \cup \cdots) = P(A_1) + P(A_2) + \cdots\]</div>
+<span class="eqno">(1.1.3)<a class="headerlink" href="#equation-glm-source-content-2" title="公式的永久链接"></a></span>\[P(A_1 \cup A_2 \cup \cdots) = P(A_1) + P(A_2) + \cdots\]</div>
 </li>
 <li><p><strong>归一化</strong>。 整个样本空间 <span class="math notranslate nohighlight">\(\Omega\)</span> (称为必然事件)的概率为 <span class="math notranslate nohighlight">\(1\)</span>，
 即 <span class="math notranslate nohighlight">\(P(\Omega) = 1\)</span> 。</p></li>
 </ul>
 </dd>
 </dl>
-</div>
-<div class="section" id="id4">
-<h3><span class="section-number">1.1.2. </span>离散模型<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id4">
+<h3><span class="section-number">1.1.2. </span>离散模型<a class="headerlink" href="#id4" title="永久链接至标题"></a></h3>
 <p><strong>当样本空间由有限个样本点组成时，称之为离散模型</strong>。
 假设一个离散样本空间 <span class="math notranslate nohighlight">\(\Omega=\{\omega_1,\omega_2,\cdots,\omega_N \}\)</span>
 ，其含有 <span class="math notranslate nohighlight">\(N\)</span> 个样本点，<span class="math notranslate nohighlight">\(N\)</span> 是有限的，
@@ -1070,13 +980,13 @@
 即事件 <span class="math notranslate nohighlight">\(s_i\)</span> 表示实验结果是样本点 <span class="math notranslate nohighlight">\(\omega_i\)</span> 。
 则事件 <span class="math notranslate nohighlight">\(s_i\)</span> 发生的概率为</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-3">
-<span class="eqno">(1.1.4)<a class="headerlink" href="#equation-glm-source-content-3" title="公式的永久链接">¶</a></span>\[P(s_i) = \frac{\text{试验结果中}\omega_i \text{的次数} }{\text{试验的总次数}}\]</div>
+<span class="eqno">(1.1.4)<a class="headerlink" href="#equation-glm-source-content-3" title="公式的永久链接"></a></span>\[P(s_i) = \frac{\text{试验结果中}\omega_i \text{的次数} }{\text{试验的总次数}}\]</div>
 <p>并且，事件 <span class="math notranslate nohighlight">\(\{s_1,s_2,\cdots,s_N\}\)</span> 的概率是 <span class="math notranslate nohighlight">\(P(s_i)\)</span> 之和。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-4">
-<span class="eqno">(1.1.5)<a class="headerlink" href="#equation-glm-source-content-4" title="公式的永久链接">¶</a></span>\[P(s_1,s_2,\cdots,s_N) = P(s_1) + P(s_2)+\cdots + P(s_N)\]</div>
-</div>
-<div class="section" id="id5">
-<h3><span class="section-number">1.1.3. </span>连续模型<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
+<span class="eqno">(1.1.5)<a class="headerlink" href="#equation-glm-source-content-4" title="公式的永久链接"></a></span>\[P(s_1,s_2,\cdots,s_N) = P(s_1) + P(s_2)+\cdots + P(s_N)\]</div>
+</section>
+<section id="id5">
+<h3><span class="section-number">1.1.3. </span>连续模型<a class="headerlink" href="#id5" title="永久链接至标题"></a></h3>
 <p><strong>若样本空间是一个连续值集合，称之为连续模型，此时样本点的数量是无限的</strong>。
 连续值模型和离散模型有很大的不同，
 在连续值模型中，由于样本点的数量是无限的，
@@ -1097,10 +1007,10 @@
 <p><strong>连续概率模型的计算，就是把整个样本空间分割成子区间，每个子区间的概率值就是这个子区间和整个样本空间的比值</strong>。
 显然通过这样的定义得到的概率律，也是符合概率的三个公理的。
 本质上就是把连续值区间离散化了。</p>
-</div>
-</div>
-<div class="section" id="id6">
-<h2><span class="section-number">1.2. </span>条件概率<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h2>
+</section>
+</section>
+<section id="id6">
+<h2><span class="section-number">1.2. </span>条件概率<a class="headerlink" href="#id6" title="永久链接至标题"></a></h2>
 <p>条件概率是给定 <em>部分信息</em> 的基础上对实验结果的一种推断。例如
 在连续两次抛掷骰子的试验中，已知两次抛掷的点数的总和为 <span class="math notranslate nohighlight">\(9\)</span>,第一次抛掷的点数为 <span class="math notranslate nohighlight">\(6\)</span> 的可能性有多大。
 换句话说，假设我们已经知道给定的事件 <span class="math notranslate nohighlight">\(B\)</span> 发生了，而希望知道令一个给定事件 <span class="math notranslate nohighlight">\(A\)</span> 发生的可能性。
@@ -1143,54 +1053,56 @@
 <p>假设有一个六面的骰子，投掷结果中每个面的概率相同。如果我们已知试验的结果是偶数，即 <span class="math notranslate nohighlight">\(2,4,6\)</span> 这三种结果之一发生，
 由于这三个结果发生的可能性是相等的，这样可以得到</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-5">
-<span class="eqno">(1.2.1)<a class="headerlink" href="#equation-glm-source-content-5" title="公式的永久链接">¶</a></span>\[P(\text{试验结果是6}|\text{试验结果是偶数}) = \frac{1}{3}\]</div>
+<span class="eqno">(1.2.1)<a class="headerlink" href="#equation-glm-source-content-5" title="公式的永久链接"></a></span>\[P(\text{试验结果是6}|\text{试验结果是偶数}) = \frac{1}{3}\]</div>
 </div>
 <p>从这个结果的推导可以看出，对于等概率模型的情况，下面关于条件概率的定义是合适的，即</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-6">
-<span class="eqno">(1.2.2)<a class="headerlink" href="#equation-glm-source-content-6" title="公式的永久链接">¶</a></span>\[P(A|B) = \frac{\text{事件}A \cap B\text{的试验结果数}}{\text{事件B的试验结果数}}\]</div>
+<span class="eqno">(1.2.2)<a class="headerlink" href="#equation-glm-source-content-6" title="公式的永久链接"></a></span>\[P(A|B) = \frac{\text{事件}A \cap B\text{的试验结果数}}{\text{事件B的试验结果数}}\]</div>
 <p>将这个结果推广，我们得到下面的条件概率的定义：</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-7">
-<span class="eqno">(1.2.3)<a class="headerlink" href="#equation-glm-source-content-7" title="公式的永久链接">¶</a></span>\[P(A|B) = \frac{P(A\cap B)}{P(B)}\]</div>
+<span class="eqno">(1.2.3)<a class="headerlink" href="#equation-glm-source-content-7" title="公式的永久链接"></a></span>\[P(A|B) = \frac{P(A\cap B)}{P(B)}\]</div>
 <p>其中假定 <span class="math notranslate nohighlight">\(P(B)&gt;0\)</span> 。如果 <span class="math notranslate nohighlight">\(P(B)=0\)</span> ，相应的条件概率是没有意义的。
 总而言之，<span class="math notranslate nohighlight">\(P(A|B)\)</span> 是事件 <span class="math notranslate nohighlight">\(A \cap B\)</span> 的概率与事件 <span class="math notranslate nohighlight">\(B\)</span> 的概率的比值。</p>
 <p>这个式子可以理解成，在事件 <span class="math notranslate nohighlight">\(B\)</span> 发生的结果中，事件 <span class="math notranslate nohighlight">\(A\)</span> 发生的结果数和事件 <span class="math notranslate nohighlight">\(B\)</span> 发生次数的比值。
 如下图所示，整个矩形空间 <span class="math notranslate nohighlight">\(S\)</span> 是全部结果集，
 两个圆圈分别是事件 <span class="math notranslate nohighlight">\(A\)</span> 和是事件 <span class="math notranslate nohighlight">\(B\)</span> 发生的结果集，
 <span class="math notranslate nohighlight">\(A\)</span> 与 <span class="math notranslate nohighlight">\(B\)</span> 的交集部分，就是 <span class="math notranslate nohighlight">\(A\)</span> 与 <span class="math notranslate nohighlight">\(B\)</span> 同时发生的结果集。</p>
-<div class="figure align-center" id="id24">
+<figure class="align-center" id="id24">
 <span id="fg-probability-03"></span><a class="reference internal image-reference" href="../../../_images/1.jpg"><img alt="../../../_images/1.jpg" src="../../../_images/1.jpg" style="width: 434.0px; height: 325.5px;" /></a>
-<p class="caption"><span class="caption-number">图 1.2.1 </span><span class="caption-text"><span class="math notranslate nohighlight">\(P(A) = \frac{A}{S},P(B) = \frac{B}{S},P(A|B) = \frac{A \cap B}{B}= \frac{P(A \cap B)}{P(B)}\)</span></span><a class="headerlink" href="#id24" title="永久链接至图片">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">图 1.2.1 </span><span class="caption-text"><span class="math notranslate nohighlight">\(P(A) = \frac{A}{S},P(B) = \frac{B}{S},P(A|B) = \frac{A \cap B}{B}= \frac{P(A \cap B)}{P(B)}\)</span></span><a class="headerlink" href="#id24" title="永久链接至图片"></a></p>
+</figcaption>
+</figure>
 <p>条件概率 <span class="math notranslate nohighlight">\(P(A|B)\)</span> 表示在 <span class="math notranslate nohighlight">\(B\)</span> 发生的条件下 <span class="math notranslate nohighlight">\(A\)</span> 发生的概率，
 就是 <strong>限定在</strong> <span class="math notranslate nohighlight">\(B\)</span> <strong>的范围内</strong> <span class="math notranslate nohighlight">\(A\)</span> <strong>发生的概率</strong>。
 <span class="math notranslate nohighlight">\(B\)</span> 的范围内就是  <span class="math notranslate nohighlight">\(B\)</span> 发生结果内，
 <span class="math notranslate nohighlight">\(B\)</span> 的范围内 <span class="math notranslate nohighlight">\(A\)</span> 的结果数是 <span class="math notranslate nohighlight">\(A \cap B\)</span> 结果数，
 因此条件概率 <span class="math notranslate nohighlight">\(P(A|B)\)</span> 就等于</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-8">
-<span class="eqno">(1.2.4)<a class="headerlink" href="#equation-glm-source-content-8" title="公式的永久链接">¶</a></span>\[P(A|B) = \frac{A \cap B}{B}\]</div>
+<span class="eqno">(1.2.4)<a class="headerlink" href="#equation-glm-source-content-8" title="公式的永久链接"></a></span>\[P(A|B) = \frac{A \cap B}{B}\]</div>
 <p>注意，这里分母是 <span class="math notranslate nohighlight">\(B\)</span> 而不是 <span class="math notranslate nohighlight">\(S\)</span> ，因为是 <span class="math notranslate nohighlight">\(B\)</span> <strong>的前提下</strong>。
 分子分母同时除以 <span class="math notranslate nohighlight">\(S\)</span> 后等价于</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-9">
-<span class="eqno">(1.2.5)<a class="headerlink" href="#equation-glm-source-content-9" title="公式的永久链接">¶</a></span>\[P(A|B) = \frac{(A \cap B)/S}{B/S} = \frac{P(A \cap B)}{P(B)}\]</div>
+<span class="eqno">(1.2.5)<a class="headerlink" href="#equation-glm-source-content-9" title="公式的永久链接"></a></span>\[P(A|B) = \frac{(A \cap B)/S}{B/S} = \frac{P(A \cap B)}{P(B)}\]</div>
 <div class="topic">
 <p class="topic-title">条件概率的性质</p>
 <ul>
 <li><p>设事件 <span class="math notranslate nohighlight">\(B\)</span> 满足 <span class="math notranslate nohighlight">\(P(B) &gt; 0\)</span> ，则给定 <span class="math notranslate nohighlight">\(B\)</span> 的条件下，事件 <span class="math notranslate nohighlight">\(A\)</span> 的条件概率由下式给出</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-10">
-<span class="eqno">(1.2.6)<a class="headerlink" href="#equation-glm-source-content-10" title="公式的永久链接">¶</a></span>\[P(A|B) = \frac{P(A \cap B)}{P(B)}\]</div>
+<span class="eqno">(1.2.6)<a class="headerlink" href="#equation-glm-source-content-10" title="公式的永久链接"></a></span>\[P(A|B) = \frac{P(A \cap B)}{P(B)}\]</div>
 </li>
 <li><p>由于条件概率所关心的事件都是事件 <span class="math notranslate nohighlight">\(B\)</span> 的子事件，可以把条件概率看作是 <span class="math notranslate nohighlight">\(B\)</span> 上的概率律，
 即把事件 <span class="math notranslate nohighlight">\(B\)</span> 看作是全空间或者必然事件。</p></li>
 <li><p>当试验的 <span class="math notranslate nohighlight">\(\Omega\)</span> 为有限集，并且所有试验结果为等可能的情况下，条件概率可以由下式给出。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-11">
-<span class="eqno">(1.2.7)<a class="headerlink" href="#equation-glm-source-content-11" title="公式的永久链接">¶</a></span>\[P(A|B) = \frac{ \text{事件} A \cap B \text{的试验结果数} }{\text{事件B的试验结果数}}\]</div>
+<span class="eqno">(1.2.7)<a class="headerlink" href="#equation-glm-source-content-11" title="公式的永久链接"></a></span>\[P(A|B) = \frac{ \text{事件} A \cap B \text{的试验结果数} }{\text{事件B的试验结果数}}\]</div>
 </li>
 </ul>
 </div>
 <p>总结起来就一句话，条件概率就是把试验结果空间缩小到一个更小的空间，其它照旧。</p>
-</div>
-<div class="section" id="id7">
-<h2><span class="section-number">1.3. </span>联合概率<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="id7">
+<h2><span class="section-number">1.3. </span>联合概率<a class="headerlink" href="#id7" title="永久链接至标题"></a></h2>
 <p>假设两个随机事件 <span class="math notranslate nohighlight">\(A\)</span> 和 <span class="math notranslate nohighlight">\(B\)</span>，
 在已知 <span class="math notranslate nohighlight">\(B\)</span> 发生的条件下 <span class="math notranslate nohighlight">\(A\)</span> 发生的概率是条件概率 <span class="math notranslate nohighlight">\(P(A|B)\)</span>
 。那如果不知道 <span class="math notranslate nohighlight">\(B\)</span> 是否发生了呢？
@@ -1199,10 +1111,10 @@
 <p>观察 <a class="reference internal" href="#fg-probability-03"><span class="std std-numref">图 1.2.1</span></a> ，<span class="math notranslate nohighlight">\(A\)</span> 和 <span class="math notranslate nohighlight">\(B\)</span> 同时发生的集合就是
 <span class="math notranslate nohighlight">\(A \cap B\)</span> ，因此 <span class="math notranslate nohighlight">\(A\)</span> 和 <span class="math notranslate nohighlight">\(B\)</span> 的联合概率为</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-12">
-<span class="eqno">(1.3.1)<a class="headerlink" href="#equation-glm-source-content-12" title="公式的永久链接">¶</a></span>\[P(A,B) = \frac{A\cap B}{S}\]</div>
+<span class="eqno">(1.3.1)<a class="headerlink" href="#equation-glm-source-content-12" title="公式的永久链接"></a></span>\[P(A,B) = \frac{A\cap B}{S}\]</div>
 <p>实际上，联合概率和条件概率之间是存在关系的，二者可以互相转换。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-13">
-<span class="eqno">(1.3.2)<a class="headerlink" href="#equation-glm-source-content-13" title="公式的永久链接">¶</a></span>\[P(A,B) = \frac{A\cap B}{S} =\frac{B}{S} \times \frac{A\cap B}{B} = P(B)P(A|B)\]</div>
+<span class="eqno">(1.3.2)<a class="headerlink" href="#equation-glm-source-content-13" title="公式的永久链接"></a></span>\[P(A,B) = \frac{A\cap B}{S} =\frac{B}{S} \times \frac{A\cap B}{B} = P(B)P(A|B)\]</div>
 <p>我们继续以箱子里取求为例，在上面的例子中，</p>
 <ul class="simple">
 <li><p>事件 <span class="math notranslate nohighlight">\(B_{\text{正}}\)</span> 与 <span class="math notranslate nohighlight">\(A_{\text{红}}\)</span> 同时发生概率就是 <span class="math notranslate nohighlight">\(P(B_{\text{正}},A_{\text{红}})=0.6\times 0.4=0.24\)</span> 。</p></li>
@@ -1212,14 +1124,14 @@
 </ul>
 <p>也可以用一个 <span class="math notranslate nohighlight">\(2\times 2\)</span> 的表格来表示。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-14">
-<span class="eqno">(1.3.3)<a class="headerlink" href="#equation-glm-source-content-14" title="公式的永久链接">¶</a></span>\[\begin{split}\begin{array}{|c|c|c|} \hline
+<span class="eqno">(1.3.3)<a class="headerlink" href="#equation-glm-source-content-14" title="公式的永久链接"></a></span>\[\begin{split}\begin{array}{|c|c|c|} \hline
  &amp; B_{\text{正}} &amp; B_{\text{反}} \\\hline
  A_{\text{红}} &amp; 0.6 \times 0.4=0.24 &amp; 0.4 \times 0.8=0.32 \\\hline
  A_\text{白} &amp; 0.6 \times 0.6=0.36&amp; 0.4 \times 0.2=0.08 \\\hline
 \end{array}\end{split}\]</div>
 <p>当随机事件更多的时候，上面的表格就无法表示了，此时可以用如下的表格</p>
 <div class="math notranslate nohighlight" id="equation-eq-probability-008">
-<span class="eqno">(1.3.4)<a class="headerlink" href="#equation-eq-probability-008" title="公式的永久链接">¶</a></span>\[\begin{split}\begin{array}{|c|c|c|} \hline
+<span class="eqno">(1.3.4)<a class="headerlink" href="#equation-eq-probability-008" title="公式的永久链接"></a></span>\[\begin{split}\begin{array}{|c|c|c|} \hline
 B &amp; A &amp; P(A,B) \\\hline
 {\text{正}} &amp; \text{红} &amp; 0.6 \times 0.4=0.24 \\\hline
 {\text{正}} &amp; \text{白} &amp; 0.6 \times 0.6=0.36 \\\hline
@@ -1229,11 +1141,11 @@ B &amp; A &amp; P(A,B) \\\hline
 <p>可以看到联合概率可以分解成条件概率的乘积，我们可以扩展到更多事件的联合概率。
 假设有 <span class="math notranslate nohighlight">\(A,B,C,D\)</span> 四个随机事件，它们组成的联合概率可以分解为</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-15">
-<span class="eqno">(1.3.5)<a class="headerlink" href="#equation-glm-source-content-15" title="公式的永久链接">¶</a></span>\[P(A,B,C,D) = P(A)P(B|A)P(C|A,B)P(D|A,B,C)\]</div>
+<span class="eqno">(1.3.5)<a class="headerlink" href="#equation-glm-source-content-15" title="公式的永久链接"></a></span>\[P(A,B,C,D) = P(A)P(B|A)P(C|A,B)P(D|A,B,C)\]</div>
 <p>更一般地，假设有 <span class="math notranslate nohighlight">\(A_1,A_2,\cdots,A_N\)</span> 共 <span class="math notranslate nohighlight">\(N\)</span> 个随机事件，
 它们的联合概率可以写为</p>
 <div class="math notranslate nohighlight" id="equation-eq-probability-022">
-<span class="eqno">(1.3.6)<a class="headerlink" href="#equation-eq-probability-022" title="公式的永久链接">¶</a></span>\[P(A_1,A_2,\cdots,A_N) = P(A_1)P(A_2|A_1)P(A_3|A_1,A_2) \cdots P(A_N|A_1,A_2,\cdots,A_{N-1})\]</div>
+<span class="eqno">(1.3.6)<a class="headerlink" href="#equation-eq-probability-022" title="公式的永久链接"></a></span>\[P(A_1,A_2,\cdots,A_N) = P(A_1)P(A_2|A_1)P(A_3|A_1,A_2) \cdots P(A_N|A_1,A_2,\cdots,A_{N-1})\]</div>
 <p><a class="reference internal" href="#equation-eq-probability-022">公式(1.3.6)</a> 被称为联合概率的 <strong>链式法则</strong> 。</p>
 <p>联合概率就是多个随机事件同时发生的概率，它的计算方法就是按照事件发生的先后顺序拆解成一系列条件概率的乘积。
 在 <a class="reference internal" href="#equation-eq-probability-022">公式(1.3.6)</a> 中，事件 <span class="math notranslate nohighlight">\(A_1\)</span> 是第一个发生的事件，它的前面没有其它事件了，
@@ -1246,15 +1158,15 @@ B &amp; A &amp; P(A,B) \\\hline
 那么条件概率就是一种因果关系。</p>
 </div>
 <p>最后，联合概率也是一个合格的概率律，也符合概率三公理。</p>
-</div>
-<div class="section" id="id8">
-<h2><span class="section-number">1.4. </span>全概率与贝叶斯定理<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="id8">
+<h2><span class="section-number">1.4. </span>全概率与贝叶斯定理<a class="headerlink" href="#id8" title="永久链接至标题"></a></h2>
 <p>上一节我们讲到，联合概率可以按照事件发生的顺序拆解成条件概率的乘积。
 如果不按照事件发生的顺序呢，可不可以把顺序反过来呢？
 答案是可以的，但是反过来后将会面临一个问题，
 最后一个事件 <span class="math notranslate nohighlight">\(A_N\)</span> 的概率 <span class="math notranslate nohighlight">\(P(A_N)\)</span> 是什么?</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-16">
-<span class="eqno">(1.4.1)<a class="headerlink" href="#equation-glm-source-content-16" title="公式的永久链接">¶</a></span>\[P(A_1,A_2,\cdots,A_N) = P(A_N)P(A_{N-1}|A_N)P(A_{N-2}|A_N,A_{N-1}) \cdots P(A_1|A_N,A_{N-1},\cdots,A_2)\]</div>
+<span class="eqno">(1.4.1)<a class="headerlink" href="#equation-glm-source-content-16" title="公式的永久链接"></a></span>\[P(A_1,A_2,\cdots,A_N) = P(A_N)P(A_{N-1}|A_N)P(A_{N-2}|A_N,A_{N-1}) \cdots P(A_1|A_N,A_{N-1},\cdots,A_2)\]</div>
 <p>我们继续以箱子取球为例，
 为简化说明，我们重新定义事件 <span class="math notranslate nohighlight">\(B\)</span> 是事件 <span class="math notranslate nohighlight">\(\{ B_{\text{正}},B_{\text{反}} \}\)</span> 的集合，
 记作 <span class="math notranslate nohighlight">\(B=\{B_{\text{正}},B_{\text{反}}\}\)</span> 。
@@ -1265,10 +1177,10 @@ B &amp; A &amp; P(A,B) \\\hline
 可以把事件 <span class="math notranslate nohighlight">\(B\)</span> 看做”因”，把事件 <span class="math notranslate nohighlight">\(A\)</span> 看做”果”。
 根据链式法则，二者的联合概率 <span class="math notranslate nohighlight">\(P(A,B)\)</span> 可以写成</p>
 <div class="math notranslate nohighlight" id="equation-eq-probability-025">
-<span class="eqno">(1.4.2)<a class="headerlink" href="#equation-eq-probability-025" title="公式的永久链接">¶</a></span>\[P(A,B) = P(B)P(A|B)\]</div>
+<span class="eqno">(1.4.2)<a class="headerlink" href="#equation-eq-probability-025" title="公式的永久链接"></a></span>\[P(A,B) = P(B)P(A|B)\]</div>
 <p>如果我们把 <a class="reference internal" href="#equation-eq-probability-025">公式(1.4.2)</a> 中的事件顺序反过来，就是</p>
 <div class="math notranslate nohighlight" id="equation-eq-probability-026">
-<span class="eqno">(1.4.3)<a class="headerlink" href="#equation-eq-probability-026" title="公式的永久链接">¶</a></span>\[P(A,B) = P(A)P(B|A)\]</div>
+<span class="eqno">(1.4.3)<a class="headerlink" href="#equation-eq-probability-026" title="公式的永久链接"></a></span>\[P(A,B) = P(A)P(B|A)\]</div>
 <p>这时就产生了一个问题，<span class="math notranslate nohighlight">\(P(A)\)</span> 是多少？ <span class="math notranslate nohighlight">\(P(B|A)\)</span> 又是多少？
 形象一点就是， <span class="math notranslate nohighlight">\(P(A)\)</span> 代表 <span class="math notranslate nohighlight">\(P(\text{果})\)</span> ，
 <span class="math notranslate nohighlight">\(P(B|A)\)</span> 代表 <span class="math notranslate nohighlight">\(P(因|果)\)</span> ，从”果”到”因”就是 <strong>推断(inference)问题</strong> 。
@@ -1280,7 +1192,7 @@ B &amp; A &amp; P(A,B) \\\hline
 因此可以把事件 <span class="math notranslate nohighlight">\(B\)</span> 看做是”因” ，事件 <span class="math notranslate nohighlight">\(A\)</span> 看作是”果”。
 现在我们回顾一下 <span class="math notranslate nohighlight">\(B\)</span> 与 <span class="math notranslate nohighlight">\(A\)</span> 的联合概率表，如下表所示。</p>
 <div class="math notranslate nohighlight" id="equation-eq-probability-028">
-<span class="eqno">(1.4.4)<a class="headerlink" href="#equation-eq-probability-028" title="公式的永久链接">¶</a></span>\[\begin{split}\begin{array}{|c|c|c|} \hline
+<span class="eqno">(1.4.4)<a class="headerlink" href="#equation-eq-probability-028" title="公式的永久链接"></a></span>\[\begin{split}\begin{array}{|c|c|c|} \hline
 B &amp; A &amp; P(A,B) \\\hline
 {\text{正}} &amp; \text{红} &amp; P(\text{正})P(\text{红}|\text{正}) = 0.6 \times 0.4=0.24 \quad \\\hline
 {\text{正}} &amp; \text{白} &amp; P(\text{正})P(\text{白}|\text{正}) = 0.6 \times 0.6=0.36  \quad \\\hline
@@ -1291,15 +1203,15 @@ B &amp; A &amp; P(A,B) \\\hline
 ，另一部分是 <span class="math notranslate nohighlight">\(P(A=\text{红},B=\text{反})\)</span>
 。显然 <span class="math notranslate nohighlight">\(P(A=\text{红})\)</span> 的概率需要把两部分加起来。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-17">
-<span class="eqno">(1.4.5)<a class="headerlink" href="#equation-glm-source-content-17" title="公式的永久链接">¶</a></span>\[P(A=\text{红}) = P(A=\text{红},B=\text{正}) + P(A=\text{红},B=\text{反}) = 0.24+0.32 = 0.56\]</div>
+<span class="eqno">(1.4.5)<a class="headerlink" href="#equation-glm-source-content-17" title="公式的永久链接"></a></span>\[P(A=\text{红}) = P(A=\text{红},B=\text{正}) + P(A=\text{红},B=\text{反}) = 0.24+0.32 = 0.56\]</div>
 <p>同理，<span class="math notranslate nohighlight">\(P(A=\text{白})\)</span> 为</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-18">
-<span class="eqno">(1.4.6)<a class="headerlink" href="#equation-glm-source-content-18" title="公式的永久链接">¶</a></span>\[P(A=\text{白}) = P(A=\text{白},B=\text{正}) + P(A=\text{白},B=\text{反}) = 0.36 + 0.08 = 0.44\]</div>
+<span class="eqno">(1.4.6)<a class="headerlink" href="#equation-glm-source-content-18" title="公式的永久链接"></a></span>\[P(A=\text{白}) = P(A=\text{白},B=\text{正}) + P(A=\text{白},B=\text{反}) = 0.36 + 0.08 = 0.44\]</div>
 <p>可以看出，事件 <span class="math notranslate nohighlight">\(A\)</span> 的每个状态都被事件 <span class="math notranslate nohighlight">\(B\)</span> 分割了，分割的份数就是事件  <span class="math notranslate nohighlight">\(B\)</span> 的状态数量，
 要想求得事件 <span class="math notranslate nohighlight">\(A\)</span> 每个状态的概率，就需要把被 <span class="math notranslate nohighlight">\(B\)</span> 分割的各个部分加起来才行。
 总结起来就是这样</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-19">
-<span class="eqno">(1.4.7)<a class="headerlink" href="#equation-glm-source-content-19" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}P(A=a) &amp;= P(B=b_1)P(a|B=b_1) +  P(B=b_2)P(a|B=b_2) + \cdots + P(B=b_n)P(a|B=b_n)\\&amp;= \sum_{i=1}^n P(B=b_i)P(a|B=b_i)\\&amp;= \sum_{B} P(B)P(a|B)\\&amp;= \sum_{B} P(A=a,B)\end{aligned}\end{align} \]</div>
+<span class="eqno">(1.4.7)<a class="headerlink" href="#equation-glm-source-content-19" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}P(A=a) &amp;= P(B=b_1)P(a|B=b_1) +  P(B=b_2)P(a|B=b_2) + \cdots + P(B=b_n)P(a|B=b_n)\\&amp;= \sum_{i=1}^n P(B=b_i)P(a|B=b_i)\\&amp;= \sum_{B} P(B)P(a|B)\\&amp;= \sum_{B} P(A=a,B)\end{aligned}\end{align} \]</div>
 <p>以上就是全概率公式，简单来说 <strong>全概率公式就是联合概率中消除掉一个事件得到剩余事件的概率</strong>。
 <strong>消除掉的方法就是对这个事件的各个状态进行求和，如果被消除事件是一个连续值概率模型，就把求和符号换成积分</strong>。</p>
 <div class="topic">
@@ -1307,21 +1219,21 @@ B &amp; A &amp; P(A,B) \\\hline
 <p>设 <span class="math notranslate nohighlight">\(B_1,B_2,\cdots,B_n\)</span> 是一组互不相容的事件，形成样本空间的一个分割（每一个试验结果必定使得其中一个事件发生），
 又假定对每一个 <span class="math notranslate nohighlight">\(i\)</span>， <span class="math notranslate nohighlight">\(P(B_i)&gt;0\)</span>，则对于任何事件 <span class="math notranslate nohighlight">\(A\)</span>，下列公式成立。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-20">
-<span class="eqno">(1.4.8)<a class="headerlink" href="#equation-glm-source-content-20" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}P(A) &amp;= P(B_1)P(A|B_1)+ P(B_2)P(A|B_2) + \cdots +P(B_n)P(A|B_n)\\&amp;=  P(A,B_1) + P(A,B_2) + \cdots+P(A,B_n)\\&amp;= \sum_{i=1}^N P(A,B_i)\end{aligned}\end{align} \]</div>
+<span class="eqno">(1.4.8)<a class="headerlink" href="#equation-glm-source-content-20" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}P(A) &amp;= P(B_1)P(A|B_1)+ P(B_2)P(A|B_2) + \cdots +P(B_n)P(A|B_n)\\&amp;=  P(A,B_1) + P(A,B_2) + \cdots+P(A,B_n)\\&amp;= \sum_{i=1}^N P(A,B_i)\end{aligned}\end{align} \]</div>
 </div>
 <p>回到最初的问题，我们已经可以通过全概率公式得到”果”的概率 <span class="math notranslate nohighlight">\(P(A)\)</span> ,
 现在看下如何从”果”推断出”因”，即 <span class="math notranslate nohighlight">\(P(B|A)\)</span>
 。我们可以把 <a class="reference internal" href="#equation-eq-probability-025">公式(1.4.2)</a> 和 <a class="reference internal" href="#equation-eq-probability-026">公式(1.4.3)</a>
 放在一起。</p>
 <div class="math notranslate nohighlight" id="equation-eq-probability-030">
-<span class="eqno">(1.4.9)<a class="headerlink" href="#equation-eq-probability-030" title="公式的永久链接">¶</a></span>\[P(A,B) = P(A)P(B|A) = P(B)P(A|B)\]</div>
+<span class="eqno">(1.4.9)<a class="headerlink" href="#equation-eq-probability-030" title="公式的永久链接"></a></span>\[P(A,B) = P(A)P(B|A) = P(B)P(A|B)\]</div>
 <p>通过移项可得</p>
 <div class="math notranslate nohighlight" id="equation-eq-probability-031">
-<span class="eqno">(1.8.9)<a class="headerlink" href="#equation-eq-probability-031" title="公式的永久链接">¶</a></span>\[P(B|A) = \frac{P(B)P(A|B)}{P(A)}\]</div>
+<span class="eqno">(1.4.10)<a class="headerlink" href="#equation-eq-probability-031" title="公式的永久链接"></a></span>\[P(B|A) = \frac{P(B)P(A|B)}{P(A)}\]</div>
 <p>其中分子部分 <span class="math notranslate nohighlight">\(P(B)P(A|B)\)</span> 是正向的”因果”关系，我们是已知的，
 分母 <span class="math notranslate nohighlight">\(P(A)\)</span> 可以通过全概率公式得到。
 二者的比值就得到了 <span class="math notranslate nohighlight">\(P(B|A)\)</span> 。</p>
-<p><a class="reference internal" href="#equation-eq-probability-031">公式(1.8.9)</a> 就是 <strong>贝叶斯定理</strong>，
+<p><a class="reference internal" href="#equation-eq-probability-031">公式(1.4.10)</a> 就是 <strong>贝叶斯定理</strong>，
 又叫做贝叶斯公式。
 贝叶斯定理就是贝叶斯推断的核心，经常被用来做 <strong>因果推断</strong>。
 有许多”原因”可以造成某一种”结果”，当已知结果要推断成因时，
@@ -1337,43 +1249,43 @@ B &amp; A &amp; P(A,B) \\\hline
 ，因此称之为 <strong>似然</strong>。
 最后，贝叶斯公式可以用如下方式描述。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-21">
-<span class="eqno">(1.4.11)<a class="headerlink" href="#equation-glm-source-content-21" title="公式的永久链接">¶</a></span>\[\text{后验概率} = \frac{\text{先验概率} \times \text{似然} }{\text{全概率}}\]</div>
+<span class="eqno">(1.4.11)<a class="headerlink" href="#equation-glm-source-content-21" title="公式的永久链接"></a></span>\[\text{后验概率} = \frac{\text{先验概率} \times \text{似然} }{\text{全概率}}\]</div>
 <p>此外，可以注意到，分母全概率公式 <span class="math notranslate nohighlight">\(P(A)=\sum_B  P(B)P(A|B)\)</span> 其实就是分子 <span class="math notranslate nohighlight">\(P(B)P(A|B)\)</span>
 的累加。</p>
 <div class="math notranslate nohighlight" id="equation-eq-probability-033">
-<span class="eqno">(1.4.12)<a class="headerlink" href="#equation-eq-probability-033" title="公式的永久链接">¶</a></span>\[P(B|A) = \frac{P(B)P(A|B)}{P(A)} =  \frac{P(B)P(A|B)}{\sum_B  P(B)P(A|B) }\]</div>
+<span class="eqno">(1.4.12)<a class="headerlink" href="#equation-eq-probability-033" title="公式的永久链接"></a></span>\[P(B|A) = \frac{P(B)P(A|B)}{P(A)} =  \frac{P(B)P(A|B)}{\sum_B  P(B)P(A|B) }\]</div>
 <p>因此作为分母的全概率可以看做是分子的 <strong>归一化项</strong>，
 归一化的结果是把等式右侧的数值转换到区间 <span class="math notranslate nohighlight">\([0,1]\)</span>，
 使其符合概率的定义。相对于分子来说，分母的值是固定不变的，
 贝叶斯公式 <a class="reference internal" href="#equation-eq-probability-033">公式(1.4.12)</a> 可以简写成一个正比关系。</p>
 <div class="math notranslate nohighlight" id="equation-eq-probability-035">
-<span class="eqno">(1.4.13)<a class="headerlink" href="#equation-eq-probability-035" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}P(B|A) &amp;\propto P(B) P(A|B)\\\text{后延}  &amp;\propto \text{先验} \times \text{似然}\end{aligned}\end{align} \]</div>
-</div>
-<div class="section" id="id9">
-<h2><span class="section-number">1.5. </span>独立性<a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h2>
+<span class="eqno">(1.4.13)<a class="headerlink" href="#equation-eq-probability-035" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}P(B|A) &amp;\propto P(B) P(A|B)\\\text{后延}  &amp;\propto \text{先验} \times \text{似然}\end{aligned}\end{align} \]</div>
+</section>
+<section id="id9">
+<h2><span class="section-number">1.5. </span>独立性<a class="headerlink" href="#id9" title="永久链接至标题"></a></h2>
 <p>前面的内容中，我们探讨了多个随机事件的关系，条件概率、联合概率以及因果推断
 。那如果两个随机事件没有任何关系呢？
 如果随机事件之间没有任何关系，我们称它们是 <strong>相互独立事件</strong>。</p>
 <p>如果两个事件 <span class="math notranslate nohighlight">\(A\)</span> 和 <span class="math notranslate nohighlight">\(B\)</span> 是相互独立的，则事件 <span class="math notranslate nohighlight">\(B\)</span> 的发生不会改变事件
 <span class="math notranslate nohighlight">\(A\)</span> 的概率，反之亦然。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-22">
-<span class="eqno">(1.5.1)<a class="headerlink" href="#equation-glm-source-content-22" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}P(A) &amp;= P(A|B)\\P(B) &amp;= P(B|A)\end{aligned}\end{align} \]</div>
+<span class="eqno">(1.5.1)<a class="headerlink" href="#equation-glm-source-content-22" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}P(A) &amp;= P(A|B)\\P(B) &amp;= P(B|A)\end{aligned}\end{align} \]</div>
 <p>在上述等式成立的情况下，我们称事件 <span class="math notranslate nohighlight">\(A\)</span> 独立于事件 <span class="math notranslate nohighlight">\(B\)</span>，
 记作 <span class="math notranslate nohighlight">\(A \perp \!\!\! \perp  B\)</span> 。
 如果两个事件是独立的，则它们的联合概率将变得简单。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-23">
-<span class="eqno">(1.5.2)<a class="headerlink" href="#equation-glm-source-content-23" title="公式的永久链接">¶</a></span>\[P(A,B) = P(A)P(B)\]</div>
+<span class="eqno">(1.5.2)<a class="headerlink" href="#equation-glm-source-content-23" title="公式的永久链接"></a></span>\[P(A,B) = P(A)P(B)\]</div>
 <p>有些时候，单独看两个事件可能不是独立的，但是在给定另外一个条件下是独立的。
 例如在给定事件 <span class="math notranslate nohighlight">\(C\)</span> 发生的情况下，事件 <span class="math notranslate nohighlight">\(A\)</span> 与 <span class="math notranslate nohighlight">\(B\)</span>
 是相互独立的，记作 <span class="math notranslate nohighlight">\(A \perp \!\!\! \perp  B | C\)</span>
 ，这种情况称之为 <strong>条件独立</strong> 。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-24">
-<span class="eqno">(1.5.3)<a class="headerlink" href="#equation-glm-source-content-24" title="公式的永久链接">¶</a></span>\[P(A,B|C) = P(A|C)P(B|C)\]</div>
+<span class="eqno">(1.5.3)<a class="headerlink" href="#equation-glm-source-content-24" title="公式的永久链接"></a></span>\[P(A,B|C) = P(A|C)P(B|C)\]</div>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-25">
-<span class="eqno">(1.5.4)<a class="headerlink" href="#equation-glm-source-content-25" title="公式的永久链接">¶</a></span>\[P(A,B,C) = P(C)P(A,B|C) = P(C) P(A|C)P(B|C)\]</div>
-</div>
-<div class="section" id="id10">
-<h2><span class="section-number">1.6. </span>随机变量<a class="headerlink" href="#id10" title="永久链接至标题">¶</a></h2>
+<span class="eqno">(1.5.4)<a class="headerlink" href="#equation-glm-source-content-25" title="公式的永久链接"></a></span>\[P(A,B,C) = P(C)P(A,B|C) = P(C) P(A|C)P(B|C)\]</div>
+</section>
+<section id="id10">
+<h2><span class="section-number">1.6. </span>随机变量<a class="headerlink" href="#id10" title="永久链接至标题"></a></h2>
 <p>试验的所有可能结果形成了样本空间 <span class="math notranslate nohighlight">\(\Omega=\{\omega_1,\omega_2,\cdots,\omega_n\}\)</span> ，
 样本空间中的每个样本点 <span class="math notranslate nohighlight">\(\omega_i\)</span> 就表示试验的一种可能结果，
 一个试验的结果必定是样本空间 <span class="math notranslate nohighlight">\(\Omega\)</span> 中的一个。
@@ -1437,8 +1349,8 @@ B &amp; A &amp; P(A,B) \\\hline
 无限的样本空间是连续值概率模型。
 随机变量是样本空间的实值函数，
 因此随机变量也分为 <strong>离散随机变量</strong> 和 <strong>连续随机变量</strong> 。</p>
-<div class="section" id="id11">
-<h3><span class="section-number">1.6.1. </span>离散随机变量<a class="headerlink" href="#id11" title="永久链接至标题">¶</a></h3>
+<section id="id11">
+<h3><span class="section-number">1.6.1. </span>离散随机变量<a class="headerlink" href="#id11" title="永久链接至标题"></a></h3>
 <p>若一个随机变量的值域（随机变量的取值范围）为一个有限集合或最多为可数无限集合，
 则称这个随机变量为 <strong>离散的</strong> 。
 由于它只能取有限多个值，所以是离散的随机变量。</p>
@@ -1450,10 +1362,10 @@ B &amp; A &amp; P(A,B) \\\hline
 对于一枚正常的硬币两种结果应该是等概率的，
 随机变量 <span class="math notranslate nohighlight">\(X\)</span> 每种取值的概率情况为</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-26">
-<span class="eqno">(1.6.1)<a class="headerlink" href="#equation-glm-source-content-26" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}P(X=1) &amp;= 0.5\\P(X=0) &amp;= 0.5\end{aligned}\end{align} \]</div>
+<span class="eqno">(1.6.1)<a class="headerlink" href="#equation-glm-source-content-26" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}P(X=1) &amp;= 0.5\\P(X=0) &amp;= 0.5\end{aligned}\end{align} \]</div>
 <p>对于离散随机变量，其值域是有限个，因此有时也可以用一个表格的形式表达其各个值的概率情况</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-27">
-<span class="eqno">(1.6.2)<a class="headerlink" href="#equation-glm-source-content-27" title="公式的永久链接">¶</a></span>\[\begin{split}\begin{array}{|c|c|} \hline
+<span class="eqno">(1.6.2)<a class="headerlink" href="#equation-glm-source-content-27" title="公式的永久链接"></a></span>\[\begin{split}\begin{array}{|c|c|} \hline
 X &amp; P(X) \\\hline
 1 &amp; 0.5  \\\hline
 0 &amp; 0.5  \\\hline
@@ -1467,16 +1379,16 @@ X &amp; P(X) \\\hline
 ，假设其为 <span class="math notranslate nohighlight">\(1\)</span> 的概率是 <span class="math notranslate nohighlight">\(\pi\)</span>
 ，那么它的概率分布函数可以为</p>
 <div class="math notranslate nohighlight" id="equation-eq-probability-050">
-<span class="eqno">(1.6.3)<a class="headerlink" href="#equation-eq-probability-050" title="公式的永久链接">¶</a></span>\[P(X) = \pi^x(1-\pi)^{(1-x)}\]</div>
+<span class="eqno">(1.6.3)<a class="headerlink" href="#equation-eq-probability-050" title="公式的永久链接"></a></span>\[P(X) = \pi^x(1-\pi)^{(1-x)}\]</div>
 <p>把随机变量的某个可能取值代入到概率分布函数，得到的就是变量为这个值的概率。
 我们把 <span class="math notranslate nohighlight">\(1\)</span> 代入到 <a class="reference internal" href="#equation-eq-probability-050">公式(1.6.3)</a> 得到就是随机变量 <span class="math notranslate nohighlight">\(X\)</span>
 为 <span class="math notranslate nohighlight">\(1\)</span> 的概率 <span class="math notranslate nohighlight">\(P(X=1)\)</span> 。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-28">
-<span class="eqno">(1.6.4)<a class="headerlink" href="#equation-glm-source-content-28" title="公式的永久链接">¶</a></span>\[P(X=1) = \pi^1(1-\pi)^{(1-1)}= \pi\]</div>
+<span class="eqno">(1.6.4)<a class="headerlink" href="#equation-glm-source-content-28" title="公式的永久链接"></a></span>\[P(X=1) = \pi^1(1-\pi)^{(1-1)}= \pi\]</div>
 <p>同理，把 <span class="math notranslate nohighlight">\(0\)</span> 带入到 <a class="reference internal" href="#equation-eq-probability-050">公式(1.6.3)</a> 得到就是
 <span class="math notranslate nohighlight">\(P(X=0)\)</span> 。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-29">
-<span class="eqno">(1.6.5)<a class="headerlink" href="#equation-glm-source-content-29" title="公式的永久链接">¶</a></span>\[P(X=0) = \pi^0(1-\pi)^{(1-0)}= 1 - \pi\]</div>
+<span class="eqno">(1.6.5)<a class="headerlink" href="#equation-glm-source-content-29" title="公式的永久链接"></a></span>\[P(X=0) = \pi^0(1-\pi)^{(1-0)}= 1 - \pi\]</div>
 <p>前文已经讲过随机变量是随机事件的一个扩展，随机变量的概率分布也是满足概率三公理的，
 包括非负性、可加性和归一化。
 假设有一个离散随机变量 <span class="math notranslate nohighlight">\(Y\)</span>，
@@ -1484,10 +1396,10 @@ X &amp; P(X) \\\hline
 ，任意一个值 <span class="math notranslate nohighlight">\(y_i\)</span> 的概率记为 <span class="math notranslate nohighlight">\(P(y_i)\)</span>
 ，则有如下归一化等式成立。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-30">
-<span class="eqno">(1.6.6)<a class="headerlink" href="#equation-glm-source-content-30" title="公式的永久链接">¶</a></span>\[\sum_{i=1}^n P(y_i) = 1\]</div>
-</div>
-<div class="section" id="id12">
-<h3><span class="section-number">1.6.2. </span>连续随机变量<a class="headerlink" href="#id12" title="永久链接至标题">¶</a></h3>
+<span class="eqno">(1.6.6)<a class="headerlink" href="#equation-glm-source-content-30" title="公式的永久链接"></a></span>\[\sum_{i=1}^n P(y_i) = 1\]</div>
+</section>
+<section id="id12">
+<h3><span class="section-number">1.6.2. </span>连续随机变量<a class="headerlink" href="#id12" title="永久链接至标题"></a></h3>
 <p>在前文讲过，当样本空间有无限个样本点时就是连续概率模型，
 同理，若一个随机变量可以取到无限多个数，
 那么这个随机变量就是 <strong>连续值随机变量</strong> 。
@@ -1498,7 +1410,7 @@ X &amp; P(X) \\\hline
 ，它的概率分布函数是 <span class="math notranslate nohighlight">\(f(x)\)</span> 。
 随机变量 <span class="math notranslate nohighlight">\(X\)</span> 的取值落在区间 <span class="math notranslate nohighlight">\([a,b]\)</span> 的概率为</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-31">
-<span class="eqno">(1.6.7)<a class="headerlink" href="#equation-glm-source-content-31" title="公式的永久链接">¶</a></span>\[P(a \le X \le b) = \int_a^b f(x) dx\]</div>
+<span class="eqno">(1.6.7)<a class="headerlink" href="#equation-glm-source-content-31" title="公式的永久链接"></a></span>\[P(a \le X \le b) = \int_a^b f(x) dx\]</div>
 <p>一定要注意，对于连续值随机变量的概率分布函数 <span class="math notranslate nohighlight">\(f(x)\)</span>
 ，<span class="math notranslate nohighlight">\(f(x)\)</span> 的值并不是概率值，而是这一点的 <strong>密度值</strong> ，
 在一个区间上的积分结果表示随机变量落在这个区间的概率值。</p>
@@ -1508,7 +1420,7 @@ X &amp; P(X) \\\hline
 落在整个值域空间的概率必然是 <span class="math notranslate nohighlight">\(1\)</span> 。
 因此有如下约束必须满足</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-32">
-<span class="eqno">(1.6.8)<a class="headerlink" href="#equation-glm-source-content-32" title="公式的永久链接">¶</a></span>\[P(- \infty &lt; X &lt; \infty) = \int_{- \infty}^{\infty} f(x) dx = 1\]</div>
+<span class="eqno">(1.6.8)<a class="headerlink" href="#equation-glm-source-content-32" title="公式的永久链接"></a></span>\[P(- \infty &lt; X &lt; \infty) = \int_{- \infty}^{\infty} f(x) dx = 1\]</div>
 <p>也就是说，我们约束连续值随机变量概率分布函数在整个值域的积分必须是 <span class="math notranslate nohighlight">\(1\)</span>
 ，这就和离散随机变量值域内所有值的概率之和是 <span class="math notranslate nohighlight">\(1\)</span> 一样。
 虽然在这个例子中，连续值随机变量 <span class="math notranslate nohighlight">\(X\)</span> 的值域是整个实数域，但这不是必须的，
@@ -1521,9 +1433,9 @@ X &amp; P(X) \\\hline
 而连续值随机变量的概率分布函数，需要积分才能得到概率值（质量），
 函数本身相当于每个点的 <em>密度值</em> ，
 因此连续值随机变量的概率分布函数一般称为 <strong>概率密度函数(probability density function, pdf)</strong> 。</p>
-</div>
-<div class="section" id="id13">
-<h3><span class="section-number">1.6.3. </span>累积分布函数<a class="headerlink" href="#id13" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id13">
+<h3><span class="section-number">1.6.3. </span>累积分布函数<a class="headerlink" href="#id13" title="永久链接至标题"></a></h3>
 <p>对于离散随机变量和连续随机变量分别用概率质量函数和概率密度函数刻画他们的概率分布情况，
 本节我们介绍另一种刻画概率分布的方法，累积分布函数（Cumulative Distribution Function,CDF）
 。</p>
@@ -1535,7 +1447,7 @@ X &amp; P(X) \\\hline
 对于每一个 <span class="math notranslate nohighlight">\(x\)</span>， <span class="math notranslate nohighlight">\(F_X(x)\)</span> 定义为 <span class="math notranslate nohighlight">\(P(X \le x)\)</span>。
 特别地，当 <span class="math notranslate nohighlight">\(X\)</span> 为离散或连续的情况下，</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-33">
-<span class="eqno">(1.6.9)<a class="headerlink" href="#equation-glm-source-content-33" title="公式的永久链接">¶</a></span>\[\begin{split}F_X(x) = P(X \le x) = \left \{
+<span class="eqno">(1.6.9)<a class="headerlink" href="#equation-glm-source-content-33" title="公式的永久链接"></a></span>\[\begin{split}F_X(x) = P(X \le x) = \left \{
 \begin{aligned}
 \sum_{x \le x} P_X(k) &amp;, \quad \text{若} X \text{是离散的} \\
 \int_{-\infty}^{x} f_X(t) dt &amp;, \quad \text{若} X \text{是连续的}
@@ -1566,19 +1478,19 @@ X &amp; P(X) \\\hline
 <li><p>当 <span class="math notranslate nohighlight">\(X\)</span> 是离散随机变量并取整数值的时候， 累积分布函数 <span class="math notranslate nohighlight">\(F_X(x)\)</span> 和概率质量函数 <span class="math notranslate nohighlight">\(f_X(x)\)</span>
 可以利用求和或差分互求：</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-34">
-<span class="eqno">(1.6.10)<a class="headerlink" href="#equation-glm-source-content-34" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}F_X(k) &amp;= \sum_{i=-\infty}^k f_X(i)\\f_X(k) &amp;= P(X \le k) - P(X \le k-1) =  F_X(k) -  F_X(k-1)\end{aligned}\end{align} \]</div>
+<span class="eqno">(1.6.10)<a class="headerlink" href="#equation-glm-source-content-34" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}F_X(k) &amp;= \sum_{i=-\infty}^k f_X(i)\\f_X(k) &amp;= P(X \le k) - P(X \le k-1) =  F_X(k) -  F_X(k-1)\end{aligned}\end{align} \]</div>
 <p>其中 <span class="math notranslate nohighlight">\(k\)</span> 可以是任意整数。</p>
 </li>
 <li><p>当 <span class="math notranslate nohighlight">\(X\)</span> 是连续随机变量的时候，累积分布函数 <span class="math notranslate nohighlight">\(F_X(x)\)</span> 和概率密度函数 <span class="math notranslate nohighlight">\(f_X(x)\)</span>
 可以利用积分或微分函数互求：</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-35">
-<span class="eqno">(1.6.11)<a class="headerlink" href="#equation-glm-source-content-35" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}F_X(x) &amp;= \int_{-\infty}^x f_X(t) dt\\f_X(x) &amp;= \frac{d F_X }{dx} (x)\end{aligned}\end{align} \]</div>
+<span class="eqno">(1.6.11)<a class="headerlink" href="#equation-glm-source-content-35" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}F_X(x) &amp;= \int_{-\infty}^x f_X(t) dt\\f_X(x) &amp;= \frac{d F_X }{dx} (x)\end{aligned}\end{align} \]</div>
 </li>
 </ul>
 </div>
-</div>
-<div class="section" id="id14">
-<h3><span class="section-number">1.6.4. </span>随机变量的函数<a class="headerlink" href="#id14" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id14">
+<h3><span class="section-number">1.6.4. </span>随机变量的函数<a class="headerlink" href="#id14" title="永久链接至标题"></a></h3>
 <p>之前已经提到过，你可以把随机变量看做随机事件的扩展，随机事件只有发生、不发生两个状态，
 而随机变量是试验结果样本空间到数值的映射，它可以有更多的状态，样本空间中每个样本点对应着随机变量的一个取值。
 随机事件拥有的特性随机变量也有，
@@ -1593,11 +1505,11 @@ X &amp; P(X) \\\hline
 这种变换可以是线性的也可以是非线性的。
 假设 <span class="math notranslate nohighlight">\(g(X)\)</span> 是一个线性变换</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-36">
-<span class="eqno">(1.6.12)<a class="headerlink" href="#equation-glm-source-content-36" title="公式的永久链接">¶</a></span>\[Y = g(X) = aX + b\]</div>
+<span class="eqno">(1.6.12)<a class="headerlink" href="#equation-glm-source-content-36" title="公式的永久链接"></a></span>\[Y = g(X) = aX + b\]</div>
 <p>其中 <span class="math notranslate nohighlight">\(a,b\)</span> 是数值。
 我们也可以考虑非线性的函数，比如</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-37">
-<span class="eqno">(1.6.13)<a class="headerlink" href="#equation-glm-source-content-37" title="公式的永久链接">¶</a></span>\[Y = g(X) = X^2\]</div>
+<span class="eqno">(1.6.13)<a class="headerlink" href="#equation-glm-source-content-37" title="公式的永久链接"></a></span>\[Y = g(X) = X^2\]</div>
 <p>设 <span class="math notranslate nohighlight">\(Y=g(X)\)</span> 是随机变量 <span class="math notranslate nohighlight">\(X\)</span> 的函数，
 由于对于 <span class="math notranslate nohighlight">\(X\)</span> 的每一个可能取值，也对应的 <span class="math notranslate nohighlight">\(Y\)</span>
 的一个数值，故 <span class="math notranslate nohighlight">\(Y\)</span> 也是一个随机变量，
@@ -1608,7 +1520,7 @@ X &amp; P(X) \\\hline
 ，则 <span class="math notranslate nohighlight">\(Y\)</span> 的取值空间为 <span class="math notranslate nohighlight">\(\{0,1,4\}\)</span>
 。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-38">
-<span class="eqno">(1.6.14)<a class="headerlink" href="#equation-glm-source-content-38" title="公式的永久链接">¶</a></span>\[\begin{split}Y =\left\{
+<span class="eqno">(1.6.14)<a class="headerlink" href="#equation-glm-source-content-38" title="公式的永久链接"></a></span>\[\begin{split}Y =\left\{
     \begin{aligned}
     0 &amp;, \quad x =0 \\
     1 &amp;, \quad x \in \{-1,1\} \\
@@ -1617,12 +1529,12 @@ X &amp; P(X) \\\hline
     \right.\end{split}\]</div>
 <p><span class="math notranslate nohighlight">\(Y\)</span> 的概率分布为</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-39">
-<span class="eqno">(1.6.15)<a class="headerlink" href="#equation-glm-source-content-39" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}P(Y=0) &amp;= P(X=0) = \frac{1}{5}\\P(Y=1) &amp;= P(X=-1) + P(X=1) = \frac{2}{5}\\P(Y=4) &amp;= P(X=-2) + P(X=2) = \frac{2}{5}\end{aligned}\end{align} \]</div>
+<span class="eqno">(1.6.15)<a class="headerlink" href="#equation-glm-source-content-39" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}P(Y=0) &amp;= P(X=0) = \frac{1}{5}\\P(Y=1) &amp;= P(X=-1) + P(X=1) = \frac{2}{5}\\P(Y=4) &amp;= P(X=-2) + P(X=2) = \frac{2}{5}\end{aligned}\end{align} \]</div>
 <p>多个随机变量的函数也是一样的。假设 <span class="math notranslate nohighlight">\(X\)</span> 和 <span class="math notranslate nohighlight">\(Y\)</span> 是两个随机变量，
 那么 <span class="math notranslate nohighlight">\(Z=g(X,Y)\)</span> 也是一个随机变量，即使更多的随机变量的函数也是如此。</p>
-</div>
-<div class="section" id="id15">
-<h3><span class="section-number">1.6.5. </span>期望与方差<a class="headerlink" href="#id15" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id15">
+<h3><span class="section-number">1.6.5. </span>期望与方差<a class="headerlink" href="#id15" title="永久链接至标题"></a></h3>
 <p>随机变量的取值不是确定性的，有一定的随机性，它的概率分布给出了其所有可能取值的概率。
 随机变量的概率分布不是很方便进行比较和评价，
 通常，我们希望将这些信息综合成一个能代表这个随机变量的 <strong>数值</strong> 。
@@ -1635,13 +1547,13 @@ X &amp; P(X) \\\hline
 由下式给出</p>
 <blockquote>
 <div><div class="math notranslate nohighlight" id="equation-glm-source-content-40">
-<span class="eqno">(1.6.16)<a class="headerlink" href="#equation-glm-source-content-40" title="公式的永久链接">¶</a></span>\[\mathbb{E}[X] = \sum_x x f(x)\]</div>
+<span class="eqno">(1.6.16)<a class="headerlink" href="#equation-glm-source-content-40" title="公式的永久链接"></a></span>\[\mathbb{E}[X] = \sum_x x f(x)\]</div>
 </div></blockquote>
 <p>设连续值随机变量 <span class="math notranslate nohighlight">\(Y\)</span> 的概率密度函数为 <span class="math notranslate nohighlight">\(g(x)\)</span> ，<span class="math notranslate nohighlight">\(Y\)</span> 的 <strong>期望值</strong> （也称为 <strong>期望</strong> 或者 <strong>均值</strong> ）
 由下式给出</p>
 <blockquote>
 <div><div class="math notranslate nohighlight" id="equation-glm-source-content-41">
-<span class="eqno">(1.6.17)<a class="headerlink" href="#equation-glm-source-content-41" title="公式的永久链接">¶</a></span>\[\mathbb{E}[Y] = \int y g(y) d y\]</div>
+<span class="eqno">(1.6.17)<a class="headerlink" href="#equation-glm-source-content-41" title="公式的永久链接"></a></span>\[\mathbb{E}[Y] = \int y g(y) d y\]</div>
 </div></blockquote>
 </div>
 <p><strong>随机变量的期望值是一个数值，而不再是随机变量</strong>。
@@ -1654,7 +1566,7 @@ X &amp; P(X) \\\hline
 <p>设随机变量 <span class="math notranslate nohighlight">\(X\)</span> 的概率分布函数为 <span class="math notranslate nohighlight">\(f(x)\)</span>，又设 <span class="math notranslate nohighlight">\(h(x)\)</span> 是变量 <span class="math notranslate nohighlight">\(X\)</span> 的一个函数，
 则 <span class="math notranslate nohighlight">\(h(x)\)</span> 的期望由下式得到</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-42">
-<span class="eqno">(1.6.18)<a class="headerlink" href="#equation-glm-source-content-42" title="公式的永久链接">¶</a></span>\[\mathbb{E}[h(x)] = \int h(x) f(x) dx\]</div>
+<span class="eqno">(1.6.18)<a class="headerlink" href="#equation-glm-source-content-42" title="公式的永久链接"></a></span>\[\mathbb{E}[h(x)] = \int h(x) f(x) dx\]</div>
 <p>如果 <span class="math notranslate nohighlight">\(X\)</span> 是离散随机变量，只需要把积分换成求和。</p>
 </div>
 <p>直接使用变量计算的矩被称为原始矩（raw moment），比如期望就是原始矩。
@@ -1665,12 +1577,12 @@ X &amp; P(X) \\\hline
 ，<strong>方差是二阶中心矩</strong> 。所谓中心矩就是去除中心(期望值)，
 所谓的二阶就是二次方，因此方差的计算方法为</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-43">
-<span class="eqno">(1.6.19)<a class="headerlink" href="#equation-glm-source-content-43" title="公式的永久链接">¶</a></span>\[V(X) = \mathbb{E}[(X-\mathbb{E}[X])^2]\]</div>
+<span class="eqno">(1.6.19)<a class="headerlink" href="#equation-glm-source-content-43" title="公式的永久链接"></a></span>\[V(X) = \mathbb{E}[(X-\mathbb{E}[X])^2]\]</div>
 <p>注意上式中最外层又求了一次期望，这是因为 <span class="math notranslate nohighlight">\((X-\mathbb{E}[X])^2\)</span> 本身是随机变量 <span class="math notranslate nohighlight">\(X\)</span> 的一个函数，
 它也是一个随机变量，因此再对它求一次期望以便得到一个 <em>数值</em> 。
 根据随机变量函数期望的求法，方差的计算方法为</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-44">
-<span class="eqno">(1.6.20)<a class="headerlink" href="#equation-glm-source-content-44" title="公式的永久链接">¶</a></span>\[V(X) = \int (X-\mathbb{E}[X])^2 f(x) dx\]</div>
+<span class="eqno">(1.6.20)<a class="headerlink" href="#equation-glm-source-content-44" title="公式的永久链接"></a></span>\[V(X) = \int (X-\mathbb{E}[X])^2 f(x) dx\]</div>
 <p>其中 <span class="math notranslate nohighlight">\(f(x)\)</span> 是变量 <span class="math notranslate nohighlight">\(X\)</span> 的概率分布函数。</p>
 <p>方差的值是原始变量的平方，量纲发生了变化，其量纲是原始值的平方，不利于和原始值进行比较，
 因此定义方差的非负平方根为 <strong>标准差</strong> ，
@@ -1678,38 +1590,38 @@ X &amp; P(X) \\\hline
 <p>现在我们来看一下均值和方差的一些性质，
 首先考虑随机变量 <span class="math notranslate nohighlight">\(X\)</span> 的线性函数</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-45">
-<span class="eqno">(1.6.21)<a class="headerlink" href="#equation-glm-source-content-45" title="公式的永久链接">¶</a></span>\[Y = aX +b\]</div>
+<span class="eqno">(1.6.21)<a class="headerlink" href="#equation-glm-source-content-45" title="公式的永久链接"></a></span>\[Y = aX +b\]</div>
 <p>其中 <span class="math notranslate nohighlight">\(a\)</span> 和 <span class="math notranslate nohighlight">\(b\)</span> 是已知常数，
 <span class="math notranslate nohighlight">\(f(x)\)</span> 为随机变量  <span class="math notranslate nohighlight">\(X\)</span> 的概率分布函数，
 关于线性函数 <span class="math notranslate nohighlight">\(Y\)</span> 的均值和方差，我们有</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-46">
-<span class="eqno">(1.6.22)<a class="headerlink" href="#equation-glm-source-content-46" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\mathbb{E}[Y] &amp;= \sum_x (ax+b) f(x)\\&amp;= a \sum_x x f(x) +  b \sum_x  f(x)\\&amp; = a \mathbb{E}[X] + b\end{aligned}\end{align} \]</div>
+<span class="eqno">(1.6.22)<a class="headerlink" href="#equation-glm-source-content-46" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\mathbb{E}[Y] &amp;= \sum_x (ax+b) f(x)\\&amp;= a \sum_x x f(x) +  b \sum_x  f(x)\\&amp; = a \mathbb{E}[X] + b\end{aligned}\end{align} \]</div>
 <p>进一步地</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-47">
-<span class="eqno">(1.6.23)<a class="headerlink" href="#equation-glm-source-content-47" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}V(Y) &amp;= \sum_x (Y - \mathbb{E}[Y])^2 f(x)\\&amp;= \sum_x [ax+b -  (a \mathbb{E}[X] + b)  ]^2 f(x)\\&amp;= \sum_x (ax - a \mathbb{E}[X] )^2 f(x)\\&amp;= a^2 \sum_x (x - \mathbb{E}[X]  )^2 f(x)\\&amp;= a^2 V(X)\end{aligned}\end{align} \]</div>
+<span class="eqno">(1.6.23)<a class="headerlink" href="#equation-glm-source-content-47" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}V(Y) &amp;= \sum_x (Y - \mathbb{E}[Y])^2 f(x)\\&amp;= \sum_x [ax+b -  (a \mathbb{E}[X] + b)  ]^2 f(x)\\&amp;= \sum_x (ax - a \mathbb{E}[X] )^2 f(x)\\&amp;= a^2 \sum_x (x - \mathbb{E}[X]  )^2 f(x)\\&amp;= a^2 V(X)\end{aligned}\end{align} \]</div>
 <div class="topic">
 <p class="topic-title">随机变量的线性函数的均值和方差</p>
 <p>设 <span class="math notranslate nohighlight">\(X\)</span> 为随机变量，令</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-48">
-<span class="eqno">(1.6.24)<a class="headerlink" href="#equation-glm-source-content-48" title="公式的永久链接">¶</a></span>\[Y = aX +b\]</div>
+<span class="eqno">(1.6.24)<a class="headerlink" href="#equation-glm-source-content-48" title="公式的永久链接"></a></span>\[Y = aX +b\]</div>
 <p>其中 <span class="math notranslate nohighlight">\(a\)</span> 和 <span class="math notranslate nohighlight">\(b\)</span> 为给定的常数，则</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-49">
-<span class="eqno">(1.6.25)<a class="headerlink" href="#equation-glm-source-content-49" title="公式的永久链接">¶</a></span>\[\mathbb{E}[Y]=a \mathbb{E}[X] + b \quad V(Y)= a^2 V(X)\]</div>
+<span class="eqno">(1.6.25)<a class="headerlink" href="#equation-glm-source-content-49" title="公式的永久链接"></a></span>\[\mathbb{E}[Y]=a \mathbb{E}[X] + b \quad V(Y)= a^2 V(X)\]</div>
 <p><strong>特别注意，这只对线性函数成立，非线性函数不成立</strong>。</p>
 </div>
 <p>此外，还有一个用矩表达方差的重要公式。</p>
 <div class="topic">
 <p class="topic-title">用矩表达的方差公式</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-50">
-<span class="eqno">(1.6.26)<a class="headerlink" href="#equation-glm-source-content-50" title="公式的永久链接">¶</a></span>\[V(X) = \mathbb{E}[X^2] - (\mathbb{E}[X])^2\]</div>
+<span class="eqno">(1.6.26)<a class="headerlink" href="#equation-glm-source-content-50" title="公式的永久链接"></a></span>\[V(X) = \mathbb{E}[X^2] - (\mathbb{E}[X])^2\]</div>
 <p>证明如下：</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-51">
-<span class="eqno">(1.6.27)<a class="headerlink" href="#equation-glm-source-content-51" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}V(X) &amp;= \sum_x (x - \mathbb{E}[X])^2 f(x)\\&amp;= \sum_x (x^2 - 2x \mathbb{E}[X]  + \mathbb{E}[X]^2 ) f(x)\\&amp;= \sum_x x^2 f(x) + 2 \mathbb{E}[X] \sum_x xf(x) + \mathbb{E}[X]^2 \sum_x f(x)\\&amp;=  \mathbb{E}[X^2] - 2 \mathbb{E}[X] \times  \mathbb{E}[X] + (\mathbb{E}[X])^2\\&amp;=  \mathbb{E}[X^2] - 2 (\mathbb{E}[X])^2 + (\mathbb{E}[X])^2\\&amp;=  \mathbb{E}[X^2] -  (\mathbb{E}[X])^2\end{aligned}\end{align} \]</div>
+<span class="eqno">(1.6.27)<a class="headerlink" href="#equation-glm-source-content-51" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}V(X) &amp;= \sum_x (x - \mathbb{E}[X])^2 f(x)\\&amp;= \sum_x (x^2 - 2x \mathbb{E}[X]  + \mathbb{E}[X]^2 ) f(x)\\&amp;= \sum_x x^2 f(x) + 2 \mathbb{E}[X] \sum_x xf(x) + \mathbb{E}[X]^2 \sum_x f(x)\\&amp;=  \mathbb{E}[X^2] - 2 \mathbb{E}[X] \times  \mathbb{E}[X] + (\mathbb{E}[X])^2\\&amp;=  \mathbb{E}[X^2] - 2 (\mathbb{E}[X])^2 + (\mathbb{E}[X])^2\\&amp;=  \mathbb{E}[X^2] -  (\mathbb{E}[X])^2\end{aligned}\end{align} \]</div>
 </div>
-</div>
-</div>
-<div class="section" id="id16">
-<h2><span class="section-number">1.7. </span>边缘化<a class="headerlink" href="#id16" title="永久链接至标题">¶</a></h2>
+</section>
+</section>
+<section id="id16">
+<h2><span class="section-number">1.7. </span>边缘化<a class="headerlink" href="#id16" title="永久链接至标题"></a></h2>
 <div class="topic">
 <p class="topic-title">边缘化（marginalization）</p>
 <p>边缘化（marginalization），又叫边际化，它是指从多个随机变量的联合概率分布中求解出部分随机变量联合概率分布的过程。
@@ -1727,7 +1639,7 @@ X &amp; P(X) \\\hline
 <p>它的计算过程其实就是利用全概率公式把变量 <span class="math notranslate nohighlight">\(A\)</span> 从联合概率分布中 <strong>消除掉</strong>，
 因此可以称为 <strong>消元法</strong>。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-52">
-<span class="eqno">(1.7.1)<a class="headerlink" href="#equation-glm-source-content-52" title="公式的永久链接">¶</a></span>\[P(B) = \sum_A P(A,B) = \sum_A P(A)(B|A)\]</div>
+<span class="eqno">(1.7.1)<a class="headerlink" href="#equation-glm-source-content-52" title="公式的永久链接"></a></span>\[P(B) = \sum_A P(A,B) = \sum_A P(A)(B|A)\]</div>
 <p>当已知 <span class="math notranslate nohighlight">\(P(A)\)</span> 和 <span class="math notranslate nohighlight">\(P(A,B)\)</span>，可以利用边缘化的方法求得 <span class="math notranslate nohighlight">\(P(B)\)</span> 的概率分布。
 即使更多的随机变量也是如此，
 比如，已知 <span class="math notranslate nohighlight">\(4\)</span> 个变量的联合概率分布 <span class="math notranslate nohighlight">\(P(A,B,C,D)\)</span> 以及 <span class="math notranslate nohighlight">\(P(C),P(D|C)\)</span>，
@@ -1735,16 +1647,16 @@ X &amp; P(X) \\\hline
 也就是从 <span class="math notranslate nohighlight">\(P(A,B,C,D)\)</span> “消除掉”随机变量 <span class="math notranslate nohighlight">\(C\)</span> 和 <span class="math notranslate nohighlight">\(D\)</span>，
 从而得到 <span class="math notranslate nohighlight">\(P(A,B)\)</span> 。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-53">
-<span class="eqno">(1.7.2)<a class="headerlink" href="#equation-glm-source-content-53" title="公式的永久链接">¶</a></span>\[P(A,B) = \sum_C \sum_D P(A,B,C,D) = \sum_C \sum_D P(C) P(D|C) P(A,B|C,D)\]</div>
+<span class="eqno">(1.7.2)<a class="headerlink" href="#equation-glm-source-content-53" title="公式的永久链接"></a></span>\[P(A,B) = \sum_C \sum_D P(A,B,C,D) = \sum_C \sum_D P(C) P(D|C) P(A,B|C,D)\]</div>
 <p>如果是连续随机变量，就把求和换成积分。</p>
-</div>
-<div class="section" id="id17">
-<h2><span class="section-number">1.8. </span>常见概率分布<a class="headerlink" href="#id17" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="id17">
+<h2><span class="section-number">1.8. </span>常见概率分布<a class="headerlink" href="#id17" title="永久链接至标题"></a></h2>
 <p>本节我们介绍一些已知的并且常用的概率分布，
 这些概率分布会在本书之后的章节中频繁使用，
 需要读者对这些分布的特性十分熟悉。</p>
-<div class="section" id="id18">
-<h3><span class="section-number">1.8.1. </span>伯努利分布<a class="headerlink" href="#id18" title="永久链接至标题">¶</a></h3>
+<section id="id18">
+<h3><span class="section-number">1.8.1. </span>伯努利分布<a class="headerlink" href="#id18" title="永久链接至标题"></a></h3>
 <p>伯努利分布是最简单的离散概率分布，伯努利分布是单次伯努利试验结果的分布。
 <strong>伯努利试验（Bernoulli experiment）</strong> 是在同样的条件下重复地、相互独立地进行的一种随机试验，
 其特点是该随机试验只有两种可能结果：发生或者不发生。
@@ -1755,7 +1667,7 @@ X &amp; P(X) \\\hline
 则反面向上的概率为 <span class="math notranslate nohighlight">\(1-\pi\)</span> ，正面向上的结果用数字 <span class="math notranslate nohighlight">\(1\)</span> 表示，
 反面向上的结果用数字 <span class="math notranslate nohighlight">\(0\)</span> 表示，即</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-54">
-<span class="eqno">(1.8.1)<a class="headerlink" href="#equation-glm-source-content-54" title="公式的永久链接">¶</a></span>\[\begin{split}X = \left \{
+<span class="eqno">(1.8.1)<a class="headerlink" href="#equation-glm-source-content-54" title="公式的永久链接"></a></span>\[\begin{split}X = \left \{
     \begin{aligned}
     1 &amp;, \quad \text{若正面向上} \\
     0 &amp;, \quad \text{若反面向上}
@@ -1763,7 +1675,7 @@ X &amp; P(X) \\\hline
     \right.\end{split}\]</div>
 <p>它的概率分布为</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-55">
-<span class="eqno">(1.8.2)<a class="headerlink" href="#equation-glm-source-content-55" title="公式的永久链接">¶</a></span>\[\begin{split}P(X) = \left \{
+<span class="eqno">(1.8.2)<a class="headerlink" href="#equation-glm-source-content-55" title="公式的永久链接"></a></span>\[\begin{split}P(X) = \left \{
     \begin{aligned}
     \pi &amp;, \quad \text{若}X=1 \\
     1-\pi &amp;, \quad \text{若}X=0
@@ -1771,17 +1683,17 @@ X &amp; P(X) \\\hline
     \right.\end{split}\]</div>
 <p>分段函数不利于参与计算，通常伯努利变量的概率质量函数可以写成如下简单的形式</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-56">
-<span class="eqno">(1.8.3)<a class="headerlink" href="#equation-glm-source-content-56" title="公式的永久链接">¶</a></span>\[P(X) = \pi^x (1-\pi)^{1-x}\]</div>
+<span class="eqno">(1.8.3)<a class="headerlink" href="#equation-glm-source-content-56" title="公式的永久链接"></a></span>\[P(X) = \pi^x (1-\pi)^{1-x}\]</div>
 <p>根据随机变量期望的计算公式，伯努利变量的期望为</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-57">
-<span class="eqno">(1.8.4)<a class="headerlink" href="#equation-glm-source-content-57" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\mathbb{E}[X] &amp;= \sum_{x\in \{0,1\}} x P(X)\\&amp;= \sum_{x\in \{0,1\}} x  \pi^x (1-\pi)^{1-x}\\&amp;= \pi\end{aligned}\end{align} \]</div>
+<span class="eqno">(1.8.4)<a class="headerlink" href="#equation-glm-source-content-57" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\mathbb{E}[X] &amp;= \sum_{x\in \{0,1\}} x P(X)\\&amp;= \sum_{x\in \{0,1\}} x  \pi^x (1-\pi)^{1-x}\\&amp;= \pi\end{aligned}\end{align} \]</div>
 <p>可以看到，对于伯努利变量来说， <span class="math notranslate nohighlight">\(\pi\)</span> 既是 <span class="math notranslate nohighlight">\(X=1\)</span> 的概率，也是它的期望值。
 我们再来看下伯努利变量的方差。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-58">
-<span class="eqno">(1.8.5)<a class="headerlink" href="#equation-glm-source-content-58" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}V(X) &amp;= \mathbb{E}[(X-\mathbb{E}[X])^2]\\&amp;= \sum_{x\in \{0,1\}} (x-\mathbb{E}[X])^2 P(X)\\&amp;= \sum_{x\in \{0,1\}} (x-\pi)^2 \pi^x (1-\pi)^{1-x}\\&amp;= (-\pi)^2 \pi^0 (1-\pi)^{1-0} + (1-\pi)^2 \pi^1 (1-\pi)^{1-1}\\&amp;= \pi^2 (1-\pi) + (1-\pi)^2 \pi\\&amp;= \pi (1-\pi)\end{aligned}\end{align} \]</div>
-</div>
-<div class="section" id="id19">
-<h3><span class="section-number">1.8.2. </span>二项式分布<a class="headerlink" href="#id19" title="永久链接至标题">¶</a></h3>
+<span class="eqno">(1.8.5)<a class="headerlink" href="#equation-glm-source-content-58" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}V(X) &amp;= \mathbb{E}[(X-\mathbb{E}[X])^2]\\&amp;= \sum_{x\in \{0,1\}} (x-\mathbb{E}[X])^2 P(X)\\&amp;= \sum_{x\in \{0,1\}} (x-\pi)^2 \pi^x (1-\pi)^{1-x}\\&amp;= (-\pi)^2 \pi^0 (1-\pi)^{1-0} + (1-\pi)^2 \pi^1 (1-\pi)^{1-1}\\&amp;= \pi^2 (1-\pi) + (1-\pi)^2 \pi\\&amp;= \pi (1-\pi)\end{aligned}\end{align} \]</div>
+</section>
+<section id="id19">
+<h3><span class="section-number">1.8.2. </span>二项式分布<a class="headerlink" href="#id19" title="永久链接至标题"></a></h3>
 <p>单次伯努利试验的结果分布是伯努利分布，如果进行多次伯努利试验，试验结果中证明向上的次数定义为随机变量
 则这个随机变量的概率分布是二项式分布，
 <strong>注意这多次伯努利试验要求是同样的条件下重复地、相互独立地进行的</strong>。</p>
@@ -1791,23 +1703,25 @@ X &amp; P(X) \\\hline
 ，则 <span class="math notranslate nohighlight">\(X\)</span> 的概率分布称为二项式分布，一般记作 <span class="math notranslate nohighlight">\(X \sim B(n,\pi)\)</span>，
 其概率质量函数为</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-59">
-<span class="eqno">(1.8.6)<a class="headerlink" href="#equation-glm-source-content-59" title="公式的永久链接">¶</a></span>\[P(X) = \binom{n}{x} \pi^x (1-\pi)^{n-x}\]</div>
+<span class="eqno">(1.8.6)<a class="headerlink" href="#equation-glm-source-content-59" title="公式的永久链接"></a></span>\[P(X) = \binom{n}{x} \pi^x (1-\pi)^{n-x}\]</div>
 <p>变量 <span class="math notranslate nohighlight">\(X\)</span> 表示在 <span class="math notranslate nohighlight">\(n\)</span> 次试验中成功的次数，只是一个次数累计，
 对成功的位置并没有限制，因此在 <span class="math notranslate nohighlight">\(n\)</span> 次试验中任意位置成功 <span class="math notranslate nohighlight">\(X\)</span> 次都可以，
 所以上式中需要一个组合数项 <span class="math notranslate nohighlight">\(\binom{n}{x}\)</span> 。
 由于是在同样的条件下重复地、相互独立的进行试验，
 因此每一次试验成功的概率都是 <span class="math notranslate nohighlight">\(\pi\)</span> 。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-60">
-<span class="eqno">(1.8.7)<a class="headerlink" href="#equation-glm-source-content-60" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\mathbb{E}[X] &amp;= \sum_{x=0}^{n}  x P(X)\\&amp;= \sum_{x=0}^{n}  x \binom{n}{x} \pi^x (1-\pi)^{n-x}\\&amp;= \sum_{x=1}^{n}   \frac{xn!}{x!(n-x)!} \pi^x (1-\pi)^{n-x}\\&amp;= \sum_{x=1}^{n}   \frac{n \pi (n-1)!}{(x-1)![(n-1)-(x-1)]!} \pi^{x-1} (1-\pi)^{(n-1)-(x-1)}\\&amp;= n \pi   \underbrace{\sum_{x=1}^{n} \frac{ (n-1)!}{(x-1)![(n-1)-(x-1)]!} \pi^{x-1} (1-\pi)^{(n-1)-(x-1)}}_{
+<span class="eqno">(1.8.7)<a class="headerlink" href="#equation-glm-source-content-60" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\mathbb{E}[X] &amp;= \sum_{x=0}^{n}  x P(X)\\&amp;= \sum_{x=0}^{n}  x \binom{n}{x} \pi^x (1-\pi)^{n-x}\\&amp;= \sum_{x=1}^{n}   \frac{xn!}{x!(n-x)!} \pi^x (1-\pi)^{n-x}\\&amp;= \sum_{x=1}^{n}   \frac{n \pi (n-1)!}{(x-1)![(n-1)-(x-1)]!} \pi^{x-1} (1-\pi)^{(n-1)-(x-1)}\\&amp;= n \pi   \underbrace{\sum_{x=1}^{n} \frac{ (n-1)!}{(x-1)![(n-1)-(x-1)]!} \pi^{x-1} (1-\pi)^{(n-1)-(x-1)}}_{
 \text{相当于}n-1 \text{次二项分布的累加，等于}1}\\&amp;= n \pi\end{aligned}\end{align} \]</div>
 <p>二项式变量 <span class="math notranslate nohighlight">\(X\)</span> 表示 <span class="math notranslate nohighlight">\(n\)</span> 次伯努利试验中成功的次数
 ，它的期望值 <span class="math notranslate nohighlight">\(n \pi\)</span>。
 现在我们把它的概率分布用柱状图的形式呈现出来，以便直观的感受其中的变化。</p>
-<div class="figure align-center" id="id25">
+<figure class="align-center" id="id25">
 <span id="fg-probability-002"></span><a class="reference internal image-reference" href="../../../_images/二项式分布_1.jpg"><img alt="../../../_images/二项式分布_1.jpg" src="../../../_images/二项式分布_1.jpg" style="width: 448.0px; height: 336.0px;" /></a>
-<p class="caption"><span class="caption-number">图 1.8.1 </span><span class="caption-text">当 <span class="math notranslate nohighlight">\(\pi=0\)</span> 时，<span class="math notranslate nohighlight">\(P(X=0)=1,P(X&gt;0)=0\)</span> ；
-当 <span class="math notranslate nohighlight">\(\pi=1\)</span> 时，<span class="math notranslate nohighlight">\(P(X=n)=1,P(X&lt;n)=0\)</span> 。</span><a class="headerlink" href="#id25" title="永久链接至图片">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">图 1.8.1 </span><span class="caption-text">当 <span class="math notranslate nohighlight">\(\pi=0\)</span> 时，<span class="math notranslate nohighlight">\(P(X=0)=1,P(X&gt;0)=0\)</span> ；
+当 <span class="math notranslate nohighlight">\(\pi=1\)</span> 时，<span class="math notranslate nohighlight">\(P(X=n)=1,P(X&lt;n)=0\)</span> 。</span><a class="headerlink" href="#id25" title="永久链接至图片"></a></p>
+</figcaption>
+</figure>
 <p><a class="reference internal" href="#fg-probability-002"><span class="std std-numref">图 1.8.1</span></a> 所示是进行 <span class="math notranslate nohighlight">\(n=50\)</span> 次伯努利试验时，
 不同 <span class="math notranslate nohighlight">\(\pi\)</span> 值的情况下，二项式变量 <span class="math notranslate nohighlight">\(X\)</span> 的概率分布图。
 可以看到概率最大（最高的柱子）的点就是期望值 <span class="math notranslate nohighlight">\(n \pi\)</span> 的点
@@ -1819,12 +1733,12 @@ X &amp; P(X) \\\hline
 <p>最后我们看下二项式分布的方差，其计算过程如 <a class="reference internal" href="#equation-eq-probability-080">公式(1.8.8)</a> 所示，
 可以看到二项式分布的方差就是伯努利分布方差的 <span class="math notranslate nohighlight">\(n\)</span> 倍。</p>
 <div class="math notranslate nohighlight" id="equation-eq-probability-080">
-<span class="eqno">(1.8.8)<a class="headerlink" href="#equation-eq-probability-080" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}V(X) &amp;= \mathbb{E}[X^2] - (\mathbb{E}[X])^2\\&amp;=\mathbb{E}[X(X-1) +X ] - (\mathbb{E}[X])^2\\&amp;=\mathbb{E}[ X(X-1)] +\mathbb{E}[X] - (\mathbb{E}[X])^2\\&amp;= \sum_{x=0}^{n} \left [ x(x-1)  \binom{n}{x} \pi^x (1-\pi)^{n-x} \right ] + n \pi + (n \pi)^2\\&amp;= \sum_{x=0}^{n} \underbrace{\left [ x(x-1)   \frac{n!}{x!(n-x)!} \pi^x (1-\pi)^{n-x} \right ]}_{
+<span class="eqno">(1.8.8)<a class="headerlink" href="#equation-eq-probability-080" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}V(X) &amp;= \mathbb{E}[X^2] - (\mathbb{E}[X])^2\\&amp;=\mathbb{E}[X(X-1) +X ] - (\mathbb{E}[X])^2\\&amp;=\mathbb{E}[ X(X-1)] +\mathbb{E}[X] - (\mathbb{E}[X])^2\\&amp;= \sum_{x=0}^{n} \left [ x(x-1)  \binom{n}{x} \pi^x (1-\pi)^{n-x} \right ] + n \pi + (n \pi)^2\\&amp;= \sum_{x=0}^{n} \underbrace{\left [ x(x-1)   \frac{n!}{x!(n-x)!} \pi^x (1-\pi)^{n-x} \right ]}_{
   x=0,x=1\text{时此项为0，求和可以省去}  }+ n \pi + (n \pi)^2\\&amp;= \sum_{x=2}^{n} \left [ n(n-1)\pi^2 \frac{(n-2)!}{(x-2)![(n-2)-(x-2)]!} \pi^{x-2} (1-\pi)^{(n-2)-(x-2)} \right ] + n \pi + (n \pi)^2\\&amp;=  n(n-1)\pi^2  \underbrace{\sum_{x=2}^{n} \left [\frac{(n-2)!}{(x-2)![(n-2)-(x-2)]!} \pi^{x-2} (1-\pi)^{(n-2)-(x-2)} \right ]}_{
     \text{相当于概率分布} B(n-2,\pi) \text{的累积，其结果为}1  } + n \pi + (n \pi)^2\\&amp;= n(n-1)\pi^2  +  n \pi + (n \pi)^2\\&amp;= n^2\pi^2 - n \pi^2  +  n \pi + (n \pi)^2\\&amp;= n \pi(1-\pi)\end{aligned}\end{align} \]</div>
-</div>
-<div class="section" id="id20">
-<h3><span class="section-number">1.8.3. </span>类别分布<a class="headerlink" href="#id20" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id20">
+<h3><span class="section-number">1.8.3. </span>类别分布<a class="headerlink" href="#id20" title="永久链接至标题"></a></h3>
 <p>伯努利随机变量只有两个离散状态，
 如果一个离散随机变量拥有更多的离散状态，就称这个变量为类别变量（categorical variable）
 ，它的概率分布称为类别分布(categorical distribution)。
@@ -1833,8 +1747,8 @@ X &amp; P(X) \\\hline
 其取值空间记作 <span class="math notranslate nohighlight">\(\mathcal{X}=\{x_1,\dots,x_K\}\)</span>。
 变量 <span class="math notranslate nohighlight">\(X\)</span> 取值为 <span class="math notranslate nohighlight">\(x_i\)</span> 的概率记作 <span class="math notranslate nohighlight">\(\pi_i\)</span>
 ，类似于伯努利变量，类别变量的概率质量函数可以用一个分段函数表示。</p>
-<div class="math notranslate nohighlight" id="equation-eq-probability-031">
-<span class="eqno">(1.8.9)<a class="headerlink" href="#equation-eq-probability-031" title="公式的永久链接">¶</a></span>\[\begin{split}P(X) = \left \{
+<div class="math notranslate nohighlight" id="equation-eq-probability-081">
+<span class="eqno">(1.8.9)<a class="headerlink" href="#equation-eq-probability-081" title="公式的永久链接"></a></span>\[\begin{split}P(X) = \left \{
     \begin{aligned}
     \pi_1 &amp;, \quad \text{若}X=x_1 \\
     \pi_2 &amp;, \quad \text{若}X=x_2 \\
@@ -1849,7 +1763,7 @@ X &amp; P(X) \\\hline
 <p class="topic-title">指示函数</p>
 <p>定义如下函数为指示函数。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-61">
-<span class="eqno">(1.8.10)<a class="headerlink" href="#equation-glm-source-content-61" title="公式的永久链接">¶</a></span>\[\begin{split}\mathbb{I}(x,a)=\left\{
+<span class="eqno">(1.8.10)<a class="headerlink" href="#equation-glm-source-content-61" title="公式的永久链接"></a></span>\[\begin{split}\mathbb{I}(x,a)=\left\{
 \begin{aligned}
 1 &amp; \quad &amp;if \quad x = a \\
 0 &amp; \quad &amp;otherwise
@@ -1857,20 +1771,20 @@ X &amp; P(X) \\\hline
 \right.\end{split}\]</div>
 <p>当满足 <span class="math notranslate nohighlight">\(x=a\)</span> 是函数输出值为 <span class="math notranslate nohighlight">\(1\)</span>，反之函数输出值为 <span class="math notranslate nohighlight">\(0\)</span>。</p>
 </div>
-<p>利用指示函数可以把 <a class="reference internal" href="#equation-eq-probability-031">公式(1.8.9)</a> 改写成如下更简洁的形式。</p>
+<p>利用指示函数可以把 <a class="reference internal" href="#equation-eq-probability-081">公式(1.8.9)</a> 改写成如下更简洁的形式。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-62">
-<span class="eqno">(1.8.11)<a class="headerlink" href="#equation-glm-source-content-62" title="公式的永久链接">¶</a></span>\[P(X) = \prod_{k=1}^{K} \pi_i^{\mathbb{I} (x,x_k)}, \quad \sum_{k=1}^K \pi_k = 1\]</div>
+<span class="eqno">(1.8.11)<a class="headerlink" href="#equation-glm-source-content-62" title="公式的永久链接"></a></span>\[P(X) = \prod_{k=1}^{K} \pi_i^{\mathbb{I} (x,x_k)}, \quad \sum_{k=1}^K \pi_k = 1\]</div>
 <p>虽然通常会用连续的整数 <span class="math notranslate nohighlight">\({1,2,3,\cdots,K}\)</span> 表示对应的类别 <span class="math notranslate nohighlight">\(\{x_1,x_2,x_3,\cdots,x_K\}\)</span>
 ，但是要注意，对于类别变量的各个类别 <span class="math notranslate nohighlight">\(x_k\)</span> 之间是没有任何顺序、大小关系的，各个类别之间是独立的。
 因此它的期望和方差也是每个类别单独计算。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-63">
-<span class="eqno">(1.8.12)<a class="headerlink" href="#equation-glm-source-content-63" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\mathbb{E}[X=x_k] &amp;= \pi_k\\V(X=x_k) &amp;= \pi_k(1-\pi_k)\end{aligned}\end{align} \]</div>
+<span class="eqno">(1.8.12)<a class="headerlink" href="#equation-glm-source-content-63" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\mathbb{E}[X=x_k] &amp;= \pi_k\\V(X=x_k) &amp;= \pi_k(1-\pi_k)\end{aligned}\end{align} \]</div>
 <p>由于类别变量类别数多于 <span class="math notranslate nohighlight">\(2\)</span> 个，所以还需要给出类别之间的协方差。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-64">
-<span class="eqno">(1.8.13)<a class="headerlink" href="#equation-glm-source-content-64" title="公式的永久链接">¶</a></span>\[Cov(X_i,X_j) = - \pi_i \pi_j, \quad i \neq j\]</div>
-</div>
-<div class="section" id="id21">
-<h3><span class="section-number">1.8.4. </span>多项式分布<a class="headerlink" href="#id21" title="永久链接至标题">¶</a></h3>
+<span class="eqno">(1.8.13)<a class="headerlink" href="#equation-glm-source-content-64" title="公式的永久链接"></a></span>\[Cov(X_i,X_j) = - \pi_i \pi_j, \quad i \neq j\]</div>
+</section>
+<section id="id21">
+<h3><span class="section-number">1.8.4. </span>多项式分布<a class="headerlink" href="#id21" title="永久链接至标题"></a></h3>
 <p>我们知道，二值离散变量称为伯努利变量(Bernoulli variable)，其概率分布称为伯努利分布(Bernoulli distribution)，
 多次伯努利采样称为二项式分布(binomial distribution)，伯努利分布是二项式分布特例，即仅进行单次试验的情况。
 相对应的，多值离散变量称为类别变量(categorical variable)，其概率分布称为类别分布(categorical distribution)，
@@ -1885,13 +1799,13 @@ X &amp; P(X) \\\hline
 <p>假设随机变量 <span class="math notranslate nohighlight">\(X\)</span> 服从多项式分布，<span class="math notranslate nohighlight">\(x_k\)</span> 表示 <span class="math notranslate nohighlight">\(n\)</span> 次试验结果中类别 <span class="math notranslate nohighlight">\(k\)</span>
 出现的次数。对照着二项式分布的概率质量函数，可以直接给出多项式分布的概率质量函数。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-65">
-<span class="eqno">(1.8.14)<a class="headerlink" href="#equation-glm-source-content-65" title="公式的永久链接">¶</a></span>\[P(X) = \frac{n!}{x_1! x_2! \cdots x_K! } \prod_{k=1}^K \pi_k^{x_k}\]</div>
+<span class="eqno">(1.8.14)<a class="headerlink" href="#equation-glm-source-content-65" title="公式的永久链接"></a></span>\[P(X) = \frac{n!}{x_1! x_2! \cdots x_K! } \prod_{k=1}^K \pi_k^{x_k}\]</div>
 <p>同理多项式分布的期望和方差也是每个类别单独计算的。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-66">
-<span class="eqno">(1.8.15)<a class="headerlink" href="#equation-glm-source-content-66" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\mathbb{E}[X=x_k] &amp;= n \pi_k\\V(X=x_k) &amp;= n \pi_k(1-\pi_k)\\Cov(X_i,X_j) &amp;= -n \pi_i \pi_j, \quad i \neq j\end{aligned}\end{align} \]</div>
-</div>
-<div class="section" id="id22">
-<h3><span class="section-number">1.8.5. </span>高斯分布<a class="headerlink" href="#id22" title="永久链接至标题">¶</a></h3>
+<span class="eqno">(1.8.15)<a class="headerlink" href="#equation-glm-source-content-66" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\mathbb{E}[X=x_k] &amp;= n \pi_k\\V(X=x_k) &amp;= n \pi_k(1-\pi_k)\\Cov(X_i,X_j) &amp;= -n \pi_i \pi_j, \quad i \neq j\end{aligned}\end{align} \]</div>
+</section>
+<section id="id22">
+<h3><span class="section-number">1.8.5. </span>高斯分布<a class="headerlink" href="#id22" title="永久链接至标题"></a></h3>
 <p>高斯分布（Gaussian distribution），以德国数学家卡尔·弗里德里希·高斯的姓冠名，
 因其是日常生活中最常见的连续值概率分布，
 常在自然和社会科学领域中代表一个不明的随机变量，在统计学上十分重要，
@@ -1899,35 +1813,39 @@ X &amp; P(X) \\\hline
 <p>一个连续随机变量 <span class="math notranslate nohighlight">\(X\)</span> 若它的概率密度函数具有如下形式，则称它为高斯随机变量或者正态随机变量，
 记作 <span class="math notranslate nohighlight">\(X \sim N(\mu,\sigma^2)\)</span> 。</p>
 <div class="math notranslate nohighlight" id="equation-eq-probability-061">
-<span class="eqno">(1.8.16)<a class="headerlink" href="#equation-eq-probability-061" title="公式的永久链接">¶</a></span>\[f_X(x) = \frac{1}{\sigma\sqrt{2\pi }} e^{-\frac{(x-\mu)^2}{2 \sigma^2}}\]</div>
+<span class="eqno">(1.8.16)<a class="headerlink" href="#equation-eq-probability-061" title="公式的永久链接"></a></span>\[f_X(x) = \frac{1}{\sigma\sqrt{2\pi }} e^{-\frac{(x-\mu)^2}{2 \sigma^2}}\]</div>
 <p>高斯随机变量的期望和方差由下式给出</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-67">
-<span class="eqno">(1.8.17)<a class="headerlink" href="#equation-glm-source-content-67" title="公式的永久链接">¶</a></span>\[\mathbb{E} [X] = \mu,\quad V(X)=\sigma^2\]</div>
+<span class="eqno">(1.8.17)<a class="headerlink" href="#equation-glm-source-content-67" title="公式的永久链接"></a></span>\[\mathbb{E} [X] = \mu,\quad V(X)=\sigma^2\]</div>
 <p>高斯变量的概率密度函数 <a class="reference internal" href="#equation-eq-probability-061">公式(1.8.16)</a> 中的 <span class="math notranslate nohighlight">\(\mu\)</span> 和 <span class="math notranslate nohighlight">\(\sigma^2\)</span>
 分别对应着变量的期望和方差，<span class="math notranslate nohighlight">\(\sigma\)</span> 为标准差（standard deviation, SD）。
 期望决定分布的”中心”，方差影响着分布的”宽度”，
 我们通过图形来直观的感受下。</p>
-<div class="figure align-center" id="id26">
+<figure class="align-center" id="id26">
 <span id="fg-probability-005"></span><a class="reference internal image-reference" href="../../../_images/高斯分布_2.jpg"><img alt="../../../_images/高斯分布_2.jpg" src="../../../_images/高斯分布_2.jpg" style="width: 448.0px; height: 336.0px;" /></a>
-<p class="caption"><span class="caption-number">图 1.8.2 </span><span class="caption-text">固定标准差参数 <span class="math notranslate nohighlight">\(\sigma=4\)</span>,不同的期望参数 <span class="math notranslate nohighlight">\(\mu\)</span> 下图形的变化。</span><a class="headerlink" href="#id26" title="永久链接至图片">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">图 1.8.2 </span><span class="caption-text">固定标准差参数 <span class="math notranslate nohighlight">\(\sigma=4\)</span>,不同的期望参数 <span class="math notranslate nohighlight">\(\mu\)</span> 下图形的变化。</span><a class="headerlink" href="#id26" title="永久链接至图片"></a></p>
+</figcaption>
+</figure>
 <p><a class="reference internal" href="#fg-probability-005"><span class="std std-numref">图 1.8.2</span></a> 是期望参数不同取值的情况下，高斯分布概率密度函数图形的变化，
 为了凸显期望参数的影响， 我们固定方差参数的值。
 高斯分布的概率密度函数的曲线呈现一个重型曲线的形状，曲线的最高点就是期望值所在的点，显然期望值是概率最大的点。
 随着期望值从 <span class="math notranslate nohighlight">\(-2\)</span> 到 <span class="math notranslate nohighlight">\(4\)</span> 的变化，钟形曲线向右发生平移，
 因为曲线的中心在右移，
 <strong>期望值的变化会导致概率密度函数的曲线发生平移</strong>。</p>
-<div class="figure align-center" id="id27">
+<figure class="align-center" id="id27">
 <span id="fg-probability-006"></span><a class="reference internal image-reference" href="../../../_images/高斯分布_1.jpg"><img alt="../../../_images/高斯分布_1.jpg" src="../../../_images/高斯分布_1.jpg" style="width: 448.0px; height: 336.0px;" /></a>
-<p class="caption"><span class="caption-number">图 1.8.3 </span><span class="caption-text">固定期望参数 <span class="math notranslate nohighlight">\(\mu=0\)</span>,不同的标准差参数 <span class="math notranslate nohighlight">\(\sigma\)</span> 下图形的变化。</span><a class="headerlink" href="#id27" title="永久链接至图片">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">图 1.8.3 </span><span class="caption-text">固定期望参数 <span class="math notranslate nohighlight">\(\mu=0\)</span>,不同的标准差参数 <span class="math notranslate nohighlight">\(\sigma\)</span> 下图形的变化。</span><a class="headerlink" href="#id27" title="永久链接至图片"></a></p>
+</figcaption>
+</figure>
 <p>接下来，我们固定期望值参数为 <span class="math notranslate nohighlight">\(0\)</span>，
 观看不同的方差参数对曲线的影响，如 <a class="reference internal" href="#fg-probability-006"><span class="std std-numref">图 1.8.3</span></a> 所示。
 可以看出方差 <span class="math notranslate nohighlight">\(\sigma^2\)</span> 越小图形越”尖锐”
 ，反之，方差 <span class="math notranslate nohighlight">\(\sigma^2\)</span> 越大图形越”宽胖”。</p>
 <p>正态分布的累积分布函数（CDF）为</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-68">
-<span class="eqno">(1.8.18)<a class="headerlink" href="#equation-glm-source-content-68" title="公式的永久链接">¶</a></span>\[F_X(x;\mu,\sigma)=P(X \le x) = \frac{1}{\sigma\sqrt{2\pi }} \int_{-\infty}^x  \exp \left [ -\frac{(t-\mu)^2}{2 \sigma^2} \right ] dt\]</div>
+<span class="eqno">(1.8.18)<a class="headerlink" href="#equation-glm-source-content-68" title="公式的永久链接"></a></span>\[F_X(x;\mu,\sigma)=P(X \le x) = \frac{1}{\sigma\sqrt{2\pi }} \int_{-\infty}^x  \exp \left [ -\frac{(t-\mu)^2}{2 \sigma^2} \right ] dt\]</div>
 <p><a class="reference internal" href="#fg-probability-007"><span class="std std-numref">图 1.8.4</span></a> 是正态分布的累积分布函数的图形，
 由于均值参数 <span class="math notranslate nohighlight">\(\mu\)</span> 只影响图形的左右平移，不影响图形的形状，
 因此我们固定了均值参数 <span class="math notranslate nohighlight">\(\mu=0\)</span> ，观看不同标准差参数 <span class="math notranslate nohighlight">\(\sigma\)</span>
@@ -1935,19 +1853,21 @@ X &amp; P(X) \\\hline
 可以看到标准差 <span class="math notranslate nohighlight">\(\sigma\)</span> 影响着曲线的斜率，
 <span class="math notranslate nohighlight">\(\sigma\)</span> 越小曲线斜率越大，斜率越大说明累积概率上升的越快，
 对照着 <a class="reference internal" href="#fg-probability-006"><span class="std std-numref">图 1.8.3</span></a> 的概率密度曲线，不难理解这一点。</p>
-<div class="figure align-center" id="id28">
+<figure class="align-center" id="id28">
 <span id="fg-probability-007"></span><a class="reference internal image-reference" href="../../../_images/高斯分布_cdf.jpg"><img alt="../../../_images/高斯分布_cdf.jpg" src="../../../_images/高斯分布_cdf.jpg" style="width: 448.0px; height: 336.0px;" /></a>
-<p class="caption"><span class="caption-number">图 1.8.4 </span><span class="caption-text">固定均值 <span class="math notranslate nohighlight">\(\mu=0\)</span> 时，不同标准差 <span class="math notranslate nohighlight">\(\sigma\)</span> 下正态累计分布函数的变化。</span><a class="headerlink" href="#id28" title="永久链接至图片">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">图 1.8.4 </span><span class="caption-text">固定均值 <span class="math notranslate nohighlight">\(\mu=0\)</span> 时，不同标准差 <span class="math notranslate nohighlight">\(\sigma\)</span> 下正态累计分布函数的变化。</span><a class="headerlink" href="#id28" title="永久链接至图片"></a></p>
+</figcaption>
+</figure>
 <div class="topic">
 <p class="topic-title">线性变换之下正态性不变</p>
 <p>设 <span class="math notranslate nohighlight">\(X\)</span> 是正态随机变量，其均值为 <span class="math notranslate nohighlight">\(\mu\)</span>，方差为 <span class="math notranslate nohighlight">\(\sigma^2\)</span>。
 若 <span class="math notranslate nohighlight">\(a \ne 0\)</span> 和 <span class="math notranslate nohighlight">\(b\)</span> 是两个常数，则随机变量</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-69">
-<span class="eqno">(1.8.19)<a class="headerlink" href="#equation-glm-source-content-69" title="公式的永久链接">¶</a></span>\[Y = a X +b\]</div>
+<span class="eqno">(1.8.19)<a class="headerlink" href="#equation-glm-source-content-69" title="公式的永久链接"></a></span>\[Y = a X +b\]</div>
 <p>仍然是正态随机变量，并且其均值和方差为别为</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-70">
-<span class="eqno">(1.8.20)<a class="headerlink" href="#equation-glm-source-content-70" title="公式的永久链接">¶</a></span>\[\mathbb{E}[Y] = a \mu, \quad V(Y) = a^2 \sigma^2\]</div>
+<span class="eqno">(1.8.20)<a class="headerlink" href="#equation-glm-source-content-70" title="公式的永久链接"></a></span>\[\mathbb{E}[Y] = a \mu, \quad V(Y) = a^2 \sigma^2\]</div>
 <p>记作 <span class="math notranslate nohighlight">\(Y \sim N(a \mu,a^2 \sigma^2)\)</span></p>
 </div>
 <div class="topic">
@@ -1963,15 +1883,15 @@ X &amp; P(X) \\\hline
 <p>满足 <span class="math notranslate nohighlight">\(\mu=0,\ \sigma^1=1\)</span> 的正态分布称为 <strong>标准正态分布</strong>，
 此时其概率密度函数变得简单</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-71">
-<span class="eqno">(1.8.21)<a class="headerlink" href="#equation-glm-source-content-71" title="公式的永久链接">¶</a></span>\[f_X(x) = \frac{1}{\sqrt{2\pi }} e^{-\frac{(x)^2}{2} }\]</div>
+<span class="eqno">(1.8.21)<a class="headerlink" href="#equation-glm-source-content-71" title="公式的永久链接"></a></span>\[f_X(x) = \frac{1}{\sqrt{2\pi }} e^{-\frac{(x)^2}{2} }\]</div>
 <p>标准正态分布的累积分布函数习惯上记作 <span class="math notranslate nohighlight">\(\Phi\)</span> 。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-72">
-<span class="eqno">(1.8.22)<a class="headerlink" href="#equation-glm-source-content-72" title="公式的永久链接">¶</a></span>\[\Phi(x)= \frac{1}{\sqrt{2\pi }} \int_{-\infty}^x  \exp \left ( -\frac{t^2}{2 } \right ) dt\]</div>
+<span class="eqno">(1.8.22)<a class="headerlink" href="#equation-glm-source-content-72" title="公式的永久链接"></a></span>\[\Phi(x)= \frac{1}{\sqrt{2\pi }} \int_{-\infty}^x  \exp \left ( -\frac{t^2}{2 } \right ) dt\]</div>
 <p><strong>任意一个非标准的正态随机变量都可以转换成标准正态随机变量</strong>。
 假设一个随机变量 <span class="math notranslate nohighlight">\(X \sim N(\mu,\sigma^2)\)</span>
 ，则有如下随机变量是标准正态随机变量。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-73">
-<span class="eqno">(1.8.23)<a class="headerlink" href="#equation-glm-source-content-73" title="公式的永久链接">¶</a></span>\[Z = \frac{X-\mu}{\sigma} \sim N(0,1)\]</div>
+<span class="eqno">(1.8.23)<a class="headerlink" href="#equation-glm-source-content-73" title="公式的永久链接"></a></span>\[Z = \frac{X-\mu}{\sigma} \sim N(0,1)\]</div>
 <p>这个转换关系一定要牢记预选，在本书之后的内容中会多次应用。</p>
 <p>我们知道正态分布的概率密度函数曲线是一个左右对称的钟形曲线，
 对称的中心线就是期望值 <span class="math notranslate nohighlight">\(\mu\)</span> 的直线，
@@ -1985,10 +1905,12 @@ X &amp; P(X) \\\hline
 。同理， <span class="math notranslate nohighlight">\([1,2]\)</span> 和 <span class="math notranslate nohighlight">\([-2,-1]\)</span> 都是 <span class="math notranslate nohighlight">\(13.6\%\)</span>
 ，<span class="math notranslate nohighlight">\([2,3]\)</span> 和 <span class="math notranslate nohighlight">\([-3,-2]\)</span> 都是 <span class="math notranslate nohighlight">\(2.14\%\)</span>
 。</p>
-<div class="figure align-center" id="id29">
+<figure class="align-center" id="id29">
 <span id="fg-probability-008"></span><a class="reference internal image-reference" href="../../../_images/高斯分布_3.jpg"><img alt="../../../_images/高斯分布_3.jpg" src="../../../_images/高斯分布_3.jpg" style="width: 448.0px; height: 336.0px;" /></a>
-<p class="caption"><span class="caption-number">图 1.8.5 </span><span class="caption-text">标准正态分布 <span class="math notranslate nohighlight">\(N(0,1)\)</span> 概率密度函数的区间划分。</span><a class="headerlink" href="#id29" title="永久链接至图片">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">图 1.8.5 </span><span class="caption-text">标准正态分布 <span class="math notranslate nohighlight">\(N(0,1)\)</span> 概率密度函数的区间划分。</span><a class="headerlink" href="#id29" title="永久链接至图片"></a></p>
+</figcaption>
+</figure>
 <p>我们把中心两边合并起来，<span class="math notranslate nohighlight">\([-1,1]\)</span> 的区间面积占比就是 <span class="math notranslate nohighlight">\(68.3\%\)</span>
 ， <span class="math notranslate nohighlight">\([-2,2]\)</span> 的区间面积占比就是 <span class="math notranslate nohighlight">\(95.5\%\)</span>，
 <span class="math notranslate nohighlight">\([-3,3]\)</span> 的区间面积占比就是 <span class="math notranslate nohighlight">\(99.7\%\)</span>，
@@ -2009,10 +1931,12 @@ X &amp; P(X) \\\hline
 中心的不再是 <span class="math notranslate nohighlight">\(0\)</span>
 而是 <span class="math notranslate nohighlight">\(\mu\)</span>，
 子区间扩大了一个标准差 <span class="math notranslate nohighlight">\(\sigma\)</span> 。</p>
-<div class="figure align-center" id="id30">
+<figure class="align-center" id="id30">
 <span id="fg-probability-009"></span><a class="reference internal image-reference" href="../../../_images/高斯分布_4.jpg"><img alt="../../../_images/高斯分布_4.jpg" src="../../../_images/高斯分布_4.jpg" style="width: 448.0px; height: 336.0px;" /></a>
-<p class="caption"><span class="caption-number">图 1.8.6 </span><span class="caption-text">正态分布 <span class="math notranslate nohighlight">\(N(\mu,\sigma^2)\)</span> 概率密度函数的区间划分。</span><a class="headerlink" href="#id30" title="永久链接至图片">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">图 1.8.6 </span><span class="caption-text">正态分布 <span class="math notranslate nohighlight">\(N(\mu,\sigma^2)\)</span> 概率密度函数的区间划分。</span><a class="headerlink" href="#id30" title="永久链接至图片"></a></p>
+</figcaption>
+</figure>
 <ul class="simple">
 <li><p>区间 <span class="math notranslate nohighlight">\([\mu-1\sigma,\mu+1\sigma]\)</span> 的概率是 <span class="math notranslate nohighlight">\(68.3\%\)</span> 。</p></li>
 <li><p>区间 <span class="math notranslate nohighlight">\([\mu-2\sigma,\mu+2\sigma]\)</span> 的概率是 <span class="math notranslate nohighlight">\(95.5\%\)</span> 。</p></li>
@@ -2020,20 +1944,20 @@ X &amp; P(X) \\\hline
 </ul>
 <p>正态分布概率密度函数曲线的这个区间划分一定要理解，
 在之后讨论假设检验时会使用到。</p>
-</div>
-<div class="section" id="id23">
-<h3><span class="section-number">1.8.6. </span>卡方分布<a class="headerlink" href="#id23" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id23">
+<h3><span class="section-number">1.8.6. </span>卡方分布<a class="headerlink" href="#id23" title="永久链接至标题"></a></h3>
 <p>高斯变量的线性变换后仍然是服从高斯分布的，本节我们看下非线性的结果。
 设随机变量 <span class="math notranslate nohighlight">\(Z_i\)</span> 是均值为 <span class="math notranslate nohighlight">\(0\)</span> 方差为 <span class="math notranslate nohighlight">\(1\)</span> 的标准正态分布变量，
 随机变量 <span class="math notranslate nohighlight">\(X\)</span> 是由 <span class="math notranslate nohighlight">\(k\)</span> 个独立的 <strong>标准正态分布变量</strong> 的平方和组成。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-74">
-<span class="eqno">(1.8.24)<a class="headerlink" href="#equation-glm-source-content-74" title="公式的永久链接">¶</a></span>\[X = Z_1^2 + Z_2^2 + \cdots + Z_k^2 = \sum_{i=1}^k  Z_i^2\]</div>
+<span class="eqno">(1.8.24)<a class="headerlink" href="#equation-glm-source-content-74" title="公式的永久链接"></a></span>\[X = Z_1^2 + Z_2^2 + \cdots + Z_k^2 = \sum_{i=1}^k  Z_i^2\]</div>
 <p>则随机变量 <span class="math notranslate nohighlight">\(X\)</span> 被称为服从自由度（degree of freedom, df）为 <span class="math notranslate nohighlight">\(k\)</span> 的卡方分布，记作 <span class="math notranslate nohighlight">\(X \sim \chi^2(k)\)</span> 。
 卡方分布（chi-square distribution）， 也可以写作 <span class="math notranslate nohighlight">\(\chi^2\)</span> 分布，
 是一种特殊的伽玛分布，是统计推断中应用最为广泛的概率分布之一，例如假设检验和置信区间的计算。
 卡方分布的概率密度函数为：</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-75">
-<span class="eqno">(1.8.25)<a class="headerlink" href="#equation-glm-source-content-75" title="公式的永久链接">¶</a></span>\[f(x;k) = \frac{\frac{1}{2}^{\frac{k}{2}}}{\Gamma(\frac{k}{2})} x^{\frac{k}{2}-1} e^{-\frac{x}{2}}
+<span class="eqno">(1.8.25)<a class="headerlink" href="#equation-glm-source-content-75" title="公式的永久链接"></a></span>\[f(x;k) = \frac{\frac{1}{2}^{\frac{k}{2}}}{\Gamma(\frac{k}{2})} x^{\frac{k}{2}-1} e^{-\frac{x}{2}}
 , \quad x \ge 0\]</div>
 <p>卡方分布是一个平方和，因此变量值一定是大于等于0的，对于 <span class="math notranslate nohighlight">\(x &lt;0\)</span>，
 我们认为 <span class="math notranslate nohighlight">\(f(x)=0\)</span> 。
@@ -2043,23 +1967,27 @@ X &amp; P(X) \\\hline
 卡方分布的概率密度函数看上去十分复杂，没关系，我们不需要记住，需要的时候翻书就可以了。</p>
 <p>自由度为 <span class="math notranslate nohighlight">\(k\)</span> 的卡方变量的平均值是和方差是分别为</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-76">
-<span class="eqno">(1.8.26)<a class="headerlink" href="#equation-glm-source-content-76" title="公式的永久链接">¶</a></span>\[\mathbb{E}[X] = k, \quad V(x) = 2k\]</div>
+<span class="eqno">(1.8.26)<a class="headerlink" href="#equation-glm-source-content-76" title="公式的永久链接"></a></span>\[\mathbb{E}[X] = k, \quad V(x) = 2k\]</div>
 <p>现在我们来看下不同自由度下，卡方分布概率密度函数曲线的变化，
 如 <a class="reference internal" href="#fg-probability-011"><span class="std std-numref">图 1.8.7</span></a> 所示，
 可以看到随着自由度的增加，卡方分布的曲线逐步变成钟形曲线，
 越来越进行正态分布。</p>
-<div class="figure align-center" id="id31">
+<figure class="align-center" id="id31">
 <span id="fg-probability-011"></span><a class="reference internal image-reference" href="../../../_images/卡方分布.jpg"><img alt="../../../_images/卡方分布.jpg" src="../../../_images/卡方分布.jpg" style="width: 448.0px; height: 336.0px;" /></a>
-<p class="caption"><span class="caption-number">图 1.8.7 </span><span class="caption-text">随着自由度的增加，卡方分布的曲线逐步变成钟形曲线。</span><a class="headerlink" href="#id31" title="永久链接至图片">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">图 1.8.7 </span><span class="caption-text">随着自由度的增加，卡方分布的曲线逐步变成钟形曲线。</span><a class="headerlink" href="#id31" title="永久链接至图片"></a></p>
+</figcaption>
+</figure>
 <p>卡方分布的累积分布函数为</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-77">
-<span class="eqno">(1.8.27)<a class="headerlink" href="#equation-glm-source-content-77" title="公式的永久链接">¶</a></span>\[F(x;k) = \frac{\gamma (\frac{k}{2},\frac{x}{2}) }{\Gamma (\frac{k}{2})}\]</div>
+<span class="eqno">(1.8.27)<a class="headerlink" href="#equation-glm-source-content-77" title="公式的永久链接"></a></span>\[F(x;k) = \frac{\gamma (\frac{k}{2},\frac{x}{2}) }{\Gamma (\frac{k}{2})}\]</div>
 <p>其中 <span class="math notranslate nohighlight">\(\gamma\)</span> 为不完全 <span class="math notranslate nohighlight">\(\Gamma\)</span> 函数。</p>
-<div class="figure align-center" id="id32">
+<figure class="align-center" id="id32">
 <span id="fg-probability-012"></span><a class="reference internal image-reference" href="../../../_images/卡方分布_累积分布.jpg"><img alt="../../../_images/卡方分布_累积分布.jpg" src="../../../_images/卡方分布_累积分布.jpg" style="width: 448.0px; height: 336.0px;" /></a>
-<p class="caption"><span class="caption-number">图 1.8.8 </span><span class="caption-text">卡方分布的累积分布函数。</span><a class="headerlink" href="#id32" title="永久链接至图片">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">图 1.8.8 </span><span class="caption-text">卡方分布的累积分布函数。</span><a class="headerlink" href="#id32" title="永久链接至图片"></a></p>
+</figcaption>
+</figure>
 <p>可以明显看出卡方分布的自由度参数影响着其累积分布函数的斜率，
 自由度越小斜率越大，自由度越大斜率越小。</p>
 <p><strong>卡方分布的可加性</strong></p>
@@ -2074,27 +2002,27 @@ X &amp; P(X) \\\hline
 <p>设随机变量 <span class="math notranslate nohighlight">\(Z_i\)</span> 是均值为 <span class="math notranslate nohighlight">\(\mu_i\)</span> 方差为 <span class="math notranslate nohighlight">\(1\)</span> 的正态分布变量，
 随机变量 <span class="math notranslate nohighlight">\(X\)</span> 是由 <span class="math notranslate nohighlight">\(k\)</span> 个独立的 <strong>单位方差正态分布变量</strong> 的平方和组成。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-78">
-<span class="eqno">(1.8.28)<a class="headerlink" href="#equation-glm-source-content-78" title="公式的永久链接">¶</a></span>\[X = Z_1^2 + Z_2^2 + \cdots + Z_k^2 = \sum_{i=1}^k  Z_i^2\]</div>
+<span class="eqno">(1.8.28)<a class="headerlink" href="#equation-glm-source-content-78" title="公式的永久链接"></a></span>\[X = Z_1^2 + Z_2^2 + \cdots + Z_k^2 = \sum_{i=1}^k  Z_i^2\]</div>
 <p>则随机变量 <span class="math notranslate nohighlight">\(X\)</span> 被称为服从自由度为 <span class="math notranslate nohighlight">\(k\)</span> 的 <strong>非中心化卡方分布（Noncentral chi-squared distribution）</strong>，
 为了区分二者，由标准正态分布得到的卡方分布可以称为 <strong>中心化卡方分布</strong>。
 非中心化卡方分布的概率密度函数中多了一个非中心化参数 <span class="math notranslate nohighlight">\(\lambda\)</span>
 。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-79">
-<span class="eqno">(1.8.29)<a class="headerlink" href="#equation-glm-source-content-79" title="公式的永久链接">¶</a></span>\[f(x;\lambda,k) = e^{-\lambda/2} \sum_{i=0}^{\infty}
+<span class="eqno">(1.8.29)<a class="headerlink" href="#equation-glm-source-content-79" title="公式的永久链接"></a></span>\[f(x;\lambda,k) = e^{-\lambda/2} \sum_{i=0}^{\infty}
 \frac{(\lambda/2)^k }{k!} f_{Y_{k+2i}}(x)\]</div>
 <p>其中 <span class="math notranslate nohighlight">\(f_{Y_{k+2i}}(x)\)</span> 是自由度为 <span class="math notranslate nohighlight">\(k+2i\)</span> 的中心卡方分布的概率密度函数。
 <span class="math notranslate nohighlight">\(\lambda\)</span> 称为非中心化参数（non-centrality parameter），
 由下式给出</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-80">
-<span class="eqno">(1.8.30)<a class="headerlink" href="#equation-glm-source-content-80" title="公式的永久链接">¶</a></span>\[\lambda = \sum_{i=1}^k \mu_i^2\]</div>
+<span class="eqno">(1.8.30)<a class="headerlink" href="#equation-glm-source-content-80" title="公式的永久链接"></a></span>\[\lambda = \sum_{i=1}^k \mu_i^2\]</div>
 <p>非中心化卡方分布的概率密度函数变得异常复杂，我们无需关注它的细节，
 只需要清楚非中心化卡方分布和中心化卡方分布的区别即可。
 非中心化卡方分布的期望和方差为</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-81">
-<span class="eqno">(1.8.31)<a class="headerlink" href="#equation-glm-source-content-81" title="公式的永久链接">¶</a></span>\[\mathbb{E}[X] = k+\lambda, \quad V(x) = 2(k+2\lambda)\]</div>
-</div>
-<div class="section" id="t">
-<span id="ch-probability-t"></span><h3><span class="section-number">1.8.7. </span>t分布<a class="headerlink" href="#t" title="永久链接至标题">¶</a></h3>
+<span class="eqno">(1.8.31)<a class="headerlink" href="#equation-glm-source-content-81" title="公式的永久链接"></a></span>\[\mathbb{E}[X] = k+\lambda, \quad V(x) = 2(k+2\lambda)\]</div>
+</section>
+<section id="t">
+<span id="ch-probability-t"></span><h3><span class="section-number">1.8.7. </span>t分布<a class="headerlink" href="#t" title="永久链接至标题"></a></h3>
 <p>t分布的推导最早由大地测量学家F <code class="docutils literal notranslate"><span class="pre">riedrich</span> <span class="pre">Robert</span> <span class="pre">Helmert</span></code> 于1876年提出，并由数学家 <code class="docutils literal notranslate"><span class="pre">Lüroth</span></code> 证明。
 英国人威廉·戈塞（Willam S. Gosset）于1908年再次发现并发表了t分布，
 当时他还在爱尔兰都柏林的吉尼斯（Guinness）啤酒酿酒厂工作。
@@ -2111,17 +2039,17 @@ t分布是标准正态分布的一个近似分布，当不知道标准正态分�
 为随机变量 <span class="math notranslate nohighlight">\(X\)</span> 的一个独立同分布的观测样本序列，
 则样本的均值为</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-82">
-<span class="eqno">(1.8.32)<a class="headerlink" href="#equation-glm-source-content-82" title="公式的永久链接">¶</a></span>\[\bar{X}_N = \frac{X_1+X_2+\cdots+X_N}{N}\]</div>
+<span class="eqno">(1.8.32)<a class="headerlink" href="#equation-glm-source-content-82" title="公式的永久链接"></a></span>\[\bar{X}_N = \frac{X_1+X_2+\cdots+X_N}{N}\]</div>
 <p>样本的方差为</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-83">
-<span class="eqno">(1.8.33)<a class="headerlink" href="#equation-glm-source-content-83" title="公式的永久链接">¶</a></span>\[S_N^2 = \frac{1}{N-1} \sum_{i=1}^N(X_i - \bar{X})^2\]</div>
+<span class="eqno">(1.8.33)<a class="headerlink" href="#equation-glm-source-content-83" title="公式的永久链接"></a></span>\[S_N^2 = \frac{1}{N-1} \sum_{i=1}^N(X_i - \bar{X})^2\]</div>
 <p>定义如下变量</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-84">
-<span class="eqno">(1.8.34)<a class="headerlink" href="#equation-glm-source-content-84" title="公式的永久链接">¶</a></span>\[T= \frac{\bar{X}_N - \mu}{\frac{S_N}{\sqrt{N}}}\]</div>
+<span class="eqno">(1.8.34)<a class="headerlink" href="#equation-glm-source-content-84" title="公式的永久链接"></a></span>\[T= \frac{\bar{X}_N - \mu}{\frac{S_N}{\sqrt{N}}}\]</div>
 <p>则变量 <span class="math notranslate nohighlight">\(T\)</span> 是一个随机变量，它的分布称为 t-分布，
 它的概率密度函数是</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-85">
-<span class="eqno">(1.8.35)<a class="headerlink" href="#equation-glm-source-content-85" title="公式的永久链接">¶</a></span>\[f(t) = \frac{\Gamma(\frac{\nu+1}{2})}{\sqrt{\nu\pi}\Gamma(\frac{\nu}{2})}(1+\frac{t^2}{\nu})^{\frac{-(\nu+1)}{2}}\]</div>
+<span class="eqno">(1.8.35)<a class="headerlink" href="#equation-glm-source-content-85" title="公式的永久链接"></a></span>\[f(t) = \frac{\Gamma(\frac{\nu+1}{2})}{\sqrt{\nu\pi}\Gamma(\frac{\nu}{2})}(1+\frac{t^2}{\nu})^{\frac{-(\nu+1)}{2}}\]</div>
 <p>其中 <span class="math notranslate nohighlight">\(\nu=N-1\)</span>，参数 <span class="math notranslate nohighlight">\(\nu\)</span> 一般称为自由度，<span class="math notranslate nohighlight">\(\Gamma\)</span> 是伽马函数。
 当 <span class="math notranslate nohighlight">\(\nu&gt;1\)</span> 时，它的期望是 <span class="math notranslate nohighlight">\(0\)</span>，<span class="math notranslate nohighlight">\(\nu=1\)</span> 时未定义。
 当 <span class="math notranslate nohighlight">\(\nu&gt;2\)</span> 时，它的方差是 <span class="math notranslate nohighlight">\(\nu/(\nu-2)\)</span>，否则无穷大。</p>
@@ -2129,11 +2057,13 @@ t分布是标准正态分布的一个近似分布，当不知道标准正态分�
 并且随着自由度的增加，二者越来越接近，当自由度足够大时，t分布就等价于标准正态分布。
 <a class="reference internal" href="#fg-probability-015"><span class="std std-numref">图 1.8.9</span></a> 展示了自由度分别为 <span class="math notranslate nohighlight">\(1, 2, 3, 5, 10, 30\)</span> 时，
 t分布和标准正态分布的差异，可以看到当自由度是 <span class="math notranslate nohighlight">\(30\)</span> 时，二者已经基本重合。</p>
-<div class="figure align-center" id="id33">
+<figure class="align-center" id="id33">
 <span id="fg-probability-015"></span><a class="reference internal image-reference" href="../../../_images/t分布.jpg"><img alt="../../../_images/t分布.jpg" src="../../../_images/t分布.jpg" style="width: 896.0px; height: 1007.3px;" /></a>
-<p class="caption"><span class="caption-number">图 1.8.9 </span><span class="caption-text">t分布的概率密度函数和标准正态分布概率密度函数的对比。
-当自由度为 <span class="math notranslate nohighlight">\(30\)</span> 时，二者基本重合。</span><a class="headerlink" href="#id33" title="永久链接至图片">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">图 1.8.9 </span><span class="caption-text">t分布的概率密度函数和标准正态分布概率密度函数的对比。
+当自由度为 <span class="math notranslate nohighlight">\(30\)</span> 时，二者基本重合。</span><a class="headerlink" href="#id33" title="永久链接至图片"></a></p>
+</figcaption>
+</figure>
 <p>从图形可以看出，二者期望是一样的，都是 <span class="math notranslate nohighlight">\(0\)</span>
 。当自由度小于 <span class="math notranslate nohighlight">\(30\)</span> 时，
 t分布的方差是略大于标准正态分布的。
@@ -2145,9 +2075,9 @@ t分布的方差是略大于标准正态分布的。
 直接使用样本方差作为标准正态分布的方差估计值，
 然后直接使用标准正态分布 <span class="math notranslate nohighlight">\(N(0,S_N)\)</span> 进行分析使用也是可以的，
 因为此时t分布和标准正态分布已经没有区别了。</p>
-</div>
-<div class="section" id="f">
-<h3><span class="section-number">1.8.8. </span>F分布<a class="headerlink" href="#f" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="f">
+<h3><span class="section-number">1.8.8. </span>F分布<a class="headerlink" href="#f" title="永久链接至标题"></a></h3>
 <p>卡方分布、t分布和F分布是统计学中正态总体的三大抽样分布，
 有关什么是总体分布与抽样分布，我们在 <a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-sample-distribution"><span class="std std-numref">节 3.2</span></a>
 会详细讨论。</p>
@@ -2156,44 +2086,55 @@ t分布的方差是略大于标准正态分布的。
 <p>假设 <span class="math notranslate nohighlight">\(U_1\)</span> 和 <span class="math notranslate nohighlight">\(U_1\)</span> 分别自由度为 <span class="math notranslate nohighlight">\(d_1\)</span> 和 <span class="math notranslate nohighlight">\(d_2\)</span>
 的两个 <strong>独立</strong> 卡方随机变量，则如下随机变量服从F分布。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-86">
-<span class="eqno">(1.8.36)<a class="headerlink" href="#equation-glm-source-content-86" title="公式的永久链接">¶</a></span>\[F = \frac{U_1/d_1}{U_2/d_2}\]</div>
+<span class="eqno">(1.8.36)<a class="headerlink" href="#equation-glm-source-content-86" title="公式的永久链接"></a></span>\[F = \frac{U_1/d_1}{U_2/d_2}\]</div>
 <p>F分布的概率密度函数有两个参数 <span class="math notranslate nohighlight">\(d_1\)</span> 和 <span class="math notranslate nohighlight">\(d_2\)</span>
 ，记作 <span class="math notranslate nohighlight">\(F(d_1,d_2)\)</span> 。
 F分布的期望值为</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-87">
-<span class="eqno">(1.8.37)<a class="headerlink" href="#equation-glm-source-content-87" title="公式的永久链接">¶</a></span>\[\frac{d_2}{d_2-2},\quad d_2 &gt; 2\]</div>
+<span class="eqno">(1.8.37)<a class="headerlink" href="#equation-glm-source-content-87" title="公式的永久链接"></a></span>\[\frac{d_2}{d_2-2},\quad d_2 &gt; 2\]</div>
 <p>它的方差是</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-88">
-<span class="eqno">(1.8.38)<a class="headerlink" href="#equation-glm-source-content-88" title="公式的永久链接">¶</a></span>\[\frac{2d_2^2(d_1+d_2-2)}{d_1(d_2-2)^2(d_2-4)}, \quad d_2 &gt; 4\]</div>
+<span class="eqno">(1.8.38)<a class="headerlink" href="#equation-glm-source-content-88" title="公式的永久链接"></a></span>\[\frac{2d_2^2(d_1+d_2-2)}{d_1(d_2-2)^2(d_2-4)}, \quad d_2 &gt; 4\]</div>
 <p><a class="reference internal" href="#fg-probability-017"><span class="std std-numref">图 1.8.10</span></a> 是F分布的概率密度函数曲线，
 可以看出随着 <span class="math notranslate nohighlight">\(d_1,d_2\)</span> 的增加，F分布会变成一个类似正态分布的曲线，
 并且越来越尖锐。</p>
-<div class="figure align-center" id="id34">
+<figure class="align-center" id="id34">
 <span id="fg-probability-017"></span><a class="reference internal image-reference" href="../../../_images/F分布概率密度.jpg"><img alt="../../../_images/F分布概率密度.jpg" src="../../../_images/F分布概率密度.jpg" style="width: 448.0px; height: 336.0px;" /></a>
-<p class="caption"><span class="caption-number">图 1.8.10 </span><span class="caption-text">F分布的概率密度</span><a class="headerlink" href="#id34" title="永久链接至图片">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">图 1.8.10 </span><span class="caption-text">F分布的概率密度</span><a class="headerlink" href="#id34" title="永久链接至图片"></a></p>
+</figcaption>
+</figure>
 <p>到这里我们发现无论是卡方分布、t分布、F分布都和正态分布有关系，
 实际上，大部分概率分布都是和正态分布有关系的，
 本章最后，我们给出一张图（<a class="reference internal" href="#fg-probability-020"><span class="std std-numref">图 1.8.11</span></a>）来直观感受一下。</p>
-<div class="figure align-center" id="id35">
+<figure class="align-center" id="id35">
 <span id="fg-probability-020"></span><a class="reference internal image-reference" href="../../../_images/概率分布之间的关系.png"><img alt="../../../_images/概率分布之间的关系.png" src="../../../_images/概率分布之间的关系.png" style="width: 981.4px; height: 1229.1999999999998px;" /></a>
-<p class="caption"><span class="caption-number">图 1.8.11 </span><span class="caption-text">概率分布之间的关系图</span><a class="headerlink" href="#id35" title="永久链接至图片">¶</a></p>
-</div>
-</div>
-</div>
-</div>
+<figcaption>
+<p><span class="caption-number">图 1.8.11 </span><span class="caption-text">概率分布之间的关系图</span><a class="headerlink" href="#id35" title="永久链接至图片"></a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../%E6%9C%80%E5%A4%A7%E4%BC%BC%E7%84%B6%E4%BC%B0%E8%AE%A1/content.html" class="btn btn-neutral float-right" title="2. 最大似然估计" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="../index.html" class="btn btn-neutral float-left" title="广义线性模型" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../index.html" class="btn btn-neutral float-left" title="广义线性模型" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../%E6%9C%80%E5%A4%A7%E4%BC%BC%E7%84%B6%E4%BC%B0%E8%AE%A1/content.html" class="btn btn-neutral float-right" title="2. 最大似然估计" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2018, zhangzhenhu(acmtiger@outlook.com) 禁止一切形式的转载！.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
+  
 
 
     <script src="https://utteranc.es/client.js"
@@ -2206,42 +2147,16 @@ F分布的期望值为</p>
 
 
 
-  <div role="contentinfo">
-    <p>
-        &#169; 版权所有 2018, zhangzhenhu(acmtiger@outlook.com) 禁止一切形式的转载！.
-
-    </p>
-  </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-
-
-
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

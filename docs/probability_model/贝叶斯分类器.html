@@ -1,99 +1,51 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="zh-CN" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>16. 贝叶斯分类器 &mdash; 张振虎的博客 张振虎 文档</title>
-  
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
     <link rel="canonical" href="https://zhangzhenhu.github.io/blog/probability_model/贝叶斯分类器.html" />
-
-  
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/translations.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2.7.7/unpacked/MathJax.min.js"></script>
         <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"Macros": {"RR": "{\\bf R}", "bold": ["{\\bf #1}", 1]}}})</script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
+    <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
     <link rel="next" title="17. 回归模型" href="21.%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92_29.html" />
     <link rel="prev" title="15. 马尔科夫蒙特卡洛" href="17.%E9%87%87%E6%A0%B7%E6%B3%95_lecture_18.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../index.html" class="icon icon-home"> 张振虎的博客
-          
-
-          
           </a>
-
-          
-            
-            
               <div class="version">
                 acmtiger@outlook.com
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="在文档中搜索" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">目录:</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">目录:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../glm/source/index.html">广义线性模型</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../glm/source/%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80/content.html">1. 概率基础</a><ul>
@@ -141,7 +93,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#id2">3.1. 统计量和充分统计量</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-sample-distribution">3.2. 抽样分布</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-sample-distribution-normal">3.2.1. 正态分布</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#t">3.2.2. t分布</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#t">3.2.2. 学生t分布</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#id5">3.2.3. 卡方分布</a></li>
 </ul>
 </li>
@@ -746,7 +698,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../audio/feature.html#id18">1.5. 分帧与加窗</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../audio/feature.html#id19">1.5.1. 预加重处理</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../audio/feature.html#id20">1.5.2. 分帧与加窗</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../audio/feature.html#id20">1.5.2. 分帧与加窗处理</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../audio/feature.html#id21">1.6. 声音的感官度量</a><ul>
@@ -788,26 +740,26 @@
 <li class="toctree-l2"><a class="reference internal" href="../edm/bkt.html">1. 贝叶斯知识追踪(Bayesian Knowledge Tracing,BKT)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id1">1.1. 简介</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#hidden-markov-model-hmm">1.2. 隐马尔科夫模型(Hidden Markov Model,HMM)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id5">1.3. 贝叶斯知识追踪(Bayesian Knowledge Tracing,BKT)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#bayesian-knowledge-tracing">1.3. 贝叶斯知识追踪(Bayesian Knowledge Tracing)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#bkt">1.3.1. BKT的参数估计</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#item-response-theory-irt">1.4. 项目反映理论(Item Response Theory,IRT)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#bktirt">1.5. BKT结合IRT</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id6">1.6. 实验</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id7">1.6.1. 数据集</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id8">1.6.2. 实验方法</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id9">1.6.3. 实验结果</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id10">1.6.4. 项目代码</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id5">1.6. 实验</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id6">1.6.1. 数据集</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id7">1.6.2. 实验方法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id8">1.6.3. 实验结果</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id9">1.6.4. 项目代码</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id11">1.7. 未来工作</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id12">1.7.1. 题目难度的计算</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id10">1.7. 未来工作</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id11">1.7.1. 题目难度的计算</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#irt">1.7.2. 多参数IRT模型</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id13">1.7.3. 参数估计算法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id12">1.7.3. 参数估计算法</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id14">1.8. 参考文献</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id13">1.8. 参考文献</a></li>
 </ul>
 </li>
 </ul>
@@ -904,75 +856,33 @@
 </li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">张振虎的博客</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="index_html.html">概率图</a> &raquo;</li>
-        
       <li><span class="section-number">16. </span>贝叶斯分类器</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
-            <a href="../_sources/probability_model/贝叶斯分类器.rst.txt" rel="nofollow"> View page source</a>
-          
-        
+            <a href="../_sources/probability_model/贝叶斯分类器.rst.txt" rel="nofollow"> 查看页面源码</a>
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="id1">
-<h1><span class="section-number">16. </span>贝叶斯分类器<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+             
+  <section id="id1">
+<h1><span class="section-number">16. </span>贝叶斯分类器<a class="headerlink" href="#id1" title="永久链接至标题"></a></h1>
 <p>在之前的章节中，主要讨论概率图的基础知识，包括概率图的表示、推断和学习三个基本问题。
 本章开始，我们讨论基于概率图的应用模型，虽然这些应用模型未必都是基于概率图理论提出的，但是都是可以用概率图去解释的。
 通过概率图理论，可以为这些模型构建一套完整的理论体系，更有利于这些模型的学习和研究。
@@ -992,14 +902,14 @@
 不同的算法模型就是对条件概率分布 <span class="math notranslate nohighlight">\(P(Y|X)\)</span> 不同的建模方法，
 这里最容易想到的方法就是利用贝叶斯定理，</p>
 <div class="math notranslate nohighlight" id="equation-eq-bc-002">
-<span class="eqno">(16.2)<a class="headerlink" href="#equation-eq-bc-002" title="公式的永久链接">¶</a></span>\[P(Y|X) = \frac{P(X,Y)}{P(X)} = \frac{P(Y)P(X|Y)}{P(X)}\]</div>
+<span class="eqno">(16.2)<a class="headerlink" href="#equation-eq-bc-002" title="公式的永久链接"></a></span>\[P(Y|X) = \frac{P(X,Y)}{P(X)} = \frac{P(Y)P(X|Y)}{P(X)}\]</div>
 <p>条件概率 <span class="math notranslate nohighlight">\(P(Y|X)\)</span> 可以通过联合概率 <span class="math notranslate nohighlight">\(P(X,Y)\)</span> 推断得到，
 我们用贝叶斯网络（概率有向图）来表示联合概率 <span class="math notranslate nohighlight">\(P(X,Y)\)</span> ，其图形结构如
 <a class="reference internal" href="#fig-bc-002"><span class="std std-numref">图 16.1</span></a> 所示。
 注意其中边的方向是从 <span class="math notranslate nohighlight">\(Y\)</span> 指向 <span class="math notranslate nohighlight">\(X\)</span> 的，
 这是因为对 <span class="math notranslate nohighlight">\(P(X,Y)\)</span> 的分解是 <span class="math notranslate nohighlight">\(P(Y)P(X|Y)\)</span>
 。</p>
-<div class="figure align-center" id="id12">
+<figure class="align-center" id="id12">
 <span id="fig-bc-002"></span><div class="graphviz"><object data="../_images/graphviz-1ca3fabc02dffeaae9f63399dff269cdcc84b6fd.svg" type="image/svg+xml" class="graphviz">
 <p class="warning">digraph 一个树形概率图模型 {
 node[shape=circle]
@@ -1016,8 +926,10 @@ y[label=Y]
 y -&gt; xh[ style=invisible dir=none ]
 y -&gt; {x1 x2 x3 xm}
 }</p></object></div>
-<p class="caption"><span class="caption-number">图 16.1 </span><span class="caption-text">贝叶斯分类</span><a class="headerlink" href="#id12" title="永久链接至图片">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">图 16.1 </span><span class="caption-text">贝叶斯分类</span><a class="headerlink" href="#id12" title="永久链接至图片"></a></p>
+</figcaption>
+</figure>
 <p><a class="reference internal" href="#fig-bc-002"><span class="std std-numref">图 16.1</span></a> 所表示的结构忽略了特征变量 <span class="math notranslate nohighlight">\(X\)</span> 之间的关系，
 实际上特征变量 <span class="math notranslate nohighlight">\(X\)</span> 之间很可能会存在某些关系，
 可以根据特征变量 <span class="math notranslate nohighlight">\(X\)</span> 之间是否满足条件独立分成三种情况：</p>
@@ -1026,7 +938,7 @@ y -&gt; {x1 x2 x3 xm}
 <li><p>特征变量之间 <em>部分</em> 条件独立，如 <a class="reference internal" href="#fig-bc-003"><span class="std std-numref">图 16.2</span></a> (b) 所示。</p></li>
 <li><p>特征变量之间 <em>完全不</em> 独立，如 <a class="reference internal" href="#fig-bc-003"><span class="std std-numref">图 16.2</span></a> (c) 所示。</p></li>
 </ul>
-<div class="figure align-center" id="id13">
+<figure class="align-center" id="id13">
 <span id="fig-bc-003"></span><div class="graphviz"><object data="../_images/graphviz-709b79b3a0c469eaf7d719bc149f4eb2a14fae68.svg" type="image/svg+xml" class="graphviz">
 <p class="warning">digraph 一个树形概率图模型 {
 node[shape=circle]
@@ -1075,29 +987,31 @@ subgraph cluster_3 {
         c_y -&gt; c_x
 }
 }</p></object></div>
-<p class="caption"><span class="caption-number">图 16.2 </span><span class="caption-text">（a）特征变量完全条件独立；（b）特征变量部分条件独立；（c）特征变量完全不独立。</span><a class="headerlink" href="#id13" title="永久链接至图片">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">图 16.2 </span><span class="caption-text">（a）特征变量完全条件独立；（b）特征变量部分条件独立；（c）特征变量完全不独立。</span><a class="headerlink" href="#id13" title="永久链接至图片"></a></p>
+</figcaption>
+</figure>
 <p>特征变量 <span class="math notranslate nohighlight">\(X\)</span> 的条件独立性影响着类别条件概率 <span class="math notranslate nohighlight">\(P(X|Y)\)</span> 的因子分解方式，
 如果特征变量 <span class="math notranslate nohighlight">\(X\)</span> 之间是完全条件独立的，则类别条件概率 <span class="math notranslate nohighlight">\(P(X|Y)\)</span>
 可以分解成一个简单模式，</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-0">
-<span class="eqno">(16.3)<a class="headerlink" href="#equation-probability-model-0" title="公式的永久链接">¶</a></span>\[P(X|Y) = \prod_{i=1}^m P(X_i|Y)\]</div>
+<span class="eqno">(16.3)<a class="headerlink" href="#equation-probability-model-0" title="公式的永久链接"></a></span>\[P(X|Y) = \prod_{i=1}^m P(X_i|Y)\]</div>
 <p>相反，如果特征变量 <span class="math notranslate nohighlight">\(X\)</span> 之间不是完全独立的，则类别条件概率 <span class="math notranslate nohighlight">\(P(X|Y)\)</span>
 的因子分解式是一个相对比较复杂的形式，</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-1">
-<span class="eqno">(16.4)<a class="headerlink" href="#equation-probability-model-1" title="公式的永久链接">¶</a></span>\[P(X|Y) = \prod_{i=1}^m P(X_i|Y,Pa(X_i))\]</div>
+<span class="eqno">(16.4)<a class="headerlink" href="#equation-probability-model-1" title="公式的永久链接"></a></span>\[P(X|Y) = \prod_{i=1}^m P(X_i|Y,Pa(X_i))\]</div>
 <p>其中 <span class="math notranslate nohighlight">\(Pa(X_i)\)</span> 表示 <span class="math notranslate nohighlight">\(X_i\)</span> 的父结点集合（不包括 <span class="math notranslate nohighlight">\(Y\)</span>）。
 这个形式无论是空间复杂度还是时间复杂度都将是指数级的。</p>
-<div class="section" id="id2">
-<h2><span class="section-number">16.1. </span>朴素贝叶斯模型<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<section id="id2">
+<h2><span class="section-number">16.1. </span>朴素贝叶斯模型<a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
 <p>朴素贝叶斯模型(naive Bayes classifier)是贝叶斯分类器的一个特例，是众多贝叶斯分类器中最简单的一个。
 <strong>“朴素”两个字特指特征变量</strong> <span class="math notranslate nohighlight">\(X\)</span> <strong>之间满足完全条件独立性</strong>，
 这个假设极大的简化了模型的复杂度，因此称为朴素（naive）。
 除此之外，朴素贝叶斯模型还假设所有特征变量都是离散变量，
 如果实际应用场景中存在连续值特征，可以先对其进行分段离散化，再应用朴素贝叶斯模型。</p>
-<div class="section" id="id3">
-<h3><span class="section-number">16.1.1. </span>模型表示<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h3>
-<div class="figure align-center" id="id14">
+<section id="id3">
+<h3><span class="section-number">16.1.1. </span>模型表示<a class="headerlink" href="#id3" title="永久链接至标题"></a></h3>
+<figure class="align-center" id="id14">
 <span id="fig-bc-012"></span><div class="graphviz"><object data="../_images/graphviz-e74431edda4464bfd5f0b8aaf8209e41f97905b8.svg" type="image/svg+xml" class="graphviz">
 <p class="warning">digraph fig_bc_012 {
 node[shape=circle]
@@ -1114,38 +1028,40 @@ y[label=Y]
 y -&gt; xh[ style=invisible dir=none ]
 y -&gt; {x1 x2 x3 xn}
 }</p></object></div>
-<p class="caption"><span class="caption-number">图 16.1.1 </span><span class="caption-text">朴素贝叶斯模型的有向图结构</span><a class="headerlink" href="#id14" title="永久链接至图片">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">图 16.1.1 </span><span class="caption-text">朴素贝叶斯模型的有向图结构</span><a class="headerlink" href="#id14" title="永久链接至图片"></a></p>
+</figcaption>
+</figure>
 <p>朴素贝叶斯模型的有向图形式如 <a class="reference internal" href="#fig-bc-012"><span class="std std-numref">图 16.1.1</span></a> 所示，
 根据条件独立性假设，条件概率 <span class="math notranslate nohighlight">\(P(X|Y)\)</span>
 可以分解成</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-2">
-<span class="eqno">(16.1.3)<a class="headerlink" href="#equation-probability-model-2" title="公式的永久链接">¶</a></span>\[P(X|Y) = P(X_1,X_2,\cdots,X_m|Y)
+<span class="eqno">(16.1.3)<a class="headerlink" href="#equation-probability-model-2" title="公式的永久链接"></a></span>\[P(X|Y) = P(X_1,X_2,\cdots,X_m|Y)
 = \prod_{j=1}^m P(X_j|Y)\]</div>
 <p>根据贝叶斯定理，后验概率 <span class="math notranslate nohighlight">\(P(Y|X)\)</span>
 可以分解成</p>
 <div class="math notranslate nohighlight" id="equation-eq-bc-013">
-<span class="eqno">(16.1.4)<a class="headerlink" href="#equation-eq-bc-013" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}P(Y|X) &amp;= \frac{P(X,Y)}{P(X)}\\&amp;= \frac{P(Y)P(X|Y)}{P(X)}\\&amp;= \frac{P(Y) \prod_{j=1}^m P(X_j|Y)}{ P(X) }\end{aligned}\end{align} \]</div>
+<span class="eqno">(16.1.4)<a class="headerlink" href="#equation-eq-bc-013" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}P(Y|X) &amp;= \frac{P(X,Y)}{P(X)}\\&amp;= \frac{P(Y)P(X|Y)}{P(X)}\\&amp;= \frac{P(Y) \prod_{j=1}^m P(X_j|Y)}{ P(X) }\end{aligned}\end{align} \]</div>
 <p>我们用符号 <span class="math notranslate nohighlight">\(\theta_y\)</span> 表示 <span class="math notranslate nohighlight">\(P(Y)\)</span> 的参数，
 <span class="math notranslate nohighlight">\(\theta_{xj}\)</span> 表示 <span class="math notranslate nohighlight">\(P(X_j|Y)\)</span> 的参数，
 并且令 <span class="math notranslate nohighlight">\(\theta=\{\theta_y,\theta_{x1},\theta_{x2},\cdots,,\theta_{xm} \}\)</span>
 ，<a class="reference internal" href="#equation-eq-bc-013">公式(16.1.4)</a> 的参数化表示为</p>
 <div class="math notranslate nohighlight" id="equation-eq-bc-014">
-<span class="eqno">(16.1.5)<a class="headerlink" href="#equation-eq-bc-014" title="公式的永久链接">¶</a></span>\[P(Y|X;\theta) = \frac{P(Y;\theta_y) \prod_{j=1}^m P(X_j|Y;\theta_{xj})}{ P(X) }\]</div>
+<span class="eqno">(16.1.5)<a class="headerlink" href="#equation-eq-bc-014" title="公式的永久链接"></a></span>\[P(Y|X;\theta) = \frac{P(Y;\theta_y) \prod_{j=1}^m P(X_j|Y;\theta_{xj})}{ P(X) }\]</div>
 <p>其中分母部分 <span class="math notranslate nohighlight">\(P(X)\)</span> 是分子的归一化系数，可以通过对分子进行边际化得到，
 它是一个常量值。
 <a class="reference internal" href="#equation-eq-bc-014">公式(16.1.5)</a> 就是朴素贝叶斯模型的参数化表示，
 它表示在已知 <span class="math notranslate nohighlight">\(X\)</span> 的条件下，<span class="math notranslate nohighlight">\(Y\)</span> 的条件概率分布，
 核心理论就是贝叶斯定理。</p>
-</div>
-<div class="section" id="id4">
-<h3><span class="section-number">16.1.2. </span>参数估计<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id4">
+<h3><span class="section-number">16.1.2. </span>参数估计<a class="headerlink" href="#id4" title="永久链接至标题"></a></h3>
 <p>现在看下如何利用最大似然估计，估计出朴素贝叶斯模型的参数 <span class="math notranslate nohighlight">\(\theta\)</span>。
 假设观测样本集为 <span class="math notranslate nohighlight">\(\mathcal{D}=\{(x_1,y_1),\cdots,(x_N,y_N)\}\)</span>
 ，共有 <span class="math notranslate nohighlight">\(N\)</span> 条观测样，
 朴素贝叶斯模型的对数似然函数为</p>
 <div class="math notranslate nohighlight" id="equation-eq-bc-015">
-<span class="eqno">(16.1.6)<a class="headerlink" href="#equation-eq-bc-015" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\ell (\theta;\mathcal{D}) &amp;= \ln \prod_{i=1}^N  p(y_i|x_i;\theta)\\
+<span class="eqno">(16.1.6)<a class="headerlink" href="#equation-eq-bc-015" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\ell (\theta;\mathcal{D}) &amp;= \ln \prod_{i=1}^N  p(y_i|x_i;\theta)\\
 &amp;= \ln \prod_{i=1}^N \left [ \frac{p(y_i;\theta_y)p(x_i|y_i;\theta_x)}{p(x_i)}  \right ]\\&amp;= \sum_{i=1}^N \ln \left [ \frac{p(y_i;\theta_y)p(x_i|y_i;\theta_x)}{p(x_i)}  \right ]\\&amp;= \sum_{i=1}^N  \left [ \ln p(y_i;\theta_y) + \ln p(x_i|y_i;\theta_x) - \ln p(x_i)  \right ]\\&amp;= \sum_{i=1}^N  \left [ \ln p(y_i;\theta_y) + \ln \prod_{j=1}^m p(x_{ij}|y_i;\theta_{xj}) - \ln p(x_i)  \right ]\\&amp;= \sum_{i=1}^N  \left [ \ln p(y_i;\theta_y) + \sum_{j=1}^m \ln  p(x_{ij}|y_i;\theta_{xj}) - \ln p(x_i)  \right ]\\&amp;= \sum_{i=1}^N  \ln p(y_i;\theta_y) +  \sum_{i=1}^N \sum_{j=1}^m \ln p(x_{ij}|y_i;\theta_{xj}) - \sum_{i=1}^N \ln p(x_i)\end{aligned}\end{align} \]</div>
 <p>可以看到对数似然函数分成三部分，最后一部分 <span class="math notranslate nohighlight">\(-\sum_{i=1}^N \ln p(x_i)\)</span>
 是一个常量，对于极大化对数似然函数没有影响，可以忽略。
@@ -1154,19 +1070,19 @@ y -&gt; {x1 x2 x3 xn}
 两部分的参数是互不相关的，是可以分别极大化求解的。</p>
 <p>极大化第一部分得到 <span class="math notranslate nohighlight">\(\theta_y\)</span> 的似然估计值，</p>
 <div class="math notranslate nohighlight" id="equation-eq-bc-016">
-<span class="eqno">(16.1.7)<a class="headerlink" href="#equation-eq-bc-016" title="公式的永久链接">¶</a></span>\[\hat{\theta}_y = \mathop{\arg \max}_{\theta_y} \sum_{i=1}^N  \ln p(y_i;\theta_y)\]</div>
+<span class="eqno">(16.1.7)<a class="headerlink" href="#equation-eq-bc-016" title="公式的永久链接"></a></span>\[\hat{\theta}_y = \mathop{\arg \max}_{\theta_y} \sum_{i=1}^N  \ln p(y_i;\theta_y)\]</div>
 <p>无论标签变量 <span class="math notranslate nohighlight">\(Y\)</span> 是伯努利变量（二分类）还是类别变量（多分类），
 都可以直接使用观测样本集中 <span class="math notranslate nohighlight">\(Y\)</span> 的观测数据进行参数估计。
 伯努利变量和类别变量最大似然估计的过程在前面的章节中已经讨论过，
 这里不再赘述。</p>
 <p>极大化第二部分得到 <span class="math notranslate nohighlight">\(\hat{\theta}_x=\{\theta_{x1},\theta_{x2},\cdots,\theta_{xm}\}\)</span> 的似然估计值，</p>
 <div class="math notranslate nohighlight" id="equation-eq-bc-017">
-<span class="eqno">(16.1.8)<a class="headerlink" href="#equation-eq-bc-017" title="公式的永久链接">¶</a></span>\[\hat{\theta}_x = \mathop{\arg \max}_{\theta_x}  \sum_{i=1}^N \sum_{j=1}^m \ln p(x_{ij}|y_i;\theta_{xj})\]</div>
+<span class="eqno">(16.1.8)<a class="headerlink" href="#equation-eq-bc-017" title="公式的永久链接"></a></span>\[\hat{\theta}_x = \mathop{\arg \max}_{\theta_x}  \sum_{i=1}^N \sum_{j=1}^m \ln p(x_{ij}|y_i;\theta_{xj})\]</div>
 <p>观察下 <a class="reference internal" href="#equation-eq-bc-017">公式(16.1.8)</a>，
 由于特征变量 <span class="math notranslate nohighlight">\(X\)</span> 之间的条件独立性，每一项局部因子 <span class="math notranslate nohighlight">\(p(x_{ij}|y_i;\theta_{xj})\)</span>
 都是独立的，每一项都是可以独立进行极大化求解的。</p>
 <div class="math notranslate nohighlight" id="equation-eq-bc-018">
-<span class="eqno">(16.1.9)<a class="headerlink" href="#equation-eq-bc-018" title="公式的永久链接">¶</a></span>\[\hat{\theta}_{xj} = \mathop{\arg \max}_{\theta_{xj}}  \sum_{i=1}^N  \ln p(x_{ij}|y_i;\theta_{xj})\]</div>
+<span class="eqno">(16.1.9)<a class="headerlink" href="#equation-eq-bc-018" title="公式的永久链接"></a></span>\[\hat{\theta}_{xj} = \mathop{\arg \max}_{\theta_{xj}}  \sum_{i=1}^N  \ln p(x_{ij}|y_i;\theta_{xj})\]</div>
 <p><a class="reference internal" href="#equation-eq-bc-018">公式(16.1.9)</a> 和 <a class="reference internal" href="#equation-eq-bc-016">公式(16.1.7)</a> 的一个区别就是，<span class="math notranslate nohighlight">\(p(x_{ij}|y_i;\theta_{xj})\)</span>
 是一个条件概率，这里需要理解”条件”的含义，
 直观的理解就是在 <span class="math notranslate nohighlight">\(Y\)</span> 取某个值的条件下 <span class="math notranslate nohighlight">\(X\)</span> 的概率分布。
@@ -1177,10 +1093,10 @@ y -&gt; {x1 x2 x3 xn}
 特征变量 <span class="math notranslate nohighlight">\(X_j\)</span> 可以是伯努利变量也可以是类别变量，同样它的参数估计过程不需要再赘述，</p>
 <p>到这里应该已经明白，朴素贝叶斯模型中的条件独立性假设，使得每一项 <span class="math notranslate nohighlight">\(p(x_{j}|y;\theta_{xj})\)</span>
 都是独立的，其参数可以分别独立的进行估计，这极大的简化了参数估计的复杂度。</p>
-</div>
-</div>
-<div class="section" id="id5">
-<h2><span class="section-number">16.2. </span>高斯判别模型<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h2>
+</section>
+</section>
+<section id="id5">
+<h2><span class="section-number">16.2. </span>高斯判别模型<a class="headerlink" href="#id5" title="永久链接至标题"></a></h2>
 <p>上一节讨论的朴素贝叶斯模型中，假设所有所有特征变量都是离散变量，
 然而实际应用场景是复杂多变的，很多时候是无法满足这样的强假设的。
 如果特征变量 <span class="math notranslate nohighlight">\(X_j\)</span> 是连续值怎么办？当然，
@@ -1194,20 +1110,20 @@ y -&gt; {x1 x2 x3 xn}
 <p>高斯判别模型和朴素贝叶斯模型的图结构是一样的，并没有区别，仅仅是对 <span class="math notranslate nohighlight">\(P(X|Y)\)</span> 假设不一样。
 原始的高斯判别模型假设 <span class="math notranslate nohighlight">\(P(X|Y)=P(X_1,X_2,\cdots,X_m|Y)\)</span> 是一个多元高斯分布，
 这里我们先讨论独立的一元高斯分布的情况，然后再讨论如何用多元高斯分布对 <span class="math notranslate nohighlight">\(P(X|Y)\)</span> 建模。</p>
-<div class="section" id="id6">
-<h3><span class="section-number">16.2.1. </span>一元高斯模型<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h3>
+<section id="id6">
+<h3><span class="section-number">16.2.1. </span>一元高斯模型<a class="headerlink" href="#id6" title="永久链接至标题"></a></h3>
 <p>当我们把 <span class="math notranslate nohighlight">\(P(X|Y)=P(X_1,X_2,\cdots,X_m|Y)\)</span> 看做完全条件独立的高斯模型时，高斯判别模型的对数似然函数和朴素贝叶斯模型没有任何差别，
 其形式也是 <a class="reference internal" href="#equation-eq-bc-015">公式(16.1.6)</a>，不同的地方于 <span class="math notranslate nohighlight">\(P(X_j|Y)\)</span> 是一个高斯分布。</p>
 <p>假设 <span class="math notranslate nohighlight">\(Y\)</span> 是伯努利变量，
 当 <span class="math notranslate nohighlight">\(Y=0\)</span> 是，服从高斯分布的特征变量 <span class="math notranslate nohighlight">\(X_j\)</span> 的概率密度函数为</p>
 <div class="math notranslate nohighlight" id="equation-eq-bc-020">
-<span class="eqno">(16.2.3)<a class="headerlink" href="#equation-eq-bc-020" title="公式的永久链接">¶</a></span>\[P(X_j|Y=0;\theta_j) = \frac{1}{ (2\pi\sigma_{0j}^2)^{1/2} } \exp \left \{
+<span class="eqno">(16.2.3)<a class="headerlink" href="#equation-eq-bc-020" title="公式的永久链接"></a></span>\[P(X_j|Y=0;\theta_j) = \frac{1}{ (2\pi\sigma_{0j}^2)^{1/2} } \exp \left \{
 - \frac{1}{2\sigma_{0j}^2}(x_j-\mu_{0j})^2 \right \}\]</div>
 <p>其中 <span class="math notranslate nohighlight">\(\mu_{0j},\sigma_{0j}^2\)</span> 分别表示当类别为 <span class="math notranslate nohighlight">\(Y=0\)</span> 时，
 第 <span class="math notranslate nohighlight">\(j\)</span> 个特征变量 <span class="math notranslate nohighlight">\(X_j\)</span> 的高斯分布的均值参数和方差参数。
 同理，当类别 <span class="math notranslate nohighlight">\(Y=1\)</span> 时，有</p>
 <div class="math notranslate nohighlight" id="equation-eq-bc-021">
-<span class="eqno">(16.2.4)<a class="headerlink" href="#equation-eq-bc-021" title="公式的永久链接">¶</a></span>\[P(X_j|Y=1;\theta_j) = \frac{1}{ (2\pi\sigma_{1j}^2)^{1/2} } \exp \left \{
+<span class="eqno">(16.2.4)<a class="headerlink" href="#equation-eq-bc-021" title="公式的永久链接"></a></span>\[P(X_j|Y=1;\theta_j) = \frac{1}{ (2\pi\sigma_{1j}^2)^{1/2} } \exp \left \{
 - \frac{1}{2\sigma_{1j}^2}(x_j-\mu_{1j})^2 \right \}\]</div>
 <p>类似于朴素贝叶斯模型的参数估计过程，可以把观测样本集按照 <span class="math notranslate nohighlight">\(Y\)</span> 的值划分成两份，
 用每一份数据分别去估计上述两个高斯分布的参数即可，高斯分布的参数估计过程可以回顾 <a class="reference internal" href="2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#ch-estimate"><span class="std std-numref">节 2</span></a>
@@ -1218,14 +1134,14 @@ y -&gt; {x1 x2 x3 xn}
 此时可以用全部样本集估计出一个方差参数即可 <span class="math notranslate nohighlight">\(\sigma_j^2\)</span>，
 这个假设被称为同方差假设，同方差假设使得模型参数变少，模型变得简单，但会限制模型的表达能力，
 如果你的应用场景下数据并不是同方差的，可以不使用这个假设，按照异方差建模。</p>
-</div>
-<div class="section" id="id7">
-<h3><span class="section-number">16.2.2. </span>多元高斯模型<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id7">
+<h3><span class="section-number">16.2.2. </span>多元高斯模型<a class="headerlink" href="#id7" title="永久链接至标题"></a></h3>
 <p>多元高斯分布是对多个高斯变量组成的联合概率分布进行建模，假设有 <span class="math notranslate nohighlight">\(m\)</span> 个高斯变量
 <span class="math notranslate nohighlight">\(X=\{X_1,X_2,\cdots,X_m\}\)</span>
 ，他们的联合概率分布可以写为</p>
 <div class="math notranslate nohighlight" id="equation-eq-bc-022">
-<span class="eqno">(16.2.5)<a class="headerlink" href="#equation-eq-bc-022" title="公式的永久链接">¶</a></span>\[P(X_1,X_2,\cdots,X_m) = \frac{1}{(2\pi)^{1/2} {|\Sigma|}^{1/2}  }
+<span class="eqno">(16.2.5)<a class="headerlink" href="#equation-eq-bc-022" title="公式的永久链接"></a></span>\[P(X_1,X_2,\cdots,X_m) = \frac{1}{(2\pi)^{1/2} {|\Sigma|}^{1/2}  }
 \exp \left \{ -\frac{1}{2}(x-\mu)^T \Sigma^{-1} (x-\mu) \right \}\]</div>
 <p>其中 <span class="math notranslate nohighlight">\(x\)</span> 是一个长度为 <span class="math notranslate nohighlight">\(m\)</span> 的向量，代表 <span class="math notranslate nohighlight">\(m\)</span> 个高斯随机变量，
 <span class="math notranslate nohighlight">\(\mu\)</span> 是均值向量参数，<span class="math notranslate nohighlight">\(\Sigma\)</span> 是协方差矩阵。
@@ -1246,7 +1162,7 @@ y -&gt; {x1 x2 x3 xn}
 进行建模，对于标签变量 <span class="math notranslate nohighlight">\(Y\)</span>
 的每一个取值 <span class="math notranslate nohighlight">\(k\)</span> 有</p>
 <div class="math notranslate nohighlight" id="equation-eq-bc-023">
-<span class="eqno">(16.2.6)<a class="headerlink" href="#equation-eq-bc-023" title="公式的永久链接">¶</a></span>\[p(x|y=k;\theta)=\frac{1}{(2\pi)^{1/2} {|\Sigma|}^{1/2}  }
+<span class="eqno">(16.2.6)<a class="headerlink" href="#equation-eq-bc-023" title="公式的永久链接"></a></span>\[p(x|y=k;\theta)=\frac{1}{(2\pi)^{1/2} {|\Sigma|}^{1/2}  }
 \exp \left \{ -\frac{1}{2}(x-\mu_k)^T \Sigma^{-1} (x-\mu_k) \right \}
 ,\quad k=0,1\]</div>
 <p>在高斯判别模型中，通常假设每个类别下的多元高斯分布有不同的均值向量参数，
@@ -1263,25 +1179,27 @@ y -&gt; {x1 x2 x3 xn}
 <span class="math notranslate nohighlight">\(\sigma_2\)</span> 表示高斯分布 <span class="math notranslate nohighlight">\(p(x_2|y;\sigma_2)\)</span> 的方差。
 当 <span class="math notranslate nohighlight">\(\sigma_1=\sigma_2\)</span> 时，我们看到是(a)图，同心圆是正圆，
 当 <span class="math notranslate nohighlight">\(\sigma_1 \ne \sigma_2\)</span> 时，我们看到是(b)图，同心圆是椭圆。</p>
-<div class="figure align-center" id="id15">
+<figure class="align-center" id="id15">
 <span id="fg-bc-210"></span><a class="reference internal image-reference" href="../_images/32_81.jpg"><img alt="../_images/32_81.jpg" src="../_images/32_81.jpg" style="width: 505.20000000000005px; height: 222.0px;" /></a>
-<p class="caption"><span class="caption-number">图 16.2.1 </span><span class="caption-text">(a)方差为 <span class="math notranslate nohighlight">\(\sigma_1=1,\sigma_2=1\)</span> 的高斯类别条件密度的轮廓图；
-(b)方差为 <span class="math notranslate nohighlight">\(\sigma_1=0.5,\sigma_2=2.0\)</span> 的高斯类别条件密度的轮廓图；</span><a class="headerlink" href="#id15" title="永久链接至图片">¶</a></p>
-</div>
-</div>
-</div>
-<div class="section" id="id8">
-<h2><span class="section-number">16.3. </span>逻辑回归<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h2>
+<figcaption>
+<p><span class="caption-number">图 16.2.1 </span><span class="caption-text">(a)方差为 <span class="math notranslate nohighlight">\(\sigma_1=1,\sigma_2=1\)</span> 的高斯类别条件密度的轮廓图；
+(b)方差为 <span class="math notranslate nohighlight">\(\sigma_1=0.5,\sigma_2=2.0\)</span> 的高斯类别条件密度的轮廓图；</span><a class="headerlink" href="#id15" title="永久链接至图片"></a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+<section id="id8">
+<h2><span class="section-number">16.3. </span>逻辑回归<a class="headerlink" href="#id8" title="永久链接至标题"></a></h2>
 <p>相信大部分读者在入门时都有学过逻辑回归模型（logistic model），
 本节我们探讨下朴素贝叶斯模型、高斯判别模型和逻辑回归模型的关系，
 最后会发现一些很有意思的结论。</p>
 <p>假设类别变量 <span class="math notranslate nohighlight">\(Y\)</span> 是伯努利变量（二分类问题），
 其概率质量函数定义为</p>
 <div class="math notranslate nohighlight" id="equation-eq-bc-141">
-<span class="eqno">(16.3.6)<a class="headerlink" href="#equation-eq-bc-141" title="公式的永久链接">¶</a></span>\[P(Y;\theta_y) = \lambda^y (1- \lambda)^{1-y}\]</div>
+<span class="eqno">(16.3.6)<a class="headerlink" href="#equation-eq-bc-141" title="公式的永久链接"></a></span>\[P(Y;\theta_y) = \lambda^y (1- \lambda)^{1-y}\]</div>
 <p>根据上一节的讨论，在 <span class="math notranslate nohighlight">\(X=x\)</span> 的条件下 <span class="math notranslate nohighlight">\(Y=1\)</span> 的概率为</p>
 <div class="math notranslate nohighlight" id="equation-eq-bc-142">
-<span class="eqno">(16.3.7)<a class="headerlink" href="#equation-eq-bc-142" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}&amp;p(Y=1|X=x;\theta)\\&amp;= \frac{p(Y=1;\theta_y) p(x|Y=1;\theta_x)}
+<span class="eqno">(16.3.7)<a class="headerlink" href="#equation-eq-bc-142" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}&amp;p(Y=1|X=x;\theta)\\&amp;= \frac{p(Y=1;\theta_y) p(x|Y=1;\theta_x)}
 {p(Y=1;\theta_y) p(x|Y=1;\theta_y) +p(Y=0;\theta_y)p(x|Y=0;\theta_x)  }\\&amp;= \frac{1}{1 + \frac{p(Y=0;\theta_y) p(x|Y=0;\theta_x)  }{ p(Y=1;\theta_y)p(x|Y=1;\theta_x)}  }\\&amp;= \frac{1}{1 + \exp \left \{ \ln \left [
 \frac{p(Y=0;\theta_y) p(x|Y=0;\theta_x)  }{ p(Y=1;\theta_y)p(x|Y=1;\theta_x)}
 \right ] \right \}
@@ -1307,7 +1225,7 @@ y -&gt; {x1 x2 x3 xn}
 <p><strong>朴素贝叶斯模型</strong></p>
 <p>假设每一个特征变量 <span class="math notranslate nohighlight">\(X_j\)</span> 都是伯努利变量，其概率质量函数定义为</p>
 <div class="math notranslate nohighlight" id="equation-eq-bc-143">
-<span class="eqno">(16.3.8)<a class="headerlink" href="#equation-eq-bc-143" title="公式的永久链接">¶</a></span>\[P(X_j|Y=k) = \pi_{kj}^{x_j} (1- \pi_{kj})^{1-x_j}\]</div>
+<span class="eqno">(16.3.8)<a class="headerlink" href="#equation-eq-bc-143" title="公式的永久链接"></a></span>\[P(X_j|Y=k) = \pi_{kj}^{x_j} (1- \pi_{kj})^{1-x_j}\]</div>
 <div class="admonition hint">
 <p class="admonition-title">提示</p>
 <p>如果实际应用场景中，遇到特征变量 <span class="math notranslate nohighlight">\(X_j\)</span> 是类别分布（多值离散变量），假设其有 <span class="math notranslate nohighlight">\(K\)</span> 个可能值，
@@ -1316,7 +1234,7 @@ y -&gt; {x1 x2 x3 xn}
 </div>
 <p>把 <a class="reference internal" href="#equation-eq-bc-143">公式(16.3.8)</a> 代入到 <a class="reference internal" href="#equation-eq-bc-142">公式(16.3.7)</a> ，可得</p>
 <div class="math notranslate nohighlight" id="equation-eq-bc-144">
-<span class="eqno">(16.3.9)<a class="headerlink" href="#equation-eq-bc-144" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}&amp;p(Y=1|X=x;\theta)\\&amp;=  \frac{1}{1 + \exp \left [
+<span class="eqno">(16.3.9)<a class="headerlink" href="#equation-eq-bc-144" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}&amp;p(Y=1|X=x;\theta)\\&amp;=  \frac{1}{1 + \exp \left [
 \ln (1-\lambda)
 - \ln \lambda
 + \ln  \prod_{j=1}^m \pi_{0j}^{x_j} (1- \pi_{0j})^{1-x_j}
@@ -1344,25 +1262,25 @@ y -&gt; {x1 x2 x3 xn}
 <p><a class="reference internal" href="#equation-eq-bc-144">公式(16.3.9)</a> 看上去非常复杂，没关系，我们重新参数化一下，
 重新定义两类新的未知参数</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-3">
-<span class="eqno">(16.3.10)<a class="headerlink" href="#equation-probability-model-3" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\beta_j &amp;=  - \left [ \ln \pi_{0j} + ln (1- \pi_{1j})-ln (1- \pi_{0j}) - \ln \pi_{1j} \right ]\\\beta_0 &amp;= - \left \{ \ln (1-\lambda)   - \ln \lambda
+<span class="eqno">(16.3.10)<a class="headerlink" href="#equation-probability-model-3" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\beta_j &amp;=  - \left [ \ln \pi_{0j} + ln (1- \pi_{1j})-ln (1- \pi_{0j}) - \ln \pi_{1j} \right ]\\\beta_0 &amp;= - \left \{ \ln (1-\lambda)   - \ln \lambda
 + \sum_{j=1}^m \left [( ln (1- \pi_{0j}) - ln (1- \pi_{1j})) \right ] \right \}\end{aligned}\end{align} \]</div>
 <p>用 <span class="math notranslate nohighlight">\(\beta_0,\beta_j\)</span> 重新参数化 <a class="reference internal" href="#equation-eq-bc-144">公式(16.3.9)</a></p>
 <div class="math notranslate nohighlight" id="equation-eq-bc-145">
-<span class="eqno">(16.3.11)<a class="headerlink" href="#equation-eq-bc-145" title="公式的永久链接">¶</a></span>\[p(Y=1|X=x;\theta)
+<span class="eqno">(16.3.11)<a class="headerlink" href="#equation-eq-bc-145" title="公式的永久链接"></a></span>\[p(Y=1|X=x;\theta)
 =  \frac{1}{1 + \exp \left [ -\beta_0 - \sum_{j=1}^m x_j \beta_j  \right ] }\]</div>
 <p>定义两个向量</p>
 <div class="math notranslate nohighlight" id="equation-eq-bc-146">
-<span class="eqno">(16.3.12)<a class="headerlink" href="#equation-eq-bc-146" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\beta &amp;= [\beta_0,\beta_1,\beta_2,\cdots,\beta_j,\cdots,\beta_m]^T\\x &amp;= [1,x_1,x_2,\cdots,x_j,\cdots,x_m]^T\end{aligned}\end{align} \]</div>
+<span class="eqno">(16.3.12)<a class="headerlink" href="#equation-eq-bc-146" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\beta &amp;= [\beta_0,\beta_1,\beta_2,\cdots,\beta_j,\cdots,\beta_m]^T\\x &amp;= [1,x_1,x_2,\cdots,x_j,\cdots,x_m]^T\end{aligned}\end{align} \]</div>
 <p><a class="reference internal" href="#equation-eq-bc-145">公式(16.3.11)</a> 的向量化表示为</p>
 <div class="math notranslate nohighlight" id="equation-eq-bc-147">
-<span class="eqno">(16.3.13)<a class="headerlink" href="#equation-eq-bc-147" title="公式的永久链接">¶</a></span>\[p(Y=1|X=x;\theta)
+<span class="eqno">(16.3.13)<a class="headerlink" href="#equation-eq-bc-147" title="公式的永久链接"></a></span>\[p(Y=1|X=x;\theta)
 =  \frac{1}{1 + \exp  - x^T \beta }\]</div>
 <p>相信很多读者已经看出来了，<a class="reference internal" href="#equation-eq-bc-147">公式(16.3.13)</a> 就是逻辑回归模型的表达式，它表示样本为正类的概率。</p>
 <p><strong>高斯判别模型</strong></p>
 <p>当特征变量 <span class="math notranslate nohighlight">\(X\)</span> 是高斯变量时，这里直接使用多元高斯，类似朴素贝叶斯模型的推导过程，
 把 <a class="reference internal" href="#equation-eq-bc-023">公式(16.2.6)</a> 代入 <a class="reference internal" href="#equation-eq-bc-142">公式(16.3.7)</a></p>
 <div class="math notranslate nohighlight" id="equation-eq-bc-150">
-<span class="eqno">(16.3.14)<a class="headerlink" href="#equation-eq-bc-150" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}&amp;p(Y=1|X=x;\theta)\\&amp;= \frac{1}{1+
+<span class="eqno">(16.3.14)<a class="headerlink" href="#equation-eq-bc-150" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}&amp;p(Y=1|X=x;\theta)\\&amp;= \frac{1}{1+
 \exp \{ -ln \frac{\lambda}{1-\lambda} + \frac{1}{2}(x-\mu_1)^T\Sigma^{-1}(x-\mu_1)
  - \frac{1}{2} (x-\mu_0)^T\Sigma^{-1}(x-\mu_0)   \}
 }\\&amp;=\frac{1}{1+\exp \{ -(\mu_1-\mu_0)^T\Sigma^{-1}x  +\frac{1}{2}(\mu_1-\mu_0)^T\Sigma^{-1}(\mu_1+\mu_0)
@@ -1370,11 +1288,11 @@ y -&gt; {x1 x2 x3 xn}
 <p>同样地，重新定义两个新的参数
 <span class="math notranslate nohighlight">\(\beta\)</span> 和 <span class="math notranslate nohighlight">\(\beta_0\)</span> 来简化公式。</p>
 <div class="math notranslate nohighlight" id="equation-eq-bc-152">
-<span class="eqno">(16.3.15)<a class="headerlink" href="#equation-eq-bc-152" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\beta_x &amp;\triangleq \Sigma^{-1}(\mu_1-\mu_0)\\\beta_0 &amp;\triangleq -\frac{1}{2}(\mu_1-\mu_0)^T\Sigma^{-1}(\mu_1+\mu_0)
+<span class="eqno">(16.3.15)<a class="headerlink" href="#equation-eq-bc-152" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\beta_x &amp;\triangleq \Sigma^{-1}(\mu_1-\mu_0)\\\beta_0 &amp;\triangleq -\frac{1}{2}(\mu_1-\mu_0)^T\Sigma^{-1}(\mu_1+\mu_0)
 + \ln \frac{\lambda}{1-\lambda}\end{aligned}\end{align} \]</div>
 <p><a class="reference internal" href="#equation-eq-bc-150">公式(16.3.14)</a> 重新参数化为</p>
 <div class="math notranslate nohighlight" id="equation-eq-bc-153">
-<span class="eqno">(16.3.16)<a class="headerlink" href="#equation-eq-bc-153" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}p(Y=1|X=x;\theta) &amp;= \frac{1}{1+\exp\{ -x^T \beta_x- \beta_0 \}}\\&amp;= \frac{1}{1+\exp\{ -x^T \beta \}}\end{aligned}\end{align} \]</div>
+<span class="eqno">(16.3.16)<a class="headerlink" href="#equation-eq-bc-153" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}p(Y=1|X=x;\theta) &amp;= \frac{1}{1+\exp\{ -x^T \beta_x- \beta_0 \}}\\&amp;= \frac{1}{1+\exp\{ -x^T \beta \}}\end{aligned}\end{align} \]</div>
 <p>到这里可以看到，无论是朴素贝叶斯模型还是高斯判别模型，最后都可以重新参数化逻辑回归的形式，
 显然这意味着，贝叶斯分类器（朴素贝叶斯、高斯判别）和逻辑回归模型在某个层面上是等价的。
 事实上，贝叶斯分类器属于生成模型，而逻辑回归模型是对应的判别模型，
@@ -1382,7 +1300,7 @@ y -&gt; {x1 x2 x3 xn}
 这里继续探讨逻辑函数的一些特色。</p>
 <p><a class="reference internal" href="#equation-eq-bc-153">公式(16.3.16)</a> 是一个很特别的函数，记作</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-4">
-<span class="eqno">(16.3.17)<a class="headerlink" href="#equation-probability-model-4" title="公式的永久链接">¶</a></span>\[\phi(z) = \frac{1}{1+e^{-z}}\]</div>
+<span class="eqno">(16.3.17)<a class="headerlink" href="#equation-probability-model-4" title="公式的永久链接"></a></span>\[\phi(z) = \frac{1}{1+e^{-z}}\]</div>
 <p>通常会把 <span class="math notranslate nohighlight">\(z=x^T \beta\)</span> 称为线性预测器，它是 <span class="math notranslate nohighlight">\(x\)</span> 的仿射函数。</p>
 <div class="admonition note">
 <p class="admonition-title">注解</p>
@@ -1393,16 +1311,20 @@ y -&gt; {x1 x2 x3 xn}
 函数的形状如 <a class="reference internal" href="#fg-bc-019"><span class="std std-numref">图 16.3.1</span></a> 所示，
 这种形状是一个类似 “S” 型曲线的函数，
 也被称为 sigmod 函数。</p>
-<div class="figure align-center" id="id16">
+<figure class="align-center" id="id16">
 <span id="fg-bc-019"></span><a class="reference internal image-reference" href="../_images/32_91.jpg"><img alt="../_images/32_91.jpg" src="../_images/32_91.jpg" style="width: 431.4px; height: 315.59999999999997px;" /></a>
-<p class="caption"><span class="caption-number">图 16.3.1 </span><span class="caption-text">逻辑函数的曲线</span><a class="headerlink" href="#id16" title="永久链接至图片">¶</a></p>
-</div>
-<div class="figure align-center" id="id17">
+<figcaption>
+<p><span class="caption-number">图 16.3.1 </span><span class="caption-text">逻辑函数的曲线</span><a class="headerlink" href="#id16" title="永久链接至图片"></a></p>
+</figcaption>
+</figure>
+<figure class="align-center" id="id17">
 <span id="fg-32-10"></span><a class="reference internal image-reference" href="../_images/32_101.jpg"><img alt="../_images/32_101.jpg" src="../_images/32_101.jpg" style="width: 502.8px; height: 202.0px;" /></a>
-<p class="caption"><span class="caption-number">图 16.3.2 </span><span class="caption-text">图中虚线和实线都是等后验概率的轮廓线，
+<figcaption>
+<p><span class="caption-number">图 16.3.2 </span><span class="caption-text">图中虚线和实线都是等后验概率的轮廓线，
 (a)当 <span class="math notranslate nohighlight">\(\sigma_1 = \sigma_2\)</span> ，这些等线正交于两个类别的均值向量间的连线。
-(b)当 <span class="math notranslate nohighlight">\(\sigma_1 \ne \sigma_2\)</span> ，后验概率等轮廓线仍然是直线，但是他们不再正交于均值向量的连线。</span><a class="headerlink" href="#id17" title="永久链接至图片">¶</a></p>
-</div>
+(b)当 <span class="math notranslate nohighlight">\(\sigma_1 \ne \sigma_2\)</span> ，后验概率等轮廓线仍然是直线，但是他们不再正交于均值向量的连线。</span><a class="headerlink" href="#id17" title="永久链接至图片"></a></p>
+</figcaption>
+</figure>
 <p>现在我们探讨一下高斯判别模型后验概率的几何解释，如 <a class="reference internal" href="#fg-32-10"><span class="std std-numref">图 16.3.2</span></a> 所示。
 特征向量 <span class="math notranslate nohighlight">\(x\)</span> 通过一个仿射函数线性变换成 <span class="math notranslate nohighlight">\(z\)</span> ，
 然后再经过逻辑函数 <span class="math notranslate nohighlight">\(\phi(z)\)</span> 得到后验概率值。
@@ -1410,14 +1332,14 @@ y -&gt; {x1 x2 x3 xn}
 在几何上表示特征向量 <span class="math notranslate nohighlight">\(x\)</span> 到 <span class="math notranslate nohighlight">\(\beta\)</span> 向量上的投影，
 而向量 <span class="math notranslate nohighlight">\(\beta\)</span> 和两个类别高斯的均值相关。</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-5">
-<span class="eqno">(16.3.18)<a class="headerlink" href="#equation-probability-model-5" title="公式的永久链接">¶</a></span>\[\beta \triangleq \Sigma^{-1} (\mu_1-\mu_0)\]</div>
+<span class="eqno">(16.3.18)<a class="headerlink" href="#equation-probability-model-5" title="公式的永久链接"></a></span>\[\beta \triangleq \Sigma^{-1} (\mu_1-\mu_0)\]</div>
 <p>其中 <span class="math notranslate nohighlight">\(\mu_1-\mu_0\)</span> 两个均值向量的差值，表示为 <a class="reference internal" href="#fg-32-10"><span class="std std-numref">图 16.3.2</span></a> 中两组同心圆的连线。
 协方差矩阵 <span class="math notranslate nohighlight">\(\Sigma\)</span> 是一个对角矩阵，我们假设所有特征的方差相同，即协方差矩阵 <span class="math notranslate nohighlight">\(\Sigma\)</span>
 对角元素都相等，我们假设方差都为1，即协方差矩阵为单位矩阵 <span class="math notranslate nohighlight">\(\Sigma=I\)</span> ，
 这时 <span class="math notranslate nohighlight">\(\beta=(\mu_1-\mu_0)\)</span> 。
 此时在特征空间中，特征向量 <span class="math notranslate nohighlight">\(x\)</span> 到 <span class="math notranslate nohighlight">\(\beta\)</span> 的投影就是：</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-6">
-<span class="eqno">(16.3.19)<a class="headerlink" href="#equation-probability-model-6" title="公式的永久链接">¶</a></span>\[\beta^T x = (\mu_1-\mu_0)^T x\]</div>
+<span class="eqno">(16.3.19)<a class="headerlink" href="#equation-probability-model-6" title="公式的永久链接"></a></span>\[\beta^T x = (\mu_1-\mu_0)^T x\]</div>
 <p>此时，所有落在正交于 <span class="math notranslate nohighlight">\(\beta\)</span> 的直线上的特征向量 <span class="math notranslate nohighlight">\(x\)</span> 的投影都是相等的，
 <a class="reference internal" href="#fg-32-10"><span class="std std-numref">图 16.3.2</span></a> (a)中斜直线。
 <span class="math notranslate nohighlight">\(z\)</span> 的 <span class="math notranslate nohighlight">\(\gamma\)</span> 部分与 <span class="math notranslate nohighlight">\(x\)</span> 无关，对于特征空间中的所有 <span class="math notranslate nohighlight">\(x\)</span> ，
@@ -1429,7 +1351,7 @@ y -&gt; {x1 x2 x3 xn}
 <span class="math notranslate nohighlight">\(z=0\)</span> 中的子项 <span class="math notranslate nohighlight">\(log(\lambda/(1-\lambda))\)</span> 就会被消除掉。
 这时 <span class="math notranslate nohighlight">\(z\)</span> 可以改写成：</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-7">
-<span class="eqno">(16.3.20)<a class="headerlink" href="#equation-probability-model-7" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}z&amp;= (\mu_1-\mu_0)^T\Sigma^{-1}x  - \frac{1}{2}(\mu_1-\mu_0)^T\Sigma^{-1}(\mu_1+\mu_0)\\&amp;=(\mu_1-\mu_0)^T\left ( x-\frac{(\mu_1+\mu_0)}{2} \right )\end{aligned}\end{align} \]</div>
+<span class="eqno">(16.3.20)<a class="headerlink" href="#equation-probability-model-7" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}z&amp;= (\mu_1-\mu_0)^T\Sigma^{-1}x  - \frac{1}{2}(\mu_1-\mu_0)^T\Sigma^{-1}(\mu_1+\mu_0)\\&amp;=(\mu_1-\mu_0)^T\left ( x-\frac{(\mu_1+\mu_0)}{2} \right )\end{aligned}\end{align} \]</div>
 <p>此时，当 <span class="math notranslate nohighlight">\(x=\frac{(\mu_1+\mu_0)}{2}\)</span> 时，有 <span class="math notranslate nohighlight">\(z=0\)</span> 。
 进而有 <span class="math notranslate nohighlight">\(p(Y=1|X=x)=p(Y=0|X=x)=0.5\)</span> ，这是因为当 <span class="math notranslate nohighlight">\(z=0\)</span> 时，
 逻辑函数的值为0.5，两个类别的后验概率相等，<a class="reference internal" href="#fg-32-10"><span class="std std-numref">图 16.3.2</span></a> 中的实斜线，
@@ -1439,18 +1361,20 @@ y -&gt; {x1 x2 x3 xn}
 当 <span class="math notranslate nohighlight">\(\lambda\)</span> 大于0.5时，会使得图像向左平移，后验概率 <span class="math notranslate nohighlight">\(p(Y=1|x)\)</span> 得到一个较大的的值，
 参考 <a class="reference internal" href="#fg-32-11"><span class="std std-numref">图 16.3.3</span></a> (a)。
 反之，当 <span class="math notranslate nohighlight">\(\lambda\)</span> 小于0.5时，相当于图像右移，参考 <a class="reference internal" href="#fg-32-11"><span class="std std-numref">图 16.3.3</span></a> (b)。</p>
-<div class="figure align-center" id="id18">
+<figure class="align-center" id="id18">
 <span id="fg-32-11"></span><a class="reference internal image-reference" href="../_images/32_111.jpg"><img alt="../_images/32_111.jpg" src="../_images/32_111.jpg" style="width: 500.40000000000003px; height: 201.20000000000002px;" /></a>
-<p class="caption"><span class="caption-number">图 16.3.3 </span><span class="caption-text">每个图中右上角的图形是类别 <span class="math notranslate nohighlight">\(Y=1\)</span> 条件下的高斯，左下角是类别 <span class="math notranslate nohighlight">\(Y=0\)</span> 的高斯。
+<figcaption>
+<p><span class="caption-number">图 16.3.3 </span><span class="caption-text">每个图中右上角的图形是类别 <span class="math notranslate nohighlight">\(Y=1\)</span> 条件下的高斯，左下角是类别 <span class="math notranslate nohighlight">\(Y=0\)</span> 的高斯。
 (a)当类别先验 <span class="math notranslate nohighlight">\(\lambda\)</span> 大于0.5时，等后验概率轮廓线向左移动，得到的后验概率更倾向于类别 <span class="math notranslate nohighlight">\(Y=1\)</span> 。
-(b)当类别先验 <span class="math notranslate nohighlight">\(\lambda\)</span> 小于0.5时，等后验概率轮廓线向右移动，得到的后验概率更倾向于类别 <span class="math notranslate nohighlight">\(Y=0\)</span> 。</span><a class="headerlink" href="#id18" title="永久链接至图片">¶</a></p>
-</div>
+(b)当类别先验 <span class="math notranslate nohighlight">\(\lambda\)</span> 小于0.5时，等后验概率轮廓线向右移动，得到的后验概率更倾向于类别 <span class="math notranslate nohighlight">\(Y=0\)</span> 。</span><a class="headerlink" href="#id18" title="永久链接至图片"></a></p>
+</figcaption>
+</figure>
 <p>我们额外增加一个新的特征，其值为固定值1，<span class="math notranslate nohighlight">\(x=[x^{old},1]\)</span> ，
 并且定义 <span class="math notranslate nohighlight">\(\beta \triangleq (\beta_0-log(\lambda/(1-\lambda)),\beta)^T\)</span>
 ， <span class="math notranslate nohighlight">\(\beta\)</span> 是一个关于 <span class="math notranslate nohighlight">\(\mu_k,\Sigma,\beta_0\)</span> 的函数。
 用这个新的符号改写一下后验概率可得：</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-8">
-<span class="eqno">(16.3.21)<a class="headerlink" href="#equation-probability-model-8" title="公式的永久链接">¶</a></span>\[p(Y=1|X=x;\beta) = \frac{1}{1+e^{-x^T \beta}}\]</div>
+<span class="eqno">(16.3.21)<a class="headerlink" href="#equation-probability-model-8" title="公式的永久链接"></a></span>\[p(Y=1|X=x;\beta) = \frac{1}{1+e^{-x^T \beta}}\]</div>
 <p>经过简化后我们发现，类别条件高斯密度的后验概率是特征向量 <span class="math notranslate nohighlight">\(x\)</span> 的线性函数外套上一个的逻辑函数。
 我们得到了一个 <em>线性分类(linear classifier)器</em> ，”线性”的含义是：特征空间的等后验概率轮廓线是直线。
 事实上，如果直接用这个函数进行分类建模，就是我们常说的逻辑回归(logistics regression)模型。</p>
@@ -1467,9 +1391,9 @@ y -&gt; {x1 x2 x3 xn}
 如果我们取消了这个假设，后验概率仍然是逻辑函数的形式，但是逻辑函数内会包含特征 <span class="math notranslate nohighlight">\(x\)</span> 的二次项，
 这时，等后验概率的轮廓线将不再是直线，而是二次曲线，得到的分类器将是二次分类器(quadratic classifier)。</p>
 </div>
-</div>
-<div class="section" id="id9">
-<h2><span class="section-number">16.4. </span>生成模型和判别模型<a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="id9">
+<h2><span class="section-number">16.4. </span>生成模型和判别模型<a class="headerlink" href="#id9" title="永久链接至标题"></a></h2>
 <p>无论是贝叶斯分类器还是逻辑回归模型，都是在求解后验条件概率分布 <span class="math notranslate nohighlight">\(P(Y|X)\)</span>
 ，两者在细节上有些差异。</p>
 <p>贝叶斯分类器先对 <span class="math notranslate nohighlight">\(P(Y)\)</span>
@@ -1477,7 +1401,7 @@ y -&gt; {x1 x2 x3 xn}
 ，再利用模型推断（贝叶斯定理）得到后验条件概率分布 <span class="math notranslate nohighlight">\(P(Y|X)\)</span>
 ，参考公式 <a class="reference internal" href="#equation-eq-bc-210">公式(16.4.2)</a>。</p>
 <div class="math notranslate nohighlight" id="equation-eq-bc-210">
-<span class="eqno">(16.4.2)<a class="headerlink" href="#equation-eq-bc-210" title="公式的永久链接">¶</a></span>\[P(Y|X) = \frac{P(X,Y)}{P(X)} = \frac{P(Y)P(X|Y)}{P(X)}\]</div>
+<span class="eqno">(16.4.2)<a class="headerlink" href="#equation-eq-bc-210" title="公式的永久链接"></a></span>\[P(Y|X) = \frac{P(X,Y)}{P(X)} = \frac{P(Y)P(X|Y)}{P(X)}\]</div>
 <p>像贝叶斯分类器这类对联合概率分布进行建模的模型称之为 <strong>生成模型（generative model）</strong>，
 生成模型对联合概率分布进行了完整的建模和参数化，由于有了完整的联合概率分布，
 后期可以从中进行随机采样。</p>
@@ -1486,7 +1410,7 @@ y -&gt; {x1 x2 x3 xn}
 相当于直接对后验概率分布 <span class="math notranslate nohighlight">\(P(Y|X)\)</span> 进行参数化表示，
 已无法得到 <span class="math notranslate nohighlight">\(P(Y)\)</span> 和 <span class="math notranslate nohighlight">\(P(X|Y)\)</span> ，
 此类模型称之为 <strong>判别模型（discrimination model）</strong>。</p>
-<div class="figure align-center" id="id19">
+<figure class="align-center" id="id19">
 <span id="fig-bc-102"></span><div class="graphviz"><object data="../_images/graphviz-07243de2a6ebcd72b4bcbea5120a4dab31ebe5c4.svg" type="image/svg+xml" class="graphviz">
 <p class="warning">digraph 生成模型与判别模型 {
 node[shape=circle]
@@ -1535,11 +1459,13 @@ subgraph cluster_2 {
         {rank=&quot;same&quot;; b_x1 b_x2 b_x3 b_xh b_xn}
 }
 }</p></object></div>
-<p class="caption"><span class="caption-number">图 16.4.1 </span><span class="caption-text">（a）生成模型，对联合概率建模，然后推断出后验条件概率分布；（b）判别模型，直接对因子（ <span class="math notranslate nohighlight">\(P(Y|X)\)</span> ）建模。</span><a class="headerlink" href="#id19" title="永久链接至图片">¶</a></p>
-</div>
-</div>
-<div class="section" id="id10">
-<h2><span class="section-number">16.5. </span>多分类<a class="headerlink" href="#id10" title="永久链接至标题">¶</a></h2>
+<figcaption>
+<p><span class="caption-number">图 16.4.1 </span><span class="caption-text">（a）生成模型，对联合概率建模，然后推断出后验条件概率分布；（b）判别模型，直接对因子（ <span class="math notranslate nohighlight">\(P(Y|X)\)</span> ）建模。</span><a class="headerlink" href="#id19" title="永久链接至图片"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="id10">
+<h2><span class="section-number">16.5. </span>多分类<a class="headerlink" href="#id10" title="永久链接至标题"></a></h2>
 <p>我们已经讨论完二分类的高斯判别模型，现在我们讨论下在多分类场景下的高斯判别模型。
 在二分类问题中，我们假设类别变量为伯努利变量 <span class="math notranslate nohighlight">\(Y \in {0,1}\)</span> 。
 显然在多分类的场景中，类别变量 <span class="math notranslate nohighlight">\(Y\)</span> 将不再是伯努利变量，而是一个多项式变量。
@@ -1548,14 +1474,14 @@ subgraph cluster_2 {
 <span class="math notranslate nohighlight">\(y=[\lambda_1,\lambda_2,\dots,\lambda_K], \sum_{k=1}^K \lambda_k = 1\)</span> ，
 其中 <span class="math notranslate nohighlight">\(\lambda_k\)</span> 表示向量的第k个元素为1的概率，也就是多项式变量 <span class="math notranslate nohighlight">\(Y\)</span> 是第k个类别的概率。</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-9">
-<span class="eqno">(16.5.1)<a class="headerlink" href="#equation-probability-model-9" title="公式的永久链接">¶</a></span>\[\lambda_k=p(Y^k=1;\lambda)\]</div>
+<span class="eqno">(16.5.1)<a class="headerlink" href="#equation-probability-model-9" title="公式的永久链接"></a></span>\[\lambda_k=p(Y^k=1;\lambda)\]</div>
 <p>其中 <span class="math notranslate nohighlight">\(Y^k\)</span> 表示类别向量的第k个元素。多项式变量 <span class="math notranslate nohighlight">\(Y\)</span> 的概率质量函数可以写成：</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-10">
-<span class="eqno">(16.5.2)<a class="headerlink" href="#equation-probability-model-10" title="公式的永久链接">¶</a></span>\[p(y;\lambda) = \prod_{k=1}^K \lambda_k^{\delta(y,y_k)}\]</div>
+<span class="eqno">(16.5.2)<a class="headerlink" href="#equation-probability-model-10" title="公式的永久链接"></a></span>\[p(y;\lambda) = \prod_{k=1}^K \lambda_k^{\delta(y,y_k)}\]</div>
 <p>其中 <span class="math notranslate nohighlight">\(\delta(y,y_k)\)</span> 是指示函数，当 <span class="math notranslate nohighlight">\(y=y_k\)</span> 成立的时候值为1，否则值为0。
 同样，对于每种类别k，定义一个条件高斯密度函数：</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-11">
-<span class="eqno">(16.5.3)<a class="headerlink" href="#equation-probability-model-11" title="公式的永久链接">¶</a></span>\[p(x|Y^k=1;\theta)=\frac{1}{(2\pi)^{1/2}|\Sigma|^{1/2}}
+<span class="eqno">(16.5.3)<a class="headerlink" href="#equation-probability-model-11" title="公式的永久链接"></a></span>\[p(x|Y^k=1;\theta)=\frac{1}{(2\pi)^{1/2}|\Sigma|^{1/2}}
 \exp \left \{  -\frac{1}{2}(x-\mu_k)^T \Sigma^{-1} (x-\mu_k)  \right \}\]</div>
 <p>其中 <span class="math notranslate nohighlight">\(\mu_k\)</span> 是第k个类别下特征变量高斯分布的均值参数，<span class="math notranslate nohighlight">\(\Sigma\)</span> 是方差参数。
 和之前二分类高斯判别模型一样，仍然假设所有类别下特征变量的高斯分布拥有同一个方差参数 <span class="math notranslate nohighlight">\(\Sigma\)</span> 。
@@ -1563,14 +1489,14 @@ subgraph cluster_2 {
 对于更一般的协方差矩阵  <span class="math notranslate nohighlight">\(\Sigma\)</span> (不是对角矩阵)，就意味着是 <a class="reference internal" href="22.%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB_32.html#fg-32-7"><span class="std std-numref">图 18.3.1</span></a> (c) 所示的模型，特征变量间不满足条件独立性。</p>
 <p>根据贝叶斯定义可以得到类别k的后验概率：</p>
 <div class="math notranslate nohighlight" id="equation-eq-32-18">
-<span class="eqno">(16.5.4)<a class="headerlink" href="#equation-eq-32-18" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}p(Y^k=1|x;\theta) &amp;= \frac{p(Y^k=1;\lambda) p(x|Y^k=1;\theta)  }
+<span class="eqno">(16.5.4)<a class="headerlink" href="#equation-eq-32-18" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}p(Y^k=1|x;\theta) &amp;= \frac{p(Y^k=1;\lambda) p(x|Y^k=1;\theta)  }
 { \sum_{l=1}^{K} p(Y^l=1;\lambda) p(x|Y^l=1;\theta) }\\&amp;= \frac{ \lambda_k \exp \{ -\frac{1}{2}(x-\mu_k)^T\Sigma^{-1}(x-\mu_k)  \}  }
 {\sum_{l=1}^{K}  \lambda_l \exp \{ -\frac{1}{2}(x-\mu_l)^T\Sigma^{-1}(x-\mu_l)  \}  }\\&amp;= \frac{ \exp \{ \mu_k^T\Sigma^{-1}x -\frac{1}{2} \mu_k^T \Sigma^{-1}\mu_k + \log \lambda_k \}}
 { \sum_{l=1}^{K} \exp \{ \mu_l^T\Sigma^{-1}x -\frac{1}{2} \mu_l^T \Sigma^{-1}\mu_l + \log \lambda_l \}}\end{aligned}\end{align} \]</div>
 <p>计算过程中，x的二次项 <span class="math notranslate nohighlight">\(x^T\Sigma^{-1}X\)</span> 可以被消除掉，使得最后得到的是x的线性函数的指数。
 我们定义一个新的参数 <span class="math notranslate nohighlight">\(\beta_k\)</span> 简化上述公式。</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-12">
-<span class="eqno">(16.5.5)<a class="headerlink" href="#equation-probability-model-12" title="公式的永久链接">¶</a></span>\[\begin{split}\beta_k \triangleq \left [
+<span class="eqno">(16.5.5)<a class="headerlink" href="#equation-probability-model-12" title="公式的永久链接"></a></span>\[\begin{split}\beta_k \triangleq \left [
 \begin{matrix}
 -\mu_k^T \Sigma^{-1} \mu_k + \log \lambda_k \\
 \Sigma^{-1}\mu_k
@@ -1578,40 +1504,49 @@ subgraph cluster_2 {
 \right ]\end{split}\]</div>
 <p>人为的给特定向量x在第一个位置增加一个常数元素1，然后用新的参数简化后验概率公式 <a class="reference internal" href="#equation-eq-32-18">公式(16.5.4)</a> 后为：</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-13">
-<span class="eqno">(16.5.6)<a class="headerlink" href="#equation-probability-model-13" title="公式的永久链接">¶</a></span>\[p(Y^k=1|x;\theta) = \frac{e^{\beta_k^T x}}{ \sum_{l=1}^{K} e^{\beta_l^T x}}\]</div>
+<span class="eqno">(16.5.6)<a class="headerlink" href="#equation-probability-model-13" title="公式的永久链接"></a></span>\[p(Y^k=1|x;\theta) = \frac{e^{\beta_k^T x}}{ \sum_{l=1}^{K} e^{\beta_l^T x}}\]</div>
 <p>这个函数通常也被称为softmax函数，softmax函数是逻辑函数的扩展，逻辑函数是2分类函数，softmax扩展成多分类，
 softmax拥有和逻辑函数类似的几何解释。</p>
-<div class="figure align-center" id="id20">
+<figure class="align-center" id="id20">
 <span id="fg-32-12"></span><a class="reference internal image-reference" href="../_images/32_121.jpg"><img alt="../_images/32_121.jpg" src="../_images/32_121.jpg" style="width: 344.8px; height: 233.60000000000002px;" /></a>
-<p class="caption"><span class="caption-number">图 16.5.1 </span><span class="caption-text">softmax函数在特征空间上的轮廓线。图中的实直线表示两个类别概率相同 <span class="math notranslate nohighlight">\(\phi_k(z)=\phi_l(z)\)</span> 的位置，
-类别 <span class="math notranslate nohighlight">\(k\)</span> 和类别 <span class="math notranslate nohighlight">\(l\)</span> 后验概率相同的轮廓线。</span><a class="headerlink" href="#id20" title="永久链接至图片">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">图 16.5.1 </span><span class="caption-text">softmax函数在特征空间上的轮廓线。图中的实直线表示两个类别概率相同 <span class="math notranslate nohighlight">\(\phi_k(z)=\phi_l(z)\)</span> 的位置，
+类别 <span class="math notranslate nohighlight">\(k\)</span> 和类别 <span class="math notranslate nohighlight">\(l\)</span> 后验概率相同的轮廓线。</span><a class="headerlink" href="#id20" title="永久链接至图片"></a></p>
+</figcaption>
+</figure>
 <p>多分类高斯分类模型的最大似然估计和二分类模型没有本质区别，参数的最大似然估计等于经验分布，区别就是原来样本被分成两类，
 现在样本被分成多类。</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-14">
-<span class="eqno">(16.5.7)<a class="headerlink" href="#equation-probability-model-14" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\hat{\lambda}_{k,ML} &amp;= \frac{\sum_{n=1}^N \delta(y_n=y_k) }{N}\\\hat{\mu}_{jk,ML} &amp;= \frac{\sum_{n=1}^N \delta(y_n=y_k)  x_{j,n}}{\sum_{n=1}^N \delta(y_n=y_k)}\\
+<span class="eqno">(16.5.7)<a class="headerlink" href="#equation-probability-model-14" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\hat{\lambda}_{k,ML} &amp;= \frac{\sum_{n=1}^N \delta(y_n=y_k) }{N}\\\hat{\mu}_{jk,ML} &amp;= \frac{\sum_{n=1}^N \delta(y_n=y_k)  x_{j,n}}{\sum_{n=1}^N \delta(y_n=y_k)}\\
 \hat{\sigma}^2_{j,ML} &amp;= \sum_{k=1}^K
 \frac{\sum_{n=1}^N \delta(y_n=y_k) (x_{j,n}-\hat{\mu}_{jk,ML})^2}{\sum_{n=1}^N \delta(y_n=y_k) }\end{aligned}\end{align} \]</div>
 <p>本节我们讨论的高斯判别模型是一个线性分类(linear classifier)器，
 当然如果把不同类别的高斯分布的协方差矩阵设置成不同的参数，就可以得到非线性分类器，
 有兴趣的读者可以自己推导一下。</p>
-</div>
-<div class="section" id="id11">
-<h2><span class="section-number">16.6. </span>其它扩展<a class="headerlink" href="#id11" title="永久链接至标题">¶</a></h2>
-</div>
-</div>
+</section>
+<section id="id11">
+<h2><span class="section-number">16.6. </span>其它扩展<a class="headerlink" href="#id11" title="永久链接至标题"></a></h2>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="21.%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92_29.html" class="btn btn-neutral float-right" title="17. 回归模型" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="17.%E9%87%87%E6%A0%B7%E6%B3%95_lecture_18.html" class="btn btn-neutral float-left" title="15. 马尔科夫蒙特卡洛" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="17.%E9%87%87%E6%A0%B7%E6%B3%95_lecture_18.html" class="btn btn-neutral float-left" title="15. 马尔科夫蒙特卡洛" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="21.%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92_29.html" class="btn btn-neutral float-right" title="17. 回归模型" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2018, zhangzhenhu(acmtiger@outlook.com) 禁止一切形式的转载！.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
+  
 
 
     <script src="https://utteranc.es/client.js"
@@ -1624,42 +1559,16 @@ softmax拥有和逻辑函数类似的几何解释。</p>
 
 
 
-  <div role="contentinfo">
-    <p>
-        &#169; 版权所有 2018, zhangzhenhu(acmtiger@outlook.com) 禁止一切形式的转载！.
-
-    </p>
-  </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-
-
-
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

@@ -1,99 +1,51 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="zh-CN" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>9. 模型检验 &mdash; 张振虎的博客 张振虎 文档</title>
-  
-
-  
-  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
     <link rel="canonical" href="https://zhangzhenhu.github.io/blog/glm/source/模型评估/influence.html" />
-
-  
   <!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
         <script src="../../../_static/doctools.js"></script>
         <script src="../../../_static/translations.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2.7.7/unpacked/MathJax.min.js"></script>
         <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"Macros": {"RR": "{\\bf R}", "bold": ["{\\bf #1}", 1]}}})</script>
-    
-    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-
-    
+    <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../../genindex.html" />
     <link rel="search" title="搜索" href="../../../search.html" />
     <link rel="next" title="10. 高斯模型" href="../%E9%AB%98%E6%96%AF%E6%A8%A1%E5%9E%8B/content.html" />
     <link rel="prev" title="8. 模型评估" href="content.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../../../index.html" class="icon icon-home"> 张振虎的博客
-          
-
-          
           </a>
-
-          
-            
-            
               <div class="version">
                 acmtiger@outlook.com
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="在文档中搜索" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">目录:</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">目录:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">广义线性模型</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80/content.html">1. 概率基础</a><ul>
@@ -141,7 +93,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#id2">3.1. 统计量和充分统计量</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-sample-distribution">3.2. 抽样分布</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-sample-distribution-normal">3.2.1. 正态分布</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#t">3.2.2. t分布</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#t">3.2.2. 学生t分布</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#id5">3.2.3. 卡方分布</a></li>
 </ul>
 </li>
@@ -746,7 +698,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../audio/feature.html#id18">1.5. 分帧与加窗</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../audio/feature.html#id19">1.5.1. 预加重处理</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../audio/feature.html#id20">1.5.2. 分帧与加窗</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../audio/feature.html#id20">1.5.2. 分帧与加窗处理</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../audio/feature.html#id21">1.6. 声音的感官度量</a><ul>
@@ -788,26 +740,26 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../edm/bkt.html">1. 贝叶斯知识追踪(Bayesian Knowledge Tracing,BKT)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id1">1.1. 简介</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#hidden-markov-model-hmm">1.2. 隐马尔科夫模型(Hidden Markov Model,HMM)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id5">1.3. 贝叶斯知识追踪(Bayesian Knowledge Tracing,BKT)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#bayesian-knowledge-tracing">1.3. 贝叶斯知识追踪(Bayesian Knowledge Tracing)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#bkt">1.3.1. BKT的参数估计</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#item-response-theory-irt">1.4. 项目反映理论(Item Response Theory,IRT)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#bktirt">1.5. BKT结合IRT</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id6">1.6. 实验</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id7">1.6.1. 数据集</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id8">1.6.2. 实验方法</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id9">1.6.3. 实验结果</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id10">1.6.4. 项目代码</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id5">1.6. 实验</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id6">1.6.1. 数据集</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id7">1.6.2. 实验方法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id8">1.6.3. 实验结果</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id9">1.6.4. 项目代码</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id11">1.7. 未来工作</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id12">1.7.1. 题目难度的计算</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id10">1.7. 未来工作</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id11">1.7.1. 题目难度的计算</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#irt">1.7.2. 多参数IRT模型</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id13">1.7.3. 参数估计算法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id12">1.7.3. 参数估计算法</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id14">1.8. 参考文献</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id13">1.8. 参考文献</a></li>
 </ul>
 </li>
 </ul>
@@ -904,75 +856,33 @@
 </li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../../index.html">张振虎的博客</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="../index.html">广义线性模型</a> &raquo;</li>
-        
       <li><span class="section-number">9. </span>模型检验</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
-            <a href="../../../_sources/glm/source/模型评估/influence.rst.txt" rel="nofollow"> View page source</a>
-          
-        
+            <a href="../../../_sources/glm/source/模型评估/influence.rst.txt" rel="nofollow"> 查看页面源码</a>
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="id1">
-<h1><span class="section-number">9. </span>模型检验<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+             
+  <section id="id1">
+<h1><span class="section-number">9. </span>模型检验<a class="headerlink" href="#id1" title="永久链接至标题"></a></h1>
 <p>我们基于样本训练模型，基于样本计算模型拟合优度指标，并给出模型好坏的结论。
 然而，这一切都是建立随机样本的基础上，模型拟合优度指标也是一个随机量，
 我们的结论是根据样本推断(influence)得出的，推断得出结论不是百分百准确的，
@@ -995,37 +905,37 @@ Fahrmeir和Kaufmann（1985）给出了广义线性模型抽样分布理论的详
 ，其中 <span class="math notranslate nohighlight">\(\mathbb{E}[S]\)</span> 和 <span class="math notranslate nohighlight">\(V(S)\)</span> 分别是 <span class="math notranslate nohighlight">\(S\)</span> 的期望和方差
 ，则近似的有：</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-influence-0">
-<span class="eqno">(9.1)<a class="headerlink" href="#equation-glm-source-influence-0" title="公式的永久链接">¶</a></span>\[\frac{S-\mathbb{E}[S]}{\sqrt{V(S)}} \sim \mathcal{N}(0,1)\]</div>
+<span class="eqno">(9.1)<a class="headerlink" href="#equation-glm-source-influence-0" title="公式的永久链接"></a></span>\[\frac{S-\mathbb{E}[S]}{\sqrt{V(S)}} \sim \mathcal{N}(0,1)\]</div>
 <p>根据卡方分布的定义，等价的有</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-influence-1">
-<span class="eqno">(9.2)<a class="headerlink" href="#equation-glm-source-influence-1" title="公式的永久链接">¶</a></span>\[\frac{(S-\mathbb{E}[S])^2}{V(S)} \sim \chi^2 (1)\]</div>
+<span class="eqno">(9.2)<a class="headerlink" href="#equation-glm-source-influence-1" title="公式的永久链接"></a></span>\[\frac{(S-\mathbb{E}[S])^2}{V(S)} \sim \chi^2 (1)\]</div>
 <p>如果 <span class="math notranslate nohighlight">\(S\)</span> 是一个向量 <span class="math notranslate nohighlight">\(\pmb{S}^{T}=[S_1,\dots,S_k]\)</span> ，上述结论可以写成向量的模式。</p>
 <div class="math notranslate nohighlight" id="equation-eq-influence-110">
-<span class="eqno">(9.3)<a class="headerlink" href="#equation-eq-influence-110" title="公式的永久链接">¶</a></span>\[(\pmb{S}-\mathbb{E}[\pmb{S}])^T \pmb{V}^{-1}(\pmb{S}-\mathbb{E}[\pmb{S}])
+<span class="eqno">(9.3)<a class="headerlink" href="#equation-eq-influence-110" title="公式的永久链接"></a></span>\[(\pmb{S}-\mathbb{E}[\pmb{S}])^T \pmb{V}^{-1}(\pmb{S}-\mathbb{E}[\pmb{S}])
 \sim \chi^2 (k)\]</div>
 <p>其中 <span class="math notranslate nohighlight">\(\pmb{V}\)</span> 是协方差矩阵，并且必须是非奇异矩阵。</p>
-<div class="section" id="id2">
-<h2><span class="section-number">9.1. </span>拉格朗日乘子检验<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<section id="id2">
+<h2><span class="section-number">9.1. </span>拉格朗日乘子检验<a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
 <p>我们已经知道似然函数及其一阶导数都是一个关于样本的函数，
 所以似然函数及其一阶导数都是统计量(statistic)。
 似然函数的一阶导数又叫做得分函数(score function)，也称为得分统计量(score statics)。
 拉格朗日乘子检验（Lagrange multiplier test,LMT）是利用得分统计量对模型进行检验的方法，
 因为是通过得分统计量进行检验，所以也被称为是分数检验（score test）。
 它可以用于检验在一个模型的基础上增加特征的特征变量后能否显著提升模型的效果。</p>
-<div class="section" id="id3">
-<h3><span class="section-number">9.1.1. </span>得分统计量<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h3>
+<section id="id3">
+<h3><span class="section-number">9.1.1. </span>得分统计量<a class="headerlink" href="#id3" title="永久链接至标题"></a></h3>
 <p>假设 <span class="math notranslate nohighlight">\(Y_1,\dots,Y_N\)</span> 是相互独立的 <code class="docutils literal notranslate"><span class="pre">GLM</span></code> 样本变量，
 这里我们强调 <span class="math notranslate nohighlight">\(Y_i\)</span> 是一个随机变量，所以用大写符号表示。
 其中有 <span class="math notranslate nohighlight">\(\mathbb{E}[Y_i]=\mu_i\)</span> , <span class="math notranslate nohighlight">\(g(\mu_i)=\beta^T x_i=\eta_i\)</span>
 ，自然参数 <span class="math notranslate nohighlight">\(\theta_i\)</span> 是一个关于 <span class="math notranslate nohighlight">\(\mu_i\)</span> 函数。
 <code class="docutils literal notranslate"><span class="pre">GLM</span></code> 模型的对数似然函数为</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-influence-2">
-<span class="eqno">(9.1.1)<a class="headerlink" href="#equation-glm-source-influence-2" title="公式的永久链接">¶</a></span>\[\ell(\beta)= \sum_{i=1}^N \left \{   \frac{Y_i \theta_i - b(\theta_i)}{a(\phi)}   + c(y_i,\phi)   \right \}\]</div>
-<p>根据 <code class="xref std std-numref docutils literal notranslate"><span class="pre">章节%s</span></code> 的内容，对数似然函数的一阶导数又叫得分统计量，
+<span class="eqno">(9.1.1)<a class="headerlink" href="#equation-glm-source-influence-2" title="公式的永久链接"></a></span>\[\ell(\beta)= \sum_{i=1}^N \left \{   \frac{Y_i \theta_i - b(\theta_i)}{a(\phi)}   + c(y_i,\phi)   \right \}\]</div>
+<p>根据 <a class="reference internal" href="../%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/estimate.html#ch-glm-estimate"><span class="std std-numref">章节7.1</span></a> 的内容，对数似然函数的一阶导数又叫得分统计量，
 记作 <span class="math notranslate nohighlight">\(U\)</span>。
 <code class="docutils literal notranslate"><span class="pre">GLM</span></code> 得分统计量的一般形式为</p>
 <div class="math notranslate nohighlight" id="equation-eq-glm-influence-033">
-<span class="eqno">(9.1.2)<a class="headerlink" href="#equation-eq-glm-influence-033" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}U_j = \frac{ \partial \ell}{\beta_j}
+<span class="eqno">(9.1.2)<a class="headerlink" href="#equation-eq-glm-influence-033" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}U_j = \frac{ \partial \ell}{\beta_j}
 &amp;= \sum_{i=1}^N \left ( \frac{\partial \ell_i}{\partial \theta_i} \right )
 \left ( \frac{\partial \theta_i}{\partial \mu_i} \right )
 \left ( \frac{\partial \mu_i}{\partial \eta_i} \right )
@@ -1036,39 +946,39 @@ Fahrmeir和Kaufmann（1985）给出了广义线性模型抽样分布理论的详
 对于任意的样本 <span class="math notranslate nohighlight">\(Y_i\)</span> 都有 <span class="math notranslate nohighlight">\(\mathbb{E}[Y_i]=\mu_i\)</span>
 ，因此有</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-influence-3">
-<span class="eqno">(9.1.3)<a class="headerlink" href="#equation-glm-source-influence-3" title="公式的永久链接">¶</a></span>\[\mathbb{E}_{Y_i}[U_j] = 0\]</div>
+<span class="eqno">(9.1.3)<a class="headerlink" href="#equation-glm-source-influence-3" title="公式的永久链接"></a></span>\[\mathbb{E}_{Y_i}[U_j] = 0\]</div>
 <p>统计量 <span class="math notranslate nohighlight">\(U\)</span> 的协方差矩阵又称作信息矩阵，记作 <span class="math notranslate nohighlight">\(\mathcal{J}\)</span>。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-influence-4">
-<span class="eqno">(9.1.4)<a class="headerlink" href="#equation-glm-source-influence-4" title="公式的永久链接">¶</a></span>\[\mathcal{J}_{jk} = \mathbb{E}[U_jU_k]
+<span class="eqno">(9.1.4)<a class="headerlink" href="#equation-glm-source-influence-4" title="公式的永久链接"></a></span>\[\mathcal{J}_{jk} = \mathbb{E}[U_jU_k]
 =\sum_{i=1}^N
 \left ( \frac{\partial \mu}{\partial \eta} \right )^2_i  \frac{  x_{ij} x_{ik}}{ a(\phi) \nu(\hat{y}_i) }\]</div>
 <p>在  <a class="reference internal" href="../../../probability_model/2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#ch-estimate"><span class="std std-numref">章节2参数估计</span></a> 我们讲过，
 信息矩阵 <span class="math notranslate nohighlight">\(\mathcal{J}\)</span> 又等于对数似然函数二阶偏导数（海森矩阵）的期望的负数，</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-influence-5">
-<span class="eqno">(9.1.5)<a class="headerlink" href="#equation-glm-source-influence-5" title="公式的永久链接">¶</a></span>\[\mathcal{J} = - \mathbb{E}[\ell'']
+<span class="eqno">(9.1.5)<a class="headerlink" href="#equation-glm-source-influence-5" title="公式的永久链接"></a></span>\[\mathcal{J} = - \mathbb{E}[\ell'']
 = - \mathbb{E}[U']\]</div>
 <p>如果模型的参数向量 <span class="math notranslate nohighlight">\(\beta\)</span> 只有一个截距参数， <span class="math notranslate nohighlight">\(\beta=[\beta_0]\)</span> ，
 此时模型只有一个参数，得分统计量 <span class="math notranslate nohighlight">\(U\)</span> 是一个标量，渐近服从正态分布。</p>
 <div class="math notranslate nohighlight" id="equation-eq-glm-influence-015">
-<span class="eqno">(9.1.6)<a class="headerlink" href="#equation-eq-glm-influence-015" title="公式的永久链接">¶</a></span>\[U  \sim \mathcal{N}(0,\mathcal{J})
+<span class="eqno">(9.1.6)<a class="headerlink" href="#equation-eq-glm-influence-015" title="公式的永久链接"></a></span>\[U  \sim \mathcal{N}(0,\mathcal{J})
 \ \text{或者} \
 \frac{U}{\sqrt{\mathcal{J}}} \sim \mathcal{N}(0,1)\]</div>
 <p>根据卡方分布的定义，也可以写成</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-influence-6">
-<span class="eqno">(9.1.7)<a class="headerlink" href="#equation-glm-source-influence-6" title="公式的永久链接">¶</a></span>\[\frac{U^2}{\mathcal{J}}  \sim \chi^2 (1)\]</div>
+<span class="eqno">(9.1.7)<a class="headerlink" href="#equation-glm-source-influence-6" title="公式的永久链接"></a></span>\[\frac{U^2}{\mathcal{J}}  \sim \chi^2 (1)\]</div>
 <p>如果 <span class="math notranslate nohighlight">\(\beta\)</span> 是一个参数向量，<span class="math notranslate nohighlight">\(\beta^T=[\beta_0,\beta_1,\dots,\beta_p]\)</span>，
 模型一共有 <span class="math notranslate nohighlight">\(p+1\)</span> 个参数，
 则 <span class="math notranslate nohighlight">\(\textbf{U}\)</span> 表示一个向量 <span class="math notranslate nohighlight">\(\textbf{U}^T=[U_0,U_1,\dots,U_p]\)</span>
 ，此时 <span class="math notranslate nohighlight">\(\textbf{U}\)</span> 渐近服从多维正态分布（multivariate Normal distribution,MVN）。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-influence-7">
-<span class="eqno">(9.1.8)<a class="headerlink" href="#equation-glm-source-influence-7" title="公式的永久链接">¶</a></span>\[\textbf{U} \sim MVN(\textbf{0},\mathbf{\mathcal{J}})\]</div>
+<span class="eqno">(9.1.8)<a class="headerlink" href="#equation-glm-source-influence-7" title="公式的永久链接"></a></span>\[\textbf{U} \sim MVN(\textbf{0},\mathbf{\mathcal{J}})\]</div>
 <p>在大样本下有</p>
 <div class="math notranslate nohighlight" id="equation-eq-glm-influence-036">
-<span class="eqno">(9.1.9)<a class="headerlink" href="#equation-eq-glm-influence-036" title="公式的永久链接">¶</a></span>\[\textbf{U}^T \mathbf{\mathcal{J}}^{-1} \textbf{U} \sim  \chi^2 (p+1)\]</div>
+<span class="eqno">(9.1.9)<a class="headerlink" href="#equation-eq-glm-influence-036" title="公式的永久链接"></a></span>\[\textbf{U}^T \mathbf{\mathcal{J}}^{-1} \textbf{U} \sim  \chi^2 (p+1)\]</div>
 <p>在 <code class="docutils literal notranslate"><span class="pre">GLM</span></code> 中通常都是有多个协变量参数的，我们默认符号 <span class="math notranslate nohighlight">\(U\)</span> 是一个向量。</p>
-</div>
-<div class="section" id="id4">
-<h3><span class="section-number">9.1.2. </span>检验过程<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id4">
+<h3><span class="section-number">9.1.2. </span>检验过程<a class="headerlink" href="#id4" title="永久链接至标题"></a></h3>
 <p>假设我们的特征变量 <span class="math notranslate nohighlight">\(X\)</span> 一共有 <span class="math notranslate nohighlight">\(k\)</span> 个，即 <span class="math notranslate nohighlight">\(X_i = [X_1,X_2,\cdots,X_k]\)</span>
 ，对应的协变量参数向量为 <span class="math notranslate nohighlight">\(\beta=[\beta_0,\beta_1,\cdots,\beta_k]\)</span>
 。现在把 <span class="math notranslate nohighlight">\(X_i\)</span> 分成两部分，
@@ -1081,16 +991,16 @@ Fahrmeir和Kaufmann（1985）给出了广义线性模型抽样分布理论的详
 换一种说法就是，增加这 <span class="math notranslate nohighlight">\(q\)</span> 个特征后模型的效果是否有显著性提升。</p>
 <p>检验的零假设记作</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-influence-8">
-<span class="eqno">(9.1.10)<a class="headerlink" href="#equation-glm-source-influence-8" title="公式的永久链接">¶</a></span>\[H_0 : \beta_q = [\beta_{p+1},\beta_{p+2},\cdots,\beta_k] = [0,0,\dots,0]\]</div>
+<span class="eqno">(9.1.10)<a class="headerlink" href="#equation-glm-source-influence-8" title="公式的永久链接"></a></span>\[H_0 : \beta_q = [\beta_{p+1},\beta_{p+2},\cdots,\beta_k] = [0,0,\dots,0]\]</div>
 <p>对立假设为</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-influence-9">
-<span class="eqno">(9.1.11)<a class="headerlink" href="#equation-glm-source-influence-9" title="公式的永久链接">¶</a></span>\[H_a : \beta_q = [\beta_{p+1},\beta_{p+2},\cdots,\beta_k] \neq [0,0,\dots,0]\]</div>
+<span class="eqno">(9.1.11)<a class="headerlink" href="#equation-glm-source-influence-9" title="公式的永久链接"></a></span>\[H_a : \beta_q = [\beta_{p+1},\beta_{p+2},\cdots,\beta_k] \neq [0,0,\dots,0]\]</div>
 <p>首先是，在 <span class="math notranslate nohighlight">\(H_0\)</span> 成立的基础上训练出一个拟合模型，
 这等价于训练一个只包含 <span class="math notranslate nohighlight">\(p\)</span> 个参数（特征变量）的模型，记作 <span class="math notranslate nohighlight">\(M_p\)</span>。</p>
 <p>然后需要计算检验统计量的值，拉格朗日乘子检验使用的统计量是 <a class="reference internal" href="#equation-eq-glm-influence-036">公式(9.1.9)</a>，
 这里暂时把这个统计量记作 <span class="math notranslate nohighlight">\(H\)</span>。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-influence-10">
-<span class="eqno">(9.1.12)<a class="headerlink" href="#equation-glm-source-influence-10" title="公式的永久链接">¶</a></span>\[H(\beta^q) = U(\beta^q)^T \mathcal{J(\beta^q)}^{-1} U(\beta^q)\]</div>
+<span class="eqno">(9.1.12)<a class="headerlink" href="#equation-glm-source-influence-10" title="公式的永久链接"></a></span>\[H(\beta^q) = U(\beta^q)^T \mathcal{J(\beta^q)}^{-1} U(\beta^q)\]</div>
 <p>需要注意的是，我们的零假设是关于 <span class="math notranslate nohighlight">\(\beta^q\)</span> 的，
 所以这里计算的是 <span class="math notranslate nohighlight">\(H(\beta_q)\)</span> 的值，
 而不是 <span class="math notranslate nohighlight">\(H(\beta_p)\)</span> 。
@@ -1109,12 +1019,12 @@ Fahrmeir和Kaufmann（1985）给出了广义线性模型抽样分布理论的详
 <p>有时还可以对 <span class="math notranslate nohighlight">\(H\)</span> 进行开方，得到一个渐近服从标准正态分布的统计量，
 利用标准正态分布进行检验也是可以的。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-influence-11">
-<span class="eqno">(9.1.13)<a class="headerlink" href="#equation-glm-source-influence-11" title="公式的永久链接">¶</a></span>\[\sqrt{H} \sim \mathcal{N}(0,1)\]</div>
+<span class="eqno">(9.1.13)<a class="headerlink" href="#equation-glm-source-influence-11" title="公式的永久链接"></a></span>\[\sqrt{H} \sim \mathcal{N}(0,1)\]</div>
 <p>拉格朗日乘子检验使用的是得分（score）统计量，因此也被称作分数检验（score test）。</p>
-</div>
-</div>
-<div class="section" id="wald">
-<span id="ch-glm-influence-wald"></span><h2><span class="section-number">9.2. </span>wald 检验<a class="headerlink" href="#wald" title="永久链接至标题">¶</a></h2>
+</section>
+</section>
+<section id="wald">
+<span id="ch-glm-influence-wald"></span><h2><span class="section-number">9.2. </span>wald 检验<a class="headerlink" href="#wald" title="永久链接至标题"></a></h2>
 <p>拉格朗日乘子检验是对得分统计量的检验，
 本节我们讨论的 <code class="docutils literal notranslate"><span class="pre">wald</span></code> 检验是直接对参数估计量的检验。
 我们先给出 <code class="docutils literal notranslate"><span class="pre">GLM</span></code> 模型中协变量参数估计量的抽样分布，
@@ -1124,67 +1034,67 @@ Fahrmeir和Kaufmann（1985）给出了广义线性模型抽样分布理论的详
 <p>定义一个单变量的函数 <span class="math notranslate nohighlight">\(f(x)\)</span>，
 对于函数上的某个点 <span class="math notranslate nohighlight">\(x=t\)</span> 的附近有如下近似成立：</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-influence-12">
-<span class="eqno">(9.2.1)<a class="headerlink" href="#equation-glm-source-influence-12" title="公式的永久链接">¶</a></span>\[f(x) = f(t) + (x-t)\left[ \frac{df}{dx} \right]_{x=t}
+<span class="eqno">(9.2.1)<a class="headerlink" href="#equation-glm-source-influence-12" title="公式的永久链接"></a></span>\[f(x) = f(t) + (x-t)\left[ \frac{df}{dx} \right]_{x=t}
 + \frac{1}{2}(x-t)^2 \left[ \frac{d^2f}{d x^2}  \right ]_{x=t}
 + \dots\]</div>
 </div>
-<div class="section" id="id5">
-<h3><span class="section-number">9.2.1. </span>参数估计量<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
+<section id="id5">
+<h3><span class="section-number">9.2.1. </span>参数估计量<a class="headerlink" href="#id5" title="永久链接至标题"></a></h3>
 <p>对数似然函数的一阶偏导数又叫做得分统计量，记作 <span class="math notranslate nohighlight">\(U(\beta)\)</span>
 ，它是一个关于协变量参数 <span class="math notranslate nohighlight">\(\beta\)</span> 的函数。
 现在我们把得分函数在 <span class="math notranslate nohighlight">\(\hat{\beta}\)</span> 附近的按照泰勒级数近似展开，
 忽略二阶以及更高阶的项。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-influence-13">
-<span class="eqno">(9.2.2)<a class="headerlink" href="#equation-glm-source-influence-13" title="公式的永久链接">¶</a></span>\[U(\beta) = U(\hat{\beta}) + (\beta-\hat{\beta}) U'(\hat{\beta})\]</div>
+<span class="eqno">(9.2.2)<a class="headerlink" href="#equation-glm-source-influence-13" title="公式的永久链接"></a></span>\[U(\beta) = U(\hat{\beta}) + (\beta-\hat{\beta}) U'(\hat{\beta})\]</div>
 <p><span class="math notranslate nohighlight">\(U(\hat{\beta})\)</span> 是对数似然函数在点 <span class="math notranslate nohighlight">\(\hat{\beta}\)</span> 处的一阶偏导数，
 参数估计值 <span class="math notranslate nohighlight">\(\hat{\beta}\)</span> 是通过令 <span class="math notranslate nohighlight">\(U(\beta)=0\)</span> 得到的，
 所以显然有 <span class="math notranslate nohighlight">\(U(\hat{\beta})=0\)</span> 成立。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-influence-14">
-<span class="eqno">(9.2.3)<a class="headerlink" href="#equation-glm-source-influence-14" title="公式的永久链接">¶</a></span>\[U(\beta) =  (\beta-\hat{\beta}) U'(\hat{\beta})\]</div>
+<span class="eqno">(9.2.3)<a class="headerlink" href="#equation-glm-source-influence-14" title="公式的永久链接"></a></span>\[U(\beta) =  (\beta-\hat{\beta}) U'(\hat{\beta})\]</div>
 <p><span class="math notranslate nohighlight">\(U'(\hat{\beta})\)</span> 得分函数的偏导数，也就是对数似然函数在点 <span class="math notranslate nohighlight">\(\hat{\beta}\)</span> 处的二阶偏导数，
 一般称为海森矩阵，记作 <span class="math notranslate nohighlight">\(H(\hat{\beta})=U'(\hat{\beta})\)</span>。</p>
 <div class="math notranslate nohighlight" id="equation-eq-glm-influence-204">
-<span class="eqno">(9.2.4)<a class="headerlink" href="#equation-eq-glm-influence-204" title="公式的永久链接">¶</a></span>\[U(\beta) =  (\beta-\hat{\beta}) U'(\hat{\beta})
+<span class="eqno">(9.2.4)<a class="headerlink" href="#equation-eq-glm-influence-204" title="公式的永久链接"></a></span>\[U(\beta) =  (\beta-\hat{\beta}) U'(\hat{\beta})
 =  H(\hat{\beta})(\beta-\hat{\beta})\]</div>
 <p>海森矩阵的期望等于信息矩阵的负数，</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-influence-15">
-<span class="eqno">(9.2.5)<a class="headerlink" href="#equation-glm-source-influence-15" title="公式的永久链接">¶</a></span>\[\mathbb{E}[ H(\hat{\beta}) ] = - \mathcal{J}(\hat{\beta})\]</div>
+<span class="eqno">(9.2.5)<a class="headerlink" href="#equation-glm-source-influence-15" title="公式的永久链接"></a></span>\[\mathbb{E}[ H(\hat{\beta}) ] = - \mathcal{J}(\hat{\beta})\]</div>
 <p>我们用信息矩阵近似的代替海森矩阵，
 <a class="reference internal" href="#equation-eq-glm-influence-204">公式(9.2.4)</a> 可以进一步改写成</p>
 <div class="math notranslate nohighlight" id="equation-eq-glm-influence-206">
-<span class="eqno">(9.2.6)<a class="headerlink" href="#equation-eq-glm-influence-206" title="公式的永久链接">¶</a></span>\[U(\beta) = -  \mathcal{J}(\hat{\beta})(\beta-\hat{\beta})
+<span class="eqno">(9.2.6)<a class="headerlink" href="#equation-eq-glm-influence-206" title="公式的永久链接"></a></span>\[U(\beta) = -  \mathcal{J}(\hat{\beta})(\beta-\hat{\beta})
 =  \mathcal{J}(\hat{\beta})(\hat{\beta}-\beta)\]</div>
 <p>等价的有</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-influence-16">
-<span class="eqno">(9.2.7)<a class="headerlink" href="#equation-glm-source-influence-16" title="公式的永久链接">¶</a></span>\[(\hat{\beta}-\beta) = \mathcal{J}^{-1} U\]</div>
+<span class="eqno">(9.2.7)<a class="headerlink" href="#equation-glm-source-influence-16" title="公式的永久链接"></a></span>\[(\hat{\beta}-\beta) = \mathcal{J}^{-1} U\]</div>
 <p>其中 <span class="math notranslate nohighlight">\(\mathcal{J}\)</span> 可以看做是常量，根据 <span class="math notranslate nohighlight">\(\mathbb{E}[U]=0\)</span> 可得</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-influence-17">
-<span class="eqno">(9.2.8)<a class="headerlink" href="#equation-glm-source-influence-17" title="公式的永久链接">¶</a></span>\[\mathbb{E}[\hat{\beta}-\beta] =   \mathcal{J}^{-1} \mathbb{E}[U] = 0\]</div>
+<span class="eqno">(9.2.8)<a class="headerlink" href="#equation-glm-source-influence-17" title="公式的永久链接"></a></span>\[\mathbb{E}[\hat{\beta}-\beta] =   \mathcal{J}^{-1} \mathbb{E}[U] = 0\]</div>
 <p>因此可得 <span class="math notranslate nohighlight">\(\mathbb{E}[\hat{\beta}]=\beta\)</span>，
 估计量 <span class="math notranslate nohighlight">\(\hat{\beta}\)</span> 是参数 <span class="math notranslate nohighlight">\(\beta\)</span> 的一致估计。
 现在来看下估计量 <span class="math notranslate nohighlight">\(\hat{\beta}\)</span> 的方差 <span class="math notranslate nohighlight">\(V(\hat{\beta})\)</span> 。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-influence-18">
-<span class="eqno">(9.2.9)<a class="headerlink" href="#equation-glm-source-influence-18" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}V(\hat{\beta}) &amp;= \mathbb{E} \left [ (\hat{\beta} -\mathbb{E}[\hat{\beta}]) (\hat{\beta}-\mathbb{E}[\hat{\beta}])^T \right ]\\&amp;= \mathbb{E} \left[ (\hat{\beta} -\beta) (\hat{\beta} -\beta)^T \right ]\\&amp;= \mathbb{E} \left[ \mathcal{J}^{-1}U U^T \mathcal{J}^{-1} \right ]\\&amp;= \mathcal{J}^{-1} \mathbb{E} \left[ U U^T  \right ] \mathcal{J}^{-1}\\&amp;= \mathcal{J}^{-1}\end{aligned}\end{align} \]</div>
-<p>根据上一节的结论（<a class="reference internal" href="influence_bak.html#equation-eq-glm-influence-015">公式()</a>），统计量 <span class="math notranslate nohighlight">\(U/\sqrt{\mathcal{J}}\)</span>
+<span class="eqno">(9.2.9)<a class="headerlink" href="#equation-glm-source-influence-18" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}V(\hat{\beta}) &amp;= \mathbb{E} \left [ (\hat{\beta} -\mathbb{E}[\hat{\beta}]) (\hat{\beta}-\mathbb{E}[\hat{\beta}])^T \right ]\\&amp;= \mathbb{E} \left[ (\hat{\beta} -\beta) (\hat{\beta} -\beta)^T \right ]\\&amp;= \mathbb{E} \left[ \mathcal{J}^{-1}U U^T \mathcal{J}^{-1} \right ]\\&amp;= \mathcal{J}^{-1} \mathbb{E} \left[ U U^T  \right ] \mathcal{J}^{-1}\\&amp;= \mathcal{J}^{-1}\end{aligned}\end{align} \]</div>
+<p>根据上一节的结论（<a class="reference internal" href="#equation-eq-glm-influence-015">公式(9.1.6)</a>），统计量 <span class="math notranslate nohighlight">\(U/\sqrt{\mathcal{J}}\)</span>
 的抽样分布是标准高斯分布，可得</p>
 <div class="math notranslate nohighlight" id="equation-eq-glm-influence-207">
-<span class="eqno">(9.2.10)<a class="headerlink" href="#equation-eq-glm-influence-207" title="公式的永久链接">¶</a></span>\[\frac{U}{\sqrt{\mathcal{J}}}
+<span class="eqno">(9.2.10)<a class="headerlink" href="#equation-eq-glm-influence-207" title="公式的永久链接"></a></span>\[\frac{U}{\sqrt{\mathcal{J}}}
 =  (\hat{\beta}-\beta) \sqrt{\mathcal{J}(\hat{\beta})}  \sim \mathcal{N}(0,1)\]</div>
 <p>也可以写成</p>
 <div class="math notranslate nohighlight" id="equation-eq-glm-influence-208">
-<span class="eqno">(9.2.11)<a class="headerlink" href="#equation-eq-glm-influence-208" title="公式的永久链接">¶</a></span>\[\hat{\beta} \sim \mathcal{N}(\beta, \mathcal{J}^{-1})\]</div>
+<span class="eqno">(9.2.11)<a class="headerlink" href="#equation-eq-glm-influence-208" title="公式的永久链接"></a></span>\[\hat{\beta} \sim \mathcal{N}(\beta, \mathcal{J}^{-1})\]</div>
 <p>如果 <span class="math notranslate nohighlight">\(Y\)</span> 的分布是正态分布，似然估计量 <span class="math notranslate nohighlight">\(\hat{\beta}\)</span> 就是精确服从正态分布，而不是渐近了。
 如果 <span class="math notranslate nohighlight">\(Y\)</span> 的分布是非正态分布，似然估计量 <span class="math notranslate nohighlight">\(\hat{\beta}\)</span> 就是渐近服从正态分布。</p>
-<p>参考本节开始时的理论（<a class="reference internal" href="influence_bak.html#equation-eq-influence-110">公式()</a>）， <a class="reference internal" href="#equation-eq-glm-influence-207">公式(9.2.10)</a>
+<p>参考本节开始时的理论（<a class="reference internal" href="#equation-eq-influence-110">公式(9.3)</a>）， <a class="reference internal" href="#equation-eq-glm-influence-207">公式(9.2.10)</a>
 平方之后得到卡方统计量。</p>
 <div class="math notranslate nohighlight" id="equation-eq-glm-influence-210">
-<span class="eqno">(9.2.12)<a class="headerlink" href="#equation-eq-glm-influence-210" title="公式的永久链接">¶</a></span>\[(\hat{\beta}-\beta)^T\mathcal{J}(\hat{\beta})(\hat{\beta}-\beta) \sim \chi^2(p+1)\]</div>
+<span class="eqno">(9.2.12)<a class="headerlink" href="#equation-eq-glm-influence-210" title="公式的永久链接"></a></span>\[(\hat{\beta}-\beta)^T\mathcal{J}(\hat{\beta})(\hat{\beta}-\beta) \sim \chi^2(p+1)\]</div>
 <p><span class="math notranslate nohighlight">\(p\)</span> 是模型的特征数量，也是协变量参数的数量（不含截距参数），<span class="math notranslate nohighlight">\(p+1\)</span> 中的 <span class="math notranslate nohighlight">\(1\)</span> 代表截距参数，
 <span class="math notranslate nohighlight">\(p+1\)</span> 就是模型的参数数量。
 <a class="reference internal" href="#equation-eq-glm-influence-210">公式(9.2.12)</a> 又叫做 <code class="docutils literal notranslate"><span class="pre">Wald</span></code> 统计量。</p>
-</div>
-<div class="section" id="id6">
-<h3><span class="section-number">9.2.2. </span>检验过程<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id6">
+<h3><span class="section-number">9.2.2. </span>检验过程<a class="headerlink" href="#id6" title="永久链接至标题"></a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">Wald</span></code> 统计量是有关参数估计量的统计量，因此可以用它对参数估计量进行检验。
 检验过程和拉格朗日乘子检验非常类似，
 不同的地方在于，拉格朗日乘子检验是训练一个参数较少的模型，然后检验新增特征是否有显著的意义，
@@ -1204,35 +1114,35 @@ Fahrmeir和Kaufmann（1985）给出了广义线性模型抽样分布理论的详
 <p>符号 <span class="math notranslate nohighlight">\(j\)</span> 表示第 <span class="math notranslate nohighlight">\(j\)</span> 个特征，<span class="math notranslate nohighlight">\(\beta_j\)</span> 表示特征 <span class="math notranslate nohighlight">\(X_j\)</span> 对应的协变量参数，
 零假设和对立假设，分别是</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-influence-19">
-<span class="eqno">(9.2.13)<a class="headerlink" href="#equation-glm-source-influence-19" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}H_0 : \beta_j = 0\\H_a : \beta_j \neq 0\end{aligned}\end{align} \]</div>
+<span class="eqno">(9.2.13)<a class="headerlink" href="#equation-glm-source-influence-19" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}H_0 : \beta_j = 0\\H_a : \beta_j \neq 0\end{aligned}\end{align} \]</div>
 <p>单一参数进行检验的过程和 <a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-influence-test-test"><span class="std std-numref">节 3.6</span></a> 讲的 Z 检验（T检验）没啥区别，
 基本是一样的，这里就不再赘述了。
 此外，根据参数估计量的抽样分布 <a class="reference internal" href="#equation-eq-glm-influence-208">公式(9.2.11)</a>
 ，可以同时给出参数估计值的置信区间。
 有关置信区间的内容可以复习一下 <a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-influence-test-interval"><span class="std std-numref">节 3.5</span></a>。</p>
-</div>
-</div>
-<div class="section" id="id7">
-<h2><span class="section-number">9.3. </span>似然比检验<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h2>
+</section>
+</section>
+<section id="id7">
+<h2><span class="section-number">9.3. </span>似然比检验<a class="headerlink" href="#id7" title="永久链接至标题"></a></h2>
 <p>在上一章我们已经介绍了对数似然比统计量（log-likelihood ratio,LLR），
 <code class="docutils literal notranslate"><span class="pre">LLR</span></code> 用来对比两个嵌套模型的拟合优度，它是复杂模型（协变量参数多一些）和 简单模型（协变量参数少一些）的对数似然差值的2倍。</p>
 <div class="math notranslate nohighlight" id="equation-eq-glm-test-021">
-<span class="eqno">(9.3.1)<a class="headerlink" href="#equation-eq-glm-test-021" title="公式的永久链接">¶</a></span>\[LLR= 2(\ln L_g - \ln L_s)\]</div>
+<span class="eqno">(9.3.1)<a class="headerlink" href="#equation-eq-glm-test-021" title="公式的永久链接"></a></span>\[LLR= 2(\ln L_g - \ln L_s)\]</div>
 <p><code class="docutils literal notranslate"><span class="pre">LLR</span></code> 的值越大意味着被比较的两个模型对数据的拟合优度差异越大。
 反之，<code class="docutils literal notranslate"><span class="pre">LLR</span></code> 的值比较小意味着两个模型对数据的拟合优度差异较小。
 <code class="docutils literal notranslate"><span class="pre">LLR</span></code> 常用来做嵌套模型的对比选择，
 如果两个模型对数据的拟合能力差别较小，我们更倾向于选择简单模型（协变量参数较少的模型）。
 <code class="docutils literal notranslate"><span class="pre">LLR</span></code> 有时也会被用来做特征的筛选，对比去掉某些特征后模型的效果是否显著下降，
 或者是增加某些特征后模型效果有没有显著的提升。</p>
-<div class="section" id="id8">
-<h3><span class="section-number">9.3.1. </span>抽样分布<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h3>
+<section id="id8">
+<h3><span class="section-number">9.3.1. </span>抽样分布<a class="headerlink" href="#id8" title="永久链接至标题"></a></h3>
 <p>我们继续用符号 <span class="math notranslate nohighlight">\(\hat{\beta}\)</span> 表示协变量参数 <span class="math notranslate nohighlight">\(\beta\)</span> 的似然估计值，
 <span class="math notranslate nohighlight">\(\hat{\beta}\)</span> 是 <span class="math notranslate nohighlight">\(\beta\)</span> 的一致无偏估计，
 在样本足够的情况下，理论上二者应该是比较接近的。
 对数似然函数 <span class="math notranslate nohighlight">\(\ell(\beta)\)</span> 是关于 <span class="math notranslate nohighlight">\(\beta\)</span> 的一个函数，
 在 <span class="math notranslate nohighlight">\(\beta=\hat{\beta}\)</span> 附近利用泰勒级数可以得到</p>
 <div class="math notranslate nohighlight" id="equation-eq-glm-test-022">
-<span class="eqno">(9.3.2)<a class="headerlink" href="#equation-eq-glm-test-022" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\ell(\beta) &amp;= \ell(\hat{\beta}) + (\beta - \hat{\beta}) \frac{\partial \ell(\beta)}{\partial \hat{\beta}}
+<span class="eqno">(9.3.2)<a class="headerlink" href="#equation-eq-glm-test-022" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\ell(\beta) &amp;= \ell(\hat{\beta}) + (\beta - \hat{\beta}) \frac{\partial \ell(\beta)}{\partial \hat{\beta}}
 + \frac{1}{2}(\beta-\hat{\beta})^2   \frac{\partial^2 \ell(\beta)}{\partial \hat{\beta}^2}\\&amp;=  \ell(\hat{\beta})  + (\beta - \hat{\beta}) U(\hat{\beta})
 -\frac{1}{2}(\beta -\hat{\beta} )^T\mathcal{J}(\hat{\beta})(\beta-\hat{\beta})\end{aligned}\end{align} \]</div>
 <p><span class="math notranslate nohighlight">\(U(\hat{\beta})\)</span> 是对数似然函数在点 <span class="math notranslate nohighlight">\(\hat{\beta}\)</span> 处的一阶偏导数，
@@ -1240,20 +1150,20 @@ Fahrmeir和Kaufmann（1985）给出了广义线性模型抽样分布理论的详
 参数估计值 <span class="math notranslate nohighlight">\(\hat{\beta}\)</span> 是通过令 <span class="math notranslate nohighlight">\(U(\beta)=0\)</span> 得到的，
 所以显然有 <span class="math notranslate nohighlight">\(U(\hat{\beta})=0\)</span> 成立。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-influence-20">
-<span class="eqno">(9.3.3)<a class="headerlink" href="#equation-glm-source-influence-20" title="公式的永久链接">¶</a></span>\[\ell(\beta) - \ell(\hat{\beta}) =   -\frac{1}{2}(\beta -\hat{\beta} )^T\mathcal{J}(\hat{\beta})(\beta-\hat{\beta})\]</div>
+<span class="eqno">(9.3.3)<a class="headerlink" href="#equation-glm-source-influence-20" title="公式的永久链接"></a></span>\[\ell(\beta) - \ell(\hat{\beta}) =   -\frac{1}{2}(\beta -\hat{\beta} )^T\mathcal{J}(\hat{\beta})(\beta-\hat{\beta})\]</div>
 <p>继续移项，可得到如下统计量</p>
 <div class="math notranslate nohighlight" id="equation-eq-influence-260">
-<span class="eqno">(9.3.4)<a class="headerlink" href="#equation-eq-influence-260" title="公式的永久链接">¶</a></span>\[2[\ell(\hat{\beta}) - \ell(\beta) ] = (\hat{\beta} -\beta )^T\mathcal{J}(\hat{\beta})(\hat{\beta}-\beta)\]</div>
+<span class="eqno">(9.3.4)<a class="headerlink" href="#equation-eq-influence-260" title="公式的永久链接"></a></span>\[2[\ell(\hat{\beta}) - \ell(\beta) ] = (\hat{\beta} -\beta )^T\mathcal{J}(\hat{\beta})(\hat{\beta}-\beta)\]</div>
 <p>依据 <a class="reference internal" href="#equation-eq-glm-influence-210">公式(9.2.12)</a> 这个统计量是服从自由度为 <span class="math notranslate nohighlight">\(p+1\)</span> 的卡方分布，<span class="math notranslate nohighlight">\(p+1\)</span>
 是模型的参数数量。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-influence-21">
-<span class="eqno">(9.3.5)<a class="headerlink" href="#equation-glm-source-influence-21" title="公式的永久链接">¶</a></span>\[2[\ell(\hat{\beta}) - \ell(\beta) ] \sim \chi^2(p+1)\]</div>
+<span class="eqno">(9.3.5)<a class="headerlink" href="#equation-glm-source-influence-21" title="公式的永久链接"></a></span>\[2[\ell(\hat{\beta}) - \ell(\beta) ] \sim \chi^2(p+1)\]</div>
 <p>我们用下标 <span class="math notranslate nohighlight">\(s\)</span> 表示简单模型，比如 <span class="math notranslate nohighlight">\(\beta_s\)</span> 表示简单的模型的参数向量（真实值），
 <span class="math notranslate nohighlight">\(\hat{\beta}_s\)</span> 表示简单模型的参数估计量，其协变量参数数量为 <span class="math notranslate nohighlight">\(p+1\)</span> 个。
 用下标 <span class="math notranslate nohighlight">\(g\)</span> 表示负责模型，比如 <span class="math notranslate nohighlight">\(\beta_g\)</span> 表示复杂的模型的参数向量（真实值），
 <span class="math notranslate nohighlight">\(\hat{\beta}_g\)</span> 表示复杂模型的参数估计量，其协变量参数数量为 <span class="math notranslate nohighlight">\(q+1\)</span> 个。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-influence-22">
-<span class="eqno">(9.3.6)<a class="headerlink" href="#equation-glm-source-influence-22" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}LLR &amp;= 2[\ell(\hat{\beta}_g) - \ell(\hat{\beta}_s)]\\&amp;= 2[\ell(\hat{\beta}_g) - \ell(\hat{\beta}_s)]
+<span class="eqno">(9.3.6)<a class="headerlink" href="#equation-glm-source-influence-22" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}LLR &amp;= 2[\ell(\hat{\beta}_g) - \ell(\hat{\beta}_s)]\\&amp;= 2[\ell(\hat{\beta}_g) - \ell(\hat{\beta}_s)]
 + 2\ell(\beta_{g}) - 2\ell(\beta_{s})
 + 2\ell(\beta_{s})  - 2\ell(\beta_{g})\\&amp;= \underbrace{2[ \ell(\hat{\beta}_g ) -  \ell(\beta_g)  ]}_{\chi^2(q+1)}
 - \underbrace{2[ \ell(\hat{\beta}_s) - \ell(\beta_s)  ]}_{\chi^2(p+1)}
@@ -1263,13 +1173,13 @@ Fahrmeir和Kaufmann（1985）给出了广义线性模型抽样分布理论的详
 再加上一个常数值 <span class="math notranslate nohighlight">\(v\)</span> 。</p>
 <p>根据卡方分布的特性，统计量 <span class="math notranslate nohighlight">\(LLR\)</span> 渐近服从自由度为 <span class="math notranslate nohighlight">\(q-p\)</span> 的 <strong>非中心卡方分布</strong>。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-influence-23">
-<span class="eqno">(9.3.7)<a class="headerlink" href="#equation-glm-source-influence-23" title="公式的永久链接">¶</a></span>\[LLR \sim \chi^2(q-p,v)\]</div>
+<span class="eqno">(9.3.7)<a class="headerlink" href="#equation-glm-source-influence-23" title="公式的永久链接"></a></span>\[LLR \sim \chi^2(q-p,v)\]</div>
 <p>注意偏差统计量 <code class="docutils literal notranslate"><span class="pre">LLR</span></code> 是一个 <strong>非中心卡方分布</strong>，这和之前介绍的统计量不同，
 <span class="math notranslate nohighlight">\(v\)</span> 是非中心参数。
 <code class="docutils literal notranslate"><span class="pre">LLR</span></code> 的期望值是 <span class="math notranslate nohighlight">\(\mathbb{E}[\text{LLR}] = q-p+v\)</span> 。
 现在来重点看一下 <span class="math notranslate nohighlight">\(v\)</span> 的值，</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-influence-24">
-<span class="eqno">(9.3.8)<a class="headerlink" href="#equation-glm-source-influence-24" title="公式的永久链接">¶</a></span>\[v = 2[ \ell(\beta_{s};y) - \ell(\beta_{f};y)   ]\]</div>
+<span class="eqno">(9.3.8)<a class="headerlink" href="#equation-glm-source-influence-24" title="公式的永久链接"></a></span>\[v = 2[ \ell(\beta_{s};y) - \ell(\beta_{f};y)   ]\]</div>
 <p><span class="math notranslate nohighlight">\(v\)</span> 的值是复杂模型的理论最大似然值和简单模型的理论最大似然值的差，
 两个模型对数据的拟合能力越接近，这个差值 <span class="math notranslate nohighlight">\(v\)</span> 就越小。
 极限情况下，两个模型拟合能力一样好，差值 <span class="math notranslate nohighlight">\(v=0\)</span>。
@@ -1278,9 +1188,9 @@ Fahrmeir和Kaufmann（1985）给出了广义线性模型抽样分布理论的详
 就是确切服从（非中心）卡方分布的，而不是渐近的。
 如果响应变量 <span class="math notranslate nohighlight">\(Y\)</span> 不是高斯分布，则统计量 <code class="docutils literal notranslate"><span class="pre">LLR</span></code>
 是 <strong>渐近</strong> 服从（非中心）卡方分布的。</p>
-</div>
-<div class="section" id="id9">
-<h3><span class="section-number">9.3.2. </span>模型比较<a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id9">
+<h3><span class="section-number">9.3.2. </span>模型比较<a class="headerlink" href="#id9" title="永久链接至标题"></a></h3>
 <p>似然比统计量可以用来比较两个嵌套模型对同一份数据的拟合效果。
 在 <code class="docutils literal notranslate"><span class="pre">GLM</span></code> 中 ，要求两个模型具有相同的指数族分布，以及同样的连接函数，
 被比较的两个模型只有线性预测器是不同的，一个参数多，一个参数少，换句话说一个使用的特征多，另一个使用的特征少。
@@ -1306,16 +1216,16 @@ Fahrmeir和Kaufmann（1985）给出了广义线性模型抽样分布理论的详
 并且有 <span class="math notranslate nohighlight">\(q&gt;p\)</span> 成立。
 零假设和对立假设分别为</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-influence-25">
-<span class="eqno">(9.3.9)<a class="headerlink" href="#equation-glm-source-influence-25" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}&amp;H_0: G_0=G_1 \ \text{两个模型拟合效果一样}\\&amp;H_1: G_0 \neq G_1 \ \text{两个模型拟合效果具有统计学上的显著差异}\end{aligned}\end{align} \]</div>
+<span class="eqno">(9.3.9)<a class="headerlink" href="#equation-glm-source-influence-25" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}&amp;H_0: G_0=G_1 \ \text{两个模型拟合效果一样}\\&amp;H_1: G_0 \neq G_1 \ \text{两个模型拟合效果具有统计学上的显著差异}\end{aligned}\end{align} \]</div>
 <p>拟合优度指标选择对数似然值，
 我们用 <span class="math notranslate nohighlight">\(\ell_0\)</span> 表示模型 <span class="math notranslate nohighlight">\(M_0\)</span> 的对数似然值，
 用符号 <span class="math notranslate nohighlight">\(\ell_1\)</span> 表示模型 <span class="math notranslate nohighlight">\(M_1\)</span> 的对数似然值，
 两个模型 <code class="docutils literal notranslate"><span class="pre">LLR</span></code> 为</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-influence-26">
-<span class="eqno">(9.3.10)<a class="headerlink" href="#equation-glm-source-influence-26" title="公式的永久链接">¶</a></span>\[\Delta G = \text{LLR} =2( \ell_1 - \ell_0)\]</div>
+<span class="eqno">(9.3.10)<a class="headerlink" href="#equation-glm-source-influence-26" title="公式的永久链接"></a></span>\[\Delta G = \text{LLR} =2( \ell_1 - \ell_0)\]</div>
 <p>统计量 <code class="docutils literal notranslate"><span class="pre">LLR</span></code> 的抽样分布是卡方分布</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-influence-27">
-<span class="eqno">(9.3.11)<a class="headerlink" href="#equation-glm-source-influence-27" title="公式的永久链接">¶</a></span>\[\text{LLR} \sim \chi^2(q-p,v)\]</div>
+<span class="eqno">(9.3.11)<a class="headerlink" href="#equation-glm-source-influence-27" title="公式的永久链接"></a></span>\[\text{LLR} \sim \chi^2(q-p,v)\]</div>
 <p>如果两个模型的拟合能力是接近的，则 <code class="docutils literal notranslate"><span class="pre">LLR</span></code> 期望值是 <span class="math notranslate nohighlight">\(q-p\)</span>，
 否则就是 <span class="math notranslate nohighlight">\(q-p+v\)</span>。
 换句话说，在零假设成立的条件下，<code class="docutils literal notranslate"><span class="pre">LLR</span></code> 的抽样分布是自由度为 <span class="math notranslate nohighlight">\(q-p\)</span>
@@ -1325,20 +1235,20 @@ Fahrmeir和Kaufmann（1985）给出了广义线性模型抽样分布理论的详
 。如果落在拒绝域内，则拒绝 <span class="math notranslate nohighlight">\(H_0\)</span> 假设，接受 <span class="math notranslate nohighlight">\(H_1\)</span> 假设。
 通常如果两个模型拟合能力相差巨大，<code class="docutils literal notranslate"><span class="pre">LLR</span></code> 直观上远远大于 <span class="math notranslate nohighlight">\(q-p\)</span> 了，此时也没有进行假设检验的必要了。
 当两个模型的拟合能力比较接近，从经验上(直观上)无法判断是否显著时，才有假设检验的必要。</p>
-</div>
-<div class="section" id="id10">
-<h3><span class="section-number">9.3.3. </span>偏差统计量<a class="headerlink" href="#id10" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id10">
+<h3><span class="section-number">9.3.3. </span>偏差统计量<a class="headerlink" href="#id10" title="永久链接至标题"></a></h3>
 <p>我们知道偏差统计量就是饱和模型（saturated model）和拟合模型的对数似然比，
 记作</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-influence-28">
-<span class="eqno">(9.3.12)<a class="headerlink" href="#equation-glm-source-influence-28" title="公式的永久链接">¶</a></span>\[D = 2[\ell_s - \ell_t]\]</div>
+<span class="eqno">(9.3.12)<a class="headerlink" href="#equation-glm-source-influence-28" title="公式的永久链接"></a></span>\[D = 2[\ell_s - \ell_t]\]</div>
 <p>其中 <span class="math notranslate nohighlight">\(\ell_s\)</span> 表示饱和模型对数似然值，
 <span class="math notranslate nohighlight">\(\ell_t\)</span> 表示拟合模型的对数似然值。
 饱和模型的参数数量和观测样本的数量 <span class="math notranslate nohighlight">\(N\)</span> 是相同的，
 假设拟合模型的参数数量是 <span class="math notranslate nohighlight">\(p+1\)</span>，
 显然偏差统计量的抽样分布就是</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-influence-29">
-<span class="eqno">(9.3.13)<a class="headerlink" href="#equation-glm-source-influence-29" title="公式的永久链接">¶</a></span>\[D \sim \chi^2(N-p-1,v)\]</div>
+<span class="eqno">(9.3.13)<a class="headerlink" href="#equation-glm-source-influence-29" title="公式的永久链接"></a></span>\[D \sim \chi^2(N-p-1,v)\]</div>
 <p>根据卡方分布的特性，统计量 <span class="math notranslate nohighlight">\(D\)</span> 渐近服从 <strong>非中心卡方分布</strong> ，
 其自由度是 <span class="math notranslate nohighlight">\(N-p-1\)</span> 。</p>
 <p>模型对数据拟合的越好(越接近饱和模型)，其偏差 <span class="math notranslate nohighlight">\(D\)</span> 就越接近中心卡方分布 <span class="math notranslate nohighlight">\(\chi^2(N-p-1)\)</span> ，
@@ -1348,15 +1258,15 @@ Fahrmeir和Kaufmann（1985）给出了广义线性模型抽样分布理论的详
 然而实际上这没有意义。
 实际应用中，拟合模型的参数数量普遍是远远小于样本数量的，二者对数据的拟合能力肯定是相差很大的，
 也就是说偏差值几乎必然是显著的，没有必要进行检验了。</p>
-</div>
-<div class="section" id="f">
-<h3><span class="section-number">9.3.4. </span>F 检验<a class="headerlink" href="#f" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="f">
+<h3><span class="section-number">9.3.4. </span>F 检验<a class="headerlink" href="#f" title="永久链接至标题"></a></h3>
 <p>似然比检验可以用来比较两个嵌套模型是否有显著差异，
 进而判断两个模型相差的那些特征对模型是否有显著意义。
 然而对于 <code class="docutils literal notranslate"><span class="pre">GLM</span></code> 的某些模型计算出准确的对数似然值并不容易。
 回顾一下 <code class="docutils literal notranslate"><span class="pre">GLM</span></code> 模型对数似然函数的一般形式</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-influence-30">
-<span class="eqno">(9.3.14)<a class="headerlink" href="#equation-glm-source-influence-30" title="公式的永久链接">¶</a></span>\[\ell(\beta)= \sum_{i=1}^N \left \{   \frac{Y_i \theta_i - b(\theta_i)}{a(\phi)}   + c(y_i,\phi)   \right \}\]</div>
+<span class="eqno">(9.3.14)<a class="headerlink" href="#equation-glm-source-influence-30" title="公式的永久链接"></a></span>\[\ell(\beta)= \sum_{i=1}^N \left \{   \frac{Y_i \theta_i - b(\theta_i)}{a(\phi)}   + c(y_i,\phi)   \right \}\]</div>
 <p>可以看到对数似然函数依赖分散参数 <span class="math notranslate nohighlight">\(\phi\)</span>，对于嵌套模型 <code class="docutils literal notranslate"><span class="pre">LLR</span></code> 来说，
 式中的项 <span class="math notranslate nohighlight">\(c(y_i,\phi)\)</span> 是可以抵消掉的，
 但是 <span class="math notranslate nohighlight">\(a(\phi)\)</span> 仍然是存在的，
@@ -1378,31 +1288,31 @@ Fahrmeir和Kaufmann（1985）给出了广义线性模型抽样分布理论的详
 换句话说，两个嵌套模型，拥有同样的 <span class="math notranslate nohighlight">\(\phi\)</span>。
 在这个假设的前提下 <code class="docutils literal notranslate"><span class="pre">LLR</span></code> 可以写为</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-influence-31">
-<span class="eqno">(9.3.15)<a class="headerlink" href="#equation-glm-source-influence-31" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}LLR &amp;= 2[\ell_{M_1} - \ell_{M_0}]\\&amp;= 2 \left \{ \sum_{i=1}^N \left [   \frac{Y_i \theta_i - b(\theta_i)}{a(\phi)}   + c(y_i,\phi)  \right ]_{M_1}
+<span class="eqno">(9.3.15)<a class="headerlink" href="#equation-glm-source-influence-31" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}LLR &amp;= 2[\ell_{M_1} - \ell_{M_0}]\\&amp;= 2 \left \{ \sum_{i=1}^N \left [   \frac{Y_i \theta_i - b(\theta_i)}{a(\phi)}   + c(y_i,\phi)  \right ]_{M_1}
 -
  \sum_{i=1}^N \left [   \frac{Y_i \theta_i - b(\theta_i)}{a(\phi)}   + c(y_i,\phi)  \right ]_{M_0}
     \right \}\\
 &amp;=  \frac{2[ \ell'_{M_1} - \ell'_{M_0}] }{a(\phi)}\\&amp;=  \frac{LLR'}{a(\phi)} \sim \chi^2(q-p)\end{aligned}\end{align} \]</div>
 <p>其中 <span class="math notranslate nohighlight">\(\ell'\)</span> 为</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-influence-32">
-<span class="eqno">(9.3.16)<a class="headerlink" href="#equation-glm-source-influence-32" title="公式的永久链接">¶</a></span>\[\ell' = \sum_{i=1}^N \left [   \frac{Y_i \theta_i - b(\theta_i)}{a(\phi)} \right ]\]</div>
+<span class="eqno">(9.3.16)<a class="headerlink" href="#equation-glm-source-influence-32" title="公式的永久链接"></a></span>\[\ell' = \sum_{i=1}^N \left [   \frac{Y_i \theta_i - b(\theta_i)}{a(\phi)} \right ]\]</div>
 <p>偏差统计量是似然比的一个特例，用符号 <span class="math notranslate nohighlight">\(M_s\)</span> 表示饱和模型，模型 <span class="math notranslate nohighlight">\(M_0\)</span> 和模型 <span class="math notranslate nohighlight">\(M_1\)</span>
 的偏差统计量分别为</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-influence-33">
-<span class="eqno">(9.3.17)<a class="headerlink" href="#equation-glm-source-influence-33" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}D_{M_0} &amp;= \frac{2[ \ell'_{M_s} - \ell'_{M_0}] }{a(\phi)} = \frac{D'_{M_0}}{a(\phi)} \sim \chi^2(p+1)\\D_{M_1} &amp;= \frac{2[ \ell'_{M_s} - \ell'_{M_1}] }{a(\phi)} = \frac{D'_{M_1}}{a(\phi)} \sim \chi^2(q+1)\end{aligned}\end{align} \]</div>
+<span class="eqno">(9.3.17)<a class="headerlink" href="#equation-glm-source-influence-33" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}D_{M_0} &amp;= \frac{2[ \ell'_{M_s} - \ell'_{M_0}] }{a(\phi)} = \frac{D'_{M_0}}{a(\phi)} \sim \chi^2(p+1)\\D_{M_1} &amp;= \frac{2[ \ell'_{M_s} - \ell'_{M_1}] }{a(\phi)} = \frac{D'_{M_1}}{a(\phi)} \sim \chi^2(q+1)\end{aligned}\end{align} \]</div>
 <p>现在回顾下三大抽样分布中的 <span class="math notranslate nohighlight">\(F\)</span> 分布，根据 <span class="math notranslate nohighlight">\(F\)</span> 分布的定义，
 两个卡方统计量各自除以自由度之后的比值服从 <span class="math notranslate nohighlight">\(F\)</span> 分布，
 因此以下统计量的抽样分布是 <span class="math notranslate nohighlight">\(F\)</span> 分布。</p>
 <div class="math notranslate nohighlight" id="equation-eq-glm-influence-345">
-<span class="eqno">(9.3.18)<a class="headerlink" href="#equation-eq-glm-influence-345" title="公式的永久链接">¶</a></span>\[F = \left. \frac{LLR}{q-p} \middle/ \frac{D_{M_1}}{N-q-1} \right.
+<span class="eqno">(9.3.18)<a class="headerlink" href="#equation-eq-glm-influence-345" title="公式的永久链接"></a></span>\[F = \left. \frac{LLR}{q-p} \middle/ \frac{D_{M_1}}{N-q-1} \right.
 = \left. \frac{LLR'}{q-p} \middle/ \frac{D'_{M_1}}{N-q-1} \right.
 \sim F(q-p,N-q-1)\]</div>
 <p>实际上对数似然比 <code class="docutils literal notranslate"><span class="pre">LLR</span></code> 可以通过两个模型的偏差得到</p>
 <div class="math notranslate nohighlight" id="equation-eq-glm-influence-346">
-<span class="eqno">(9.3.19)<a class="headerlink" href="#equation-eq-glm-influence-346" title="公式的永久链接">¶</a></span>\[LLR = \Delta D =  D_{M_0} -  D_{M_1} = \frac{D'_{M_0} - D'_{M_1}}{a(\phi)} = \frac{\Delta D'}{a(\phi)}\]</div>
+<span class="eqno">(9.3.19)<a class="headerlink" href="#equation-eq-glm-influence-346" title="公式的永久链接"></a></span>\[LLR = \Delta D =  D_{M_0} -  D_{M_1} = \frac{D'_{M_0} - D'_{M_1}}{a(\phi)} = \frac{\Delta D'}{a(\phi)}\]</div>
 <p>因此 <span class="math notranslate nohighlight">\(F\)</span> 统计量也可以完全通过模型的偏差计算</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-influence-34">
-<span class="eqno">(9.3.20)<a class="headerlink" href="#equation-glm-source-influence-34" title="公式的永久链接">¶</a></span>\[F = \left. \frac{\Delta D'}{q-p} \middle/ \frac{D'_{M_1}}{N-q-1} \right.
+<span class="eqno">(9.3.20)<a class="headerlink" href="#equation-glm-source-influence-34" title="公式的永久链接"></a></span>\[F = \left. \frac{\Delta D'}{q-p} \middle/ \frac{D'_{M_1}}{N-q-1} \right.
  \sim F(q-p,N-q-1)\]</div>
 <p><span class="math notranslate nohighlight">\(F\)</span> 检验统计量可以消除分散参数 <span class="math notranslate nohighlight">\(\phi\)</span> 的影响，
 并且 <span class="math notranslate nohighlight">\(F\)</span> 统计量的值可以利用模型的偏差计算得到，
@@ -1414,10 +1324,10 @@ Fahrmeir和Kaufmann（1985）给出了广义线性模型抽样分布理论的详
 其偏差统计量 <span class="math notranslate nohighlight">\(D_1\)</span> 是一个中心卡方分布。
 然而这通常并不容易实现，
 因此在实际应用中 <span class="math notranslate nohighlight">\(F\)</span> 检验也不是经常使用。</p>
-</div>
-</div>
-<div class="section" id="id11">
-<h2><span class="section-number">9.4. </span>总结<a class="headerlink" href="#id11" title="永久链接至标题">¶</a></h2>
+</section>
+</section>
+<section id="id11">
+<h2><span class="section-number">9.4. </span>总结<a class="headerlink" href="#id11" title="永久链接至标题"></a></h2>
 <p>如上所述，这三种检验方法都是在解决相同的问题，即忽略（参数约束为 <span class="math notranslate nohighlight">\(0\)</span>）部分特征（预测变量）后模型的拟合度是否显著下降，
 但它们的解决方法不相同。
 似然比检验，必须同时训练出两个模型，然后比较这两个模型；
@@ -1434,20 +1344,27 @@ Fahrmeir和Kaufmann（1985）给出了广义线性模型抽样分布理论的详
 当计算能力受到更大限制，训练模型需要很长时间时，能够使用单个模型来近似得到与 <code class="docutils literal notranslate"><span class="pre">LLR</span></code> 相同检验结果是一个相当大的优势。
 如今，对于大多数研究人员可能想要比较的模型而言，计算时间已不再是问题，
 我们通常建议在大多数情况下使用 <code class="docutils literal notranslate"><span class="pre">LLR</span></code> 检验。</p>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../%E9%AB%98%E6%96%AF%E6%A8%A1%E5%9E%8B/content.html" class="btn btn-neutral float-right" title="10. 高斯模型" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="content.html" class="btn btn-neutral float-left" title="8. 模型评估" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="content.html" class="btn btn-neutral float-left" title="8. 模型评估" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../%E9%AB%98%E6%96%AF%E6%A8%A1%E5%9E%8B/content.html" class="btn btn-neutral float-right" title="10. 高斯模型" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2018, zhangzhenhu(acmtiger@outlook.com) 禁止一切形式的转载！.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
+  
 
 
     <script src="https://utteranc.es/client.js"
@@ -1460,42 +1377,16 @@ Fahrmeir和Kaufmann（1985）给出了广义线性模型抽样分布理论的详
 
 
 
-  <div role="contentinfo">
-    <p>
-        &#169; 版权所有 2018, zhangzhenhu(acmtiger@outlook.com) 禁止一切形式的转载！.
-
-    </p>
-  </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-
-
-
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

@@ -1,99 +1,51 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="zh-CN" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>7. 参数估计 &mdash; 张振虎的博客 张振虎 文档</title>
-  
-
-  
-  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
     <link rel="canonical" href="https://zhangzhenhu.github.io/blog/glm/source/广义线性模型/estimate.html" />
-
-  
   <!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
         <script src="../../../_static/doctools.js"></script>
         <script src="../../../_static/translations.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2.7.7/unpacked/MathJax.min.js"></script>
         <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"Macros": {"RR": "{\\bf R}", "bold": ["{\\bf #1}", 1]}}})</script>
-    
-    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-
-    
+    <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../../genindex.html" />
     <link rel="search" title="搜索" href="../../../search.html" />
     <link rel="next" title="8. 模型评估" href="../%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0/content.html" />
     <link rel="prev" title="6. 广义线性模型" href="content.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../../../index.html" class="icon icon-home"> 张振虎的博客
-          
-
-          
           </a>
-
-          
-            
-            
               <div class="version">
                 acmtiger@outlook.com
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="在文档中搜索" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">目录:</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">目录:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">广义线性模型</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80/content.html">1. 概率基础</a><ul>
@@ -141,7 +93,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#id2">3.1. 统计量和充分统计量</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-sample-distribution">3.2. 抽样分布</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-sample-distribution-normal">3.2.1. 正态分布</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#t">3.2.2. t分布</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#t">3.2.2. 学生t分布</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#id5">3.2.3. 卡方分布</a></li>
 </ul>
 </li>
@@ -746,7 +698,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../audio/feature.html#id18">1.5. 分帧与加窗</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../audio/feature.html#id19">1.5.1. 预加重处理</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../audio/feature.html#id20">1.5.2. 分帧与加窗</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../audio/feature.html#id20">1.5.2. 分帧与加窗处理</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../audio/feature.html#id21">1.6. 声音的感官度量</a><ul>
@@ -788,26 +740,26 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../edm/bkt.html">1. 贝叶斯知识追踪(Bayesian Knowledge Tracing,BKT)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id1">1.1. 简介</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#hidden-markov-model-hmm">1.2. 隐马尔科夫模型(Hidden Markov Model,HMM)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id5">1.3. 贝叶斯知识追踪(Bayesian Knowledge Tracing,BKT)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#bayesian-knowledge-tracing">1.3. 贝叶斯知识追踪(Bayesian Knowledge Tracing)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#bkt">1.3.1. BKT的参数估计</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#item-response-theory-irt">1.4. 项目反映理论(Item Response Theory,IRT)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#bktirt">1.5. BKT结合IRT</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id6">1.6. 实验</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id7">1.6.1. 数据集</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id8">1.6.2. 实验方法</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id9">1.6.3. 实验结果</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id10">1.6.4. 项目代码</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id5">1.6. 实验</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id6">1.6.1. 数据集</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id7">1.6.2. 实验方法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id8">1.6.3. 实验结果</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id9">1.6.4. 项目代码</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id11">1.7. 未来工作</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id12">1.7.1. 题目难度的计算</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id10">1.7. 未来工作</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id11">1.7.1. 题目难度的计算</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#irt">1.7.2. 多参数IRT模型</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id13">1.7.3. 参数估计算法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id12">1.7.3. 参数估计算法</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id14">1.8. 参考文献</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id13">1.8. 参考文献</a></li>
 </ul>
 </li>
 </ul>
@@ -904,75 +856,33 @@
 </li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../../index.html">张振虎的博客</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="../index.html">广义线性模型</a> &raquo;</li>
-        
       <li><span class="section-number">7. </span>参数估计</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
-            <a href="../../../_sources/glm/source/广义线性模型/estimate.rst.txt" rel="nofollow"> View page source</a>
-          
-        
+            <a href="../../../_sources/glm/source/广义线性模型/estimate.rst.txt" rel="nofollow"> 查看页面源码</a>
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="id1">
-<h1><span class="section-number">7. </span>参数估计<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+             
+  <section id="id1">
+<h1><span class="section-number">7. </span>参数估计<a class="headerlink" href="#id1" title="永久链接至标题"></a></h1>
 <p>本章我们讨论 <code class="docutils literal notranslate"><span class="pre">GLM</span></code> 模型的参数估计算法，
 我们将统一的以指数族的形式展现算法过程，这样适用于指数族中的所有具体分布，
 我们的目标是让大家对 <code class="docutils literal notranslate"><span class="pre">GLM</span></code> 的基础理论有个全面的了解，同时我们会着重强调算法成立的假设及其一些限制。</p>
@@ -985,8 +895,8 @@
 这里我们同时会介绍牛顿法的一个变种算法，迭代重加权最小平方法(iteratively reweighted least squares,IRLS)。
 <code class="docutils literal notranslate"><span class="pre">GLM</span></code> 框架下的模型都可以以统计的形式运用 <code class="docutils literal notranslate"><span class="pre">IRLS</span></code> 算法进行参数估计，这是 <code class="docutils literal notranslate"><span class="pre">GLM</span></code> 非常有吸引力的一点。
 <code class="docutils literal notranslate"><span class="pre">IRLS</span></code> 算法的另一个特点是不需要对估计参数 <span class="math notranslate nohighlight">\(\hat{\beta}\)</span> 进行初始化设置。</p>
-<div class="section" id="ch-glm-estimate">
-<span id="id2"></span><h2><span class="section-number">7.1. </span>最大似然估计<a class="headerlink" href="#ch-glm-estimate" title="永久链接至标题">¶</a></h2>
+<section id="ch-glm-estimate">
+<span id="id2"></span><h2><span class="section-number">7.1. </span>最大似然估计<a class="headerlink" href="#ch-glm-estimate" title="永久链接至标题"></a></h2>
 <p>最大似然估计是应用十分广泛的一种参数估计方法，
 其核心思想是通过极大化最大似然函数找到参数的最优解，
 <code class="docutils literal notranslate"><span class="pre">GLM</span></code> 中参数估计就是使用的最大似然方法。
@@ -999,12 +909,12 @@
 ，样本之间是相互独立的，本书中的最大似然估计都是建立在样本独立的假设之上。
 所有样本的联合概率为</p>
 <div class="math notranslate nohighlight" id="equation-eq-34-21">
-<span class="eqno">(7.1.1)<a class="headerlink" href="#equation-eq-34-21" title="公式的永久链接">¶</a></span>\[f(y;\theta,\phi)=\prod_{i=1}^N f(y_i;\theta,\phi)\]</div>
+<span class="eqno">(7.1.1)<a class="headerlink" href="#equation-eq-34-21" title="公式的永久链接"></a></span>\[f(y;\theta,\phi)=\prod_{i=1}^N f(y_i;\theta,\phi)\]</div>
 <p><span class="math notranslate nohighlight">\(\theta\)</span> 是指数族分布的自然参数，<span class="math notranslate nohighlight">\(\phi\)</span>
 是分散参数。
 样本的联合概率又被称为样本集的似然函数，</p>
 <div class="math notranslate nohighlight" id="equation-eq-34-22">
-<span class="eqno">(7.1.2)<a class="headerlink" href="#equation-eq-34-22" title="公式的永久链接">¶</a></span>\[L(\theta,\phi;y)=\prod_{i=1}^N f(\theta,\phi;y_i)\]</div>
+<span class="eqno">(7.1.2)<a class="headerlink" href="#equation-eq-34-22" title="公式的永久链接"></a></span>\[L(\theta,\phi;y)=\prod_{i=1}^N f(\theta,\phi;y_i)\]</div>
 <p><a class="reference internal" href="../../../probability_model/25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#equation-eq-34-21">公式(19.2.22)</a> 和 <a class="reference internal" href="../../../probability_model/25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#equation-eq-34-22">公式(19.2.23)</a> 的区别在于，
 前者是一个概率密度(质量)函数，是在给定 <span class="math notranslate nohighlight">\(\theta,\phi\)</span> 的条件下关变量 <span class="math notranslate nohighlight">\(Y\)</span> 的函数；
 后者是一个似然函数，其表达是在给定观测样本 <span class="math notranslate nohighlight">\(y\)</span> 的条件下关于未知参数 <span class="math notranslate nohighlight">\(\theta,\phi\)</span> 的函数。</p>
@@ -1016,7 +926,7 @@
 表示，对数似然函数是最大似然估计(ML)的核心，
 <code class="docutils literal notranslate"><span class="pre">GLM</span></code> 模型的对数似然估计函数为</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-estimate-0">
-<span class="eqno">(7.1.3)<a class="headerlink" href="#equation-glm-source-estimate-0" title="公式的永久链接">¶</a></span>\[\ell(\theta,\phi;y)= \sum_{i=1}^N \left \{   \frac{y_i \theta_i - b(\theta_i)}{a(\phi)}   + c(y_i,\phi)   \right \}\]</div>
+<span class="eqno">(7.1.3)<a class="headerlink" href="#equation-glm-source-estimate-0" title="公式的永久链接"></a></span>\[\ell(\theta,\phi;y)= \sum_{i=1}^N \left \{   \frac{y_i \theta_i - b(\theta_i)}{a(\phi)}   + c(y_i,\phi)   \right \}\]</div>
 <p><span class="math notranslate nohighlight">\(\theta_i\)</span> 是自然参数，
 <span class="math notranslate nohighlight">\(b(\theta_i)\)</span> 是累积函数，它描述的是分布的矩(moment)；
 <span class="math notranslate nohighlight">\(\phi\)</span> 是分散参数(dispersion parameter)，影响着分布的方差；
@@ -1024,37 +934,37 @@
 归一化项不是 <span class="math notranslate nohighlight">\(\theta\)</span> 的函数，而是简单地缩放基础密度函数的范围使得整个函数的积分（或求和）为1。
 在上一节我们讨论过，指数族分布的期望与方差可以通过 <span class="math notranslate nohighlight">\(b(\theta)\)</span> 的导数求得。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-estimate-1">
-<span class="eqno">(7.1.4)<a class="headerlink" href="#equation-glm-source-estimate-1" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\mu &amp;= \mathbb{E}[Y] = b'(\theta)\\V(Y) &amp;= b''(\theta) a(\phi)\end{aligned}\end{align} \]</div>
+<span class="eqno">(7.1.4)<a class="headerlink" href="#equation-glm-source-estimate-1" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\mu &amp;= \mathbb{E}[Y] = b'(\theta)\\V(Y) &amp;= b''(\theta) a(\phi)\end{aligned}\end{align} \]</div>
 <p>并且我们知道，均值参数 <span class="math notranslate nohighlight">\(\mu\)</span> 和自然参数 <span class="math notranslate nohighlight">\(\theta\)</span> 是存在一个可逆的函数关系的，也就是说
 <span class="math notranslate nohighlight">\(\mu\)</span> 可以看做是关于 <span class="math notranslate nohighlight">\(\theta\)</span> 的一个函数，反之，<span class="math notranslate nohighlight">\(\theta\)</span> 也可看做是一个关于
 <span class="math notranslate nohighlight">\(\mu\)</span> 的函数。
 基于这个事实，我们可以把 <span class="math notranslate nohighlight">\(b''(\theta)\)</span> 看做是一个关于 <span class="math notranslate nohighlight">\(\mu\)</span> 的函数，记作
 <span class="math notranslate nohighlight">\(\nu(\mu)\)</span> 。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-estimate-2">
-<span class="eqno">(7.1.5)<a class="headerlink" href="#equation-glm-source-estimate-2" title="公式的永久链接">¶</a></span>\[b''(\theta) \triangleq \nu(\mu)\]</div>
+<span class="eqno">(7.1.5)<a class="headerlink" href="#equation-glm-source-estimate-2" title="公式的永久链接"></a></span>\[b''(\theta) \triangleq \nu(\mu)\]</div>
 <p>因此，方差 <span class="math notranslate nohighlight">\(V(Y)\)</span> 就可以被看成是函数 <span class="math notranslate nohighlight">\(\nu(\mu)\)</span>
 和分散函数 <span class="math notranslate nohighlight">\(a(\phi)\)</span> 的乘积，通常我们把 <span class="math notranslate nohighlight">\(\nu(\mu)=b''(\theta)\)</span> 称为方差函数(variance function)，
 <strong>注意：虽然叫方差函数，但方差函数的值不是方差本身。</strong>
 有时 <span class="math notranslate nohighlight">\(b''(\theta)\)</span> 会是一个常数量(constant)，比如高斯分布，此时分布的方差为：</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-estimate-3">
-<span class="eqno">(7.1.6)<a class="headerlink" href="#equation-glm-source-estimate-3" title="公式的永久链接">¶</a></span>\[V(Y)=constant \times a(\phi)\]</div>
+<span class="eqno">(7.1.6)<a class="headerlink" href="#equation-glm-source-estimate-3" title="公式的永久链接"></a></span>\[V(Y)=constant \times a(\phi)\]</div>
 <p>这时，分布的方差就不会受到均值的影响了。
 另外方差函数 <span class="math notranslate nohighlight">\(\nu(\mu)\)</span> 可以通过简单方式求得。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-estimate-4">
-<span class="eqno">(7.1.7)<a class="headerlink" href="#equation-glm-source-estimate-4" title="公式的永久链接">¶</a></span>\[\nu(\mu) = b''(\theta) =(b'(\theta))'= (\mu(\theta))' = \frac{\partial \mu}{\partial \theta}\]</div>
+<span class="eqno">(7.1.7)<a class="headerlink" href="#equation-glm-source-estimate-4" title="公式的永久链接"></a></span>\[\nu(\mu) = b''(\theta) =(b'(\theta))'= (\mu(\theta))' = \frac{\partial \mu}{\partial \theta}\]</div>
 <p>显然，当 <span class="math notranslate nohighlight">\(\mu\)</span> 与 <span class="math notranslate nohighlight">\(\theta\)</span> 之间的映射函数是线性函数时，一阶偏导 <span class="math notranslate nohighlight">\(\frac{\partial \mu}{\partial \theta}\)</span>
 就是一个常数值。另外，我们知道反函数的导数就等于原函数导数的倒数，所以有：</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-estimate-5">
-<span class="eqno">(7.1.8)<a class="headerlink" href="#equation-glm-source-estimate-5" title="公式的永久链接">¶</a></span>\[\frac{\partial \theta}{\partial \mu} = \frac{1}{\nu(\mu)}\]</div>
+<span class="eqno">(7.1.8)<a class="headerlink" href="#equation-glm-source-estimate-5" title="公式的永久链接"></a></span>\[\frac{\partial \theta}{\partial \mu} = \frac{1}{\nu(\mu)}\]</div>
 <p>在 <code class="docutils literal notranslate"><span class="pre">GLM</span></code> 框架下，输入变量 <span class="math notranslate nohighlight">\(X\)</span> 和其系数 <span class="math notranslate nohighlight">\(\beta\)</span>
 组成一个线性预测器 <span class="math notranslate nohighlight">\(\eta=\beta^Tx\)</span> 。
 <span class="math notranslate nohighlight">\(\eta\)</span> 和分布的均值(期望)通过连接函数(已知的)连接在一起 。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-estimate-6">
-<span class="eqno">(7.1.9)<a class="headerlink" href="#equation-glm-source-estimate-6" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\eta &amp;=\beta^Tx = g(\mu)\\\mu &amp;= g^{-1}(\eta)\end{aligned}\end{align} \]</div>
+<span class="eqno">(7.1.9)<a class="headerlink" href="#equation-glm-source-estimate-6" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\eta &amp;=\beta^Tx = g(\mu)\\\mu &amp;= g^{-1}(\eta)\end{aligned}\end{align} \]</div>
 <p>其中 <span class="math notranslate nohighlight">\(\beta\)</span> 和 <span class="math notranslate nohighlight">\(x\)</span> 都是一个向量，<span class="math notranslate nohighlight">\(\beta^Tx = \sum_j \beta_j x_j\)</span> ，
 因此有：</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-estimate-7">
-<span class="eqno">(7.1.10)<a class="headerlink" href="#equation-glm-source-estimate-7" title="公式的永久链接">¶</a></span>\[\frac{\partial \eta_i}{\partial \beta_j} = x_{ij}\]</div>
+<span class="eqno">(7.1.10)<a class="headerlink" href="#equation-glm-source-estimate-7" title="公式的永久链接"></a></span>\[\frac{\partial \eta_i}{\partial \beta_j} = x_{ij}\]</div>
 <p>线性预测器 <span class="math notranslate nohighlight">\(\eta\)</span> 的值空间并没有特别的限定，
 其值空间是整个实数域 <span class="math notranslate nohighlight">\(\eta \in R\)</span> 。
 而 <span class="math notranslate nohighlight">\(\mu\)</span> 的取值范围是特定分布相关的，
@@ -1068,7 +978,7 @@
 利用求导的链式法则对GLM模型的对数似然函数进行求导，
 注意，参数 <span class="math notranslate nohighlight">\(\beta\)</span> 是一个向量，所以这里是偏导数，</p>
 <div class="math notranslate nohighlight" id="equation-eq-glm-estimate-ll-jac">
-<span class="eqno">(7.1.11)<a class="headerlink" href="#equation-eq-glm-estimate-ll-jac" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\frac{ \partial \ell}{ \partial \beta_j} &amp;= \sum_{i=1}^N \left ( \frac{\partial \ell_i}{\partial \theta_i} \right )
+<span class="eqno">(7.1.11)<a class="headerlink" href="#equation-eq-glm-estimate-ll-jac" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\frac{ \partial \ell}{ \partial \beta_j} &amp;= \sum_{i=1}^N \left ( \frac{\partial \ell_i}{\partial \theta_i} \right )
 \left ( \frac{\partial \theta_i}{\partial \mu_i} \right )
 \left ( \frac{\partial \mu_i}{\partial \eta_i} \right )
 \left ( \frac{\partial \eta_i}{\partial \beta_j} \right )\\&amp;= \sum_{i=1}^N \left \{ \frac{y_i-b'(\theta_i)}{a(\phi)}   \right \}
@@ -1086,7 +996,7 @@
 <p>对数似然函数的一阶导数又叫得分统计量(score statistic,Fisher score)，或者得分函数(score function)，
 常用符号 <span class="math notranslate nohighlight">\(U\)</span> 表示。</p>
 <div class="math notranslate nohighlight" id="equation-eq-glm-estimate-ll-score">
-<span class="eqno">(7.1.12)<a class="headerlink" href="#equation-eq-glm-estimate-ll-score" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}U_j = \frac{\partial \ell}{\partial \beta_j}
+<span class="eqno">(7.1.12)<a class="headerlink" href="#equation-eq-glm-estimate-ll-score" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}U_j = \frac{\partial \ell}{\partial \beta_j}
 &amp;= \sum_{i=1}^N \frac{y_i-\mu_i}{a(\phi) \nu(\mu_i) } \left ( \frac{\partial \mu}{\partial \eta} \right )_i x_{ij}\\&amp;= \sum_{i=1}^N \frac{y_i-\mu_i}{a(\phi) \nu(\mu_i) g(\mu_i)'}  x_{ij}\end{aligned}\end{align} \]</div>
 <p><span class="math notranslate nohighlight">\(U\)</span> 的表达式中只有 <span class="math notranslate nohighlight">\(y_i\)</span> 是随机变量的样本，其它都是数值变量，
 <span class="math notranslate nohighlight">\(U\)</span> 是一个关于样本的函数，所以它是一个统计量(statistic)，
@@ -1095,13 +1005,13 @@
 我们知道 <span class="math notranslate nohighlight">\(\mathbb{E}[y_i]=\mu_i\)</span>，
 而统计量 <span class="math notranslate nohighlight">\(U\)</span> 是变量 <span class="math notranslate nohighlight">\(y\)</span> 的函数，因此 <span class="math notranslate nohighlight">\(U\)</span> 期望值为：</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-estimate-8">
-<span class="eqno">(7.1.13)<a class="headerlink" href="#equation-glm-source-estimate-8" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\mathbb{E}_{y}[U_j] &amp;= \mathbb{E}_{y} \left [ \frac{\partial \ell}{\partial \beta_j} \right ]\\&amp;= \mathbb{E}_{y} \left [ \sum_{i=1}^N \frac{y_i-\mu_i}{a(\phi) \nu(\mu_i) }
+<span class="eqno">(7.1.13)<a class="headerlink" href="#equation-glm-source-estimate-8" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\mathbb{E}_{y}[U_j] &amp;= \mathbb{E}_{y} \left [ \frac{\partial \ell}{\partial \beta_j} \right ]\\&amp;= \mathbb{E}_{y} \left [ \sum_{i=1}^N \frac{y_i-\mu_i}{a(\phi) \nu(\mu_i) }
       \left ( \frac{\partial \mu}{\partial \eta} \right )_i x_{ij}  \right ]\\&amp;= \sum_{i=1}^N \frac{ \mathbb{E}[y_i]-\mu_i}{a(\phi) \nu(\mu_i) } \left ( \frac{\partial \mu}{\partial \eta} \right )_i x_{ij}\\
 &amp;= 0\end{aligned}\end{align} \]</div>
 <p>统计量 <span class="math notranslate nohighlight">\(U\)</span> 的方差 <span class="math notranslate nohighlight">\(\mathcal{J}=\mathbb{E}\{(U-\mathbb{E}[U])(U-\mathbb{E}[U])^T \}=\mathbb{E}[UU^T]\)</span>
 又被称为费希尔信息(Fisher information)，或者信息矩阵(information matrix)。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-estimate-9">
-<span class="eqno">(7.1.14)<a class="headerlink" href="#equation-glm-source-estimate-9" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\mathcal{J}_{jk} &amp;= \mathbb{E}[U_jU_k]\\&amp;= \mathbb{E}_{y} \left [
+<span class="eqno">(7.1.14)<a class="headerlink" href="#equation-glm-source-estimate-9" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\mathcal{J}_{jk} &amp;= \mathbb{E}[U_jU_k]\\&amp;= \mathbb{E}_{y} \left [
 \sum_{i=1}^N \frac{y_i-\mu_i}{a(\phi) \nu(\mu_i) } \left ( \frac{\partial \mu}{\partial \eta} \right )_i x_{ij}
 \cdot
 \sum_{l=1}^N \frac{y_l-\mu_l}{a(\phi) \nu(\mu_l) } \left ( \frac{\partial \mu}{\partial \eta} \right )_l x_{lk}
@@ -1127,14 +1037,14 @@ x_{ij} x_{ik}
 的方差，有 <span class="math notranslate nohighlight">\(\mathbb{E}_{y}[(y_i-\mu_i)^2]=V(y_i)=a(\phi)\nu(\mu_i)\)</span>
 。最终化简为</p>
 <div class="math notranslate nohighlight" id="equation-eq-glm-estimate-019">
-<span class="eqno">(7.1.15)<a class="headerlink" href="#equation-eq-glm-estimate-019" title="公式的永久链接">¶</a></span>\[\mathcal{J}_{jk} = \sum_{i=1}^N \left ( \frac{\partial \mu}{\partial \eta} \right )^2_i
+<span class="eqno">(7.1.15)<a class="headerlink" href="#equation-eq-glm-estimate-019" title="公式的永久链接"></a></span>\[\mathcal{J}_{jk} = \sum_{i=1}^N \left ( \frac{\partial \mu}{\partial \eta} \right )^2_i
 \frac{1}{ a(\phi) \nu(\mu_i) }
 x_{ij} x_{ik}\]</div>
 <p>在最大似然估计的理论中，
 通过令 <span class="math notranslate nohighlight">\(U=0\)</span> 求得参数估计值，这个等式被称为估计等式(estimating equation)，
 有的资料中也叫正规方程(normal equation)。</p>
 <div class="math notranslate nohighlight" id="equation-eq-glm-estimate-020">
-<span class="eqno">(7.1.16)<a class="headerlink" href="#equation-eq-glm-estimate-020" title="公式的永久链接">¶</a></span>\[   U_j
+<span class="eqno">(7.1.16)<a class="headerlink" href="#equation-eq-glm-estimate-020" title="公式的永久链接"></a></span>\[   U_j
    = \sum_{i=1}^N \frac{y_i-\mu_i}{a(\phi) \nu(\mu_i) }
     \left ( \frac{\partial \mu}{\partial \eta} \right )_i x_{ij}
    = 0\]</div>
@@ -1147,7 +1057,7 @@ x_{ij} x_{ik}\]</div>
 并且 <span class="math notranslate nohighlight">\(\phi\)</span> 与样本无关，即所有样本具有相同的值。
 当 <span class="math notranslate nohighlight">\(U_j=0\)</span> 时，有</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-estimate-10">
-<span class="eqno">(7.1.17)<a class="headerlink" href="#equation-glm-source-estimate-10" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}U_j &amp;= 0\\\sum_{i=1}^N \frac{y_i-\mu_i}{a(\phi) \nu(\mu_i) }
+<span class="eqno">(7.1.17)<a class="headerlink" href="#equation-glm-source-estimate-10" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}U_j &amp;= 0\\\sum_{i=1}^N \frac{y_i-\mu_i}{a(\phi) \nu(\mu_i) }
 \left ( \frac{\partial \mu}{\partial \eta} \right )_i x_{ij} &amp;= 0\\\phi \sum_{i=1}^N \frac{y_i-\mu_i}{ \nu(\mu_i) }
 \left ( \frac{\partial \mu}{\partial \eta} \right )_i x_{ij} &amp;= 0\\\sum_{i=1}^N \frac{y_i-\mu_i}{ \nu(\mu_i) }
 \left ( \frac{\partial \mu}{\partial \eta} \right )_i x_{ij} &amp;= 0\end{aligned}\end{align} \]</div>
@@ -1162,27 +1072,27 @@ x_{ij} x_{ik}\]</div>
 ，因此响应函数的导数是常量 <span class="math notranslate nohighlight">\(1\)</span>
 。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-estimate-11">
-<span class="eqno">(7.1.18)<a class="headerlink" href="#equation-glm-source-estimate-11" title="公式的永久链接">¶</a></span>\[\frac{\partial \mu_i }{\partial \eta_i} = 1\]</div>
+<span class="eqno">(7.1.18)<a class="headerlink" href="#equation-glm-source-estimate-11" title="公式的永久链接"></a></span>\[\frac{\partial \mu_i }{\partial \eta_i} = 1\]</div>
 <p>传统线性回归模型中，方差是常量，<span class="math notranslate nohighlight">\(V(y_i)=\sigma^2=1\)</span>
 ，因此有</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-estimate-12">
-<span class="eqno">(7.1.19)<a class="headerlink" href="#equation-glm-source-estimate-12" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\nu(\mu) = 1\\a(\phi) = \sigma^2=1\end{aligned}\end{align} \]</div>
+<span class="eqno">(7.1.19)<a class="headerlink" href="#equation-glm-source-estimate-12" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\nu(\mu) = 1\\a(\phi) = \sigma^2=1\end{aligned}\end{align} \]</div>
 <p>各项代入到估计方程中，
 <span class="math notranslate nohighlight">\(U_j\)</span> 简化为</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-estimate-13">
-<span class="eqno">(7.1.20)<a class="headerlink" href="#equation-glm-source-estimate-13" title="公式的永久链接">¶</a></span>\[U_j
+<span class="eqno">(7.1.20)<a class="headerlink" href="#equation-glm-source-estimate-13" title="公式的永久链接"></a></span>\[U_j
 = \sum_{i=1}^N (y_i-\mu_i ) x_{ij}
 = 0\]</div>
 <p>上式是单个参数 <span class="math notranslate nohighlight">\(\beta_j\)</span> 的得分统计量 <span class="math notranslate nohighlight">\(U_j\)</span>
 ，转成向量为</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-estimate-14">
-<span class="eqno">(7.1.21)<a class="headerlink" href="#equation-glm-source-estimate-14" title="公式的永久链接">¶</a></span>\[\pmb{U} = (\pmb{y}-\pmb{u})^T \pmb{X}
+<span class="eqno">(7.1.21)<a class="headerlink" href="#equation-glm-source-estimate-14" title="公式的永久链接"></a></span>\[\pmb{U} = (\pmb{y}-\pmb{u})^T \pmb{X}
 = (\pmb{y}- \pmb{X}\pmb{\beta})^T\pmb{X}
 = \pmb{X}^T \pmb{y} - \pmb{X}^T X \pmb{\beta}
 = \pmb{0}\]</div>
 <p>移项可得参数的估计值为</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-estimate-15">
-<span class="eqno">(7.1.22)<a class="headerlink" href="#equation-glm-source-estimate-15" title="公式的永久链接">¶</a></span>\[\hat{\pmb{\beta}} = ( \pmb{X}^T \pmb{X})^{-1}\pmb{X}^T \pmb{y}\]</div>
+<span class="eqno">(7.1.22)<a class="headerlink" href="#equation-glm-source-estimate-15" title="公式的永久链接"></a></span>\[\hat{\pmb{\beta}} = ( \pmb{X}^T \pmb{X})^{-1}\pmb{X}^T \pmb{y}\]</div>
 <p>我们发现标准连接函数的高斯模型，估计等式 <span class="math notranslate nohighlight">\(U=0\)</span> 可以得到解析解，
 这是高斯模型独有的特性，其它模型或者连接函数是不具备这个特性的。</p>
 <p><strong>在 GLM 中，估计等式要想得到解析解，需要满足两个条件：</strong></p>
@@ -1194,7 +1104,7 @@ x_{ij} x_{ik}\]</div>
 ，此时有 <span class="math notranslate nohighlight">\(\partial \theta_i / \partial \mu_i = \partial \eta_i / \partial \mu_i\)</span>
 ，得分统计量 <span class="math notranslate nohighlight">\(U\)</span> 可以得到简化。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-estimate-16">
-<span class="eqno">(7.1.23)<a class="headerlink" href="#equation-glm-source-estimate-16" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}U_j = \frac{ \partial \ell}{\beta_j} &amp;= \sum_{i=1}^N
+<span class="eqno">(7.1.23)<a class="headerlink" href="#equation-glm-source-estimate-16" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}U_j = \frac{ \partial \ell}{\beta_j} &amp;= \sum_{i=1}^N
 \left ( \frac{\partial \ell_i}{\partial \theta_i} \right )
 \left ( \frac{\partial \theta_i}{\partial \mu_i} \right )
 \left ( \frac{\partial \mu_i}{\partial \eta_i} \right )
@@ -1211,30 +1121,30 @@ x_{ij} x_{ik}\]</div>
 得分统计量 <span class="math notranslate nohighlight">\(U\)</span> 得到简化。
 再根据上文所述，<span class="math notranslate nohighlight">\(a(\phi)\)</span> 不影响参数估计结果，可以去掉。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-estimate-17">
-<span class="eqno">(7.1.24)<a class="headerlink" href="#equation-glm-source-estimate-17" title="公式的永久链接">¶</a></span>\[U_j =  \sum_{i=1}^N  (y_i-\mu_i) x_{ji}\]</div>
+<span class="eqno">(7.1.24)<a class="headerlink" href="#equation-glm-source-estimate-17" title="公式的永久链接"></a></span>\[U_j =  \sum_{i=1}^N  (y_i-\mu_i) x_{ji}\]</div>
 <p>转换成矩阵的形式为</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-estimate-18">
-<span class="eqno">(7.1.25)<a class="headerlink" href="#equation-glm-source-estimate-18" title="公式的永久链接">¶</a></span>\[\pmb{U} = (\pmb{y}-\pmb{u})^T \pmb{X}
+<span class="eqno">(7.1.25)<a class="headerlink" href="#equation-glm-source-estimate-18" title="公式的永久链接"></a></span>\[\pmb{U} = (\pmb{y}-\pmb{u})^T \pmb{X}
 = \pmb{X}^T \pmb{y} - \pmb{X}^T \pmb{u}
 = 0\]</div>
 <p>移项可得</p>
 <div class="math notranslate nohighlight" id="equation-eq-glm-estimate-150">
-<span class="eqno">(7.1.26)<a class="headerlink" href="#equation-eq-glm-estimate-150" title="公式的永久链接">¶</a></span>\[\pmb{X}^T \pmb{u} = \pmb{X}^T  \pmb{y}\]</div>
+<span class="eqno">(7.1.26)<a class="headerlink" href="#equation-eq-glm-estimate-150" title="公式的永久链接"></a></span>\[\pmb{X}^T \pmb{u} = \pmb{X}^T  \pmb{y}\]</div>
 <p>当 <span class="math notranslate nohighlight">\(\mu\)</span> 与 <span class="math notranslate nohighlight">\(\eta\)</span> 是线性关系时，比如
 <span class="math notranslate nohighlight">\(\mu_i = \alpha \eta_i = \alpha (x_i^T \beta)\)</span>
 ， <a class="reference internal" href="#equation-eq-glm-estimate-150">公式(7.1.26)</a>
 才能求得解析解。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-estimate-19">
-<span class="eqno">(7.1.27)<a class="headerlink" href="#equation-glm-source-estimate-19" title="公式的永久链接">¶</a></span>\[\pmb{X}^T \pmb{u} = \pmb{X}^T \alpha (\pmb{X} \pmb{\beta} ) = \pmb{X}^T  \pmb{y}\]</div>
+<span class="eqno">(7.1.27)<a class="headerlink" href="#equation-glm-source-estimate-19" title="公式的永久链接"></a></span>\[\pmb{X}^T \pmb{u} = \pmb{X}^T \alpha (\pmb{X} \pmb{\beta} ) = \pmb{X}^T  \pmb{y}\]</div>
 <div class="math notranslate nohighlight" id="equation-glm-source-estimate-20">
-<span class="eqno">(7.1.28)<a class="headerlink" href="#equation-glm-source-estimate-20" title="公式的永久链接">¶</a></span>\[\hat{\pmb{\beta}} = ( \alpha \pmb{X}^T \pmb{X})^{-1}\pmb{X}^T \pmb{y}\]</div>
+<span class="eqno">(7.1.28)<a class="headerlink" href="#equation-glm-source-estimate-20" title="公式的永久链接"></a></span>\[\hat{\pmb{\beta}} = ( \alpha \pmb{X}^T \pmb{X})^{-1}\pmb{X}^T \pmb{y}\]</div>
 <p>在 <code class="docutils literal notranslate"><span class="pre">GLM</span></code> 中，能同时满足这两个条件的，只有高斯模型，其它的模型都不符合第二点。
 对于无法取得解析解的模型，可以用数值法求解。最常用的数值法有梯度下降法和牛顿法，
 梯度下降法仅利用似然函数的一阶导数，而牛顿法同时利用似然函数的一阶导数和二阶导数，
 下节我们介绍最大似然估计的数值求解法。</p>
-</div>
-<div class="section" id="id3">
-<h2><span class="section-number">7.2. </span>泰勒级数<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="id3">
+<h2><span class="section-number">7.2. </span>泰勒级数<a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
 <p>最大似然的求解需要求解正规方程，
 然而在 <code class="docutils literal notranslate"><span class="pre">GLM</span></code> 中，正规方程并不是一定存在解析解的，需要满足一些限制条件才行，
 解析解的方式并不具备通用性，我们需要采用更一般的方法，逼近法，也叫迭代法、数值法。
@@ -1245,7 +1155,7 @@ x_{ij} x_{ik}\]</div>
 ，在 <span class="math notranslate nohighlight">\(x_0\)</span>
 处 <span class="math notranslate nohighlight">\(n+1\)</span> 次可导，那么对于这个区间上的任意 <span class="math notranslate nohighlight">\(x\)</span> ，都有</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-estimate-21">
-<span class="eqno">(7.2.1)<a class="headerlink" href="#equation-glm-source-estimate-21" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}f(x)_{Taylor}  &amp;= \sum_{n=0}^{\infty} \frac{f^{(n)}(x_0)}{n!}  (x - x_0)^n\\ &amp;= f(x_0) + \frac{f'(x_0)}{1!}(x-x_0) + \frac{f^{(2)}(x_0)}{2!}(x-x_0)^2+ \cdots + \frac{f^{(n)}(x_0)}{n!}(x-x_0)^n + R_i(x)\end{aligned}\end{align} \]</div>
+<span class="eqno">(7.2.1)<a class="headerlink" href="#equation-glm-source-estimate-21" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}f(x)_{Taylor}  &amp;= \sum_{n=0}^{\infty} \frac{f^{(n)}(x_0)}{n!}  (x - x_0)^n\\ &amp;= f(x_0) + \frac{f'(x_0)}{1!}(x-x_0) + \frac{f^{(2)}(x_0)}{2!}(x-x_0)^2+ \cdots + \frac{f^{(n)}(x_0)}{n!}(x-x_0)^n + R_i(x)\end{aligned}\end{align} \]</div>
 <p>其中 <span class="math notranslate nohighlight">\(f^{(n)}\)</span> 表示 <span class="math notranslate nohighlight">\(f\)</span> 的 <span class="math notranslate nohighlight">\(n\)</span> 阶导数，
 泰勒展开表达的就是 <span class="math notranslate nohighlight">\(f(x)\)</span> 可以用其附近的点 <span class="math notranslate nohighlight">\(f(x_0)\)</span> 近似的表示。</p>
 <div class="admonition hint">
@@ -1253,29 +1163,29 @@ x_{ij} x_{ik}\]</div>
 <p>注意，本书讨论的迭代求解算法默认目标函数都是凸函数，也就是函数有唯一的极值点。
 关于非凸函数以及带约束的优化问题，请读者参考其它资料。</p>
 </div>
-</div>
-<div class="section" id="id4">
-<h2><span class="section-number">7.3. </span>梯度下降法<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="id4">
+<h2><span class="section-number">7.3. </span>梯度下降法<a class="headerlink" href="#id4" title="永久链接至标题"></a></h2>
 <p>我们把对数似然函数按照泰勒公式进行展开，但是我们只展开到一阶导数
 ，把更高阶导数的和看做一个常数量 <code class="docutils literal notranslate"><span class="pre">constant</span></code>
 。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-estimate-22">
-<span class="eqno">(7.3.1)<a class="headerlink" href="#equation-glm-source-estimate-22" title="公式的永久链接">¶</a></span>\[f(x)_{Taylor} = f(x_0) + f'(x_0)(x-x_0) + \text{constant}\]</div>
+<span class="eqno">(7.3.1)<a class="headerlink" href="#equation-glm-source-estimate-22" title="公式的永久链接"></a></span>\[f(x)_{Taylor} = f(x_0) + f'(x_0)(x-x_0) + \text{constant}\]</div>
 <p>现在我们把对数似然函数按照上式进行展开：</p>
 <div class="math notranslate nohighlight" id="equation-eq-34-30">
-<span class="eqno">(7.3.2)<a class="headerlink" href="#equation-eq-34-30" title="公式的永久链接">¶</a></span>\[\ell(\beta^{(t+1)}) = \ell(\beta^t) + \ell'(\beta^t)(\beta^{(t+1)} - \beta^t) + \text{constant}\]</div>
+<span class="eqno">(7.3.2)<a class="headerlink" href="#equation-eq-34-30" title="公式的永久链接"></a></span>\[\ell(\beta^{(t+1)}) = \ell(\beta^t) + \ell'(\beta^t)(\beta^{(t+1)} - \beta^t) + \text{constant}\]</div>
 <p>假设 <span class="math notranslate nohighlight">\(\beta^{(t+1)}\)</span> 是对数似然函数的极值点，也就是参数的最优解，
 <span class="math notranslate nohighlight">\(\beta^t\)</span> 是其附近的一个点。
 现在把这个式子进行简单的移项和变换，</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-estimate-23">
-<span class="eqno">(7.3.3)<a class="headerlink" href="#equation-glm-source-estimate-23" title="公式的永久链接">¶</a></span>\[\ell(\beta^{(t+1)}) -  \ell(\beta^t) =\ell'(\beta^t)(\beta^{(t+1)} - \beta^t) +\text{constant}\]</div>
+<span class="eqno">(7.3.3)<a class="headerlink" href="#equation-glm-source-estimate-23" title="公式的永久链接"></a></span>\[\ell(\beta^{(t+1)}) -  \ell(\beta^t) =\ell'(\beta^t)(\beta^{(t+1)} - \beta^t) +\text{constant}\]</div>
 <p>显然 <span class="math notranslate nohighlight">\(\ell(\beta^{(t+1)})\)</span> 应该是大于等于 <span class="math notranslate nohighlight">\(\ell(\beta^t)\)</span> 的，
 因此有</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-estimate-24">
-<span class="eqno">(7.3.4)<a class="headerlink" href="#equation-glm-source-estimate-24" title="公式的永久链接">¶</a></span>\[\ell(\beta^{(t+1)}) -  \ell(\beta^t) =\ell'(\beta^t)(\beta^{(t+1)} - \beta^t) +\text{constant} \ge 0\]</div>
+<span class="eqno">(7.3.4)<a class="headerlink" href="#equation-glm-source-estimate-24" title="公式的永久链接"></a></span>\[\ell(\beta^{(t+1)}) -  \ell(\beta^t) =\ell'(\beta^t)(\beta^{(t+1)} - \beta^t) +\text{constant} \ge 0\]</div>
 <p>对上述公式进行移项处理，可得：</p>
 <div class="math notranslate nohighlight" id="equation-eq-34-31">
-<span class="eqno">(7.3.5)<a class="headerlink" href="#equation-eq-34-31" title="公式的永久链接">¶</a></span>\[\beta^{(t+1)} \ge \beta^t - \frac{\text{constant}}{\ell'(\beta^t)}\]</div>
+<span class="eqno">(7.3.5)<a class="headerlink" href="#equation-eq-34-31" title="公式的永久链接"></a></span>\[\beta^{(t+1)} \ge \beta^t - \frac{\text{constant}}{\ell'(\beta^t)}\]</div>
 <p>我们给参数 <span class="math notranslate nohighlight">\(\beta\)</span> 设置一个初始值，然后通过上式不停的迭代计算新的 <span class="math notranslate nohighlight">\(\beta\)</span>
 ，<span class="math notranslate nohighlight">\(t\)</span> 表示迭代计算的轮次，直到等号成立的时候，就找到了参数的最优解。</p>
 <p>通常我们把一阶导 <span class="math notranslate nohighlight">\(\ell'(\beta^t)\)</span> 称为梯度(gradient)，
@@ -1284,7 +1194,7 @@ x_{ij} x_{ik}\]</div>
 <strong>其方向(正负号)决定目标函数是否向着极大值点移动。</strong>
 所以和下面的公式是等价的，<span class="math notranslate nohighlight">\(\alpha\)</span> 称为学习率(learning rate)，是一个人工设置参数，控制的迭代的速度。</p>
 <div class="math notranslate nohighlight" id="equation-eq-34-32">
-<span class="eqno">(7.3.6)<a class="headerlink" href="#equation-eq-34-32" title="公式的永久链接">¶</a></span>\[\beta^{(t+1)} = \beta^t - \alpha \ell'(\beta^t)\]</div>
+<span class="eqno">(7.3.6)<a class="headerlink" href="#equation-eq-34-32" title="公式的永久链接"></a></span>\[\beta^{(t+1)} = \beta^t - \alpha \ell'(\beta^t)\]</div>
 <p>利用 <a class="reference internal" href="../../../probability_model/25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#equation-eq-34-32">公式(19.2.38)</a> 进行参数迭代求解的方法就称为梯度上升法，
 梯度上升法的核心就是让参数变量沿着负梯度的方向前进。
 虽然理论上最终一定能到达极值点，但是实际上会受到学习率参数 <span class="math notranslate nohighlight">\(\alpha\)</span> 的影响，
@@ -1298,40 +1208,42 @@ x_{ij} x_{ik}\]</div>
 <p>画图参考：</p>
 <p><a class="reference external" href="https://zh.d2l.ai/chapter_optimization/gd-sgd.html">https://zh.d2l.ai/chapter_optimization/gd-sgd.html</a></p>
 </div>
-<div class="figure align-center" id="id14">
+<figure class="align-center" id="id14">
 <span id="fg-34-3"></span><a class="reference internal image-reference" href="../../../_images/34_3.png"><img alt="../../../_images/34_3.png" src="../../../_images/34_3.png" style="width: 864.5px; height: 335.29999999999995px;" /></a>
-<p class="caption"><span class="caption-number">图 7.3.1 </span><span class="caption-text">梯度下降法中学习率的影响(图片来自网络)</span><a class="headerlink" href="#id14" title="永久链接至图片">¶</a></p>
-</div>
-</div>
-<div class="section" id="id6">
-<h2><span class="section-number">7.4. </span>牛顿法<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h2>
+<figcaption>
+<p><span class="caption-number">图 7.3.1 </span><span class="caption-text">梯度下降法中学习率的影响(图片来自网络)</span><a class="headerlink" href="#id14" title="永久链接至图片"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="id6">
+<h2><span class="section-number">7.4. </span>牛顿法<a class="headerlink" href="#id6" title="永久链接至标题"></a></h2>
 <p>梯度下降法虽然也能收敛到最优解，但是如果学习率设置(通常人工设置)不合理，可能会造成收敛速度太慢或者无法收敛的问题，
 其收敛速度难以有效的控制。
 现在我们讨论另一中迭代算法，牛顿–拉夫森方法(Newton–Raphson)，一般简称牛顿法。</p>
-<div class="section" id="id7">
-<h3><span class="section-number">7.4.1. </span>算法推导<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h3>
+<section id="id7">
+<h3><span class="section-number">7.4.1. </span>算法推导<a class="headerlink" href="#id7" title="永久链接至标题"></a></h3>
 <p>还是从泰勒展开公式开始，让我们考虑二阶泰勒展开：</p>
 <div class="math notranslate nohighlight" id="equation-eq-34-33">
-<span class="eqno">(7.4.1)<a class="headerlink" href="#equation-eq-34-33" title="公式的永久链接">¶</a></span>\[\ell(\beta^{(t+1)}) = \ell(\beta^t) + \ell'(\beta^t)(\beta^{(t+1)} - \beta^t) +
+<span class="eqno">(7.4.1)<a class="headerlink" href="#equation-eq-34-33" title="公式的永久链接"></a></span>\[\ell(\beta^{(t+1)}) = \ell(\beta^t) + \ell'(\beta^t)(\beta^{(t+1)} - \beta^t) +
 \frac{1}{2}\ell''(\beta^t)(\beta^{(t+1)} - \beta^t)^2 + constant\]</div>
 <p>我们知道目标函数在极值点处的导数应该为 <span class="math notranslate nohighlight">\(0\)</span> ，
 所以如果 <span class="math notranslate nohighlight">\(\beta^{(t+1)}\)</span> 是极值点，那么有 <span class="math notranslate nohighlight">\(\ell'(\beta^{(t+1)})=0\)</span>
 。我们对 <a class="reference internal" href="../../../probability_model/25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#equation-eq-34-33">公式(19.2.39)</a> 进行求导，注意 <span class="math notranslate nohighlight">\(\beta^{(t+1)}\)</span> 才是函数未知量，
 <span class="math notranslate nohighlight">\(\beta_t\)</span> 和 <span class="math notranslate nohighlight">\(\ell(\beta^t)\)</span> 都是已知量。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-estimate-25">
-<span class="eqno">(7.4.2)<a class="headerlink" href="#equation-glm-source-estimate-25" title="公式的永久链接">¶</a></span>\[\ell'(\beta^{(t+1)})= \ell'(\beta^t) + \ell''(\beta^t)(\beta^{(t+1)}-\beta^t)=0\]</div>
+<span class="eqno">(7.4.2)<a class="headerlink" href="#equation-glm-source-estimate-25" title="公式的永久链接"></a></span>\[\ell'(\beta^{(t+1)})= \ell'(\beta^t) + \ell''(\beta^t)(\beta^{(t+1)}-\beta^t)=0\]</div>
 <p>通过移项可得：</p>
 <div class="math notranslate nohighlight" id="equation-eq-34-34">
-<span class="eqno">(7.4.3)<a class="headerlink" href="#equation-eq-34-34" title="公式的永久链接">¶</a></span>\[\beta^{(t+1)} = \beta^t - \frac{\ell'(\beta^t)}{\ell''(\beta^t)}\]</div>
+<span class="eqno">(7.4.3)<a class="headerlink" href="#equation-eq-34-34" title="公式的永久链接"></a></span>\[\beta^{(t+1)} = \beta^t - \frac{\ell'(\beta^t)}{\ell''(\beta^t)}\]</div>
 <p>这个迭代等式中，需要同时使用到对数似然函数的一阶导和二阶导数，
 二阶偏导数可以在一阶导数的基础上再次求导得到，上一节已经讲过，
 对数似然函数的一阶导数又称为得分统计量。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-estimate-26">
-<span class="eqno">(7.4.4)<a class="headerlink" href="#equation-glm-source-estimate-26" title="公式的永久链接">¶</a></span>\[ U_j = \frac{\partial \ell}{\partial \beta_j}
+<span class="eqno">(7.4.4)<a class="headerlink" href="#equation-glm-source-estimate-26" title="公式的永久链接"></a></span>\[ U_j = \frac{\partial \ell}{\partial \beta_j}
 = \sum_{i=1}^N \frac{y_i-\mu_i}{a(\phi) \nu(\mu_i) } \left ( \frac{\partial \mu}{\partial \eta} \right )_i x_{ij}\]</div>
 <p>我们对 <span class="math notranslate nohighlight">\(U_j\)</span> 继续求导就是对数似然函数的二阶导数。</p>
 <div class="math notranslate nohighlight" id="equation-eq-34-36">
-<span class="eqno">(7.4.5)<a class="headerlink" href="#equation-eq-34-36" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}&amp;\left (\frac{\partial^2 \ell }{\partial \beta_j \partial \beta_k} \right )\\&amp;= \frac{\partial U_j}{\partial \beta_k}\\&amp;=
+<span class="eqno">(7.4.5)<a class="headerlink" href="#equation-eq-34-36" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}&amp;\left (\frac{\partial^2 \ell }{\partial \beta_j \partial \beta_k} \right )\\&amp;= \frac{\partial U_j}{\partial \beta_k}\\&amp;=
 \sum_{i=1}^N \frac{1}{a(\phi)} \left (  \frac{\partial}{\partial \beta_k}   \right )
 \left \{ \frac{y_i-\mu_i}{\nu(\mu_i)} \left ( \frac{\partial \mu}{\partial \eta} \right)_i x_{jn} \right \}\\
 &amp;= \sum_{i=1}^N \frac{1}{a(\phi)} \left [
@@ -1360,7 +1272,7 @@ x_{ij} x_{ik}\]</div>
 <p>对数似然函数的二阶偏导数是一个矩阵，这个矩阵又叫海森矩阵(Hessian matrix) ，
 常用符号 <span class="math notranslate nohighlight">\(H\)</span> 表示。牛顿法的迭代公式可以写成如下形式，</p>
 <div class="math notranslate nohighlight" id="equation-eq-34-35">
-<span class="eqno">(7.4.6)<a class="headerlink" href="#equation-eq-34-35" title="公式的永久链接">¶</a></span>\[ \beta^{(t+1)} = \beta^{(t)} - H(\beta^{(t)})^{-1} U(\beta^{(t)})\]</div>
+<span class="eqno">(7.4.6)<a class="headerlink" href="#equation-eq-34-35" title="公式的永久链接"></a></span>\[ \beta^{(t+1)} = \beta^{(t)} - H(\beta^{(t)})^{-1} U(\beta^{(t)})\]</div>
 <p>和梯度下降法的 <a class="reference internal" href="../../../probability_model/25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#equation-eq-34-32">公式(19.2.38)</a> 对比下发现，两者非常相似，不同的是牛顿法用 <code class="docutils literal notranslate"><span class="pre">Hessian</span></code> 矩阵的逆矩阵 <span class="math notranslate nohighlight">\(H(\beta^{(t)})^{-1}\)</span>
 替代了学习率参数，避免了需要人工设置学习率的问题。相比梯度下降法，牛顿法收敛速度更快，并且也没有震荡无法收敛的问题。</p>
 <p>观察下 <a class="reference internal" href="../../../probability_model/25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#equation-eq-34-36">公式(19.2.43)</a> ，
@@ -1369,7 +1281,7 @@ x_{ij} x_{ik}\]</div>
 从 <a class="reference internal" href="../../../probability_model/25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#equation-eq-34-36">公式(19.2.43)</a> 可以看到，海森矩阵是一个关于样本
 的函数，所以可以对海森矩阵求关于 <span class="math notranslate nohighlight">\(y\)</span> 的期望。</p>
 <div class="math notranslate nohighlight" id="equation-eq-glm-estimate-030">
-<span class="eqno">(7.4.7)<a class="headerlink" href="#equation-eq-glm-estimate-030" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\mathbb{E}_{y}[H]_{jk} &amp;= \mathbb{E}_{y} \left [
+<span class="eqno">(7.4.7)<a class="headerlink" href="#equation-eq-glm-estimate-030" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\mathbb{E}_{y}[H]_{jk} &amp;= \mathbb{E}_{y} \left [
 -\sum_{i=1}^N \frac{1}{a(\phi)}
 \left [
     \frac{1}{\nu(\mu_i)}  \left ( \frac{\partial \mu}{\partial \eta} \right )_i^2
@@ -1396,18 +1308,18 @@ x_{ij} x_{ik}\]</div>
 所以通常会把原始海森矩阵称为观测海森矩阵(observed Hessian matrix,OHM)
 ，他的期望矩阵称为期望海森(expected Hessian matrix,EHM)。</p>
 <div class="math notranslate nohighlight" id="equation-eq-glm-estimate-031">
-<span class="eqno">(7.4.8)<a class="headerlink" href="#equation-eq-glm-estimate-031" title="公式的永久链接">¶</a></span>\[ \beta^{(t+1)} = \beta^{(t)} - \mathbb{E}[H(\beta^{(t)})]^{-1} U(\beta^t)\]</div>
-<p>对比下信息矩阵 <a class="reference internal" href="estimate_bak.html#equation-eq-glm-estimate-019">公式()</a> 和期望海森 <a class="reference internal" href="estimate_bak.html#equation-eq-glm-estimate-030">公式()</a>
+<span class="eqno">(7.4.8)<a class="headerlink" href="#equation-eq-glm-estimate-031" title="公式的永久链接"></a></span>\[ \beta^{(t+1)} = \beta^{(t)} - \mathbb{E}[H(\beta^{(t)})]^{-1} U(\beta^t)\]</div>
+<p>对比下信息矩阵 <a class="reference internal" href="#equation-eq-glm-estimate-019">公式(7.1.15)</a> 和期望海森 <a class="reference internal" href="#equation-eq-glm-estimate-030">公式(7.4.7)</a>
 ，二者只差一个负号，是相反数的关系，这和我们在
 <a class="reference internal" href="../../../probability_model/2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#ch-2-fisher-information"><span class="std std-numref">节 2.6</span></a> 讨论的结论是一致的。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-estimate-27">
-<span class="eqno">(7.4.9)<a class="headerlink" href="#equation-glm-source-estimate-27" title="公式的永久链接">¶</a></span>\[\mathcal{J} = - \mathbb{E}[H]\]</div>
+<span class="eqno">(7.4.9)<a class="headerlink" href="#equation-glm-source-estimate-27" title="公式的永久链接"></a></span>\[\mathcal{J} = - \mathbb{E}[H]\]</div>
 <p>可以看到在 <code class="docutils literal notranslate"><span class="pre">GLM</span></code> 中，信息矩阵 <span class="math notranslate nohighlight">\(\mathcal{J}\)</span> 可以通过对数似然函数的海森矩阵 <span class="math notranslate nohighlight">\(H\)</span> 得到。
 通常把负的 <cite>观测</cite> 海森矩阵， <span class="math notranslate nohighlight">\(-H\)</span> ， 称为观测信息矩阵(observed information matrix,OIM)，
 把负的 <cite>期望</cite> 海森矩阵， <span class="math notranslate nohighlight">\(- \mathbb{E}[H]\)</span> ， 称为期望信息矩阵(expected information matrix,EIM)。
 牛顿法的迭代过程可以用 <code class="docutils literal notranslate"><span class="pre">EIM</span></code> 代替 <code class="docutils literal notranslate"><span class="pre">OIM</span></code> 以简化计算过程。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-estimate-28">
-<span class="eqno">(7.4.10)<a class="headerlink" href="#equation-glm-source-estimate-28" title="公式的永久链接">¶</a></span>\[\beta^{(t+1)} = \beta^{(t)} + \mathcal{J}(\beta^{(t)})^{-1} U(\beta^t)\]</div>
+<span class="eqno">(7.4.10)<a class="headerlink" href="#equation-glm-source-estimate-28" title="公式的永久链接"></a></span>\[\beta^{(t+1)} = \beta^{(t)} + \mathcal{J}(\beta^{(t)})^{-1} U(\beta^t)\]</div>
 <p>我们这里描述的 Newton–Raphson 算法不支持分散参数 <span class="math notranslate nohighlight">\(\phi\)</span> 的估计，
 通常在进行协变量参数 <span class="math notranslate nohighlight">\(\beta\)</span> 的最大似然估计时，认为 <span class="math notranslate nohighlight">\(\phi\)</span> 是已知量。</p>
 <p>在 <a class="reference internal" href="../../../probability_model/2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#ch-2-fisher-information"><span class="std std-numref">节 2.6</span></a> 讨论过，参数的最大似然估计估计量是一个统计量，
@@ -1417,9 +1329,9 @@ x_{ij} x_{ik}\]</div>
 <li><p>为所有 <code class="docutils literal notranslate"><span class="pre">GLM</span></code> 成员模型提供一个参数估计算法。</p></li>
 <li><p>附带产出参数估计量的标准误(standard errors)，可通过信息矩阵得到。</p></li>
 </ol>
-</div>
-<div class="section" id="id8">
-<h3><span class="section-number">7.4.2. </span>标准连接函数<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id8">
+<h3><span class="section-number">7.4.2. </span>标准连接函数<a class="headerlink" href="#id8" title="永久链接至标题"></a></h3>
 <p>前文讲过，但模型采用标准连接函数时，得到统计量可以简化。
 现在我们看下标准连接函数对牛顿法的影响。
 当模型采用标准连接函数时，观测信息矩阵(OIM)会退化成期望信息矩阵(EIM)，
@@ -1428,7 +1340,7 @@ x_{ij} x_{ik}\]</div>
 <span class="math notranslate nohighlight">\(\eta\)</span>，即 <span class="math notranslate nohighlight">\(\theta=\eta\)</span>
 此时 <span class="math notranslate nohighlight">\(U\)</span> 可以简化为：</p>
 <div class="math notranslate nohighlight" id="equation-eq-glm-estimate-score-3">
-<span class="eqno">(7.4.11)<a class="headerlink" href="#equation-eq-glm-estimate-score-3" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}U_j=\frac{ \partial \ell}{\beta_j}
+<span class="eqno">(7.4.11)<a class="headerlink" href="#equation-eq-glm-estimate-score-3" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}U_j=\frac{ \partial \ell}{\beta_j}
 &amp;= \sum_{i=1}^N \left ( \frac{\partial \ell_i}{\partial \theta_i} \right )
  \left ( \frac{\partial \theta_i}{\partial \mu_i} \right )
  \left ( \frac{\partial \mu_i}{\partial \eta_i} \right )
@@ -1440,7 +1352,7 @@ x_{ij} x_{ik}\]</div>
 &amp;= \sum_{i=1}^N \frac{y_i-\mu_i}{a(\phi) } x_{ij}\end{aligned}\end{align} \]</div>
 <p>观测海森矩阵是对数似然函数的二阶导数，也是 <span class="math notranslate nohighlight">\(U\)</span> 的一阶导数，因此有</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-estimate-29">
-<span class="eqno">(7.4.12)<a class="headerlink" href="#equation-glm-source-estimate-29" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}H_{jk} = U_j' &amp;=  \frac{\partial U_j}{\partial \mu}
+<span class="eqno">(7.4.12)<a class="headerlink" href="#equation-glm-source-estimate-29" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}H_{jk} = U_j' &amp;=  \frac{\partial U_j}{\partial \mu}
    \frac{\partial \mu}{\partial \eta} \frac{\partial \eta}{\partial \beta_k}\\&amp;= \sum_{i=1}^N  \frac{-x_{ij}}{a(\phi)} \left ( \frac{\partial \mu_i}{\partial \eta_i} \right )  x_{ik}\\&amp;= -\sum_{i=1}^N  \frac{x_{ij}x_{ik}}{a(\phi)} \left ( \frac{\partial \mu_i}{\partial \eta_i} \right )\\ &amp;= -\sum_{i=1}^N  \frac{x_{ij}x_{ik}}{a(\phi)}
  \left ( \frac{\partial \mu_i}{\partial \eta_i} \right )
  \left ( \frac{\partial \mu_i}{\partial \eta_i} \right )
@@ -1449,16 +1361,16 @@ x_{ij} x_{ik}\]</div>
  \left ( \frac{\partial \mu_i}{\partial \eta_i} \right )^2
  \left ( \frac{\partial \theta_i}{\partial \mu_i} \right )\\ &amp;= -\sum_{i=1}^N  \frac{x_{ij}x_{ik}}{a(\phi)\nu(\mu_i)}
  \left ( \frac{\partial \mu_i}{\partial \eta_i} \right )^2\\ &amp;= \mathbb{E}_y [H_{jk}]\end{aligned}\end{align} \]</div>
-<p>这和 <a class="reference internal" href="estimate_bak.html#equation-eq-glm-estimate-030">公式()</a> 是一样的。</p>
+<p>这和 <a class="reference internal" href="#equation-eq-glm-estimate-030">公式(7.4.7)</a> 是一样的。</p>
 <div class="admonition important">
 <p class="admonition-title">重要</p>
 <p>在 <code class="docutils literal notranslate"><span class="pre">GLM</span></code> 中，采用标准连接函数时，
 观测海森矩阵和期望海森矩阵是相同的，
 也就是观测信息矩阵 <code class="docutils literal notranslate"><span class="pre">OIM</span></code> 和期望信息矩阵 <code class="docutils literal notranslate"><span class="pre">EIM</span></code> 是相同的。</p>
 </div>
-</div>
-<div class="section" id="id9">
-<h3><span class="section-number">7.4.3. </span>迭代初始值的设定<a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id9">
+<h3><span class="section-number">7.4.3. </span>迭代初始值的设定<a class="headerlink" href="#id9" title="永久链接至标题"></a></h3>
 <p>要实现 <code class="docutils literal notranslate"><span class="pre">Newton–Raphson</span></code> 迭代法，
 我们必须对参数初始值有一个猜测。
 但目前没有用于获得良好参数初值的全局机制，
@@ -1466,34 +1378,34 @@ x_{ij} x_{ik}\]</div>
 利用线性预测器中的”常数项系数”获得初始值。
 这里的”常数项”指的是线性预测器中截距部分</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-estimate-30">
-<span class="eqno">(7.4.13)<a class="headerlink" href="#equation-glm-source-estimate-30" title="公式的永久链接">¶</a></span>\[\eta = \beta_0 \times 1 + \beta_1 x_1 +\dots + \beta_px_p\]</div>
+<span class="eqno">(7.4.13)<a class="headerlink" href="#equation-glm-source-estimate-30" title="公式的永久链接"></a></span>\[\eta = \beta_0 \times 1 + \beta_1 x_1 +\dots + \beta_px_p\]</div>
 <p>其中 <span class="math notranslate nohighlight">\(\beta_0\)</span> 就是常数项系数。
 如果模型包含常数项，则通常的做法是找到仅包含常数项系数的模型的估计值。
 我们令：</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-estimate-31">
-<span class="eqno">(7.4.14)<a class="headerlink" href="#equation-glm-source-estimate-31" title="公式的永久链接">¶</a></span>\[\eta = \beta_0\]</div>
+<span class="eqno">(7.4.14)<a class="headerlink" href="#equation-glm-source-estimate-31" title="公式的永久链接"></a></span>\[\eta = \beta_0\]</div>
 <p>然后令对数似然函数的一阶导数 <a class="reference internal" href="#equation-eq-glm-estimate-ll-jac">公式(7.1.11)</a> 为
 <span class="math notranslate nohighlight">\(0\)</span> ，找到 <span class="math notranslate nohighlight">\(\beta_0\)</span>
 的解析解。</p>
 <div class="math notranslate nohighlight" id="equation-eq-34-37">
-<span class="eqno">(7.4.15)<a class="headerlink" href="#equation-eq-34-37" title="公式的永久链接">¶</a></span>\[\sum_{i=1}^N \frac{y_i-\mu_i}{a(\phi) \nu(\mu_i) } \left ( \frac{\partial \mu}{\partial \eta} \right )_i
+<span class="eqno">(7.4.15)<a class="headerlink" href="#equation-eq-34-37" title="公式的永久链接"></a></span>\[\sum_{i=1}^N \frac{y_i-\mu_i}{a(\phi) \nu(\mu_i) } \left ( \frac{\partial \mu}{\partial \eta} \right )_i
 =0\]</div>
 <p>通过上式是可以得到 <span class="math notranslate nohighlight">\(\beta_0\)</span> 的一个估计值的。
 比如，如果是逻辑回归模型，则有</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-estimate-32">
-<span class="eqno">(7.4.16)<a class="headerlink" href="#equation-glm-source-estimate-32" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}a(\phi) &amp;= 1\\\nu(\mu) &amp;= \mu(1-\mu)\\\mu &amp;= \text{sigmoid}(\eta_i) = \text{sigmoid}(\beta_0)\\\frac{\partial \mu}{\partial \eta} &amp;= \frac{\partial }{\partial \eta} \text{sigmoid} (\eta) = \mu(1-\mu)\end{aligned}\end{align} \]</div>
+<span class="eqno">(7.4.16)<a class="headerlink" href="#equation-glm-source-estimate-32" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}a(\phi) &amp;= 1\\\nu(\mu) &amp;= \mu(1-\mu)\\\mu &amp;= \text{sigmoid}(\eta_i) = \text{sigmoid}(\beta_0)\\\frac{\partial \mu}{\partial \eta} &amp;= \frac{\partial }{\partial \eta} \text{sigmoid} (\eta) = \mu(1-\mu)\end{aligned}\end{align} \]</div>
 <p>代入到 <a class="reference internal" href="../../../probability_model/25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#equation-eq-34-37">公式(19.2.46)</a> 可得：</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-estimate-33">
-<span class="eqno">(7.4.17)<a class="headerlink" href="#equation-glm-source-estimate-33" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\sum_{i=1}^N \frac{(y_i- \mu_i ) }{\mu_i(1-\mu_i)} \mu_i(1-\mu_i) &amp;= 0\\ &amp;\Downarrow\\\sum_{i=1}^N (y_i- \mu_i) &amp;=0\\ &amp;\Downarrow\\\sum_{i=1}^N (y_i- \frac{1}{1+e^{-\beta_0}}) &amp;=0\\ &amp;\Downarrow\\ \underbrace{\frac{1}{N}\sum_{i=1}^N y_i}_{\text{均值}\bar{y}} &amp;=  \frac{1}{1+e^{-\beta_0}}\\
+<span class="eqno">(7.4.17)<a class="headerlink" href="#equation-glm-source-estimate-33" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\sum_{i=1}^N \frac{(y_i- \mu_i ) }{\mu_i(1-\mu_i)} \mu_i(1-\mu_i) &amp;= 0\\ &amp;\Downarrow\\\sum_{i=1}^N (y_i- \mu_i) &amp;=0\\ &amp;\Downarrow\\\sum_{i=1}^N (y_i- \frac{1}{1+e^{-\beta_0}}) &amp;=0\\ &amp;\Downarrow\\ \underbrace{\frac{1}{N}\sum_{i=1}^N y_i}_{\text{均值}\bar{y}} &amp;=  \frac{1}{1+e^{-\beta_0}}\\
 &amp;\Downarrow{\text{sigmoid反函数求解}}\\\hat{\beta}_0 &amp;= \ln \left (  \frac{\bar{y}}{1-\bar{y}}   \right )\end{aligned}\end{align} \]</div>
 <p>然后我们就用 <span class="math notranslate nohighlight">\(\beta=(\hat{\beta}_0,0,0,\dots,0)^T\)</span> 作为
 <code class="docutils literal notranslate"><span class="pre">Newton–Raphson</span></code> 算法首次迭代时参数向量的初始值。
 如果模型中没有常量项系数，或者我们无法通过解析法求解纯常数项系数模型，则必须使用更复杂的方法，
 比如使用搜索方法寻找合理的初始点来开始 <code class="docutils literal notranslate"><span class="pre">Newton-Raphson</span></code> 算法。</p>
-</div>
-</div>
-<div class="section" id="irls">
-<h2><span class="section-number">7.5. </span>迭代重加权最小二乘(IRLS)<a class="headerlink" href="#irls" title="永久链接至标题">¶</a></h2>
+</section>
+</section>
+<section id="irls">
+<h2><span class="section-number">7.5. </span>迭代重加权最小二乘(IRLS)<a class="headerlink" href="#irls" title="永久链接至标题"></a></h2>
 <p>使用牛顿法对 <code class="docutils literal notranslate"><span class="pre">GLM</span></code> 中的模型进行参数估计时，
 需要把每个模型的对数似然函数通过 <span class="math notranslate nohighlight">\(\beta\)</span> 进行参数化，
 然后求出对数似然函数的偏导数，并且在迭代开始前需要给
@@ -1502,30 +1414,30 @@ x_{ij} x_{ik}\]</div>
 迭代重加权最小二乘(iteratively reweighted least square,IRLS)算法，
 <code class="docutils literal notranslate"><span class="pre">IRLS</span></code> 算法是``GLM`` 的一个通用型参数估计算法，可用于任意的指数族分布和连接函数，
 并且不需要对 <span class="math notranslate nohighlight">\(\beta\)</span> 进行初始化。</p>
-<div class="section" id="id10">
-<h3><span class="section-number">7.5.1. </span>算法推导<a class="headerlink" href="#id10" title="永久链接至标题">¶</a></h3>
+<section id="id10">
+<h3><span class="section-number">7.5.1. </span>算法推导<a class="headerlink" href="#id10" title="永久链接至标题"></a></h3>
 <p>采用期望海森矩阵的牛顿法的参数迭代等式为</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-estimate-34">
-<span class="eqno">(7.5.1)<a class="headerlink" href="#equation-glm-source-estimate-34" title="公式的永久链接">¶</a></span>\[\beta^{(t+1)} = \beta^{(t)} + [\mathcal{J}^{(t)}]^{-1} U^{(t)}\]</div>
+<span class="eqno">(7.5.1)<a class="headerlink" href="#equation-glm-source-estimate-34" title="公式的永久链接"></a></span>\[\beta^{(t+1)} = \beta^{(t)} + [\mathcal{J}^{(t)}]^{-1} U^{(t)}\]</div>
 <p>等式两边同时乘以信息矩阵 <span class="math notranslate nohighlight">\(\mathcal{J}\)</span> ，</p>
 <div class="math notranslate nohighlight" id="equation-eq-glm-estimate-039">
-<span class="eqno">(7.5.2)<a class="headerlink" href="#equation-eq-glm-estimate-039" title="公式的永久链接">¶</a></span>\[\mathcal{J}^{(t)}\beta^{(t+1)} = \mathcal{J}^{(t)} \beta^{(t)} +  U^{(t)}\]</div>
+<span class="eqno">(7.5.2)<a class="headerlink" href="#equation-eq-glm-estimate-039" title="公式的永久链接"></a></span>\[\mathcal{J}^{(t)}\beta^{(t+1)} = \mathcal{J}^{(t)} \beta^{(t)} +  U^{(t)}\]</div>
 <p>假设协变量参数 <span class="math notranslate nohighlight">\(\beta\)</span> 的数量是 <span class="math notranslate nohighlight">\(p\)</span>
 ，则信息矩阵 <span class="math notranslate nohighlight">\(\mathcal{J}\)</span> 是一个 <span class="math notranslate nohighlight">\(p\times p\)</span>
 的方阵，其中每个元素 <span class="math notranslate nohighlight">\(\mathcal{J}_{jk}\)</span> 为</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-estimate-35">
-<span class="eqno">(7.5.3)<a class="headerlink" href="#equation-glm-source-estimate-35" title="公式的永久链接">¶</a></span>\[\mathcal{J}_{jk}=
+<span class="eqno">(7.5.3)<a class="headerlink" href="#equation-glm-source-estimate-35" title="公式的永久链接"></a></span>\[\mathcal{J}_{jk}=
 \sum_{i=1}^N
 \left ( \frac{\partial \mu}{\partial \eta} \right )^2_i  \frac{  x_{ij} x_{ik}}{ a(\phi) \nu(\mu_i) }\]</div>
 <p>仔细观察 <span class="math notranslate nohighlight">\(\mathcal{J}_{jk}\)</span> 的计算公式，
 假设有一个 <span class="math notranslate nohighlight">\(N\times N\)</span> 的对角矩阵
 ，每个对角元素为</p>
 <div class="math notranslate nohighlight" id="equation-eq-glm-estimate-040">
-<span class="eqno">(7.5.4)<a class="headerlink" href="#equation-eq-glm-estimate-040" title="公式的永久链接">¶</a></span>\[W_{ii} =  \frac{ 1}{ a(\phi) \nu(\mu_i) }
+<span class="eqno">(7.5.4)<a class="headerlink" href="#equation-eq-glm-estimate-040" title="公式的永久链接"></a></span>\[W_{ii} =  \frac{ 1}{ a(\phi) \nu(\mu_i) }
 \left ( \frac{\partial \mu}{\partial \eta} \right )^2_i\]</div>
 <p>方阵 <span class="math notranslate nohighlight">\(\mathcal{J}\)</span> 就相当于三个矩阵的乘法</p>
 <div class="math notranslate nohighlight" id="equation-eq-glm-estimate-041">
-<span class="eqno">(7.5.5)<a class="headerlink" href="#equation-eq-glm-estimate-041" title="公式的永久链接">¶</a></span>\[\mathcal{J} = X^T W X\]</div>
+<span class="eqno">(7.5.5)<a class="headerlink" href="#equation-eq-glm-estimate-041" title="公式的永久链接"></a></span>\[\mathcal{J} = X^T W X\]</div>
 <p>这个等式我们先记录下，之后再使用。
 现在看下 <span class="math notranslate nohighlight">\(\mathcal{J} \beta\)</span> 的结果是什么。</p>
 <p>参数 <span class="math notranslate nohighlight">\(\beta\)</span> 是一个 <span class="math notranslate nohighlight">\(p \times 1\)</span>
@@ -1536,7 +1448,7 @@ x_{ij} x_{ik}\]</div>
 进行內积运算，行向量 <span class="math notranslate nohighlight">\(\mathcal{J}_j\)</span> 和
 列向量 <span class="math notranslate nohighlight">\(\beta\)</span> 的內积结果为</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-estimate-36">
-<span class="eqno">(7.5.6)<a class="headerlink" href="#equation-glm-source-estimate-36" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\mathcal{J}_{j} \beta
+<span class="eqno">(7.5.6)<a class="headerlink" href="#equation-glm-source-estimate-36" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\mathcal{J}_{j} \beta
 &amp;=
 \sum_{i=1}^N
 \left ( \frac{\partial \mu}{\partial \eta} \right )^2_i  \frac{  x_{ij} x_{i}\beta}{ a(\phi) \nu(\mu_i) }\\&amp;=    \sum_{i=1}^N
@@ -1544,7 +1456,7 @@ x_{ij} x_{ik}\]</div>
 <p><a class="reference internal" href="#equation-eq-glm-estimate-039">公式(7.5.2)</a> 的右侧就是两个 <span class="math notranslate nohighlight">\(p\times 1\)</span> 的列向量相加，
 每个元素 <span class="math notranslate nohighlight">\(j\)</span> 的计算过程是</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-estimate-37">
-<span class="eqno">(7.5.7)<a class="headerlink" href="#equation-glm-source-estimate-37" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\mathcal{J}^{(t)}_j \beta^{(t)} +  U^{(t)}_j
+<span class="eqno">(7.5.7)<a class="headerlink" href="#equation-glm-source-estimate-37" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\mathcal{J}^{(t)}_j \beta^{(t)} +  U^{(t)}_j
 &amp;=  \sum_{i=1}^N
 \left ( \frac{\partial \mu}{\partial \eta} \right )^2_i  \frac{  x_{ij} \eta_i}{ a(\phi) \nu(\mu_i) }
 +
@@ -1555,27 +1467,27 @@ x_{ij} x_{ik}\]</div>
 \right \}\end{aligned}\end{align} \]</div>
 <p>我们令</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-estimate-38">
-<span class="eqno">(7.5.8)<a class="headerlink" href="#equation-glm-source-estimate-38" title="公式的永久链接">¶</a></span>\[Z_i = \left \{
+<span class="eqno">(7.5.8)<a class="headerlink" href="#equation-glm-source-estimate-38" title="公式的永久链接"></a></span>\[Z_i = \left \{
 (y_i-\mu_i)\left ( \frac{\partial \eta}{\partial \mu} \right)_i + \eta_i^{(t)}
 \right \}\]</div>
 <p><span class="math notranslate nohighlight">\(Z\)</span> 是一个 <span class="math notranslate nohighlight">\(N \times 1\)</span> 的向量</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-estimate-39">
-<span class="eqno">(7.5.9)<a class="headerlink" href="#equation-glm-source-estimate-39" title="公式的永久链接">¶</a></span>\[Z = \left \{
+<span class="eqno">(7.5.9)<a class="headerlink" href="#equation-glm-source-estimate-39" title="公式的永久链接"></a></span>\[Z = \left \{
 (y-\mu)\left ( \frac{\partial \eta}{\partial \mu} \right) + \eta^{(t)}
 \right \}\]</div>
 <p><a class="reference internal" href="#equation-eq-glm-estimate-039">公式(7.5.2)</a> 的右侧等价于</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-estimate-40">
-<span class="eqno">(7.5.10)<a class="headerlink" href="#equation-glm-source-estimate-40" title="公式的永久链接">¶</a></span>\[\mathcal{J}^{(t)} \beta^{(t)} +  U^{(t)} = X^T W^{(t)} Z^{(t)}\]</div>
+<span class="eqno">(7.5.10)<a class="headerlink" href="#equation-glm-source-estimate-40" title="公式的永久链接"></a></span>\[\mathcal{J}^{(t)} \beta^{(t)} +  U^{(t)} = X^T W^{(t)} Z^{(t)}\]</div>
 <p>最终 <a class="reference internal" href="#equation-eq-glm-estimate-039">公式(7.5.2)</a> 等价于</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-estimate-41">
-<span class="eqno">(7.5.11)<a class="headerlink" href="#equation-glm-source-estimate-41" title="公式的永久链接">¶</a></span>\[(X^TW^{(t)} X) \beta^{(t+1)} = X^T W^{(t)} Z^{(t)}\]</div>
+<span class="eqno">(7.5.11)<a class="headerlink" href="#equation-glm-source-estimate-41" title="公式的永久链接"></a></span>\[(X^TW^{(t)} X) \beta^{(t+1)} = X^T W^{(t)} Z^{(t)}\]</div>
 <p>通过移项可以得到参数 <span class="math notranslate nohighlight">\(\beta\)</span> 的迭代公式</p>
 <div class="math notranslate nohighlight" id="equation-eq-glm-estimate-045">
-<span class="eqno">(7.5.12)<a class="headerlink" href="#equation-eq-glm-estimate-045" title="公式的永久链接">¶</a></span>\[\beta^{(t+1)} = (X^TW^{(t)} X)^{-1} X^T W^{(t)} Z^{(t)}
+<span class="eqno">(7.5.12)<a class="headerlink" href="#equation-eq-glm-estimate-045" title="公式的永久链接"></a></span>\[\beta^{(t+1)} = (X^TW^{(t)} X)^{-1} X^T W^{(t)} Z^{(t)}
     = \mathcal{J}^{-1} X^T W^{(t)} Z^{(t)}\]</div>
 <p>其中</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-estimate-42">
-<span class="eqno">(7.5.13)<a class="headerlink" href="#equation-glm-source-estimate-42" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}W^{(t)} &amp;= \text{diag} \left \{ \frac{ 1}{ a(\phi) \nu(\mu) }
+<span class="eqno">(7.5.13)<a class="headerlink" href="#equation-glm-source-estimate-42" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}W^{(t)} &amp;= \text{diag} \left \{ \frac{ 1}{ a(\phi) \nu(\mu) }
 \left ( \frac{\partial \mu}{\partial \eta} \right )^2
 \right \}_{(N \times N)}\\&amp;= \text{diag} \left \{ \frac{ 1}{ V(\mu) (g')^2}
 \right \}_{(N \times N)}  \ \ \ \ \text{对角矩阵}\\
@@ -1594,16 +1506,16 @@ Z^{(t)} &amp;= \left \{ (y-\mu)  \left ( \frac{\partial \eta}{\partial \mu} \rig
 ，所以我们把这个算法称为迭代重加权最小二乘法(Iteratively reweighted least square,IRLS)，
 “reweighted” 指的就是每次迭代重新计算权重矩阵，
 <span class="math notranslate nohighlight">\(Z\)</span> 被称为工作响应(working response)。</p>
-</div>
-<div class="section" id="id11">
-<h3><span class="section-number">7.5.2. </span>算法过程<a class="headerlink" href="#id11" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id11">
+<h3><span class="section-number">7.5.2. </span>算法过程<a class="headerlink" href="#id11" title="永久链接至标题"></a></h3>
 <p><strong>收敛性判断</strong></p>
 <p>在迭代的过程中，我们可以检查参数 <span class="math notranslate nohighlight">\(\beta\)</span> 的相对变化来决定是否结束算法。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-estimate-43">
-<span class="eqno">(7.5.14)<a class="headerlink" href="#equation-glm-source-estimate-43" title="公式的永久链接">¶</a></span>\[\sqrt{\frac{ (\beta^{new}-\beta^{old})^T (\beta^{new}-\beta^{old})  }{ \beta^{old^T} \beta^{new} } } &lt; \epsilon\]</div>
+<span class="eqno">(7.5.14)<a class="headerlink" href="#equation-glm-source-estimate-43" title="公式的永久链接"></a></span>\[\sqrt{\frac{ (\beta^{new}-\beta^{old})^T (\beta^{new}-\beta^{old})  }{ \beta^{old^T} \beta^{new} } } &lt; \epsilon\]</div>
 <p>也可以通过相对偏差(deviance)来判断。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-estimate-44">
-<span class="eqno">(7.5.15)<a class="headerlink" href="#equation-glm-source-estimate-44" title="公式的永久链接">¶</a></span>\[\left|\frac{D(y-\mu^{new})-D(y,\mu^{old})   }{D(y,\mu^{old})} \right| &lt;\epsilon\]</div>
+<span class="eqno">(7.5.15)<a class="headerlink" href="#equation-glm-source-estimate-44" title="公式的永久链接"></a></span>\[\left|\frac{D(y-\mu^{new})-D(y,\mu^{old})   }{D(y,\mu^{old})} \right| &lt;\epsilon\]</div>
 <p>关于偏差的概念我们将在下一章详细介绍。</p>
 <p><strong>迭代初始值的设定</strong></p>
 <p>对比下 Newton–Raphson 算法的参数迭代公式( <a class="reference internal" href="../../../probability_model/25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#equation-eq-34-35">公式(19.2.42)</a> )
@@ -1747,39 +1659,39 @@ Z^{(t)} &amp;= \left \{ (y-\mu)  \left ( \frac{\partial \eta}{\partial \mu} \rig
 为了区分，很多资料把采用牛顿法的最大似然估计称为”完全最大似然估计(full maximum likelihood estimation)”。
 完全最大似然估计法需要针对每种不同模型单独求解对数似然函数的导数，而 <code class="docutils literal notranslate"><span class="pre">IRLS</span></code> 不需要。</p>
 </div>
-</div>
-</div>
-<div class="section" id="id12">
-<h2><span class="section-number">7.6. </span>估计量的标准误差<a class="headerlink" href="#id12" title="永久链接至标题">¶</a></h2>
+</section>
+</section>
+<section id="id12">
+<h2><span class="section-number">7.6. </span>估计量的标准误差<a class="headerlink" href="#id12" title="永久链接至标题"></a></h2>
 <p>在 <a class="reference internal" href="../../../probability_model/2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#ch-2-mle-estimator"><span class="std std-numref">节 2.7.3</span></a> 讨论最大似然估计时，讲过参数的最大似然估计量是一个统计量，
 而统计量是一个随机量，统计量的概率分布称为抽样分布(sampling distribution)。
 期望参数的似然估计量 <span class="math notranslate nohighlight">\(\hat{\mu}\)</span> 的抽样分布是高斯分布。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-estimate-45">
-<span class="eqno">(7.6.1)<a class="headerlink" href="#equation-glm-source-estimate-45" title="公式的永久链接">¶</a></span>\[\hat{\mu}_{ML} \sim  \mathcal{N}(\mu_{true},\mathcal{J}^{-1})\]</div>
+<span class="eqno">(7.6.1)<a class="headerlink" href="#equation-glm-source-estimate-45" title="公式的永久链接"></a></span>\[\hat{\mu}_{ML} \sim  \mathcal{N}(\mu_{true},\mathcal{J}^{-1})\]</div>
 <p>期望参数的似然估计量 <span class="math notranslate nohighlight">\(\hat{\mu}\)</span> 渐近服从高斯分布，抽样分布的期望值就是参数真实值
 <span class="math notranslate nohighlight">\(\mathbb{E}[\hat{\mu}_{ML}] = \mu_{true}\)</span>
 ，其协方差矩阵是信息矩阵的逆 <span class="math notranslate nohighlight">\(Var(\hat{\mu}_{ML}) = \mathcal{J}^{-1}\)</span> 。
 这就意味着均值参数似然估计值的标准误差为</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-estimate-46">
-<span class="eqno">(7.6.2)<a class="headerlink" href="#equation-glm-source-estimate-46" title="公式的永久链接">¶</a></span>\[SE(\hat{\mu}_{ML}) = \sqrt{ \mathcal{J}^{-1} }\]</div>
+<span class="eqno">(7.6.2)<a class="headerlink" href="#equation-glm-source-estimate-46" title="公式的永久链接"></a></span>\[SE(\hat{\mu}_{ML}) = \sqrt{ \mathcal{J}^{-1} }\]</div>
 <p>在 <code class="docutils literal notranslate"><span class="pre">GLM</span></code> 中，期望参数 <span class="math notranslate nohighlight">\(\mu_i\)</span> 和线性预测器 <span class="math notranslate nohighlight">\(\eta_i=\beta^T x_i\)</span> 通过连接函数连接到一起，
 协变量参数 <span class="math notranslate nohighlight">\(\beta\)</span> 取代了期望参数 <span class="math notranslate nohighlight">\(\mu_i\)</span> 。
 协变量参数 <span class="math notranslate nohighlight">\(\beta\)</span> 的最大似然估计量的抽样分布同样是高斯分布，
 这里我们省略证明过程，详细的证明过程可参考 <code class="xref std std-numref docutils literal notranslate"><span class="pre">ch_influence_ml_statistic</span></code>。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-estimate-47">
-<span class="eqno">(7.6.3)<a class="headerlink" href="#equation-glm-source-estimate-47" title="公式的永久链接">¶</a></span>\[\hat{\beta}_{ML} \sim  \mathcal{N}(\beta_{true},\mathcal{J}^{-1})\]</div>
+<span class="eqno">(7.6.3)<a class="headerlink" href="#equation-glm-source-estimate-47" title="公式的永久链接"></a></span>\[\hat{\beta}_{ML} \sim  \mathcal{N}(\beta_{true},\mathcal{J}^{-1})\]</div>
 <p>在 <code class="docutils literal notranslate"><span class="pre">IRLS</span></code> 算法的迭代过程中已经计算出了 <span class="math notranslate nohighlight">\(\mathcal{J}(\beta)^{-1}=- \mathbb{E}[H(\beta)]^{-1}=(X^T W X)^{-1}\)</span>
 ，所以使用 <code class="docutils literal notranslate"><span class="pre">IRLS</span></code> 算法可以很方便的得到估计量的标准误差。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-estimate-48">
-<span class="eqno">(7.6.4)<a class="headerlink" href="#equation-glm-source-estimate-48" title="公式的永久链接">¶</a></span>\[SE(\hat{\beta}) = \sqrt{\mathcal{J}^{-1}} = \sqrt{ \text{diag} [{(X^T W X)}^{-1} ]}\]</div>
+<span class="eqno">(7.6.4)<a class="headerlink" href="#equation-glm-source-estimate-48" title="公式的永久链接"></a></span>\[SE(\hat{\beta}) = \sqrt{\mathcal{J}^{-1}} = \sqrt{ \text{diag} [{(X^T W X)}^{-1} ]}\]</div>
 <p>需要注意的是，<code class="docutils literal notranslate"><span class="pre">IRLS</span></code> 中使用的是期望信息矩阵（EIM）,
 在连接函数是标准连接函数时，它与观测信息矩阵（OIM）相比没有差异，
 但当不是标准连接函数时，<code class="docutils literal notranslate"><span class="pre">EIM</span></code> 的值偏小一些，这会使得 <span class="math notranslate nohighlight">\(SE(\hat{\beta})\)</span> 也偏小，
 使我们对参数估计量的标准误差过于乐观，影响我们的判断。
 所以当你比较关注参数估计量的标准误差时，建议使用 <code class="docutils literal notranslate"><span class="pre">OIM</span></code>。</p>
-</div>
-<div class="section" id="ch-glm-estimate-phi">
-<span id="id13"></span><h2><span class="section-number">7.7. </span>分散参数的估计<a class="headerlink" href="#ch-glm-estimate-phi" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="ch-glm-estimate-phi">
+<span id="id13"></span><h2><span class="section-number">7.7. </span>分散参数的估计<a class="headerlink" href="#ch-glm-estimate-phi" title="永久链接至标题"></a></h2>
 <p>我们已经知道，在所有样本拥有相同分散参数 <span class="math notranslate nohighlight">\(\phi\)</span> 的假设之下，
 协变量参数 <span class="math notranslate nohighlight">\(\beta\)</span> 的最大似然估计不会受到 <span class="math notranslate nohighlight">\(\phi\)</span> 的影响。
 但这并不意味着分散参数 <span class="math notranslate nohighlight">\(\phi\)</span> 就没有价值了，
@@ -1795,7 +1707,7 @@ Z^{(t)} &amp;= \left \{ (y-\mu)  \left ( \frac{\partial \eta}{\partial \mu} \rig
 要对 <span class="math notranslate nohighlight">\(\phi\)</span> 进行最大似然估计，就需要对 <code class="docutils literal notranslate"><span class="pre">GLM</span></code>
 的对数似然函数求 <span class="math notranslate nohighlight">\(\phi\)</span> 的导数。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-estimate-49">
-<span class="eqno">(7.7.1)<a class="headerlink" href="#equation-glm-source-estimate-49" title="公式的永久链接">¶</a></span>\[\ell(\theta,\phi;y)= \sum_{i=1}^N \left \{   \frac{y_i \theta_i - b(\theta_i)}{a(\phi)}   + c(y_i,\phi)   \right \}\]</div>
+<span class="eqno">(7.7.1)<a class="headerlink" href="#equation-glm-source-estimate-49" title="公式的永久链接"></a></span>\[\ell(\theta,\phi;y)= \sum_{i=1}^N \left \{   \frac{y_i \theta_i - b(\theta_i)}{a(\phi)}   + c(y_i,\phi)   \right \}\]</div>
 <p>在对数似然函数中， <span class="math notranslate nohighlight">\(c(y_i,\phi)\)</span> 也是包含 <span class="math notranslate nohighlight">\(\phi\)</span> 的，
 在 <code class="docutils literal notranslate"><span class="pre">GLM</span></code> 的不同分布中，它形式是不尽相同的，每种分布模型需要单独去针对  <span class="math notranslate nohighlight">\(\phi\)</span>
 求偏导，这种方法比较繁琐，这里我们暂且不表，
@@ -1803,7 +1715,7 @@ Z^{(t)} &amp;= \left \{ (y-\mu)  \left ( \frac{\partial \eta}{\partial \mu} \rig
 <p>在 <code class="docutils literal notranslate"><span class="pre">GLM</span></code> 中，估计 <span class="math notranslate nohighlight">\(\phi\)</span> 的最常用方法是利用皮尔逊卡方统计量，
 皮尔逊卡方统计量的计算公式为</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-estimate-50">
-<span class="eqno">(7.7.2)<a class="headerlink" href="#equation-glm-source-estimate-50" title="公式的永久链接">¶</a></span>\[\chi^2 =  \sum_{i=1}^N \frac{(y_i-\hat{\mu}_i)^2}{a(\phi) \nu(\hat{\mu}_i)}\]</div>
+<span class="eqno">(7.7.2)<a class="headerlink" href="#equation-glm-source-estimate-50" title="公式的永久链接"></a></span>\[\chi^2 =  \sum_{i=1}^N \frac{(y_i-\hat{\mu}_i)^2}{a(\phi) \nu(\hat{\mu}_i)}\]</div>
 <p>皮尔逊卡方统计量，顾名思义，它也是一个统计量，并且它的期望值是 <span class="math notranslate nohighlight">\(\mathbb{E}[\chi^2]=N-p-1\)</span>
 ，<span class="math notranslate nohighlight">\(N\)</span> 是样本的数量，<span class="math notranslate nohighlight">\(p\)</span> 模型输入特征的数量，其实是指协变量参数 <span class="math notranslate nohighlight">\(\beta\)</span> 的数量（不包括截距参数），
 <span class="math notranslate nohighlight">\(1\)</span> 表示模型的截距参数。
@@ -1811,24 +1723,31 @@ Z^{(t)} &amp;= \left \{ (y-\mu)  \left ( \frac{\partial \eta}{\partial \mu} \rig
 ，<span class="math notranslate nohighlight">\(a(\phi)=\phi\)</span>
 ，则有</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-estimate-51">
-<span class="eqno">(7.7.3)<a class="headerlink" href="#equation-glm-source-estimate-51" title="公式的永久链接">¶</a></span>\[\phi = \frac{\chi^2}{N-p-1} = \sum_{i=1}^N \frac{(y_i-\hat{\mu}_i)^2}{\nu(\hat{\mu}_i) (N-p-1)}\]</div>
+<span class="eqno">(7.7.3)<a class="headerlink" href="#equation-glm-source-estimate-51" title="公式的永久链接"></a></span>\[\phi = \frac{\chi^2}{N-p-1} = \sum_{i=1}^N \frac{(y_i-\hat{\mu}_i)^2}{\nu(\hat{\mu}_i) (N-p-1)}\]</div>
 <p>有关皮尔逊卡方统计量的细节在后续章节中会继续讨论，这里可以先记住就可以了。
 需要注意的是，利用皮尔逊卡方统计量估计 <span class="math notranslate nohighlight">\(\phi\)</span> 的方法，
 同样是建立在所有样本拥有相同 <span class="math notranslate nohighlight">\(\phi\)</span> 的假设之上。</p>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0/content.html" class="btn btn-neutral float-right" title="8. 模型评估" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="content.html" class="btn btn-neutral float-left" title="6. 广义线性模型" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="content.html" class="btn btn-neutral float-left" title="6. 广义线性模型" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0/content.html" class="btn btn-neutral float-right" title="8. 模型评估" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2018, zhangzhenhu(acmtiger@outlook.com) 禁止一切形式的转载！.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
+  
 
 
     <script src="https://utteranc.es/client.js"
@@ -1841,42 +1760,16 @@ Z^{(t)} &amp;= \left \{ (y-\mu)  \left ( \frac{\partial \eta}{\partial \mu} \rig
 
 
 
-  <div role="contentinfo">
-    <p>
-        &#169; 版权所有 2018, zhangzhenhu(acmtiger@outlook.com) 禁止一切形式的转载！.
-
-    </p>
-  </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-
-
-
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

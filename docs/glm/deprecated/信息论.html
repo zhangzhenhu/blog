@@ -1,97 +1,49 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="zh-CN" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>信息论基础 &mdash; 张振虎的博客 张振虎 文档</title>
-  
-
-  
-  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
     <link rel="canonical" href="https://zhangzhenhu.github.io/blog/glm/deprecated/信息论.html" />
-
-  
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
         <script src="../../_static/translations.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2.7.7/unpacked/MathJax.min.js"></script>
         <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"Macros": {"RR": "{\\bf R}", "bold": ["{\\bf #1}", 1]}}})</script>
-    
-    <script type="text/javascript" src="../../_static/js/theme.js"></script>
-
-    
+    <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../genindex.html" />
     <link rel="search" title="搜索" href="../../search.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../../index.html" class="icon icon-home"> 张振虎的博客
-          
-
-          
           </a>
-
-          
-            
-            
               <div class="version">
                 acmtiger@outlook.com
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="在文档中搜索" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">目录:</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">目录:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../source/index.html">广义线性模型</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../source/%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80/content.html">1. 概率基础</a><ul>
@@ -139,7 +91,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#id2">3.1. 统计量和充分统计量</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-sample-distribution">3.2. 抽样分布</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-sample-distribution-normal">3.2.1. 正态分布</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#t">3.2.2. t分布</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#t">3.2.2. 学生t分布</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#id5">3.2.3. 卡方分布</a></li>
 </ul>
 </li>
@@ -744,7 +696,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../audio/feature.html#id18">1.5. 分帧与加窗</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../audio/feature.html#id19">1.5.1. 预加重处理</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../audio/feature.html#id20">1.5.2. 分帧与加窗</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../audio/feature.html#id20">1.5.2. 分帧与加窗处理</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../audio/feature.html#id21">1.6. 声音的感官度量</a><ul>
@@ -786,26 +738,26 @@
 <li class="toctree-l2"><a class="reference internal" href="../../edm/bkt.html">1. 贝叶斯知识追踪(Bayesian Knowledge Tracing,BKT)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../edm/bkt.html#id1">1.1. 简介</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../edm/bkt.html#hidden-markov-model-hmm">1.2. 隐马尔科夫模型(Hidden Markov Model,HMM)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../edm/bkt.html#id5">1.3. 贝叶斯知识追踪(Bayesian Knowledge Tracing,BKT)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../edm/bkt.html#bayesian-knowledge-tracing">1.3. 贝叶斯知识追踪(Bayesian Knowledge Tracing)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../edm/bkt.html#bkt">1.3.1. BKT的参数估计</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../edm/bkt.html#item-response-theory-irt">1.4. 项目反映理论(Item Response Theory,IRT)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../edm/bkt.html#bktirt">1.5. BKT结合IRT</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../edm/bkt.html#id6">1.6. 实验</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../edm/bkt.html#id7">1.6.1. 数据集</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../edm/bkt.html#id8">1.6.2. 实验方法</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../edm/bkt.html#id9">1.6.3. 实验结果</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../edm/bkt.html#id10">1.6.4. 项目代码</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../edm/bkt.html#id5">1.6. 实验</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../edm/bkt.html#id6">1.6.1. 数据集</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../edm/bkt.html#id7">1.6.2. 实验方法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../edm/bkt.html#id8">1.6.3. 实验结果</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../edm/bkt.html#id9">1.6.4. 项目代码</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../edm/bkt.html#id11">1.7. 未来工作</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../edm/bkt.html#id12">1.7.1. 题目难度的计算</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../edm/bkt.html#id10">1.7. 未来工作</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../edm/bkt.html#id11">1.7.1. 题目难度的计算</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../edm/bkt.html#irt">1.7.2. 多参数IRT模型</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../edm/bkt.html#id13">1.7.3. 参数估计算法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../edm/bkt.html#id12">1.7.3. 参数估计算法</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../edm/bkt.html#id14">1.8. 参考文献</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../edm/bkt.html#id13">1.8. 参考文献</a></li>
 </ul>
 </li>
 </ul>
@@ -902,95 +854,54 @@
 </li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../index.html">张振虎的博客</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
       <li>信息论基础</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
-            <a href="../../_sources/glm/deprecated/信息论.rst.txt" rel="nofollow"> View page source</a>
-          
-        
+            <a href="../../_sources/glm/deprecated/信息论.rst.txt" rel="nofollow"> 查看页面源码</a>
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="id1">
-<h1>信息论基础<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+             
+  <section id="id1">
+<h1>信息论基础<a class="headerlink" href="#id1" title="永久链接至标题"></a></h1>
 <p>信息论是一门用数理统计方法来研究信息的度量、传递和变换规律的科学。
 它主要是研究通讯和控制系统中普遍存在着信息传递的共同规律以及研究最佳解决信息的获限、度量、变换、储存和传递等问题的基础理论。
 这似乎与概率论和机器学习的关注点相去甚远，但实际上两者之间有着密切的联系。
 因为简单地表示数据，需要将短码字分配给高概率的位串，并将长码字保留给低概率的位串。
 这与自然语言中的情况类似，常见的单词(如“a”、“the”、“and”)通常比罕见的单词短得多。
 这种情况下需要一个模型来预测哪些数据是可能的，哪些是不可能的，这也是机器学习的一个中心问题。</p>
-<div class="section" id="id2">
-<h2>信息熵<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<section id="id2">
+<h2>信息熵<a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
 <p>符合分布 <span class="math notranslate nohighlight">\(p\)</span> 的随机变量 <span class="math notranslate nohighlight">\(X\)</span> 的熵，表示为 <span class="math notranslate nohighlight">\(H(X)\)</span>，是度量随机变量不确定性的指标。
 对于有 <span class="math notranslate nohighlight">\(K\)</span> 个状态的离散随机变量，可以定义为：</p>
 <div class="math notranslate nohighlight" id="equation-glm-deprecated-0">
-<span class="eqno">()<a class="headerlink" href="#equation-glm-deprecated-0" title="公式的永久链接">¶</a></span>\[H(X) = - \sum_{k=1}^{K}p(X = k)\log_{2}p(X=k)\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-glm-deprecated-0" title="公式的永久链接"></a></span>\[H(X) = - \sum_{k=1}^{K}p(X = k)\log_{2}p(X=k)\]</div>
 <p>通常使用以2为底的对数。对于离散随机变量符合均匀分布的时候信息熵最大。
 因此，对于有 <span class="math notranslate nohighlight">\(K\)</span> 个状态的离散随机变量，如果 <span class="math notranslate nohighlight">\(p(x=k) = 1 / K\)</span>，此时的信息熵最大。
 相反，最小的信息熵是随机变量的分布没有不确定性，此时的信息熵为0。</p>
 <p>对于符合伯努利分布的随机变量 <span class="math notranslate nohighlight">\(X \in \{0, 1\}\)</span>，也可以表示为 <span class="math notranslate nohighlight">\(p(X=1) = \theta\)</span> 和 <span class="math notranslate nohighlight">\(p(X=0) = 1 - \theta\)</span>。
 因此，信息熵可以表示为：</p>
 <div class="math notranslate nohighlight" id="equation-glm-deprecated-1">
-<span class="eqno">()<a class="headerlink" href="#equation-glm-deprecated-1" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}H(X) &amp;= -[p(X = 1)\log_{2}p(X=1) + p(X = 0)\log_{2}p(X=0)]\\&amp;= -[\theta\log_{2}\theta + (1-\theta)\log_{2}(1-\theta)]\end{aligned}\end{align} \]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-glm-deprecated-1" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}H(X) &amp;= -[p(X = 1)\log_{2}p(X=1) + p(X = 0)\log_{2}p(X=0)]\\&amp;= -[\theta\log_{2}\theta + (1-\theta)\log_{2}(1-\theta)]\end{aligned}\end{align} \]</div>
 <p>当 <span class="math notranslate nohighlight">\(\theta=0.5\)</span> 时，也就是随机变量符合均匀分布，此时有最大的信息熵为1。</p>
-<div class="section" id="id3">
-<h3>数据编码<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h3>
+<section id="id3">
+<h3>数据编码<a class="headerlink" href="#id3" title="永久链接至标题"></a></h3>
 <p>数据编码在某些情况下需要对数据进行压缩，使用最有效的编码表示原始的数据。</p>
 <p>压缩就是找出文件内容的概率分布，将那些出现概率高的部分代替成更短的形式。所以，内容越是重复的文件，就可以压缩地越小。</p>
 <p>相应地，如果内容毫无重复，就很难压缩。极端情况就是，遇到那些均匀分布的随机字符串，往往连一个字符都压缩不了。</p>
@@ -999,56 +910,64 @@
 也就是需要 <span class="math notranslate nohighlight">\(log_{2}\frac{1}{p}\)</span> 个比特表示文件中的字符。</p>
 <p>假设一个文件由 <span class="math notranslate nohighlight">\(n\)</span> 个部分组成，每个部分在文件中出现的概率为 <span class="math notranslate nohighlight">\(p_{i}\)</span>，则压缩文件所需的比特数至少为：</p>
 <div class="math notranslate nohighlight" id="equation-glm-deprecated-2">
-<span class="eqno">()<a class="headerlink" href="#equation-glm-deprecated-2" title="公式的永久链接">¶</a></span>\[log_{2}(\frac{1}{p_{1}}) + log_{2}(\frac{1}{p_{2}}) + ... + log_{2}(\frac{1}{p_{n}}) = \sum log_{2}(\frac{1}{p_{i}})\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-glm-deprecated-2" title="公式的永久链接"></a></span>\[log_{2}(\frac{1}{p_{1}}) + log_{2}(\frac{1}{p_{2}}) + ... + log_{2}(\frac{1}{p_{n}}) = \sum log_{2}(\frac{1}{p_{i}})\]</div>
 <p>则平均每个部分所占用的比特数为，即：</p>
 <div class="math notranslate nohighlight" id="equation-glm-deprecated-3">
-<span class="eqno">()<a class="headerlink" href="#equation-glm-deprecated-3" title="公式的永久链接">¶</a></span>\[p_{1} * log_{2}(\frac{1}{p_{1}}) + p_{2} * log_{2}(\frac{1}{p_{2}}) + ... + p_{n} * log_{2}(\frac{1}{p_{n}}) = \sum p_{i} * log_{2}(\frac{1}{p_{i}}) = E(log_{2}(\frac{1}{p}))\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-glm-deprecated-3" title="公式的永久链接"></a></span>\[p_{1} * log_{2}(\frac{1}{p_{1}}) + p_{2} * log_{2}(\frac{1}{p_{2}}) + ... + p_{n} * log_{2}(\frac{1}{p_{n}}) = \sum p_{i} * log_{2}(\frac{1}{p_{i}}) = E(log_{2}(\frac{1}{p}))\]</div>
 <p>霍夫曼编码就是利用了这种大概率事件分配短码的思想，而且可以证明这种编码方式是最优的。
 霍夫曼编码使用变长编码表对源符号（如文件中的一个字母）进行编码，其中变长编码表是通过一种评估来源符号出现机率的方法得到的，
 出现机率高的字母使用较短的编码，反之出现机率低的则使用较长的编码，这便使编码之后的字符串的平均长度、期望值降低，从而达到无损压缩数据的目的。</p>
-</div>
-</div>
-<div class="section" id="kl">
-<h2>KL散度<a class="headerlink" href="#kl" title="永久链接至标题">¶</a></h2>
+</section>
+</section>
+<section id="kl">
+<h2>KL散度<a class="headerlink" href="#kl" title="永久链接至标题"></a></h2>
 <p>两个概率分布 <span class="math notranslate nohighlight">\(p\)</span> 和 <span class="math notranslate nohighlight">\(q\)</span> 的差异度量指标可以使用KL散度，或者称之为相对熵，定义为：</p>
 <div class="math notranslate nohighlight" id="equation-glm-deprecated-4">
-<span class="eqno">()<a class="headerlink" href="#equation-glm-deprecated-4" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}KL(p||q) &amp;= \sum_{k}p_{k}\log \frac{p_{k}}{q_{k}}\\         &amp;= \sum_{k}p_{k}\log p_{k} - \sum_{k}p_{k}\log q_{k}\\         &amp;= -H(p) + H(p, q)\end{aligned}\end{align} \]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-glm-deprecated-4" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}KL(p||q) &amp;= \sum_{k}p_{k}\log \frac{p_{k}}{q_{k}}\\         &amp;= \sum_{k}p_{k}\log p_{k} - \sum_{k}p_{k}\log q_{k}\\         &amp;= -H(p) + H(p, q)\end{aligned}\end{align} \]</div>
 <p>KL散度不是距离，因为它不是对称的，KL散度的对称版本是JS散度，定义为：</p>
 <div class="math notranslate nohighlight" id="equation-glm-deprecated-5">
-<span class="eqno">()<a class="headerlink" href="#equation-glm-deprecated-5" title="公式的永久链接">¶</a></span>\[JS(p_1, P_2) = 0.5KL(p_1 || q) + 0.5KL(p_2 || q), \ q = 0.5p_1 + 0.5p_2\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-glm-deprecated-5" title="公式的永久链接"></a></span>\[JS(p_1, P_2) = 0.5KL(p_1 || q) + 0.5KL(p_2 || q), \ q = 0.5p_1 + 0.5p_2\]</div>
 <p><span class="math notranslate nohighlight">\(H(p, q) = \sum_{k}p_{k}\log q_{k}\)</span> 称之为交叉熵。
 交叉熵是指使用分布 <span class="math notranslate nohighlight">\(q\)</span> 编码来自分布 <span class="math notranslate nohighlight">\(p\)</span> 的数据所需的平均比特数。</p>
 <p>KL散度是指使用分布 <span class="math notranslate nohighlight">\(q\)</span> 编码来自分布 <span class="math notranslate nohighlight">\(p\)</span> 的数据所需的平均额外比特数。
 自然地，<span class="math notranslate nohighlight">\(KL(p||q) \geq 0\)</span>，并且只有当 <span class="math notranslate nohighlight">\(p=q\)</span> 的时候KL散度等于0。</p>
-</div>
-<div class="section" id="id4">
-<h2>互信息<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="id4">
+<h2>互信息<a class="headerlink" href="#id4" title="永久链接至标题"></a></h2>
 <p>考虑两个随机变量 <span class="math notranslate nohighlight">\(X\)</span> 和 <span class="math notranslate nohighlight">\(Y\)</span>，假设想知道一个变量对另一个变量的了解程度，可以计算相关系数，但这只对实值随机变量有定义，而且，这是一个非常有限的相关性度量。
 一个更一般的方法是确定联合概率分布 <span class="math notranslate nohighlight">\(p(X, Y)\)</span> 和分布 <span class="math notranslate nohighlight">\(p(X)p(Y)\)</span> 的相似程度，这被称之为互信息，定义为：</p>
 <div class="math notranslate nohighlight" id="equation-glm-deprecated-6">
-<span class="eqno">()<a class="headerlink" href="#equation-glm-deprecated-6" title="公式的永久链接">¶</a></span>\[I(X; Y) = KL(p(X, Y) || p(X)p(Y)) = \sum_{x}\sum_{y}p(x, y)\log \frac{p(x, y)}{p(x)p(y)}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-glm-deprecated-6" title="公式的永久链接"></a></span>\[I(X; Y) = KL(p(X, Y) || p(X)p(Y)) = \sum_{x}\sum_{y}p(x, y)\log \frac{p(x, y)}{p(x)p(y)}\]</div>
 <p>这里的 <span class="math notranslate nohighlight">\(I(X, Y) \geq 0\)</span>，并且在 <span class="math notranslate nohighlight">\(p(X, Y) = p(X)p(Y)\)</span> 时取等号，意味着随机变量相互独立的时候互信息为0。</p>
 <p>为了深入理解互信息的含义，可以用联合熵和条件熵来重新表达互信息：</p>
 <div class="math notranslate nohighlight" id="equation-glm-deprecated-7">
-<span class="eqno">()<a class="headerlink" href="#equation-glm-deprecated-7" title="公式的永久链接">¶</a></span>\[I(X; Y) = H(X) - H(X| Y) = H(Y) - H(Y|X)\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-glm-deprecated-7" title="公式的永久链接"></a></span>\[I(X; Y) = H(X) - H(X| Y) = H(Y) - H(Y|X)\]</div>
 <p><span class="math notranslate nohighlight">\(H(Y|X)\)</span> 是条件熵，定义为 <span class="math notranslate nohighlight">\(H(Y|X)=\sum_{x}p(x)H(Y|X =x)\)</span>，因此，可以将 <span class="math notranslate nohighlight">\(X\)</span> 和 <span class="math notranslate nohighlight">\(Y\)</span> 之间的互信息解释为观察 <span class="math notranslate nohighlight">\(Y\)</span> 后 <span class="math notranslate nohighlight">\(X\)</span> 的不确定性的减少，
 或者说是观察 <span class="math notranslate nohighlight">\(X\)</span> 后 <span class="math notranslate nohighlight">\(Y\)</span> 的不确定性的减少。</p>
-<div class="section" id="id5">
-<h3>连续型随机变量的互信息<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
+<section id="id5">
+<h3>连续型随机变量的互信息<a class="headerlink" href="#id5" title="永久链接至标题"></a></h3>
 <p>对于连续型随机变量，首先需要离散化或者量化，具体是通过将每个变量的范围划分到不同的箱中，然后计算多少值落入每个箱中，最后再用离散随机变量的方式计算互信息。
 不幸的是，使用箱的数目，在每个箱边界的位置，可能对最后的结果产生重大影响。</p>
 <p>解决此问题的一种方法是尝试直接估计MI，而无需先执行密度估计。另一种方式是尝试多种不同大小和位置的箱，得到其中最大的互信息。</p>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
            </div>
-           
           </div>
           <footer>
 
   <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2018, zhangzhenhu(acmtiger@outlook.com) 禁止一切形式的转载！.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
+  
 
 
     <script src="https://utteranc.es/client.js"
@@ -1061,42 +980,16 @@
 
 
 
-  <div role="contentinfo">
-    <p>
-        &#169; 版权所有 2018, zhangzhenhu(acmtiger@outlook.com) 禁止一切形式的转载！.
-
-    </p>
-  </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-
-
-
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

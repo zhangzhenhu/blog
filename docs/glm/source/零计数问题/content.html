@@ -1,99 +1,51 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="zh-CN" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>18. 零计数问题 &mdash; 张振虎的博客 张振虎 文档</title>
-  
-
-  
-  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
     <link rel="canonical" href="https://zhangzhenhu.github.io/blog/glm/source/零计数问题/content.html" />
-
-  
   <!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
         <script src="../../../_static/doctools.js"></script>
         <script src="../../../_static/translations.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2.7.7/unpacked/MathJax.min.js"></script>
         <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"Macros": {"RR": "{\\bf R}", "bold": ["{\\bf #1}", 1]}}})</script>
-    
-    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-
-    
+    <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../../genindex.html" />
     <link rel="search" title="搜索" href="../../../search.html" />
     <link rel="next" title="19. 多项式模型" href="../%E6%97%A0%E5%BA%8F%E7%A6%BB%E6%95%A3%E6%A8%A1%E5%9E%8B/content.html" />
     <link rel="prev" title="17. 负二项式模型" href="../%E8%B4%9F%E4%BA%8C%E9%A1%B9%E6%A8%A1%E5%9E%8B/content.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../../../index.html" class="icon icon-home"> 张振虎的博客
-          
-
-          
           </a>
-
-          
-            
-            
               <div class="version">
                 acmtiger@outlook.com
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="在文档中搜索" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">目录:</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">目录:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">广义线性模型</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80/content.html">1. 概率基础</a><ul>
@@ -141,7 +93,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#id2">3.1. 统计量和充分统计量</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-sample-distribution">3.2. 抽样分布</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-sample-distribution-normal">3.2.1. 正态分布</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#t">3.2.2. t分布</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#t">3.2.2. 学生t分布</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#id5">3.2.3. 卡方分布</a></li>
 </ul>
 </li>
@@ -746,7 +698,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../audio/feature.html#id18">1.5. 分帧与加窗</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../audio/feature.html#id19">1.5.1. 预加重处理</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../audio/feature.html#id20">1.5.2. 分帧与加窗</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../audio/feature.html#id20">1.5.2. 分帧与加窗处理</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../audio/feature.html#id21">1.6. 声音的感官度量</a><ul>
@@ -788,26 +740,26 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../edm/bkt.html">1. 贝叶斯知识追踪(Bayesian Knowledge Tracing,BKT)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id1">1.1. 简介</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#hidden-markov-model-hmm">1.2. 隐马尔科夫模型(Hidden Markov Model,HMM)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id5">1.3. 贝叶斯知识追踪(Bayesian Knowledge Tracing,BKT)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#bayesian-knowledge-tracing">1.3. 贝叶斯知识追踪(Bayesian Knowledge Tracing)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#bkt">1.3.1. BKT的参数估计</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#item-response-theory-irt">1.4. 项目反映理论(Item Response Theory,IRT)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#bktirt">1.5. BKT结合IRT</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id6">1.6. 实验</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id7">1.6.1. 数据集</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id8">1.6.2. 实验方法</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id9">1.6.3. 实验结果</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id10">1.6.4. 项目代码</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id5">1.6. 实验</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id6">1.6.1. 数据集</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id7">1.6.2. 实验方法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id8">1.6.3. 实验结果</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id9">1.6.4. 项目代码</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id11">1.7. 未来工作</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id12">1.7.1. 题目难度的计算</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id10">1.7. 未来工作</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id11">1.7.1. 题目难度的计算</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#irt">1.7.2. 多参数IRT模型</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id13">1.7.3. 参数估计算法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id12">1.7.3. 参数估计算法</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id14">1.8. 参考文献</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id13">1.8. 参考文献</a></li>
 </ul>
 </li>
 </ul>
@@ -904,75 +856,33 @@
 </li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../../index.html">张振虎的博客</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="../index.html">广义线性模型</a> &raquo;</li>
-        
       <li><span class="section-number">18. </span>零计数问题</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
-            <a href="../../../_sources/glm/source/零计数问题/content.rst.txt" rel="nofollow"> View page source</a>
-          
-        
+            <a href="../../../_sources/glm/source/零计数问题/content.rst.txt" rel="nofollow"> 查看页面源码</a>
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="id1">
-<h1><span class="section-number">18. </span>零计数问题<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+             
+  <section id="id1">
+<h1><span class="section-number">18. </span>零计数问题<a class="headerlink" href="#id1" title="永久链接至标题"></a></h1>
 <p>在计数数据中，有一个非常特殊的数字： <span class="math notranslate nohighlight">\(0\)</span>
 。
 <span class="math notranslate nohighlight">\(0\)</span> 表示事件发生的次数为 <span class="math notranslate nohighlight">\(0\)</span>
@@ -993,8 +903,8 @@
 本章，我们介绍针对这两种情况的改进计数模型，
 处理零截断数据的模型称为零截断模型，
 处理零膨胀数据的模型称为零膨胀模型。</p>
-<div class="section" id="id2">
-<h2><span class="section-number">18.1. </span>零截断模型<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<section id="id2">
+<h2><span class="section-number">18.1. </span>零截断模型<a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
 <p>在计数类场景中，有时会存在没有 <span class="math notranslate nohighlight">\(0\)</span> 的情况，
 比如，住院病人住院的天数，不会出现住院天数是 <span class="math notranslate nohighlight">\(0\)</span> 的情况，
 这是一个典型的非零数据。当然这个例子中研究的对象是住院病人，
@@ -1013,23 +923,23 @@
 <span class="math notranslate nohighlight">\(Y=0\)</span> 的概率是 <span class="math notranslate nohighlight">\(f(0)\)</span>
 ，那么 <span class="math notranslate nohighlight">\(Y&gt;0\)</span> 的概率分布函数为</p>
 <div class="math notranslate nohighlight" id="equation-eq-zero-counts-001">
-<span class="eqno">(18.1.1)<a class="headerlink" href="#equation-eq-zero-counts-001" title="公式的永久链接">¶</a></span>\[f(y|y&gt;0) = \frac{f(y)}{1-f(0)}\]</div>
+<span class="eqno">(18.1.1)<a class="headerlink" href="#equation-eq-zero-counts-001" title="公式的永久链接"></a></span>\[f(y|y&gt;0) = \frac{f(y)}{1-f(0)}\]</div>
 <p>计数数据模型中最常见的泊松模型和负二项式模型，
 都可以使用这种方法转换成零截断数据的模型。</p>
-<div class="section" id="id3">
-<h3><span class="section-number">18.1.1. </span>零截断泊松模型<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h3>
+<section id="id3">
+<h3><span class="section-number">18.1.1. </span>零截断泊松模型<a class="headerlink" href="#id3" title="永久链接至标题"></a></h3>
 <p>先以泊松分布为例，泊松分布的概率分布函数为</p>
 <div class="math notranslate nohighlight" id="equation-eq-zero-counts-002">
-<span class="eqno">(18.1.2)<a class="headerlink" href="#equation-eq-zero-counts-002" title="公式的永久链接">¶</a></span>\[f(y;\mu)=\exp \{ y\ln(\mu) -\mu- \ln \Gamma(y+1)   \}\]</div>
+<span class="eqno">(18.1.2)<a class="headerlink" href="#equation-eq-zero-counts-002" title="公式的永久链接"></a></span>\[f(y;\mu)=\exp \{ y\ln(\mu) -\mu- \ln \Gamma(y+1)   \}\]</div>
 <p><span class="math notranslate nohighlight">\(Y=0\)</span> 的概率为</p>
 <div class="math notranslate nohighlight" id="equation-eq-zero-counts-003">
-<span class="eqno">(18.1.3)<a class="headerlink" href="#equation-eq-zero-counts-003" title="公式的永久链接">¶</a></span>\[f(y=0;\mu)=\exp \{  -\mu   \}\]</div>
+<span class="eqno">(18.1.3)<a class="headerlink" href="#equation-eq-zero-counts-003" title="公式的永久链接"></a></span>\[f(y=0;\mu)=\exp \{  -\mu   \}\]</div>
 <p>不包含 <span class="math notranslate nohighlight">\(0\)</span> 的泊松分布的概率分布函数为</p>
 <div class="math notranslate nohighlight" id="equation-eq-zero-counts-004">
-<span class="eqno">(18.1.4)<a class="headerlink" href="#equation-eq-zero-counts-004" title="公式的永久链接">¶</a></span>\[f(y;\mu|y&gt;0)=\frac{\exp \{ y\ln(\mu) -\mu- \ln \Gamma(y+1)   \}}{1-\exp \{  -\mu   \}}\]</div>
+<span class="eqno">(18.1.4)<a class="headerlink" href="#equation-eq-zero-counts-004" title="公式的永久链接"></a></span>\[f(y;\mu|y&gt;0)=\frac{\exp \{ y\ln(\mu) -\mu- \ln \Gamma(y+1)   \}}{1-\exp \{  -\mu   \}}\]</div>
 <p>对数似然函数为</p>
 <div class="math notranslate nohighlight" id="equation-eq-zero-counts-005">
-<span class="eqno">(18.1.5)<a class="headerlink" href="#equation-eq-zero-counts-005" title="公式的永久链接">¶</a></span>\[\ell(\mu;y|y&gt;0) = \sum_{i=1}^N
+<span class="eqno">(18.1.5)<a class="headerlink" href="#equation-eq-zero-counts-005" title="公式的永久链接"></a></span>\[\ell(\mu;y|y&gt;0) = \sum_{i=1}^N
 \left \{
     \underbrace{ y_i\ln(\mu_i) -\mu_i- \ln \Gamma(y_i+1)}_{\text{原来泊松分布部分}}
 - \underbrace{\ln [1-\exp \{  -\mu_i   \}]}_{\text{新的归一化项}}
@@ -1040,35 +950,35 @@
 严格来说，零截断模型已经不属于 <code class="docutils literal notranslate"><span class="pre">GLM</span></code> 框架。
 对于零截断模型的参数估计，可以单独运用完整最大似然估计求解，
 也就是梯度法或者牛顿法。</p>
-</div>
-<div class="section" id="id4">
-<h3><span class="section-number">18.1.2. </span>零截断负二项式模型<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id4">
+<h3><span class="section-number">18.1.2. </span>零截断负二项式模型<a class="headerlink" href="#id4" title="永久链接至标题"></a></h3>
 <p>负二项式模型的概率分布函数为</p>
 <div class="math notranslate nohighlight" id="equation-eq-zero-counts-020">
-<span class="eqno">(18.1.6)<a class="headerlink" href="#equation-eq-zero-counts-020" title="公式的永久链接">¶</a></span>\[f(y;\alpha,\mu)  = \exp \left \{
+<span class="eqno">(18.1.6)<a class="headerlink" href="#equation-eq-zero-counts-020" title="公式的永久链接"></a></span>\[f(y;\alpha,\mu)  = \exp \left \{
 y \ln \left (\frac{\alpha \mu}{1+\alpha \mu} \right )
 - \frac{1}{\alpha} \ln (1+\alpha \mu) + \ln \frac{\Gamma(y+1/\alpha)  }{\Gamma(y+1) \Gamma(1/\alpha) }
 \right \}\]</div>
 <p><span class="math notranslate nohighlight">\(Y=0\)</span> 的概率为</p>
 <div class="math notranslate nohighlight" id="equation-eq-zero-counts-021">
-<span class="eqno">(18.1.7)<a class="headerlink" href="#equation-eq-zero-counts-021" title="公式的永久链接">¶</a></span>\[f(y=0;\alpha,\mu) = \exp \left \{- \frac{1}{\alpha} \ln (1+\alpha \mu) \right \}
+<span class="eqno">(18.1.7)<a class="headerlink" href="#equation-eq-zero-counts-021" title="公式的永久链接"></a></span>\[f(y=0;\alpha,\mu) = \exp \left \{- \frac{1}{\alpha} \ln (1+\alpha \mu) \right \}
 =  (1+\alpha \mu)^{-1/\alpha}\]</div>
 <p>用符号 <span class="math notranslate nohighlight">\(f(y;\alpha,\mu)_{NB}\)</span> 代指 <a class="reference internal" href="#equation-eq-zero-counts-020">公式(18.1.6)</a>
 ，符号 <span class="math notranslate nohighlight">\(f(0;\alpha,\mu)_{NB}\)</span> 代指 <a class="reference internal" href="#equation-eq-zero-counts-021">公式(18.1.7)</a>
 ，零截断负二项式模型的概率分布函数为</p>
 <div class="math notranslate nohighlight" id="equation-eq-zero-counts-023">
-<span class="eqno">(18.1.8)<a class="headerlink" href="#equation-eq-zero-counts-023" title="公式的永久链接">¶</a></span>\[f(y;\alpha,\mu|y&gt;0) = \frac{f(y;\alpha,\mu)_{NB}}{1-f(0;\alpha,\mu)_{NB}}\]</div>
+<span class="eqno">(18.1.8)<a class="headerlink" href="#equation-eq-zero-counts-023" title="公式的永久链接"></a></span>\[f(y;\alpha,\mu|y&gt;0) = \frac{f(y;\alpha,\mu)_{NB}}{1-f(0;\alpha,\mu)_{NB}}\]</div>
 <p>用符号 <span class="math notranslate nohighlight">\(\ell_{NB}\)</span> 表示原始负二项式模型对数似然函数，
 则零截断负二项式模型的对数似然函数为</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-0">
-<span class="eqno">(18.1.9)<a class="headerlink" href="#equation-glm-source-content-0" title="公式的永久链接">¶</a></span>\[\ell(\mu;y|y&gt;0) =  \ell_{NB} -  \sum_{i=1}^N
+<span class="eqno">(18.1.9)<a class="headerlink" href="#equation-glm-source-content-0" title="公式的永久链接"></a></span>\[\ell(\mu;y|y&gt;0) =  \ell_{NB} -  \sum_{i=1}^N
 \left \{
     \ln [  1-   (1+\alpha \mu_i)^{-1/\alpha}  ]
  \right \}\]</div>
-</div>
-</div>
-<div class="section" id="id5">
-<h2><span class="section-number">18.2. </span>零膨胀模型<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h2>
+</section>
+</section>
+<section id="id5">
+<h2><span class="section-number">18.2. </span>零膨胀模型<a class="headerlink" href="#id5" title="永久链接至标题"></a></h2>
 <p>零膨胀（zero-inflate）表示数据中的 <span class="math notranslate nohighlight">\(0\)</span> 太多了，
 超过了泊松分布和负二项式分布中 <span class="math notranslate nohighlight">\(0\)</span> 的极限。
 对于零膨胀的计数数据，常见的处理思想就是把数据进行分割，
@@ -1095,15 +1005,15 @@ y \ln \left (\frac{\alpha \mu}{1+\alpha \mu} \right )
 的数据，而栅栏模型是可以处理 <span class="math notranslate nohighlight">\(0\)</span> <strong>过少</strong> 的数据的。
 为了和零膨胀模型区分，<code class="docutils literal notranslate"><span class="pre">Hurdle</span></code> 模型一般被称为 <code class="docutils literal notranslate"><span class="pre">zero-altered</span></code>
 模型。</p>
-<div class="section" id="hurdle">
-<h3><span class="section-number">18.2.1. </span>Hurdle 模型<a class="headerlink" href="#hurdle" title="永久链接至标题">¶</a></h3>
+<section id="hurdle">
+<h3><span class="section-number">18.2.1. </span>Hurdle 模型<a class="headerlink" href="#hurdle" title="永久链接至标题"></a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">Hurdle</span></code> 在英文语境里指栅栏、障碍，
 顾名思义，<code class="docutils literal notranslate"><span class="pre">Hurdle</span></code> 寓意在数据生成过程中有一个 <span class="math notranslate nohighlight">\(0\)</span> 的栅栏阻碍，
 没有跨过去就为 <span class="math notranslate nohighlight">\(0\)</span> ，跨过去就是非零的正整数，
 <code class="docutils literal notranslate"><span class="pre">Hurdle</span></code> 模型相当于是一个二分类模型和零截断模型组成的一个混合模型，
 其概率分布函数可以用一个分段函数表示。</p>
 <div class="math notranslate nohighlight" id="equation-eq-zero-counts-030">
-<span class="eqno">(18.2.1)<a class="headerlink" href="#equation-eq-zero-counts-030" title="公式的永久链接">¶</a></span>\[\begin{split}f(y ; \pi,\lambda)
+<span class="eqno">(18.2.1)<a class="headerlink" href="#equation-eq-zero-counts-030" title="公式的永久链接"></a></span>\[\begin{split}f(y ; \pi,\lambda)
 =
 \begin{cases}
 \textsf{Binary}(0 ; \pi) &amp;\quad \text{if } y = 0\\
@@ -1133,18 +1043,18 @@ y \ln \left (\frac{\alpha \mu}{1+\alpha \mu} \right )
 零截断泊松模型的概率分布函数是 <a class="reference internal" href="#equation-eq-zero-counts-004">公式(18.1.4)</a>
 ，代入到 <a class="reference internal" href="#equation-eq-zero-counts-030">公式(18.2.1)</a> 的模板可以给出 <code class="docutils literal notranslate"><span class="pre">ZAP</span></code> 的概率分布函数</p>
 <div class="math notranslate nohighlight" id="equation-eq-zero-counts-031">
-<span class="eqno">(18.2.2)<a class="headerlink" href="#equation-eq-zero-counts-031" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}P(y_i=0) &amp;= F(\eta^{\gamma}_i)\\P(y_i&gt;0) &amp;= \left [ 1-F(\eta^{\gamma}_i) \right ]
+<span class="eqno">(18.2.2)<a class="headerlink" href="#equation-eq-zero-counts-031" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}P(y_i=0) &amp;= F(\eta^{\gamma}_i)\\P(y_i&gt;0) &amp;= \left [ 1-F(\eta^{\gamma}_i) \right ]
 \frac{\exp \{ y_i \eta^{\beta}_i  -R(\eta_i^{\beta}) - \ln \Gamma(y_i+1)   \}}
 {1-\exp \{  -R(\eta^{\beta}_i)   \}}\end{aligned}\end{align} \]</div>
 <p><code class="docutils literal notranslate"><span class="pre">Hurdle</span></code> 模型的对数似然函数可以按照样本是否为 <span class="math notranslate nohighlight">\(0\)</span>
 分成两部分，假设观测样本中为 <span class="math notranslate nohighlight">\(0\)</span> 的子集是  <span class="math notranslate nohighlight">\(\mathcal{D}_0\)</span>
 ，则 <code class="docutils literal notranslate"><span class="pre">Hurdle</span></code> 模型的对数似然函数为</p>
 <div class="math notranslate nohighlight" id="equation-eq-zero-counts-032">
-<span class="eqno">(18.2.3)<a class="headerlink" href="#equation-eq-zero-counts-032" title="公式的永久链接">¶</a></span>\[\ell = \sum_{i \in \mathcal{D}_0 } \ln P(y_i=0)
+<span class="eqno">(18.2.3)<a class="headerlink" href="#equation-eq-zero-counts-032" title="公式的永久链接"></a></span>\[\ell = \sum_{i \in \mathcal{D}_0 } \ln P(y_i=0)
         + \sum_{i \notin \mathcal{D}_0 }  \ln P(y_i&gt;0)\]</div>
 <p>按照这个模板，<code class="docutils literal notranslate"><span class="pre">ZAP</span></code> 模型的对数似然函数为</p>
 <div class="math notranslate nohighlight" id="equation-eq-zero-counts-033">
-<span class="eqno">(18.2.4)<a class="headerlink" href="#equation-eq-zero-counts-033" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\ell = &amp;\sum_{i \in \mathcal{D}_0 } \ln F(\eta^{\gamma}_i)\\&amp;+\sum_{i \notin \mathcal{D}_0 }
+<span class="eqno">(18.2.4)<a class="headerlink" href="#equation-eq-zero-counts-033" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\ell = &amp;\sum_{i \in \mathcal{D}_0 } \ln F(\eta^{\gamma}_i)\\&amp;+\sum_{i \notin \mathcal{D}_0 }
 \left \{
 \ln \left [ 1-F(\eta^{\gamma}_i) \right ] +
 \left [ y_i \eta^{\beta}_i  -R(\eta_i^{\beta}) - \ln \Gamma(y_i+1)   \right ] -
@@ -1155,11 +1065,11 @@ y \ln \left (\frac{\alpha \mu}{1+\alpha \mu} \right )
 零截断泊松模型的概率分布函数是 <a class="reference internal" href="#equation-eq-zero-counts-023">公式(18.1.8)</a>
 ，代入到 <a class="reference internal" href="#equation-eq-zero-counts-030">公式(18.2.1)</a> 的模板可以给出 <code class="docutils literal notranslate"><span class="pre">ZANB</span></code> 的概率分布函数</p>
 <div class="math notranslate nohighlight" id="equation-eq-zero-counts-034">
-<span class="eqno">(18.2.5)<a class="headerlink" href="#equation-eq-zero-counts-034" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}P(y_i=0) &amp;= F(\eta^{\gamma}_i)\\P(y_i&gt;0) &amp;= \left [ 1-F(\eta^{\gamma}_i) \right ]
+<span class="eqno">(18.2.5)<a class="headerlink" href="#equation-eq-zero-counts-034" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}P(y_i=0) &amp;= F(\eta^{\gamma}_i)\\P(y_i&gt;0) &amp;= \left [ 1-F(\eta^{\gamma}_i) \right ]
  \frac{f(y)_{NB}}{1-f(0)_{NB}}\end{aligned}\end{align} \]</div>
-</div>
-<div class="section" id="zero-inflate">
-<h3><span class="section-number">18.2.2. </span>Zero-inflate 模型<a class="headerlink" href="#zero-inflate" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="zero-inflate">
+<h3><span class="section-number">18.2.2. </span>Zero-inflate 模型<a class="headerlink" href="#zero-inflate" title="永久链接至标题"></a></h3>
 <p>零膨胀(Zero-inflate)计数模型是由 <code class="docutils literal notranslate"><span class="pre">Lambert（1992）</span></code> 首次提出的，
 它提供了另一种解决过多零计数的方法。
 与 <code class="docutils literal notranslate"><span class="pre">Hurdle</span></code> 模型一样，它也是两部分模型，由二分类和计数模型组成。
@@ -1176,7 +1086,7 @@ y \ln \left (\frac{\alpha \mu}{1+\alpha \mu} \right )
 所以这里的计数模型是一个完整的计数模型，而不是零截断计数模型，这一点和 <code class="docutils literal notranslate"><span class="pre">Hurdle</span></code>
 模型不同。</p>
 <div class="math notranslate nohighlight" id="equation-eq-zero-counts-050">
-<span class="eqno">(18.2.6)<a class="headerlink" href="#equation-eq-zero-counts-050" title="公式的永久链接">¶</a></span>\[\begin{split}f(y)
+<span class="eqno">(18.2.6)<a class="headerlink" href="#equation-eq-zero-counts-050" title="公式的永久链接"></a></span>\[\begin{split}f(y)
 =
 \begin{cases}
 \textsf{Binary}(0 ; \pi) + [1-\textsf{Binary}(0 ; \pi) ] \text{Count}(0;\lambda) &amp;\quad \text{if } y = 0\\
@@ -1201,12 +1111,12 @@ y \ln \left (\frac{\alpha \mu}{1+\alpha \mu} \right )
 代入到 <a class="reference internal" href="#equation-eq-zero-counts-050">公式(18.2.6)</a>
 可得到 <code class="docutils literal notranslate"><span class="pre">ZIP</span></code> 模型的概率分布函数。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-1">
-<span class="eqno">(18.2.7)<a class="headerlink" href="#equation-glm-source-content-1" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}P(y_i=0) &amp;= F(\eta^{\gamma}_i) + \left [ 1-F(\eta^{\gamma}_i) \right ] \exp \left [ -R(\eta^{\beta}_i) \right ]\\P(y_i&gt;0) &amp;= \left [ 1-F(\eta^{\gamma}_i) \right ]
+<span class="eqno">(18.2.7)<a class="headerlink" href="#equation-glm-source-content-1" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}P(y_i=0) &amp;= F(\eta^{\gamma}_i) + \left [ 1-F(\eta^{\gamma}_i) \right ] \exp \left [ -R(\eta^{\beta}_i) \right ]\\P(y_i&gt;0) &amp;= \left [ 1-F(\eta^{\gamma}_i) \right ]
 \exp \left \{ y_i \eta^{\beta}_i - R(\eta^{\beta}_i) -\ln \Gamma(y_i+1)   \right \}\end{aligned}\end{align} \]</div>
 <p>用 <span class="math notranslate nohighlight">\(\mathcal{D}_0\)</span> 表示观测样本集中 <span class="math notranslate nohighlight">\(0\)</span> 的子集，
 <code class="docutils literal notranslate"><span class="pre">ZIP</span></code> 模型的对数似然函数可以写成两部分的和。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-2">
-<span class="eqno">(18.2.8)<a class="headerlink" href="#equation-glm-source-content-2" title="公式的永久链接">¶</a></span>\[\ell = \sum_{ i \in \mathcal{D}_0 }
+<span class="eqno">(18.2.8)<a class="headerlink" href="#equation-glm-source-content-2" title="公式的永久链接"></a></span>\[\ell = \sum_{ i \in \mathcal{D}_0 }
 \ln \left \{
 F(\eta^{\gamma}_i) + [1-F(\eta^{\gamma}_i)] \exp \left [ -R(\eta^{\beta}_i) \right ]
 \right \}
@@ -1218,7 +1128,7 @@ F(\eta^{\gamma}_i) + [1-F(\eta^{\gamma}_i)] \exp \left [ -R(\eta^{\beta}_i) \rig
 \right \}\]</div>
 <p>对数似然函数的一阶偏导数为</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-3">
-<span class="eqno">(18.2.9)<a class="headerlink" href="#equation-glm-source-content-3" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\frac{\partial \ell}{ \partial \beta_j} &amp;=
+<span class="eqno">(18.2.9)<a class="headerlink" href="#equation-glm-source-content-3" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\frac{\partial \ell}{ \partial \beta_j} &amp;=
 -\sum_{ i \in \mathcal{D}_0 } x_{ji}
 \frac{ \left [ 1-F(\eta^{\gamma}_i) \right ] R(\eta^{\beta}_i)  \exp \left [ -R(\eta^{\beta}_i) \right ] }
 {F(\eta^{\gamma}_i) + \left [1-F(\eta^{\gamma}_i) \right] \exp \left [ -R(\eta^{\beta}_i) \right ]  }
@@ -1237,10 +1147,10 @@ F(\eta^{\gamma}_i) + [1-F(\eta^{\gamma}_i)] \exp \left [ -R(\eta^{\beta}_i) \rig
 代入到 <a class="reference internal" href="#equation-eq-zero-counts-050">公式(18.2.6)</a>
 可得到 <code class="docutils literal notranslate"><span class="pre">ZINB</span></code> 模型的概率分布函数。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-4">
-<span class="eqno">(18.2.10)<a class="headerlink" href="#equation-glm-source-content-4" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}m &amp;= 1/\alpha\\p_i &amp;= 1/(1+\alpha \mu_i)\\\mu_i &amp;= R(\eta^{\beta}) = \exp(x_i \beta)\\P(y_i=0) &amp;= F(\eta^{\gamma}_i)  + [ 1- F(\eta^{\gamma}_i) ] p_i^m\\P(y_i&gt;0) &amp;= [ 1- F(\eta^{\gamma}_i) ] \frac{\Gamma(m+y_i)}{\Gamma(y_i+1)\Gamma(m)}p_i^m(1-p_i)^y_i\end{aligned}\end{align} \]</div>
+<span class="eqno">(18.2.10)<a class="headerlink" href="#equation-glm-source-content-4" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}m &amp;= 1/\alpha\\p_i &amp;= 1/(1+\alpha \mu_i)\\\mu_i &amp;= R(\eta^{\beta}) = \exp(x_i \beta)\\P(y_i=0) &amp;= F(\eta^{\gamma}_i)  + [ 1- F(\eta^{\gamma}_i) ] p_i^m\\P(y_i&gt;0) &amp;= [ 1- F(\eta^{\gamma}_i) ] \frac{\Gamma(m+y_i)}{\Gamma(y_i+1)\Gamma(m)}p_i^m(1-p_i)^y_i\end{aligned}\end{align} \]</div>
 <p><code class="docutils literal notranslate"><span class="pre">ZINB</span></code> 模型的对数似然函数为</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-5">
-<span class="eqno">(18.2.11)<a class="headerlink" href="#equation-glm-source-content-5" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\ell = &amp;\sum_{ i \in \mathcal{D}_0 } \ln \left \{ F(\eta^{\gamma}_i)  + [ 1- F(\eta^{\gamma}_i) ] p_i^m  \right \}\\&amp;+ \sum_{ i \notin \mathcal{D}_0 }
+<span class="eqno">(18.2.11)<a class="headerlink" href="#equation-glm-source-content-5" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\ell = &amp;\sum_{ i \in \mathcal{D}_0 } \ln \left \{ F(\eta^{\gamma}_i)  + [ 1- F(\eta^{\gamma}_i) ] p_i^m  \right \}\\&amp;+ \sum_{ i \notin \mathcal{D}_0 }
 \left \{ \ln [ 1- F(\eta^{\gamma}_i) ]
 + \ln \Gamma(m+y_i)
 -  \ln \Gamma(y_i+1)
@@ -1250,21 +1160,21 @@ F(\eta^{\gamma}_i) + [1-F(\eta^{\gamma}_i)] \exp \left [ -R(\eta^{\beta}_i) \rig
 \right \}\end{aligned}\end{align} \]</div>
 <p>其一阶偏导导数为</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-6">
-<span class="eqno">(18.2.12)<a class="headerlink" href="#equation-glm-source-content-6" title="公式的永久链接">¶</a></span>\[\frac{\partial \ell}{\beta_j} =
+<span class="eqno">(18.2.12)<a class="headerlink" href="#equation-glm-source-content-6" title="公式的永久链接"></a></span>\[\frac{\partial \ell}{\beta_j} =
 \sum_{ i \in \mathcal{D}_0 } x_{ji}
 \frac{-[ 1- F(\eta^{\gamma}_i)] \mu_i p_i^{m+1}}
 {F(\eta^{\gamma}_i) + [ 1- F(\eta^{\gamma}_i)] p_i^m}
 + \sum_{ i \notin \mathcal{D}_0 }
 x_{ji}p_i(y_i-\mu_i)\]</div>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-7">
-<span class="eqno">(18.2.13)<a class="headerlink" href="#equation-glm-source-content-7" title="公式的永久链接">¶</a></span>\[\frac{\partial \ell}{\gamma_j} =
+<span class="eqno">(18.2.13)<a class="headerlink" href="#equation-glm-source-content-7" title="公式的永久链接"></a></span>\[\frac{\partial \ell}{\gamma_j} =
 \sum_{ i \in \mathcal{D}_0 } z_{ji}
 \frac{F'(\eta^{\gamma}_i)(1-p_i^m)}
 {F(\eta^{\gamma}_i)+[ 1- F(\eta^{\gamma}_i)]p_i^m}
 + \sum_{ i \notin \mathcal{D}_0 } z_{ji}
 \frac{-F'(\eta^{\gamma}_i)}{1-F(\eta^{\gamma}_i)}\]</div>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-8">
-<span class="eqno">(18.2.14)<a class="headerlink" href="#equation-glm-source-content-8" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\frac{\partial \ell}{\partial \alpha} = &amp;-
+<span class="eqno">(18.2.14)<a class="headerlink" href="#equation-glm-source-content-8" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\frac{\partial \ell}{\partial \alpha} = &amp;-
 \sum_{ i \in \mathcal{D}_0 }
 \frac{m^2p_i^m \ln p_i -m\mu_i p_i^{m-1}}
 {F(\eta^{\gamma}_i) + [1-F(\eta^{\gamma}_i)] p_i^m}\\&amp;- \sum_{ i \notin \mathcal{D}_0 } \alpha^{-2}
@@ -1274,21 +1184,28 @@ x_{ji}p_i(y_i-\mu_i)\]</div>
 + \psi(y_i + 1/\alpha) - \psi(1/\alpha)
 \right \}\end{aligned}\end{align} \]</div>
 <p>其中 <span class="math notranslate nohighlight">\(\psi\)</span> 表示双伽马函数（digamma function）</p>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../%E6%97%A0%E5%BA%8F%E7%A6%BB%E6%95%A3%E6%A8%A1%E5%9E%8B/content.html" class="btn btn-neutral float-right" title="19. 多项式模型" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="../%E8%B4%9F%E4%BA%8C%E9%A1%B9%E6%A8%A1%E5%9E%8B/content.html" class="btn btn-neutral float-left" title="17. 负二项式模型" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../%E8%B4%9F%E4%BA%8C%E9%A1%B9%E6%A8%A1%E5%9E%8B/content.html" class="btn btn-neutral float-left" title="17. 负二项式模型" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../%E6%97%A0%E5%BA%8F%E7%A6%BB%E6%95%A3%E6%A8%A1%E5%9E%8B/content.html" class="btn btn-neutral float-right" title="19. 多项式模型" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2018, zhangzhenhu(acmtiger@outlook.com) 禁止一切形式的转载！.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
+  
 
 
     <script src="https://utteranc.es/client.js"
@@ -1301,42 +1218,16 @@ x_{ji}p_i(y_i-\mu_i)\]</div>
 
 
 
-  <div role="contentinfo">
-    <p>
-        &#169; 版权所有 2018, zhangzhenhu(acmtiger@outlook.com) 禁止一切形式的转载！.
-
-    </p>
-  </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-
-
-
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

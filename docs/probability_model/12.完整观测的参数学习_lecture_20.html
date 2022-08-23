@@ -1,99 +1,51 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="zh-CN" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>11. 完整观测的参数学习 &mdash; 张振虎的博客 张振虎 文档</title>
-  
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
     <link rel="canonical" href="https://zhangzhenhu.github.io/blog/probability_model/12.完整观测的参数学习_lecture_20.html" />
-
-  
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/translations.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2.7.7/unpacked/MathJax.min.js"></script>
         <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"Macros": {"RR": "{\\bf R}", "bold": ["{\\bf #1}", 1]}}})</script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
+    <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
     <link rel="next" title="12. 不完整观测的学习" href="13.%E4%B8%8D%E5%AE%8C%E6%95%B4%E8%A7%82%E6%B5%8B%E7%9A%84%E5%8F%82%E6%95%B0%E5%AD%A6%E4%B9%A0_lecture_22.html" />
     <link rel="prev" title="10. 最大后验估计" href="11.%E6%9C%80%E5%A4%A7%E5%90%8E%E9%AA%8C%E4%BC%B0%E8%AE%A1_lecture_11.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../index.html" class="icon icon-home"> 张振虎的博客
-          
-
-          
           </a>
-
-          
-            
-            
               <div class="version">
                 acmtiger@outlook.com
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="在文档中搜索" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">目录:</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">目录:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../glm/source/index.html">广义线性模型</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../glm/source/%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80/content.html">1. 概率基础</a><ul>
@@ -141,7 +93,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#id2">3.1. 统计量和充分统计量</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-sample-distribution">3.2. 抽样分布</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-sample-distribution-normal">3.2.1. 正态分布</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#t">3.2.2. t分布</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#t">3.2.2. 学生t分布</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#id5">3.2.3. 卡方分布</a></li>
 </ul>
 </li>
@@ -746,7 +698,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../audio/feature.html#id18">1.5. 分帧与加窗</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../audio/feature.html#id19">1.5.1. 预加重处理</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../audio/feature.html#id20">1.5.2. 分帧与加窗</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../audio/feature.html#id20">1.5.2. 分帧与加窗处理</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../audio/feature.html#id21">1.6. 声音的感官度量</a><ul>
@@ -788,26 +740,26 @@
 <li class="toctree-l2"><a class="reference internal" href="../edm/bkt.html">1. 贝叶斯知识追踪(Bayesian Knowledge Tracing,BKT)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id1">1.1. 简介</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#hidden-markov-model-hmm">1.2. 隐马尔科夫模型(Hidden Markov Model,HMM)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id5">1.3. 贝叶斯知识追踪(Bayesian Knowledge Tracing,BKT)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#bayesian-knowledge-tracing">1.3. 贝叶斯知识追踪(Bayesian Knowledge Tracing)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#bkt">1.3.1. BKT的参数估计</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#item-response-theory-irt">1.4. 项目反映理论(Item Response Theory,IRT)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#bktirt">1.5. BKT结合IRT</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id6">1.6. 实验</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id7">1.6.1. 数据集</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id8">1.6.2. 实验方法</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id9">1.6.3. 实验结果</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id10">1.6.4. 项目代码</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id5">1.6. 实验</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id6">1.6.1. 数据集</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id7">1.6.2. 实验方法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id8">1.6.3. 实验结果</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id9">1.6.4. 项目代码</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id11">1.7. 未来工作</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id12">1.7.1. 题目难度的计算</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id10">1.7. 未来工作</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id11">1.7.1. 题目难度的计算</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#irt">1.7.2. 多参数IRT模型</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id13">1.7.3. 参数估计算法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id12">1.7.3. 参数估计算法</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id14">1.8. 参考文献</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id13">1.8. 参考文献</a></li>
 </ul>
 </li>
 </ul>
@@ -904,75 +856,33 @@
 </li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">张振虎的博客</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="index_html.html">概率图</a> &raquo;</li>
-        
       <li><span class="section-number">11. </span>完整观测的参数学习</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
-            <a href="../_sources/probability_model/12.完整观测的参数学习_lecture_20.rst.txt" rel="nofollow"> View page source</a>
-          
-        
+            <a href="../_sources/probability_model/12.完整观测的参数学习_lecture_20.rst.txt" rel="nofollow"> 查看页面源码</a>
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="id1">
-<h1><span class="section-number">11. </span>完整观测的参数学习<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+             
+  <section id="id1">
+<h1><span class="section-number">11. </span>完整观测的参数学习<a class="headerlink" href="#id1" title="永久链接至标题"></a></h1>
 <p>我们已经讲述了概率图模型的表示以及基于图结构的模型推断算法，
 概率图模型有三种图形，分别是有向图、无向图和因子图，每种图形都有自己的特色。
 其中有向图表达的是变量之间的单向关系，而无向图则可以表达变量之间的相互关系，
@@ -1002,30 +912,32 @@
 贝叶斯估计可以看做是在最大似然估计的基础上加入了参数的先验。
 多变量概率图模型的参数估计和单变量概率分布的参数估计，没有本质差别，同样可以使用最大似然和贝叶斯两种估计算法。
 这是因为联合概率分布乘积形式可以分解成每个结点独立估计。</p>
-<div class="section" id="id2">
-<h2><span class="section-number">11.1. </span>有向图的参数学习<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
-<div class="figure align-center" id="id6">
+<section id="id2">
+<h2><span class="section-number">11.1. </span>有向图的参数学习<a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
+<figure class="align-center" id="id6">
 <span id="fg-20-a1"></span><a class="reference internal image-reference" href="../_images/20_a1.jpg"><img alt="../_images/20_a1.jpg" src="../_images/20_a1.jpg" style="width: 383.20000000000005px; height: 321.20000000000005px;" /></a>
-<p class="caption"><span class="caption-number">图 11.1.3 </span><span class="caption-text">(a)一个有向图。(b)有向图(a)的最大似然问题等价于局部条件概率的独立最大似然问题。结点的灰色阴影表示这个结点是可观测的。</span><a class="headerlink" href="#id6" title="永久链接至图片">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">图 11.1.3 </span><span class="caption-text">(a)一个有向图。(b)有向图(a)的最大似然问题等价于局部条件概率的独立最大似然问题。结点的灰色阴影表示这个结点是可观测的。</span><a class="headerlink" href="#id6" title="永久链接至图片"></a></p>
+</figcaption>
+</figure>
 <p>让我们从一个有向图模型的例子开始， <a class="reference internal" href="#fg-20-a1"><span class="std std-numref">图 11.1.3</span></a> (a)是一个4结点的有向图模型，
 这个图模型的联合概率分布为：</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-12-lecture-20-0">
-<span class="eqno">(11.1.2)<a class="headerlink" href="#equation-probability-model-12-lecture-20-0" title="公式的永久链接">¶</a></span>\[p(x_1,\dots,x_4)=p(x_1)p(x_2|x_1)p(x_3|x_1)p(x_4|x_2,x_3)\]</div>
+<span class="eqno">(11.1.2)<a class="headerlink" href="#equation-probability-model-12-lecture-20-0" title="公式的永久链接"></a></span>\[p(x_1,\dots,x_4)=p(x_1)p(x_2|x_1)p(x_3|x_1)p(x_4|x_2,x_3)\]</div>
 <p>我们假设上述因子分解式中每个子项都包含有未知参数，
 则这个联合概率分布含有4个 <strong>参数向量</strong> <span class="math notranslate nohighlight">\(\pmb{\theta}_1,\pmb{\theta}_2,\pmb{\theta}_3,\pmb{\theta}_4\)</span> ，
 每个 <span class="math notranslate nohighlight">\(\pmb{\theta}_i\)</span> (粗体)是个参数集合，
 每个结点 <span class="math notranslate nohighlight">\(X_i\)</span> 与其父结点的条件概率分布是由 <span class="math notranslate nohighlight">\(\pmb{\theta}_i\)</span> 定义的。
 参数化后的联合概率为：</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-12-lecture-20-1">
-<span class="eqno">(11.1.3)<a class="headerlink" href="#equation-probability-model-12-lecture-20-1" title="公式的永久链接">¶</a></span>\[p(x_1,\dots,x_4;\pmb{\theta}_1,\pmb{\theta}_2,\pmb{\theta}_3,\pmb{\theta}_4)=p(x_1;\pmb{\theta}_1)
+<span class="eqno">(11.1.3)<a class="headerlink" href="#equation-probability-model-12-lecture-20-1" title="公式的永久链接"></a></span>\[p(x_1,\dots,x_4;\pmb{\theta}_1,\pmb{\theta}_2,\pmb{\theta}_3,\pmb{\theta}_4)=p(x_1;\pmb{\theta}_1)
 p(x_2|x_1;\pmb{\theta}_2)p(x_3|x_1;\pmb{\theta}_3)
 p(x_4|x_2,x_3;\pmb{\theta}_4)\]</div>
 <p>假设观测到模型的一些样本，图中每个变量都能观测到，每条样本都包含4个随机变量的观测值，用符号
 <span class="math notranslate nohighlight">\(\mathcal{D}\)</span> 表示观测样本集，样本集的规模是N。
 则这个观测样本的对数似然函数可以写成：</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-12-lecture-20-2">
-<span class="eqno">(11.1.4)<a class="headerlink" href="#equation-probability-model-12-lecture-20-2" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\ell(\mathbf{x};\pmb{\theta}) &amp;=
+<span class="eqno">(11.1.4)<a class="headerlink" href="#equation-probability-model-12-lecture-20-2" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\ell(\mathbf{x};\pmb{\theta}) &amp;=
 log \prod_{i=1}^N p(x_1,x_2,x_3,x_4;\pmb{\theta}_1,\pmb{\theta}_2,\pmb{\theta}_3,\pmb{\theta}_4)^{(i)}\\&amp;= log \prod_{i=1}^N
 [ p(x_1;\pmb{\theta}_1)p(x_2|x_1;\pmb{\theta}_2)p(x_3|x_1;\pmb{\theta}_3)p(x_4|x_2,x_3;\pmb{\theta}_4)]^{(i)}\\
 &amp;= \sum^{N}_{i=1} \left [ log p(x_1;\pmb{\theta}_1) + log p(x_2|x_1;\pmb{\theta}_2)
@@ -1046,14 +958,14 @@ log \prod_{i=1}^N p(x_1,x_2,x_3,x_4;\pmb{\theta}_1,\pmb{\theta}_2,\pmb{\theta}_3
 并且满足约束 <span class="math notranslate nohighlight">\(\theta_{31} + \theta_{32} + \theta_{33}=1,\theta_{34} + \theta_{35} + \theta_{36}=1\)</span> 。
 条件概率分布 <span class="math notranslate nohighlight">\(p(x_3|x_1;\pmb{\theta}_3)\)</span> 用表格形式表示如下：</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-12-lecture-20-3">
-<span class="eqno">(11.1.5)<a class="headerlink" href="#equation-probability-model-12-lecture-20-3" title="公式的永久链接">¶</a></span>\[\begin{split}\begin{array}{|c|c|c|c|} \hline
+<span class="eqno">(11.1.5)<a class="headerlink" href="#equation-probability-model-12-lecture-20-3" title="公式的永久链接"></a></span>\[\begin{split}\begin{array}{|c|c|c|c|} \hline
 &amp; x_3=a_{31} &amp;x_3=a_{32} &amp;x_3=a_{33} \\\hline
 x_{1}=a_{11}&amp; \theta_{31} &amp;\theta_{32} &amp;\theta_{33} \\\hline
 x_{1}=a_{12}&amp; \theta_{34} &amp;\theta_{35} &amp;\theta_{36} \\\hline
 \end{array}\end{split}\]</div>
 <p>此外，条件概率 <span class="math notranslate nohighlight">\(p(x_3|x_1;\pmb{\theta}_3)\)</span> 可以表示成：</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-12-lecture-20-4">
-<span class="eqno">(11.1.6)<a class="headerlink" href="#equation-probability-model-12-lecture-20-4" title="公式的永久链接">¶</a></span>\[p(x_3|x_1;\pmb{\theta}_3) =
+<span class="eqno">(11.1.6)<a class="headerlink" href="#equation-probability-model-12-lecture-20-4" title="公式的永久链接"></a></span>\[p(x_3|x_1;\pmb{\theta}_3) =
 p(x_3|x_1=a_{11};\theta_{31} ,\theta_{32} ,\theta_{33})+
 p(x_3|x_1=a_{12};\theta_{34} ,\theta_{35} ,\theta_{36})\]</div>
 <p>在求解偏导数前先定义一些统计量，我们用 <span class="math notranslate nohighlight">\(D(x_1=a_{11})\)</span> 表示在样本集D中变量 <span class="math notranslate nohighlight">\(x_1\)</span> 取值为 <span class="math notranslate nohighlight">\(a_{11}\)</span> 的样本子集，
@@ -1062,7 +974,7 @@ p(x_3|x_1=a_{12};\theta_{34} ,\theta_{35} ,\theta_{36})\]</div>
 <span class="math notranslate nohighlight">\(N(x_1=a_{12})\)</span> 表示样本子集 <span class="math notranslate nohighlight">\(D(x_1=a_{12})\)</span> 的数量。
 极大化对数似然函数 <span class="math notranslate nohighlight">\(\ell(\mathbf{x};\pmb{\theta})\)</span> 对参数 <span class="math notranslate nohighlight">\(\pmb{\theta}_3\)</span> 的偏导数为：</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-12-lecture-20-5">
-<span class="eqno">(11.1.7)<a class="headerlink" href="#equation-probability-model-12-lecture-20-5" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\frac{\partial \ell }{\partial \pmb{\theta_3} }
+<span class="eqno">(11.1.7)<a class="headerlink" href="#equation-probability-model-12-lecture-20-5" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\frac{\partial \ell }{\partial \pmb{\theta_3} }
 &amp;=\frac{\partial  }{\partial \pmb{\theta_3} } \sum^{N}_{i=1} log p(x_3|x_1;\pmb{\theta}_3)^{(i)}\\&amp;= \frac{\partial  }{\partial \pmb{\theta_3} }
 \left [ \sum_{i \in D(x_1=a_{11})} p(x_3|x_1=a_{11};\theta_{31} ,\theta_{32} ,\theta_{33})^{(i)}
 +  \sum_{j \in D(x_1=a_{12})} p(x_3|x_1=a_{12};\theta_{34} ,\theta_{35} ,\theta_{36})^{(j)} \right ]\\
@@ -1077,7 +989,7 @@ p(x_3|x_1=a_{12};\theta_{34} ,\theta_{35} ,\theta_{36})\]</div>
 而后者的样本集为 <span class="math notranslate nohighlight">\(D(x_1=a_{12})\)</span> 。
 根据极大似然估计的充分统计量，可以得出：</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-12-lecture-20-6">
-<span class="eqno">(11.1.8)<a class="headerlink" href="#equation-probability-model-12-lecture-20-6" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}(\hat{\theta}_{31})_{ML} = \frac{N(x_1=a_{11},x_3=a_{31})}{N(x_1=a_{11})}\\(\hat{\theta}_{32})_{ML} = \frac{N(x_1=a_{11},x_3=a_{32})}{N(x_1=a_{11})}\\(\hat{\theta}_{33})_{ML} = \frac{N(x_1=a_{11},x_3=a_{33})}{N(x_1=a_{11})}\\
+<span class="eqno">(11.1.8)<a class="headerlink" href="#equation-probability-model-12-lecture-20-6" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}(\hat{\theta}_{31})_{ML} = \frac{N(x_1=a_{11},x_3=a_{31})}{N(x_1=a_{11})}\\(\hat{\theta}_{32})_{ML} = \frac{N(x_1=a_{11},x_3=a_{32})}{N(x_1=a_{11})}\\(\hat{\theta}_{33})_{ML} = \frac{N(x_1=a_{11},x_3=a_{33})}{N(x_1=a_{11})}\\
 (\hat{\theta}_{34})_{ML} = \frac{N(x_1=a_{12},x_3=a_{34})}{N(x_1=a_{12})}\\(\hat{\theta}_{35})_{ML} = \frac{N(x_1=a_{12},x_3=a_{35})}{N(x_1=a_{12})}\\(\hat{\theta}_{36})_{ML} = \frac{N(x_1=a_{12},x_3=a_{36})}{N(x_1=a_{12})}\end{aligned}\end{align} \]</div>
 <p>有向图的最大似然估计与单个变量的最大似然估计是一样的。
 无非就是单一变量的概率分布 <span class="math notranslate nohighlight">\(p(\mathrm{x}|\theta)\)</span> ，变成了多变量的联合概率分布
@@ -1123,9 +1035,9 @@ p(x_3|x_1=a_{12};\theta_{34} ,\theta_{35} ,\theta_{36})\]</div>
 其次，对于每个条件概率分布(CPD)，参数是相互独立的。
 如果这两个条件有任意一个不满足，则最大似然问题不会分解为每个变量上的独立子问题。</p>
 </div>
-</div>
-<div class="section" id="id3">
-<h2><span class="section-number">11.2. </span>无向图的参数学习<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="id3">
+<h2><span class="section-number">11.2. </span>无向图的参数学习<a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
 <p>有向图的联合概率中因子函数被限定为结点及其父结点上的局部条件概率，但是在无向图中，
 联合概率的因子函数是未归一化的势函数，所以无向图的联合概率表达式需要一个全局归一化系数Z。
 这个归一化系数把所有参数都耦合在一起，使得无法把局部参数分解独立估计，令无向图的参数估计变得十分复杂。
@@ -1143,12 +1055,12 @@ p(x_3|x_1=a_{12};\theta_{34} ,\theta_{35} ,\theta_{36})\]</div>
 同时要满足 <span class="math notranslate nohighlight">\(p(\mathbf{x} &gt;0),\forall \mathbf{x} \in \mathcal{X}^N\)</span> 。
 回想一下无向图的因子分解表达(Hammersley-Clifford 定理)，无向图的联合概率分布可以表示为：</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-12-lecture-20-7">
-<span class="eqno">(11.2.10)<a class="headerlink" href="#equation-probability-model-12-lecture-20-7" title="公式的永久链接">¶</a></span>\[p(\mathbf{x})=exp(\sum_{C \in \mathcal{e}(G)} V_C(\mathbf{x}_C)  )\]</div>
+<span class="eqno">(11.2.10)<a class="headerlink" href="#equation-probability-model-12-lecture-20-7" title="公式的永久链接"></a></span>\[p(\mathbf{x})=exp(\sum_{C \in \mathcal{e}(G)} V_C(\mathbf{x}_C)  )\]</div>
 <p>其中 <span class="math notranslate nohighlight">\(\mathcal{e}(G)\)</span> 是图G中所有团集合，包括空集（PS：我理解应该是单个结点组成的团），
 <span class="math notranslate nohighlight">\(\mathbf{x}_C=(x_i)_{i\in C}\)</span> 表示属于团C中的所有结点变量，
 <span class="math notranslate nohighlight">\(V_C\)</span> 是定义在团C上的势函数(potential function)。</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-12-lecture-20-8">
-<span class="eqno">(11.2.11)<a class="headerlink" href="#equation-probability-model-12-lecture-20-8" title="公式的永久链接">¶</a></span>\[\begin{split}V_C(\mathbf{x}_C) = \left\{
+<span class="eqno">(11.2.11)<a class="headerlink" href="#equation-probability-model-12-lecture-20-8" title="公式的永久链接"></a></span>\[\begin{split}V_C(\mathbf{x}_C) = \left\{
 \begin{aligned}
 Q(C)&amp; \ \ if \ \mathbf{x}_C =1 \\
 0&amp; \ \ otherwise \\
@@ -1156,19 +1068,19 @@ Q(C)&amp; \ \ if \ \mathbf{x}_C =1 \\
 \right.\end{split}\]</div>
 <p>我们从这个分布中观测到i.i.d. 的样本表示为 <span class="math notranslate nohighlight">\(\mathcal{D}=\{\mathbf{x}^{(1)},\dots,\mathbf{x}^{(S)}\}\)</span> 。
 我们的任务是从观测数据集 <span class="math notranslate nohighlight">\(\mathcal{D}\)</span> 学习出图模型 <span class="math notranslate nohighlight">\(G\)</span> 中每个团上势函数。</p>
-<div class="section" id="id4">
-<h3><span class="section-number">11.2.1. </span>成对二值变量模型<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
+<section id="id4">
+<h3><span class="section-number">11.2.1. </span>成对二值变量模型<a class="headerlink" href="#id4" title="永久链接至标题"></a></h3>
 <p>我们先讨论一个简单的图模型，即图中每个团都只包含两个结点，以及单个结点上定义的因子。
 <span class="math notranslate nohighlight">\(\mathcal{e}(G)\)</span> 包含所有的结点集V，边集合E，以及空集，同样，<span class="math notranslate nohighlight">\(\mathcal{X} \in \{0,1\}\)</span> 。
 图中每条边定义一个独立的团，以及每个结点单独定义一个因子。给定这些条件，无向图模型的可以用下式表示：</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-12-lecture-20-9">
-<span class="eqno">(11.2.12)<a class="headerlink" href="#equation-probability-model-12-lecture-20-9" title="公式的永久链接">¶</a></span>\[p(\mathbf{x})= \frac{1}{Z} exp(\sum_{i \in V} \theta_i x_i + \sum_{(i,j)\in E} \theta_{ij} x_i x_j)\]</div>
+<span class="eqno">(11.2.12)<a class="headerlink" href="#equation-probability-model-12-lecture-20-9" title="公式的永久链接"></a></span>\[p(\mathbf{x})= \frac{1}{Z} exp(\sum_{i \in V} \theta_i x_i + \sum_{(i,j)\in E} \theta_{ij} x_i x_j)\]</div>
 <p>其中 <span class="math notranslate nohighlight">\(\theta_i x_i\)</span> 是定义在单个结点上势函数，
 <span class="math notranslate nohighlight">\(\theta_{ij} x_i x_j\)</span> 是定义在每个二元团（每条边组成一个团，即团内只包含两个结点）上的势函数。
 对于任意 <span class="math notranslate nohighlight">\(\theta_i,\theta_{ij} \in \mathbb{R}, \forall i \in V, (i,j) \in E\)</span> ，Z是归一化常量。
 至此，这个问题归结起来就是从观测数据集 <span class="math notranslate nohighlight">\(\mathcal{D}\)</span> 中学习参数 <span class="math notranslate nohighlight">\(\pmb{\theta}\)</span> ，其中</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-12-lecture-20-10">
-<span class="eqno">(11.2.13)<a class="headerlink" href="#equation-probability-model-12-lecture-20-10" title="公式的永久链接">¶</a></span>\[\pmb{\theta} = (\theta_i, i \in V; \theta_{ij} ,(i,j) \in E )\]</div>
+<span class="eqno">(11.2.13)<a class="headerlink" href="#equation-probability-model-12-lecture-20-10" title="公式的永久链接"></a></span>\[\pmb{\theta} = (\theta_i, i \in V; \theta_{ij} ,(i,j) \in E )\]</div>
 <p>如果我们有一个很大规模的观测数据集( <span class="math notranslate nohighlight">\(&gt;&gt;2^N\)</span> )，保证每种
 <span class="math notranslate nohighlight">\(\mathbf{x}=\{\mathrm{x}_1,\ldots,\mathrm{x}_N\},\mathbf{x}\in \{0,1\}^N\)</span> 可能取值都有足够的样本。
 我们就可以根据经验概率(empirical probability)分布来估计参数值。</p>
@@ -1176,57 +1088,64 @@ Q(C)&amp; \ \ if \ \mathbf{x}_C =1 \\
 <span class="math notranslate nohighlight">\(X_i\)</span> 与其他非邻居结点相互独立，即图中任意结点在给定其邻居结点的条件下独立于其它非邻居结点，结点i的非邻居结点用符号
 <span class="math notranslate nohighlight">\(X_{V \backslash (N(i) \cup \{i\})}\)</span> 。 则有：</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-12-lecture-20-11">
-<span class="eqno">(11.2.14)<a class="headerlink" href="#equation-probability-model-12-lecture-20-11" title="公式的永久链接">¶</a></span>\[p(\mathrm{x}_i=\cdot | \mathbf{x}_{N(i)} = \mathbf{0}) = p(\mathrm{x}_i=\cdot|\mathbf{x}_{V\backslash \{i\}} = \mathbf{0})\]</div>
+<span class="eqno">(11.2.14)<a class="headerlink" href="#equation-probability-model-12-lecture-20-11" title="公式的永久链接"></a></span>\[p(\mathrm{x}_i=\cdot | \mathbf{x}_{N(i)} = \mathbf{0}) = p(\mathrm{x}_i=\cdot|\mathbf{x}_{V\backslash \{i\}} = \mathbf{0})\]</div>
 <p>上式的意思是，等号左边是：结点变量i的邻居结点都为0的条件下结点变量 <span class="math notranslate nohighlight">\(\mathrm{x}_i\)</span> 的条件概率分布，
 等号右边是：除结点i以外所有结点都为0的条件下结点变量 <span class="math notranslate nohighlight">\(\mathrm{x}_i\)</span> 的条件概率分布，而两者是等同的，
 背后的理由就是无向图的条件独立属性。</p>
 <p>另外 <span class="math notranslate nohighlight">\(p(\mathrm{x}_i=1|\mathbf{x}_{N(i)} = \mathbf{0})\)</span> 与 <span class="math notranslate nohighlight">\(p(\mathrm{x}_i=0|\mathbf{x}_{N(i)} = \mathbf{0})\)</span>
 的比值是同一个条件概率分布的两种取值的比值，这个比值是可以去掉Z的。</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-12-lecture-20-12">
-<span class="eqno">(11.2.15)<a class="headerlink" href="#equation-probability-model-12-lecture-20-12" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}&amp; \ log \frac{p(\mathrm{x}_i=1|\mathbf{x}_{N(i)} = \mathbf{0})}{p(\mathrm{x}_i=0|\mathbf{x}_{N(i)} = \mathbf{0})}\\&amp;= log \frac{p(\mathrm{x}_i=1|\mathbf{x}_{V\backslash \{i\}} = \mathbf{0})}{p(\mathrm{x}_i=0|\mathbf{x}_{V\backslash \{i\}} = \mathbf{0})}\\&amp;= log \frac{exp(\sum_{i\in V} \theta_i x_i  + \sum_{(i,j)\in E} \theta_{ij} x_{i}x_j ; x_i=1,x_j=0,j \ne i) }
+<span class="eqno">(11.2.15)<a class="headerlink" href="#equation-probability-model-12-lecture-20-12" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}&amp; \ log \frac{p(\mathrm{x}_i=1|\mathbf{x}_{N(i)} = \mathbf{0})}{p(\mathrm{x}_i=0|\mathbf{x}_{N(i)} = \mathbf{0})}\\&amp;= log \frac{p(\mathrm{x}_i=1|\mathbf{x}_{V\backslash \{i\}} = \mathbf{0})}{p(\mathrm{x}_i=0|\mathbf{x}_{V\backslash \{i\}} = \mathbf{0})}\\&amp;= log \frac{exp(\sum_{i\in V} \theta_i x_i  + \sum_{(i,j)\in E} \theta_{ij} x_{i}x_j ; x_i=1,x_j=0,j \ne i) }
 {exp(\sum_{i\in V} \theta_i x_i  + \sum_{(i,j)\in E} \theta_{ij} x_{i}x_j ; x_i=0,x_j=0,j \ne i )}\\&amp;= log \frac{exp(\theta_i )}{exp (0)}\\&amp;= log exp(\theta_i)\\&amp;= \theta_i\end{aligned}\end{align} \]</div>
 <p>通过上式，我们得到了 <span class="math notranslate nohighlight">\(\theta_i\)</span> 的计算方法：</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-12-lecture-20-13">
-<span class="eqno">(11.2.16)<a class="headerlink" href="#equation-probability-model-12-lecture-20-13" title="公式的永久链接">¶</a></span>\[\theta_i = log \frac{p(\mathrm{x}_i=1|\mathbf{x}_{V\backslash \{i\}} = \mathbf{0})}{p(\mathrm{x}_i=0|\mathbf{x}_{V\backslash \{i\}} = \mathbf{0})}\]</div>
+<span class="eqno">(11.2.16)<a class="headerlink" href="#equation-probability-model-12-lecture-20-13" title="公式的永久链接"></a></span>\[\theta_i = log \frac{p(\mathrm{x}_i=1|\mathbf{x}_{V\backslash \{i\}} = \mathbf{0})}{p(\mathrm{x}_i=0|\mathbf{x}_{V\backslash \{i\}} = \mathbf{0})}\]</div>
 <p>我们只需要从观测样本集中先找出除了 <span class="math notranslate nohighlight">\(\mathrm{x}_i\)</span> 以外全部为0的样本子集，然后在分别统计出在这个样本子集中
 <span class="math notranslate nohighlight">\(\mathrm{x}_i=0\)</span> 和 <span class="math notranslate nohighlight">\(\mathrm{x}_i=1\)</span> 的样本数量就能计算出 <span class="math notranslate nohighlight">\(\theta_i\)</span> 。</p>
 <p>我们令 <span class="math notranslate nohighlight">\(\mathbf{e}_i\)</span> 表示第i个变量为1其它都为0， <span class="math notranslate nohighlight">\(\mathbf{0}\)</span> 表示所有元素都为0，
 <span class="math notranslate nohighlight">\(\mathbf{e}_{ij}\)</span> 表示第i和j个变量为1其它都为0。那么有：</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-12-lecture-20-14">
-<span class="eqno">(11.2.17)<a class="headerlink" href="#equation-probability-model-12-lecture-20-14" title="公式的永久链接">¶</a></span>\[\theta_i = log p(\mathbf{e}_i) - log p(\mathbf{0})\]</div>
+<span class="eqno">(11.2.17)<a class="headerlink" href="#equation-probability-model-12-lecture-20-14" title="公式的永久链接"></a></span>\[\theta_i = log p(\mathbf{e}_i) - log p(\mathbf{0})\]</div>
 <p>同理可得：</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-12-lecture-20-15">
-<span class="eqno">(11.2.18)<a class="headerlink" href="#equation-probability-model-12-lecture-20-15" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}&amp; \ log \frac{p(\mathbf{e}_{ij}) p(\mathbf{0}) }{p(\mathbf{e}_i) p(\mathbf{e}_j)}\\&amp;=  log \frac{exp(\theta_i + \theta_j + \theta_{ij})}{exp(\theta_i) exp(\theta_j)}\\&amp;=  \theta_{ij}\end{aligned}\end{align} \]</div>
+<span class="eqno">(11.2.18)<a class="headerlink" href="#equation-probability-model-12-lecture-20-15" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}&amp; \ log \frac{p(\mathbf{e}_{ij}) p(\mathbf{0}) }{p(\mathbf{e}_i) p(\mathbf{e}_j)}\\&amp;=  log \frac{exp(\theta_i + \theta_j + \theta_{ij})}{exp(\theta_i) exp(\theta_j)}\\&amp;=  \theta_{ij}\end{aligned}\end{align} \]</div>
 <p>最后参数 <span class="math notranslate nohighlight">\(\theta_{ij}\)</span> 可通过如下方法估计得到。</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-12-lecture-20-16">
-<span class="eqno">(11.2.19)<a class="headerlink" href="#equation-probability-model-12-lecture-20-16" title="公式的永久链接">¶</a></span>\[\theta_{ij} =  log p(\mathbf{e}_{ij}) - log p(\mathbf{e}_i) -log p(\mathbf{e}_j) +  log p(\mathbf{0})\]</div>
+<span class="eqno">(11.2.19)<a class="headerlink" href="#equation-probability-model-12-lecture-20-16" title="公式的永久链接"></a></span>\[\theta_{ij} =  log p(\mathbf{e}_{ij}) - log p(\mathbf{e}_i) -log p(\mathbf{e}_j) +  log p(\mathbf{0})\]</div>
 <p>注意，本节所介绍的方法要求观测样本集足够多，公式中的 <span class="math notranslate nohighlight">\(p(\cdot)\)</span> 都是从观测样本中统计得出，
 对于任意的i，<span class="math notranslate nohighlight">\(\mathbf{e}_i,\mathbf{e}_j,\mathbf{e}_{ij},\mathbf{0}\)</span> 都有足够的样本才行。</p>
-</div>
-<div class="section" id="id5">
-<h3><span class="section-number">11.2.2. </span>一般二值变量模型<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id5">
+<h3><span class="section-number">11.2.2. </span>一般二值变量模型<a class="headerlink" href="#id5" title="永久链接至标题"></a></h3>
 <p>上一节中，我们限定无向图中的团最多只包含2个结点，实际上这个方法是可以扩展的团大小任意的无向图上。
 由于每个团的结点数量不再限定为2，我们用符号 <span class="math notranslate nohighlight">\(\theta_C\)</span> 替代 <span class="math notranslate nohighlight">\(\theta_{ij}\)</span> 表示团上的参数。</p>
 <p>对于每个结点变量的独立参数 <span class="math notranslate nohighlight">\(\theta_i\)</span> 还按照
 <span class="math notranslate nohighlight">\(\theta_i = log p(\mathbf{e}_i) - log p(\mathbf{0})\)</span> 计算即可。
 对于每个团上的参数 <span class="math notranslate nohighlight">\(\theta_C\)</span> 可以通过下式计算：</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-12-lecture-20-17">
-<span class="eqno">(11.2.20)<a class="headerlink" href="#equation-probability-model-12-lecture-20-17" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}&amp;\  log p(e_C) - log p(\mathbf{0}) - \sum_{i\in C} \theta_i\\&amp;= log \frac{p(e_C)}{p(\mathbf{0})} - \sum_{i\in C} \theta_i\\&amp;= log \frac { exp(\theta_C + \sum_{i\in C} \theta_i)}{exp(0)}  - \sum_{i\in C} \theta_i\\&amp;= \theta_C + \sum_{i\in C} \theta_i - \sum_{i\in C} \theta_i\\&amp;= \theta_C\end{aligned}\end{align} \]</div>
-</div>
-</div>
-</div>
+<span class="eqno">(11.2.20)<a class="headerlink" href="#equation-probability-model-12-lecture-20-17" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}&amp;\  log p(e_C) - log p(\mathbf{0}) - \sum_{i\in C} \theta_i\\&amp;= log \frac{p(e_C)}{p(\mathbf{0})} - \sum_{i\in C} \theta_i\\&amp;= log \frac { exp(\theta_C + \sum_{i\in C} \theta_i)}{exp(0)}  - \sum_{i\in C} \theta_i\\&amp;= \theta_C + \sum_{i\in C} \theta_i - \sum_{i\in C} \theta_i\\&amp;= \theta_C\end{aligned}\end{align} \]</div>
+</section>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="13.%E4%B8%8D%E5%AE%8C%E6%95%B4%E8%A7%82%E6%B5%8B%E7%9A%84%E5%8F%82%E6%95%B0%E5%AD%A6%E4%B9%A0_lecture_22.html" class="btn btn-neutral float-right" title="12. 不完整观测的学习" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="11.%E6%9C%80%E5%A4%A7%E5%90%8E%E9%AA%8C%E4%BC%B0%E8%AE%A1_lecture_11.html" class="btn btn-neutral float-left" title="10. 最大后验估计" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="11.%E6%9C%80%E5%A4%A7%E5%90%8E%E9%AA%8C%E4%BC%B0%E8%AE%A1_lecture_11.html" class="btn btn-neutral float-left" title="10. 最大后验估计" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="13.%E4%B8%8D%E5%AE%8C%E6%95%B4%E8%A7%82%E6%B5%8B%E7%9A%84%E5%8F%82%E6%95%B0%E5%AD%A6%E4%B9%A0_lecture_22.html" class="btn btn-neutral float-right" title="12. 不完整观测的学习" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2018, zhangzhenhu(acmtiger@outlook.com) 禁止一切形式的转载！.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
+  
 
 
     <script src="https://utteranc.es/client.js"
@@ -1239,42 +1158,16 @@ Q(C)&amp; \ \ if \ \mathbf{x}_C =1 \\
 
 
 
-  <div role="contentinfo">
-    <p>
-        &#169; 版权所有 2018, zhangzhenhu(acmtiger@outlook.com) 禁止一切形式的转载！.
-
-    </p>
-  </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-
-
-
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

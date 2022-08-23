@@ -1,99 +1,51 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="zh-CN" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>12. 不完整观测的学习 &mdash; 张振虎的博客 张振虎 文档</title>
-  
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
     <link rel="canonical" href="https://zhangzhenhu.github.io/blog/probability_model/13.不完整观测的参数学习_lecture_22.html" />
-
-  
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/translations.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2.7.7/unpacked/MathJax.min.js"></script>
         <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"Macros": {"RR": "{\\bf R}", "bold": ["{\\bf #1}", 1]}}})</script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
+    <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
     <link rel="next" title="13. 有向图结构学习" href="14.%E5%9B%BE%E5%BD%A2%E7%BB%93%E6%9E%84%E7%9A%84%E5%AD%A6%E4%B9%A0_lecture_23.html" />
     <link rel="prev" title="11. 完整观测的参数学习" href="12.%E5%AE%8C%E6%95%B4%E8%A7%82%E6%B5%8B%E7%9A%84%E5%8F%82%E6%95%B0%E5%AD%A6%E4%B9%A0_lecture_20.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../index.html" class="icon icon-home"> 张振虎的博客
-          
-
-          
           </a>
-
-          
-            
-            
               <div class="version">
                 acmtiger@outlook.com
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="在文档中搜索" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">目录:</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">目录:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../glm/source/index.html">广义线性模型</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../glm/source/%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80/content.html">1. 概率基础</a><ul>
@@ -141,7 +93,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#id2">3.1. 统计量和充分统计量</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-sample-distribution">3.2. 抽样分布</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-sample-distribution-normal">3.2.1. 正态分布</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#t">3.2.2. t分布</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#t">3.2.2. 学生t分布</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#id5">3.2.3. 卡方分布</a></li>
 </ul>
 </li>
@@ -746,7 +698,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../audio/feature.html#id18">1.5. 分帧与加窗</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../audio/feature.html#id19">1.5.1. 预加重处理</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../audio/feature.html#id20">1.5.2. 分帧与加窗</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../audio/feature.html#id20">1.5.2. 分帧与加窗处理</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../audio/feature.html#id21">1.6. 声音的感官度量</a><ul>
@@ -788,26 +740,26 @@
 <li class="toctree-l2"><a class="reference internal" href="../edm/bkt.html">1. 贝叶斯知识追踪(Bayesian Knowledge Tracing,BKT)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id1">1.1. 简介</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#hidden-markov-model-hmm">1.2. 隐马尔科夫模型(Hidden Markov Model,HMM)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id5">1.3. 贝叶斯知识追踪(Bayesian Knowledge Tracing,BKT)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#bayesian-knowledge-tracing">1.3. 贝叶斯知识追踪(Bayesian Knowledge Tracing)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#bkt">1.3.1. BKT的参数估计</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#item-response-theory-irt">1.4. 项目反映理论(Item Response Theory,IRT)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#bktirt">1.5. BKT结合IRT</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id6">1.6. 实验</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id7">1.6.1. 数据集</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id8">1.6.2. 实验方法</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id9">1.6.3. 实验结果</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id10">1.6.4. 项目代码</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id5">1.6. 实验</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id6">1.6.1. 数据集</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id7">1.6.2. 实验方法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id8">1.6.3. 实验结果</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id9">1.6.4. 项目代码</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id11">1.7. 未来工作</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id12">1.7.1. 题目难度的计算</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id10">1.7. 未来工作</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id11">1.7.1. 题目难度的计算</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#irt">1.7.2. 多参数IRT模型</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id13">1.7.3. 参数估计算法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id12">1.7.3. 参数估计算法</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id14">1.8. 参考文献</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id13">1.8. 参考文献</a></li>
 </ul>
 </li>
 </ul>
@@ -904,81 +856,39 @@
 </li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">张振虎的博客</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="index_html.html">概率图</a> &raquo;</li>
-        
       <li><span class="section-number">12. </span>不完整观测的学习</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
-            <a href="../_sources/probability_model/13.不完整观测的参数学习_lecture_22.rst.txt" rel="nofollow"> View page source</a>
-          
-        
+            <a href="../_sources/probability_model/13.不完整观测的参数学习_lecture_22.rst.txt" rel="nofollow"> 查看页面源码</a>
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="ch-em">
-<span id="id1"></span><h1><span class="section-number">12. </span>不完整观测的学习<a class="headerlink" href="#ch-em" title="永久链接至标题">¶</a></h1>
+             
+  <section id="ch-em">
+<span id="id1"></span><h1><span class="section-number">12. </span>不完整观测的学习<a class="headerlink" href="#ch-em" title="永久链接至标题"></a></h1>
 <p>上一章我们讨论了完整观测数据集的情况下有向图和无向图的参数学习方法，
 所谓完成观测数据是指图中的所有变量都能观测到，即观测集中每条观测样本都包含了图中所有变量的观测值。
 但有些时候，我们是无法观测到图中所有的变量的，观测样本数据只包含图中部分变量的观测值，
 这时我们称为不完整观测(Partial Observations)。本章节我们讨论在不完整观测的情况下，图模型的参数学习方法。</p>
-<div class="section" id="id2">
-<h2><span class="section-number">12.1. </span>隐变量<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<section id="id2">
+<h2><span class="section-number">12.1. </span>隐变量<a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
 <p>我们已经知道通常模型参数估计的方法是使用极大似然估计，似然函数的含义是观测数据的概率。
 假设模型中变量集合是
 <span class="math notranslate nohighlight">\(X=\{X_1,\dots,X_M\}\)</span> ，
@@ -986,12 +896,12 @@
 <span class="math notranslate nohighlight">\(P(X;\theta)=P(X_1,\dots,X_M;\theta)\)</span> ，
 我们知道无论是有向图、无向图还是因子图，模型的联合概率分布都是可以分解成多个因子函数的乘积形式的</p>
 <div class="math notranslate nohighlight" id="equation-eq-em-01-01">
-<span class="eqno">(12.1.4)<a class="headerlink" href="#equation-eq-em-01-01" title="公式的永久链接">¶</a></span>\[P(X;\theta)=P(X_1,\dots,X_M;\theta)=\prod_{c \in C} \psi_c (X_c;\theta_c)\]</div>
+<span class="eqno">(12.1.4)<a class="headerlink" href="#equation-eq-em-01-01" title="公式的永久链接"></a></span>\[P(X;\theta)=P(X_1,\dots,X_M;\theta)=\prod_{c \in C} \psi_c (X_c;\theta_c)\]</div>
 <p>假设模型独立同分布的观测样本集是
 <span class="math notranslate nohighlight">\(\mathcal{D}=\{ X^{(1)},\ldots,X^{(N)} \}\)</span>
 ，上标表示样本编号，此观测数据的对数似然函数为：</p>
 <div class="math notranslate nohighlight" id="equation-eq-em-01-02">
-<span class="eqno">(12.1.5)<a class="headerlink" href="#equation-eq-em-01-02" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\ell(\theta;\mathcal{D}) &amp;= \ln P(\mathcal{D};\theta)\\&amp;= \ln\prod_{i=1}^N P(X^{(i)};\theta)\\&amp;= \sum_{i=1}^N \ln P(X^{(i)};\theta)\\&amp;= \sum_{i=1}^N \ln\prod_{c \in C} \psi_c (X_c;\theta_c)\\&amp;= \sum_{i=1}^N \sum_{c \in C} \ln  \psi_c (X_c;\theta_c)\end{aligned}\end{align} \]</div>
+<span class="eqno">(12.1.5)<a class="headerlink" href="#equation-eq-em-01-02" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\ell(\theta;\mathcal{D}) &amp;= \ln P(\mathcal{D};\theta)\\&amp;= \ln\prod_{i=1}^N P(X^{(i)};\theta)\\&amp;= \sum_{i=1}^N \ln P(X^{(i)};\theta)\\&amp;= \sum_{i=1}^N \ln\prod_{c \in C} \psi_c (X_c;\theta_c)\\&amp;= \sum_{i=1}^N \sum_{c \in C} \ln  \psi_c (X_c;\theta_c)\end{aligned}\end{align} \]</div>
 <p>在这个过程中利用对数函数的性质，把对数符号里面的乘法(连乘)转变成对数符号外面的加法(求和)，
 这样对数似然函数就拆解成很多因子函数的的对数的加和，
 这时有两个特点：</p>
@@ -1017,10 +927,10 @@
 依据前面章节的知识，模型中观测变量集合 <span class="math notranslate nohighlight">\(X\)</span> 的边缘概率分布 <span class="math notranslate nohighlight">\(P(X;\theta)\)</span>
 需要通过边际化的方法的到</p>
 <div class="math notranslate nohighlight" id="equation-eq-em-01-03">
-<span class="eqno">(12.1.6)<a class="headerlink" href="#equation-eq-em-01-03" title="公式的永久链接">¶</a></span>\[P(X;\theta)= \sum_{Z} P(X,Z;\theta)\]</div>
+<span class="eqno">(12.1.6)<a class="headerlink" href="#equation-eq-em-01-03" title="公式的永久链接"></a></span>\[P(X;\theta)= \sum_{Z} P(X,Z;\theta)\]</div>
 <p>观测数据的对数似然函数也就变成了如下形式：</p>
 <div class="math notranslate nohighlight" id="equation-eq-em-01-04">
-<span class="eqno">(12.1.7)<a class="headerlink" href="#equation-eq-em-01-04" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\ell(\theta;\mathcal{D}) &amp;= \ln \prod_{i=1}^N P(X^{(i)};\theta)\\&amp;= \ln \prod_{i=1}^N \sum_{Z} P(X^{(i)},Z;\theta)\\&amp;= \sum_{i=1}^N \ln \sum_{Z} P(X^{(i)},Z;\theta)\end{aligned}\end{align} \]</div>
+<span class="eqno">(12.1.7)<a class="headerlink" href="#equation-eq-em-01-04" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\ell(\theta;\mathcal{D}) &amp;= \ln \prod_{i=1}^N P(X^{(i)};\theta)\\&amp;= \ln \prod_{i=1}^N \sum_{Z} P(X^{(i)},Z;\theta)\\&amp;= \sum_{i=1}^N \ln \sum_{Z} P(X^{(i)},Z;\theta)\end{aligned}\end{align} \]</div>
 <p>发现没有，对数操作里面有求和符号 <span class="math notranslate nohighlight">\(\sum_{Z}\)</span> ，这就导致 <span class="math notranslate nohighlight">\(\ln\)</span> 里面的内容无法再继续拆解成独立的子项。
 这时再对参数求偏导将变得十分困难。所以，我们需要解决这个求和符号的问题。</p>
 <div class="admonition hint">
@@ -1035,9 +945,9 @@
 <span class="math notranslate nohighlight">\(\ell(\theta;X)=\ln \sum_{Z} P(X,Z;\theta)\)</span>
 ，我们能称其为 <strong>不完整数据对数似然(incomplete data log-likelihood)</strong>。
 隐变量的出现，给模型的参数估计带来了极大的困难。</p>
-</div>
-<div class="section" id="em">
-<h2><span class="section-number">12.2. </span>期望最大化算法(EM)<a class="headerlink" href="#em" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="em">
+<h2><span class="section-number">12.2. </span>期望最大化算法(EM)<a class="headerlink" href="#em" title="永久链接至标题"></a></h2>
 <p>不完整数据对数似然函数中，对数操作里面含有求和(或者积分)导致无法进行拆解，
 也就无法很好的通过偏导数进行极大化对数似然函数求解。有一个算法可以解决这个问题，
 那就是期望最大化算法(Expectation-Maximization,EM)。
@@ -1047,10 +957,10 @@
 <dl>
 <dt><strong>定理1 Jensen不等式</strong> :</dt><dd><p>当 f 是一个下凸函数，并且Y是一个随机变量时，有:</p>
 <div class="math notranslate nohighlight" id="equation-eq-em-02-01">
-<span class="eqno">(12.2.22)<a class="headerlink" href="#equation-eq-em-02-01" title="公式的永久链接">¶</a></span>\[E[f(Y)] \ge f(E[Y])\]</div>
+<span class="eqno">(12.2.22)<a class="headerlink" href="#equation-eq-em-02-01" title="公式的永久链接"></a></span>\[E[f(Y)] \ge f(E[Y])\]</div>
 <p>当 f 是一个上凹函数，并且Y是一个随机变量时，有:</p>
 <div class="math notranslate nohighlight" id="equation-eq-em-02-02">
-<span class="eqno">(12.2.23)<a class="headerlink" href="#equation-eq-em-02-02" title="公式的永久链接">¶</a></span>\[E[f(Y)] \le f(E[Y])\]</div>
+<span class="eqno">(12.2.23)<a class="headerlink" href="#equation-eq-em-02-02" title="公式的永久链接"></a></span>\[E[f(Y)] \le f(E[Y])\]</div>
 </dd>
 </dl>
 <p>Jensen不等式是一个关于期望的不等式运算，
@@ -1065,14 +975,14 @@
 即显变量的观测样本集 <span class="math notranslate nohighlight">\(\mathcal{D}\)</span> 记作 <span class="math notranslate nohighlight">\(\pmb{X}\)</span>。
 接下来，对 <a class="reference internal" href="#equation-eq-em-01-04">公式(12.1.7)</a> 进行如下变换。</p>
 <div class="math notranslate nohighlight" id="equation-eq-em-02-03">
-<span class="eqno">(12.2.24)<a class="headerlink" href="#equation-eq-em-02-03" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\ell(\theta;\mathcal{D}) &amp;= \sum_{i=1}^N \ln  P(X_i;\theta)\\ &amp;= \sum_{i=1}^N \ln\sum_{Z} P(X_i,Z_i;\theta)\\&amp;=\sum_{i=1}^N  \ln\sum_{Z} q(Z) \frac{P(X_i,Z_i;\theta)}{q(Z)}\\&amp;= \sum_{i=1}^N \ln\mathbb{E}_{q(Z) } \left [ \frac{P(X_i,Z_i;\theta)}{q(Z)} \right ]\\&amp; \ge\sum_{i=1}^N  \mathbb{E}_{q(Z) } \ln\left [ \frac{P(X_i,Z_i;\theta)}{q(Z)} \right ]
+<span class="eqno">(12.2.24)<a class="headerlink" href="#equation-eq-em-02-03" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\ell(\theta;\mathcal{D}) &amp;= \sum_{i=1}^N \ln  P(X_i;\theta)\\ &amp;= \sum_{i=1}^N \ln\sum_{Z} P(X_i,Z_i;\theta)\\&amp;=\sum_{i=1}^N  \ln\sum_{Z} q(Z) \frac{P(X_i,Z_i;\theta)}{q(Z)}\\&amp;= \sum_{i=1}^N \ln\mathbb{E}_{q(Z) } \left [ \frac{P(X_i,Z_i;\theta)}{q(Z)} \right ]\\&amp; \ge\sum_{i=1}^N  \mathbb{E}_{q(Z) } \ln\left [ \frac{P(X_i,Z_i;\theta)}{q(Z)} \right ]
 \ \ \ \text{根据Jensen不等式}\\
 &amp;=\sum_{i=1}^N  \sum_{Z} q(Z) \ln \left [ \frac{P(X_i,Z_i;\theta)}{q(Z)} \right ]\\&amp;=\sum_{i=1}^N  \left [  \sum_{Z} q(Z_i) \ln  P(X_i,Z_i;\theta)
 -   \sum_{Z} q(Z) \ln q(Z) \right ]\\&amp;\triangleq \mathcal{L}(q,\theta)\end{aligned}\end{align} \]</div>
 <p>利用 <code class="docutils literal notranslate"><span class="pre">Jensen</span></code> 不等式的性质，可以为观测数据的对数似然函数 <span class="math notranslate nohighlight">\(\ell(\theta;\mathcal{D})\)</span> 找到一个下界函数
 ，把这个下界函数记作 <span class="math notranslate nohighlight">\(\mathcal{L}(q,\theta)\)</span>。</p>
 <div class="math notranslate nohighlight" id="equation-eq-em-02-04">
-<span class="eqno">(12.2.25)<a class="headerlink" href="#equation-eq-em-02-04" title="公式的永久链接">¶</a></span>\[\mathcal{L}(q,\theta) =\sum_{i=1}^N \left [ \sum_{Z} q(Z) \ln  P(X_i,Z_i;\theta)
+<span class="eqno">(12.2.25)<a class="headerlink" href="#equation-eq-em-02-04" title="公式的永久链接"></a></span>\[\mathcal{L}(q,\theta) =\sum_{i=1}^N \left [ \sum_{Z} q(Z) \ln  P(X_i,Z_i;\theta)
 -   \sum_{Z} q(Z) \ln q(Z) \right ]\]</div>
 <p>由于观测数据的对数似然函数也被称作 <strong>证据(evidence)</strong>，
 因此这个下界函数又被称为 <strong>证据下界（evidence lower bound,ELBO）</strong>
@@ -1085,7 +995,7 @@
 。为了令公式更加简洁，这里我们用向量的形式替换样本的求和，
 证据下界函数可以改写成如下形式</p>
 <div class="math notranslate nohighlight" id="equation-eq-em-02-05">
-<span class="eqno">(12.2.26)<a class="headerlink" href="#equation-eq-em-02-05" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\mathcal{L}(q,\theta) &amp;=  \sum_{i=1}^N  \left [ \sum_{Z} q(Z) \ln  P(X_i,Z_i;\theta)
+<span class="eqno">(12.2.26)<a class="headerlink" href="#equation-eq-em-02-05" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\mathcal{L}(q,\theta) &amp;=  \sum_{i=1}^N  \left [ \sum_{Z} q(Z) \ln  P(X_i,Z_i;\theta)
 -   \sum_{Z} q(Z) \ln q(Z) \right ]\\&amp;= \sum_{i=1}^N  \left [  \mathbb{E}_{z \sim q} [ \ln  P(\pmb{X},\pmb{Z};\theta) ]
 - \mathbb{E}_{z \sim q}[ \ln q(z) ]   \right ]\\&amp;= \mathbb{E}_{\pmb{z} \sim q} [ \ln  P(\pmb{X},\pmb{Z};\theta) ] -   H(q(\pmb{Z}))\end{aligned}\end{align} \]</div>
 <p>证据下界 <span class="math notranslate nohighlight">\(\mathcal{L}(q,\theta)\)</span> 是观测对数似然函数 <span class="math notranslate nohighlight">\(\ell(\theta;\mathcal{D})\)</span>
@@ -1097,7 +1007,7 @@
 <p>这个下界函数还有另外两种形式，</p>
 <p>第一种形式：</p>
 <div class="math notranslate nohighlight" id="equation-eq-em-02-06">
-<span class="eqno">(12.2.27)<a class="headerlink" href="#equation-eq-em-02-06" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\mathcal{L}(q,\theta) &amp;= \mathbb{E}_{\pmb{z} \sim q} [ \ln  P(\pmb{X},\pmb{Z};\theta) ]
+<span class="eqno">(12.2.27)<a class="headerlink" href="#equation-eq-em-02-06" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\mathcal{L}(q,\theta) &amp;= \mathbb{E}_{\pmb{z} \sim q} [ \ln  P(\pmb{X},\pmb{Z};\theta) ]
 - \mathbb{E}_{\pmb{z} \sim q}[ \ln q(\pmb{Z}))]\\&amp;= \mathbb{E}_{\pmb{z} \sim q} [ \ln  P(\pmb{Z}) + \ln  P(\pmb{X}|\pmb{Z};\theta) ]
     - \mathbb{E}_{\pmb{z} \sim q}[ \ln q(\pmb{Z}))]\\&amp;= \mathbb{E}_{\pmb{z} \sim q} [ \ln  P(\pmb{Z}) ]
     + \mathbb{E}_{\pmb{z} \sim q} [\ln  P(\pmb{X}|\pmb{Z};\theta) ]
@@ -1108,7 +1018,7 @@
     - KL(q(Z)||P(Z))\end{aligned}\end{align} \]</div>
 <p>第二种形式：</p>
 <div class="math notranslate nohighlight" id="equation-eq-em-02-07">
-<span class="eqno">(12.2.28)<a class="headerlink" href="#equation-eq-em-02-07" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\mathcal{L}(q,\theta) &amp;= \mathbb{E}_{\pmb{z} \sim q} [ \ln  P(\pmb{X},\pmb{Z};\theta) ]
+<span class="eqno">(12.2.28)<a class="headerlink" href="#equation-eq-em-02-07" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\mathcal{L}(q,\theta) &amp;= \mathbb{E}_{\pmb{z} \sim q} [ \ln  P(\pmb{X},\pmb{Z};\theta) ]
 - \mathbb{E}_{\pmb{z} \sim q}[ \ln q(\pmb{Z}))]\\&amp;= \mathbb{E}_{\pmb{z} \sim q} \left [ \ln  P(\pmb{X};\theta) + \ln  P(\pmb{Z}|\pmb{X}) \right ]
     - \mathbb{E}_{\pmb{z} \sim q}[ \ln q(\pmb{Z}))]\\&amp;= \underbrace{\mathbb{E}_{\pmb{z} \sim q} [ \ln  P(\pmb{X};\theta) ]}_{\text{与}z\text{无关，期望符号可以去掉}}
     + \mathbb{E}_{\pmb{z} \sim q} [\ln  P(\pmb{Z}|\pmb{X}) ]
@@ -1129,7 +1039,7 @@
 ，则可以发现下界函数 <span class="math notranslate nohighlight">\(\mathcal{L}(q,\theta)\)</span>
 与对数似然函数 <span class="math notranslate nohighlight">\(\ell(\theta;\mathcal{D})\)</span> 是等价。</p>
 <div class="math notranslate nohighlight" id="equation-eq-em-02-08">
-<span class="eqno">(12.2.29)<a class="headerlink" href="#equation-eq-em-02-08" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\mathcal{L}(q,\theta) &amp;= \sum_{i=1}^N  \sum_{Z} q(Z_i) \ln \left [ \frac{P(X_i,Z_i;\theta)}{q(Z_i)} \right ]\\&amp; = \sum_{i=1}^N  \sum_{Z} P(Z_i|X_i;\theta) \ln
+<span class="eqno">(12.2.29)<a class="headerlink" href="#equation-eq-em-02-08" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\mathcal{L}(q,\theta) &amp;= \sum_{i=1}^N  \sum_{Z} q(Z_i) \ln \left [ \frac{P(X_i,Z_i;\theta)}{q(Z_i)} \right ]\\&amp; = \sum_{i=1}^N  \sum_{Z} P(Z_i|X_i;\theta) \ln
 \left [ \frac{P(X_i,Z_i;\theta)}{P(Z_i|X_i;\theta)} \right ]\\&amp; =  \sum_{i=1}^N \sum_{Z} P(Z_i|X_i;\theta) \ln
 \left [ \frac{P(X_i;\theta) P(Z_i|X_i;\theta)}{P(Z_i|X_i;\theta)} \right ]\\&amp; = \sum_{i=1}^N  \sum_{Z} P(Z_i|X_i;\theta) \underbrace{ \ln P(X_i;\theta)}_{\text{与z无关}}\\&amp; = \sum_{i=1}^N \ln P(X_i;\theta)  \underbrace{ \sum_{Z} P(Z_i|X_i;\theta)}_{=1}\\&amp; = \sum_{i=1}^N  \ln P(X_i;\theta)\\&amp;= \ell(\theta;\mathcal{D})\end{aligned}\end{align} \]</div>
 <p>到此我们已经找到了解决方法，
@@ -1137,11 +1047,11 @@
 <span class="math notranslate nohighlight">\(t\)</span> 表示当前轮的迭代。
 首先利用上一轮的参数值以及观测数据得到隐变量的后验概率分布，</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-13-lecture-22-0">
-<span class="eqno">(12.2.30)<a class="headerlink" href="#equation-probability-model-13-lecture-22-0" title="公式的永久链接">¶</a></span>\[q(Z_i) = P(Z_i|X_i;\theta^{t-1})\]</div>
+<span class="eqno">(12.2.30)<a class="headerlink" href="#equation-probability-model-13-lecture-22-0" title="公式的永久链接"></a></span>\[q(Z_i) = P(Z_i|X_i;\theta^{t-1})\]</div>
 <p>然后定义一个辅助函数 <span class="math notranslate nohighlight">\(Q(\theta,\theta^{t-1})\)</span>
 ，</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-13-lecture-22-1">
-<span class="eqno">(12.2.31)<a class="headerlink" href="#equation-probability-model-13-lecture-22-1" title="公式的永久链接">¶</a></span>\[\begin{split}Q(\theta^t,\theta^{t-1})
+<span class="eqno">(12.2.31)<a class="headerlink" href="#equation-probability-model-13-lecture-22-1" title="公式的永久链接"></a></span>\[\begin{split}Q(\theta^t,\theta^{t-1})
 &amp;= \sum_{i=1}^N \sum_{Z} P(Z_i|X_i;\theta^{t-1}) \ln
 \left [ \frac{P(X_i,Z_i;\theta^t)}{P(Z_i|X_i;\theta^{t-1})} \right ]\\
 &amp;=\sum_{i=1}^N  \sum_{Z} P(Z_i|X_i;\theta^{t-1})
@@ -1153,7 +1063,7 @@
 可以方便的进行因子分解后求参数的偏导，
 只需要极大化这个辅助函数得到本轮的参数值即可。</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-13-lecture-22-2">
-<span class="eqno">(12.2.32)<a class="headerlink" href="#equation-probability-model-13-lecture-22-2" title="公式的永久链接">¶</a></span>\[\theta^t = \mathop{\arg \max}_{\theta} Q(\theta^t,\theta^{t-1})
+<span class="eqno">(12.2.32)<a class="headerlink" href="#equation-probability-model-13-lecture-22-2" title="公式的永久链接"></a></span>\[\theta^t = \mathop{\arg \max}_{\theta} Q(\theta^t,\theta^{t-1})
 = \mathop{\arg \max}_{\theta} \sum_{i=1}^N \sum_{Z} P(Z_i|X_i;\theta^{t-1}) \ln P(X_i,Z_i;\theta^t)\]</div>
 <p>由于极大化的辅助函数是一个关于隐变量后验分布的期望形式，因此被称为期望最大化(Expectation-Maximization)算法，一般简称为EM算法。
 最后整理一下算法的执行过程，EM算法是一个迭代式的算法，
@@ -1161,13 +1071,13 @@
 交替的执行这两个过程，知道参数收敛。</p>
 <dl>
 <dt><strong>初始：</strong> 初始化模型的参数，可以选择随机初始化赋值，也可以使用一些复杂的参数初始化方法。</dt><dd><div class="math notranslate nohighlight" id="equation-probability-model-13-lecture-22-3">
-<span class="eqno">(12.2.33)<a class="headerlink" href="#equation-probability-model-13-lecture-22-3" title="公式的永久链接">¶</a></span>\[\theta = \theta_0\]</div>
+<span class="eqno">(12.2.33)<a class="headerlink" href="#equation-probability-model-13-lecture-22-3" title="公式的永久链接"></a></span>\[\theta = \theta_0\]</div>
 </dd>
 <dt><strong>E步骤：</strong> 计算隐变量集合 <span class="math notranslate nohighlight">\(Z\)</span> 的后验概率分布，也可以看做是得到 <span class="math notranslate nohighlight">\(Q(\theta^t,\theta^{t-1})\)</span> 辅助函数。</dt><dd><div class="math notranslate nohighlight" id="equation-probability-model-13-lecture-22-4">
-<span class="eqno">(12.2.34)<a class="headerlink" href="#equation-probability-model-13-lecture-22-4" title="公式的永久链接">¶</a></span>\[q(Z_i) = P(Z_i|X_i;\theta^{t-1})\]</div>
+<span class="eqno">(12.2.34)<a class="headerlink" href="#equation-probability-model-13-lecture-22-4" title="公式的永久链接"></a></span>\[q(Z_i) = P(Z_i|X_i;\theta^{t-1})\]</div>
 </dd>
 <dt><strong>M步骤：</strong> 极大化辅助函数 <span class="math notranslate nohighlight">\(Q(\theta^t,\theta^{t-1})\)</span> 得到本轮迭代的参数值。</dt><dd><div class="math notranslate nohighlight" id="equation-probability-model-13-lecture-22-5">
-<span class="eqno">(12.2.35)<a class="headerlink" href="#equation-probability-model-13-lecture-22-5" title="公式的永久链接">¶</a></span>\[\theta^t = \mathop{\arg \max}_{\theta} Q(\theta^t,\theta^{t-1})
+<span class="eqno">(12.2.35)<a class="headerlink" href="#equation-probability-model-13-lecture-22-5" title="公式的永久链接"></a></span>\[\theta^t = \mathop{\arg \max}_{\theta} Q(\theta^t,\theta^{t-1})
 = \mathop{\arg \max}_{\theta} \sum_{i=1}^N \sum_{Z} P(Z_i|X_i;\theta^{t-1}) \ln P(X_i,Z_i;\theta^t)\]</div>
 <p>这里就和正常的极大似然估计是一样的了，可以通过梯度法得到最优的参数值。</p>
 </dd>
@@ -1181,20 +1091,27 @@
 <p>EM算法是一个伟大的发明，它是解决潜变量模型的常用算法，应用十分的广泛。
 本章只有算法的理论过程，读者可以直接跳到 <a class="reference internal" href="31.%E6%B7%B7%E5%90%88%E6%A8%A1%E5%9E%8B_41.html#ch-mixture-model"><span class="std std-numref">第20章</span></a>
 参考一个EM算法应用实例，进一步加深对算法的理解。</p>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="14.%E5%9B%BE%E5%BD%A2%E7%BB%93%E6%9E%84%E7%9A%84%E5%AD%A6%E4%B9%A0_lecture_23.html" class="btn btn-neutral float-right" title="13. 有向图结构学习" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="12.%E5%AE%8C%E6%95%B4%E8%A7%82%E6%B5%8B%E7%9A%84%E5%8F%82%E6%95%B0%E5%AD%A6%E4%B9%A0_lecture_20.html" class="btn btn-neutral float-left" title="11. 完整观测的参数学习" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="12.%E5%AE%8C%E6%95%B4%E8%A7%82%E6%B5%8B%E7%9A%84%E5%8F%82%E6%95%B0%E5%AD%A6%E4%B9%A0_lecture_20.html" class="btn btn-neutral float-left" title="11. 完整观测的参数学习" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="14.%E5%9B%BE%E5%BD%A2%E7%BB%93%E6%9E%84%E7%9A%84%E5%AD%A6%E4%B9%A0_lecture_23.html" class="btn btn-neutral float-right" title="13. 有向图结构学习" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2018, zhangzhenhu(acmtiger@outlook.com) 禁止一切形式的转载！.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
+  
 
 
     <script src="https://utteranc.es/client.js"
@@ -1207,42 +1124,16 @@
 
 
 
-  <div role="contentinfo">
-    <p>
-        &#169; 版权所有 2018, zhangzhenhu(acmtiger@outlook.com) 禁止一切形式的转载！.
-
-    </p>
-  </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-
-
-
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

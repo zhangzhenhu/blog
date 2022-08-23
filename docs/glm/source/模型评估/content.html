@@ -1,99 +1,51 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="zh-CN" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>8. 模型评估 &mdash; 张振虎的博客 张振虎 文档</title>
-  
-
-  
-  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
     <link rel="canonical" href="https://zhangzhenhu.github.io/blog/glm/source/模型评估/content.html" />
-
-  
   <!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
         <script src="../../../_static/doctools.js"></script>
         <script src="../../../_static/translations.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2.7.7/unpacked/MathJax.min.js"></script>
         <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"Macros": {"RR": "{\\bf R}", "bold": ["{\\bf #1}", 1]}}})</script>
-    
-    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-
-    
+    <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../../genindex.html" />
     <link rel="search" title="搜索" href="../../../search.html" />
     <link rel="next" title="9. 模型检验" href="influence.html" />
     <link rel="prev" title="7. 参数估计" href="../%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/estimate.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../../../index.html" class="icon icon-home"> 张振虎的博客
-          
-
-          
           </a>
-
-          
-            
-            
               <div class="version">
                 acmtiger@outlook.com
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="在文档中搜索" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">目录:</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">目录:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">广义线性模型</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80/content.html">1. 概率基础</a><ul>
@@ -141,7 +93,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#id2">3.1. 统计量和充分统计量</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-sample-distribution">3.2. 抽样分布</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-sample-distribution-normal">3.2.1. 正态分布</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#t">3.2.2. t分布</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#t">3.2.2. 学生t分布</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#id5">3.2.3. 卡方分布</a></li>
 </ul>
 </li>
@@ -746,7 +698,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../audio/feature.html#id18">1.5. 分帧与加窗</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../audio/feature.html#id19">1.5.1. 预加重处理</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../audio/feature.html#id20">1.5.2. 分帧与加窗</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../audio/feature.html#id20">1.5.2. 分帧与加窗处理</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../audio/feature.html#id21">1.6. 声音的感官度量</a><ul>
@@ -788,26 +740,26 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../edm/bkt.html">1. 贝叶斯知识追踪(Bayesian Knowledge Tracing,BKT)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id1">1.1. 简介</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#hidden-markov-model-hmm">1.2. 隐马尔科夫模型(Hidden Markov Model,HMM)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id5">1.3. 贝叶斯知识追踪(Bayesian Knowledge Tracing,BKT)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#bayesian-knowledge-tracing">1.3. 贝叶斯知识追踪(Bayesian Knowledge Tracing)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#bkt">1.3.1. BKT的参数估计</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#item-response-theory-irt">1.4. 项目反映理论(Item Response Theory,IRT)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#bktirt">1.5. BKT结合IRT</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id6">1.6. 实验</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id7">1.6.1. 数据集</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id8">1.6.2. 实验方法</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id9">1.6.3. 实验结果</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id10">1.6.4. 项目代码</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id5">1.6. 实验</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id6">1.6.1. 数据集</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id7">1.6.2. 实验方法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id8">1.6.3. 实验结果</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id9">1.6.4. 项目代码</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id11">1.7. 未来工作</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id12">1.7.1. 题目难度的计算</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id10">1.7. 未来工作</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id11">1.7.1. 题目难度的计算</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#irt">1.7.2. 多参数IRT模型</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id13">1.7.3. 参数估计算法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id12">1.7.3. 参数估计算法</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id14">1.8. 参考文献</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id13">1.8. 参考文献</a></li>
 </ul>
 </li>
 </ul>
@@ -904,75 +856,33 @@
 </li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../../index.html">张振虎的博客</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="../index.html">广义线性模型</a> &raquo;</li>
-        
       <li><span class="section-number">8. </span>模型评估</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
-            <a href="../../../_sources/glm/source/模型评估/content.rst.txt" rel="nofollow"> View page source</a>
-          
-        
+            <a href="../../../_sources/glm/source/模型评估/content.rst.txt" rel="nofollow"> 查看页面源码</a>
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="id1">
-<h1><span class="section-number">8. </span>模型评估<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+             
+  <section id="id1">
+<h1><span class="section-number">8. </span>模型评估<a class="headerlink" href="#id1" title="永久链接至标题"></a></h1>
 <p>当我们训练好一个模型后，我们需要知道这个模型的”好坏”。
 要评价一个模型的好坏，就需要找到合理的度量方法，
 模型好坏的度量方法有很多很多，
@@ -984,8 +894,8 @@
 <li><p>拟合值和观测值之间的差异。</p></li>
 <li><p>每个协变量</p></li>
 </ul>
-<div class="section" id="id2">
-<h2><span class="section-number">8.1. </span>拟合优度<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<section id="id2">
+<h2><span class="section-number">8.1. </span>拟合优度<a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
 <p>拟合优度(goodness of fit,GOF)，表示的模型输出的拟合值 (fitted value)
 和实际观测值之间的差异程度，目前存在多种差异度量指标，
 比如大家熟知的平方误差(损失)、似然值等都是GOF的度量指标。
@@ -1001,10 +911,10 @@
 反之，较大的差值说明模型拟合效果差。
 模型对数据拟合效果的评估通常称为拟合优度(goodness of fit,GOF)
 ，<code class="docutils literal notranslate"><span class="pre">GOF</span></code> 度量观察值 <span class="math notranslate nohighlight">\(y\)</span> 与该模型拟合值 <span class="math notranslate nohighlight">\(\hat{\mu}\)</span> 之间的差异。</p>
-<div class="section" id="id3">
-<h3><span class="section-number">8.1.1. </span>嵌套模型<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h3>
+<section id="id3">
+<h3><span class="section-number">8.1.1. </span>嵌套模型<a class="headerlink" href="#id3" title="永久链接至标题"></a></h3>
 <dl class="glossary simple">
-<dt id="term-nested-model">嵌套模型(nested model)<a class="headerlink" href="#term-nested-model" title="Permalink to this term">¶</a></dt><dd><p>两个统计模型(statistical model)，如果对其中的一个模型的参数施加约束就能得到一个模型，
+<dt id="term-nested-model">嵌套模型(nested model)<a class="headerlink" href="#term-nested-model" title="Permalink to this term"></a></dt><dd><p>两个统计模型(statistical model)，如果对其中的一个模型的参数施加约束就能得到一个模型，
 则这两个模型是嵌套的(nested)。</p>
 </dd>
 </dl>
@@ -1014,11 +924,11 @@ Model 2 中部分参数为零之后会变成 Model 1 时，我们说Model 1 是 
 <p class="topic-title">例1：嵌套模型示例I</p>
 <p>模型1的线性预测器(linear predictor)方程为:</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-0">
-<span class="eqno">(8.1.1)<a class="headerlink" href="#equation-glm-source-content-0" title="公式的永久链接">¶</a></span>\[\eta = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \beta_3 x_3 + \beta_3 x_4\]</div>
+<span class="eqno">(8.1.1)<a class="headerlink" href="#equation-glm-source-content-0" title="公式的永久链接"></a></span>\[\eta = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \beta_3 x_3 + \beta_3 x_4\]</div>
 <p>模型2和模型1相比，响应变量使用相同的指数族分布，并且使用相同的连接函数(link function)和尺度参数(scale parameter, <span class="math notranslate nohighlight">\(\phi\)</span> )，
 但是其线性预测器的方程为：</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-1">
-<span class="eqno">(8.1.2)<a class="headerlink" href="#equation-glm-source-content-1" title="公式的永久链接">¶</a></span>\[\eta = \beta_0 + \beta_1 x_1\]</div>
+<span class="eqno">(8.1.2)<a class="headerlink" href="#equation-glm-source-content-1" title="公式的永久链接"></a></span>\[\eta = \beta_0 + \beta_1 x_1\]</div>
 <p>此时，我们就说模型2是模型的1的嵌套模型(nested model)，因为通过对模型1的参数施加约束 <span class="math notranslate nohighlight">\(\beta_2=\beta_3=\beta_4=0\)</span>
 就得到了模型2。</p>
 </div>
@@ -1026,11 +936,11 @@ Model 2 中部分参数为零之后会变成 Model 1 时，我们说Model 1 是 
 <p class="topic-title">例2：嵌套模型示例II</p>
 <p>模型1的线性预测器(linear predictor)方程为:</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-2">
-<span class="eqno">(8.1.3)<a class="headerlink" href="#equation-glm-source-content-2" title="公式的永久链接">¶</a></span>\[\eta = \beta_0 + \beta_1 x_1 + \beta_2 x_1^2\]</div>
+<span class="eqno">(8.1.3)<a class="headerlink" href="#equation-glm-source-content-2" title="公式的永久链接"></a></span>\[\eta = \beta_0 + \beta_1 x_1 + \beta_2 x_1^2\]</div>
 <p>模型2和模型1相比，响应变量使用相同的指数族分布，并且使用相同的连接函数(link function)和尺度参数(scale parameter, <span class="math notranslate nohighlight">\(\phi\)</span> )，
 但是其线性预测器的方程为：</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-3">
-<span class="eqno">(8.1.4)<a class="headerlink" href="#equation-glm-source-content-3" title="公式的永久链接">¶</a></span>\[\eta = \beta_0 + \beta_1 x_1\]</div>
+<span class="eqno">(8.1.4)<a class="headerlink" href="#equation-glm-source-content-3" title="公式的永久链接"></a></span>\[\eta = \beta_0 + \beta_1 x_1\]</div>
 <p>此时，仍然认为模型2是模型的1的嵌套模型(nested model)，因为通过对模型1的参数施加约束 <span class="math notranslate nohighlight">\(\beta_2=0\)</span>
 ，模型1就变成了模型2。</p>
 </div>
@@ -1052,16 +962,18 @@ Model 2 中部分参数为零之后会变成 Model 1 时，我们说Model 1 是 
 我们定义只有一个截距参数的模型为”最差”的模型，通常称为零模型(null model)。
 零模型的线性预测器只有截距( <span class="math notranslate nohighlight">\(\beta_0\)</span> )部分，而没有预测变量。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-4">
-<span class="eqno">(8.1.5)<a class="headerlink" href="#equation-glm-source-content-4" title="公式的永久链接">¶</a></span>\[\eta = \beta_0\]</div>
+<span class="eqno">(8.1.5)<a class="headerlink" href="#equation-glm-source-content-4" title="公式的永久链接"></a></span>\[\eta = \beta_0\]</div>
 <p><a class="reference internal" href="#fg-me-saturated-0010"><span class="std std-numref">图 8.1.1</span></a> 展示了饱和模型(saturated model)、拟合的逻辑回归模型(logistic regression)、空模型(null model)
 三种模型拟合效果的对比情况。饱和模型可以拟合所有的点，而空模型对所有样本只能输出一个固定值。</p>
-<div class="figure align-center" id="id8">
+<figure class="align-center" id="id8">
 <span id="fg-me-saturated-0010"></span><a class="reference internal image-reference" href="../../../_images/me_saturated_0010.png"><img alt="../../../_images/me_saturated_0010.png" src="../../../_images/me_saturated_0010.png" style="width: 537.6px; height: 537.6px;" /></a>
-<p class="caption"><span class="caption-number">图 8.1.1 </span><span class="caption-text">饱和模型(saturated model)、拟合的逻辑回归模型(logistic regression)、空模型(null model)</span><a class="headerlink" href="#id8" title="永久链接至图片">¶</a></p>
-</div>
-</div>
-<div class="section" id="likelihood-ratio">
-<h3><span class="section-number">8.1.2. </span>对数似然比(Likelihood ratio)<a class="headerlink" href="#likelihood-ratio" title="永久链接至标题">¶</a></h3>
+<figcaption>
+<p><span class="caption-number">图 8.1.1 </span><span class="caption-text">饱和模型(saturated model)、拟合的逻辑回归模型(logistic regression)、空模型(null model)</span><a class="headerlink" href="#id8" title="永久链接至图片"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="likelihood-ratio">
+<h3><span class="section-number">8.1.2. </span>对数似然比(Likelihood ratio)<a class="headerlink" href="#likelihood-ratio" title="永久链接至标题"></a></h3>
 <p>我们知道似然(Likelihood)其实就是样本的联合概率，似然值越大说明模型对样本的拟合程度越好，
 因此我们可以通过对比两个模型的似然值来比较两个模型的好坏。
 我们把参数少的模型称为简单模型，用符号 <span class="math notranslate nohighlight">\(s\)</span> 表示，<span class="math notranslate nohighlight">\(L_s\)</span> 表示模型 <span class="math notranslate nohighlight">\(s\)</span> 的似然；
@@ -1070,12 +982,12 @@ Model 2 中部分参数为零之后会变成 Model 1 时，我们说Model 1 是 
 似然比(likelihood-ratio,LR)就是用来对比两个嵌套模型对于同一份数据集的拟合程度，
 LR的计算公式如下：</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-5">
-<span class="eqno">(8.1.6)<a class="headerlink" href="#equation-glm-source-content-5" title="公式的永久链接">¶</a></span>\[LR = -2  \left ( \frac{L_s  }{L_g} \right )\]</div>
+<span class="eqno">(8.1.6)<a class="headerlink" href="#equation-glm-source-content-5" title="公式的永久链接"></a></span>\[LR = -2  \left ( \frac{L_s  }{L_g} \right )\]</div>
 <p>其中 <span class="math notranslate nohighlight">\(L_g\)</span> 为复杂模型似然值，<span class="math notranslate nohighlight">\(L_s\)</span> 为简单模型似然值。
 从公式可以看出，似然比就是两个模型的似然值比值。
 通常并不直接使用上述似然值的比值，而是会加上一个对数，变成对数似然比。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-6">
-<span class="eqno">(8.1.7)<a class="headerlink" href="#equation-glm-source-content-6" title="公式的永久链接">¶</a></span>\[LLR = -2 \ln \left ( \frac{L_s  }{L_g} \right ) = 2 \ln \frac{L_g}{L_s} = 2 (\ln L_g-\ln L_s)\]</div>
+<span class="eqno">(8.1.7)<a class="headerlink" href="#equation-glm-source-content-6" title="公式的永久链接"></a></span>\[LLR = -2 \ln \left ( \frac{L_s  }{L_g} \right ) = 2 \ln \frac{L_g}{L_s} = 2 (\ln L_g-\ln L_s)\]</div>
 <p>加上对数操作后，就变成了两个模型对数似然值的差值，使得计算更加方便。
 似然(likelihood)，实际上也可以翻译为可能性，表示的是样本发生的概率，显然似然值越大的模型对数据的拟合也就越好。
 似然比就是直接比较两个模型的似然值大小。
@@ -1106,9 +1018,9 @@ LR的计算公式如下：</p>
 是用来比较两个嵌套模型的拟合优度(goodness of fit,GOF)的方法。
 似然比检验是基于最大似然估计的统计模型中应用广泛的一种模型对比方法，
 有关假设检验的相关内容下一章在详细讨论。</p>
-</div>
-<div class="section" id="deviance">
-<h3><span class="section-number">8.1.3. </span>偏差(deviance)<a class="headerlink" href="#deviance" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="deviance">
+<h3><span class="section-number">8.1.3. </span>偏差(deviance)<a class="headerlink" href="#deviance" title="永久链接至标题"></a></h3>
 <p>上一节我们介绍了似然比统计量，似然比检验是常用的一种嵌套模型比较的方法。
 似然比检验是对比两个模型的，不是用来衡量单个模型的。
 本节我们介绍似然比统计量的一个衍生量-偏差统计量(deviance,statistic)，
@@ -1125,7 +1037,7 @@ LR的计算公式如下：</p>
 同理用符号 <span class="math notranslate nohighlight">\(L_f\)</span> 表示对应饱和模型的似然值。
 则二者之间的对数似然比统计量为：</p>
 <div class="math notranslate nohighlight" id="equation-eq-me-051">
-<span class="eqno">(8.1.8)<a class="headerlink" href="#equation-eq-me-051" title="公式的永久链接">¶</a></span>\[D  = 2(\ln L_f - \ln L_t)\]</div>
+<span class="eqno">(8.1.8)<a class="headerlink" href="#equation-eq-me-051" title="公式的永久链接"></a></span>\[D  = 2(\ln L_f - \ln L_t)\]</div>
 <p>在 <code class="docutils literal notranslate"><span class="pre">GLM</span></code> 中，我们把饱和模型和拟合模型之间的似然比统计量定义为 <strong>偏差(deviance)统计量</strong>，
 常用符号 <span class="math notranslate nohighlight">\(D\)</span> 表示。
 严格来说，偏差统计量就是似然比统计量的一个特例，其比较的是饱和模型和训练出的模型之间的拟合度。
@@ -1137,12 +1049,12 @@ LR的计算公式如下：</p>
 所以这里我们用 <span class="math notranslate nohighlight">\(\hat{\mu}_i\)</span> 表示模型的预测值。
 现在回顾一下GLM中的指数族概率分布函数的形式 <a class="reference internal" href="#equation-eq-me-052">公式(8.1.9)</a>，</p>
 <div class="math notranslate nohighlight" id="equation-eq-me-052">
-<span class="eqno">(8.1.9)<a class="headerlink" href="#equation-eq-me-052" title="公式的永久链接">¶</a></span>\[p(y_i|\theta_i) = \exp \left \{\frac{\theta_i y_i - b(\theta_i)}{a(\phi)} + c(y_i,\phi) \right \}\]</div>
+<span class="eqno">(8.1.9)<a class="headerlink" href="#equation-eq-me-052" title="公式的永久链接"></a></span>\[p(y_i|\theta_i) = \exp \left \{\frac{\theta_i y_i - b(\theta_i)}{a(\phi)} + c(y_i,\phi) \right \}\]</div>
 <p>其中自然参数 <span class="math notranslate nohighlight">\(\theta_i\)</span> 可以表示成期望 <span class="math notranslate nohighlight">\(\mu_i\)</span> 的函数，
 所以对于拟合模型自然参数 <span class="math notranslate nohighlight">\(\theta_i\)</span> 可以写成 <span class="math notranslate nohighlight">\(\theta_i(\hat{\mu}_i)\)</span>
 ，拟合模型的对数似然函数可以写成：</p>
 <div class="math notranslate nohighlight" id="equation-eq-34-51">
-<span class="eqno">(8.1.10)<a class="headerlink" href="#equation-eq-34-51" title="公式的永久链接">¶</a></span>\[\ln L_t =   \sum_{i=1}^N \frac{y_i \theta(\hat{\mu}_i) -b(\theta(\hat{\mu}_i))}{a(\phi)}
+<span class="eqno">(8.1.10)<a class="headerlink" href="#equation-eq-34-51" title="公式的永久链接"></a></span>\[\ln L_t =   \sum_{i=1}^N \frac{y_i \theta(\hat{\mu}_i) -b(\theta(\hat{\mu}_i))}{a(\phi)}
 + \sum_{i=1}^N  c(y_i;\phi)\]</div>
 <p>至此，我们把拟合模型的似然函数表示成了关于 <span class="math notranslate nohighlight">\(\hat{\mu}\)</span> 的函数。
 同理，对于饱和模型(saturated model)，模型是完美拟合数据的，所以其预测值是精确等于样本的观测值的，
@@ -1150,7 +1062,7 @@ LR的计算公式如下：</p>
 对于饱和模型，满足 <span class="math notranslate nohighlight">\(\hat{y}_i=\hat{\mu}_i=y_i\)</span>
 。因此，饱和模型的对数似然函数为：</p>
 <div class="math notranslate nohighlight" id="equation-eq-34-52">
-<span class="eqno">(8.1.11)<a class="headerlink" href="#equation-eq-34-52" title="公式的永久链接">¶</a></span>\[\ln L_f =   \sum_{i=1}^N \frac{y_i \theta(y_i) -b(\theta(y_i))}{a(\phi)}
+<span class="eqno">(8.1.11)<a class="headerlink" href="#equation-eq-34-52" title="公式的永久链接"></a></span>\[\ln L_f =   \sum_{i=1}^N \frac{y_i \theta(y_i) -b(\theta(y_i))}{a(\phi)}
 + \sum_{i=1}^N  c(y_i;\phi)\]</div>
 <p>注意在 <code class="docutils literal notranslate"><span class="pre">GLM</span></code> 中，分散参数 <span class="math notranslate nohighlight">\(\phi\)</span> 与模型的期望 <span class="math notranslate nohighlight">\(\mu\)</span> 无关，
 模型关注的参数是协变量参数 <span class="math notranslate nohighlight">\(\beta\)</span> ，
@@ -1160,7 +1072,7 @@ LR的计算公式如下：</p>
 <p>现在把 <a class="reference internal" href="../../../probability_model/25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#equation-eq-34-51">公式(19.3.6)</a> 和 <a class="reference internal" href="../../../probability_model/25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#equation-eq-34-52">公式(19.3.7)</a> 代入到偏差统计量 <a class="reference internal" href="#equation-eq-me-051">公式(8.1.8)</a>
 ，两个对数似然函数中的项 <span class="math notranslate nohighlight">\(\sum_{i=1}^N  c(y_i;\phi)\)</span> 是相等的，可以抵消掉。</p>
 <div class="math notranslate nohighlight" id="equation-eq-34-53">
-<span class="eqno">(8.1.12)<a class="headerlink" href="#equation-eq-34-53" title="公式的永久链接">¶</a></span>\[D = \frac{2}{a(\phi)} \sum_{i=1}^N  [
+<span class="eqno">(8.1.12)<a class="headerlink" href="#equation-eq-34-53" title="公式的永久链接"></a></span>\[D = \frac{2}{a(\phi)} \sum_{i=1}^N  [
 y_i \{ \theta(y_i) - \theta(\hat{\mu}_i) \} - b\{\theta(y_i)\} + b\{\theta(\hat{\mu}_i)\} ]\]</div>
 <p>在 <code class="docutils literal notranslate"><span class="pre">GLM</span></code> 的应用中，多数情况下 <span class="math notranslate nohighlight">\(a(\phi)=\phi\)</span> ,
 但有时会假设 <span class="math notranslate nohighlight">\(a(\phi)=\phi/w_i\)</span>
@@ -1168,13 +1080,13 @@ y_i \{ \theta(y_i) - \theta(\hat{\mu}_i) \} - b\{\theta(y_i)\} + b\{\theta(\hat{
 权重值 <span class="math notranslate nohighlight">\(w_i\)</span> 是已知的。
 偏差统计量 <span class="math notranslate nohighlight">\(D\)</span> 就变成：</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-7">
-<span class="eqno">(8.1.13)<a class="headerlink" href="#equation-glm-source-content-7" title="公式的永久链接">¶</a></span>\[D = \frac{2w_i}{\phi} \sum_{i=1}^N  [
+<span class="eqno">(8.1.13)<a class="headerlink" href="#equation-glm-source-content-7" title="公式的永久链接"></a></span>\[D = \frac{2w_i}{\phi} \sum_{i=1}^N  [
 y_i \{ \theta(y_i) - \theta(\hat{\mu}_i) \} - b\{\theta(y_i)\} + b\{\theta(\hat{\mu}_i)\} ]\]</div>
 <p>权重 <span class="math notranslate nohighlight">\(w_i\)</span> 并不是必要的，只有在实际使用场景中需要为每条观测样本设置不同权重时才需要，并且其值是事先已知的。
 因此在很多有关偏差得资料中并没有提及，在本书后续的讨论中，若无特别说明，默认也省略掉权重，
 并且假设 <span class="math notranslate nohighlight">\(a(\phi)=\phi\)</span> ，则偏差统计量的计算公式为</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-8">
-<span class="eqno">(8.1.14)<a class="headerlink" href="#equation-glm-source-content-8" title="公式的永久链接">¶</a></span>\[D = \frac{2}{\phi} \sum_{i=1}^N  [
+<span class="eqno">(8.1.14)<a class="headerlink" href="#equation-glm-source-content-8" title="公式的永久链接"></a></span>\[D = \frac{2}{\phi} \sum_{i=1}^N  [
 y_i \{ \theta(y_i) - \theta(\hat{\mu}_i) \} - b\{\theta(y_i)\} + b\{\theta(\hat{\mu}_i)\} ]\]</div>
 <p>偏差统计量的计算依赖分散参数 <span class="math notranslate nohighlight">\(\phi\)</span> ，
 在 <code class="docutils literal notranslate"><span class="pre">GLM</span></code> 的众多分布中，离散分布都是不存在分散参数的，相当于 <span class="math notranslate nohighlight">\(\phi=1\)</span> ；
@@ -1183,18 +1095,18 @@ y_i \{ \theta(y_i) - \theta(\hat{\mu}_i) \} - b\{\theta(y_i)\} + b\{\theta(\hat{
 鉴于此，早期很多资料默认把分散参数 <span class="math notranslate nohighlight">\(\phi\)</span> 从偏差统计量的计算中去掉了(相当于 <span class="math notranslate nohighlight">\(\phi=1\)</span>)，
 变成了</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-9">
-<span class="eqno">(8.1.15)<a class="headerlink" href="#equation-glm-source-content-9" title="公式的永久链接">¶</a></span>\[D = 2 \sum_{i=1}^N  [
+<span class="eqno">(8.1.15)<a class="headerlink" href="#equation-glm-source-content-9" title="公式的永久链接"></a></span>\[D = 2 \sum_{i=1}^N  [
 y_i \{ \theta(y_i) - \theta(\hat{\mu}_i) \} - b\{\theta(y_i)\} + b\{\theta(\hat{\mu}_i)\} ]\]</div>
 <p>这造成了很多混淆，为了区分二者，把带有分散参数的称为尺度化偏差(scaled deviance)，用符号 <span class="math notranslate nohighlight">\(D^*\)</span> 表示;
 不带分散参数的称为偏差，用符号 <span class="math notranslate nohighlight">\(D\)</span> 表示。当 <span class="math notranslate nohighlight">\(\phi=1\)</span> 时，二者是等价的，它们的关系是</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-10">
-<span class="eqno">(8.1.16)<a class="headerlink" href="#equation-glm-source-content-10" title="公式的永久链接">¶</a></span>\[D = \phi D^*
+<span class="eqno">(8.1.16)<a class="headerlink" href="#equation-glm-source-content-10" title="公式的永久链接"></a></span>\[D = \phi D^*
 \quad \text{或者} \quad
 D^* = \frac{D}{\phi}\]</div>
 <p>为了表述清晰统一，本书默认使用完整的带有分散参数的标准公式，并统一使用名称”偏差(deviance)” 和符号 <span class="math notranslate nohighlight">\(D\)</span> 表示，
 即偏差统计量(deviance statistic)，<span class="math notranslate nohighlight">\(D\)</span> ，定义为</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-11">
-<span class="eqno">(8.1.17)<a class="headerlink" href="#equation-glm-source-content-11" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}D &amp;= 2 \{ \ell(y;y)-\ell(\hat{\mu};y)\}\\&amp;= \frac{2}{a(\phi)} \sum_{i=1}^N  [
+<span class="eqno">(8.1.17)<a class="headerlink" href="#equation-glm-source-content-11" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}D &amp;= 2 \{ \ell(y;y)-\ell(\hat{\mu};y)\}\\&amp;= \frac{2}{a(\phi)} \sum_{i=1}^N  [
 y_i \{ \theta(y_i) - \theta(\hat{\mu}_i) \} - b\{\theta(y_i)\} + b\{\theta(\hat{\mu}_i)\} ]\\&amp;= \frac{2}{\phi} \sum_{i=1}^N  [
 y_i \{ \theta(y_i) - \theta(\hat{\mu}_i) \} - b\{\theta(y_i)\} + b\{\theta(\hat{\mu}_i)\} ]\end{aligned}\end{align} \]</div>
 <p>偏差统计量是定义在整个观测样本上的，
@@ -1210,7 +1122,7 @@ y_i \{ \theta(y_i) - \theta(\hat{\mu}_i) \} - b\{\theta(y_i)\} + b\{\theta(\hat{
 <p>偏差统计量是饱和模型的对数似然值和拟合模型对数似然值差值的2倍，
 在确定性观测样本集合模型下，饱和模型的对数似然值是一个常量，</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-12">
-<span class="eqno">(8.1.18)<a class="headerlink" href="#equation-glm-source-content-12" title="公式的永久链接">¶</a></span>\[D = 2 [ \underbrace{\ell(y;y)}_{\text{常量}}-\ell(\hat{\mu};y) ]\]</div>
+<span class="eqno">(8.1.18)<a class="headerlink" href="#equation-glm-source-content-12" title="公式的永久链接"></a></span>\[D = 2 [ \underbrace{\ell(y;y)}_{\text{常量}}-\ell(\hat{\mu};y) ]\]</div>
 <p>在进行参数估计时，最小化偏差就相当于最大化拟合模型的对数似然，
 因此 <strong>参数的最大化似然估计和最小化偏差估计是等价的</strong>。</p>
 <p><strong>偏差和最小二乘法的关系</strong></p>
@@ -1218,11 +1130,11 @@ y_i \{ \theta(y_i) - \theta(\hat{\mu}_i) \} - b\{\theta(y_i)\} + b\{\theta(\hat{
 有 <span class="math notranslate nohighlight">\(\theta=\eta=\mu,b(\theta)=\mu^2/2,a(\phi)=\sigma^2\)</span>
 ，因此其偏差为：</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-13">
-<span class="eqno">(8.1.19)<a class="headerlink" href="#equation-glm-source-content-13" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}D &amp;= 2  \sum_{i=1}^N  [ y_i \{ y_i - \hat{\mu}_i \} - y_i^2/2 +\hat{\mu}_i^2/2 ]\\&amp;= 2 \sum_{i=1}^N  [ y_i^2/2  - y_i \hat{\mu}_i  +\hat{\mu}_i^2/2 ]\\&amp;= \sum_{i=1}^N  (y_i-\hat{\mu}_i)^2\end{aligned}\end{align} \]</div>
+<span class="eqno">(8.1.19)<a class="headerlink" href="#equation-glm-source-content-13" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}D &amp;= 2  \sum_{i=1}^N  [ y_i \{ y_i - \hat{\mu}_i \} - y_i^2/2 +\hat{\mu}_i^2/2 ]\\&amp;= 2 \sum_{i=1}^N  [ y_i^2/2  - y_i \hat{\mu}_i  +\hat{\mu}_i^2/2 ]\\&amp;= \sum_{i=1}^N  (y_i-\hat{\mu}_i)^2\end{aligned}\end{align} \]</div>
 <p>可以看到，标准连接高斯分布的偏差(deviance)和平方和损失是一致的，实际上
 <strong>偏差(deviance)可以看做是传统线性回归模型最小二乘（平方损失）在GLM中的扩展</strong>。</p>
 <table class="docutils align-default" id="id9">
-<caption><span class="caption-number">表 8.1.1 </span><span class="caption-text">常见GLM模型的偏差（采用标准连接函数，并且 <span class="math notranslate nohighlight">\(\phi=1\)</span>）</span><a class="headerlink" href="#id9" title="永久链接至表格">¶</a></caption>
+<caption><span class="caption-number">表 8.1.1 </span><span class="caption-text">常见GLM模型的偏差（采用标准连接函数，并且 <span class="math notranslate nohighlight">\(\phi=1\)</span>）</span><a class="headerlink" href="#id9" title="永久链接至表格"></a></caption>
 <colgroup>
 <col style="width: 50%" />
 <col style="width: 50%" />
@@ -1255,7 +1167,7 @@ y_i \{ \theta(y_i) - \theta(\hat{\mu}_i) \} - b\{\theta(y_i)\} + b\{\theta(\hat{
 因此也是一个统计量，并且其渐近分布也是卡方分布。
 偏差统计量 <span class="math notranslate nohighlight">\(D\)</span> 是渐近服从卡方分布 <span class="math notranslate nohighlight">\(\chi^2\)</span> 的。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-14">
-<span class="eqno">(8.1.20)<a class="headerlink" href="#equation-glm-source-content-14" title="公式的永久链接">¶</a></span>\[\begin{align}
+<span class="eqno">(8.1.20)<a class="headerlink" href="#equation-glm-source-content-14" title="公式的永久链接"></a></span>\[\begin{align}
 D \sim \chi^2(N-p)
 \end{align}\]</div>
 <p>符号 <span class="math notranslate nohighlight">\(\chi^2(N-p)\)</span> 的意思是自由度为 <span class="math notranslate nohighlight">\(N-p\)</span> 的卡方分布，
@@ -1270,16 +1182,16 @@ D \sim \chi^2(N-p)
 当两个嵌套模型的偏差统计相减时，其中饱和模型的项就会抵消掉，最后就等于两个模型的对数似然值做差值，
 也就变成了对数似然比统计量。
 偏差统计量是 <code class="docutils literal notranslate"><span class="pre">GLM</span></code> 中最常用的统计量，有关如何利用偏差统计量进行模型检验的方法下章详细介绍。</p>
-</div>
-<div class="section" id="r-2">
-<h3><span class="section-number">8.1.4. </span>决定系数 <span class="math notranslate nohighlight">\(R^2\)</span><a class="headerlink" href="#r-2" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="r-2">
+<h3><span class="section-number">8.1.4. </span>决定系数 <span class="math notranslate nohighlight">\(R^2\)</span><a class="headerlink" href="#r-2" title="永久链接至标题"></a></h3>
 <p>在传统线性回归模型（也叫 <code class="docutils literal notranslate"><span class="pre">OLS</span></code>，最小二乘回归，也是响应变量 <span class="math notranslate nohighlight">\(Y\)</span> 是高斯分布的 <code class="docutils literal notranslate"><span class="pre">GLM</span></code>）中，
 常用的一种度量拟合优度的方法是 <span class="math notranslate nohighlight">\(R^2\)</span>。
 原始版本的 <span class="math notranslate nohighlight">\(R^2\)</span> 是定义在 <code class="docutils literal notranslate"><span class="pre">OLS</span></code> 模型上的，在非 <code class="docutils literal notranslate"><span class="pre">OLS</span></code> 的模型中并不适用。
 有很多学者提出了很多变种 <span class="math notranslate nohighlight">\(R^2\)</span>，用在其它非 <code class="docutils literal notranslate"><span class="pre">OLS</span></code> 模型中，比如二分类的逻辑回归模型。
 本节我们先给出在 <code class="docutils literal notranslate"><span class="pre">OLS</span></code> 中 <span class="math notranslate nohighlight">\(R^2\)</span> 的定义，然后再给出用于 <code class="docutils literal notranslate"><span class="pre">GLM</span></code> 的变种版本。</p>
-<div class="section" id="id4">
-<h4><span class="section-number">8.1.4.1. </span>线性回归中的 <span class="math notranslate nohighlight">\(R^2\)</span><a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h4>
+<section id="id4">
+<h4><span class="section-number">8.1.4.1. </span>线性回归中的 <span class="math notranslate nohighlight">\(R^2\)</span><a class="headerlink" href="#id4" title="永久链接至标题"></a></h4>
 <p><span class="math notranslate nohighlight">\(R^2\)</span> ，也称作决定系数（coefficient of determination），
 用来度量 <code class="docutils literal notranslate"><span class="pre">OLS</span></code> 模型对数据的拟合优度。
 我们先给出 <span class="math notranslate nohighlight">\(R^2\)</span> 的计算公式，然后再进行解释。</p>
@@ -1287,7 +1199,7 @@ D \sim \chi^2(N-p)
 <span class="math notranslate nohighlight">\(\bar{y}\)</span> 表示样本的均值。
 则 <span class="math notranslate nohighlight">\(R^2\)</span> 的计算法方法为</p>
 <div class="math notranslate nohighlight" id="equation-eq-me-101">
-<span class="eqno">(8.1.21)<a class="headerlink" href="#equation-eq-me-101" title="公式的永久链接">¶</a></span>\[R^2 = 1 - \frac{\sum_{i=1}^N(y_i -\hat{y}_i)^2}{\sum_{i=1}^N(y_i -\bar{y}_i)^2}\]</div>
+<span class="eqno">(8.1.21)<a class="headerlink" href="#equation-eq-me-101" title="公式的永久链接"></a></span>\[R^2 = 1 - \frac{\sum_{i=1}^N(y_i -\hat{y}_i)^2}{\sum_{i=1}^N(y_i -\bar{y}_i)^2}\]</div>
 <p>我们首先看下公式中分子的部分，<span class="math notranslate nohighlight">\(\sum_{i=1}^N(y_i -\hat{y}_i)^2\)</span>。
 <span class="math notranslate nohighlight">\(\hat{y}_i\)</span> 是模型的预测值，<span class="math notranslate nohighlight">\(y_i\)</span> 是样本的真实观测值，
 二者的差值 <span class="math notranslate nohighlight">\(y_i -\hat{y}_i\)</span> 显然就是模型拟合误差，
@@ -1310,7 +1222,7 @@ D \sim \chi^2(N-p)
 可以称为总平方和（total sum of squares)，记作 <code class="docutils literal notranslate"><span class="pre">TSS</span></code>。
 <a class="reference internal" href="#equation-eq-me-101">公式(8.1.21)</a> 可以写为</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-15">
-<span class="eqno">(8.1.22)<a class="headerlink" href="#equation-glm-source-content-15" title="公式的永久链接">¶</a></span>\[R^2 = 1 - \frac{RSS}{TSS}\]</div>
+<span class="eqno">(8.1.22)<a class="headerlink" href="#equation-glm-source-content-15" title="公式的永久链接"></a></span>\[R^2 = 1 - \frac{RSS}{TSS}\]</div>
 <p>在 <code class="docutils literal notranslate"><span class="pre">OLS</span></code> 中，<code class="docutils literal notranslate"><span class="pre">TSS</span></code> 是 <code class="docutils literal notranslate"><span class="pre">RSS</span></code> 的一个理论上限，
 这使得 <span class="math notranslate nohighlight">\(\frac{RSS}{TSS}\)</span> 的取值在 <span class="math notranslate nohighlight">\([0,1]\)</span> 之间，
 其实越接近 <span class="math notranslate nohighlight">\(1\)</span> 表示模型的残差越大，模型拟合效果越差，
@@ -1324,7 +1236,7 @@ D \sim \chi^2(N-p)
 <code class="docutils literal notranslate"><span class="pre">TSS-RSS</span></code> 就是模型对数据方差的解释（explained sum of squares），
 表示模型可以解释（预测、拟合）的方差，记作 <code class="docutils literal notranslate"><span class="pre">ESS</span></code>。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-16">
-<span class="eqno">(8.1.23)<a class="headerlink" href="#equation-glm-source-content-16" title="公式的永久链接">¶</a></span>\[R^2 = 1 - \frac{RSS}{TSS}
+<span class="eqno">(8.1.23)<a class="headerlink" href="#equation-glm-source-content-16" title="公式的永久链接"></a></span>\[R^2 = 1 - \frac{RSS}{TSS}
 = \frac{TSS-RSS}{TSS} = \frac{ESS}{TSS}\]</div>
 <p><span class="math notranslate nohighlight">\(R^2\)</span> 就表示在空模型的基础上增加预测（特征）变量后的模型，
 对观测变量全部方差（TSS）解释的比例。
@@ -1336,7 +1248,7 @@ D \sim \chi^2(N-p)
 <span class="math notranslate nohighlight">\(V(\hat{\epsilon}) = V(y) - V(\hat{y})\)</span>，
 <span class="math notranslate nohighlight">\(R^2\)</span> 也可以定义成如下的形式。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-17">
-<span class="eqno">(8.1.24)<a class="headerlink" href="#equation-glm-source-content-17" title="公式的永久链接">¶</a></span>\[R^2 = \frac{V(\hat{y})}{V(y)} = \frac{V(\hat{y})}{V(\hat{y}) + V(\hat{\epsilon})}\]</div>
+<span class="eqno">(8.1.24)<a class="headerlink" href="#equation-glm-source-content-17" title="公式的永久链接"></a></span>\[R^2 = \frac{V(\hat{y})}{V(y)} = \frac{V(\hat{y})}{V(\hat{y}) + V(\hat{\epsilon})}\]</div>
 <p><span class="math notranslate nohighlight">\(V(\hat{y})\)</span> 是拟合模型的方差，
 <span class="math notranslate nohighlight">\(V(y)\)</span> 是观测样本的方差，
 <span class="math notranslate nohighlight">\(V(\hat{\epsilon})\)</span> 是多出来的模型未能解释的部分。</p>
@@ -1352,9 +1264,9 @@ D \sim \chi^2(N-p)
 但这种关系毕竟是间接的，尽量不要使用 <span class="math notranslate nohighlight">\(R^2\)</span>
 去衡量 <span class="math notranslate nohighlight">\(X\)</span> 与 <span class="math notranslate nohighlight">\(Y\)</span> 线性关系，如果你不是很了解 <span class="math notranslate nohighlight">\(R^2\)</span>，非常容易得出错误的结论。
 建议仅用 <span class="math notranslate nohighlight">\(R^2\)</span> 来度量模型的拟合优度。</p>
-</div>
-<div class="section" id="id5">
-<h4><span class="section-number">8.1.4.2. </span>修正的 <span class="math notranslate nohighlight">\(R^2\)</span><a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h4>
+</section>
+<section id="id5">
+<h4><span class="section-number">8.1.4.2. </span>修正的 <span class="math notranslate nohighlight">\(R^2\)</span><a class="headerlink" href="#id5" title="永久链接至标题"></a></h4>
 <p>实际上，上述版本 <span class="math notranslate nohighlight">\(R^2\)</span> 存在一个小小的瑕疵。
 <span class="math notranslate nohighlight">\(R^2\)</span> 用来度量模型对数据的拟合优度，
 然后实际上，只要添加了新的预测（特征）变量，
@@ -1370,14 +1282,14 @@ D \sim \chi^2(N-p)
 记作 <span class="math notranslate nohighlight">\(\bar{R}^2\)</span>，
 也可以记作 <span class="math notranslate nohighlight">\(R^2_{adj}\)</span>。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-18">
-<span class="eqno">(8.1.25)<a class="headerlink" href="#equation-glm-source-content-18" title="公式的永久链接">¶</a></span>\[\bar{R}^2 = 1 - \frac{RSS/\text{df}_{r}}{TSS/ \text{df}_{t}}\]</div>
+<span class="eqno">(8.1.25)<a class="headerlink" href="#equation-glm-source-content-18" title="公式的永久链接"></a></span>\[\bar{R}^2 = 1 - \frac{RSS/\text{df}_{r}}{TSS/ \text{df}_{t}}\]</div>
 <p><span class="math notranslate nohighlight">\(\text{df}_{r}\)</span> 是 <code class="docutils literal notranslate"><span class="pre">RSS</span></code> 的自由度，其值为 <span class="math notranslate nohighlight">\(N-p-1\)</span>，
 <span class="math notranslate nohighlight">\(\text{df}_t\)</span> 是 <code class="docutils literal notranslate"><span class="pre">TSS</span></code> 的自由度，其值是 <span class="math notranslate nohighlight">\(N-1\)</span>。
 <span class="math notranslate nohighlight">\(N\)</span> 是观测样本的数量，<span class="math notranslate nohighlight">\(p\)</span> 是模型中特征变量 <span class="math notranslate nohighlight">\(X\)</span> 数量，
 注意 <span class="math notranslate nohighlight">\(p\)</span> 不包含截距。
 <span class="math notranslate nohighlight">\(N-p-1\)</span> 与 <span class="math notranslate nohighlight">\(N-1\)</span> 中的 <span class="math notranslate nohighlight">\(1\)</span> 表示截距参数。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-19">
-<span class="eqno">(8.1.26)<a class="headerlink" href="#equation-glm-source-content-19" title="公式的永久链接">¶</a></span>\[\bar{R}^2 = 1 - \frac{RSS}{TSS}\frac{N-1}{N-p-1}\]</div>
+<span class="eqno">(8.1.26)<a class="headerlink" href="#equation-glm-source-content-19" title="公式的永久链接"></a></span>\[\bar{R}^2 = 1 - \frac{RSS}{TSS}\frac{N-1}{N-p-1}\]</div>
 <p>修正版的 <span class="math notranslate nohighlight">\(R^2\)</span> 会惩罚没有意义的特征，
 添加了无意义的特征后，<span class="math notranslate nohighlight">\(\bar{R}^2\)</span> 的值甚至会变小，
 这使得 <span class="math notranslate nohighlight">\(\bar{R}^2\)</span> 可以用来检验新增加的特征对模型是否有意义。
@@ -1386,10 +1298,10 @@ D \sim \chi^2(N-p)
 因此建议大家尽量使用 <span class="math notranslate nohighlight">\(\bar{R}^2\)</span>。
 <span class="math notranslate nohighlight">\(\bar{R}^2\)</span> 与 <span class="math notranslate nohighlight">\(R^2\)</span> 的关系为</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-20">
-<span class="eqno">(8.1.27)<a class="headerlink" href="#equation-glm-source-content-20" title="公式的永久链接">¶</a></span>\[\bar{R}^2 = 1 - (1-R^2)\frac{N-1}{N-p-1}\]</div>
-</div>
-<div class="section" id="id6">
-<h4><span class="section-number">8.1.4.3. </span>偏差版本的 <span class="math notranslate nohighlight">\(R^2\)</span><a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h4>
+<span class="eqno">(8.1.27)<a class="headerlink" href="#equation-glm-source-content-20" title="公式的永久链接"></a></span>\[\bar{R}^2 = 1 - (1-R^2)\frac{N-1}{N-p-1}\]</div>
+</section>
+<section id="id6">
+<h4><span class="section-number">8.1.4.3. </span>偏差版本的 <span class="math notranslate nohighlight">\(R^2\)</span><a class="headerlink" href="#id6" title="永久链接至标题"></a></h4>
 <p>不管是 <span class="math notranslate nohighlight">\(R^2\)</span> 还是 <span class="math notranslate nohighlight">\(\bar{R}^2\)</span>
 ，都是定义在 <code class="docutils literal notranslate"><span class="pre">OLS</span></code> 模型的基础上的，
 对于 <code class="docutils literal notranslate"><span class="pre">GLM</span></code> 中的其它模型是不适用的。
@@ -1405,33 +1317,35 @@ D \sim \chi^2(N-p)
 然而这里指的是 “null model” 的偏差值，
 所以我们继续沿用”空”来翻译”null”。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-21">
-<span class="eqno">(8.1.28)<a class="headerlink" href="#equation-glm-source-content-21" title="公式的永久链接">¶</a></span>\[D_0 =2\phi(\ln L_f -\ln L_0)\]</div>
+<span class="eqno">(8.1.28)<a class="headerlink" href="#equation-glm-source-content-21" title="公式的永久链接"></a></span>\[D_0 =2\phi(\ln L_f -\ln L_0)\]</div>
 <p>用符号 <span class="math notranslate nohighlight">\(D\)</span> 表示拟合模型的残差偏差统计量，
 可以用一张图来说明 <span class="math notranslate nohighlight">\(D_0\)</span> 和 <span class="math notranslate nohighlight">\(D\)</span> 之间的关系。
 我们拟合的模型，可以看做是在空模型的基础上增加预测变量 <span class="math notranslate nohighlight">\(X_1,X_2,\dots,X_p\)</span>
 得到更小的偏差(deviance)。</p>
-<div class="figure align-center" id="id10">
+<figure class="align-center" id="id10">
 <span id="fg-me-saturated-0012"></span><a class="reference internal image-reference" href="../../../_images/me_saturated_0012.jpg"><img alt="../../../_images/me_saturated_0012.jpg" src="../../../_images/me_saturated_0012.jpg" style="width: 568.0px; height: 350.0px;" /></a>
-<p class="caption"><span class="caption-number">图 8.1.2 </span><span class="caption-text">The residual deviance ( <span class="math notranslate nohighlight">\(D\)</span> ) and the null deviance (<span class="math notranslate nohighlight">\(D_0\)</span>).</span><a class="headerlink" href="#id10" title="永久链接至图片">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">图 8.1.2 </span><span class="caption-text">The residual deviance ( <span class="math notranslate nohighlight">\(D\)</span> ) and the null deviance (<span class="math notranslate nohighlight">\(D_0\)</span>).</span><a class="headerlink" href="#id10" title="永久链接至图片"></a></p>
+</figcaption>
+</figure>
 <p>可以用 <span class="math notranslate nohighlight">\(D\)</span> 替代 <span class="math notranslate nohighlight">\(RSS\)</span>，
 <span class="math notranslate nohighlight">\(D_0\)</span> 替代 <span class="math notranslate nohighlight">\(TSS\)</span>，
 这样就得到一个偏差版本的 <span class="math notranslate nohighlight">\(R^2\)</span> 统计量。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-22">
-<span class="eqno">(8.1.29)<a class="headerlink" href="#equation-glm-source-content-22" title="公式的永久链接">¶</a></span>\[R^2_{D} = 1- \frac{D}{D_0}\]</div>
-</div>
-</div>
-<div class="section" id="ch-glm-gof-chi">
-<span id="id7"></span><h3><span class="section-number">8.1.5. </span>广义皮尔逊卡方统计量<a class="headerlink" href="#ch-glm-gof-chi" title="永久链接至标题">¶</a></h3>
+<span class="eqno">(8.1.29)<a class="headerlink" href="#equation-glm-source-content-22" title="公式的永久链接"></a></span>\[R^2_{D} = 1- \frac{D}{D_0}\]</div>
+</section>
+</section>
+<section id="ch-glm-gof-chi">
+<span id="id7"></span><h3><span class="section-number">8.1.5. </span>广义皮尔逊卡方统计量<a class="headerlink" href="#ch-glm-gof-chi" title="永久链接至标题"></a></h3>
 <p>在 <code class="docutils literal notranslate"><span class="pre">GLM</span></code> 中，另一个常用的拟合度统计量是广义皮尔逊卡方统计量(generalized Pearson chi-square statistic)
 ，其计算公式为</p>
 <div class="math notranslate nohighlight" id="equation-eq-glm-me-302">
-<span class="eqno">(8.1.30)<a class="headerlink" href="#equation-eq-glm-me-302" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\chi^2 &amp;= \sum_{i=1}^N  \frac{(y_i-\hat{\mu}_i)^2}{a(\phi)\nu(\hat{\mu}_i)}\\&amp;= \sum_{i=1}^N  \frac{(y_i-\hat{\mu}_i)^2}{V(\hat{\mu}_i)}\end{aligned}\end{align} \]</div>
+<span class="eqno">(8.1.30)<a class="headerlink" href="#equation-eq-glm-me-302" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\chi^2 &amp;= \sum_{i=1}^N  \frac{(y_i-\hat{\mu}_i)^2}{a(\phi)\nu(\hat{\mu}_i)}\\&amp;= \sum_{i=1}^N  \frac{(y_i-\hat{\mu}_i)^2}{V(\hat{\mu}_i)}\end{aligned}\end{align} \]</div>
 <p>其中 <span class="math notranslate nohighlight">\(V(\mu_i)=a(\phi)\nu(\hat{\mu}_i)\)</span> 表示模型的方差。
 和偏差统计量类似的情况，很多资料中会省略分散函数 <span class="math notranslate nohighlight">\(a(\phi)\)</span> ，
 直接定义为如下形式</p>
 <div class="math notranslate nohighlight" id="equation-eq-glm-me-303">
-<span class="eqno">(8.1.31)<a class="headerlink" href="#equation-eq-glm-me-303" title="公式的永久链接">¶</a></span>\[\chi^2 = \sum_{i=1}^N  \frac{(y_i-\hat{\mu}_i)^2}{\nu(\hat{\mu}_i)}\]</div>
+<span class="eqno">(8.1.31)<a class="headerlink" href="#equation-eq-glm-me-303" title="公式的永久链接"></a></span>\[\chi^2 = \sum_{i=1}^N  \frac{(y_i-\hat{\mu}_i)^2}{\nu(\hat{\mu}_i)}\]</div>
 <p>然而这是不准确的，非常容易产生误导，只有当 <span class="math notranslate nohighlight">\(a(\phi)=1\)</span> 时，才能省略掉。
 也有些资料把 <a class="reference internal" href="#equation-eq-glm-me-303">公式(8.1.31)</a> 称为皮尔逊卡方统计量，而把 <a class="reference internal" href="#equation-eq-glm-me-302">公式(8.1.30)</a> 称为尺度化(scaled)的皮尔逊卡方统计量。
 为了简单清晰表达，如无特别说明，本书中默认使用 <a class="reference internal" href="#equation-eq-glm-me-302">公式(8.1.30)</a> 的完整定义表示皮尔逊卡方统计量。</p>
@@ -1449,22 +1363,22 @@ D \sim \chi^2(N-p)
 的一个估计值。<span class="math notranslate nohighlight">\(\chi^2\)</span> 统计量的渐近分布是卡方分布，并且其期望为 <span class="math notranslate nohighlight">\(N-p-1\)</span>
 ，因此有</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-23">
-<span class="eqno">(8.1.32)<a class="headerlink" href="#equation-glm-source-content-23" title="公式的永久链接">¶</a></span>\[\mathbb{E}[\chi^2] = \mathbb{E} \left [
+<span class="eqno">(8.1.32)<a class="headerlink" href="#equation-glm-source-content-23" title="公式的永久链接"></a></span>\[\mathbb{E}[\chi^2] = \mathbb{E} \left [
     \sum_{i=1}^N  \frac{(y_i-\hat{\mu}_i)^2}{a(\phi)\nu(\hat{\mu}_i)}
 \right ] = N-p-1\]</div>
 <p>利用这个特点可以近似的得到 <span class="math notranslate nohighlight">\(a(\phi)\)</span> 。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-24">
-<span class="eqno">(8.1.33)<a class="headerlink" href="#equation-glm-source-content-24" title="公式的永久链接">¶</a></span>\[a(\phi) = \sum_{i=1}^N  \frac{(y_i-\hat{\mu}_i)^2}{(N-p-1)\nu(\hat{\mu}_i)}\]</div>
+<span class="eqno">(8.1.33)<a class="headerlink" href="#equation-glm-source-content-24" title="公式的永久链接"></a></span>\[a(\phi) = \sum_{i=1}^N  \frac{(y_i-\hat{\mu}_i)^2}{(N-p-1)\nu(\hat{\mu}_i)}\]</div>
 <p>当 <span class="math notranslate nohighlight">\(a(\phi)=\phi\)</span> 时，分散参数的近似估计值为</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-25">
-<span class="eqno">(8.1.34)<a class="headerlink" href="#equation-glm-source-content-25" title="公式的永久链接">¶</a></span>\[\hat{\phi} = \sum_{i=1}^N  \frac{(y_i-\hat{\mu}_i)^2}{(N-p-1)\nu(\hat{\mu}_i)}\]</div>
+<span class="eqno">(8.1.34)<a class="headerlink" href="#equation-glm-source-content-25" title="公式的永久链接"></a></span>\[\hat{\phi} = \sum_{i=1}^N  \frac{(y_i-\hat{\mu}_i)^2}{(N-p-1)\nu(\hat{\mu}_i)}\]</div>
 <p>当 <span class="math notranslate nohighlight">\(a(\phi)=\phi / w_i\)</span> 时，分散参数的近似估计值为</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-26">
-<span class="eqno">(8.1.35)<a class="headerlink" href="#equation-glm-source-content-26" title="公式的永久链接">¶</a></span>\[\hat{\phi} = \sum_{i=1}^N  \frac{ w_i (y_i-\hat{\mu}_i)^2}{(N-p-1)\nu(\hat{\mu}_i)}\]</div>
-</div>
-</div>
-<div class="section" id="residual-analysis">
-<h2><span class="section-number">8.2. </span>残差分析(Residual analysis)<a class="headerlink" href="#residual-analysis" title="永久链接至标题">¶</a></h2>
+<span class="eqno">(8.1.35)<a class="headerlink" href="#equation-glm-source-content-26" title="公式的永久链接"></a></span>\[\hat{\phi} = \sum_{i=1}^N  \frac{ w_i (y_i-\hat{\mu}_i)^2}{(N-p-1)\nu(\hat{\mu}_i)}\]</div>
+</section>
+</section>
+<section id="residual-analysis">
+<h2><span class="section-number">8.2. </span>残差分析(Residual analysis)<a class="headerlink" href="#residual-analysis" title="永久链接至标题"></a></h2>
 <p>在评估模型时，残差(residual)用于衡量我们的每个样本观察值与拟合值之间的差异。
 一个观测值影响估计系数的程度是一种影响的度量。
 <code class="docutils literal notranslate"><span class="pre">Pierce</span></code> 和 <code class="docutils literal notranslate"><span class="pre">Schafer（1986）</span></code> 以及 <code class="docutils literal notranslate"><span class="pre">Cox和Snell（1968）</span></code> 对 <code class="docutils literal notranslate"><span class="pre">GLM</span></code> 中残差的各种定义提出了出色的结论。
@@ -1475,74 +1389,74 @@ D \sim \chi^2(N-p)
 所以本节在出现响应函数的地方我们用连接函数的反函数 <span class="math notranslate nohighlight">\(g^{-1}\)</span> 表示。
 另外残差(residual)都是定义在单条样本上的，
 以下所有残差的定义中下标 <span class="math notranslate nohighlight">\(i\)</span> 都表示第 <span class="math notranslate nohighlight">\(i\)</span> 条样本。</p>
-<div class="section" id="response-residuals">
-<h3><span class="section-number">8.2.1. </span>Response residuals<a class="headerlink" href="#response-residuals" title="永久链接至标题">¶</a></h3>
+<section id="response-residuals">
+<h3><span class="section-number">8.2.1. </span>Response residuals<a class="headerlink" href="#response-residuals" title="永久链接至标题"></a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">Response</span> <span class="pre">residuals</span></code>， 也叫作 <code class="docutils literal notranslate"><span class="pre">raw</span> <span class="pre">residuals</span></code>， 其定义十分简单直接，就是样本的观测值(真实值)
 <span class="math notranslate nohighlight">\(y_i\)</span> 和模型拟合值(预测值) <span class="math notranslate nohighlight">\(\hat{y}_i\)</span> 之间的差值。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-27">
-<span class="eqno">(8.2.1)<a class="headerlink" href="#equation-glm-source-content-27" title="公式的永久链接">¶</a></span>\[r_i^R = y_i -\hat{y}_i\]</div>
+<span class="eqno">(8.2.1)<a class="headerlink" href="#equation-glm-source-content-27" title="公式的永久链接"></a></span>\[r_i^R = y_i -\hat{y}_i\]</div>
 <p>在 <code class="docutils literal notranslate"><span class="pre">GLM</span></code> 中，拟合值 <span class="math notranslate nohighlight">\(\hat{y}_i\)</span> 就是响应函数的输出值，并且表示响应变量的期望值
 <span class="math notranslate nohighlight">\(\hat{y}_i=\hat{\mu}_i=g^{-1}(\eta_i)\)</span>
 。因此在GLM中，上式也可以写成：</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-28">
-<span class="eqno">(8.2.2)<a class="headerlink" href="#equation-glm-source-content-28" title="公式的永久链接">¶</a></span>\[r_i^R = y_i -\hat{\mu}_i\]</div>
+<span class="eqno">(8.2.2)<a class="headerlink" href="#equation-glm-source-content-28" title="公式的永久链接"></a></span>\[r_i^R = y_i -\hat{\mu}_i\]</div>
 <p>在之后的残差定义中，我们都使用 <span class="math notranslate nohighlight">\(\hat{\mu}_i\)</span> 表示样本的拟合值。</p>
-</div>
-<div class="section" id="working-residuals">
-<h3><span class="section-number">8.2.2. </span>Working residuals<a class="headerlink" href="#working-residuals" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="working-residuals">
+<h3><span class="section-number">8.2.2. </span>Working residuals<a class="headerlink" href="#working-residuals" title="永久链接至标题"></a></h3>
 <p>工作残差(working residuals)是在模型收敛时的残差，
 <code class="docutils literal notranslate"><span class="pre">working</span> <span class="pre">response</span></code> 和 <code class="docutils literal notranslate"><span class="pre">linear</span> <span class="pre">predictor</span></code> 之间的差值。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-29">
-<span class="eqno">(8.2.3)<a class="headerlink" href="#equation-glm-source-content-29" title="公式的永久链接">¶</a></span>\[r^W_i = (y_i -\hat{\mu}_i) \frac{\partial \eta_i}{\partial \hat{\mu}_i} = (y_i -\hat{\mu}_i) g'(\hat{\mu}_i)\]</div>
+<span class="eqno">(8.2.3)<a class="headerlink" href="#equation-glm-source-content-29" title="公式的永久链接"></a></span>\[r^W_i = (y_i -\hat{\mu}_i) \frac{\partial \eta_i}{\partial \hat{\mu}_i} = (y_i -\hat{\mu}_i) g'(\hat{\mu}_i)\]</div>
 <p>其中 <span class="math notranslate nohighlight">\(\frac{\partial \eta}{\partial \mu}\)</span> 是连接函数的导数 <span class="math notranslate nohighlight">\(g'(\mu_i)\)</span>
 。这里我们回归一下IRLS算法迭代过程中 <span class="math notranslate nohighlight">\(Z\)</span> 项的计算公式，
 <code class="docutils literal notranslate"><span class="pre">working</span> <span class="pre">residuals</span></code> 就是 <span class="math notranslate nohighlight">\(Z\)</span> 的一部分。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-30">
-<span class="eqno">(8.2.4)<a class="headerlink" href="#equation-glm-source-content-30" title="公式的永久链接">¶</a></span>\[   Z^{(t)} = \left \{ (y-\mu)  \left ( \frac{\partial \eta}{\partial \mu} \right) + \eta^{(t)}
+<span class="eqno">(8.2.4)<a class="headerlink" href="#equation-glm-source-content-30" title="公式的永久链接"></a></span>\[   Z^{(t)} = \left \{ (y-\mu)  \left ( \frac{\partial \eta}{\partial \mu} \right) + \eta^{(t)}
 \right \}_{(n\times 1 )}\]</div>
-</div>
-<div class="section" id="partial-residuals">
-<h3><span class="section-number">8.2.3. </span>Partial residuals<a class="headerlink" href="#partial-residuals" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="partial-residuals">
+<h3><span class="section-number">8.2.3. </span>Partial residuals<a class="headerlink" href="#partial-residuals" title="永久链接至标题"></a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">Partial</span> <span class="pre">residuals</span></code> 用于评估每个预测变量(predictor)的，
 并因此针对每个预测变量进行计算。
 O’Hara Hines和Carter（1993）讨论了这些残差在评估模型拟合中的图形使用。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-31">
-<span class="eqno">(8.2.5)<a class="headerlink" href="#equation-glm-source-content-31" title="公式的永久链接">¶</a></span>\[r^T_{ij} = r^W_{i} + x_{ij} \beta_j\]</div>
+<span class="eqno">(8.2.5)<a class="headerlink" href="#equation-glm-source-content-31" title="公式的永久链接"></a></span>\[r^T_{ij} = r^W_{i} + x_{ij} \beta_j\]</div>
 <p>上式中 <span class="math notranslate nohighlight">\(r^W_{i}\)</span> 表示的是样本 <span class="math notranslate nohighlight">\(i\)</span> 的 <code class="docutils literal notranslate"><span class="pre">Working</span> <span class="pre">residuals</span></code>，
 <span class="math notranslate nohighlight">\(x_{ij} \beta_j\)</span> 仅是第 <span class="math notranslate nohighlight">\(j\)</span> 维输入特征的线性预测器。
 <code class="docutils literal notranslate"><span class="pre">Partial</span> <span class="pre">residuals</span></code> 评估的是单一维度特征的预测器的残差。</p>
-</div>
-<div class="section" id="pearson-residuals">
-<h3><span class="section-number">8.2.4. </span>Pearson residuals<a class="headerlink" href="#pearson-residuals" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="pearson-residuals">
+<h3><span class="section-number">8.2.4. </span>Pearson residuals<a class="headerlink" href="#pearson-residuals" title="永久链接至标题"></a></h3>
 <p>皮尔逊残差(Pearson residuals)是工作残差(working residuals)的重新缩放版本。
 皮尔逊残差平方的总和等于皮尔逊卡平方统计量(Pearson chi-squared statistic)。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-32">
-<span class="eqno">(8.2.6)<a class="headerlink" href="#equation-glm-source-content-32" title="公式的永久链接">¶</a></span>\[r_i^P = \frac{y_i-\hat{\mu}_i}{\sqrt{\nu(\hat{\mu}_i)}}\]</div>
+<span class="eqno">(8.2.6)<a class="headerlink" href="#equation-glm-source-content-32" title="公式的永久链接"></a></span>\[r_i^P = \frac{y_i-\hat{\mu}_i}{\sqrt{\nu(\hat{\mu}_i)}}\]</div>
 <p>分母是方差函数的平方根，缩放将残差置于相似的方差尺度上。
 残差的绝对值较大，表明该模型无法满足特定的观察要求。
 检测异常值的常见诊断方法是绘制标准化的皮尔逊残差(standardized Pearson residuals)与观察值的关系。</p>
-</div>
-<div class="section" id="deviance-residuals">
-<h3><span class="section-number">8.2.5. </span>Deviance residuals<a class="headerlink" href="#deviance-residuals" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="deviance-residuals">
+<h3><span class="section-number">8.2.5. </span>Deviance residuals<a class="headerlink" href="#deviance-residuals" title="永久链接至标题"></a></h3>
 <p>偏差(deviance)在推导 <code class="docutils literal notranslate"><span class="pre">GLM</span></code> 和结果推断中起着关键作用。
 偏差残差(deviance residual)是每个观察值相对于总体偏差(overall deviance)的增量。
 这些残差很常见，通常是标准化的(standardized)，学生化的(studentized)或两者兼而有之。
 偏差残差(deviance residual)是基于卡方分布的，其公式如下。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-33">
-<span class="eqno">(8.2.7)<a class="headerlink" href="#equation-glm-source-content-33" title="公式的永久链接">¶</a></span>\[r_i^D = sign(y_i - \hat{\mu}_i) \sqrt{ \hat{d}_i^2 }\]</div>
+<span class="eqno">(8.2.7)<a class="headerlink" href="#equation-glm-source-content-33" title="公式的永久链接"></a></span>\[r_i^D = sign(y_i - \hat{\mu}_i) \sqrt{ \hat{d}_i^2 }\]</div>
 <p><code class="docutils literal notranslate"><span class="pre">GLM</span></code> 中不同分布族 <span class="math notranslate nohighlight">\(\hat{d}_i^2\)</span> 计算法方法不同，表 xxxx 给出了各分布族的计算方法。
 通常，在模型检查中，偏差残差（标准化或非标准化残差）优于Pearson残差，
 因为其分布特性更接近于线性回归模型中产生的残差。</p>
-</div>
-<div class="section" id="score-residuals">
-<h3><span class="section-number">8.2.6. </span>Score residuals<a class="headerlink" href="#score-residuals" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="score-residuals">
+<h3><span class="section-number">8.2.6. </span>Score residuals<a class="headerlink" href="#score-residuals" title="永久链接至标题"></a></h3>
 <p>这些是用于计算方差三明治估计的分数。 分数与已优化的分数函数（估计方程）有关。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-34">
-<span class="eqno">(8.2.8)<a class="headerlink" href="#equation-glm-source-content-34" title="公式的永久链接">¶</a></span>\[r_i^S = \frac{y_i-\hat{\mu}_i}{\nu(\hat{\mu}_i) g'(\hat{\mu}_i)}\]</div>
-</div>
-</div>
-<div class="section" id="model-selection">
-<h2><span class="section-number">8.3. </span>模型选择(model selection)<a class="headerlink" href="#model-selection" title="永久链接至标题">¶</a></h2>
+<span class="eqno">(8.2.8)<a class="headerlink" href="#equation-glm-source-content-34" title="公式的永久链接"></a></span>\[r_i^S = \frac{y_i-\hat{\mu}_i}{\nu(\hat{\mu}_i) g'(\hat{\mu}_i)}\]</div>
+</section>
+</section>
+<section id="model-selection">
+<h2><span class="section-number">8.3. </span>模型选择(model selection)<a class="headerlink" href="#model-selection" title="永久链接至标题"></a></h2>
 <p>模型选择(model selection)是指从给定数据的一组候选统计模型中选择出最佳模型的过程。
 模型选择是一个既可以应用于不同类型的模型（例如逻辑回归，SVM，KNN等），
 又可以应用于配置了不同超参数（例如SVM中的不同内核）的相同类型模型的过程。</p>
@@ -1631,11 +1545,11 @@ O’Hara Hines和Carter（1993）讨论了这些残差在评估模型拟合中�
 本节我们详细介绍几种常用的概率测度方法。
 首先，我们定义一些符号</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-35">
-<span class="eqno">(8.3.1)<a class="headerlink" href="#equation-glm-source-content-35" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}&amp;p = \text{模型的参数数量}\\&amp;N = \text{观测样本的数量}\\&amp;L= \text{模型的似然}\\&amp;\ell= \text{模型的对数似然}\\&amp;D= \text{模型的偏差 deviance}\\&amp;G^2 = \text{模型的似然比检验}\end{aligned}\end{align} \]</div>
+<span class="eqno">(8.3.1)<a class="headerlink" href="#equation-glm-source-content-35" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}&amp;p = \text{模型的参数数量}\\&amp;N = \text{观测样本的数量}\\&amp;L= \text{模型的似然}\\&amp;\ell= \text{模型的对数似然}\\&amp;D= \text{模型的偏差 deviance}\\&amp;G^2 = \text{模型的似然比检验}\end{aligned}\end{align} \]</div>
 <p>接下来，我们详细介绍一下用于模型比较的 <code class="docutils literal notranslate"><span class="pre">AIC</span></code> 和 <code class="docutils literal notranslate"><span class="pre">BIC</span></code> 量度的公式，
 这些度量指标试图找到在模型拟合优度和模型复杂度之间的平衡点。</p>
-<div class="section" id="aic">
-<h3><span class="section-number">8.3.1. </span>AIC<a class="headerlink" href="#aic" title="永久链接至标题">¶</a></h3>
+<section id="aic">
+<h3><span class="section-number">8.3.1. </span>AIC<a class="headerlink" href="#aic" title="永久链接至标题"></a></h3>
 <p>赤池信息准则(Akaike information criterion,AIC）是样本外预测误差的估计值，度量的是在给定数据集下统计模型的相对质量。
 在给定数据集的候选模型集合中，
 <code class="docutils literal notranslate"><span class="pre">AIC</span></code> 估计每个模型相对于其他模型的质量。因此，<code class="docutils literal notranslate"><span class="pre">AIC</span></code> 提供了一种模型选择的方法。</p>
@@ -1650,7 +1564,7 @@ O’Hara Hines和Carter（1993）讨论了这些残差在评估模型拟合中�
 <p><code class="docutils literal notranslate"><span class="pre">AIC</span></code> 可用于比较嵌套模型或非嵌套模型。
 信息准则是对目标模型丢失的信息的度量，目的是找到信息丢失最少的模型。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-36">
-<span class="eqno">(8.3.2)<a class="headerlink" href="#equation-glm-source-content-36" title="公式的永久链接">¶</a></span>\[AIC= 2p-2 \ell\]</div>
+<span class="eqno">(8.3.2)<a class="headerlink" href="#equation-glm-source-content-36" title="公式的永久链接"></a></span>\[AIC= 2p-2 \ell\]</div>
 <p><span class="math notranslate nohighlight">\(\ell(M_k)\)</span> 代表了模型拟合能力，<span class="math notranslate nohighlight">\(p\)</span> 代表了模型的复杂程度。
 注意，<code class="docutils literal notranslate"><span class="pre">AIC</span></code> 的绝对值是没有意义的，模型之间的相对大小才有意义。
 当比较的两个模型拟合能力(似然)相差较大时，<code class="docutils literal notranslate"><span class="pre">AIC</span></code> 受到似然值的影响更大一些；
@@ -1668,48 +1582,55 @@ O’Hara Hines和Carter（1993）讨论了这些残差在评估模型拟合中�
 第二个是 <code class="docutils literal notranslate"><span class="pre">Hannan</span> <span class="pre">and</span> <span class="pre">Quinn（1979）</span></code> 描述的 <code class="docutils literal notranslate"><span class="pre">AIChq</span></code>。
 这些版本的公式(未缩放)为：</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-37">
-<span class="eqno">(8.3.3)<a class="headerlink" href="#equation-glm-source-content-37" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}AICc &amp;= 2\frac{p(p+1)}{N-p-1}+ 2p -2 \ell\\AIChq &amp;= 2p\ln\{ \ln(N)\} -2 \ell\end{aligned}\end{align} \]</div>
+<span class="eqno">(8.3.3)<a class="headerlink" href="#equation-glm-source-content-37" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}AICc &amp;= 2\frac{p(p+1)}{N-p-1}+ 2p -2 \ell\\AIChq &amp;= 2p\ln\{ \ln(N)\} -2 \ell\end{aligned}\end{align} \]</div>
 <p>我们如何确定两个 <code class="docutils literal notranslate"><span class="pre">AIC</span></code> 统计数据之间的差异是否足够大，足以使我们得出结论，一个模型比另一个模型更合适？
 特别是，具有较低 <code class="docutils literal notranslate"><span class="pre">AIC</span></code> 统计量的模型是否比其他模型更受青睐？
 尽管我们知道具有较小 <code class="docutils literal notranslate"><span class="pre">AIC</span></code> 的模型是更可取的，但尚无可用于计算p-值的特定统计检验。
 <code class="docutils literal notranslate"><span class="pre">Hilbe（2009）</span></code> 根据模拟研究设计了一个主观表，可用于做出比较无标度 <code class="docutils literal notranslate"><span class="pre">AIC</span></code> 度量的决策。</p>
-<div class="figure align-center" id="fg-me-saturated-0014">
+<figure class="align-center" id="fg-me-saturated-0014">
 <a class="reference internal image-reference" href="../../../_images/me_saturated_0014.jpg"><img alt="../../../_images/me_saturated_0014.jpg" src="../../../_images/me_saturated_0014.jpg" style="width: 698.4000000000001px; height: 181.60000000000002px;" /></a>
-</div>
-</div>
-<div class="section" id="bic">
-<h3><span class="section-number">8.3.2. </span>BIC<a class="headerlink" href="#bic" title="永久链接至标题">¶</a></h3>
+</figure>
+</section>
+<section id="bic">
+<h3><span class="section-number">8.3.2. </span>BIC<a class="headerlink" href="#bic" title="永久链接至标题"></a></h3>
 <p>在统计中，贝叶斯信息准则（BIC）或Schwarz信息准则（也称为SIC，SBC，SBIC）
 是用于在有限的一组模型中选择模型的标准，<code class="docutils literal notranslate"><span class="pre">BIC</span></code> 最低的模型是首选。
 它部分基于似然函数，并且与 <code class="docutils literal notranslate"><span class="pre">AIC</span></code> 密切相关。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-38">
-<span class="eqno">(8.3.4)<a class="headerlink" href="#equation-glm-source-content-38" title="公式的永久链接">¶</a></span>\[BIC_{\ell} = p\ln(N) - 2 \ell\]</div>
+<span class="eqno">(8.3.4)<a class="headerlink" href="#equation-glm-source-content-38" title="公式的永久链接"></a></span>\[BIC_{\ell} = p\ln(N) - 2 \ell\]</div>
 <p>与 <code class="docutils literal notranslate"><span class="pre">AIC</span></code> 相反，<code class="docutils literal notranslate"><span class="pre">BIC</span></code> 包含的惩罚项随着样本数量的增加而变得更加严格。，
 该特征反映了可用于检测重要性的能力。
 <code class="docutils literal notranslate"><span class="pre">Raftery</span> <span class="pre">(1995)</span></code> 提出了一个基于偏差版本的 <code class="docutils literal notranslate"><span class="pre">BIC</span></code>，
 <code class="docutils literal notranslate"><span class="pre">Raftery</span></code> 的目的是使用替代版本的 <code class="docutils literal notranslate"><span class="pre">BIC</span></code> 在 <code class="docutils literal notranslate"><span class="pre">GLM</span></code> 模型之间进行选择。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-39">
-<span class="eqno">(8.3.5)<a class="headerlink" href="#equation-glm-source-content-39" title="公式的永久链接">¶</a></span>\[BIC_D = D - p \ln(N)\]</div>
+<span class="eqno">(8.3.5)<a class="headerlink" href="#equation-glm-source-content-39" title="公式的永久链接"></a></span>\[BIC_D = D - p \ln(N)\]</div>
 <p>当比较非嵌套模型时，可以根据两个模型的 <code class="docutils literal notranslate"><span class="pre">BIC</span></code> 统计数据之间的差的绝对值来评估模型的偏好程度。
 <code class="docutils literal notranslate"><span class="pre">Raftery（1995）</span></code> 给出的用于确定相对偏好的量表。</p>
-<div class="figure align-center" id="fg-me-saturated-0015">
+<figure class="align-center" id="fg-me-saturated-0015">
 <a class="reference internal image-reference" href="../../../_images/me_saturated_0015.jpg"><img alt="../../../_images/me_saturated_0015.jpg" src="../../../_images/me_saturated_0015.jpg" style="width: 441.6px; height: 190.4px;" /></a>
-</div>
-</div>
-</div>
-</div>
+</figure>
+</section>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="influence.html" class="btn btn-neutral float-right" title="9. 模型检验" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="../%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/estimate.html" class="btn btn-neutral float-left" title="7. 参数估计" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/estimate.html" class="btn btn-neutral float-left" title="7. 参数估计" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="influence.html" class="btn btn-neutral float-right" title="9. 模型检验" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2018, zhangzhenhu(acmtiger@outlook.com) 禁止一切形式的转载！.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
+  
 
 
     <script src="https://utteranc.es/client.js"
@@ -1722,42 +1643,16 @@ O’Hara Hines和Carter（1993）讨论了这些残差在评估模型拟合中�
 
 
 
-  <div role="contentinfo">
-    <p>
-        &#169; 版权所有 2018, zhangzhenhu(acmtiger@outlook.com) 禁止一切形式的转载！.
-
-    </p>
-  </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-
-
-
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

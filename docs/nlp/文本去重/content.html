@@ -1,99 +1,51 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="zh-CN" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>1. 文本去重 &mdash; 张振虎的博客 张振虎 文档</title>
-  
-
-  
-  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
     <link rel="canonical" href="https://zhangzhenhu.github.io/blog/nlp/文本去重/content.html" />
-
-  
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
         <script src="../../_static/translations.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2.7.7/unpacked/MathJax.min.js"></script>
         <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"Macros": {"RR": "{\\bf R}", "bold": ["{\\bf #1}", 1]}}})</script>
-    
-    <script type="text/javascript" src="../../_static/js/theme.js"></script>
-
-    
+    <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../genindex.html" />
     <link rel="search" title="搜索" href="../../search.html" />
     <link rel="next" title="2. Attention&amp;Transformer&amp;Bert 简介" href="../bert/content.html" />
     <link rel="prev" title="自然语言处理" href="../index.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../../index.html" class="icon icon-home"> 张振虎的博客
-          
-
-          
           </a>
-
-          
-            
-            
               <div class="version">
                 acmtiger@outlook.com
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="在文档中搜索" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">目录:</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">目录:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../glm/source/index.html">广义线性模型</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../glm/source/%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80/content.html">1. 概率基础</a><ul>
@@ -141,7 +93,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#id2">3.1. 统计量和充分统计量</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-sample-distribution">3.2. 抽样分布</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-sample-distribution-normal">3.2.1. 正态分布</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#t">3.2.2. t分布</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#t">3.2.2. 学生t分布</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#id5">3.2.3. 卡方分布</a></li>
 </ul>
 </li>
@@ -746,7 +698,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../audio/feature.html#id18">1.5. 分帧与加窗</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../audio/feature.html#id19">1.5.1. 预加重处理</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../audio/feature.html#id20">1.5.2. 分帧与加窗</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../audio/feature.html#id20">1.5.2. 分帧与加窗处理</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../audio/feature.html#id21">1.6. 声音的感官度量</a><ul>
@@ -788,26 +740,26 @@
 <li class="toctree-l2"><a class="reference internal" href="../../edm/bkt.html">1. 贝叶斯知识追踪(Bayesian Knowledge Tracing,BKT)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../edm/bkt.html#id1">1.1. 简介</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../edm/bkt.html#hidden-markov-model-hmm">1.2. 隐马尔科夫模型(Hidden Markov Model,HMM)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../edm/bkt.html#id5">1.3. 贝叶斯知识追踪(Bayesian Knowledge Tracing,BKT)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../edm/bkt.html#bayesian-knowledge-tracing">1.3. 贝叶斯知识追踪(Bayesian Knowledge Tracing)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../edm/bkt.html#bkt">1.3.1. BKT的参数估计</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../edm/bkt.html#item-response-theory-irt">1.4. 项目反映理论(Item Response Theory,IRT)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../edm/bkt.html#bktirt">1.5. BKT结合IRT</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../edm/bkt.html#id6">1.6. 实验</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../edm/bkt.html#id7">1.6.1. 数据集</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../edm/bkt.html#id8">1.6.2. 实验方法</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../edm/bkt.html#id9">1.6.3. 实验结果</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../edm/bkt.html#id10">1.6.4. 项目代码</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../edm/bkt.html#id5">1.6. 实验</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../edm/bkt.html#id6">1.6.1. 数据集</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../edm/bkt.html#id7">1.6.2. 实验方法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../edm/bkt.html#id8">1.6.3. 实验结果</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../edm/bkt.html#id9">1.6.4. 项目代码</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../edm/bkt.html#id11">1.7. 未来工作</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../edm/bkt.html#id12">1.7.1. 题目难度的计算</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../edm/bkt.html#id10">1.7. 未来工作</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../edm/bkt.html#id11">1.7.1. 题目难度的计算</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../edm/bkt.html#irt">1.7.2. 多参数IRT模型</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../edm/bkt.html#id13">1.7.3. 参数估计算法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../edm/bkt.html#id12">1.7.3. 参数估计算法</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../edm/bkt.html#id14">1.8. 参考文献</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../edm/bkt.html#id13">1.8. 参考文献</a></li>
 </ul>
 </li>
 </ul>
@@ -904,77 +856,35 @@
 </li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../index.html">张振虎的博客</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="../index.html">自然语言处理</a> &raquo;</li>
-        
       <li><span class="section-number">1. </span>文本去重</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
-            <a href="../../_sources/nlp/文本去重/content.rst.txt" rel="nofollow"> View page source</a>
-          
-        
+            <a href="../../_sources/nlp/文本去重/content.rst.txt" rel="nofollow"> 查看页面源码</a>
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="id1">
-<h1><span class="section-number">1. </span>文本去重<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
-<div class="section" id="id2">
-<h2><span class="section-number">1.1. </span>背景<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+             
+  <section id="id1">
+<h1><span class="section-number">1. </span>文本去重<a class="headerlink" href="#id1" title="永久链接至标题"></a></h1>
+<section id="id2">
+<h2><span class="section-number">1.1. </span>背景<a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
 <p>最近有两个项目需要文本去重功能，一个是知识库，一个是话术库。
 两个场景非常相似，都是在内容录入的时候检查一下库中是否已经存在相似的内容，
 如果不存在直接写入即可。
@@ -986,9 +896,9 @@
 这个功能虽然不复杂，但秉着严谨的态度，我们还是做了一些技术调研，
 先整理一下行业内流行的技术方案，然后在针对我们的场景做针对性的技术方案。
 本文前半部分是行业内相关的一些技术综述，后半部分是针对我们的场景做的技术方案。</p>
-</div>
-<div class="section" id="id3">
-<h2><span class="section-number">1.2. </span>技术思路<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="id3">
+<h2><span class="section-number">1.2. </span>技术思路<a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
 <p>我们首先理一下整个技术思路。</p>
 <p>对于文本去重，显然最核心的一点是计算文本间的相似度。
 关于相似度的计算，在我们的场景下，并不需要语义层面的理解，只考虑文字层面的相似性即可，
@@ -1005,29 +915,29 @@
 行业内有很多相关的技术方案，
 下面先给出行业内流行的一些技术，
 最后讨论下针对我们场景的方案。</p>
-</div>
-<div class="section" id="id4">
-<h2><span class="section-number">1.3. </span>相似（距离）算法<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="id4">
+<h2><span class="section-number">1.3. </span>相似（距离）算法<a class="headerlink" href="#id4" title="永久链接至标题"></a></h2>
 <p>我们首先回归一下常见的距离算法，定义符号 <span class="math notranslate nohighlight">\(x\)</span> 和 <span class="math notranslate nohighlight">\(y\)</span> 表示两个向量，
 <span class="math notranslate nohighlight">\(d\)</span> 表示两个向量的距离或者相似度。</p>
-<div class="section" id="euclidean-distance">
-<h3><span class="section-number">1.3.1. </span>欧氏距离（Euclidean Distance）<a class="headerlink" href="#euclidean-distance" title="永久链接至标题">¶</a></h3>
+<section id="euclidean-distance">
+<h3><span class="section-number">1.3.1. </span>欧氏距离（Euclidean Distance）<a class="headerlink" href="#euclidean-distance" title="永久链接至标题"></a></h3>
 <p>欧氏距离，又名欧几里德距离，是最常见的向量距离，定义为</p>
 <div class="math notranslate nohighlight" id="equation-nlp-content-0">
-<span class="eqno">(1.3.15)<a class="headerlink" href="#equation-nlp-content-0" title="公式的永久链接">¶</a></span>\[d = \sqrt{\sum_{i}^n (x_i - y_i)^2}\]</div>
+<span class="eqno">(1.3.15)<a class="headerlink" href="#equation-nlp-content-0" title="公式的永久链接"></a></span>\[d = \sqrt{\sum_{i}^n (x_i - y_i)^2}\]</div>
 <p>欧几里德距离就是两个向量空间中两个点之间的直线距离。</p>
-</div>
-<div class="section" id="minkowski-distance">
-<h3><span class="section-number">1.3.2. </span>闵科夫斯基距离（Minkowski Distance）<a class="headerlink" href="#minkowski-distance" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="minkowski-distance">
+<h3><span class="section-number">1.3.2. </span>闵科夫斯基距离（Minkowski Distance）<a class="headerlink" href="#minkowski-distance" title="永久链接至标题"></a></h3>
 <div class="math notranslate nohighlight" id="equation-nlp-content-1">
-<span class="eqno">(1.3.16)<a class="headerlink" href="#equation-nlp-content-1" title="公式的永久链接">¶</a></span>\[d = \sqrt[p]{\sum_{i}^n (x_i - y_i)^p}\]</div>
+<span class="eqno">(1.3.16)<a class="headerlink" href="#equation-nlp-content-1" title="公式的永久链接"></a></span>\[d = \sqrt[p]{\sum_{i}^n (x_i - y_i)^p}\]</div>
 <p>显然闵科夫斯基距离是欧氏距离的扩展。</p>
-</div>
-<div class="section" id="manhattan-distance">
-<h3><span class="section-number">1.3.3. </span>曼哈顿距离（Manhattan Distance）<a class="headerlink" href="#manhattan-distance" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="manhattan-distance">
+<h3><span class="section-number">1.3.3. </span>曼哈顿距离（Manhattan Distance）<a class="headerlink" href="#manhattan-distance" title="永久链接至标题"></a></h3>
 <p>曼哈顿距离的定义为：</p>
 <div class="math notranslate nohighlight" id="equation-nlp-content-2">
-<span class="eqno">(1.3.17)<a class="headerlink" href="#equation-nlp-content-2" title="公式的永久链接">¶</a></span>\[d = \sum_{i}^n |x_i - y_i|\]</div>
+<span class="eqno">(1.3.17)<a class="headerlink" href="#equation-nlp-content-2" title="公式的永久链接"></a></span>\[d = \sum_{i}^n |x_i - y_i|\]</div>
 <p>从公式可以看出，曼哈顿距离就是两个向量每个维度上差值的求和。</p>
 <p>曼哈顿距离和欧几里得距离的区别就是：</p>
 <ul class="simple">
@@ -1038,29 +948,31 @@
 假设在下方棋盘一样的图示中，白色方块表示为建筑物，灰色线条表示为道路，
 那么其中绿色线路表示为黑色两点之间的欧几里德距离（两点之间直线最短），
 而剩下的红蓝黄三色线路表示的均为为曼哈顿距离：</p>
-<div class="figure align-center" id="id10">
+<figure class="align-center" id="id10">
 <a class="reference internal image-reference" href="../../_images/曼哈顿距离.png"><img alt="../../_images/曼哈顿距离.png" src="../../_images/曼哈顿距离.png" style="width: 240.0px; height: 240.0px;" /></a>
-<p class="caption"><span class="caption-number">图 1.3.1 </span><span class="caption-text">二维空间的曼哈顿距离</span><a class="headerlink" href="#id10" title="永久链接至图片">¶</a></p>
-</div>
-</div>
-<div class="section" id="chebyshev-distance">
-<h3><span class="section-number">1.3.4. </span>切比雪夫距离（Chebyshev Distance ）<a class="headerlink" href="#chebyshev-distance" title="永久链接至标题">¶</a></h3>
+<figcaption>
+<p><span class="caption-number">图 1.3.1 </span><span class="caption-text">二维空间的曼哈顿距离</span><a class="headerlink" href="#id10" title="永久链接至图片"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="chebyshev-distance">
+<h3><span class="section-number">1.3.4. </span>切比雪夫距离（Chebyshev Distance ）<a class="headerlink" href="#chebyshev-distance" title="永久链接至标题"></a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">Chebyshev</span> <span class="pre">distance</span></code> 得名自俄罗斯数学家切比雪夫，切比雪夫距离的定义为：</p>
 <div class="math notranslate nohighlight" id="equation-nlp-content-3">
-<span class="eqno">(1.3.18)<a class="headerlink" href="#equation-nlp-content-3" title="公式的永久链接">¶</a></span>\[d = max(|x_i,y_i|)\]</div>
+<span class="eqno">(1.3.18)<a class="headerlink" href="#equation-nlp-content-3" title="公式的永久链接"></a></span>\[d = max(|x_i,y_i|)\]</div>
 <p>意思就是，x 和 y 两个向量，对应元素之差的最大值的绝对值。</p>
-</div>
-<div class="section" id="mahalanobis-distance">
-<h3><span class="section-number">1.3.5. </span>马氏距离(Mahalanobis Distance)<a class="headerlink" href="#mahalanobis-distance" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="mahalanobis-distance">
+<h3><span class="section-number">1.3.5. </span>马氏距离(Mahalanobis Distance)<a class="headerlink" href="#mahalanobis-distance" title="永久链接至标题"></a></h3>
 <div class="math notranslate nohighlight" id="equation-nlp-content-4">
-<span class="eqno">(1.3.19)<a class="headerlink" href="#equation-nlp-content-4" title="公式的永久链接">¶</a></span>\[d = \sqrt{(x-y)^T S^{-1} (x-y)}\]</div>
+<span class="eqno">(1.3.19)<a class="headerlink" href="#equation-nlp-content-4" title="公式的永久链接"></a></span>\[d = \sqrt{(x-y)^T S^{-1} (x-y)}\]</div>
 <p>其中 <span class="math notranslate nohighlight">\(S\)</span> 是 <span class="math notranslate nohighlight">\(x\)</span> 和 <span class="math notranslate nohighlight">\(y\)</span> 的协方差。</p>
-</div>
-<div class="section" id="cosine-similarity">
-<h3><span class="section-number">1.3.6. </span>余弦夹角相似度(Cosine Similarity)<a class="headerlink" href="#cosine-similarity" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="cosine-similarity">
+<h3><span class="section-number">1.3.6. </span>余弦夹角相似度(Cosine Similarity)<a class="headerlink" href="#cosine-similarity" title="永久链接至标题"></a></h3>
 <p>余弦夹角相似度是两个向量夹角的余弦值，计算公式为</p>
 <div class="math notranslate nohighlight" id="equation-nlp-content-5">
-<span class="eqno">(1.3.20)<a class="headerlink" href="#equation-nlp-content-5" title="公式的永久链接">¶</a></span>\[cos \theta = \frac{x \cdot y}{||x|| \times ||y||}\]</div>
+<span class="eqno">(1.3.20)<a class="headerlink" href="#equation-nlp-content-5" title="公式的永久链接"></a></span>\[cos \theta = \frac{x \cdot y}{||x|| \times ||y||}\]</div>
 <p>两个向量的夹角 <span class="math notranslate nohighlight">\(\theta\)</span> 的范围是 <span class="math notranslate nohighlight">\([0,180]\)</span>
 ，其余弦值得范围是 <span class="math notranslate nohighlight">\([-1,1]\)</span>,</p>
 <ul class="simple">
@@ -1068,9 +980,9 @@
 <li><p><span class="math notranslate nohighlight">\(cos \theta =0\)</span> 意味着两个向量方向垂直，一般看作不相关。</p></li>
 <li><p><span class="math notranslate nohighlight">\(cos \theta &gt;0\)</span> 意味着两个向量方向同向。</p></li>
 </ul>
-</div>
-<div class="section" id="hamming-distance">
-<h3><span class="section-number">1.3.7. </span>汉明距离（Hamming Distance）<a class="headerlink" href="#hamming-distance" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="hamming-distance">
+<h3><span class="section-number">1.3.7. </span>汉明距离（Hamming Distance）<a class="headerlink" href="#hamming-distance" title="永久链接至标题"></a></h3>
 <p>海明距离，又名汉明距离，为两串向量中，对应元素 <strong>不一样的个数</strong>。
 比如 <code class="docutils literal notranslate"><span class="pre">101010</span></code> 与 <code class="docutils literal notranslate"><span class="pre">101011</span></code> 的最后一位不一样，那么汉明距离即为1,，
 同理 <code class="docutils literal notranslate"><span class="pre">000</span></code> 与 <code class="docutils literal notranslate"><span class="pre">111</span></code> 的汉明距离为3。</p>
@@ -1083,26 +995,26 @@ Python 中的 <code class="docutils literal notranslate"><span class="pre">hammi
 <p class="admonition-title">小技巧</p>
 <p>如果两个向量长度相同，汉明距离可以是异或运算结果中1的个数。</p>
 </div>
-</div>
-<div class="section" id="jaccard">
-<h3><span class="section-number">1.3.8. </span>Jaccard 系数<a class="headerlink" href="#jaccard" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="jaccard">
+<h3><span class="section-number">1.3.8. </span>Jaccard 系数<a class="headerlink" href="#jaccard" title="永久链接至标题"></a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">Jaccard</span></code> 系数计算的是两个集合的相似性，
 两个集合中，交集的个数/并集的个数。</p>
 <p>定义集合A和B的的 <code class="docutils literal notranslate"><span class="pre">Jaccard</span></code> 系数为</p>
 <div class="math notranslate nohighlight" id="equation-nlp-content-6">
-<span class="eqno">(1.3.21)<a class="headerlink" href="#equation-nlp-content-6" title="公式的永久链接">¶</a></span>\[\frac{|A \cap B|}{ |A \cup B|}\]</div>
+<span class="eqno">(1.3.21)<a class="headerlink" href="#equation-nlp-content-6" title="公式的永久链接"></a></span>\[\frac{|A \cap B|}{ |A \cup B|}\]</div>
 <p>假设有如下集合，</p>
 <div class="math notranslate nohighlight" id="equation-nlp-content-7">
-<span class="eqno">(1.3.22)<a class="headerlink" href="#equation-nlp-content-7" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}S_1 &amp;= \{ 1,2,5\}\\S_2 &amp;= \{ 3\}\\S_3 &amp;= \{ 2,3,4,6\}\\S_4 &amp;= \{ 1,4,6\}\end{aligned}\end{align} \]</div>
+<span class="eqno">(1.3.22)<a class="headerlink" href="#equation-nlp-content-7" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}S_1 &amp;= \{ 1,2,5\}\\S_2 &amp;= \{ 3\}\\S_3 &amp;= \{ 2,3,4,6\}\\S_4 &amp;= \{ 1,4,6\}\end{aligned}\end{align} \]</div>
 <p>集合 <span class="math notranslate nohighlight">\(S_1\)</span> 和 <span class="math notranslate nohighlight">\(S_3\)</span> 之间的 <code class="docutils literal notranslate"><span class="pre">Jaccard</span> <span class="pre">similarity</span></code> 为</p>
 <div class="math notranslate nohighlight" id="equation-nlp-content-8">
-<span class="eqno">(1.3.23)<a class="headerlink" href="#equation-nlp-content-8" title="公式的永久链接">¶</a></span>\[\mathop{JS}(S_1,S_3) = \frac{|\{ 2 \}|}{ | \{ 1,2,3,4,5,6\}| } = \frac{1}{6}\]</div>
+<span class="eqno">(1.3.23)<a class="headerlink" href="#equation-nlp-content-8" title="公式的永久链接"></a></span>\[\mathop{JS}(S_1,S_3) = \frac{|\{ 2 \}|}{ | \{ 1,2,3,4,5,6\}| } = \frac{1}{6}\]</div>
 <p>当处理文本时，两个集合可以是两个文本的 <strong>字</strong> 集合，也可以是分词后的 <strong>词</strong> 集合，
 如果词集合太大，也可以先用 <code class="docutils literal notranslate"><span class="pre">TF-IDF</span></code> 筛选出比较重要的关键词作为词集。</p>
 <p>Jaccard系数和汉明距离类似的，只不过汉明距离考虑位置信息，而Jaccard系数不考虑位置。</p>
-</div>
-<div class="section" id="id5">
-<h3><span class="section-number">1.3.9. </span>编辑距离<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id5">
+<h3><span class="section-number">1.3.9. </span>编辑距离<a class="headerlink" href="#id5" title="永久链接至标题"></a></h3>
 <p>设有字符串A和B，B为模式串，现给定以下操作：</p>
 <ul class="simple">
 <li><p>从字符串中删除一个字符；</p></li>
@@ -1110,17 +1022,19 @@ Python 中的 <code class="docutils literal notranslate"><span class="pre">hammi
 <li><p>从字符串中替换一个字符。</p></li>
 </ul>
 <p>通过以上三种操作，将字符串A编辑为模式串B所需的最小操作数称为A和B的最短编辑距离，记为ED(A,B)。</p>
-<div class="figure align-center" id="id11">
+<figure class="align-center" id="id11">
 <a class="reference internal image-reference" href="../../_images/编辑距离.gif"><img alt="../../_images/编辑距离.gif" src="../../_images/编辑距离.gif" style="width: 438.0px; height: 268.0px;" /></a>
-<p class="caption"><span class="caption-number">图 1.3.2 </span><span class="caption-text">编辑距离</span><a class="headerlink" href="#id11" title="永久链接至图片">¶</a></p>
-</div>
-</div>
-<div class="section" id="id6">
-<h3><span class="section-number">1.3.10. </span>最长公共字串<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h3>
+<figcaption>
+<p><span class="caption-number">图 1.3.2 </span><span class="caption-text">编辑距离</span><a class="headerlink" href="#id11" title="永久链接至图片"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="id6">
+<h3><span class="section-number">1.3.10. </span>最长公共字串<a class="headerlink" href="#id6" title="永久链接至标题"></a></h3>
 <p>最长公共子串（Longest Common Substring）： 是指两个字符串中最长连续相同的子串长度。</p>
-</div>
-<div class="section" id="id7">
-<h3><span class="section-number">1.3.11. </span>最长公共子序列<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id7">
+<h3><span class="section-number">1.3.11. </span>最长公共子序列<a class="headerlink" href="#id7" title="永久链接至标题"></a></h3>
 <p>(Longest Common Subsequence, LCS)</p>
 <p>一个字符串的 <strong>子序列</strong> 是指这样一个新的字符串：它是由原字符串在不改变字符的相对顺序的情况下删除某些字符（也可以不删除任何字符）后组成的新字符串。</p>
 <p><strong>例如</strong>，”ace” 是 “abcde” 的子序列，但 “aec” 不是 “abcde” 的子序列。</p>
@@ -1135,14 +1049,16 @@ Python 中的 <code class="docutils literal notranslate"><span class="pre">hammi
 <p class="admonition-title">小技巧</p>
 <p>最长公共子串（Longest Common Substring）与最长公共子序列（Longest Common Subsequence）的区别： 子串要求在原字符串中是连续的，而子序列则只需保持相对顺序，并不要求连续。</p>
 </div>
-<div class="figure align-center" id="id12">
+<figure class="align-center" id="id12">
 <a class="reference internal image-reference" href="../../_images/子序列.png"><img alt="../../_images/子序列.png" src="../../_images/子序列.png" style="width: 468.0px; height: 394.40000000000003px;" /></a>
-<p class="caption"><span class="caption-number">图 1.3.3 </span><span class="caption-text">子序列和子串</span><a class="headerlink" href="#id12" title="永久链接至图片">¶</a></p>
-</div>
-</div>
-</div>
-<div class="section" id="id8">
-<h2><span class="section-number">1.4. </span>文本去重<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h2>
+<figcaption>
+<p><span class="caption-number">图 1.3.3 </span><span class="caption-text">子序列和子串</span><a class="headerlink" href="#id12" title="永久链接至图片"></a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+<section id="id8">
+<h2><span class="section-number">1.4. </span>文本去重<a class="headerlink" href="#id8" title="永久链接至标题"></a></h2>
 <p>在文本去重这个场景，我们无需关注语义，只需要关注文字上是否相似即可，
 因此上述众多相似度算法中，<code class="docutils literal notranslate"><span class="pre">Jaccard</span> <span class="pre">similarity</span></code> 是最合适的，
 如果有文档内容对比标红的需求，可以用 <code class="docutils literal notranslate"><span class="pre">最长公共子序列</span></code> 实现。</p>
@@ -1152,8 +1068,8 @@ Python 中的 <code class="docutils literal notranslate"><span class="pre">hammi
 </ul>
 <p>在数据规模较小时，上述方案没有问题，但是当面临超大规模的数据时，
 <code class="docutils literal notranslate"><span class="pre">Jaccard</span> <span class="pre">similarity</span></code> 在空间和时间上都会存在瓶颈。</p>
-<div class="section" id="kshingle">
-<h3><span class="section-number">1.4.1. </span>KShingle算法<a class="headerlink" href="#kshingle" title="永久链接至标题">¶</a></h3>
+<section id="kshingle">
+<h3><span class="section-number">1.4.1. </span>KShingle算法<a class="headerlink" href="#kshingle" title="永久链接至标题"></a></h3>
 <p>首要的一个问题是如何把一篇文档转换成一个集合，<cite>K-shingle`</cite> 就一种利用滑动窗口对文档进行切片，
 切片后的片段组成集合作为这篇文档的特征集合。</p>
 <p>对于一篇文档而言， <code class="docutils literal notranslate"><span class="pre">K-shingle</span></code> 定义为文档中 <strong>连续</strong> 的 <span class="math notranslate nohighlight">\(K\)</span> 个词汇组成的词组，也可以叫做 <code class="docutils literal notranslate"><span class="pre">K-gram</span></code>，
@@ -1167,9 +1083,9 @@ Python 中的 <code class="docutils literal notranslate"><span class="pre">hammi
 <div><p><code class="docutils literal notranslate"><span class="pre">K-shingle</span></code> 的意义，可以多少保留一点词序信息，但个人感觉意义不大。</p>
 </div></blockquote>
 </div>
-</div>
-<div class="section" id="minhash">
-<h3><span class="section-number">1.4.2. </span>Minhash算法<a class="headerlink" href="#minhash" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="minhash">
+<h3><span class="section-number">1.4.2. </span>Minhash算法<a class="headerlink" href="#minhash" title="永久链接至标题"></a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">Jaccard</span> <span class="pre">similarity</span></code> 看上去很简单，但是当文档比较长时，文档的特征集合比较大，尤其是
 <code class="docutils literal notranslate"><span class="pre">K-shingle</span></code> 集合一般比较大，此时就可能面临时间和空间的双重瓶颈。</p>
 <p>此时一个思路就是减小文档特征集合的大小，以此加速 <code class="docutils literal notranslate"><span class="pre">Jaccard</span> <span class="pre">similarity</span></code> 的过程。
@@ -1191,14 +1107,14 @@ Python 中的 <code class="docutils literal notranslate"><span class="pre">hammi
 其中 <span class="math notranslate nohighlight">\(a\)</span> 和 <span class="math notranslate nohighlight">\(b\)</span> 可以随机得到，不同的  <span class="math notranslate nohighlight">\(a\)</span> 和 <span class="math notranslate nohighlight">\(b\)</span> 表示一个不同的 <span class="math notranslate nohighlight">\(h(x)\)</span>
 。<span class="math notranslate nohighlight">\(c\)</span> 是一个大于 <span class="math notranslate nohighlight">\(max(x)\)</span> 的 <strong>质数</strong>。</p>
 <div class="math notranslate nohighlight" id="equation-nlp-content-9">
-<span class="eqno">(1.4.18)<a class="headerlink" href="#equation-nlp-content-9" title="公式的永久链接">¶</a></span>\[h(x) = (a x +b)% c\]</div>
+<span class="eqno">(1.4.18)<a class="headerlink" href="#equation-nlp-content-9" title="公式的永久链接"></a></span>\[h(x) = (a x +b)% c\]</div>
 <div class="admonition note">
 <p class="admonition-title">注解</p>
 <p>感觉就是对每个集合 <span class="math notranslate nohighlight">\(S\)</span> 中的元素进行了一个随机负采样！显然这只能作为文档原始 <code class="docutils literal notranslate"><span class="pre">Jaccard</span> <span class="pre">similarity</span></code> 的一个近似估计值。</p>
 </div>
-</div>
-<div class="section" id="simhash">
-<h3><span class="section-number">1.4.3. </span>simhash<a class="headerlink" href="#simhash" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="simhash">
+<h3><span class="section-number">1.4.3. </span>simhash<a class="headerlink" href="#simhash" title="永久链接至标题"></a></h3>
 <p>本节内容转自： <a class="reference external" href="https://www.cnblogs.com/maybe2030/p/5203186.html">https://www.cnblogs.com/maybe2030/p/5203186.html</a></p>
 <p><code class="docutils literal notranslate"><span class="pre">SimHash</span></code> 是 <code class="docutils literal notranslate"><span class="pre">google</span></code> 用来处理海量文本去重的算法。
 <code class="docutils literal notranslate"><span class="pre">SimHash</span></code> 可以为一个文档生成成一个 64 位的签名（或者指纹）。
@@ -1219,27 +1135,31 @@ Python 中的 <code class="docutils literal notranslate"><span class="pre">hammi
 小于0的位记为 0。最后算出结果为：“1 0 1 0 1 1”。</p></li>
 </ol>
 <p>整个过程的流程图为：</p>
-<div class="figure align-center" id="id13">
+<figure class="align-center" id="id13">
 <a class="reference internal image-reference" href="../../_images/simhash.png"><img alt="../../_images/simhash.png" src="../../_images/simhash.png" style="width: 536.1999999999999px; height: 232.39999999999998px;" /></a>
-<p class="caption"><span class="caption-number">图 1.4.1 </span><span class="caption-text">SimHash 算法过程</span><a class="headerlink" href="#id13" title="永久链接至图片">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">图 1.4.1 </span><span class="caption-text">SimHash 算法过程</span><a class="headerlink" href="#id13" title="永久链接至图片"></a></p>
+</figcaption>
+</figure>
 <p>每篇文档算出签名S后，再计算两个签名的汉明距离，汉明距离是这两个二进制数异或后1的个数。
 根据经验，对于64位的 <code class="docutils literal notranslate"><span class="pre">SimHash</span></code> ，汉明距离在3以内的都可以认为相似度比较高，认为这两个文档基本相同。
 根据这个特点，可以把 <code class="docutils literal notranslate"><span class="pre">SimHash</span></code> 签名分成4块后分别进行索引，提高检索的效率。</p>
 <p>以64位的签名来说，把它以每16位划分块，共4块。
 如果两个签名海明距离小于等于3，则至少有一个16位块完全相同。
 但是我们不知道具体是哪两个块相同，所以要进行枚举，这里只需要枚举4次。</p>
-<div class="figure align-center" id="id14">
+<figure class="align-center" id="id14">
 <a class="reference internal image-reference" href="../../_images/simhash2.png"><img alt="../../_images/simhash2.png" src="../../_images/simhash2.png" style="width: 539.6999999999999px; height: 418.59999999999997px;" /></a>
-<p class="caption"><span class="caption-number">图 1.4.2 </span><span class="caption-text">SimHash 签名分捅检索的过程</span><a class="headerlink" href="#id14" title="永久链接至图片">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">图 1.4.2 </span><span class="caption-text">SimHash 签名分捅检索的过程</span><a class="headerlink" href="#id14" title="永久链接至图片"></a></p>
+</figcaption>
+</figure>
 <ol class="arabic simple">
 <li><p>当文本内容较长时，使用 <code class="docutils literal notranslate"><span class="pre">SimHash</span></code> 准确率很高，<code class="docutils literal notranslate"><span class="pre">SimHash</span></code> 处理短文本内容准确率往往不能得到保证；</p></li>
 <li><p>文本内容中每个term对应的权重如何确定要根据实际的项目需求，一般是可以使用IDF权重来进行计算。</p></li>
 </ol>
-</div>
-<div class="section" id="ksentence">
-<h3><span class="section-number">1.4.4. </span>KSentence算法<a class="headerlink" href="#ksentence" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="ksentence">
+<h3><span class="section-number">1.4.4. </span>KSentence算法<a class="headerlink" href="#ksentence" title="永久链接至标题"></a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">KSentence</span></code> 算法基于一个朴素的假设：两个重复文本中，最长的K个句子应该是完全一样的。</p>
 <dl class="field-list simple">
 <dt class="field-odd">算法步骤</dt>
@@ -1256,24 +1176,31 @@ Python 中的 <code class="docutils literal notranslate"><span class="pre">hammi
 <li><p><code class="docutils literal notranslate"><span class="pre">KSentence</span></code> 算法的假设很严格，实验结果显示，<code class="docutils literal notranslate"><span class="pre">KSentence</span></code> 算法准确率较高，召回率低于 <code class="docutils literal notranslate"><span class="pre">Minhash</span></code> 和 <code class="docutils literal notranslate"><span class="pre">Simhash</span></code> 。</p></li>
 <li><p>算法实现简单，计算效率高，很容易并行化。算法对于具有固定格式的模板类文档具有很好的辨识能力，但对于抄袭后进行部分修改的文本识别度较低。</p></li>
 </ol>
-</div>
-</div>
-<div class="section" id="id9">
-<h2><span class="section-number">1.5. </span>话术去重<a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h2>
-</div>
-</div>
+</section>
+</section>
+<section id="id9">
+<h2><span class="section-number">1.5. </span>话术去重<a class="headerlink" href="#id9" title="永久链接至标题"></a></h2>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../bert/content.html" class="btn btn-neutral float-right" title="2. Attention&amp;Transformer&amp;Bert 简介" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="../index.html" class="btn btn-neutral float-left" title="自然语言处理" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../index.html" class="btn btn-neutral float-left" title="自然语言处理" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../bert/content.html" class="btn btn-neutral float-right" title="2. Attention&amp;Transformer&amp;Bert 简介" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2018, zhangzhenhu(acmtiger@outlook.com) 禁止一切形式的转载！.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
+  
 
 
     <script src="https://utteranc.es/client.js"
@@ -1286,42 +1213,16 @@ Python 中的 <code class="docutils literal notranslate"><span class="pre">hammi
 
 
 
-  <div role="contentinfo">
-    <p>
-        &#169; 版权所有 2018, zhangzhenhu(acmtiger@outlook.com) 禁止一切形式的转载！.
-
-    </p>
-  </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-
-
-
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

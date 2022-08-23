@@ -1,99 +1,51 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="zh-CN" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>6. 无向图(Undirected Graphical Models) &mdash; 张振虎的博客 张振虎 文档</title>
-  
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
     <link rel="canonical" href="https://zhangzhenhu.github.io/blog/probability_model/5.无向图_lecture_3.html" />
-
-  
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/translations.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2.7.7/unpacked/MathJax.min.js"></script>
         <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"Macros": {"RR": "{\\bf R}", "bold": ["{\\bf #1}", 1]}}})</script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
+    <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
     <link rel="next" title="7. 因子图" href="6.%E5%9B%A0%E5%AD%90%E5%9B%BE_lecture_4.html" />
     <link rel="prev" title="5. 有向图(Directed Graphical Models)" href="4.%E6%9C%89%E5%90%91%E5%9B%BE_lecture_2.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../index.html" class="icon icon-home"> 张振虎的博客
-          
-
-          
           </a>
-
-          
-            
-            
               <div class="version">
                 acmtiger@outlook.com
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="在文档中搜索" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">目录:</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">目录:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../glm/source/index.html">广义线性模型</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../glm/source/%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80/content.html">1. 概率基础</a><ul>
@@ -141,7 +93,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#id2">3.1. 统计量和充分统计量</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-sample-distribution">3.2. 抽样分布</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-sample-distribution-normal">3.2.1. 正态分布</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#t">3.2.2. t分布</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#t">3.2.2. 学生t分布</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#id5">3.2.3. 卡方分布</a></li>
 </ul>
 </li>
@@ -746,7 +698,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../audio/feature.html#id18">1.5. 分帧与加窗</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../audio/feature.html#id19">1.5.1. 预加重处理</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../audio/feature.html#id20">1.5.2. 分帧与加窗</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../audio/feature.html#id20">1.5.2. 分帧与加窗处理</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../audio/feature.html#id21">1.6. 声音的感官度量</a><ul>
@@ -788,26 +740,26 @@
 <li class="toctree-l2"><a class="reference internal" href="../edm/bkt.html">1. 贝叶斯知识追踪(Bayesian Knowledge Tracing,BKT)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id1">1.1. 简介</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#hidden-markov-model-hmm">1.2. 隐马尔科夫模型(Hidden Markov Model,HMM)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id5">1.3. 贝叶斯知识追踪(Bayesian Knowledge Tracing,BKT)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#bayesian-knowledge-tracing">1.3. 贝叶斯知识追踪(Bayesian Knowledge Tracing)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#bkt">1.3.1. BKT的参数估计</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#item-response-theory-irt">1.4. 项目反映理论(Item Response Theory,IRT)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#bktirt">1.5. BKT结合IRT</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id6">1.6. 实验</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id7">1.6.1. 数据集</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id8">1.6.2. 实验方法</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id9">1.6.3. 实验结果</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id10">1.6.4. 项目代码</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id5">1.6. 实验</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id6">1.6.1. 数据集</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id7">1.6.2. 实验方法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id8">1.6.3. 实验结果</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id9">1.6.4. 项目代码</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id11">1.7. 未来工作</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id12">1.7.1. 题目难度的计算</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id10">1.7. 未来工作</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id11">1.7.1. 题目难度的计算</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#irt">1.7.2. 多参数IRT模型</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id13">1.7.3. 参数估计算法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id12">1.7.3. 参数估计算法</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id14">1.8. 参考文献</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id13">1.8. 参考文献</a></li>
 </ul>
 </li>
 </ul>
@@ -904,89 +856,49 @@
 </li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">张振虎的博客</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="index_html.html">概率图</a> &raquo;</li>
-        
       <li><span class="section-number">6. </span>无向图(Undirected Graphical Models)</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
-            <a href="../_sources/probability_model/5.无向图_lecture_3.rst.txt" rel="nofollow"> View page source</a>
-          
-        
+            <a href="../_sources/probability_model/5.无向图_lecture_3.rst.txt" rel="nofollow"> 查看页面源码</a>
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="undirected-graphical-models">
-<h1><span class="section-number">6. </span>无向图(Undirected Graphical Models)<a class="headerlink" href="#undirected-graphical-models" title="永久链接至标题">¶</a></h1>
+             
+  <section id="undirected-graphical-models">
+<h1><span class="section-number">6. </span>无向图(Undirected Graphical Models)<a class="headerlink" href="#undirected-graphical-models" title="永久链接至标题"></a></h1>
 <p>有向图表达是变量之间的关系是单向关系，即一个影响另一个，比如因果关系。
 但很多时候变量之间的关系是互相影响的，这时候有向图将不是那么方便了。
 本章我们讨论概率图模型的另一类图模型–无向图模型。
 和有向图类似，我们对无向图的讨论，包括图模型的因子分解方式和条件独立性的表达。</p>
-<div class="section" id="id1">
-<h2><span class="section-number">6.1. </span>无向图的定义<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<section id="id1">
+<h2><span class="section-number">6.1. </span>无向图的定义<a class="headerlink" href="#id1" title="永久链接至标题"></a></h2>
 <p>一个无向图模型(Undirected Graphical Model)，又被称为马尔科夫随机场(MRF,markov random field)，
 也可以被称为马尔科夫网络(Markov network)。和有向图一样，图中的结点对应着随机变量，边(edge)对应着变量之间的关系，
 不一样是的无向图中边是没有方向(没有箭头)的。一个无向图模型是这样一个图 <span class="math notranslate nohighlight">\(\mathcal{G}=(\mathcal{V}, \mathcal{E})\)</span> ，<span class="math notranslate nohighlight">\(\mathcal{V}\)</span> 表示图中的结点(随机变量)集合，
 <span class="math notranslate nohighlight">\(\mathcal{E} \subset  \mathcal{V} \times  \mathcal{V}\)</span> 表示图中无向边集合。</p>
-<div class="figure align-center" id="id6">
+<figure class="align-center" id="id6">
 <a class="reference internal image-reference" href="../_images/3_2.png"><img alt="../_images/3_2.png" src="../_images/3_2.png" style="width: 247.79999999999998px; height: 151.5px;" /></a>
-<p class="caption"><span class="caption-number">图 6.1.1 </span><span class="caption-text">一个无向图</span><a class="headerlink" href="#id6" title="永久链接至图片">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">图 6.1.1 </span><span class="caption-text">一个无向图</span><a class="headerlink" href="#id6" title="永久链接至图片"></a></p>
+</figcaption>
+</figure>
 <div class="admonition important">
 <p class="admonition-title">重要</p>
 <p>有向图中的有向边表示两个变量的依赖关系，这种关系可以看成是因果、影响、依赖等等，是一个影响着另一个，<strong>对应着条件概率</strong> 。
@@ -995,32 +907,38 @@
 <p>无线图中的无向边表示变量间的”互相关系”，有时一些变量间互相影响会形成一个”团(clique)” 。
 一个 <strong>团(clique)</strong> 是图中一个全连接的结点子集，团中任意两个结点间都有边相连接。
 一个 <strong>最大团(maximal clique)</strong> 是一个不能再增加结点的团，最小的团就是图中一条边连接的两个结点组成的团。</p>
-<div class="figure align-center" id="id7">
+<figure class="align-center" id="id7">
 <span id="fg-3-a1"></span><a class="reference internal image-reference" href="../_images/3_a1.png"><img alt="../_images/3_a1.png" src="../_images/3_a1.png" style="width: 202.5px; height: 200.1px;" /></a>
-<p class="caption"><span class="caption-number">图 6.1.2 </span><span class="caption-text">一个包含4个结点的无向图，绿色圈的时一个团，蓝色圈是一个最大团。</span><a class="headerlink" href="#id7" title="永久链接至图片">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">图 6.1.2 </span><span class="caption-text">一个包含4个结点的无向图，绿色圈的时一个团，蓝色圈是一个最大团。</span><a class="headerlink" href="#id7" title="永久链接至图片"></a></p>
+</figcaption>
+</figure>
 <p>如 <a class="reference internal" href="#fg-3-a1"><span class="std std-numref">图 6.1.2</span></a> ，绿色圈中的是一个团，蓝色圈中的是一个最大团，一个结点可以包含在多个团中，
 一个无向图总是可以划分为很多个团的集合。</p>
 <div class="topic">
 <p class="topic-title">无向图可以有多少个最大团？</p>
 <p>我们可以构造一个拥有 <span class="math notranslate nohighlight">\(n^2\)</span> 个最大团的无向图，其中n是无向图中结点数量。</p>
-<div class="figure align-center" id="id8">
+<figure class="align-center" id="id8">
 <a class="reference internal image-reference" href="../_images/4_4.png"><img alt="../_images/4_4.png" src="../_images/4_4.png" style="width: 187.79999999999998px; height: 196.5px;" /></a>
-<p class="caption"><span class="caption-number">图 6.1.3 </span><span class="caption-text">拥有 <span class="math notranslate nohighlight">\(O(n^2)\)</span> 规模最大团的完全二分图</span><a class="headerlink" href="#id8" title="永久链接至图片">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">图 6.1.3 </span><span class="caption-text">拥有 <span class="math notranslate nohighlight">\(O(n^2)\)</span> 规模最大团的完全二分图</span><a class="headerlink" href="#id8" title="永久链接至图片"></a></p>
+</figcaption>
+</figure>
 <p>考虑一个结点分列两侧的完全二分图，给定其中任意三个结点，其中至少两个结点是属于一侧的并且没有边相连，因此不存在三个结点的团。
 其中任意一条边都可以组成一个只有两个结点的最大团，而图中共有 <span class="math notranslate nohighlight">\(O(n^2)\)</span> 规模的边。通常在无向图中可以存在指数级的最大团数量。</p>
 </div>
-</div>
-<div class="section" id="id2">
-<h2><span class="section-number">6.2. </span>条件独立性<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="id2">
+<h2><span class="section-number">6.2. </span>条件独立性<a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
 <p><strong>与有向图一样，无向图也表示一个分解方式，同时也表示一组条件独立关系。</strong>
 无向图上条件独立的表达和有向图有些类似，也是从”路径阻断”的角度去表达。</p>
-<div class="figure align-center" id="id9">
+<figure class="align-center" id="id9">
 <a class="reference internal image-reference" href="../_images/3_1.png"><img alt="../_images/3_1.png" src="../_images/3_1.png" style="width: 452.09999999999997px; height: 115.5px;" /></a>
-<p class="caption"><span class="caption-number">图 6.2.2 </span><span class="caption-text">左(a) 表达条件独立属性 <span class="math notranslate nohighlight">\(\mathrm{x}_{A} \perp \!\!\! \perp  \mathrm{x}_{B} | \mathrm{x}_{C}\)</span> 的无向图。
-右(b) 当移除阴影结点后，原图被分裂成多个连接子图，导致A和B成为不相交的两部分。</span><a class="headerlink" href="#id9" title="永久链接至图片">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">图 6.2.2 </span><span class="caption-text">左(a) 表达条件独立属性 <span class="math notranslate nohighlight">\(\mathrm{x}_{A} \perp \!\!\! \perp  \mathrm{x}_{B} | \mathrm{x}_{C}\)</span> 的无向图。
+右(b) 当移除阴影结点后，原图被分裂成多个连接子图，导致A和B成为不相交的两部分。</span><a class="headerlink" href="#id9" title="永久链接至图片"></a></p>
+</figcaption>
+</figure>
 <p>我们把图中的结点分成三组:A,B,C，每组中的变量集合分别用 <span class="math notranslate nohighlight">\(\mathrm{x}_{A},\mathrm{x}_{B},\mathrm{x}_{C}\)</span> 表示。
 如果A中结点和B中结点的所有路径都经过C，我们说C可以阻断A和B的联系，那么就满足条件独立性质：</p>
 <ul class="simple">
@@ -1033,9 +951,9 @@
 <strong>我们看到，无向图很自然地的表示出了变量间的条件独立性质</strong>。需要注意的一点时，
 在无向图的一个团(clique)中，任意两个结点都是存在边的，换句话说一个团中的结点都是互为邻居的，
 也就是说 <strong>同一个团中的结点间不存在（条件）独立性</strong> 。</p>
-</div>
-<div class="section" id="id3">
-<h2><span class="section-number">6.3. </span>图的分解<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="id3">
+<h2><span class="section-number">6.3. </span>图的分解<a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
 <p><strong>根据概率论中的链式法则，联合概率分布可以分解成”局部函数”的乘积形式”。</strong>
 局部函数的领域范围表示这些结点变量之间存在”关系”，局部函数的具体内容表示这种”关系”是什么。
 在有向图中，这个”局部函数”的定义范围是结点i及其父结点集合 <span class="math notranslate nohighlight">\(\mathrm{x}_{\pi_i}\)</span> 组成的领域，
@@ -1048,15 +966,17 @@ b.局部函数的内容。</p>
 在无向图中，结点是互为邻居的，这种方式无法确保不同结点的条件概率一致性（如果无法理解，只需记住这样不可行）。
 另一种可能的想法是用边缘概率表示这个”局部函数”，即无向图的因子分解式定义成一系列边缘概率的乘积。
 我们可以通过一个简单的例子证明这也是不可行的。</p>
-<div class="figure align-center" id="id10">
+<figure class="align-center" id="id10">
 <span id="fg-3-a7"></span><a class="reference internal image-reference" href="../_images/3_a7.jpg"><img alt="../_images/3_a7.jpg" src="../_images/3_a7.jpg" style="width: 256.2px; height: 75.3px;" /></a>
-<p class="caption"><span class="caption-number">图 6.3.1 </span><span class="caption-text">三结点的链式无向图，满足条件独立性 <span class="math notranslate nohighlight">\(\mathrm{X} \perp \!\!\! \perp \mathrm{Z}|\mathrm{Y}\)</span></span><a class="headerlink" href="#id10" title="永久链接至图片">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">图 6.3.1 </span><span class="caption-text">三结点的链式无向图，满足条件独立性 <span class="math notranslate nohighlight">\(\mathrm{X} \perp \!\!\! \perp \mathrm{Z}|\mathrm{Y}\)</span></span><a class="headerlink" href="#id10" title="永久链接至图片"></a></p>
+</figcaption>
+</figure>
 <p>考虑 <a class="reference internal" href="#fg-3-a7"><span class="std std-numref">图 6.3.1</span></a> 所示的三结点无向图，这个无向图模型满足条件独立性
 <span class="math notranslate nohighlight">\(\mathrm{X} \perp \!\!\! \perp \mathrm{Z}|\mathrm{Y}\)</span> ，
 根据这个条件独立性以及链式法则可得：</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-5-lecture-3-0">
-<span class="eqno">(6.3.1)<a class="headerlink" href="#equation-probability-model-5-lecture-3-0" title="公式的永久链接">¶</a></span>\[p(x,y,z)=p(y)p(x|y)p(z|y)\]</div>
+<span class="eqno">(6.3.1)<a class="headerlink" href="#equation-probability-model-5-lecture-3-0" title="公式的永久链接"></a></span>\[p(x,y,z)=p(y)p(x|y)p(z|y)\]</div>
 <p>此外，图中有两个团 <span class="math notranslate nohighlight">\(\{X,Y\}\)</span> 和 <span class="math notranslate nohighlight">\(\{Y,Z\}\)</span> ，我们可以把前两个因子乘在一起得到第一个团的边缘概率
 <span class="math notranslate nohighlight">\(p(x,y)\)</span> ，这样此模型的因子分解式就变成 <span class="math notranslate nohighlight">\(p(x,y,z)=p(x,y)p(z|y)\)</span> 。
 亦或者我们把 <span class="math notranslate nohighlight">\(p(y)\)</span> 和 <span class="math notranslate nohighlight">\(p(z|y)\)</span> 乘在一起，模型的因子分解式就变为
@@ -1071,7 +991,7 @@ b.局部函数的内容。</p>
 其中 <span class="math notranslate nohighlight">\(\mathrm{x}_{rest}\)</span> 表示图中除去
 <span class="math notranslate nohighlight">\(\mathrm{x}_i\)</span> 与 <span class="math notranslate nohighlight">\(\mathrm{x}_j\)</span> 之外的其它所有结点，则有:</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-5-lecture-3-1">
-<span class="eqno">(6.3.2)<a class="headerlink" href="#equation-probability-model-5-lecture-3-1" title="公式的永久链接">¶</a></span>\[\begin{split}p(\mathrm{x}_{a l l}) &amp;=p(\mathrm{x}_{i}, \mathrm{x}_{j} | \mathrm{x}_{r e s t}) p(\mathrm{x}_{r e s t}) \\
+<span class="eqno">(6.3.2)<a class="headerlink" href="#equation-probability-model-5-lecture-3-1" title="公式的永久链接"></a></span>\[\begin{split}p(\mathrm{x}_{a l l}) &amp;=p(\mathrm{x}_{i}, \mathrm{x}_{j} | \mathrm{x}_{r e s t}) p(\mathrm{x}_{r e s t}) \\
 &amp;=p(\mathrm{x}_{1} | \mathrm{x}_{r e s t}) p(\mathrm{x}_{2} | \mathrm{x}_{r e s t}) p(\mathrm{x}_{r e s t})\end{split}\]</div>
 <p>这意味着，我们一定有某种方法，在无向图的联合概率因子分解表达式中，将 <span class="math notranslate nohighlight">\(\mathrm{x}_i\)</span> 和 <span class="math notranslate nohighlight">\(\mathrm{x}_j\)</span>
 分别放到不同的因子中，换句话说，我们的”局部函数”中不会同时包含 <span class="math notranslate nohighlight">\(\mathrm{x}_i\)</span> 和 <span class="math notranslate nohighlight">\(\mathrm{x}_j\)</span> 。
@@ -1082,7 +1002,7 @@ b.局部函数的内容。</p>
 <p>给定一个无向图及其变量集合 <span class="math notranslate nohighlight">\(\mathrm{x}_1,\dots,\mathrm{x}_N\)</span> ，
 其中的最大团集合为 <span class="math notranslate nohighlight">\(\mathcal{e}\)</span> ，定义联合概率分布表达式为:</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-5-lecture-3-2">
-<span class="eqno">(6.3.3)<a class="headerlink" href="#equation-probability-model-5-lecture-3-2" title="公式的永久链接">¶</a></span>\[\begin{split}\begin{aligned} p(\mathbf{x}) &amp; \propto \prod_{C \in \mathcal{e}} \psi_{x_{C}}\left(x_{C}\right) \\
+<span class="eqno">(6.3.3)<a class="headerlink" href="#equation-probability-model-5-lecture-3-2" title="公式的永久链接"></a></span>\[\begin{split}\begin{aligned} p(\mathbf{x}) &amp; \propto \prod_{C \in \mathcal{e}} \psi_{x_{C}}\left(x_{C}\right) \\
 &amp;=\frac{1}{Z} \prod_{C \in \mathcal{e}} \psi_{x_{C}}\left(x_{C}\right) \end{aligned}\end{split}\]</div>
 <p>有向图的因子分解式中每个因子是一个条件概率，是归一化的概率分布，所有因子的乘积也是归一化的概率，所以不再需要一个配分函数。
 然而在无向图中的因子分解中，每个因子函数(势函数)不再是有效的概率形式，其连乘的结果同样不具有概率意义，
@@ -1091,7 +1011,7 @@ b.局部函数的内容。</p>
 其作用是使得对应于所有联合分配的概率总和为1(其实就是所有分子的可能取值的求和，为了保证最终输出的是概率值)。
 配分函数 <span class="math notranslate nohighlight">\(Z\)</span> 可以被写成（所有分子的可能取值的求和）:</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-5-lecture-3-3">
-<span class="eqno">(6.3.4)<a class="headerlink" href="#equation-probability-model-5-lecture-3-3" title="公式的永久链接">¶</a></span>\[Z=\sum_{\mathbf{x}} \prod_{C \in \mathcal{e}} \psi_{x_{C}}\left(x_{C}\right)\]</div>
+<span class="eqno">(6.3.4)<a class="headerlink" href="#equation-probability-model-5-lecture-3-3" title="公式的永久链接"></a></span>\[Z=\sum_{\mathbf{x}} \prod_{C \in \mathcal{e}} \psi_{x_{C}}\left(x_{C}\right)\]</div>
 <p><strong>这个求和操作通常是难以计算的，甚至无法计算。</strong> 幸运的是，对于许多场景下，例如”条件概率查询”或者”最大概率查询”，我们不需要计算它。
 对于其他计算，例如学习参数 <span class="math notranslate nohighlight">\(\psi\)</span> ，我们确实需要它。如果不理解没关系，后续章节内容会相信说明。</p>
 <p>函数 <span class="math notranslate nohighlight">\(\psi\)</span> 可以是任意 <strong>非负值</strong> 的函数(i.e. 不需要保证求和是1) ，是定义在最大团块的变量上的势函数(potential function)，
@@ -1112,10 +1032,12 @@ b.局部函数的内容。</p>
 此外 <strong>同一个无向图中不同团上的势函数可以具有不同的形式</strong>。
 <strong>当团上的变量取得不同值时（团上变量发生变化），对应势函数输出不同的值，输出的值越大，归一化后的概率值就越大。</strong>
 除此之外并没有其它要求，只需要根据具体实际场景中变量之间的关系去定义势函数即可。</p>
-<div class="figure align-center" id="id11">
+<figure class="align-center" id="id11">
 <span id="fg-3-a8"></span><a class="reference internal image-reference" href="../_images/3_a8.jpg"><img alt="../_images/3_a8.jpg" src="../_images/3_a8.jpg" style="width: 398.0px; height: 227.60000000000002px;" /></a>
-<p class="caption"><span class="caption-number">图 6.3.2 </span><span class="caption-text">伯努利变量的链式无向图，相邻两个结点势函数的表格形式。</span><a class="headerlink" href="#id11" title="永久链接至图片">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">图 6.3.2 </span><span class="caption-text">伯努利变量的链式无向图，相邻两个结点势函数的表格形式。</span><a class="headerlink" href="#id11" title="永久链接至图片"></a></p>
+</figcaption>
+</figure>
 <p>如 <a class="reference internal" href="#fg-3-a8"><span class="std std-numref">图 6.3.2</span></a> (a)，考虑一个二值伯努利离散随机变量组成的链式无向图，<span class="math notranslate nohighlight">\(\mathrm{x}_i \in \{-1,1\},i=0,\ldots,n\)</span> ，
 在物理学中，这种模型用于模拟晶体的磁性行为，其中二元变量具有磁性“旋转”的解释。
 其中相邻的晶体(结点)收到磁场的相互影响，更倾向于用于一样的磁性状态，比如当 <span class="math notranslate nohighlight">\(\mathrm{x}_i=1\)</span> 时，其邻居
@@ -1125,12 +1047,12 @@ b.局部函数的内容。</p>
 反之赋予低的”能量值”0.2，高能量值归一化后的概率值更高。</p>
 <p>既然势函数一定要是非负的，所以通常情况下，我们将势函数 <span class="math notranslate nohighlight">\(\psi\)</span> 表示为指数函数形式（满足一定是非负的），即:</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-5-lecture-3-4">
-<span class="eqno">(6.3.5)<a class="headerlink" href="#equation-probability-model-5-lecture-3-4" title="公式的永久链接">¶</a></span>\[\psi_{C}(x_C) = exp \{  -E(x_C) \}\]</div>
+<span class="eqno">(6.3.5)<a class="headerlink" href="#equation-probability-model-5-lecture-3-4" title="公式的永久链接"></a></span>\[\psi_{C}(x_C) = exp \{  -E(x_C) \}\]</div>
 <p>其中函数 <span class="math notranslate nohighlight">\(E(x_C)\)</span> 是一个任意的实数值函数，不再要求非负。
 在统计物理学中， <span class="math notranslate nohighlight">\(E(x_C)\)</span> 被称为能量函数(energy function)，表示状态 <span class="math notranslate nohighlight">\(\mathbf{x}_C\)</span> 的能量(energy)。指数函数的另外一个优势就是指数的连乘容易操作，连乘可以转换成指数求和。
 无向图联合概率分布的分解可以改写成:</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-5-lecture-3-5">
-<span class="eqno">(6.3.6)<a class="headerlink" href="#equation-probability-model-5-lecture-3-5" title="公式的永久链接">¶</a></span>\[\begin{split}\begin{aligned} p(\mathbf{x}) &amp;=\frac{1}{Z} \exp (-E(\mathbf{x})) \\
+<span class="eqno">(6.3.6)<a class="headerlink" href="#equation-probability-model-5-lecture-3-5" title="公式的永久链接"></a></span>\[\begin{split}\begin{aligned} p(\mathbf{x}) &amp;=\frac{1}{Z} \exp (-E(\mathbf{x})) \\
 &amp; \triangleq \frac{1}{Z} \exp \left(-\sum_{C \in \mathcal{e}} E_{C}\left(x_{C}\right)\right) \end{aligned}\end{split}\]</div>
 <div class="admonition hint">
 <p class="admonition-title">提示</p>
@@ -1139,17 +1061,17 @@ b.局部函数的内容。</p>
 <p><strong>在同一个无向图中，不同团上的势函数可以有不同的形式，即不同团可以拥有不同的势函数</strong> 。此外，在很多场景中，
 无向图的联合概率表达中不经包含团上的势函数，也可以加入单个结点的势函数。</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-5-lecture-3-6">
-<span class="eqno">(6.3.7)<a class="headerlink" href="#equation-probability-model-5-lecture-3-6" title="公式的永久链接">¶</a></span>\[p(\mathbf{x})=\frac{1}{Z} \prod_{i \in \mathcal{V}} \psi_i(x_i)  \prod_{C \in \mathcal{e}} \psi_{x_{C}}\left(x_{C}\right)\]</div>
-</div>
-<div class="section" id="vs">
-<h2><span class="section-number">6.4. </span>有向图 vs 无向图<a class="headerlink" href="#vs" title="永久链接至标题">¶</a></h2>
+<span class="eqno">(6.3.7)<a class="headerlink" href="#equation-probability-model-5-lecture-3-6" title="公式的永久链接"></a></span>\[p(\mathbf{x})=\frac{1}{Z} \prod_{i \in \mathcal{V}} \psi_i(x_i)  \prod_{C \in \mathcal{e}} \psi_{x_{C}}\left(x_{C}\right)\]</div>
+</section>
+<section id="vs">
+<h2><span class="section-number">6.4. </span>有向图 vs 无向图<a class="headerlink" href="#vs" title="永久链接至标题"></a></h2>
 <p>我们已经看到有向图自然地表示分解属性，并且无向图自然地表示条件独立性属性。
 这是否意味着当我们有条件概率分布时，我们应该总是使用有向图；当我们有条件独立性时，我们应该总是使用无向图？
 不是这样的，两类图形各有自己的优劣，是不同的模型工具，分别适合不用的应用场景。</p>
 <p>通常情况下，有向图和无向图并不能完全等价的进行转换（两者拥有相同的条件独立性）。举个例子，考虑如下图模型。</p>
-<div class="figure align-center">
+<figure class="align-center">
 <a class="reference internal image-reference" href="../_images/3_2.png"><img alt="../_images/3_2.png" src="../_images/3_2.png" style="width: 247.79999999999998px; height: 151.5px;" /></a>
-</div>
+</figure>
 <p>让我们尝试构造一个有向图来表示相同的分布族（即拥有同一组条件独立性）。
 首先，注意到至少要和无向图拥有同样的边集合，因为任何由边连接的变量都相互依赖，无论是否观察到任何其他变量。
 为了使图形无环，其中一个节点必须在拓扑排序中排在最后; 不失一般性，让我们假设它是节点z。
@@ -1157,19 +1079,23 @@ b.局部函数的内容。</p>
 我们都无法保证得到 <span class="math notranslate nohighlight">\(\mathrm{x} \perp \!\!\! \perp \mathrm{y} | \mathrm{w}, \mathrm{z}\)</span>
 （但是这在无向图中却是满足的）。 <strong>因此没有办法能满足同样的条件独立性的前提下把上述无向图转换成有向图。</strong></p>
 <p>那么，反过来，我们可以在保证原有条件独立性的前提下，把任意的有向图转换成无向图吗?不能，v型结构的有向图就不行。</p>
-<div class="figure align-center" id="id12">
+<figure class="align-center" id="id12">
 <a class="reference internal image-reference" href="../_images/3_3.png"><img alt="../_images/3_3.png" src="../_images/3_3.png" style="width: 206.4px; height: 126.0px;" /></a>
-<p class="caption"><span class="caption-number">图 6.4.1 </span><span class="caption-text">v型结构的有向图</span><a class="headerlink" href="#id12" title="永久链接至图片">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">图 6.4.1 </span><span class="caption-text">v型结构的有向图</span><a class="headerlink" href="#id12" title="永久链接至图片"></a></p>
+</figcaption>
+</figure>
 <p>在上一章节我们讲过，在v型有向图中满足边缘独立 <span class="math notranslate nohighlight">\(\mathrm{x} \perp \!\!\! \perp \mathrm{z}\)</span> ，
 但是不满足条件独立 <span class="math notranslate nohighlight">\(\mathrm{x} \perp \!\!\! \perp \mathrm{z}|\mathrm{y}\)</span> 。
 相比之下，无向图形模型具有某种单调性属性：当观察到额外的节点时，新的条件独立性集合是旧的条件独立性的严格超集。
 因此，没有无向图可以表示与v结构相同的分布族。</p>
 <p>然而，我们还是可以把一个有向图转换为无向图的，当然转换后条件独立性会发生变化，这是通过”道德化(moralization)”来实现的。</p>
-<div class="figure align-center" id="id13">
+<figure class="align-center" id="id13">
 <span id="fg-3-a3"></span><a class="reference internal image-reference" href="../_images/3_a3.png"><img alt="../_images/3_a3.png" src="../_images/3_a3.png" style="width: 279.59999999999997px; height: 149.1px;" /></a>
-<p class="caption"><span class="caption-number">图 6.4.2 </span><span class="caption-text">(a)一个简单的有向图；(b)对应的道德图。</span><a class="headerlink" href="#id13" title="永久链接至图片">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">图 6.4.2 </span><span class="caption-text">(a)一个简单的有向图；(b)对应的道德图。</span><a class="headerlink" href="#id13" title="永久链接至图片"></a></p>
+</figcaption>
+</figure>
 <p>道德化(moralization)：首先完全连接每个结点的父母，然后删除图中箭头的方向。
 道德化通过将父母连接在一起来“联姻”父母。 有关示例，请参见 <a class="reference internal" href="#fg-3-a3"><span class="std std-numref">图 6.4.2</span></a> ，这种”父结点之间结婚”的过程被称为道德化或者伦理化(moralization)，
 去掉箭头后生成的无向图被称为道德图(moral graph)。很重要的一点是，在这个例子中道德图是完全链接的，因此没有表达出条件独立性质。</p>
@@ -1182,9 +1108,9 @@ b.局部函数的内容。</p>
 当然，通过简单的使用全连接的无向图，我们可以很容易的将有向图上的任意概率分布转化为无向图上的概率分布。
 但是，这会丢掉所有的条件独立性质，因此没有实际意义。而”伦理”过程增加了最少的额外链接，因此最大可能的保证了条件独立性质(注意，还是会有损失的)。</p>
 </div>
-</div>
-<div class="section" id="id4">
-<h2><span class="section-number">6.5. </span>树<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="id4">
+<h2><span class="section-number">6.5. </span>树<a class="headerlink" href="#id4" title="永久链接至标题"></a></h2>
 <p>这里我们先介绍一类特殊的图形结构–树，如果不是很理解也没关系，后续用到的章节中会详细讨论。</p>
 <p>在无向图的情形中，树被定义为满足下面性质的图：任意一对结点之间有且只有一条路径。这样的图没有环。
 在有向图的情形中，树的定义为：有且仅有一个没有父结点的结点，被称为根(root)，其它所有结点都只有一个父结点。</p>
@@ -1192,29 +1118,38 @@ b.局部函数的内容。</p>
 无向树和有向树的例子如 <a class="reference internal" href="#fg-3-a2"><span class="std std-numref">图 6.5.1</span></a> (a)和 <a class="reference internal" href="#fg-3-a2"><span class="std std-numref">图 6.5.1</span></a> (b)所示。注意，一个表示为有向树的概率分布可以很容易的转化为一个由无向树表示的概率分布，反之亦然。
 如果有向图中存在具有多个父结点的结点，但是在任意两个结点之间仍然只有一条路径(忽略箭头方向)，那么这个图被称为”多重树(polytree)”。
 如 <a class="reference internal" href="#fg-3-a2"><span class="std std-numref">图 6.5.1</span></a> (c)所示。这样的图存在多个没有父结点的结点，一些结点亦存在多个父结点，对应的道德无向图会存在环。</p>
-<div class="figure align-center" id="id14">
+<figure class="align-center" id="id14">
 <span id="fg-3-a2"></span><a class="reference internal image-reference" href="../_images/3_a2.png"><img alt="../_images/3_a2.png" src="../_images/3_a2.png" style="width: 393.3px; height: 146.1px;" /></a>
-<p class="caption"><span class="caption-number">图 6.5.1 </span><span class="caption-text">(a)一个无向树；(b)一个有向树；(c)一个有向多重树(polytree)</span><a class="headerlink" href="#id14" title="永久链接至图片">¶</a></p>
-</div>
-</div>
-<div class="section" id="id5">
-<h2><span class="section-number">6.6. </span>本章总结<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h2>
+<figcaption>
+<p><span class="caption-number">图 6.5.1 </span><span class="caption-text">(a)一个无向树；(b)一个有向树；(c)一个有向多重树(polytree)</span><a class="headerlink" href="#id14" title="永久链接至图片"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="id5">
+<h2><span class="section-number">6.6. </span>本章总结<a class="headerlink" href="#id5" title="永久链接至标题"></a></h2>
 <p>一个图模型是一类概率分布族的图形化表达。一个图模型需要表达两种信息：因子分解方式和条件独立性。
 在某种意义上，有向图更自然地直接表示条件概率，而无向图更自然地表示条件独立性属性。</p>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="6.%E5%9B%A0%E5%AD%90%E5%9B%BE_lecture_4.html" class="btn btn-neutral float-right" title="7. 因子图" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="4.%E6%9C%89%E5%90%91%E5%9B%BE_lecture_2.html" class="btn btn-neutral float-left" title="5. 有向图(Directed Graphical Models)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="4.%E6%9C%89%E5%90%91%E5%9B%BE_lecture_2.html" class="btn btn-neutral float-left" title="5. 有向图(Directed Graphical Models)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="6.%E5%9B%A0%E5%AD%90%E5%9B%BE_lecture_4.html" class="btn btn-neutral float-right" title="7. 因子图" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2018, zhangzhenhu(acmtiger@outlook.com) 禁止一切形式的转载！.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
+  
 
 
     <script src="https://utteranc.es/client.js"
@@ -1227,42 +1162,16 @@ b.局部函数的内容。</p>
 
 
 
-  <div role="contentinfo">
-    <p>
-        &#169; 版权所有 2018, zhangzhenhu(acmtiger@outlook.com) 禁止一切形式的转载！.
-
-    </p>
-  </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-
-
-
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

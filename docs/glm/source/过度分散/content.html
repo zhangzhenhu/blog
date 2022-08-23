@@ -1,99 +1,51 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="zh-CN" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>16. 过度分散 &mdash; 张振虎的博客 张振虎 文档</title>
-  
-
-  
-  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
     <link rel="canonical" href="https://zhangzhenhu.github.io/blog/glm/source/过度分散/content.html" />
-
-  
   <!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
         <script src="../../../_static/doctools.js"></script>
         <script src="../../../_static/translations.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2.7.7/unpacked/MathJax.min.js"></script>
         <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"Macros": {"RR": "{\\bf R}", "bold": ["{\\bf #1}", 1]}}})</script>
-    
-    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-
-    
+    <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../../genindex.html" />
     <link rel="search" title="搜索" href="../../../search.html" />
     <link rel="next" title="17. 负二项式模型" href="../%E8%B4%9F%E4%BA%8C%E9%A1%B9%E6%A8%A1%E5%9E%8B/content.html" />
     <link rel="prev" title="15. Gamma 模型" href="../gamma%E6%A8%A1%E5%9E%8B/content.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../../../index.html" class="icon icon-home"> 张振虎的博客
-          
-
-          
           </a>
-
-          
-            
-            
               <div class="version">
                 acmtiger@outlook.com
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="在文档中搜索" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">目录:</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">目录:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">广义线性模型</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80/content.html">1. 概率基础</a><ul>
@@ -141,7 +93,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#id2">3.1. 统计量和充分统计量</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-sample-distribution">3.2. 抽样分布</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-sample-distribution-normal">3.2.1. 正态分布</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#t">3.2.2. t分布</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#t">3.2.2. 学生t分布</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#id5">3.2.3. 卡方分布</a></li>
 </ul>
 </li>
@@ -746,7 +698,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../audio/feature.html#id18">1.5. 分帧与加窗</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../audio/feature.html#id19">1.5.1. 预加重处理</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../audio/feature.html#id20">1.5.2. 分帧与加窗</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../audio/feature.html#id20">1.5.2. 分帧与加窗处理</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../audio/feature.html#id21">1.6. 声音的感官度量</a><ul>
@@ -788,26 +740,26 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../edm/bkt.html">1. 贝叶斯知识追踪(Bayesian Knowledge Tracing,BKT)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id1">1.1. 简介</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#hidden-markov-model-hmm">1.2. 隐马尔科夫模型(Hidden Markov Model,HMM)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id5">1.3. 贝叶斯知识追踪(Bayesian Knowledge Tracing,BKT)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#bayesian-knowledge-tracing">1.3. 贝叶斯知识追踪(Bayesian Knowledge Tracing)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#bkt">1.3.1. BKT的参数估计</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#item-response-theory-irt">1.4. 项目反映理论(Item Response Theory,IRT)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#bktirt">1.5. BKT结合IRT</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id6">1.6. 实验</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id7">1.6.1. 数据集</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id8">1.6.2. 实验方法</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id9">1.6.3. 实验结果</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id10">1.6.4. 项目代码</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id5">1.6. 实验</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id6">1.6.1. 数据集</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id7">1.6.2. 实验方法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id8">1.6.3. 实验结果</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id9">1.6.4. 项目代码</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id11">1.7. 未来工作</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id12">1.7.1. 题目难度的计算</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id10">1.7. 未来工作</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id11">1.7.1. 题目难度的计算</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#irt">1.7.2. 多参数IRT模型</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id13">1.7.3. 参数估计算法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id12">1.7.3. 参数估计算法</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id14">1.8. 参考文献</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id13">1.8. 参考文献</a></li>
 </ul>
 </li>
 </ul>
@@ -904,75 +856,33 @@
 </li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../../index.html">张振虎的博客</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="../index.html">广义线性模型</a> &raquo;</li>
-        
       <li><span class="section-number">16. </span>过度分散</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
-            <a href="../../../_sources/glm/source/过度分散/content.rst.txt" rel="nofollow"> View page source</a>
-          
-        
+            <a href="../../../_sources/glm/source/过度分散/content.rst.txt" rel="nofollow"> 查看页面源码</a>
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="id1">
-<h1><span class="section-number">16. </span>过度分散<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+             
+  <section id="id1">
+<h1><span class="section-number">16. </span>过度分散<a class="headerlink" href="#id1" title="永久链接至标题"></a></h1>
 <p>泊松回归模型是处理计数数据最基本的模型，应用最为广泛。
 然而泊松模型也不是万能的，它有一个局限性。
 泊松模型没有分散参数，并且它的方差和期望相同，
@@ -984,7 +894,7 @@
 <p>在GLM中，响应变量 <span class="math notranslate nohighlight">\(Y\)</span> 的方差 <span class="math notranslate nohighlight">\(V(Y)\)</span> 等于分散函数 <span class="math notranslate nohighlight">\(a(\phi)\)</span> 和方差函数 <span class="math notranslate nohighlight">\(\nu(\mu)\)</span>
 的乘积。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-0">
-<span class="eqno">(16.1)<a class="headerlink" href="#equation-glm-source-content-0" title="公式的永久链接">¶</a></span>\[V(Y) = a(\phi)\nu(\mu)\]</div>
+<span class="eqno">(16.1)<a class="headerlink" href="#equation-glm-source-content-0" title="公式的永久链接"></a></span>\[V(Y) = a(\phi)\nu(\mu)\]</div>
 <p>其中方差函数 <span class="math notranslate nohighlight">\(\nu(\mu)\)</span> 是一个关于期望 <span class="math notranslate nohighlight">\(\mu\)</span>
 的函数，其代表着方差 <span class="math notranslate nohighlight">\(V(Y)\)</span> 和期望 <span class="math notranslate nohighlight">\(\mu\)</span> 的关系。
 比如高斯模型，其方差函数为常量 <span class="math notranslate nohighlight">\(\nu(\mu)=1\)</span> ，
@@ -997,7 +907,7 @@
 下表给出了 <code class="docutils literal notranslate"><span class="pre">GLM</span></code> 中常见分布的方差函数和分散函数，
 从中可以发现一些特点。</p>
 <table class="docutils align-default" id="id6">
-<caption><span class="caption-number">表 16.1 </span><span class="caption-text">GLM中的方差</span><a class="headerlink" href="#id6" title="永久链接至表格">¶</a></caption>
+<caption><span class="caption-number">表 16.1 </span><span class="caption-text">GLM中的方差</span><a class="headerlink" href="#id6" title="永久链接至表格"></a></caption>
 <colgroup>
 <col style="width: 25%" />
 <col style="width: 25%" />
@@ -1062,18 +972,18 @@
 <p>从上表中可以发现离散分布的分散函数都是常数，而其方差函数都是期望的函数，
 这表明离散分布的方差都是由它的期望决定的。由于没有分散参数，
 这就使得离散分布存在一个特有的现象，过度分散(overdispersion)。</p>
-<div class="section" id="id2">
-<h2><span class="section-number">16.1. </span>什么是过度分散<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<section id="id2">
+<h2><span class="section-number">16.1. </span>什么是过度分散<a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
 <p>当训练好一个模型后，利用模型的预测值 <span class="math notranslate nohighlight">\(\hat{\mu}\)</span> 和分散参数 <span class="math notranslate nohighlight">\(\phi\)</span>
 就能计算出模型预测值的方差</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-1">
-<span class="eqno">(16.1.1)<a class="headerlink" href="#equation-glm-source-content-1" title="公式的永久链接">¶</a></span>\[V_e = a(\phi)\nu(\hat{\mu}_i)\]</div>
+<span class="eqno">(16.1.1)<a class="headerlink" href="#equation-glm-source-content-1" title="公式的永久链接"></a></span>\[V_e = a(\phi)\nu(\hat{\mu}_i)\]</div>
 <p>模型预测值的方差称之为名义方差(nominal variance)，用符号 <span class="math notranslate nohighlight">\(V_{e}\)</span> 表示。
 名义方差 <span class="math notranslate nohighlight">\(V_e\)</span> 就是模型(概率分布)的理论方差，由方差函数计算得到的。
 与之相对应的，是观测数据的真实方差，
 用符号 <span class="math notranslate nohighlight">\(V_{o}\)</span> 表示，代表观测(observed)方差。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-2">
-<span class="eqno">(16.1.2)<a class="headerlink" href="#equation-glm-source-content-2" title="公式的永久链接">¶</a></span>\[V_{o} = V(Y_i)\]</div>
+<span class="eqno">(16.1.2)<a class="headerlink" href="#equation-glm-source-content-2" title="公式的永久链接"></a></span>\[V_{o} = V(Y_i)\]</div>
 <p>名义方差 <span class="math notranslate nohighlight">\(V_e\)</span> 和观测方差 <span class="math notranslate nohighlight">\(V_{o}\)</span> 通常并不相同，
 这和模型对数据的拟合程度相关，模型对数据拟合的越好，名义方差 <span class="math notranslate nohighlight">\(V_e\)</span> 和观测方差 <span class="math notranslate nohighlight">\(V_{o}\)</span>
 就越接近。</p>
@@ -1126,16 +1036,16 @@
 如果样本方差和这个假设严重不符，同样也会存在过度分散的可能，
 只是这种严重不相符的情况很少见，多数情况下，这个方式足够用了。</p>
 </div>
-</div>
-<div class="section" id="id3">
-<h2><span class="section-number">16.2. </span>过度分散的检测<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="id3">
+<h2><span class="section-number">16.2. </span>过度分散的检测<a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
 <p>离散分布之所以存在过度分散问题，是因为离散分布的模型缺少一个分散参数 <span class="math notranslate nohighlight">\(\phi\)</span>
 去拟合数据的方差。
 那么我们可以先假设模型存在分散参数 <span class="math notranslate nohighlight">\(\phi\)</span> ，
 此时观测方差 <span class="math notranslate nohighlight">\(V_o\)</span> 就等于 <span class="math notranslate nohighlight">\(\phi\)</span> 乘上名义方差 <span class="math notranslate nohighlight">\(V_e\)</span>
 。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-3">
-<span class="eqno">(16.2.1)<a class="headerlink" href="#equation-glm-source-content-3" title="公式的永久链接">¶</a></span>\[V_o = \phi V_e\]</div>
+<span class="eqno">(16.2.1)<a class="headerlink" href="#equation-glm-source-content-3" title="公式的永久链接"></a></span>\[V_o = \phi V_e\]</div>
 <p>然后估计出 <span class="math notranslate nohighlight">\(\phi\)</span> 的值，
 如果 <span class="math notranslate nohighlight">\(\phi \approx 1\)</span> ，意味着名义方差 <span class="math notranslate nohighlight">\(V_e\)</span> 和观测方差 <span class="math notranslate nohighlight">\(V_o\)</span>
 是近似相等的，不存在过度分散，或者说问题不严重；反之，
@@ -1145,7 +1055,7 @@
 可以通过皮尔逊卡方统计量估计分散参数 <span class="math notranslate nohighlight">\(\phi\)</span>
 。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-4">
-<span class="eqno">(16.2.2)<a class="headerlink" href="#equation-glm-source-content-4" title="公式的永久链接">¶</a></span>\[\hat{\phi}=\frac{\chi^2}{N-p}\]</div>
+<span class="eqno">(16.2.2)<a class="headerlink" href="#equation-glm-source-content-4" title="公式的永久链接"></a></span>\[\hat{\phi}=\frac{\chi^2}{N-p}\]</div>
 <p>皮尔逊卡方统计量 <span class="math notranslate nohighlight">\(\chi^2\)</span> 与其自由度(<span class="math notranslate nohighlight">\(N-p\)</span>)
 的商称为皮尔逊分散统计量。
 皮尔逊分散统计量也是一个估计量，并不是十分准确的，
@@ -1180,21 +1090,21 @@
 ，其方差函数是 <span class="math notranslate nohighlight">\(\mu+\alpha \mu^2\)</span> ，
 不再像泊松分布一样限定方差和期望相等，而是多了一个辅助参数 <span class="math notranslate nohighlight">\(\alpha\)</span>
 来适配数据的方差变化。</p>
-</div>
-<div class="section" id="id4">
-<h2><span class="section-number">16.3. </span>过度分散的影响<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="id4">
+<h2><span class="section-number">16.3. </span>过度分散的影响<a class="headerlink" href="#id4" title="永久链接至标题"></a></h2>
 <p>在讲 <code class="docutils literal notranslate"><span class="pre">GLM</span></code> 的最大似然估计时提到过，分散参数 <span class="math notranslate nohighlight">\(\phi\)</span>
 并不影响协变量参数 <span class="math notranslate nohighlight">\(\beta\)</span> 的迭代，
 这里从 <code class="docutils literal notranslate"><span class="pre">IRLS</span></code> 算法的过程再验证一下。
 <code class="docutils literal notranslate"><span class="pre">IRLS</span></code> 算法参数的迭代公式为</p>
 <div class="math notranslate nohighlight" id="equation-eq-od-010">
-<span class="eqno">(16.3.1)<a class="headerlink" href="#equation-eq-od-010" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\beta &amp;= (X^T W X)^{-1} X^T W Z\\&amp;= \frac{X^T W Z}{X^T W X}\end{aligned}\end{align} \]</div>
+<span class="eqno">(16.3.1)<a class="headerlink" href="#equation-eq-od-010" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\beta &amp;= (X^T W X)^{-1} X^T W Z\\&amp;= \frac{X^T W Z}{X^T W X}\end{aligned}\end{align} \]</div>
 <p>其中权重矩阵 <span class="math notranslate nohighlight">\(W\)</span> 是一个对角矩阵，其值为</p>
 <div class="math notranslate nohighlight" id="equation-eq-od-011">
-<span class="eqno">(16.3.2)<a class="headerlink" href="#equation-eq-od-011" title="公式的永久链接">¶</a></span>\[W = [a(\phi)\nu(\mu) g'^2]^{-1} = [V_e(\mu) g'^2]^{-1}\]</div>
+<span class="eqno">(16.3.2)<a class="headerlink" href="#equation-eq-od-011" title="公式的永久链接"></a></span>\[W = [a(\phi)\nu(\mu) g'^2]^{-1} = [V_e(\mu) g'^2]^{-1}\]</div>
 <p>其中 <span class="math notranslate nohighlight">\(a(\phi)=\phi\)</span> 是与样本无关的，因此可以单独提取出来，则有</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-5">
-<span class="eqno">(16.3.3)<a class="headerlink" href="#equation-glm-source-content-5" title="公式的永久链接">¶</a></span>\[W = [a(\phi)\nu(\mu) g'^2]^{-1} = \phi^{-1}  W_o\]</div>
+<span class="eqno">(16.3.3)<a class="headerlink" href="#equation-glm-source-content-5" title="公式的永久链接"></a></span>\[W = [a(\phi)\nu(\mu) g'^2]^{-1} = \phi^{-1}  W_o\]</div>
 <div class="admonition note">
 <p class="admonition-title">注解</p>
 <p>在 <span class="math notranslate nohighlight">\(a(\phi)=\phi/w_i\)</span> 的情形下，同样可以单独提出分散参数 <span class="math notranslate nohighlight">\(\phi\)</span> ，
@@ -1202,21 +1112,21 @@
 </div>
 <p>代入到 <a class="reference internal" href="#equation-eq-od-010">公式(16.3.1)</a> 可得</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-6">
-<span class="eqno">(16.3.4)<a class="headerlink" href="#equation-glm-source-content-6" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\beta &amp;=  \frac{X^T W Z}{X^T W X}\\ &amp;= \frac{\phi^{-1} X^T W_o Z}{\phi^{-1} X^T W_o X}\\ &amp;= \frac{X^T W_o Z}{X^T W_o X}\end{aligned}\end{align} \]</div>
+<span class="eqno">(16.3.4)<a class="headerlink" href="#equation-glm-source-content-6" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\beta &amp;=  \frac{X^T W Z}{X^T W X}\\ &amp;= \frac{\phi^{-1} X^T W_o Z}{\phi^{-1} X^T W_o X}\\ &amp;= \frac{X^T W_o Z}{X^T W_o X}\end{aligned}\end{align} \]</div>
 <p>可以看到在 <span class="math notranslate nohighlight">\(\beta\)</span> 的迭代过程中，分散参数 <span class="math notranslate nohighlight">\(\phi\)</span> 并没有起到作用，
 有没有分散参数 <span class="math notranslate nohighlight">\(\phi\)</span> 不影响参数 <span class="math notranslate nohighlight">\(\beta\)</span> 的更新。
 因此过度分散问题并不影响协变量参数 <span class="math notranslate nohighlight">\(\beta\)</span> 的估计。</p>
 <p>虽然过度分散不影响 <span class="math notranslate nohighlight">\(\beta\)</span> 的迭代，但是会影响它的标准误。
 参数估计量 <span class="math notranslate nohighlight">\(\beta\)</span> 的标准误的计算</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-7">
-<span class="eqno">(16.3.5)<a class="headerlink" href="#equation-glm-source-content-7" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}SE(\hat{\beta}) &amp;= \sqrt{\mathcal{J}^{-1}}\\&amp;= \sqrt{ {(X^T W X)}^{-1} }\\&amp;=  \sqrt{ {(X^T [a(\phi)\nu(\hat{\mu}) g'^2]^{-1} X)}^{-1} }\\&amp;=  \sqrt{ {(X^T [V_e(\hat{\mu}) g'^2]^{-1} X)}^{-1} }\end{aligned}\end{align} \]</div>
+<span class="eqno">(16.3.5)<a class="headerlink" href="#equation-glm-source-content-7" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}SE(\hat{\beta}) &amp;= \sqrt{\mathcal{J}^{-1}}\\&amp;= \sqrt{ {(X^T W X)}^{-1} }\\&amp;=  \sqrt{ {(X^T [a(\phi)\nu(\hat{\mu}) g'^2]^{-1} X)}^{-1} }\\&amp;=  \sqrt{ {(X^T [V_e(\hat{\mu}) g'^2]^{-1} X)}^{-1} }\end{aligned}\end{align} \]</div>
 <p>可以看出协变量参数估计量 <span class="math notranslate nohighlight">\(\hat{\beta}\)</span>
 的标准误差的计算是依赖模型方差的，如果模型的名义方差比观测方差小，
 就会导致计算出的标准误 <span class="math notranslate nohighlight">\(SE(\hat{\beta})\)</span> 比真实值偏小，
 这会使得模型的假设检验失效。</p>
-</div>
-<div class="section" id="id5">
-<h2><span class="section-number">16.4. </span>标准误差的修正<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="id5">
+<h2><span class="section-number">16.4. </span>标准误差的修正<a class="headerlink" href="#id5" title="永久链接至标题"></a></h2>
 <p>既然清楚了过度分散的影响，就可以针对性的去解决它，
 显然最直接到的方法就是人为给模型添加一个分散参数 <span class="math notranslate nohighlight">\(\phi\)</span>
 。因为分散参数不影响 <code class="docutils literal notranslate"><span class="pre">IRLS</span></code> 算法的迭代结果，
@@ -1225,7 +1135,7 @@
 分散参数 <span class="math notranslate nohighlight">\(\phi\)</span> 的值就用皮尔逊卡分散统计量来表示，
 修正后的标准误差为</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-8">
-<span class="eqno">(16.4.1)<a class="headerlink" href="#equation-glm-source-content-8" title="公式的永久链接">¶</a></span>\[SE(\hat{\beta}) =  \sqrt{ \hat{\phi}_{\chi^2} {(X^T W X)}^{-1} }\]</div>
+<span class="eqno">(16.4.1)<a class="headerlink" href="#equation-glm-source-content-8" title="公式的永久链接"></a></span>\[SE(\hat{\beta}) =  \sqrt{ \hat{\phi}_{\chi^2} {(X^T W X)}^{-1} }\]</div>
 <p>在对标准误差进行缩放后，该模型不再是似然模型，
 因为标准误差既不是基于预期的信息矩阵，也不是基于观测的信息矩阵。
 修正标准误差的方法还有另外几种的方法，比如，<code class="docutils literal notranslate"><span class="pre">William</span></code> 过程、稳健方差估计等，
@@ -1233,20 +1143,27 @@
 <p>事实上，仅仅修正标准误并没有从本质上解决过度分散问题，过度分散的本质原因是模型假设和观测数据不匹配，
 因此最根本的解决方法是更换更适合数据的模型，
 下两章介绍的负二项式模型、零截断模型、零膨胀模型就是从模型根本上解决过度分散的问题。</p>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../%E8%B4%9F%E4%BA%8C%E9%A1%B9%E6%A8%A1%E5%9E%8B/content.html" class="btn btn-neutral float-right" title="17. 负二项式模型" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="../gamma%E6%A8%A1%E5%9E%8B/content.html" class="btn btn-neutral float-left" title="15. Gamma 模型" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../gamma%E6%A8%A1%E5%9E%8B/content.html" class="btn btn-neutral float-left" title="15. Gamma 模型" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../%E8%B4%9F%E4%BA%8C%E9%A1%B9%E6%A8%A1%E5%9E%8B/content.html" class="btn btn-neutral float-right" title="17. 负二项式模型" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2018, zhangzhenhu(acmtiger@outlook.com) 禁止一切形式的转载！.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
+  
 
 
     <script src="https://utteranc.es/client.js"
@@ -1259,42 +1176,16 @@
 
 
 
-  <div role="contentinfo">
-    <p>
-        &#169; 版权所有 2018, zhangzhenhu(acmtiger@outlook.com) 禁止一切形式的转载！.
-
-    </p>
-  </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-
-
-
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

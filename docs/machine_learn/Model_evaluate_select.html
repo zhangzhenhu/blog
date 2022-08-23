@@ -1,97 +1,49 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="zh-CN" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>4. 模型评估 &mdash; 张振虎的博客 张振虎 文档</title>
-  
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
     <link rel="canonical" href="https://zhangzhenhu.github.io/blog/machine_learn/Model_evaluate_select.html" />
-
-  
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/translations.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2.7.7/unpacked/MathJax.min.js"></script>
         <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"Macros": {"RR": "{\\bf R}", "bold": ["{\\bf #1}", 1]}}})</script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
+    <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../index.html" class="icon icon-home"> 张振虎的博客
-          
-
-          
           </a>
-
-          
-            
-            
               <div class="version">
                 acmtiger@outlook.com
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="在文档中搜索" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">目录:</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">目录:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../glm/source/index.html">广义线性模型</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../glm/source/%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80/content.html">1. 概率基础</a><ul>
@@ -139,7 +91,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#id2">3.1. 统计量和充分统计量</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-sample-distribution">3.2. 抽样分布</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-sample-distribution-normal">3.2.1. 正态分布</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#t">3.2.2. t分布</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#t">3.2.2. 学生t分布</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#id5">3.2.3. 卡方分布</a></li>
 </ul>
 </li>
@@ -744,7 +696,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../audio/feature.html#id18">1.5. 分帧与加窗</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../audio/feature.html#id19">1.5.1. 预加重处理</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../audio/feature.html#id20">1.5.2. 分帧与加窗</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../audio/feature.html#id20">1.5.2. 分帧与加窗处理</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../audio/feature.html#id21">1.6. 声音的感官度量</a><ul>
@@ -786,26 +738,26 @@
 <li class="toctree-l2"><a class="reference internal" href="../edm/bkt.html">1. 贝叶斯知识追踪(Bayesian Knowledge Tracing,BKT)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id1">1.1. 简介</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#hidden-markov-model-hmm">1.2. 隐马尔科夫模型(Hidden Markov Model,HMM)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id5">1.3. 贝叶斯知识追踪(Bayesian Knowledge Tracing,BKT)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#bayesian-knowledge-tracing">1.3. 贝叶斯知识追踪(Bayesian Knowledge Tracing)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#bkt">1.3.1. BKT的参数估计</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#item-response-theory-irt">1.4. 项目反映理论(Item Response Theory,IRT)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#bktirt">1.5. BKT结合IRT</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id6">1.6. 实验</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id7">1.6.1. 数据集</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id8">1.6.2. 实验方法</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id9">1.6.3. 实验结果</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id10">1.6.4. 项目代码</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id5">1.6. 实验</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id6">1.6.1. 数据集</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id7">1.6.2. 实验方法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id8">1.6.3. 实验结果</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id9">1.6.4. 项目代码</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id11">1.7. 未来工作</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id12">1.7.1. 题目难度的计算</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id10">1.7. 未来工作</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id11">1.7.1. 题目难度的计算</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#irt">1.7.2. 多参数IRT模型</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id13">1.7.3. 参数估计算法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id12">1.7.3. 参数估计算法</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id14">1.8. 参考文献</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id13">1.8. 参考文献</a></li>
 </ul>
 </li>
 </ul>
@@ -902,75 +854,34 @@
 </li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">张振虎的博客</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-        
       <li><span class="section-number">4. </span>模型评估</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
-            <a href="../_sources/machine_learn/Model_evaluate_select.rst.txt" rel="nofollow"> View page source</a>
-          
-        
+            <a href="../_sources/machine_learn/Model_evaluate_select.rst.txt" rel="nofollow"> 查看页面源码</a>
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="id1">
-<h1><span class="section-number">4. </span>模型评估<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
-<div class="section" id="id2">
-<h2><span class="section-number">4.1. </span>概述<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+             
+  <section id="id1">
+<h1><span class="section-number">4. </span>模型评估<a class="headerlink" href="#id1" title="永久链接至标题"></a></h1>
+<section id="id2">
+<h2><span class="section-number">4.1. </span>概述<a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
 <p>机器学习的一般过程是：</p>
 <p>首先，我们获得了一个数据集、一个明确的任务（回归、分类、聚类等），我们希望通过模型挖掘出该数据集的隐含特征，进而来对新出现的数据进行数值回归、分类、聚类等。</p>
 <p>此时，我们主要面临以下两个问题：</p>
@@ -979,9 +890,9 @@
 <li><p>模型评估指标的选择。</p></li>
 </ol>
 <p>下面从以上两个部分进行展开。</p>
-</div>
-<div class="section" id="id3">
-<h2><span class="section-number">4.2. </span>数据集划分<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="id3">
+<h2><span class="section-number">4.2. </span>数据集划分<a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
 <p>为什么要进行数据集划分？</p>
 <p>最主要原因：防止过拟合</p>
 <p>为了寻找最能体现数据内在规律的模型，我们就要对所构造的模型进行评估，选择评估指标最优的模型。
@@ -1016,9 +927,9 @@
 在这里面有的样本重复出现，有的样本则没有出现过，我们把那些没有出现过的样本作为测试集。最终，在D中约有36.8%的数据没有在训练集中出现过 。</p>
 <p>这种方法对于那些数据集小、难以有效划分训练/测试集时很有用，但是由于该方法改变了数据的初始分布导致会引入估计偏差。</p>
 </div></blockquote>
-</div>
-<div class="section" id="id4">
-<h2><span class="section-number">4.3. </span>模型评估指标的选择<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="id4">
+<h2><span class="section-number">4.3. </span>模型评估指标的选择<a class="headerlink" href="#id4" title="永久链接至标题"></a></h2>
 <p>在进行了数据集的划分后，我们就要根据不同的任务选择不同的评估指标，来定量的描述模型的预测效果。</p>
 <ol class="arabic simple">
 <li><p>分类问题</p></li>
@@ -1027,28 +938,28 @@
 <li><p>0-1损失（Zero one loss）</p></li>
 </ul>
 <div class="math notranslate nohighlight" id="equation-machine-learn-model-evaluate-select-0">
-<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-0" title="公式的永久链接">¶</a></span>\[L_{0-1}(y, \hat{y}) = 1(y\ne\hat{y}) \tag{1}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-0" title="公式的永久链接"></a></span>\[L_{0-1}(y, \hat{y}) = 1(y\ne\hat{y}) \tag{1}\]</div>
 <p>上式中 <span class="math notranslate nohighlight">\(\hat{y}\)</span> 是样本预测值， y是样本真实值。</p>
 <ul class="simple">
 <li><p>正确率（Accuracy score）：</p></li>
 </ul>
 <div class="math notranslate nohighlight" id="equation-machine-learn-model-evaluate-select-1">
-<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-1" title="公式的永久链接">¶</a></span>\[accuracy(y, \hat{y}) = \frac{1}{n_{samples}}\sum_{i=0}^{n_{samples}-1}1(y=\hat{y}) \tag{2}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-1" title="公式的永久链接"></a></span>\[accuracy(y, \hat{y}) = \frac{1}{n_{samples}}\sum_{i=0}^{n_{samples}-1}1(y=\hat{y}) \tag{2}\]</div>
 <p>上式中 <span class="math notranslate nohighlight">\(\hat{y}\)</span> 是样本预测值， y是样本真实值。</p>
 <ul class="simple">
 <li><p>样本平衡正确率（Balanced accuracy score）：</p></li>
 </ul>
 <div class="math notranslate nohighlight" id="equation-machine-learn-model-evaluate-select-2">
-<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-2" title="公式的永久链接">¶</a></span>\[\hat{\omega_i} = \frac{\omega_i}{\sum_j 1(y_j=y_i)\omega_j} \tag{3}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-2" title="公式的永久链接"></a></span>\[\hat{\omega_i} = \frac{\omega_i}{\sum_j 1(y_j=y_i)\omega_j} \tag{3}\]</div>
 <div class="math notranslate nohighlight" id="equation-machine-learn-model-evaluate-select-3">
-<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-3" title="公式的永久链接">¶</a></span>\[balanced-accuracy(y, \hat{y}) = \frac{1}{\sum\hat{\omega_i}} \sum_i 1(\hat{y_i}=y_i)\omega_i \tag{4}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-3" title="公式的永久链接"></a></span>\[balanced-accuracy(y, \hat{y}) = \frac{1}{\sum\hat{\omega_i}} \sum_i 1(\hat{y_i}=y_i)\omega_i \tag{4}\]</div>
 <p>上式中 <span class="math notranslate nohighlight">\(\hat{y}\)</span> 是样本预测值， y是样本真实值， <span class="math notranslate nohighlight">\(\omega\)</span> 是样本权重， <span class="math notranslate nohighlight">\(\hat{\omega}\)</span> 是样本对应的类别样本权重。</p>
 <ul class="simple">
 <li><p>混淆矩阵（Confusion matrix）：</p></li>
 </ul>
-<div class="figure align-center">
+<figure class="align-center">
 <img alt="../_images/confusion_matrix.png" src="../_images/confusion_matrix.png" />
-</div>
+</figure>
 <p>对于二分类问题来讲，经常会提到以下四个术语：</p>
 <p>TP（True positives：真正类）：真实标签为正，预测为正。</p>
 <p>FP(False positives：假正类)：真实标签为负，预测为正。</p>
@@ -1058,18 +969,18 @@
 <li><p>汉明损失（Hamming loss）：</p></li>
 </ul>
 <div class="math notranslate nohighlight" id="equation-machine-learn-model-evaluate-select-4">
-<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-4" title="公式的永久链接">¶</a></span>\[L_{hamming}(y, \hat{y}) = \frac{1}{n_{samples}}\sum_{i=0}^{n_{samples}-1}1(y_i\ne\hat{y_i}) \tag{5}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-4" title="公式的永久链接"></a></span>\[L_{hamming}(y, \hat{y}) = \frac{1}{n_{samples}}\sum_{i=0}^{n_{samples}-1}1(y_i\ne\hat{y_i}) \tag{5}\]</div>
 <p>上式中 <span class="math notranslate nohighlight">\(\hat{y}\)</span> 是样本预测值， y是样本真实值。</p>
 <ul class="simple">
 <li><p>折页损失（Hinge loss）：</p></li>
 </ul>
 <p>对于二分类{-1, 1}来讲：</p>
 <div class="math notranslate nohighlight" id="equation-machine-learn-model-evaluate-select-5">
-<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-5" title="公式的永久链接">¶</a></span>\[L_{hinge}(y, w) = max(1-yw, 0) = |1-yw| \tag{6}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-5" title="公式的永久链接"></a></span>\[L_{hinge}(y, w) = max(1-yw, 0) = |1-yw| \tag{6}\]</div>
 <p>上式中 w是样本预测值， y是样本真实值。</p>
 <p>对于多分类来讲：</p>
 <div class="math notranslate nohighlight" id="equation-machine-learn-model-evaluate-select-6">
-<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-6" title="公式的永久链接">¶</a></span>\[L_{hinge}(y_w, y_t)= max(1+y_t-y_w, 0) \tag{7}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-6" title="公式的永久链接"></a></span>\[L_{hinge}(y_w, y_t)= max(1+y_t-y_w, 0) \tag{7}\]</div>
 <p>上式中 <span class="math notranslate nohighlight">\(y_t\)</span> 样本预测为其他种类的最大值， <span class="math notranslate nohighlight">\(y_w\)</span> 是样本预测为真实类别的值。</p>
 <ul class="simple">
 <li><p>对数损失（Log loss）：</p></li>
@@ -1077,25 +988,25 @@
 <p>对数损失又称为逻辑回归损失、交叉熵损失</p>
 <p>对于二分类{1, 0}来讲：</p>
 <div class="math notranslate nohighlight" id="equation-machine-learn-model-evaluate-select-7">
-<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-7" title="公式的永久链接">¶</a></span>\[L_{log}(y, p) = -(ylog(p)+(1-y)(log(1-p))) \tag{8}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-7" title="公式的永久链接"></a></span>\[L_{log}(y, p) = -(ylog(p)+(1-y)(log(1-p))) \tag{8}\]</div>
 <p>上式中p是样本预测值， y是样本真实值。</p>
 <p>对于多分类来讲：</p>
 <div class="math notranslate nohighlight" id="equation-machine-learn-model-evaluate-select-8">
-<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-8" title="公式的永久链接">¶</a></span>\[L_{log}(y, p) = -\frac{1}{N}\sum_{i=0}^{N-1}\sum_{k=0}^{K-1}y_{i,k}logp_{i,k} \tag{9}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-8" title="公式的永久链接"></a></span>\[L_{log}(y, p) = -\frac{1}{N}\sum_{i=0}^{N-1}\sum_{k=0}^{K-1}y_{i,k}logp_{i,k} \tag{9}\]</div>
 <p>上式中p是样本预测值， y是样本真实值，N为样本数量，K为类别数量。</p>
 <ul class="simple">
 <li><p>精确率（Precision）, 召回率（recall） and F-measures：</p></li>
 </ul>
 <p>对于二分类{正类、负类}问题， 下面是二分类的混淆矩阵：</p>
-<div class="figure align-center">
+<figure class="align-center">
 <img alt="../_images/binary_confusion_matrix.png" src="../_images/binary_confusion_matrix.png" />
-</div>
+</figure>
 <div class="math notranslate nohighlight" id="equation-machine-learn-model-evaluate-select-9">
-<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-9" title="公式的永久链接">¶</a></span>\[precision = \frac{tp}{tp+fp} \tag{10}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-9" title="公式的永久链接"></a></span>\[precision = \frac{tp}{tp+fp} \tag{10}\]</div>
 <div class="math notranslate nohighlight" id="equation-machine-learn-model-evaluate-select-10">
-<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-10" title="公式的永久链接">¶</a></span>\[recall = \frac{tp}{tp+fn} \tag{11}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-10" title="公式的永久链接"></a></span>\[recall = \frac{tp}{tp+fn} \tag{11}\]</div>
 <div class="math notranslate nohighlight" id="equation-machine-learn-model-evaluate-select-11">
-<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-11" title="公式的永久链接">¶</a></span>\[F_{\beta} = (1+\beta^2)\frac{precision*recall}{\beta^2*precision+recall} \tag{12}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-11" title="公式的永久链接"></a></span>\[F_{\beta} = (1+\beta^2)\frac{precision*recall}{\beta^2*precision+recall} \tag{12}\]</div>
 <p>对于多分类问题：</p>
 <p>我们有以下几种方式进行多分类指标的计算：</p>
 <ol class="loweralpha simple">
@@ -1130,7 +1041,7 @@
 <p>Matthews相关系数，用于度量二分类的质量。它会考虑TP/FP/TN/FP的情况，是一个平衡度量方式    ，MCC数值上介于［－1，+1］之间。
 相关系数为+1，表示是一个完美的预测，0表示是一个平均随机预测，而-1表示是一个逆预测。公式如下：</p>
 <div class="math notranslate nohighlight" id="equation-machine-learn-model-evaluate-select-12">
-<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-12" title="公式的永久链接">¶</a></span>\[MCC = \frac{tp*tn-fp*fn}{\sqrt{(tp+fp)(tp+fn)(tn+fp)(tn+fn)}} \tag{13}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-12" title="公式的永久链接"></a></span>\[MCC = \frac{tp*tn-fp*fn}{\sqrt{(tp+fp)(tp+fn)(tn+fp)(tn+fn)}} \tag{13}\]</div>
 <ol class="arabic simple" start="2">
 <li><p>回归问题</p></li>
 </ol>
@@ -1138,55 +1049,55 @@
 <li><p>可释方差值（Explained variance score）：</p></li>
 </ul>
 <div class="math notranslate nohighlight" id="equation-machine-learn-model-evaluate-select-13">
-<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-13" title="公式的永久链接">¶</a></span>\[explained\ variance(y, \hat{y}) = 1 - \frac{Var\{y-\hat{y}\}}{Var\{y\}} \tag{1}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-13" title="公式的永久链接"></a></span>\[explained\ variance(y, \hat{y}) = 1 - \frac{Var\{y-\hat{y}\}}{Var\{y\}} \tag{1}\]</div>
 <p>上式中 <span class="math notranslate nohighlight">\(\hat{y}\)</span> 是样本预测值， y是样本真实值，Var是方差。</p>
 <ul class="simple">
 <li><p>平均绝对误差（Mean absolute error）：</p></li>
 </ul>
 <div class="math notranslate nohighlight" id="equation-machine-learn-model-evaluate-select-14">
-<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-14" title="公式的永久链接">¶</a></span>\[MAE(y, \hat{y}) = \frac{1}{n_{samples}} \sum_{i=0}^{n_{samples}-1} |y_i - \hat{y_i}| \tag{2}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-14" title="公式的永久链接"></a></span>\[MAE(y, \hat{y}) = \frac{1}{n_{samples}} \sum_{i=0}^{n_{samples}-1} |y_i - \hat{y_i}| \tag{2}\]</div>
 <p>上式中 <span class="math notranslate nohighlight">\(\hat{y}\)</span> 是样本预测值， y是样本真实值。</p>
 <ul class="simple">
 <li><p>均方误差（Mean squared error）：</p></li>
 </ul>
 <div class="math notranslate nohighlight" id="equation-machine-learn-model-evaluate-select-15">
-<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-15" title="公式的永久链接">¶</a></span>\[MSE(y, \hat{y}) = \frac{1}{n_{samples}} \sum_{i=0}^{n_{samples}-1} (y_i - \hat{y_i})^2 \tag{3}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-15" title="公式的永久链接"></a></span>\[MSE(y, \hat{y}) = \frac{1}{n_{samples}} \sum_{i=0}^{n_{samples}-1} (y_i - \hat{y_i})^2 \tag{3}\]</div>
 <p>上式中 <span class="math notranslate nohighlight">\(\hat{y}\)</span> 是样本预测值， y是样本真实值。</p>
 <ul class="simple">
 <li><p>均方根误差（Root Mean squared error）：</p></li>
 </ul>
 <div class="math notranslate nohighlight" id="equation-machine-learn-model-evaluate-select-16">
-<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-16" title="公式的永久链接">¶</a></span>\[RMSE(y, \hat{y}) = \sqrt{MSE(y, \hat{y})} \tag{4}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-16" title="公式的永久链接"></a></span>\[RMSE(y, \hat{y}) = \sqrt{MSE(y, \hat{y})} \tag{4}\]</div>
 <p>上式中 <span class="math notranslate nohighlight">\(\hat{y}\)</span> 是样本预测值， y是样本真实值。</p>
 <ul class="simple">
 <li><p>中值绝对误差（Median absolute error）：</p></li>
 </ul>
 <div class="math notranslate nohighlight" id="equation-machine-learn-model-evaluate-select-17">
-<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-17" title="公式的永久链接">¶</a></span>\[MedAE(y, \hat{y}) = median(|y_1 - \hat{y_1}|,|y_2 - \hat{y_2}|,......,|y_n - \hat{y_n}|) \tag{5}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-17" title="公式的永久链接"></a></span>\[MedAE(y, \hat{y}) = median(|y_1 - \hat{y_1}|,|y_2 - \hat{y_2}|,......,|y_n - \hat{y_n}|) \tag{5}\]</div>
 <p>上式中 <span class="math notranslate nohighlight">\(\hat{y}\)</span> 是样本预测值， y是样本真实值。该指标具有鲁棒性，可以有效解决极端值的情况。</p>
 <ul class="simple">
 <li><p>均方对数误差（Mean squared logarithmic error）：</p></li>
 </ul>
 <div class="math notranslate nohighlight" id="equation-machine-learn-model-evaluate-select-18">
-<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-18" title="公式的永久链接">¶</a></span>\[MSLE(y, \hat{y}) = \frac{1}{n_{samples}} \sum_{i=0}^{n_{samples}-1} (log_e(1+y_i) - log_e(1+\hat{y_i}))^2 \tag{6}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-18" title="公式的永久链接"></a></span>\[MSLE(y, \hat{y}) = \frac{1}{n_{samples}} \sum_{i=0}^{n_{samples}-1} (log_e(1+y_i) - log_e(1+\hat{y_i}))^2 \tag{6}\]</div>
 <p>上式中 <span class="math notranslate nohighlight">\(\hat{y}\)</span> 是样本预测值， y是样本真实值。该指标可以解决样本值呈指数增长的情况。</p>
 <ul class="simple">
 <li><p>R方值，确定系数（ R² score, the coefficient of determination）：</p></li>
 </ul>
 <div class="math notranslate nohighlight" id="equation-machine-learn-model-evaluate-select-19">
-<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-19" title="公式的永久链接">¶</a></span>\[R^2(y, \hat{y}) = 1 - \frac{\sum_{i=0}^{n_{samples}-1}(y_i - \hat{y_i})^2}{\sum_{i=0}^{n_{samples}-1}(y_i - \overline{y})^2}  \tag{7}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-19" title="公式的永久链接"></a></span>\[R^2(y, \hat{y}) = 1 - \frac{\sum_{i=0}^{n_{samples}-1}(y_i - \hat{y_i})^2}{\sum_{i=0}^{n_{samples}-1}(y_i - \overline{y})^2}  \tag{7}\]</div>
 <p>上式中 <span class="math notranslate nohighlight">\(\hat{y}\)</span> 是样本预测值， y是样本真实值。该指标用来度量未来的样本是否可能通过模型被很好地预测。</p>
 <ul class="simple">
 <li><p>AIC（Akaike information criterion）：</p></li>
 </ul>
 <div class="math notranslate nohighlight" id="equation-machine-learn-model-evaluate-select-20">
-<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-20" title="公式的永久链接">¶</a></span>\[AIC = 2ln(f(y|\theta_k)) - 2K \tag{8}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-20" title="公式的永久链接"></a></span>\[AIC = 2ln(f(y|\theta_k)) - 2K \tag{8}\]</div>
 <p>上式中前半部分为似然值，后半部分K表示模型参数个数，该指标用来选择似然值高且模型参数较少的模型，降低模型的结构风险，降低过拟合风险。</p>
 <ul class="simple">
 <li><p>BIC（Bayesian information criterion）：</p></li>
 </ul>
 <div class="math notranslate nohighlight" id="equation-machine-learn-model-evaluate-select-21">
-<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-21" title="公式的永久链接">¶</a></span>\[BIC = 2ln(f(y|\theta_k)) - Klog(n) \tag{9}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-21" title="公式的永久链接"></a></span>\[BIC = 2ln(f(y|\theta_k)) - Klog(n) \tag{9}\]</div>
 <p>上式中前半部分为似然值，后半部分K表示模型参数个数，n表示模型训练数据量，该指标用来选择似然值高且模型参数较少的模型，降低模型的结构风险，降低过拟合风险，同时解决AIC在数据量大时倾向于选择复杂模型的缺点。</p>
 <ol class="arabic simple" start="3">
 <li><p>聚类问题</p></li>
@@ -1212,52 +1123,52 @@
 <li><p>兰德指数（Rand index）：</p></li>
 </ul>
 <div class="math notranslate nohighlight" id="equation-machine-learn-model-evaluate-select-22">
-<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-22" title="公式的永久链接">¶</a></span>\[RI = \frac{a+d}{C_{2}^{n_{samples}}} \tag{1}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-22" title="公式的永久链接"></a></span>\[RI = \frac{a+d}{C_{2}^{n_{samples}}} \tag{1}\]</div>
 <p>然而上式并没有保证随机猜测的RI值接近零，特殊情况：若类别数同样本数量在一个数量级下，则 <span class="math notranslate nohighlight">\(2d\approx{n(n-1)}\)</span> 。
 为了解决上述情况，减去随机猜测的RI期望（E(RI)），定义调整兰德指数（Adjusted Rand index）如下：</p>
 <div class="math notranslate nohighlight" id="equation-machine-learn-model-evaluate-select-23">
-<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-23" title="公式的永久链接">¶</a></span>\[ARI = \frac{RI-E(RI)}{max(RI)-E(RI)} \tag{2}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-23" title="公式的永久链接"></a></span>\[ARI = \frac{RI-E(RI)}{max(RI)-E(RI)} \tag{2}\]</div>
 <ul class="simple">
 <li><p>调整互信息（Adjusted Mutual Information：AMI）：</p></li>
 </ul>
 <div class="math notranslate nohighlight" id="equation-machine-learn-model-evaluate-select-24">
-<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-24" title="公式的永久链接">¶</a></span>\[H(C) = -\sum_{i=1}^{|C|} P(i)logP(i) \tag{3}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-24" title="公式的永久链接"></a></span>\[H(C) = -\sum_{i=1}^{|C|} P(i)logP(i) \tag{3}\]</div>
 <p>上式中 <span class="math notranslate nohighlight">\(P(i)\)</span> 代表了类别标签为i的样本占总样本的比例，同样形式可定义H(K)：</p>
 <div class="math notranslate nohighlight" id="equation-machine-learn-model-evaluate-select-25">
-<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-25" title="公式的永久链接">¶</a></span>\[H(K) = -\sum_{j=1}^{|K|} P(j)logP(j) \tag{4}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-25" title="公式的永久链接"></a></span>\[H(K) = -\sum_{j=1}^{|K|} P(j)logP(j) \tag{4}\]</div>
 <p>则C与K的互信息MI可定义如下：</p>
 <div class="math notranslate nohighlight" id="equation-machine-learn-model-evaluate-select-26">
-<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-26" title="公式的永久链接">¶</a></span>\[MI(C,K) = \sum_{i=1}^{|C|} \sum_{j=1}^{|K|} P(i,j) log(\frac{p(i,j)}{p(i)p(j)}) \tag{5}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-26" title="公式的永久链接"></a></span>\[MI(C,K) = \sum_{i=1}^{|C|} \sum_{j=1}^{|K|} P(i,j) log(\frac{p(i,j)}{p(i)p(j)}) \tag{5}\]</div>
 <p>标准化MI定义如下：</p>
 <div class="math notranslate nohighlight" id="equation-machine-learn-model-evaluate-select-27">
-<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-27" title="公式的永久链接">¶</a></span>\[NMI(C,K) = \frac{MI(C,K)}{mean(H(C),H(K))} \tag{6}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-27" title="公式的永久链接"></a></span>\[NMI(C,K) = \frac{MI(C,K)}{mean(H(C),H(K))} \tag{6}\]</div>
 <p>在样本类别数量增加时，更倾向与获得较大的MI、NMI，因此定义调整互信息（adjusted mutual information）公式如下：</p>
 <div class="math notranslate nohighlight" id="equation-machine-learn-model-evaluate-select-28">
-<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-28" title="公式的永久链接">¶</a></span>\[AMI = \frac{MI-E(MI)}{mean(H(C), H(K))-E(MI)} \tag{7}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-28" title="公式的永久链接"></a></span>\[AMI = \frac{MI-E(MI)}{mean(H(C), H(K))-E(MI)} \tag{7}\]</div>
 <div class="math notranslate nohighlight" id="equation-machine-learn-model-evaluate-select-29">
-<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-29" title="公式的永久链接">¶</a></span>\[E[MI(C,K)] = \sum_{i=1}^{|C|} \sum_{j=1}^{|K|} \sum_{n_{ij}=(a_i+b_j-N)}^{min(a_i,b_j)}
+<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-29" title="公式的永久链接"></a></span>\[E[MI(C,K)] = \sum_{i=1}^{|C|} \sum_{j=1}^{|K|} \sum_{n_{ij}=(a_i+b_j-N)}^{min(a_i,b_j)}
 \frac{n_{ij}}{N} log(\frac{Nn_{ij}}{a_ib_j}) \frac{a_i!b_j!(N-a_i)!(N-b_j)!}{N!n_{ij}!(a_i-n_{ij})!(b_j-n_{ij})!(N-a_i-b_j+n_{ij})!} \tag{8}\]</div>
 <ul class="simple">
 <li><p>同质性（Homogeneity），完整性（Completeness） and 同质性-完整性调和系数（V-measure）：</p></li>
 </ul>
 <p>同质性（Homogeneity）描述的是一个簇是只包含一个类别的样本，可近似理解为precision，定义如下：</p>
 <div class="math notranslate nohighlight" id="equation-machine-learn-model-evaluate-select-30">
-<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-30" title="公式的永久链接">¶</a></span>\[h = 1-\frac{H(C|K)}{H(C)} \tag{9}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-30" title="公式的永久链接"></a></span>\[h = 1-\frac{H(C|K)}{H(C)} \tag{9}\]</div>
 <p>完整性（Completeness）同类别样本被归类到相同簇中，可近似理解为recall，定义如下：</p>
 <div class="math notranslate nohighlight" id="equation-machine-learn-model-evaluate-select-31">
-<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-31" title="公式的永久链接">¶</a></span>\[c = 1-\frac{H(K|C)}{H(K)} \tag{10}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-31" title="公式的永久链接"></a></span>\[c = 1-\frac{H(K|C)}{H(K)} \tag{10}\]</div>
 <p>其中条件熵定义如下：</p>
 <div class="math notranslate nohighlight" id="equation-machine-learn-model-evaluate-select-32">
-<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-32" title="公式的永久链接">¶</a></span>\[H(C|K) = -\sum_{c=1}^{|C|} \sum_{k=1}^{|K|} p(c,k) log(p(c|k)) \tag{11}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-32" title="公式的永久链接"></a></span>\[H(C|K) = -\sum_{c=1}^{|C|} \sum_{k=1}^{|K|} p(c,k) log(p(c|k)) \tag{11}\]</div>
 <p>同质性-完整性调和系数（V-measure）可理解为F1调和系数：</p>
 <div class="math notranslate nohighlight" id="equation-machine-learn-model-evaluate-select-33">
-<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-33" title="公式的永久链接">¶</a></span>\[v = 2·\frac{c·h}{c+h} \tag{12}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-33" title="公式的永久链接"></a></span>\[v = 2·\frac{c·h}{c+h} \tag{12}\]</div>
 <ul class="simple">
 <li><p>Fowlkes-Mallows index（FMI）:</p></li>
 </ul>
 <p>FMI是precision和recall的调和系数，定义如下：</p>
 <div class="math notranslate nohighlight" id="equation-machine-learn-model-evaluate-select-34">
-<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-34" title="公式的永久链接">¶</a></span>\[FMI = \sqrt{P·R} \tag{13}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-34" title="公式的永久链接"></a></span>\[FMI = \sqrt{P·R} \tag{13}\]</div>
 <p>但是precision与recall的定义较二分类不同，precision定义为：真实标签相同的数据对，同样具有相同预测标签占真实标签相同的数据对的比例，
 recall定义为：真实标签相同的数据对，同样具有相同预测标签占预测标签相同的数据对的比例。</p>
 <p>3.2 内部评估</p>
@@ -1270,37 +1181,37 @@ recall定义为：真实标签相同的数据对，同样具有相同预测标�
 <p>a: 该点与同类别中的其他样本点的平均距离。</p>
 <p>b: 该点到与其最近的类别中的所有样本点的平均距离。</p>
 <div class="math notranslate nohighlight" id="equation-machine-learn-model-evaluate-select-35">
-<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-35" title="公式的永久链接">¶</a></span>\[s = \frac{b-a}{max(a,b)} \tag{14}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-35" title="公式的永久链接"></a></span>\[s = \frac{b-a}{max(a,b)} \tag{14}\]</div>
 <p>整体的轮廓系数用每个样本轮廓系数的均值表示，该值越大越好。</p>
 <ul class="simple">
 <li><p>CH（Calinski-Harabaz）：</p></li>
 </ul>
 <p>类内散度：</p>
 <div class="math notranslate nohighlight" id="equation-machine-learn-model-evaluate-select-36">
-<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-36" title="公式的永久链接">¶</a></span>\[W_k = \sum_{q=1}^{k} \sum_{x \in C_q} (x-c_q)(x-c_q)^T \tag{15}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-36" title="公式的永久链接"></a></span>\[W_k = \sum_{q=1}^{k} \sum_{x \in C_q} (x-c_q)(x-c_q)^T \tag{15}\]</div>
 <p>其中 <span class="math notranslate nohighlight">\(C_q\)</span> 是类q的样本集，<span class="math notranslate nohighlight">\(c_q\)</span> 是类q的样本中心。</p>
 <p>类间散度：</p>
 <div class="math notranslate nohighlight" id="equation-machine-learn-model-evaluate-select-37">
-<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-37" title="公式的永久链接">¶</a></span>\[B_k = \sum_q n_q(c_q-c)(c_q-c)^T \tag{16}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-37" title="公式的永久链接"></a></span>\[B_k = \sum_q n_q(c_q-c)(c_q-c)^T \tag{16}\]</div>
 <p>其中 <span class="math notranslate nohighlight">\(n_q\)</span> 是类q的样本集数量，<span class="math notranslate nohighlight">\(c\)</span> 是整个数据集的样本中心。</p>
 <p>CH：</p>
 <div class="math notranslate nohighlight" id="equation-machine-learn-model-evaluate-select-38">
-<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-38" title="公式的永久链接">¶</a></span>\[s(k) = \frac{Tr(B_k)}{Tr(W_k)}*\frac{N-k}{k-1} \tag{17}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-38" title="公式的永久链接"></a></span>\[s(k) = \frac{Tr(B_k)}{Tr(W_k)}*\frac{N-k}{k-1} \tag{17}\]</div>
 <p>其中 <span class="math notranslate nohighlight">\(N\)</span> 整个样本集的样本数量。</p>
 <ul class="simple">
 <li><p>DBI（Davies-Bouldin Index）：</p></li>
 </ul>
 <p>该指标是评估两个类（i，j）的相似性，定义如下：</p>
 <div class="math notranslate nohighlight" id="equation-machine-learn-model-evaluate-select-39">
-<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-39" title="公式的永久链接">¶</a></span>\[R_(ij) = \frac{s_i+s_j}{d_{ij}} \tag{18}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-39" title="公式的永久链接"></a></span>\[R_(ij) = \frac{s_i+s_j}{d_{ij}} \tag{18}\]</div>
 <p>其中 <span class="math notranslate nohighlight">\(s_i\)</span> 表示类i的直径（类内样本与类中心的平均距离）， <span class="math notranslate nohighlight">\(d_{ij}\)</span> 表示（i，j）两类中心点的距离。</p>
 <p>所以整个样本集的DBI表示如下：</p>
 <div class="math notranslate nohighlight" id="equation-machine-learn-model-evaluate-select-40">
-<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-40" title="公式的永久链接">¶</a></span>\[DB = \frac{1}{k} \sum_{i=1}^{k} max_{i \ne j}R_{ij} \tag{19}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-40" title="公式的永久链接"></a></span>\[DB = \frac{1}{k} \sum_{i=1}^{k} max_{i \ne j}R_{ij} \tag{19}\]</div>
 <p>该值越接近零越好。</p>
-</div>
-<div class="section" id="id5">
-<h2><span class="section-number">4.4. </span>应用场景评估指标的选择<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="id5">
+<h2><span class="section-number">4.4. </span>应用场景评估指标的选择<a class="headerlink" href="#id5" title="永久链接至标题"></a></h2>
 <ol class="arabic simple">
 <li><p>推荐系统</p></li>
 </ol>
@@ -1328,7 +1239,7 @@ recall定义为：真实标签相同的数据对，同样具有相同预测标�
 </ul>
 <p>对于一段正确文本T，我们识别出的文本为R，则词错误率定义如下：</p>
 <div class="math notranslate nohighlight" id="equation-machine-learn-model-evaluate-select-41">
-<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-41" title="公式的永久链接">¶</a></span>\[WER = \frac{I+S+D}{N} \tag{1}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-41" title="公式的永久链接"></a></span>\[WER = \frac{I+S+D}{N} \tag{1}\]</div>
 <p>其中I、S、D表示从R转换为T需要经过I次增加词、S次替换词、D次删除词操作，N为T的文本长度。</p>
 <ul class="simple">
 <li><p>句错误率（SER：Sentence Error Rate）：</p></li>
@@ -1343,7 +1254,7 @@ recall定义为：真实标签相同的数据对，同样具有相同预测标�
 <p>使用KL散度，又称作相对熵，KL散度的物理意义是：使用分布Q来对真实分布为P的事件进行编码，导致平均编码长度增加了多少。通俗理解为相同事件空间里两个概率分布的相异情况。KL散度越小，预测分布越接近真实分布。</p>
 <p>设真实的点击率是tctr，预测的点击率是pctr。因此真实的二项分布P是（tctr,1-tctr），预测的二项分布Q是(pctr,1-pctr)。因此KL散度公式可以写成如下：KL散度定义如下：</p>
 <div class="math notranslate nohighlight" id="equation-machine-learn-model-evaluate-select-42">
-<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-42" title="公式的永久链接">¶</a></span>\[KL(tctr||pctr) = tctr·log(\frac{tctr}{pctr}) + (1-tctr)·log(\frac{1-tctr}{1-pctr}) \tag{2}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-42" title="公式的永久链接"></a></span>\[KL(tctr||pctr) = tctr·log(\frac{tctr}{pctr}) + (1-tctr)·log(\frac{1-tctr}{1-pctr}) \tag{2}\]</div>
 <ul class="simple">
 <li><p>二分类常用指标</p></li>
 </ul>
@@ -1369,11 +1280,11 @@ recall定义为：真实标签相同的数据对，同样具有相同预测标�
 </ol>
 <p>对于单个查询AveP（平均准确率）定义如下：</p>
 <div class="math notranslate nohighlight" id="equation-machine-learn-model-evaluate-select-43">
-<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-43" title="公式的永久链接">¶</a></span>\[AveP = \frac{1}{R} \sum_{i=1}^R \frac{i}{position(i)} \tag{3}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-43" title="公式的永久链接"></a></span>\[AveP = \frac{1}{R} \sum_{i=1}^R \frac{i}{position(i)} \tag{3}\]</div>
 <p>其中R是返回结果中相关文档的个数，position(i)是每个相关文档在返回结果中的位置。</p>
 <p>对于对组查询来讲，可得MAP（mean of AveP）：</p>
 <div class="math notranslate nohighlight" id="equation-machine-learn-model-evaluate-select-44">
-<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-44" title="公式的永久链接">¶</a></span>\[MAP = \frac{\sum_{i=1}^Q Avep(i)}{Q} \tag{4}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-44" title="公式的永久链接"></a></span>\[MAP = \frac{\sum_{i=1}^Q Avep(i)}{Q} \tag{4}\]</div>
 <p>其中Q为查询语句的数量。</p>
 <ol class="loweralpha simple" start="2">
 <li><p>nDCG</p></li>
@@ -1382,14 +1293,14 @@ recall定义为：真实标签相同的数据对，同样具有相同预测标�
 <li><p>DCG</p></li>
 </ul>
 <div class="math notranslate nohighlight" id="equation-machine-learn-model-evaluate-select-45">
-<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-45" title="公式的永久链接">¶</a></span>\[DCG_p = \sum_{i=1}^P \frac{2^{rel_i}-1}{log_2(i+1)} \tag{5}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-45" title="公式的永久链接"></a></span>\[DCG_p = \sum_{i=1}^P \frac{2^{rel_i}-1}{log_2(i+1)} \tag{5}\]</div>
 <p>其中 <span class="math notranslate nohighlight">\(rel_i\)</span> 为排名为i的文档的相关度评分。</p>
 <ul class="simple">
 <li><p>Ideal DCG(IDCG)：</p></li>
 </ul>
 <p>IDCG是理想情况下的DCG，即对于一个查询语句和p来说，DCG的最大值。公式如下：</p>
 <div class="math notranslate nohighlight" id="equation-machine-learn-model-evaluate-select-46">
-<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-46" title="公式的永久链接">¶</a></span>\[IDCG_p = \sum_{i=1}^{|REL|} \frac{2^{rel_i}-1}{log_2(i+1)} \tag{6}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-46" title="公式的永久链接"></a></span>\[IDCG_p = \sum_{i=1}^{|REL|} \frac{2^{rel_i}-1}{log_2(i+1)} \tag{6}\]</div>
 <p>其中 <span class="math notranslate nohighlight">\(|REL|\)</span> 表示将文档按照相关性从大到小的顺序排序，取前p个文档组成的集合。也就是按照最优的方式对文档进行排序。</p>
 <ul class="simple">
 <li><p>Normalize DCG(nDCG)：</p></li>
@@ -1397,17 +1308,25 @@ recall定义为：真实标签相同的数据对，同样具有相同预测标�
 <p>由于每个查询语句所能检索到的结果文档集合长度不一，p值的不同会对DCG的计算有较大的影响。
 所以不能对不同查询语句的DCG进行求平均，需要进行归一化处理。nDCG就是用IDCG进行归一化处理，公式如下：</p>
 <div class="math notranslate nohighlight" id="equation-machine-learn-model-evaluate-select-47">
-<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-47" title="公式的永久链接">¶</a></span>\[nDCG_p = \frac{DCG_p}{IDCG_p} \tag{7}\]</div>
-</div>
-</div>
+<span class="eqno">()<a class="headerlink" href="#equation-machine-learn-model-evaluate-select-47" title="公式的永久链接"></a></span>\[nDCG_p = \frac{DCG_p}{IDCG_p} \tag{7}\]</div>
+</section>
+</section>
 
 
            </div>
-           
           </div>
           <footer>
 
   <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2018, zhangzhenhu(acmtiger@outlook.com) 禁止一切形式的转载！.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
+  
 
 
     <script src="https://utteranc.es/client.js"
@@ -1420,42 +1339,16 @@ recall定义为：真实标签相同的数据对，同样具有相同预测标�
 
 
 
-  <div role="contentinfo">
-    <p>
-        &#169; 版权所有 2018, zhangzhenhu(acmtiger@outlook.com) 禁止一切形式的转载！.
-
-    </p>
-  </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-
-
-
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

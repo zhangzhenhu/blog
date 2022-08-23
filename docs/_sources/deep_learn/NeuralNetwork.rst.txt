@@ -464,15 +464,15 @@ Relu函数图像如下图所示：
 - **速度快**  和sigmoid函数需要计算指数和倒数相比，relu函数其实就是一个max(0,x)，计算代价小很多。
 
 - **减轻梯度消失问题** 回忆下计算梯度的公式 :math:`\nabla =\sigma \prime \delta x`。其中 :math:`\sigma \prime` 是sigmoid函数的导数。在使用反向传播算法
-进行梯度计算时，每经过一层sigmoid神经元，梯度就要乘上一个 :math:`\sigma \prime`，从下图可以看出，:math:`\sigma \prime` 函数最大值是1/4。因此，乘一个 :math:`\sigma \prime`
-会导致梯度越来越小，这对于深层网络的训练是个很大的问题。而relu函数的导数是1，不会导致梯度变小。当然，激活函数仅仅是导致梯度减小的一个因素，但无论如何在这方面relu的表现强于sigmoid。
-使用relu激活函数可以让你训练更深的网络。
+  进行梯度计算时，每经过一层sigmoid神经元，梯度就要乘上一个 :math:`\sigma \prime`，从下图可以看出，:math:`\sigma \prime` 函数最大值是1/4。因此，乘一个 :math:`\sigma \prime`
+  会导致梯度越来越小，这对于深层网络的训练是个很大的问题。而relu函数的导数是1，不会导致梯度变小。当然，激活函数仅仅是导致梯度减小的一个因素，但无论如何在这方面relu的表现强于sigmoid。
+  使用relu激活函数可以让你训练更深的网络。
 
 .. image::
     http://upload-images.jianshu.io/upload_images/2256672-ad98d6b22f1a66ab.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/360
 
 - **稀疏性** 采用sigmoid激活函数的人工神经网络，其激活率大约是50%。有论文声称人工神经网络在15%-30%的激活率时是比较理想的。
-因为relu函数在输入小于0时是完全不激活的，因此可以获得一个更低的激活率。
+  因为relu函数在输入小于0时是完全不激活的，因此可以获得一个更低的激活率。
 
 Max pooling
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -593,7 +593,7 @@ Max pooling的主要功能是downsamping，却不会损坏识别结果。 这意
 
 .. note::
     总结下规律，计算 :math:`\frac { \partial { E_{ d } } }{ \partial { a^{ l-1 } } }`，相当于把第l层的sensitive map周围补一圈0，在与180度翻转
-后的filter进行cross-correlation，就能得到想要的结果
+    后的filter进行cross-correlation，就能得到想要的结果
 
 .. image::
     http://upload-images.jianshu.io/upload_images/2256672-2fb37b0a3ff0e1f9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/640
@@ -634,7 +634,7 @@ Max pooling的主要功能是downsamping，却不会损坏识别结果。 这意
 
 .. note::
     如上图，上面是步长为1时的卷积结果，下面是步长为2时的卷积结果。我们可以看出，因为步长为2，得到的feature map跳过了步长为1时相应的部分。
-因此，当我们反向计算误差项时，我们可以对步长为S的sensitivity map相应的位置进行补0，将其『还原』成步长为1时的sensitivity map,在求解。
+    因此，当我们反向计算误差项时，我们可以对步长为S的sensitivity map相应的位置进行补0，将其『还原』成步长为1时的sensitivity map,在求解。
 
 **输入层深度为D时的误差传递**
 

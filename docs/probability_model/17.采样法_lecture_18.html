@@ -1,99 +1,51 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="zh-CN" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>15. 马尔科夫蒙特卡洛 &mdash; 张振虎的博客 张振虎 文档</title>
-  
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
     <link rel="canonical" href="https://zhangzhenhu.github.io/blog/probability_model/17.采样法_lecture_18.html" />
-
-  
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/translations.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2.7.7/unpacked/MathJax.min.js"></script>
         <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"Macros": {"RR": "{\\bf R}", "bold": ["{\\bf #1}", 1]}}})</script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
+    <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
     <link rel="next" title="16. 贝叶斯分类器" href="%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%88%86%E7%B1%BB%E5%99%A8.html" />
     <link rel="prev" title="14. 变分推断" href="16.%E5%8F%98%E5%88%86%E6%8E%A8%E6%96%AD_lecture_17.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../index.html" class="icon icon-home"> 张振虎的博客
-          
-
-          
           </a>
-
-          
-            
-            
               <div class="version">
                 acmtiger@outlook.com
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="在文档中搜索" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">目录:</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">目录:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../glm/source/index.html">广义线性模型</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../glm/source/%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80/content.html">1. 概率基础</a><ul>
@@ -141,7 +93,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#id2">3.1. 统计量和充分统计量</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-sample-distribution">3.2. 抽样分布</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-sample-distribution-normal">3.2.1. 正态分布</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#t">3.2.2. t分布</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#t">3.2.2. 学生t分布</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#id5">3.2.3. 卡方分布</a></li>
 </ul>
 </li>
@@ -746,7 +698,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../audio/feature.html#id18">1.5. 分帧与加窗</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../audio/feature.html#id19">1.5.1. 预加重处理</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../audio/feature.html#id20">1.5.2. 分帧与加窗</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../audio/feature.html#id20">1.5.2. 分帧与加窗处理</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../audio/feature.html#id21">1.6. 声音的感官度量</a><ul>
@@ -788,26 +740,26 @@
 <li class="toctree-l2"><a class="reference internal" href="../edm/bkt.html">1. 贝叶斯知识追踪(Bayesian Knowledge Tracing,BKT)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id1">1.1. 简介</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#hidden-markov-model-hmm">1.2. 隐马尔科夫模型(Hidden Markov Model,HMM)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id5">1.3. 贝叶斯知识追踪(Bayesian Knowledge Tracing,BKT)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#bayesian-knowledge-tracing">1.3. 贝叶斯知识追踪(Bayesian Knowledge Tracing)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#bkt">1.3.1. BKT的参数估计</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#item-response-theory-irt">1.4. 项目反映理论(Item Response Theory,IRT)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#bktirt">1.5. BKT结合IRT</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id6">1.6. 实验</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id7">1.6.1. 数据集</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id8">1.6.2. 实验方法</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id9">1.6.3. 实验结果</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id10">1.6.4. 项目代码</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id5">1.6. 实验</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id6">1.6.1. 数据集</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id7">1.6.2. 实验方法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id8">1.6.3. 实验结果</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id9">1.6.4. 项目代码</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id11">1.7. 未来工作</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id12">1.7.1. 题目难度的计算</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id10">1.7. 未来工作</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id11">1.7.1. 题目难度的计算</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#irt">1.7.2. 多参数IRT模型</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id13">1.7.3. 参数估计算法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id12">1.7.3. 参数估计算法</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id14">1.8. 参考文献</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id13">1.8. 参考文献</a></li>
 </ul>
 </li>
 </ul>
@@ -904,89 +856,47 @@
 </li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">张振虎的博客</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="index_html.html">概率图</a> &raquo;</li>
-        
       <li><span class="section-number">15. </span>马尔科夫蒙特卡洛</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
-            <a href="../_sources/probability_model/17.采样法_lecture_18.rst.txt" rel="nofollow"> View page source</a>
-          
-        
+            <a href="../_sources/probability_model/17.采样法_lecture_18.rst.txt" rel="nofollow"> 查看页面源码</a>
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="id1">
-<h1><span class="section-number">15. </span>马尔科夫蒙特卡洛<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+             
+  <section id="id1">
+<h1><span class="section-number">15. </span>马尔科夫蒙特卡洛<a class="headerlink" href="#id1" title="永久链接至标题"></a></h1>
 <p>对于难于精确推断的模型结构，我们可以近似推断(approximate inference)，
 近似推断的方法一般有两种：变分法(variational)和采样法(sample)。
 其中，变分法并不能解决我们所面临的所有情况，这时我们就可以尝试使用抽样法解决。
 理论上，只要有足够的样本我们就得到概率分布任意重要信息。</p>
-<div class="section" id="why-sampling">
-<h2><span class="section-number">15.1. </span>Why sampling？<a class="headerlink" href="#why-sampling" title="永久链接至标题">¶</a></h2>
+<section id="why-sampling">
+<h2><span class="section-number">15.1. </span>Why sampling？<a class="headerlink" href="#why-sampling" title="永久链接至标题"></a></h2>
 <p>给出服从概率分布 <span class="math notranslate nohighlight">\(p_{\mathbf{x}}(\mathbf{x})\)</span> 的N个样本 <span class="math notranslate nohighlight">\(\left\{\mathbf{x}^{1}, \ldots, \mathbf{x}^{N}\right\}\)</span> 。
 我们可以求出样本的均值：</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-17-lecture-18-0">
-<span class="eqno">(15.1.1)<a class="headerlink" href="#equation-probability-model-17-lecture-18-0" title="公式的永久链接">¶</a></span>\[\frac{1}{N} \sum_{i=1}^{N} f\left(\mathbf{x}^{i}\right)\]</div>
+<span class="eqno">(15.1.1)<a class="headerlink" href="#equation-probability-model-17-lecture-18-0" title="公式的永久链接"></a></span>\[\frac{1}{N} \sum_{i=1}^{N} f\left(\mathbf{x}^{i}\right)\]</div>
 <p>无论这N个样本是否是互相独立抽样的，对于任意的f，上式都是期望 <span class="math notranslate nohighlight">\(\mathbb{E}[f(\mathbf{x})]\)</span> 的无偏估计。
 如果样本是独立同分布(i.i.d)的，根据大数定律，当样本数量 <span class="math notranslate nohighlight">\(N \rightarrow \infty\)</span> 时，样本的均值收敛于真实的期望值。</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-17-lecture-18-1">
-<span class="eqno">(15.1.2)<a class="headerlink" href="#equation-probability-model-17-lecture-18-1" title="公式的永久链接">¶</a></span>\[\frac{1}{N} \sum_{i=1}^{N} f\left(\mathbf{x}^{i}\right) \rightarrow \mathbb{E}[f(\mathbf{x})]\]</div>
+<span class="eqno">(15.1.2)<a class="headerlink" href="#equation-probability-model-17-lecture-18-1" title="公式的永久链接"></a></span>\[\frac{1}{N} \sum_{i=1}^{N} f\left(\mathbf{x}^{i}\right) \rightarrow \mathbb{E}[f(\mathbf{x})]\]</div>
 <p>通过选择不同的f，我们可以得到概率分布p的任何感兴趣的信息。</p>
 <ul class="simple">
 <li><p>方差 <span class="math notranslate nohighlight">\(f(\mathbf{x})=(\mathbf{x}-\mathbb{E}[\mathbf{x}])^{2}\)</span></p></li>
@@ -1002,35 +912,37 @@
 因此，如果我们能得到联合概率分布的样本，那么同时也得到了边缘概率分布的样本。</p>
 <p>另外我们也有直接从边缘概率分布采样的算法。</p>
 </div>
-</div>
-<div class="section" id="monte-carlo">
-<h2><span class="section-number">15.2. </span>蒙特卡罗(Monte Carlo)<a class="headerlink" href="#monte-carlo" title="永久链接至标题">¶</a></h2>
-</div>
-<div class="section" id="markov-chain">
-<h2><span class="section-number">15.3. </span>马尔科夫链(Markov Chain)<a class="headerlink" href="#markov-chain" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="monte-carlo">
+<h2><span class="section-number">15.2. </span>蒙特卡罗(Monte Carlo)<a class="headerlink" href="#monte-carlo" title="永久链接至标题"></a></h2>
+</section>
+<section id="markov-chain">
+<h2><span class="section-number">15.3. </span>马尔科夫链(Markov Chain)<a class="headerlink" href="#markov-chain" title="永久链接至标题"></a></h2>
 <p>一个马尔科夫链是一个随机过程，随着时间的变化”状态”也随之发生变化的过程。我们用 <span class="math notranslate nohighlight">\({X_i}\)</span> 表示状态序列，
 状态之间的转化过程是随机的。</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-17-lecture-18-2">
-<span class="eqno">(15.3.7)<a class="headerlink" href="#equation-probability-model-17-lecture-18-2" title="公式的永久链接">¶</a></span>\[\mathbb{P}\left(X_{t} | X_{t-1}, X_{t-2}, \ldots, X_{0}\right)=\mathbb{P}\left(X_{t} | X_{t-1}\right)\]</div>
+<span class="eqno">(15.3.7)<a class="headerlink" href="#equation-probability-model-17-lecture-18-2" title="公式的永久链接"></a></span>\[\mathbb{P}\left(X_{t} | X_{t-1}, X_{t-2}, \ldots, X_{0}\right)=\mathbb{P}\left(X_{t} | X_{t-1}\right)\]</div>
 <p>(这个公式中状态是离散变量，关于连续变量稍后再讲)</p>
 <p>上述公式表明，给定状态序列后，时刻t的状态只与t-1时刻的状态相关，而与更早时刻状态无关(这也被称作马尔科夫性)。
 因此，在给定状态序列后，我们可以根据当前的状态确定下一个状态。</p>
 <p>马尔科夫链的状态取值集合被称为状态空间，控制着从一状态转移到下一个状态的数值称为 <em>转移核(transition kernel)</em> 或者 <em>转移矩阵(ransition matrix)</em> 。</p>
-<div class="section" id="id2">
-<h3><span class="section-number">15.3.1. </span>一个例子<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h3>
+<section id="id2">
+<h3><span class="section-number">15.3.1. </span>一个例子<a class="headerlink" href="#id2" title="永久链接至标题"></a></h3>
 <p>我们假设一个马尔科夫链的状态空间大小为3（有3个不同的状态值），状态之间的转换概率如下图所示，
 图中箭头表示从一个状态转移到下一个状态，边上数值表示转移的概率值。
 <em>请注意，在这个马尔可夫链中，无论您当前的状态是什么，您都只能前往两种可能的状态，也就是并不是任意两个状态间都能直接转换。</em></p>
-<div class="figure align-center" id="id6">
+<figure class="align-center" id="id6">
 <a class="reference internal image-reference" href="../_images/18_a1.png"><img alt="../_images/18_a1.png" src="../_images/18_a1.png" style="width: 328.8px; height: 198.6px;" /></a>
-<p class="caption"><span class="caption-number">图 15.3.1 </span><span class="caption-text">状态转换概率图</span><a class="headerlink" href="#id6" title="永久链接至图片">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">图 15.3.1 </span><span class="caption-text">状态转换概率图</span><a class="headerlink" href="#id6" title="永久链接至图片"></a></p>
+</figcaption>
+</figure>
 <p>我们也可以用状态转移矩阵来表示状态之间的转换概率。</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-17-lecture-18-3">
-<span class="eqno">(15.3.8)<a class="headerlink" href="#equation-probability-model-17-lecture-18-3" title="公式的永久链接">¶</a></span>\[\begin{split}P=\left[\begin{array}{ccc}{1 / 2} &amp; {1 / 2} &amp; {0} \\ {1 / 2} &amp; {0} &amp; {1 / 2} \\ {0} &amp; {1 / 2} &amp; {1 / 2}\end{array}\right]\end{split}\]</div>
+<span class="eqno">(15.3.8)<a class="headerlink" href="#equation-probability-model-17-lecture-18-3" title="公式的永久链接"></a></span>\[\begin{split}P=\left[\begin{array}{ccc}{1 / 2} &amp; {1 / 2} &amp; {0} \\ {1 / 2} &amp; {0} &amp; {1 / 2} \\ {0} &amp; {1 / 2} &amp; {1 / 2}\end{array}\right]\end{split}\]</div>
 <p>矩阵的中每个元素 <span class="math notranslate nohighlight">\(P_{ij}\)</span> 表示从状态i转移到状态j的概率，假设n表示马尔科夫链的第n个节点，则有:</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-17-lecture-18-4">
-<span class="eqno">(15.3.9)<a class="headerlink" href="#equation-probability-model-17-lecture-18-4" title="公式的永久链接">¶</a></span>\[\mathbb{P}\left(X_{n+1}=j | X_{n}=i\right)=P_{i j}\]</div>
+<span class="eqno">(15.3.9)<a class="headerlink" href="#equation-probability-model-17-lecture-18-4" title="公式的永久链接"></a></span>\[\mathbb{P}\left(X_{n+1}=j | X_{n}=i\right)=P_{i j}\]</div>
 <p>从这个状态转移矩阵中可以看到，从状态1转移到状态3的概率是0，因为在矩阵的(1,3)(这里行列索引从1开始计算)位置的元素为0 。</p>
 <p>马尔科夫链的第一状态的产生是初始概率决定 <span class="math notranslate nohighlight">\(\boldsymbol{\pi}=[\pi_i],\sum_{\pi_i} = 1\)</span> ，
 <span class="math notranslate nohighlight">\(\pi_i\)</span> 表示链的第一个节点是第i个状态的概率 。这里我们假设 <span class="math notranslate nohighlight">\(\boldsymbol{\pi}=[0,0,1]\)</span> ，也就是链的第一个节点肯定是状态3。</p>
@@ -1061,7 +973,7 @@
 注意，这里不是转移概率，而是边缘概率，也就是不管上一个节点状态是什么，下一个状态的概率分布，
 其中 <span class="math notranslate nohighlight">\(\boldsymbol{\pi}^0=[0,0,1]\)</span> 。</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-17-lecture-18-5">
-<span class="eqno">(15.3.10)<a class="headerlink" href="#equation-probability-model-17-lecture-18-5" title="公式的永久链接">¶</a></span>\[\boldsymbol{\pi}^{n}=\boldsymbol{\pi}^{0} \overbrace{P P P P \cdots P}^{n \text { times }}=P^{(n)}\]</div>
+<span class="eqno">(15.3.10)<a class="headerlink" href="#equation-probability-model-17-lecture-18-5" title="公式的永久链接"></a></span>\[\boldsymbol{\pi}^{n}=\boldsymbol{\pi}^{0} \overbrace{P P P P \cdots P}^{n \text { times }}=P^{(n)}\]</div>
 <p>例如，从状态3开始，经过5次转换后 <span class="math notranslate nohighlight">\(\boldsymbol{\pi}^{5}=(0.3125,0.34375,0.34357)\)</span></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
 <span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">]])</span>
@@ -1081,12 +993,12 @@
 <span class="o">&gt;&gt;&gt;</span><span class="mi">5</span> <span class="p">[</span><span class="mf">0.3125</span>  <span class="mf">0.34375</span> <span class="mf">0.34375</span><span class="p">]</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="time-reversibility">
-<h3><span class="section-number">15.3.2. </span>时间可逆性(Time Reversibility)<a class="headerlink" href="#time-reversibility" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="time-reversibility">
+<h3><span class="section-number">15.3.2. </span>时间可逆性(Time Reversibility)<a class="headerlink" href="#time-reversibility" title="永久链接至标题"></a></h3>
 <p>满足如下条件的马尔科夫链是 <em>时间可逆(time reversible)</em> 的。</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-17-lecture-18-6">
-<span class="eqno">(15.3.11)<a class="headerlink" href="#equation-probability-model-17-lecture-18-6" title="公式的永久链接">¶</a></span>\[\left(X_{0}, X_{1}, \ldots, X_{n}\right) \stackrel{D}{=}\left(X_{n}, X_{n-1}, \ldots, X_{0}\right)\]</div>
+<span class="eqno">(15.3.11)<a class="headerlink" href="#equation-probability-model-17-lecture-18-6" title="公式的永久链接"></a></span>\[\left(X_{0}, X_{1}, \ldots, X_{n}\right) \stackrel{D}{=}\left(X_{n}, X_{n-1}, \ldots, X_{0}\right)\]</div>
 <p>沿着”正向”(时间轴方向)移动的状态序列和沿着”反向”移动的状态序列拥有相同的概率分布。
 此外，上面的定义意味着 <span class="math notranslate nohighlight">\(\left(X_{0}, X_{1}\right) \stackrel{D}{=}\left(X_{1}, X_{0}\right)\)</span> ，
 进一步可得 <span class="math notranslate nohighlight">\(X_{0} \stackrel{D}{=} X_{1}\)</span> 。</p>
@@ -1094,10 +1006,10 @@
 其中 P 是状态转移矩阵，这就是 <span class="math notranslate nohighlight">\(\pi_{0}\)</span> 就是稳态分布。 <strong>综上可得，一个时间可逆的马尔科夫链是一个平稳分布。</strong></p>
 <p>除了平稳性，时间可逆的属性还能得出如下等式：</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-17-lecture-18-7">
-<span class="eqno">(15.3.12)<a class="headerlink" href="#equation-probability-model-17-lecture-18-7" title="公式的永久链接">¶</a></span>\[\begin{split}\begin{aligned}\left(X_{0}, X_{1}\right) &amp; \stackrel{D}{=}\left(X_{1}, X_{0}\right) \\ \mathbb{P}\left(X_{0}=i, X_{1}=j\right) &amp;=\mathbb{P}\left(X_{1}=i, X_{0}=j\right) \\ \mathbb{P}\left(X_{0}=i\right) \mathbb{P}\left(X_{1}=j | X_{0}=i\right) &amp;=\mathbb{P}\left(X_{0}=j\right) \mathbb{P}\left(X_{1}=i | X_{0}=j\right) \end{aligned}\end{split}\]</div>
+<span class="eqno">(15.3.12)<a class="headerlink" href="#equation-probability-model-17-lecture-18-7" title="公式的永久链接"></a></span>\[\begin{split}\begin{aligned}\left(X_{0}, X_{1}\right) &amp; \stackrel{D}{=}\left(X_{1}, X_{0}\right) \\ \mathbb{P}\left(X_{0}=i, X_{1}=j\right) &amp;=\mathbb{P}\left(X_{1}=i, X_{0}=j\right) \\ \mathbb{P}\left(X_{0}=i\right) \mathbb{P}\left(X_{1}=j | X_{0}=i\right) &amp;=\mathbb{P}\left(X_{0}=j\right) \mathbb{P}\left(X_{1}=i | X_{0}=j\right) \end{aligned}\end{split}\]</div>
 <p>最后一行可以改写成:</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-17-lecture-18-8">
-<span class="eqno">(15.3.13)<a class="headerlink" href="#equation-probability-model-17-lecture-18-8" title="公式的永久链接">¶</a></span>\[\pi(i) P(i, j)=\pi(j) P(j, i)\]</div>
+<span class="eqno">(15.3.13)<a class="headerlink" href="#equation-probability-model-17-lecture-18-8" title="公式的永久链接"></a></span>\[\pi(i) P(i, j)=\pi(j) P(j, i)\]</div>
 <p>这被称为 <em>局部平衡等式(local balance equations)</em> 。一个关键的特性是: 如果转移概率矩阵P和分布 <span class="math notranslate nohighlight">\(\pi\)</span> 拥有局部平衡等式，
 那么，<span class="math notranslate nohighlight">\(\pi\)</span> 就是转移矩阵P所控制的马尔科夫链的稳态分布。</p>
 <div class="admonition note">
@@ -1114,9 +1026,9 @@
 只要我们可以证明具有给定转移矩阵P的马尔可夫链满足关于平稳分布的 <em>局部平衡等式</em> ，
 我们就可以知道链将会收敛到稳态分布。</p>
 </div>
-</div>
-<div class="section" id="id3">
-<h3><span class="section-number">15.3.3. </span>总结<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id3">
+<h3><span class="section-number">15.3.3. </span>总结<a class="headerlink" href="#id3" title="永久链接至标题"></a></h3>
 <ol class="arabic simple">
 <li><p>我们想从复杂的概率密度 <span class="math notranslate nohighlight">\(\pi\)</span> 中抽样。</p></li>
 <li><p>非周期和不可约马尔可夫链最终会收敛到某个稳态分布 <span class="math notranslate nohighlight">\(\pi\)</span>。</p></li>
@@ -1124,10 +1036,10 @@
 <li><p>给定由转移矩阵P控制的马尔科夫链，我们可以模拟它很长一段时间，最终我们将从平稳分布 <span class="math notranslate nohighlight">\(\pi\)</span> 模拟。</p></li>
 </ol>
 <p>这是MCMC技术的基本要点，我在这里给出了最简短的介绍。 也就是说，在下一节中，我们将讨论如何构建一个适当的马尔可夫链来模拟稳态分布。</p>
-</div>
-</div>
-<div class="section" id="markov-chain-monte-carlo">
-<h2><span class="section-number">15.4. </span>Markov Chain Monte Carlo<a class="headerlink" href="#markov-chain-monte-carlo" title="永久链接至标题">¶</a></h2>
+</section>
+</section>
+<section id="markov-chain-monte-carlo">
+<h2><span class="section-number">15.4. </span>Markov Chain Monte Carlo<a class="headerlink" href="#markov-chain-monte-carlo" title="永久链接至标题"></a></h2>
 <p>假设我们想从 <span class="math notranslate nohighlight">\(p_{\mathbf{x}}(\mathbf{x})\)</span> 采样，
 但是我们只知道 <span class="math notranslate nohighlight">\(p_{\mathbf{x}}\)</span> 正比于一个乘项
 (i.e. <span class="math notranslate nohighlight">\(p_{\mathbf{x}}(\mathbf{x})=p_{\mathbf{x}}^{*}(\mathbf{x}) / Z\)</span> ，
@@ -1151,8 +1063,8 @@
 </ol>
 <p>Metropolis-Hastings 算法就是回答第一个问题的方法；对于第二问题，To answer the second,
 we’ll look at the “mixing time” of Markov chains through Cheeger’s inequality.</p>
-<div class="section" id="metropolis-hastings">
-<h3><span class="section-number">15.4.1. </span>Metropolis-Hastings<a class="headerlink" href="#metropolis-hastings" title="永久链接至标题">¶</a></h3>
+<section id="metropolis-hastings">
+<h3><span class="section-number">15.4.1. </span>Metropolis-Hastings<a class="headerlink" href="#metropolis-hastings" title="永久链接至标题"></a></h3>
 <div class="admonition hint">
 <p class="admonition-title">提示</p>
 <p>上文我们讲到，一个马尔科夫链可以收敛到一个稳态分布的条件是满足 “detailed balance”
@@ -1165,27 +1077,29 @@ we’ll look at the “mixing time” of Markov chains through Cheeger’s inequ
 <p>我们用 <span class="math notranslate nohighlight">\(\boldsymbol{\pi}=\left[\boldsymbol{\pi}_{i}\right]\)</span> 表示马尔科夫链 <span class="math notranslate nohighlight">\(\mathbf{P}\)</span> 的稳态分布，
 并且令其等于我们想要从中采样的目标概率分布 <span class="math notranslate nohighlight">\(p_{\mathbf{x}}\)</span> 。</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-17-lecture-18-9">
-<span class="eqno">(15.4.7)<a class="headerlink" href="#equation-probability-model-17-lecture-18-9" title="公式的永久链接">¶</a></span>\[\boldsymbol{\pi}_{i}=p_{\mathbf{x}}(x_i)\]</div>
+<span class="eqno">(15.4.7)<a class="headerlink" href="#equation-probability-model-17-lecture-18-9" title="公式的永久链接"></a></span>\[\boldsymbol{\pi}_{i}=p_{\mathbf{x}}(x_i)\]</div>
 <p>我们将要构造一个马尔科夫链 <span class="math notranslate nohighlight">\(\mathbf{P}\)</span> ，其状态转移概率矩阵为 <span class="math notranslate nohighlight">\([ \mathbf{P}_{ij}]\)</span> 。</p>
-<div class="figure align-center" id="id7">
+<figure class="align-center" id="id7">
 <a class="reference internal image-reference" href="../_images/18_1.png"><img alt="../_images/18_1.png" src="../_images/18_1.png" style="width: 314.8px; height: 218.4px;" /></a>
-<p class="caption"><span class="caption-number">图 15.4.1 </span><span class="caption-text">图1：马尔科夫链的稳态表示 <span class="math notranslate nohighlight">\(\boldsymbol{\pi}_{i} \mathbf{P}_{i j}=\boldsymbol{\pi}_{j} \mathbf{P}_{j i}\)</span> 。
-换句话说就是，从状态i流转到状态j的概率和状态j流转到状态i的概率相同。</span><a class="headerlink" href="#id7" title="永久链接至图片">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">图 15.4.1 </span><span class="caption-text">图1：马尔科夫链的稳态表示 <span class="math notranslate nohighlight">\(\boldsymbol{\pi}_{i} \mathbf{P}_{i j}=\boldsymbol{\pi}_{j} \mathbf{P}_{j i}\)</span> 。
+换句话说就是，从状态i流转到状态j的概率和状态j流转到状态i的概率相同。</span><a class="headerlink" href="#id7" title="永久链接至图片"></a></p>
+</figcaption>
+</figure>
 <p>并且，我们需要 <span class="math notranslate nohighlight">\(\mathbf{P}\)</span> 是一个可逆转的马尔科夫链。</p>
 <p><strong>定义1</strong> 可逆转马尔科夫链(Reversible Markov chain)</p>
 <blockquote>
 <div><p>满足如下条件的马尔科夫链被称为可逆马尔可夫链。</p>
 </div></blockquote>
 <div class="math notranslate nohighlight" id="equation-probability-model-17-lecture-18-10">
-<span class="eqno">(15.4.8)<a class="headerlink" href="#equation-probability-model-17-lecture-18-10" title="公式的永久链接">¶</a></span>\[\boldsymbol{\pi}_{i} \mathbf{P}_{i j}=\boldsymbol{\pi}_{j} \mathbf{P}_{j i}\]</div>
+<span class="eqno">(15.4.8)<a class="headerlink" href="#equation-probability-model-17-lecture-18-10" title="公式的永久链接"></a></span>\[\boldsymbol{\pi}_{i} \mathbf{P}_{i j}=\boldsymbol{\pi}_{j} \mathbf{P}_{j i}\]</div>
 <p><em>This equation is also referred to as detailed balance.</em></p>
 <p>Intuitively, detailed balance says that the probability “flowing” from i to j is the same amount
 of probability “flowing” from j to i, where by probability “flow” from i to j
 we mean <span class="math notranslate nohighlight">\(\boldsymbol{\pi}_{i} \mathbf{P}_{i j}\)</span> (i.e. the probability of being in i and transitioning to j).</p>
 <p>满足 <em>detailed balance</em> 的 <span class="math notranslate nohighlight">\(\mathbf{\pi}\)</span> 意味着 <span class="math notranslate nohighlight">\(\mathbf{\pi}\)</span> 就是 <span class="math notranslate nohighlight">\(\mathbf{P}\)</span> 的稳态分布。</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-17-lecture-18-11">
-<span class="eqno">(15.4.9)<a class="headerlink" href="#equation-probability-model-17-lecture-18-11" title="公式的永久链接">¶</a></span>\[\sum_{j} \boldsymbol{\pi}_{j} \mathbf{P}_{j i}=\sum_{j} \boldsymbol{\pi}_{i} \mathbf{P}_{i j}=\boldsymbol{\pi}_{i}\left(\sum_{j} \mathbf{P}_{i j}\right)=\boldsymbol{\pi}_{i}\]</div>
+<span class="eqno">(15.4.9)<a class="headerlink" href="#equation-probability-model-17-lecture-18-11" title="公式的永久链接"></a></span>\[\sum_{j} \boldsymbol{\pi}_{j} \mathbf{P}_{j i}=\sum_{j} \boldsymbol{\pi}_{i} \mathbf{P}_{i j}=\boldsymbol{\pi}_{i}\left(\sum_{j} \mathbf{P}_{i j}\right)=\boldsymbol{\pi}_{i}\]</div>
 <p>为了得到一个这样的 <span class="math notranslate nohighlight">\(\mathbf{P}\)</span> ，我们先从一个 “提议(proposed)” <sup>注解</sup> 转移矩阵 <span class="math notranslate nohighlight">\(\mathbf{K}\)</span> 开始，
 然后通过修改 <span class="math notranslate nohighlight">\(\mathbf{K}\)</span> 去得到我们想要的 <span class="math notranslate nohighlight">\(\mathbf{P}\)</span> 。
 <span class="math notranslate nohighlight">\(\mathbf{K}\)</span> 的选取没有太多的限制，可以不必和 <span class="math notranslate nohighlight">\(p_{\mathbf{x}}\)</span> 有关。
@@ -1195,24 +1109,24 @@ we mean <span class="math notranslate nohighlight">\(\boldsymbol{\pi}_{i} \mathb
 <p>“提议(proposed)” 状态矩阵的意思就是，先随便选择一个任意的可能不符合要求的转移矩阵。</p>
 </div>
 <div class="math notranslate nohighlight" id="equation-probability-model-17-lecture-18-12">
-<span class="eqno">(15.4.10)<a class="headerlink" href="#equation-probability-model-17-lecture-18-12" title="公式的永久链接">¶</a></span>\[\mathbf{K}_{i i}&gt;0 \text { for all } i \in \Omega\]</div>
+<span class="eqno">(15.4.10)<a class="headerlink" href="#equation-probability-model-17-lecture-18-12" title="公式的永久链接"></a></span>\[\mathbf{K}_{i i}&gt;0 \text { for all } i \in \Omega\]</div>
 <div class="math notranslate nohighlight" id="equation-probability-model-17-lecture-18-13">
-<span class="eqno">(15.4.11)<a class="headerlink" href="#equation-probability-model-17-lecture-18-13" title="公式的永久链接">¶</a></span>\[\mathrm{G}(\mathbf{K})=(\Omega, \mathcal{E}(\mathbf{K})) \text { is connected where } \mathcal{E}(\mathbf{K}) \triangleq\left\{(i, j) : \mathbf{K}_{i j} \mathbf{K}_{j i}&gt;0\right\}\]</div>
+<span class="eqno">(15.4.11)<a class="headerlink" href="#equation-probability-model-17-lecture-18-13" title="公式的永久链接"></a></span>\[\mathrm{G}(\mathbf{K})=(\Omega, \mathcal{E}(\mathbf{K})) \text { is connected where } \mathcal{E}(\mathbf{K}) \triangleq\left\{(i, j) : \mathbf{K}_{i j} \mathbf{K}_{j i}&gt;0\right\}\]</div>
 <p>我们假设 <span class="math notranslate nohighlight">\(\mathbf{P}_{i j}\)</span> 等于 <span class="math notranslate nohighlight">\(\mathbf{K}_{i j}\)</span> 乘以一个因子 <span class="math notranslate nohighlight">\(R(i, j)\)</span> ，
 使得 “detailed balance”( <span class="math notranslate nohighlight">\(\boldsymbol{\pi}_{i} \mathbf{P}_{i j}=\boldsymbol{\pi}_{j} \mathbf{P}_{j i}\)</span> )
 等式成立。</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-17-lecture-18-14">
-<span class="eqno">(15.4.12)<a class="headerlink" href="#equation-probability-model-17-lecture-18-14" title="公式的永久链接">¶</a></span>\[\begin{split}\mathbf{P}_{i j} \triangleq\left\{\begin{array}{ll}{\mathbf{K}_{i j} R(i, j)} &amp; {j \neq i} \\ {1-\sum_{j \neq i} \mathbf{P}_{i j}} &amp; {j=i}\end{array}\right.\end{split}\]</div>
+<span class="eqno">(15.4.12)<a class="headerlink" href="#equation-probability-model-17-lecture-18-14" title="公式的永久链接"></a></span>\[\begin{split}\mathbf{P}_{i j} \triangleq\left\{\begin{array}{ll}{\mathbf{K}_{i j} R(i, j)} &amp; {j \neq i} \\ {1-\sum_{j \neq i} \mathbf{P}_{i j}} &amp; {j=i}\end{array}\right.\end{split}\]</div>
 <p>推导演变过程如下：</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-17-lecture-18-15">
-<span class="eqno">(15.4.13)<a class="headerlink" href="#equation-probability-model-17-lecture-18-15" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned} \boldsymbol{\pi}_{i} \mathbf{P}_{i j} &amp;= \boldsymbol{\pi}_{j} \mathbf{P}_{j i}\\\boldsymbol{\pi}_{i} \mathbf{K}_{i j} \mathbf{R}_{i j} &amp;= \boldsymbol{\pi}_{j} \mathbf{K}_{j i} \mathbf{R}_{j i}\end{aligned}\end{align} \]</div>
+<span class="eqno">(15.4.13)<a class="headerlink" href="#equation-probability-model-17-lecture-18-15" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned} \boldsymbol{\pi}_{i} \mathbf{P}_{i j} &amp;= \boldsymbol{\pi}_{j} \mathbf{P}_{j i}\\\boldsymbol{\pi}_{i} \mathbf{K}_{i j} \mathbf{R}_{i j} &amp;= \boldsymbol{\pi}_{j} \mathbf{K}_{j i} \mathbf{R}_{j i}\end{aligned}\end{align} \]</div>
 <p>那么这个 <span class="math notranslate nohighlight">\(\mathbf{R}\)</span> 是什么才能使等式成立呢？可以这样定义 <span class="math notranslate nohighlight">\(\mathbf{R}_{i j}\)</span> :</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-17-lecture-18-16">
-<span class="eqno">(15.4.14)<a class="headerlink" href="#equation-probability-model-17-lecture-18-16" title="公式的永久链接">¶</a></span>\[R(i, j) = min \left(1, \frac{\boldsymbol{\pi}_j \mathbf{K}_{j i}}{\boldsymbol{\pi}_i \mathbf{K}_{i j}}\right)\]</div>
+<span class="eqno">(15.4.14)<a class="headerlink" href="#equation-probability-model-17-lecture-18-16" title="公式的永久链接"></a></span>\[R(i, j) = min \left(1, \frac{\boldsymbol{\pi}_j \mathbf{K}_{j i}}{\boldsymbol{\pi}_i \mathbf{K}_{i j}}\right)\]</div>
 <p>注意， <span class="math notranslate nohighlight">\(\mathbf{R}_{i j}\)</span> 和  <span class="math notranslate nohighlight">\(\mathbf{R}_{j i}\)</span> 是i,j互换，直观来看就是分子分母互换，
 然后我们把 <span class="math notranslate nohighlight">\(\mathbf{R}\)</span> 带入上述等式：</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-17-lecture-18-17">
-<span class="eqno">(15.4.15)<a class="headerlink" href="#equation-probability-model-17-lecture-18-17" title="公式的永久链接">¶</a></span>\[ \boldsymbol{\pi}_{i} \mathbf{K}_{i j} \ min \left(1, \frac{\boldsymbol{\pi}_j \mathbf{K}_{j i}}{\boldsymbol{\pi}_i \mathbf{K}_{i j}}\right)
+<span class="eqno">(15.4.15)<a class="headerlink" href="#equation-probability-model-17-lecture-18-17" title="公式的永久链接"></a></span>\[ \boldsymbol{\pi}_{i} \mathbf{K}_{i j} \ min \left(1, \frac{\boldsymbol{\pi}_j \mathbf{K}_{j i}}{\boldsymbol{\pi}_i \mathbf{K}_{i j}}\right)
 =  \boldsymbol{\pi}_{j} \mathbf{K}_{j i} \ min \left(1, \frac{\boldsymbol{\pi}_i \mathbf{K}_{i j}}{\boldsymbol{\pi}_j \mathbf{K}_{j i}}\right)\]</div>
 <p>对于其中的 min函数，我们分情况讨论，我们令 <span class="math notranslate nohighlight">\(\alpha=\frac{\boldsymbol{\pi}_j \mathbf{K}_{j i} }{ \boldsymbol{\pi}_i \mathbf{K}_{i j} }\)</span> ，
 <span class="math notranslate nohighlight">\(\beta=\frac{\boldsymbol{\pi}_i \mathbf{K}_{i j} }{ \boldsymbol{\pi}_j \mathbf{K}_{j i} }\)</span></p>
@@ -1221,14 +1135,14 @@ we mean <span class="math notranslate nohighlight">\(\boldsymbol{\pi}_{i} \mathb
 <li><p>如果 <span class="math notranslate nohighlight">\(\boldsymbol{\pi}_j \mathbf{K}_{j i}  &gt;  \boldsymbol{\pi}_i \mathbf{K}_{i j}\)</span> ，则 <span class="math notranslate nohighlight">\(\alpha &gt;1 , \beta &lt;1\)</span> ，上述等式为:</p></li>
 </ul>
 <div class="math notranslate nohighlight" id="equation-probability-model-17-lecture-18-18">
-<span class="eqno">(15.4.16)<a class="headerlink" href="#equation-probability-model-17-lecture-18-18" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\boldsymbol{\pi}_{i} \mathbf{K}_{i j} \times 1
+<span class="eqno">(15.4.16)<a class="headerlink" href="#equation-probability-model-17-lecture-18-18" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\boldsymbol{\pi}_{i} \mathbf{K}_{i j} \times 1
 =  \boldsymbol{\pi}_{j} \mathbf{K}_{j i} \frac{\pi_i \mathbf{K}_{i j}}{\pi_j \mathbf{K}_{j i}}\\\boldsymbol{\pi}_{i} \mathbf{K}_{i j} =  \boldsymbol{\pi}_{i} \mathbf{K}_{i j}
 \text{   等式1成立！}\end{aligned}\end{align} \]</div>
 <ul class="simple">
 <li><p>如果 <span class="math notranslate nohighlight">\(\boldsymbol{\pi}_j \mathbf{K}_{j i}  &lt;  \boldsymbol{\pi}_i \mathbf{K}_{i j}\)</span> ，则 <span class="math notranslate nohighlight">\(\alpha &lt;1 , \beta &gt;1\)</span> ，上述等式为:</p></li>
 </ul>
 <div class="math notranslate nohighlight" id="equation-probability-model-17-lecture-18-19">
-<span class="eqno">(15.4.17)<a class="headerlink" href="#equation-probability-model-17-lecture-18-19" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\boldsymbol{\pi}_{i} \mathbf{K}_{i j}  \frac{\boldsymbol{\pi}_j \mathbf{K}_{j i}}{\boldsymbol{\pi}_i \mathbf{K}_{i j}}
+<span class="eqno">(15.4.17)<a class="headerlink" href="#equation-probability-model-17-lecture-18-19" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\boldsymbol{\pi}_{i} \mathbf{K}_{i j}  \frac{\boldsymbol{\pi}_j \mathbf{K}_{j i}}{\boldsymbol{\pi}_i \mathbf{K}_{i j}}
 =  \boldsymbol{\pi}_{j} \mathbf{K}_{j i} \times 1\\\boldsymbol{\pi}_{j} \mathbf{K}_{j i} =  \boldsymbol{\pi}_{j} \mathbf{K}_{j i}
 \text{   等式1成立！}\end{aligned}\end{align} \]</div>
 <ul class="simple">
@@ -1242,7 +1156,7 @@ we mean <span class="math notranslate nohighlight">\(\boldsymbol{\pi}_{i} \mathb
 这个马尔科夫链的转移矩阵 <span class="math notranslate nohighlight">\(\mathbf{P}_{ij}\)</span> 是由我们”随便”设置的一个转移矩阵 <span class="math notranslate nohighlight">\(\mathbf{K}_{ij}\)</span> 和一个因子
 <span class="math notranslate nohighlight">\(\mathbf{R}(i,j)\)</span> 组成的。其中</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-17-lecture-18-20">
-<span class="eqno">(15.4.18)<a class="headerlink" href="#equation-probability-model-17-lecture-18-20" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}R(i, j) &amp;= min \left(1, \frac{\boldsymbol{\pi}_j \mathbf{K}_{j i}}{\boldsymbol{\pi}_i \mathbf{K}_{i j}}\right)\\&amp;= min \left(1, \frac{p_{\mathbf{x}}(x_j) \mathbf{K}_{j i}}{p_{\mathbf{x}}(x_i) \mathbf{K}_{i j}}\right)\\&amp;= min \left(1, \frac{p_{\mathbf{x}}^*(x_j) \mathbf{K}_{j i}}{p_{\mathbf{x}}^*(x_i) \mathbf{K}_{i j}}\right)\end{aligned}\end{align} \]</div>
+<span class="eqno">(15.4.18)<a class="headerlink" href="#equation-probability-model-17-lecture-18-20" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}R(i, j) &amp;= min \left(1, \frac{\boldsymbol{\pi}_j \mathbf{K}_{j i}}{\boldsymbol{\pi}_i \mathbf{K}_{i j}}\right)\\&amp;= min \left(1, \frac{p_{\mathbf{x}}(x_j) \mathbf{K}_{j i}}{p_{\mathbf{x}}(x_i) \mathbf{K}_{i j}}\right)\\&amp;= min \left(1, \frac{p_{\mathbf{x}}^*(x_j) \mathbf{K}_{j i}}{p_{\mathbf{x}}^*(x_i) \mathbf{K}_{i j}}\right)\end{aligned}\end{align} \]</div>
 <div class="admonition note">
 <p class="admonition-title">注解</p>
 <p>前文讲过， <span class="math notranslate nohighlight">\(p_{\mathbf{x}}^*(x_i)  =\frac{1}{Z} p_{\mathbf{x}}(x_i)\)</span> ，其中 Z是归一化因子，
@@ -1266,7 +1180,7 @@ we mean <span class="math notranslate nohighlight">\(\boldsymbol{\pi}_{i} \mathb
 <p>如果我们能选取一个 <strong>对称(symmetric)</strong> 的分布 <span class="math notranslate nohighlight">\(K\)</span> ，
 也就是 <span class="math notranslate nohighlight">\(K(\mathbf{x}_j |\mathbf{x}_i) = K(\mathbf{x}_i |\mathbf{x}_j)\)</span> ，那么接受率R的计算将进一步简化。</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-17-lecture-18-21">
-<span class="eqno">(15.4.19)<a class="headerlink" href="#equation-probability-model-17-lecture-18-21" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned} R(i, j) &amp;= min \left(1, \frac{p_{\mathbf{x}}^*(x_j) \mathbf{K}_{j i}}{p_{\mathbf{x}}^*(x_i) \mathbf{K}_{i j}}\right)\\&amp;= min \left(1, \frac{p_{\mathbf{x}}^*(x_j) }{p_{\mathbf{x}}^*(x_i)}\right)\end{aligned}\end{align} \]</div>
+<span class="eqno">(15.4.19)<a class="headerlink" href="#equation-probability-model-17-lecture-18-21" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned} R(i, j) &amp;= min \left(1, \frac{p_{\mathbf{x}}^*(x_j) \mathbf{K}_{j i}}{p_{\mathbf{x}}^*(x_i) \mathbf{K}_{i j}}\right)\\&amp;= min \left(1, \frac{p_{\mathbf{x}}^*(x_j) }{p_{\mathbf{x}}^*(x_i)}\right)\end{aligned}\end{align} \]</div>
 <p>当 <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> 是离散变量：</p>
 <blockquote>
 <div><p>如果变量 <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> 是一个有m个取值的离散随机变量，
@@ -1274,7 +1188,7 @@ we mean <span class="math notranslate nohighlight">\(\boldsymbol{\pi}_{i} \mathb
 每个值的取值概率都是 <span class="math notranslate nohighlight">\(\frac{1}{m}\)</span> 。 我们用 <span class="math notranslate nohighlight">\(U_i\)</span> 代表 <span class="math notranslate nohighlight">\(\mathbf(x)_i\)</span> ，
 从 <span class="math notranslate nohighlight">\(\mathbf(x)_i\)</span> 转移到任意一个状态(取值) 都是等的概率 <span class="math notranslate nohighlight">\(\frac{1}{m}\)</span> 。</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-17-lecture-18-22">
-<span class="eqno">(15.4.20)<a class="headerlink" href="#equation-probability-model-17-lecture-18-22" title="公式的永久链接">¶</a></span>\[K( \mathbf{x}_j |\mathbf{x}_i) = U(j) = \frac{1}{m} = U(i) = K( \mathbf{x}_i |\mathbf{x}_j)\]</div>
+<span class="eqno">(15.4.20)<a class="headerlink" href="#equation-probability-model-17-lecture-18-22" title="公式的永久链接"></a></span>\[K( \mathbf{x}_j |\mathbf{x}_i) = U(j) = \frac{1}{m} = U(i) = K( \mathbf{x}_i |\mathbf{x}_j)\]</div>
 <p>或者是，我们定义一个[0,1] 的均匀分布  <span class="math notranslate nohighlight">\(U \sim \operatorname{Unif}(0,1)\)</span> ，然后将区间[0,1]分成m份，
 分别和 <span class="math notranslate nohighlight">\(\mathbf(x)_i\)</span> 对应。</p>
 </div></blockquote>
@@ -1282,10 +1196,10 @@ we mean <span class="math notranslate nohighlight">\(\boldsymbol{\pi}_{i} \mathb
 <blockquote>
 <div><p>我们定义一个均值为0的正态分布 <span class="math notranslate nohighlight">\(g(\varepsilon) = Normal(0,\sigma^2)\)</span> ，令</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-17-lecture-18-23">
-<span class="eqno">(15.4.21)<a class="headerlink" href="#equation-probability-model-17-lecture-18-23" title="公式的永久链接">¶</a></span>\[\mathbf{x}^{t} = \mathbf{x}^{t-1} + \varepsilon\]</div>
+<span class="eqno">(15.4.21)<a class="headerlink" href="#equation-probability-model-17-lecture-18-23" title="公式的永久链接"></a></span>\[\mathbf{x}^{t} = \mathbf{x}^{t-1} + \varepsilon\]</div>
 <p>由于均值为0的正态分布是对称的，所以 <span class="math notranslate nohighlight">\(g(\varepsilon) = g(-\varepsilon)\)</span> ，则有</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-17-lecture-18-24">
-<span class="eqno">(15.4.22)<a class="headerlink" href="#equation-probability-model-17-lecture-18-24" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\mathbf{x}^{t} &amp;= \mathbf{x}^{t-1} + \varepsilon\\\mathbf{x}^{t-1} &amp;= \mathbf{x}^{t} - \varepsilon\\K(i,j) = g(\varepsilon) &amp;= g(-\varepsilon) =  K(j,i)\end{aligned}\end{align} \]</div>
+<span class="eqno">(15.4.22)<a class="headerlink" href="#equation-probability-model-17-lecture-18-24" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\mathbf{x}^{t} &amp;= \mathbf{x}^{t-1} + \varepsilon\\\mathbf{x}^{t-1} &amp;= \mathbf{x}^{t} - \varepsilon\\K(i,j) = g(\varepsilon) &amp;= g(-\varepsilon) =  K(j,i)\end{aligned}\end{align} \]</div>
 </div></blockquote>
 <p><strong>Metropolis-Hastings算法的缺陷！</strong></p>
 <div class="admonition important">
@@ -1294,50 +1208,57 @@ we mean <span class="math notranslate nohighlight">\(\boldsymbol{\pi}_{i} \mathb
 <p>我们仔细观察下接受率R，如果 <span class="math notranslate nohighlight">\(p_{\mathbf{x}}^* (x_j)\)</span> 比 <span class="math notranslate nohighlight">\(p_{\mathbf{x}}^*(x_i)\)</span> 小很多，那么这个R就会很小，
 也就是 <strong>很难从低概率的状态转移到高概率的状态</strong></p>
 <div class="math notranslate nohighlight" id="equation-probability-model-17-lecture-18-25">
-<span class="eqno">(15.4.23)<a class="headerlink" href="#equation-probability-model-17-lecture-18-25" title="公式的永久链接">¶</a></span>\[R(i, j) = min \left(1, \frac{p_{\mathbf{x}}^*(x_j) }{p_{\mathbf{x}}^*(x_i)}\right)\]</div>
+<span class="eqno">(15.4.23)<a class="headerlink" href="#equation-probability-model-17-lecture-18-25" title="公式的永久链接"></a></span>\[R(i, j) = min \left(1, \frac{p_{\mathbf{x}}^*(x_j) }{p_{\mathbf{x}}^*(x_i)}\right)\]</div>
 </div>
-</div>
-<div class="section" id="id4">
-<h3><span class="section-number">15.4.2. </span>例子：正态分布的采样<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
-</div>
-<div class="section" id="id5">
-<h3><span class="section-number">15.4.3. </span>多变量采样<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id4">
+<h3><span class="section-number">15.4.2. </span>例子：正态分布的采样<a class="headerlink" href="#id4" title="永久链接至标题"></a></h3>
+</section>
+<section id="id5">
+<h3><span class="section-number">15.4.3. </span>多变量采样<a class="headerlink" href="#id5" title="永久链接至标题"></a></h3>
 <p><strong>多变量问题</strong></p>
 <p>如果概率分布是多个变量的联合概率分布 <span class="math notranslate nohighlight">\(p_{\mathbf{x}} = p(\mathbf{x}_1,\dots,\mathbf{x}_n)\)</span> ，
 或者 <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> 是一个n为向量。
 标准的Metropolis算法，再一次迭代时同时更新所有变量</p>
 <p><a class="reference external" href="https://theclevermachine.wordpress.com/2012/11/04/mcmc-multivariate-distributions-block-wise-component-wise-updates/">https://theclevermachine.wordpress.com/2012/11/04/mcmc-multivariate-distributions-block-wise-component-wise-updates/</a></p>
-<div class="section" id="block-wise-sampling">
-<h4><span class="section-number">15.4.3.1. </span>Block-wise Sampling<a class="headerlink" href="#block-wise-sampling" title="永久链接至标题">¶</a></h4>
-</div>
-<div class="section" id="component-wise-sampling">
-<h4><span class="section-number">15.4.3.2. </span>Component-wise Sampling<a class="headerlink" href="#component-wise-sampling" title="永久链接至标题">¶</a></h4>
-</div>
-</div>
-<div class="section" id="gibbs">
-<h3><span class="section-number">15.4.4. </span>Gibbs 采样<a class="headerlink" href="#gibbs" title="永久链接至标题">¶</a></h3>
+<section id="block-wise-sampling">
+<h4><span class="section-number">15.4.3.1. </span>Block-wise Sampling<a class="headerlink" href="#block-wise-sampling" title="永久链接至标题"></a></h4>
+</section>
+<section id="component-wise-sampling">
+<h4><span class="section-number">15.4.3.2. </span>Component-wise Sampling<a class="headerlink" href="#component-wise-sampling" title="永久链接至标题"></a></h4>
+</section>
+</section>
+<section id="gibbs">
+<h3><span class="section-number">15.4.4. </span>Gibbs 采样<a class="headerlink" href="#gibbs" title="永久链接至标题"></a></h3>
 <p><a class="reference external" href="https://theclevermachine.wordpress.com/2012/11/05/mcmc-the-gibbs-sampler/">https://theclevermachine.wordpress.com/2012/11/05/mcmc-the-gibbs-sampler/</a></p>
-</div>
-</div>
-<div class="section" id="mixing-time">
-<h2><span class="section-number">15.5. </span>Mixing Time<a class="headerlink" href="#mixing-time" title="永久链接至标题">¶</a></h2>
-</div>
-<div class="section" id="approximate-map-and-partitioning">
-<h2><span class="section-number">15.6. </span>Approximate MAP and Partitioning<a class="headerlink" href="#approximate-map-and-partitioning" title="永久链接至标题">¶</a></h2>
-</div>
-</div>
+</section>
+</section>
+<section id="mixing-time">
+<h2><span class="section-number">15.5. </span>Mixing Time<a class="headerlink" href="#mixing-time" title="永久链接至标题"></a></h2>
+</section>
+<section id="approximate-map-and-partitioning">
+<h2><span class="section-number">15.6. </span>Approximate MAP and Partitioning<a class="headerlink" href="#approximate-map-and-partitioning" title="永久链接至标题"></a></h2>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%88%86%E7%B1%BB%E5%99%A8.html" class="btn btn-neutral float-right" title="16. 贝叶斯分类器" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="16.%E5%8F%98%E5%88%86%E6%8E%A8%E6%96%AD_lecture_17.html" class="btn btn-neutral float-left" title="14. 变分推断" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="16.%E5%8F%98%E5%88%86%E6%8E%A8%E6%96%AD_lecture_17.html" class="btn btn-neutral float-left" title="14. 变分推断" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%88%86%E7%B1%BB%E5%99%A8.html" class="btn btn-neutral float-right" title="16. 贝叶斯分类器" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2018, zhangzhenhu(acmtiger@outlook.com) 禁止一切形式的转载！.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
+  
 
 
     <script src="https://utteranc.es/client.js"
@@ -1350,42 +1271,16 @@ we mean <span class="math notranslate nohighlight">\(\boldsymbol{\pi}_{i} \mathb
 
 
 
-  <div role="contentinfo">
-    <p>
-        &#169; 版权所有 2018, zhangzhenhu(acmtiger@outlook.com) 禁止一切形式的转载！.
-
-    </p>
-  </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-
-
-
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

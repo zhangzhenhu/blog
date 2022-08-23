@@ -368,7 +368,6 @@ IRLS算法参数更新公式为：
 权重矩阵 :math:`W` 是一个对角矩阵，计算方法如下：
 
 .. math::
-   :label: eq_gaussian_0030
 
     W^{(t)}
    = \text{diag} \left \{ \frac{ 1}{ a(\phi) \nu(\mu) ( g' )^2}

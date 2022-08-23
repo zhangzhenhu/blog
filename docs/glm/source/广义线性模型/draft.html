@@ -1,97 +1,49 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="zh-CN" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>&lt;no title&gt; &mdash; 张振虎的博客 张振虎 文档</title>
-  
-
-  
-  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
     <link rel="canonical" href="https://zhangzhenhu.github.io/blog/glm/source/广义线性模型/draft.html" />
-
-  
   <!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
         <script src="../../../_static/doctools.js"></script>
         <script src="../../../_static/translations.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2.7.7/unpacked/MathJax.min.js"></script>
         <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"Macros": {"RR": "{\\bf R}", "bold": ["{\\bf #1}", 1]}}})</script>
-    
-    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-
-    
+    <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../../genindex.html" />
     <link rel="search" title="搜索" href="../../../search.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../../../index.html" class="icon icon-home"> 张振虎的博客
-          
-
-          
           </a>
-
-          
-            
-            
               <div class="version">
                 acmtiger@outlook.com
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="在文档中搜索" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">目录:</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">目录:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../index.html">广义线性模型</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80/content.html">1. 概率基础</a><ul>
@@ -902,76 +854,35 @@
 </li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../../index.html">张振虎的博客</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
       <li>&lt;no title&gt;</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
-            <a href="../../../_sources/glm/source/广义线性模型/draft.rst.txt" rel="nofollow"> View page source</a>
-          
-        
+            <a href="../../../_sources/glm/source/广义线性模型/draft.rst.txt" rel="nofollow"> 查看页面源码</a>
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
+             
   <p><strong>线性回归</strong></p>
 <p>在线性回归模型中，输出变量 <span class="math notranslate nohighlight">\(Y\)</span> 的值域是实数值，并且假设其服从高斯分布。
 此时输出变量 <span class="math notranslate nohighlight">\(Y\)</span> 的边缘概率分布可以写成：</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-draft-0">
-<span class="eqno">()<a class="headerlink" href="#equation-glm-source-draft-0" title="公式的永久链接">¶</a></span>\[p(Y) \sim \mathcal{N}(\mu,\sigma^2)\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-glm-source-draft-0" title="公式的永久链接"></a></span>\[p(Y) \sim \mathcal{N}(\mu,\sigma^2)\]</div>
 <p>其中 <span class="math notranslate nohighlight">\(\mu\)</span> 是均值(期望)参数，表示变量 <span class="math notranslate nohighlight">\(Y\)</span> 的期望 <span class="math notranslate nohighlight">\(\mu=\mathbb{E}[Y]\)</span> ，
 <span class="math notranslate nohighlight">\(\sigma^2\)</span> 是方差参数，反映变量的波动性。</p>
 <p>在回归问题中我们需要对条件概率建模 <span class="math notranslate nohighlight">\(p(Y|X)\)</span> 进行建模，所谓的条件概率，
@@ -989,23 +900,23 @@
 <p>线性回顾模型是通过在边缘概率分布 <span class="math notranslate nohighlight">\(p(Y)\)</span> 的基础上”引入”变量 <span class="math notranslate nohighlight">\(X\)</span> 进而得到条件概率分布 <span class="math notranslate nohighlight">\(p(Y|X)\)</span> 。
 我们令变量 <span class="math notranslate nohighlight">\(Y\)</span> 的期望(均值)值 <span class="math notranslate nohighlight">\(\mu\)</span> 等于变量 <span class="math notranslate nohighlight">\(X\)</span> 的线性组合，即：</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-draft-1">
-<span class="eqno">()<a class="headerlink" href="#equation-glm-source-draft-1" title="公式的永久链接">¶</a></span>\[\mu = \beta^T x\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-glm-source-draft-1" title="公式的永久链接"></a></span>\[\mu = \beta^T x\]</div>
 <p>也就是说在不同的 <span class="math notranslate nohighlight">\(x\)</span> 值下，变量 <span class="math notranslate nohighlight">\(Y\)</span> 的均值不同，进而我们就得到了条件概率分布 p(Y|X)：</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-draft-2">
-<span class="eqno">()<a class="headerlink" href="#equation-glm-source-draft-2" title="公式的永久链接">¶</a></span>\[p(Y|X)  \sim \mathcal{N}(\beta^T x,\sigma^2)\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-glm-source-draft-2" title="公式的永久链接"></a></span>\[p(Y|X)  \sim \mathcal{N}(\beta^T x,\sigma^2)\]</div>
 <p>通过参数化 <span class="math notranslate nohighlight">\(\mathbb{E}[Y]\)</span> 将变量 <span class="math notranslate nohighlight">\(X\)</span> 引入到边缘概率分布 <span class="math notranslate nohighlight">\(p(Y)\)</span> 进而得到条件概率分布 <span class="math notranslate nohighlight">\(p(Y|X)\)</span>
 。注意，在经典线性回归模型中，方差 <span class="math notranslate nohighlight">\(\sigma^2\)</span> 被认为是已知的，并且是和均值独立的，
 只有 <span class="math notranslate nohighlight">\(\beta\)</span> 是需要学习的未知参数。</p>
 <p><strong>逻辑回归</strong></p>
 <p>现在我们回顾一下逻辑回归模型，在逻辑回归模型中，输出变量 <span class="math notranslate nohighlight">\(Y\)</span> 是伯努利变量，服从伯努利分布：</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-draft-3">
-<span class="eqno">()<a class="headerlink" href="#equation-glm-source-draft-3" title="公式的永久链接">¶</a></span>\[p(y) = \mu^y(1-\mu)^{1-y}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-glm-source-draft-3" title="公式的永久链接"></a></span>\[p(y) = \mu^y(1-\mu)^{1-y}\]</div>
 <p>在逻辑回归模型中，我们假设均值参数 <span class="math notranslate nohighlight">\(\mu\)</span> 是一个关于线性组合的 <span class="math notranslate nohighlight">\(\beta^Tx\)</span> 的sigmoid函数：</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-draft-4">
-<span class="eqno">()<a class="headerlink" href="#equation-glm-source-draft-4" title="公式的永久链接">¶</a></span>\[\mu=\mu(x)=\frac{1}{1+e^{-\beta^T x}}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-glm-source-draft-4" title="公式的永久链接"></a></span>\[\mu=\mu(x)=\frac{1}{1+e^{-\beta^T x}}\]</div>
 <p>条件概率分布 <span class="math notranslate nohighlight">\(p(Y|X)\)</span> 就是：</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-draft-5">
-<span class="eqno">()<a class="headerlink" href="#equation-glm-source-draft-5" title="公式的永久链接">¶</a></span>\[p(y|x) =\mu(x)^y(1-\mu(x))^{1-y}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-glm-source-draft-5" title="公式的永久链接"></a></span>\[p(y|x) =\mu(x)^y(1-\mu(x))^{1-y}\]</div>
 <p>我们发现线性回归模型和逻辑回归模型都是通过参数化 <span class="math notranslate nohighlight">\(Y\)</span> 的期望 <span class="math notranslate nohighlight">\(\mu=\mathbb{E}[Y]\)</span> ，
 进而得到条件概率分布 <span class="math notranslate nohighlight">\(p(Y|X)\)</span> ，事实上，我们将这种方式进行扩展，
 就得到了广义线性模型(generalized linear model,GLM)。</p>
@@ -1015,18 +926,26 @@
 <p>显然我们可以令 <span class="math notranslate nohighlight">\(Y\)</span> 的概率分布函数和 <span class="math notranslate nohighlight">\(\eta\)</span> 相关。</p>
 <p>我们知道 <span class="math notranslate nohighlight">\(Y\)</span> 是服从指数族分布的，指数族分布的概率分布函数都可以写成如下形式：</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-draft-6">
-<span class="eqno">()<a class="headerlink" href="#equation-glm-source-draft-6" title="公式的永久链接">¶</a></span>\[p(y|\theta) = \exp \{\frac{\theta y - b(\theta)}{a(\phi)} + c(y,\phi)\}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-glm-source-draft-6" title="公式的永久链接"></a></span>\[p(y|\theta) = \exp \{\frac{\theta y - b(\theta)}{a(\phi)} + c(y,\phi)\}\]</div>
 <p>假设 <span class="math notranslate nohighlight">\(Y\)</span> 的概率分布函数是 <span class="math notranslate nohighlight">\(p(Y)=f(y,\theta)\)</span>
 ，
 .. math:</p>
 
 
            </div>
-           
           </div>
           <footer>
 
   <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2018, zhangzhenhu(acmtiger@outlook.com) 禁止一切形式的转载！.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
+  
 
 
     <script src="https://utteranc.es/client.js"
@@ -1039,42 +958,16 @@
 
 
 
-  <div role="contentinfo">
-    <p>
-        &#169; 版权所有 2018, zhangzhenhu(acmtiger@outlook.com) 禁止一切形式的转载！.
-
-    </p>
-  </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-
-
-
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

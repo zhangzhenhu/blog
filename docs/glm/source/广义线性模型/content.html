@@ -1,99 +1,51 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="zh-CN" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>6. 广义线性模型 &mdash; 张振虎的博客 张振虎 文档</title>
-  
-
-  
-  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
     <link rel="canonical" href="https://zhangzhenhu.github.io/blog/glm/source/广义线性模型/content.html" />
-
-  
   <!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
         <script src="../../../_static/doctools.js"></script>
         <script src="../../../_static/translations.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2.7.7/unpacked/MathJax.min.js"></script>
         <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"Macros": {"RR": "{\\bf R}", "bold": ["{\\bf #1}", 1]}}})</script>
-    
-    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-
-    
+    <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../../genindex.html" />
     <link rel="search" title="搜索" href="../../../search.html" />
     <link rel="next" title="7. 参数估计" href="estimate.html" />
     <link rel="prev" title="5. 线性回归模型" href="../%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/content.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../../../index.html" class="icon icon-home"> 张振虎的博客
-          
-
-          
           </a>
-
-          
-            
-            
               <div class="version">
                 acmtiger@outlook.com
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="在文档中搜索" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">目录:</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">目录:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">广义线性模型</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80/content.html">1. 概率基础</a><ul>
@@ -141,7 +93,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#id2">3.1. 统计量和充分统计量</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-sample-distribution">3.2. 抽样分布</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-sample-distribution-normal">3.2.1. 正态分布</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#t">3.2.2. t分布</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#t">3.2.2. 学生t分布</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#id5">3.2.3. 卡方分布</a></li>
 </ul>
 </li>
@@ -746,7 +698,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../audio/feature.html#id18">1.5. 分帧与加窗</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../audio/feature.html#id19">1.5.1. 预加重处理</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../audio/feature.html#id20">1.5.2. 分帧与加窗</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../audio/feature.html#id20">1.5.2. 分帧与加窗处理</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../audio/feature.html#id21">1.6. 声音的感官度量</a><ul>
@@ -788,26 +740,26 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../edm/bkt.html">1. 贝叶斯知识追踪(Bayesian Knowledge Tracing,BKT)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id1">1.1. 简介</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#hidden-markov-model-hmm">1.2. 隐马尔科夫模型(Hidden Markov Model,HMM)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id5">1.3. 贝叶斯知识追踪(Bayesian Knowledge Tracing,BKT)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#bayesian-knowledge-tracing">1.3. 贝叶斯知识追踪(Bayesian Knowledge Tracing)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#bkt">1.3.1. BKT的参数估计</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#item-response-theory-irt">1.4. 项目反映理论(Item Response Theory,IRT)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#bktirt">1.5. BKT结合IRT</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id6">1.6. 实验</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id7">1.6.1. 数据集</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id8">1.6.2. 实验方法</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id9">1.6.3. 实验结果</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id10">1.6.4. 项目代码</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id5">1.6. 实验</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id6">1.6.1. 数据集</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id7">1.6.2. 实验方法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id8">1.6.3. 实验结果</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id9">1.6.4. 项目代码</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id11">1.7. 未来工作</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id12">1.7.1. 题目难度的计算</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id10">1.7. 未来工作</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id11">1.7.1. 题目难度的计算</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#irt">1.7.2. 多参数IRT模型</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id13">1.7.3. 参数估计算法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id12">1.7.3. 参数估计算法</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id14">1.8. 参考文献</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id13">1.8. 参考文献</a></li>
 </ul>
 </li>
 </ul>
@@ -904,75 +856,33 @@
 </li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../../index.html">张振虎的博客</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="../index.html">广义线性模型</a> &raquo;</li>
-        
       <li><span class="section-number">6. </span>广义线性模型</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
-            <a href="../../../_sources/glm/source/广义线性模型/content.rst.txt" rel="nofollow"> View page source</a>
-          
-        
+            <a href="../../../_sources/glm/source/广义线性模型/content.rst.txt" rel="nofollow"> 查看页面源码</a>
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="id1">
-<h1><span class="section-number">6. </span>广义线性模型<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+             
+  <section id="id1">
+<h1><span class="section-number">6. </span>广义线性模型<a class="headerlink" href="#id1" title="永久链接至标题"></a></h1>
 <p>线性回归模型是算法领域的入门模型，是每个新人入门的必须课。
 在线性回归模型中假设响应变量 <span class="math notranslate nohighlight">\(Y\)</span> 是由两部分组成：系统组件（system component）
 和误差组件（error component）。
@@ -980,14 +890,14 @@
 ，误差组件是一个服从标准正态分布的随机量 <span class="math notranslate nohighlight">\(\epsilon \sim \mathcal{N}(0,1)\)</span>
 。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-0">
-<span class="eqno">(6.1)<a class="headerlink" href="#equation-glm-source-content-0" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}y &amp;= \beta_0 + x_1 \beta_1 +x_2 \beta_2 +\cdots + x_p \beta_p  + \epsilon\\&amp;= x^T \beta + \epsilon\end{aligned}\end{align} \]</div>
+<span class="eqno">(6.1)<a class="headerlink" href="#equation-glm-source-content-0" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}y &amp;= \beta_0 + x_1 \beta_1 +x_2 \beta_2 +\cdots + x_p \beta_p  + \epsilon\\&amp;= x^T \beta + \epsilon\end{aligned}\end{align} \]</div>
 <p>虽然线性预测器 <span class="math notranslate nohighlight">\(\eta\)</span> 是一个数值变量，
 但误差项 <span class="math notranslate nohighlight">\(\epsilon\)</span> 是一个高斯随机变量，
 响应变量 <span class="math notranslate nohighlight">\(Y\)</span> 作为二者的加和，也是一个高斯随机量，
 并有 <span class="math notranslate nohighlight">\(\mathbb{E}[Y]=\eta=x^T \beta\)</span>
 。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-1">
-<span class="eqno">(6.2)<a class="headerlink" href="#equation-glm-source-content-1" title="公式的永久链接">¶</a></span>\[Y \sim  \mathcal{N}(x^T \beta,1)\]</div>
+<span class="eqno">(6.2)<a class="headerlink" href="#equation-glm-source-content-1" title="公式的永久链接"></a></span>\[Y \sim  \mathcal{N}(x^T \beta,1)\]</div>
 <p>因此，在线性回归中，可以把响应变量 <span class="math notranslate nohighlight">\(Y\)</span> 解释成一个高斯随机变量。</p>
 <p>那么，响应变量 <span class="math notranslate nohighlight">\(Y\)</span> 是不是可以解释成其它概率分布的随机变量呢？比如，伯努利变量、泊松变量等等，
 答案显然是可以的。如果把 <span class="math notranslate nohighlight">\(Y\)</span> 解释成伯努利变量，得到就是逻辑回归模型，
@@ -1006,13 +916,13 @@
 <strong>广义线性模型</strong> 。</p>
 <p>本章我们正式讨论广义线性模型，<code class="docutils literal notranslate"><span class="pre">GLM</span></code> 是建立在指数族分布的技术上，
 因此我们首先介绍下指数族概率分布的标准形式，然后再给出 <code class="docutils literal notranslate"><span class="pre">GLM</span></code> 的定义。</p>
-<div class="section" id="id2">
-<h2><span class="section-number">6.1. </span>指数族分布<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
-<div class="section" id="id3">
-<h3><span class="section-number">6.1.1. </span>自然指数族<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h3>
+<section id="id2">
+<h2><span class="section-number">6.1. </span>指数族分布<a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
+<section id="id3">
+<h3><span class="section-number">6.1.1. </span>自然指数族<a class="headerlink" href="#id3" title="永久链接至标题"></a></h3>
 <p>在 <a class="reference internal" href="../../../probability_model/18.%E6%8C%87%E6%95%B0%E6%97%8F_24.html#ch-24-1"><span class="std std-numref">节 3.1</span></a> 我们讨论了指数族分布，所有指数族的概率密度(质量)函数都可以写成如下的形式。</p>
 <div class="math notranslate nohighlight" id="equation-eq-glm-08">
-<span class="eqno">(6.1.1)<a class="headerlink" href="#equation-eq-glm-08" title="公式的永久链接">¶</a></span>\[p(y|\theta) = \exp \{\theta^T T(y) - A(\theta) + S(y)\}\]</div>
+<span class="eqno">(6.1.1)<a class="headerlink" href="#equation-eq-glm-08" title="公式的永久链接"></a></span>\[p(y|\theta) = \exp \{\theta^T T(y) - A(\theta) + S(y)\}\]</div>
 <p>其中 <span class="math notranslate nohighlight">\(\theta\)</span>
 称为自然参数(natural parameter)或者规范参数(canonical parameter)，
 其代表了模型中所有的未知参数。
@@ -1023,7 +933,7 @@
 自然指数族(natural exponential family)，
 自然指数族是满足 <span class="math notranslate nohighlight">\(T(y)=y\)</span> 的指数族。</p>
 <div class="math notranslate nohighlight" id="equation-eq-glm-111">
-<span class="eqno">(6.1.2)<a class="headerlink" href="#equation-eq-glm-111" title="公式的永久链接">¶</a></span>\[p(y|\theta) = \exp \{\theta^T y - A(\theta) + S(y)\}\]</div>
+<span class="eqno">(6.1.2)<a class="headerlink" href="#equation-eq-glm-111" title="公式的永久链接"></a></span>\[p(y|\theta) = \exp \{\theta^T y - A(\theta) + S(y)\}\]</div>
 <p>指数族的这个形式被称为自然形式(natural form)或者规范形式(canonical form)，
 <strong>虽然指数族中大部分分布都可以写成上述自然形式，但是也有一些分布，虽然属于指数族，但是不能写成上述自然形式，</strong>
 <strong>比如对数正态分布(LogNormal distribution)。</strong></p>
@@ -1046,7 +956,7 @@
 因此我们把参数拆分一下，在规范形式的基础上再引入一个代表尺度(scale)的参数 <span class="math notranslate nohighlight">\(\phi\)</span>
 。</p>
 <div class="math notranslate nohighlight" id="equation-eq-glm-121">
-<span class="eqno">(6.1.3)<a class="headerlink" href="#equation-eq-glm-121" title="公式的永久链接">¶</a></span>\[p(y|\theta) = \exp \{\frac{\theta y - b(\theta)}{a(\phi)} + c(y,\phi)\}\]</div>
+<span class="eqno">(6.1.3)<a class="headerlink" href="#equation-eq-glm-121" title="公式的永久链接"></a></span>\[p(y|\theta) = \exp \{\frac{\theta y - b(\theta)}{a(\phi)} + c(y,\phi)\}\]</div>
 <p>这种形式的指数族通常被称为指数分散族(exponential dispersion family,EDF)，
 <span class="math notranslate nohighlight">\(a(\phi)\)</span> 称为分散函数(dispersion function)，是已知的。
 <span class="math notranslate nohighlight">\(\phi\)</span> 称为分散参数(dispersion parameter)。
@@ -1060,7 +970,7 @@
 并且和 <span class="math notranslate nohighlight">\(\mu\)</span> 之间存在一一映射的函数关系，
 换句话说，<span class="math notranslate nohighlight">\(\theta\)</span> 和 <span class="math notranslate nohighlight">\(\mu\)</span> 可以互相转化。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-2">
-<span class="eqno">(6.1.4)<a class="headerlink" href="#equation-glm-source-content-2" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\theta &amp;=f(\mu)\\\mu &amp;= f^{-1}(\theta)\end{aligned}\end{align} \]</div>
+<span class="eqno">(6.1.4)<a class="headerlink" href="#equation-glm-source-content-2" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\theta &amp;=f(\mu)\\\mu &amp;= f^{-1}(\theta)\end{aligned}\end{align} \]</div>
 <p><strong>分散参数(dispersion parameter)</strong></p>
 <p>在最初的GLM论文中(Nelder and Wedderburn, 1972)把 <span class="math notranslate nohighlight">\(a(\phi)\)</span>
 称为尺度因子(scale factor)， 并且没有给参数 <span class="math notranslate nohighlight">\(\phi\)</span>
@@ -1068,7 +978,7 @@
 GLM的软件工具包(Generalized Linear Interactive Modelling,GLIM)，
 在GLIM中把 <span class="math notranslate nohighlight">\(a(\phi)\)</span> 定义成：</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-3">
-<span class="eqno">(6.1.5)<a class="headerlink" href="#equation-glm-source-content-3" title="公式的永久链接">¶</a></span>\[a(\phi) = \frac{\phi}{w}\]</div>
+<span class="eqno">(6.1.5)<a class="headerlink" href="#equation-glm-source-content-3" title="公式的永久链接"></a></span>\[a(\phi) = \frac{\phi}{w}\]</div>
 <p>其中 <span class="math notranslate nohighlight">\(w\)</span> 是样本的先验权重(prior weight)，<span class="math notranslate nohighlight">\(\phi\)</span>
 称为尺度参数(scale parameter)，
 这就是导致了对 <span class="math notranslate nohighlight">\(\phi\)</span> 命名产生了歧义。
@@ -1079,7 +989,7 @@ GLM的软件工具包(Generalized Linear Interactive Modelling,GLIM)，
 但是由于 <code class="docutils literal notranslate"><span class="pre">GLIM</span></code> 流行了很久，导致”scale”的叫法还存在很多资料中。</p>
 <p>在很多GLM的工具包中，都会把 <span class="math notranslate nohighlight">\(a(\phi)\)</span> 定义成如下形式：</p>
 <div class="math notranslate nohighlight" id="equation-eq-glm-1010">
-<span class="eqno">(6.1.6)<a class="headerlink" href="#equation-eq-glm-1010" title="公式的永久链接">¶</a></span>\[a(\phi)_i = \frac{\phi}{w_i}\]</div>
+<span class="eqno">(6.1.6)<a class="headerlink" href="#equation-eq-glm-1010" title="公式的永久链接"></a></span>\[a(\phi)_i = \frac{\phi}{w_i}\]</div>
 <p>其中 <span class="math notranslate nohighlight">\(w_i\)</span> 是观测样本的权重，一般是已知的。
 不同的样本可以拥有不同的权重值，
 比如进行参数估计时，对于某些样本设置成 <span class="math notranslate nohighlight">\(w_i=0\)</span>
@@ -1106,13 +1016,13 @@ GLM的软件工具包(Generalized Linear Interactive Modelling,GLIM)，
 其中 <span class="math notranslate nohighlight">\(b(\theta)\)</span> 本质上就是 <span class="math notranslate nohighlight">\(A(\theta)\)</span>
 ，二者关系是：</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-4">
-<span class="eqno">(6.1.7)<a class="headerlink" href="#equation-glm-source-content-4" title="公式的永久链接">¶</a></span>\[A(\theta) = \frac{ b(\theta) }{a(\phi)}\]</div>
+<span class="eqno">(6.1.7)<a class="headerlink" href="#equation-glm-source-content-4" title="公式的永久链接"></a></span>\[A(\theta) = \frac{ b(\theta) }{a(\phi)}\]</div>
 <p>所以我们同样把 <span class="math notranslate nohighlight">\(b(\theta)\)</span> 被称为累积函数(cumulant function)，
 并且它同样和分布的矩(moments)有关。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-5">
-<span class="eqno">(6.1.8)<a class="headerlink" href="#equation-glm-source-content-5" title="公式的永久链接">¶</a></span>\[\mathbb{E}[Y] = b'(\theta)=\mu\]</div>
+<span class="eqno">(6.1.8)<a class="headerlink" href="#equation-glm-source-content-5" title="公式的永久链接"></a></span>\[\mathbb{E}[Y] = b'(\theta)=\mu\]</div>
 <div class="math notranslate nohighlight" id="equation-eq-34-20">
-<span class="eqno">(6.1.9)<a class="headerlink" href="#equation-eq-34-20" title="公式的永久链接">¶</a></span>\[V(Y) = A''(\theta)=a(\phi)b''(\theta)\]</div>
+<span class="eqno">(6.1.9)<a class="headerlink" href="#equation-eq-34-20" title="公式的永久链接"></a></span>\[V(Y) = A''(\theta)=a(\phi)b''(\theta)\]</div>
 <p>由于 <span class="math notranslate nohighlight">\(b(\theta)\)</span> 是在 <span class="math notranslate nohighlight">\(A(\theta)\)</span> 的基础上拆分出去 <span class="math notranslate nohighlight">\(a(\phi)\)</span>
 ，所以 <span class="math notranslate nohighlight">\(b(\theta)\)</span> 的二阶导数不再分布的方差，需要再乘上 <span class="math notranslate nohighlight">\(a(\phi)\)</span> 才能得到分布的方差。</p>
 <p><strong>方差结构</strong></p>
@@ -1121,7 +1031,7 @@ GLM的软件工具包(Generalized Linear Interactive Modelling,GLIM)，
 一部分是分散函数 <span class="math notranslate nohighlight">\(a(\phi)\)</span>
 ，另一部分是累计函数的二阶导数 <span class="math notranslate nohighlight">\(b''(\theta)\)</span> 。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-6">
-<span class="eqno">(6.1.10)<a class="headerlink" href="#equation-glm-source-content-6" title="公式的永久链接">¶</a></span>\[V(Y)  = b''(\theta) a(\phi) = \nu(\mu)a(\phi)\]</div>
+<span class="eqno">(6.1.10)<a class="headerlink" href="#equation-glm-source-content-6" title="公式的永久链接"></a></span>\[V(Y)  = b''(\theta) a(\phi) = \nu(\mu)a(\phi)\]</div>
 <p>累积函数 <span class="math notranslate nohighlight">\(b(\theta)\)</span> 是一个关于 <span class="math notranslate nohighlight">\(\theta\)</span> 的函数，
 其二阶导数要么是一个常数，要么是一个关于自然参数 <span class="math notranslate nohighlight">\(\theta\)</span> 的函数。
 而自然参数 <span class="math notranslate nohighlight">\(\theta\)</span> 和均值参数 <span class="math notranslate nohighlight">\(\mu\)</span>
@@ -1130,7 +1040,7 @@ GLM的软件工具包(Generalized Linear Interactive Modelling,GLIM)，
 <p>我们定义累计函数 <span class="math notranslate nohighlight">\(b(\theta)\)</span> 的二阶导数为方差函数(variance function)，
 方差函数是一个关于期望 <span class="math notranslate nohighlight">\(\mu\)</span> 的函数。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-7">
-<span class="eqno">(6.1.11)<a class="headerlink" href="#equation-glm-source-content-7" title="公式的永久链接">¶</a></span>\[b''(\theta) = \nu(\mu)\]</div>
+<span class="eqno">(6.1.11)<a class="headerlink" href="#equation-glm-source-content-7" title="公式的永久链接"></a></span>\[b''(\theta) = \nu(\mu)\]</div>
 <p>方差函数 <span class="math notranslate nohighlight">\(\nu(\mu)\)</span> 存在两种情况：</p>
 <ol class="arabic simple">
 <li><p>方差函数是一个常量值， <span class="math notranslate nohighlight">\(\nu(\mu)=b''(\theta)=constant\)</span> ，<strong>此时分布的方差与均值无关</strong> 。</p></li>
@@ -1165,14 +1075,14 @@ GLM的软件工具包(Generalized Linear Interactive Modelling,GLIM)，
 而这是通过 <span class="math notranslate nohighlight">\(a(\phi)\)</span> 实现的。
 此时函数 <span class="math notranslate nohighlight">\(a(\phi)\)</span> 通常被定义成如下的形式：</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-8">
-<span class="eqno">(6.1.12)<a class="headerlink" href="#equation-glm-source-content-8" title="公式的永久链接">¶</a></span>\[a(\phi) = \frac{\phi}{w_i}\]</div>
+<span class="eqno">(6.1.12)<a class="headerlink" href="#equation-glm-source-content-8" title="公式的永久链接"></a></span>\[a(\phi) = \frac{\phi}{w_i}\]</div>
 <p>通常对于所有的观测样本来说，<span class="math notranslate nohighlight">\(\phi\)</span> 是一个相同的，而 <span class="math notranslate nohighlight">\(w\)</span> 可以根据不同的观测样本取不同的值，
 下标 <span class="math notranslate nohighlight">\(i\)</span> 表示样本编号。
 <span class="math notranslate nohighlight">\(w\)</span> 被称为先验权重(prior weight)，通常是根据额外的先验信息确定的。
 如果所有观测样本具有相同的方差假设，那么 <span class="math notranslate nohighlight">\(w\)</span> 值通常就是1；反之，<span class="math notranslate nohighlight">\(w\)</span> 可以是和样本相关的，
 不同的样本采用不同的值。</p>
 <table class="docutils align-default" id="id8">
-<caption><span class="caption-number">表 6.1.1 </span><span class="caption-text">常见分布的方差函数</span><a class="headerlink" href="#id8" title="永久链接至表格">¶</a></caption>
+<caption><span class="caption-number">表 6.1.1 </span><span class="caption-text">常见分布的方差函数</span><a class="headerlink" href="#id8" title="永久链接至表格"></a></caption>
 <colgroup>
 <col style="width: 25%" />
 <col style="width: 25%" />
@@ -1229,30 +1139,30 @@ GLM的软件工具包(Generalized Linear Interactive Modelling,GLIM)，
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="id4">
-<h3><span class="section-number">6.1.2. </span>示例：高斯分布<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id4">
+<h3><span class="section-number">6.1.2. </span>示例：高斯分布<a class="headerlink" href="#id4" title="永久链接至标题"></a></h3>
 <p>高斯分布的概率密度函数为：</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-9">
-<span class="eqno">(6.1.13)<a class="headerlink" href="#equation-glm-source-content-9" title="公式的永久链接">¶</a></span>\[f(y) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp \{ -\frac{1}{2}\frac{(y-\mu)^2}{\sigma^2} \}\]</div>
+<span class="eqno">(6.1.13)<a class="headerlink" href="#equation-glm-source-content-9" title="公式的永久链接"></a></span>\[f(y) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp \{ -\frac{1}{2}\frac{(y-\mu)^2}{\sigma^2} \}\]</div>
 <p>把其改写成指数分散族的形式：</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-10">
-<span class="eqno">(6.1.14)<a class="headerlink" href="#equation-glm-source-content-10" title="公式的永久链接">¶</a></span>\[f(y) = \exp \{ \frac{y\mu-\frac{1}{2}\mu^2}{\sigma^2} - \frac{y^2}{2\sigma^2}
+<span class="eqno">(6.1.14)<a class="headerlink" href="#equation-glm-source-content-10" title="公式的永久链接"></a></span>\[f(y) = \exp \{ \frac{y\mu-\frac{1}{2}\mu^2}{\sigma^2} - \frac{y^2}{2\sigma^2}
 - \frac{1}{2} \ln (2\pi\sigma^2) \}\]</div>
 <p>和 <a class="reference internal" href="#equation-eq-glm-121">公式(6.1.3)</a> 进行对比，各个标准项为：</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-11">
-<span class="eqno">(6.1.15)<a class="headerlink" href="#equation-glm-source-content-11" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\theta &amp;=\mu\\b(\theta) &amp;= \frac{1}{2}\mu^2\\a(\phi) &amp;= \sigma^2\end{aligned}\end{align} \]</div>
+<span class="eqno">(6.1.15)<a class="headerlink" href="#equation-glm-source-content-11" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\theta &amp;=\mu\\b(\theta) &amp;= \frac{1}{2}\mu^2\\a(\phi) &amp;= \sigma^2\end{aligned}\end{align} \]</div>
 <p>高斯分布的均值和方差为：</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-12">
-<span class="eqno">(6.1.16)<a class="headerlink" href="#equation-glm-source-content-12" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\mathbb{E}[Y]=b'(\theta) = \mu\\Var(Y) = b''(\theta)a(\phi) = \sigma^2\end{aligned}\end{align} \]</div>
+<span class="eqno">(6.1.16)<a class="headerlink" href="#equation-glm-source-content-12" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\mathbb{E}[Y]=b'(\theta) = \mu\\Var(Y) = b''(\theta)a(\phi) = \sigma^2\end{aligned}\end{align} \]</div>
 <p>对于高斯分布来说，方差和均值是独立无关的。</p>
-</div>
-<div class="section" id="id5">
-<h3><span class="section-number">6.1.3. </span>示例：伯努利分布<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
-</div>
-</div>
-<div class="section" id="id6">
-<h2><span class="section-number">6.2. </span>广义线性模型<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="id5">
+<h3><span class="section-number">6.1.3. </span>示例：伯努利分布<a class="headerlink" href="#id5" title="永久链接至标题"></a></h3>
+</section>
+</section>
+<section id="id6">
+<h2><span class="section-number">6.2. </span>广义线性模型<a class="headerlink" href="#id6" title="永久链接至标题"></a></h2>
 <p>在 <code class="docutils literal notranslate"><span class="pre">GLM</span></code> 框架中，我们假设响应变量 <span class="math notranslate nohighlight">\(Y\)</span> 是服从指数族分布的，
 我们的目的是通过输入变量 <span class="math notranslate nohighlight">\(X\)</span> 预测响应变量 <span class="math notranslate nohighlight">\(Y\)</span> 的值，
 并且GLM是线性模型，也就是通过输入变量 <span class="math notranslate nohighlight">\(X\)</span> 的线性组合预测 <span class="math notranslate nohighlight">\(Y\)</span> 。</p>
@@ -1260,25 +1170,25 @@ GLM的软件工具包(Generalized Linear Interactive Modelling,GLIM)，
 <p>既然是线性模型，所以显然，
 我们需要把输入变量 <span class="math notranslate nohighlight">\(X\)</span> 进行组成一个线性组合。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-13">
-<span class="eqno">(6.2.1)<a class="headerlink" href="#equation-glm-source-content-13" title="公式的永久链接">¶</a></span>\[\eta = \beta^T x + b\]</div>
+<span class="eqno">(6.2.1)<a class="headerlink" href="#equation-glm-source-content-13" title="公式的永久链接"></a></span>\[\eta = \beta^T x + b\]</div>
 <p><span class="math notranslate nohighlight">\(x\)</span> 可以是一个向量，<span class="math notranslate nohighlight">\(\eta\)</span> 是关于 <span class="math notranslate nohighlight">\(x\)</span> 的
 一个线性函数。为了简洁性，通常会人为的为 <span class="math notranslate nohighlight">\(x\)</span> 加入一维常量值1，
 并且把截距参数 <span class="math notranslate nohighlight">\(b\)</span> 算在 <span class="math notranslate nohighlight">\(\beta\)</span> 中，
 这样上述线性函数可以写成向量內积的形式。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-14">
-<span class="eqno">(6.2.2)<a class="headerlink" href="#equation-glm-source-content-14" title="公式的永久链接">¶</a></span>\[\eta = \beta^T x\]</div>
+<span class="eqno">(6.2.2)<a class="headerlink" href="#equation-glm-source-content-14" title="公式的永久链接"></a></span>\[\eta = \beta^T x\]</div>
 <p><strong>连接函数</strong></p>
 <p>回顾一下我们的初衷，我们需要用输入变量 <span class="math notranslate nohighlight">\(X\)</span> 的线性结果 <span class="math notranslate nohighlight">\(\eta\)</span> 去预测输出变量 <span class="math notranslate nohighlight">\(Y\)</span> 的值，
 <span class="math notranslate nohighlight">\(Y\)</span> 是一个指数族的 <strong>随机变量</strong> ，对于一个随机变量，其值可以是其值域空间中任意的一个值，
 只不过每个值的概率可能不同（当然对于均匀分布其每个值的概率是相同的）。
 但是，我们期望得到 <span class="math notranslate nohighlight">\(Y\)</span> 的一个具体的值，显然随机变量 <span class="math notranslate nohighlight">\(Y\)</span> 的期望值是最好不过选择。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-15">
-<span class="eqno">(6.2.3)<a class="headerlink" href="#equation-glm-source-content-15" title="公式的永久链接">¶</a></span>\[\mu = \mathbb{E}[Y]\]</div>
+<span class="eqno">(6.2.3)<a class="headerlink" href="#equation-glm-source-content-15" title="公式的永久链接"></a></span>\[\mu = \mathbb{E}[Y]\]</div>
 <p>现在，我们需要通过 <span class="math notranslate nohighlight">\(\eta\)</span> 得到 <span class="math notranslate nohighlight">\(\mu\)</span> ，然后把 <span class="math notranslate nohighlight">\(\mu\)</span> 作为模型的输出值，
 也就是模型预测出的 <span class="math notranslate nohighlight">\(Y\)</span> 的值。
 那要如何做到呢？显然，可以定义一个函数，将两者联系起来。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-16">
-<span class="eqno">(6.2.4)<a class="headerlink" href="#equation-glm-source-content-16" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\eta &amp;= g(\mu)\\\mu &amp;= g^{-1}(\eta)\end{aligned}\end{align} \]</div>
+<span class="eqno">(6.2.4)<a class="headerlink" href="#equation-glm-source-content-16" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\eta &amp;= g(\mu)\\\mu &amp;= g^{-1}(\eta)\end{aligned}\end{align} \]</div>
 <p>通常把函数 <span class="math notranslate nohighlight">\(g\)</span> 称为连接函数(link function)，
 连接函数 <span class="math notranslate nohighlight">\(g\)</span> 是用来连接线性预测器 <span class="math notranslate nohighlight">\(\eta\)</span> 和均值 <span class="math notranslate nohighlight">\(\mu\)</span> 的。
 连接函数的反函数 <span class="math notranslate nohighlight">\(g^{-1}\)</span> 可以称为响应函数(response function)，或者激活函数(active function)，
@@ -1295,10 +1205,12 @@ GLM的软件工具包(Generalized Linear Interactive Modelling,GLIM)，
 <li><p>一个指数族分布作为响应变量 <span class="math notranslate nohighlight">\(Y\)</span> 概率分布 <span class="math notranslate nohighlight">\(p(Y;\theta)\)</span> ，被称为随机组件(random component)。</p></li>
 <li><p>一个连接函数 <span class="math notranslate nohighlight">\(g\)</span> 使得 <span class="math notranslate nohighlight">\(\eta=g(\mu)\)</span> ，<span class="math notranslate nohighlight">\(\mu\)</span> 是 <span class="math notranslate nohighlight">\(Y\)</span> 的期望，连接函数描述系统组件和随机组件之间的关系。</p></li>
 </ol>
-<div class="figure align-center" id="id9">
+<figure class="align-center" id="id9">
 <span id="fg-34-1"></span><a class="reference internal image-reference" href="../../../_images/34_1.jpg"><img alt="../../../_images/34_1.jpg" src="../../../_images/34_1.jpg" style="width: 706.0px; height: 245.0px;" /></a>
-<p class="caption"><span class="caption-number">图 6.2.1 </span><span class="caption-text">广义线性模型变量之间的关系</span><a class="headerlink" href="#id9" title="永久链接至图片">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">图 6.2.1 </span><span class="caption-text">广义线性模型变量之间的关系</span><a class="headerlink" href="#id9" title="永久链接至图片"></a></p>
+</figcaption>
+</figure>
 <p>广义线性模型是对经典线性模型的扩展，将输出变量 <span class="math notranslate nohighlight">\(Y\)</span> 的条件概率分布扩展到指数族分布，
 <a class="reference internal" href="../../../probability_model/25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#fg-34-1"><span class="std std-numref">图 19.1.1</span></a> 展示了广义线性模型框架下各个变量之间的关系。</p>
 <ul class="simple">
@@ -1318,7 +1230,7 @@ GLM的软件工具包(Generalized Linear Interactive Modelling,GLIM)，
 。因此，指数族分布的自然参数 <span class="math notranslate nohighlight">\(\theta\)</span> 一定是可以转换成一个关于 <span class="math notranslate nohighlight">\(\eta\)</span>
 的函数，响应变量 <span class="math notranslate nohighlight">\(Y\)</span> 的概率分布函数可以转化成和 <span class="math notranslate nohighlight">\(\eta\)</span> 相关。</p>
 <div class="math notranslate nohighlight" id="equation-eq-34-glm-001">
-<span class="eqno">(6.2.5)<a class="headerlink" href="#equation-eq-34-glm-001" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}p(y|\theta) &amp;= \exp \left \{\frac{\theta y - b(\theta)}{a(\phi)} + c(y,\phi) \right \}\\&amp;= \exp \left \{ \frac{\psi(\mu) y - b(\psi(\mu)}{a(\phi)} + c(y,\phi)  \right \}\\&amp;= \exp \left \{ \frac{ \psi(g^{-1}(\eta)) y - b(   \psi(g^{-1}(\eta)) )}{a(\phi)} + c(y,\phi)  \right \}\\&amp;= \exp \left \{ \frac{ \psi(g^{-1}(\beta^T x)) y - b(   \psi(g^{-1}(\beta^T x)) )}{a(\phi)} + c(y,\phi)  \right \}\\&amp;= P(Y|X;\beta)\end{aligned}\end{align} \]</div>
+<span class="eqno">(6.2.5)<a class="headerlink" href="#equation-eq-34-glm-001" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}p(y|\theta) &amp;= \exp \left \{\frac{\theta y - b(\theta)}{a(\phi)} + c(y,\phi) \right \}\\&amp;= \exp \left \{ \frac{\psi(\mu) y - b(\psi(\mu)}{a(\phi)} + c(y,\phi)  \right \}\\&amp;= \exp \left \{ \frac{ \psi(g^{-1}(\eta)) y - b(   \psi(g^{-1}(\eta)) )}{a(\phi)} + c(y,\phi)  \right \}\\&amp;= \exp \left \{ \frac{ \psi(g^{-1}(\beta^T x)) y - b(   \psi(g^{-1}(\beta^T x)) )}{a(\phi)} + c(y,\phi)  \right \}\\&amp;= P(Y|X;\beta)\end{aligned}\end{align} \]</div>
 <p>至此，我们把输入变量 <span class="math notranslate nohighlight">\(X\)</span> 和响应变量 <span class="math notranslate nohighlight">\(Y\)</span> 的概率分布函数连接到了一起，得到了条件概率分布 <span class="math notranslate nohighlight">\(P(Y|X)\)</span>
 的概率分布，<a class="reference internal" href="#equation-eq-34-glm-001">公式(6.2.5)</a> 就是广义线性模型的一般形式。</p>
 <p><strong>规范连接(canonical link)</strong></p>
@@ -1326,7 +1238,7 @@ GLM的软件工具包(Generalized Linear Interactive Modelling,GLIM)，
 和 <span class="math notranslate nohighlight">\(g^{-1}\)</span> 就互为反函数，二者可以抵消掉，此时满足 <span class="math notranslate nohighlight">\(\theta=\eta\)</span>
 ，上式就可以简化成如下形式。</p>
 <div class="math notranslate nohighlight" id="equation-eq-34-glm-002">
-<span class="eqno">(6.2.6)<a class="headerlink" href="#equation-eq-34-glm-002" title="公式的永久链接">¶</a></span>\[p(Y|X;\beta) = \exp \left \{ \frac{ (\beta^Tx )y - b(\beta^Tx  )}{a(\phi)} + c(y,\phi)  \right \}\]</div>
+<span class="eqno">(6.2.6)<a class="headerlink" href="#equation-eq-34-glm-002" title="公式的永久链接"></a></span>\[p(Y|X;\beta) = \exp \left \{ \frac{ (\beta^Tx )y - b(\beta^Tx  )}{a(\phi)} + c(y,\phi)  \right \}\]</div>
 <p>当连接函数使得 <span class="math notranslate nohighlight">\(\eta=\theta\)</span> 时，称为规范连接(canonical link)函数。
 实际上规范连接函数满足 <span class="math notranslate nohighlight">\(\eta=g(\mu)=\psi(\mu)=\theta\)</span> ，
 换句话说，对于一个特定的指数族分布，其规范连接函数为 <span class="math notranslate nohighlight">\(g=\psi\)</span> 。
@@ -1334,18 +1246,18 @@ GLM的软件工具包(Generalized Linear Interactive Modelling,GLIM)，
 <p><strong>传统线性回归模型</strong></p>
 <p>传统的线性回归模型就是假设响应变量 <span class="math notranslate nohighlight">\(Y\)</span> 服从高斯分布，高斯分布的概率密度函数用指数族的形式表示为：</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-17">
-<span class="eqno">(6.2.7)<a class="headerlink" href="#equation-glm-source-content-17" title="公式的永久链接">¶</a></span>\[f(y) = \exp \{ \frac{y\mu-\frac{1}{2}\mu^2}{\sigma^2} - \frac{y^2}{2\sigma^2}
+<span class="eqno">(6.2.7)<a class="headerlink" href="#equation-glm-source-content-17" title="公式的永久链接"></a></span>\[f(y) = \exp \{ \frac{y\mu-\frac{1}{2}\mu^2}{\sigma^2} - \frac{y^2}{2\sigma^2}
 - \frac{1}{2} \ln (2\pi\sigma^2) \}\]</div>
 <p>和 <a class="reference internal" href="#equation-eq-glm-121">公式(6.1.3)</a> 进行对比，各个标准项为：</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-18">
-<span class="eqno">(6.2.8)<a class="headerlink" href="#equation-glm-source-content-18" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\theta &amp;=\mu\\b(\theta) &amp;= \frac{1}{2}\mu^2\\a(\phi) &amp;= \sigma^2\end{aligned}\end{align} \]</div>
+<span class="eqno">(6.2.8)<a class="headerlink" href="#equation-glm-source-content-18" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\theta &amp;=\mu\\b(\theta) &amp;= \frac{1}{2}\mu^2\\a(\phi) &amp;= \sigma^2\end{aligned}\end{align} \]</div>
 <p>可以看到，高斯分布的自然参数 <span class="math notranslate nohighlight">\(\theta\)</span> 和其期望 <span class="math notranslate nohighlight">\(\mu\)</span> 之间的关系为恒等函数，
 即 <span class="math notranslate nohighlight">\(\theta=\mu\)</span> 。
 在传统线性回归模型中，连接函数采用的也是恒等函数，因此传统线性回归模型采用的是标准连接函数。
 此时满足 <span class="math notranslate nohighlight">\(\theta=\mu=\eta=\beta^Tx\)</span>
 ，模型预测值 <span class="math notranslate nohighlight">\(\hat{y}\)</span> 为：</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-19">
-<span class="eqno">(6.2.9)<a class="headerlink" href="#equation-glm-source-content-19" title="公式的永久链接">¶</a></span>\[\hat{y} = \mu = \eta =\beta^Tx\]</div>
+<span class="eqno">(6.2.9)<a class="headerlink" href="#equation-glm-source-content-19" title="公式的永久链接"></a></span>\[\hat{y} = \mu = \eta =\beta^Tx\]</div>
 <p>此外，传统线性回归模型中假设所有样本的都具有相同的方差，并且方差是常量1，<span class="math notranslate nohighlight">\(\sigma^2=1\)</span>
 。</p>
 <p>然而，当无法合理地假设数据是正态分布的或者响应变量的结果集有限集时，传统的线性回归模型是不合适的。
@@ -1355,7 +1267,7 @@ GLM允许对传统线性回归模型进行扩展，以突破这些限制。
 <span class="math notranslate nohighlight">\(y\)</span> 的值域空间中。
 同时我们能够开发一种适用于所有GLM框架下模型的参数估计算法，以应对不同情况下的参数估计问题。</p>
 <table class="docutils align-default" id="id10">
-<caption><span class="caption-number">表 6.2.1 </span><span class="caption-text">常见连接函数</span><a class="headerlink" href="#id10" title="永久链接至表格">¶</a></caption>
+<caption><span class="caption-number">表 6.2.1 </span><span class="caption-text">常见连接函数</span><a class="headerlink" href="#id10" title="永久链接至表格"></a></caption>
 <colgroup>
 <col style="width: 25%" />
 <col style="width: 25%" />
@@ -1436,7 +1348,7 @@ GLM允许对传统线性回归模型进行扩展，以突破这些限制。
 </tbody>
 </table>
 <table class="docutils align-default" id="id11">
-<caption><span class="caption-number">表 6.2.2 </span><span class="caption-text">连接函数的导数</span><a class="headerlink" href="#id11" title="永久链接至表格">¶</a></caption>
+<caption><span class="caption-number">表 6.2.2 </span><span class="caption-text">连接函数的导数</span><a class="headerlink" href="#id11" title="永久链接至表格"></a></caption>
 <colgroup>
 <col style="width: 25%" />
 <col style="width: 25%" />
@@ -1514,7 +1426,7 @@ GLM允许对传统线性回归模型进行扩展，以突破这些限制。
 </tbody>
 </table>
 <table class="docutils align-default" id="id12">
-<caption><span class="caption-number">表 6.2.3 </span><span class="caption-text">激活函数的导数</span><a class="headerlink" href="#id12" title="永久链接至表格">¶</a></caption>
+<caption><span class="caption-number">表 6.2.3 </span><span class="caption-text">激活函数的导数</span><a class="headerlink" href="#id12" title="永久链接至表格"></a></caption>
 <colgroup>
 <col style="width: 25%" />
 <col style="width: 25%" />
@@ -1591,11 +1503,11 @@ GLM允许对传统线性回归模型进行扩展，以突破这些限制。
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="id7">
-<h2><span class="section-number">6.3. </span>例子<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="id7">
+<h2><span class="section-number">6.3. </span>例子<a class="headerlink" href="#id7" title="永久链接至标题"></a></h2>
 <table class="docutils align-default" id="id13">
-<caption><span class="caption-number">表 6.3.1 </span><span class="caption-text">常见GLM表(1)</span><a class="headerlink" href="#id13" title="永久链接至表格">¶</a></caption>
+<caption><span class="caption-number">表 6.3.1 </span><span class="caption-text">常见GLM表(1)</span><a class="headerlink" href="#id13" title="永久链接至表格"></a></caption>
 <colgroup>
 <col style="width: 25%" />
 <col style="width: 25%" />
@@ -1673,7 +1585,7 @@ GLM允许对传统线性回归模型进行扩展，以突破这些限制。
 </tbody>
 </table>
 <table class="docutils align-default" id="id14">
-<caption><span class="caption-number">表 6.3.2 </span><span class="caption-text">常见GLM表(2)</span><a class="headerlink" href="#id14" title="永久链接至表格">¶</a></caption>
+<caption><span class="caption-number">表 6.3.2 </span><span class="caption-text">常见GLM表(2)</span><a class="headerlink" href="#id14" title="永久链接至表格"></a></caption>
 <colgroup>
 <col style="width: 33%" />
 <col style="width: 33%" />
@@ -1736,20 +1648,27 @@ GLM允许对传统线性回归模型进行扩展，以突破这些限制。
 </tr>
 </tbody>
 </table>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="estimate.html" class="btn btn-neutral float-right" title="7. 参数估计" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="../%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/content.html" class="btn btn-neutral float-left" title="5. 线性回归模型" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/content.html" class="btn btn-neutral float-left" title="5. 线性回归模型" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="estimate.html" class="btn btn-neutral float-right" title="7. 参数估计" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2018, zhangzhenhu(acmtiger@outlook.com) 禁止一切形式的转载！.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
+  
 
 
     <script src="https://utteranc.es/client.js"
@@ -1762,42 +1681,16 @@ GLM允许对传统线性回归模型进行扩展，以突破这些限制。
 
 
 
-  <div role="contentinfo">
-    <p>
-        &#169; 版权所有 2018, zhangzhenhu(acmtiger@outlook.com) 禁止一切形式的转载！.
-
-    </p>
-  </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-
-
-
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

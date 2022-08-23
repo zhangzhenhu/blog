@@ -260,7 +260,7 @@
 .. _ch_sample_distribution_t:
 
 
-t分布
+学生t分布
 ================================
 
 
@@ -1631,7 +1631,7 @@ t分布
 
 
 .. math::
-    :label: eq_estimator_eval_085
+    :label: eq_estimator_eval_085x
 
     Z = \frac{\hat{\mu} - \mu}{ \frac{\sigma}{\sqrt{N}}  } \sim \mathcal{N}(0,1)
 

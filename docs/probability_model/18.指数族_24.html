@@ -1,99 +1,51 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="zh-CN" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>3. 指数族 &mdash; 张振虎的博客 张振虎 文档</title>
-  
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
     <link rel="canonical" href="https://zhangzhenhu.github.io/blog/probability_model/18.指数族_24.html" />
-
-  
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/translations.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2.7.7/unpacked/MathJax.min.js"></script>
         <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"Macros": {"RR": "{\\bf R}", "bold": ["{\\bf #1}", 1]}}})</script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
+    <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
     <link rel="next" title="4. 多维高斯分布" href="19.%E5%A4%9A%E7%BB%B4%E9%AB%98%E6%96%AF%E5%88%86%E5%B8%83_26.html" />
     <link rel="prev" title="2. 参数估计" href="2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../index.html" class="icon icon-home"> 张振虎的博客
-          
-
-          
           </a>
-
-          
-            
-            
               <div class="version">
                 acmtiger@outlook.com
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="在文档中搜索" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">目录:</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">目录:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../glm/source/index.html">广义线性模型</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../glm/source/%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80/content.html">1. 概率基础</a><ul>
@@ -141,7 +93,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#id2">3.1. 统计量和充分统计量</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-sample-distribution">3.2. 抽样分布</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-sample-distribution-normal">3.2.1. 正态分布</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#t">3.2.2. t分布</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#t">3.2.2. 学生t分布</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#id5">3.2.3. 卡方分布</a></li>
 </ul>
 </li>
@@ -746,7 +698,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../audio/feature.html#id18">1.5. 分帧与加窗</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../audio/feature.html#id19">1.5.1. 预加重处理</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../audio/feature.html#id20">1.5.2. 分帧与加窗</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../audio/feature.html#id20">1.5.2. 分帧与加窗处理</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../audio/feature.html#id21">1.6. 声音的感官度量</a><ul>
@@ -788,26 +740,26 @@
 <li class="toctree-l2"><a class="reference internal" href="../edm/bkt.html">1. 贝叶斯知识追踪(Bayesian Knowledge Tracing,BKT)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id1">1.1. 简介</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#hidden-markov-model-hmm">1.2. 隐马尔科夫模型(Hidden Markov Model,HMM)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id5">1.3. 贝叶斯知识追踪(Bayesian Knowledge Tracing,BKT)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#bayesian-knowledge-tracing">1.3. 贝叶斯知识追踪(Bayesian Knowledge Tracing)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#bkt">1.3.1. BKT的参数估计</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#item-response-theory-irt">1.4. 项目反映理论(Item Response Theory,IRT)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#bktirt">1.5. BKT结合IRT</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id6">1.6. 实验</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id7">1.6.1. 数据集</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id8">1.6.2. 实验方法</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id9">1.6.3. 实验结果</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id10">1.6.4. 项目代码</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id5">1.6. 实验</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id6">1.6.1. 数据集</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id7">1.6.2. 实验方法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id8">1.6.3. 实验结果</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id9">1.6.4. 项目代码</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id11">1.7. 未来工作</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id12">1.7.1. 题目难度的计算</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id10">1.7. 未来工作</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id11">1.7.1. 题目难度的计算</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#irt">1.7.2. 多参数IRT模型</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id13">1.7.3. 参数估计算法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id12">1.7.3. 参数估计算法</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id14">1.8. 参考文献</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id13">1.8. 参考文献</a></li>
 </ul>
 </li>
 </ul>
@@ -904,85 +856,43 @@
 </li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">张振虎的博客</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="index_html.html">概率图</a> &raquo;</li>
-        
       <li><span class="section-number">3. </span>指数族</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
-            <a href="../_sources/probability_model/18.指数族_24.rst.txt" rel="nofollow"> View page source</a>
-          
-        
+            <a href="../_sources/probability_model/18.指数族_24.rst.txt" rel="nofollow"> 查看页面源码</a>
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="id1">
-<h1><span class="section-number">3. </span>指数族<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+             
+  <section id="id1">
+<h1><span class="section-number">3. </span>指数族<a class="headerlink" href="#id1" title="永久链接至标题"></a></h1>
 <p>本章我们介绍一类特殊概率分布，叫做指数族分布(exponential family)。
 指数族分布并不是一个具体的概率分布，而是指一类分布，
 这类分布具有某些共同的特性，所以它们形成了一个概率分布族(family)。
 我们很多常见的概率分布都属于指数族，比如高斯分布、二项分布、多项式分布、
 泊松分布、gamma分布、beta分布等等。</p>
-<div class="section" id="ch-24-1">
-<span id="id2"></span><h2><span class="section-number">3.1. </span>指数族的定义<a class="headerlink" href="#ch-24-1" title="永久链接至标题">¶</a></h2>
+<section id="ch-24-1">
+<span id="id2"></span><h2><span class="section-number">3.1. </span>指数族的定义<a class="headerlink" href="#ch-24-1" title="永久链接至标题"></a></h2>
 <p>一个概率分布的概率密度(质量)函数如果具有如下的形式，那么这个概率分布就属于指数族分布。</p>
 <div class="math notranslate nohighlight" id="equation-eq-24-01">
-<span class="eqno">(3.1.4)<a class="headerlink" href="#equation-eq-24-01" title="公式的永久链接">¶</a></span>\[p(x|\theta) = \frac{1}{Z(\theta)} h(x) \exp \{\phi(\theta)^T T(x)  \}\]</div>
+<span class="eqno">(3.1.4)<a class="headerlink" href="#equation-eq-24-01" title="公式的永久链接"></a></span>\[p(x|\theta) = \frac{1}{Z(\theta)} h(x) \exp \{\phi(\theta)^T T(x)  \}\]</div>
 <p>其中 <span class="math notranslate nohighlight">\(x\)</span> 是随机变量的取值，
 <span class="math notranslate nohighlight">\(T(x),h(x),\phi(\theta)\)</span> 都是已知的函数，
 通常 <span class="math notranslate nohighlight">\(h(x)\)</span> 被称为基础度量值(base measure)，
@@ -994,7 +904,7 @@
 <p>函数 <span class="math notranslate nohighlight">\(Z(\theta)\)</span> 是这个分布的配分函数(partition function)，
 使得这个函数是一个合法的概率密度(质量)函数， <span class="math notranslate nohighlight">\(Z(\theta)\)</span> 就是对分子的积分。</p>
 <div class="math notranslate nohighlight" id="equation-eq-24-02">
-<span class="eqno">(3.1.5)<a class="headerlink" href="#equation-eq-24-02" title="公式的永久链接">¶</a></span>\[Z(\theta) = \mathop{\ln} \int h(x) exp\{ \phi(\theta)^T T(x) \} dx\]</div>
+<span class="eqno">(3.1.5)<a class="headerlink" href="#equation-eq-24-02" title="公式的永久链接"></a></span>\[Z(\theta) = \mathop{\ln} \int h(x) exp\{ \phi(\theta)^T T(x) \} dx\]</div>
 <div class="admonition note">
 <p class="admonition-title">注解</p>
 <p>配分函数(partition function)通常出现在概率密度(质量)函数中，是为了使得这个函数的输出值符合概率约束，
@@ -1003,14 +913,14 @@
 <p>通常 <a class="reference internal" href="#equation-eq-24-01">公式(3.1.4)</a> 有多种变式，比如，我们令 <span class="math notranslate nohighlight">\(g(\theta)=\frac{1}{Z(\theta)}\)</span> ，
 这样可以使得式子变得更加整洁。</p>
 <div class="math notranslate nohighlight" id="equation-eq-24-03">
-<span class="eqno">(3.1.6)<a class="headerlink" href="#equation-eq-24-03" title="公式的永久链接">¶</a></span>\[p(x|\theta) = h(x) g(\theta) \exp \{\phi(\theta)^T T(x)  \}\]</div>
+<span class="eqno">(3.1.6)<a class="headerlink" href="#equation-eq-24-03" title="公式的永久链接"></a></span>\[p(x|\theta) = h(x) g(\theta) \exp \{\phi(\theta)^T T(x)  \}\]</div>
 <p>有时还会把 <span class="math notranslate nohighlight">\(Z(\theta)\)</span> 移到指数的内部，
 其中 <span class="math notranslate nohighlight">\(A(\theta) = \ln Z(\theta)\)</span> ，通常被称为对数配分函数(log-partition function)。</p>
 <div class="math notranslate nohighlight" id="equation-eq-24-04">
-<span class="eqno">(3.1.7)<a class="headerlink" href="#equation-eq-24-04" title="公式的永久链接">¶</a></span>\[ p(x|\theta) = h(x) \exp \{\phi(\theta)^T T(x) - A(\theta) \}\]</div>
+<span class="eqno">(3.1.7)<a class="headerlink" href="#equation-eq-24-04" title="公式的永久链接"></a></span>\[ p(x|\theta) = h(x) \exp \{\phi(\theta)^T T(x) - A(\theta) \}\]</div>
 <p>也有一些资料会把 <span class="math notranslate nohighlight">\(h(x)\)</span> 也移到指数内部，其中 <span class="math notranslate nohighlight">\(S(x)=\ln h(x)\)</span> 。</p>
 <div class="math notranslate nohighlight" id="equation-eq-24-05">
-<span class="eqno">(3.1.8)<a class="headerlink" href="#equation-eq-24-05" title="公式的永久链接">¶</a></span>\[p(x|\theta) =  \exp \{\phi(\theta)^T T(x) + S(x) - A(\theta) \}\]</div>
+<span class="eqno">(3.1.8)<a class="headerlink" href="#equation-eq-24-05" title="公式的永久链接"></a></span>\[p(x|\theta) =  \exp \{\phi(\theta)^T T(x) + S(x) - A(\theta) \}\]</div>
 <p>这些不同的表示都是同一个公式的变型而已，所以它们是等价的。
 为了表示方便，我们定义一个新的参数 <span class="math notranslate nohighlight">\(\eta=\phi(\theta)\)</span> ，
 参数 <span class="math notranslate nohighlight">\(\eta\)</span> 通常叫做自然参数(natural parameter)或者标准参数(canonical parameter)。</p>
@@ -1019,7 +929,7 @@
 <p>“canonical parameter” 没有找到的统一的翻译，有多种翻译：标准参数、规范参数、典范参数等等。</p>
 </div>
 <div class="math notranslate nohighlight" id="equation-eq-24-06">
-<span class="eqno">(3.1.9)<a class="headerlink" href="#equation-eq-24-06" title="公式的永久链接">¶</a></span>\[p(x|\eta) =  \exp \{ \eta^T T(x) + S(x) - A(\eta) \}\]</div>
+<span class="eqno">(3.1.9)<a class="headerlink" href="#equation-eq-24-06" title="公式的永久链接"></a></span>\[p(x|\eta) =  \exp \{ \eta^T T(x) + S(x) - A(\eta) \}\]</div>
 <div class="admonition note">
 <p class="admonition-title">注解</p>
 <p>因为 <span class="math notranslate nohighlight">\(A(\theta)\)</span> 是对数配分函数，它是分子分积分，所以当分子中定义了 <span class="math notranslate nohighlight">\(\eta=\phi(\theta)\)</span> ，
@@ -1033,44 +943,44 @@
 事实上，对于指数族中的任意分布，都可以通过参数转化函数 <span class="math notranslate nohighlight">\(\phi(\theta)\)</span> 把原始参数 <span class="math notranslate nohighlight">\(\theta\)</span>
 转化成标准参数 <span class="math notranslate nohighlight">\(\eta\)</span> ，然后以 <span class="math notranslate nohighlight">\(\eta\)</span> 作为模型参数，进而得到标准形式(canonical form)。
 下面我们列举一些属于指数族分布的例子。</p>
-<div class="section" id="id3">
-<h3><span class="section-number">3.1.1. </span>伯努利分布<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h3>
+<section id="id3">
+<h3><span class="section-number">3.1.1. </span>伯努利分布<a class="headerlink" href="#id3" title="永久链接至标题"></a></h3>
 <p>伯努利分布的概率质量函数为：</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-18-24-0">
-<span class="eqno">(3.1.10)<a class="headerlink" href="#equation-probability-model-18-24-0" title="公式的永久链接">¶</a></span>\[p(x|\mu) = \mu^x(1-\mu)^{1-x}\]</div>
+<span class="eqno">(3.1.10)<a class="headerlink" href="#equation-probability-model-18-24-0" title="公式的永久链接"></a></span>\[p(x|\mu) = \mu^x(1-\mu)^{1-x}\]</div>
 <p>其中 <span class="math notranslate nohighlight">\(\mu\)</span> 表示这个概率分布的参数，
 我们可以把右侧改写一下：</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-18-24-1">
-<span class="eqno">(3.1.11)<a class="headerlink" href="#equation-probability-model-18-24-1" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}p(x|\mu) &amp;= \mu^x(1-\mu)^{1-x}\\&amp;= exp \{  \ln  [ \mu^x (1-\mu)^{1-x}  ] \}\\&amp;= exp\{  x \ln \mu + (1-x) \ln (1-\mu)  \}\\&amp;= exp\{  x \ln \left( \frac{\mu}{1-\mu} \right) +  \ln (1- \mu)  \}\end{aligned}\end{align} \]</div>
+<span class="eqno">(3.1.11)<a class="headerlink" href="#equation-probability-model-18-24-1" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}p(x|\mu) &amp;= \mu^x(1-\mu)^{1-x}\\&amp;= exp \{  \ln  [ \mu^x (1-\mu)^{1-x}  ] \}\\&amp;= exp\{  x \ln \mu + (1-x) \ln (1-\mu)  \}\\&amp;= exp\{  x \ln \left( \frac{\mu}{1-\mu} \right) +  \ln (1- \mu)  \}\end{aligned}\end{align} \]</div>
 <p>和 <a class="reference internal" href="#equation-eq-24-06">公式(3.1.9)</a> 对比下，可以发现有：</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-18-24-2">
-<span class="eqno">(3.1.12)<a class="headerlink" href="#equation-probability-model-18-24-2" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\eta &amp;=\phi(\mu) = \ln \left( \frac{\mu}{1-\mu} \right)\\T(x) &amp;=x\\A(\eta) &amp;= - ln (1-\mu) = ln(1+e^{\eta})\\S(x) &amp;= 0\end{aligned}\end{align} \]</div>
+<span class="eqno">(3.1.12)<a class="headerlink" href="#equation-probability-model-18-24-2" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\eta &amp;=\phi(\mu) = \ln \left( \frac{\mu}{1-\mu} \right)\\T(x) &amp;=x\\A(\eta) &amp;= - ln (1-\mu) = ln(1+e^{\eta})\\S(x) &amp;= 0\end{aligned}\end{align} \]</div>
 <p>函数 <span class="math notranslate nohighlight">\(\ln \left( \frac{\mu}{1-\mu} \right)\)</span> 被称为logit函数：</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-18-24-3">
-<span class="eqno">(3.1.13)<a class="headerlink" href="#equation-probability-model-18-24-3" title="公式的永久链接">¶</a></span>\[\eta=\phi(\mu)=logit(\mu)=\ln \left( \frac{\mu}{1-\mu} \right)\]</div>
+<span class="eqno">(3.1.13)<a class="headerlink" href="#equation-probability-model-18-24-3" title="公式的永久链接"></a></span>\[\eta=\phi(\mu)=logit(\mu)=\ln \left( \frac{\mu}{1-\mu} \right)\]</div>
 <p>logit函数的反函数是sigmoid函数。</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-18-24-4">
-<span class="eqno">(3.1.14)<a class="headerlink" href="#equation-probability-model-18-24-4" title="公式的永久链接">¶</a></span>\[\mu = sigmoid(\eta)=\frac{e^{\eta}}{1+e^{\eta}} = \frac{1}{1+e^{-\eta}}\]</div>
+<span class="eqno">(3.1.14)<a class="headerlink" href="#equation-probability-model-18-24-4" title="公式的永久链接"></a></span>\[\mu = sigmoid(\eta)=\frac{e^{\eta}}{1+e^{\eta}} = \frac{1}{1+e^{-\eta}}\]</div>
 <p>sigmoid函数又被称为逻辑函数(logistic function)，在以后的章节中还会再遇到它。</p>
-</div>
-<div class="section" id="id4">
-<h3><span class="section-number">3.1.2. </span>类别分布<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id4">
+<h3><span class="section-number">3.1.2. </span>类别分布<a class="headerlink" href="#id4" title="永久链接至标题"></a></h3>
 <p>伯努利分布是只有两个取值的离散随机变量的概率分布，当随机变量的取值扩展到多个(大于2个并且有限集)的时候，就是称为类别分布，
 也可以认为是单一观测(一个样本，一次实验)的多项式分布。
 其概率质量函数为：</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-18-24-5">
-<span class="eqno">(3.1.15)<a class="headerlink" href="#equation-probability-model-18-24-5" title="公式的永久链接">¶</a></span>\[p(x|\theta) = \prod_{k=1}^m \theta_k^{x_k}\]</div>
+<span class="eqno">(3.1.15)<a class="headerlink" href="#equation-probability-model-18-24-5" title="公式的永久链接"></a></span>\[p(x|\theta) = \prod_{k=1}^m \theta_k^{x_k}\]</div>
 <p>其中m表示变量有m种取值，注意 <span class="math notranslate nohighlight">\(x_k \in \{0,1\}\)</span> ，表示变量是否为第k个值，
 当变量值是第k个值时 <span class="math notranslate nohighlight">\(x_k=1\)</span> ，否则为0。
 <span class="math notranslate nohighlight">\(\theta_k\)</span> 表示 <span class="math notranslate nohighlight">\(x_k=1\)</span> 的概率，并且有 <span class="math notranslate nohighlight">\(\sum_{k=1}^m \theta_k=1\)</span> 。</p>
 <p>同样我们需要把上式变型成指数族形式。</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-18-24-6">
-<span class="eqno">(3.1.16)<a class="headerlink" href="#equation-probability-model-18-24-6" title="公式的永久链接">¶</a></span>\[p(x|\theta) = \prod_{k=1}^m \theta_k^{x_k}= \exp \{ \sum_{k=1}^m x_k \ln \theta_k \}\]</div>
+<span class="eqno">(3.1.16)<a class="headerlink" href="#equation-probability-model-18-24-6" title="公式的永久链接"></a></span>\[p(x|\theta) = \prod_{k=1}^m \theta_k^{x_k}= \exp \{ \sum_{k=1}^m x_k \ln \theta_k \}\]</div>
 <p>然而我们注意到，其中m个参数 <span class="math notranslate nohighlight">\(\theta_k\)</span> 是冗余的，因为有 <span class="math notranslate nohighlight">\(\sum_{k=1}^m \theta_k=1\)</span> ，
 其中 <span class="math notranslate nohighlight">\(\theta_m\)</span> 可以用 <span class="math notranslate nohighlight">\(\theta_m=1-\sum_{k=1}^{m-1} \theta_k\)</span> 表示，
 模型只需要m-1个参数，而不需要m个参数。</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-18-24-7">
-<span class="eqno">(3.1.17)<a class="headerlink" href="#equation-probability-model-18-24-7" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}p(x|\theta) &amp;=  \exp \{ \sum_{k=1}^m x_k \ln \theta_k \}\\&amp;=  \exp \left \{ \sum_{k=1}^{m-1} x_k \ln \theta_k  +
+<span class="eqno">(3.1.17)<a class="headerlink" href="#equation-probability-model-18-24-7" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}p(x|\theta) &amp;=  \exp \{ \sum_{k=1}^m x_k \ln \theta_k \}\\&amp;=  \exp \left \{ \sum_{k=1}^{m-1} x_k \ln \theta_k  +
 \left (1-\sum_{k=1}^{m-1} x_k \right ) \ln \left (1-\sum_{k=1}^{m-1} \theta_k \right )   \right \}\\&amp;= \exp \left \{ \sum_{k=1}^{m-1} x_k \ln \left ( \frac{\theta_k}{1-\sum_{j=1}^{m-1} \theta_j} \right )
 + \ln \left  (1-\sum_{k=1}^{m-1} \theta_k \right ) \right \}\\&amp;= \exp \left \{ \sum_{k=1}^{m-1} x_k \ln \left ( \frac{\theta_k}{ \theta_m} \right )
 + \ln \left  (1-\sum_{k=1}^{m-1} \theta_k \right ) \right \}\\
@@ -1080,53 +990,53 @@
 和向量 <span class="math notranslate nohighlight">\(T(x)=[x_1,\dots,x_k,\dots,x_{m-1}]\)</span> 的內积。
 和 <a class="reference internal" href="#equation-eq-24-06">公式(3.1.9)</a> 对比下，可以发现有：</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-18-24-8">
-<span class="eqno">(3.1.18)<a class="headerlink" href="#equation-probability-model-18-24-8" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\eta &amp;= \phi(\theta) = [\phi(\theta_1),\dots,\phi(\theta_k),\dots,\phi(\theta_{m-1})]
+<span class="eqno">(3.1.18)<a class="headerlink" href="#equation-probability-model-18-24-8" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\eta &amp;= \phi(\theta) = [\phi(\theta_1),\dots,\phi(\theta_k),\dots,\phi(\theta_{m-1})]
 ,\phi(\theta_k) = \ln \left ( \frac{\theta_k}{ \theta_m} \right )\\T(x)&amp;=[x_1,\dots,x_k,\dots,x_{m-1}]\\ A(\eta) &amp;= - \ln \left  (1-\sum_{k=1}^{m-1} \theta_k \right )
 = \ln \left (  \sum_{k=1}^m e^{\eta_k}  \right )\\S(x) &amp;= 0\end{aligned}\end{align} \]</div>
 <p>用 <span class="math notranslate nohighlight">\(\eta\)</span> 表示 <span class="math notranslate nohighlight">\(\theta\)</span> 有：</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-18-24-9">
-<span class="eqno">(3.1.19)<a class="headerlink" href="#equation-probability-model-18-24-9" title="公式的永久链接">¶</a></span>\[\theta_k = \frac{e^{\eta_k}}{\sum_{j=1}^m e^{\eta_j}}\]</div>
+<span class="eqno">(3.1.19)<a class="headerlink" href="#equation-probability-model-18-24-9" title="公式的永久链接"></a></span>\[\theta_k = \frac{e^{\eta_k}}{\sum_{j=1}^m e^{\eta_j}}\]</div>
 <p>这个函数被称为softmax函数。</p>
-</div>
-<div class="section" id="id5">
-<h3><span class="section-number">3.1.3. </span>泊松分布<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id5">
+<h3><span class="section-number">3.1.3. </span>泊松分布<a class="headerlink" href="#id5" title="永久链接至标题"></a></h3>
 <p>泊松(Poisson)分布的概率质量函数为：</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-18-24-10">
-<span class="eqno">(3.1.20)<a class="headerlink" href="#equation-probability-model-18-24-10" title="公式的永久链接">¶</a></span>\[p(x|\theta) = \frac{\theta^x e^{-\theta}}{x!}\]</div>
+<span class="eqno">(3.1.20)<a class="headerlink" href="#equation-probability-model-18-24-10" title="公式的永久链接"></a></span>\[p(x|\theta) = \frac{\theta^x e^{-\theta}}{x!}\]</div>
 <p>我们同样对它进行改写：</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-18-24-11">
-<span class="eqno">(3.1.21)<a class="headerlink" href="#equation-probability-model-18-24-11" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}p(x|\theta) &amp;= \frac{ \exp\{ \ln [ \theta^x e^{-\theta} ]  \}}{x!}\\&amp;= \frac{ \exp\{ x \ln  \theta   -\theta  \} }{x!}\\&amp;= \exp \{ x \ln  \theta   -\theta  -  \ln x! \}\end{aligned}\end{align} \]</div>
+<span class="eqno">(3.1.21)<a class="headerlink" href="#equation-probability-model-18-24-11" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}p(x|\theta) &amp;= \frac{ \exp\{ \ln [ \theta^x e^{-\theta} ]  \}}{x!}\\&amp;= \frac{ \exp\{ x \ln  \theta   -\theta  \} }{x!}\\&amp;= \exp \{ x \ln  \theta   -\theta  -  \ln x! \}\end{aligned}\end{align} \]</div>
 <p>和 <a class="reference internal" href="#equation-eq-24-06">公式(3.1.9)</a> 对比可得：</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-18-24-12">
-<span class="eqno">(3.1.22)<a class="headerlink" href="#equation-probability-model-18-24-12" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\eta &amp;= \phi(\theta) = \ln \theta\\T(x) &amp;= x\\A(\eta) &amp;=  \theta = e^{\eta}\\S(x) &amp;= - \ln x!\end{aligned}\end{align} \]</div>
+<span class="eqno">(3.1.22)<a class="headerlink" href="#equation-probability-model-18-24-12" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\eta &amp;= \phi(\theta) = \ln \theta\\T(x) &amp;= x\\A(\eta) &amp;=  \theta = e^{\eta}\\S(x) &amp;= - \ln x!\end{aligned}\end{align} \]</div>
 <p><span class="math notranslate nohighlight">\(\eta\)</span> 和 <span class="math notranslate nohighlight">\(\theta\)</span> 的关系为：</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-18-24-13">
-<span class="eqno">(3.1.23)<a class="headerlink" href="#equation-probability-model-18-24-13" title="公式的永久链接">¶</a></span>\[\theta = e^{\eta}\]</div>
-</div>
-<div class="section" id="id6">
-<h3><span class="section-number">3.1.4. </span>高斯分布<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h3>
+<span class="eqno">(3.1.23)<a class="headerlink" href="#equation-probability-model-18-24-13" title="公式的永久链接"></a></span>\[\theta = e^{\eta}\]</div>
+</section>
+<section id="id6">
+<h3><span class="section-number">3.1.4. </span>高斯分布<a class="headerlink" href="#id6" title="永久链接至标题"></a></h3>
 <p>这里我们只考虑单维高斯模型，高斯模型有两个参数，分别是均值参数 <span class="math notranslate nohighlight">\(\mu\)</span>
 和方差参数 <span class="math notranslate nohighlight">\(\sigma^2\)</span> ，高斯分布的概率密度函数为：</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-18-24-14">
-<span class="eqno">(3.1.24)<a class="headerlink" href="#equation-probability-model-18-24-14" title="公式的永久链接">¶</a></span>\[p(x|\mu,\sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}} exp \left \{ -\frac{1}{2\sigma^2}(x-\mu)^2 \right \}\]</div>
+<span class="eqno">(3.1.24)<a class="headerlink" href="#equation-probability-model-18-24-14" title="公式的永久链接"></a></span>\[p(x|\mu,\sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}} exp \left \{ -\frac{1}{2\sigma^2}(x-\mu)^2 \right \}\]</div>
 <p>我们将其转化成指数族的标准形式。</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-18-24-15">
-<span class="eqno">(3.1.25)<a class="headerlink" href="#equation-probability-model-18-24-15" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}p(x|\mu,\sigma^2) &amp;= \frac{1}{\sqrt{2\pi\sigma^2}} exp \left \{ -\frac{1}{2\sigma^2}(x-\mu)^2 \right \}\\&amp; =  exp \left \{ -\frac{1}{2\sigma^2} x^2 + \frac{\mu}{\sigma^2} x -\frac{1}{2\sigma^2}\mu^2
+<span class="eqno">(3.1.25)<a class="headerlink" href="#equation-probability-model-18-24-15" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}p(x|\mu,\sigma^2) &amp;= \frac{1}{\sqrt{2\pi\sigma^2}} exp \left \{ -\frac{1}{2\sigma^2}(x-\mu)^2 \right \}\\&amp; =  exp \left \{ -\frac{1}{2\sigma^2} x^2 + \frac{\mu}{\sigma^2} x -\frac{1}{2\sigma^2}\mu^2
  -\ln \sigma - \frac{1}{2} \ln (2\pi) \right \}\end{aligned}\end{align} \]</div>
 <p>和 <a class="reference internal" href="#equation-eq-24-06">公式(3.1.9)</a> 对比可得：</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-18-24-16">
-<span class="eqno">(3.1.26)<a class="headerlink" href="#equation-probability-model-18-24-16" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\eta &amp;= \phi(\theta)=\left [ \mu / \sigma^2 ,-1 /2 \sigma^2 \right ]\\T(x) &amp;= \left [ x ,x^2 \right ]\\
+<span class="eqno">(3.1.26)<a class="headerlink" href="#equation-probability-model-18-24-16" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\eta &amp;= \phi(\theta)=\left [ \mu / \sigma^2 ,-1 /2 \sigma^2 \right ]\\T(x) &amp;= \left [ x ,x^2 \right ]\\
 A(\eta) &amp;= \frac{\mu^2}{2\sigma^2} +ln \sigma = -\frac{\eta_1^2}{4\eta_2} - \frac{1}{2}ln(-2\eta_2)\\S(x) &amp;= - \frac{1}{2} \ln (2\pi)\end{aligned}\end{align} \]</div>
 <p>注意单变量高斯模型是含有两个参数的，所以 <span class="math notranslate nohighlight">\(\eta\)</span> 和 <span class="math notranslate nohighlight">\(T(x)\)</span> 都是一个长度为2的向量。
 多维高斯模型同样也属于指数族，可以自己推导下。</p>
-</div>
-<div class="section" id="id7">
-<h3><span class="section-number">3.1.5. </span>其它常见指数族<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id7">
+<h3><span class="section-number">3.1.5. </span>其它常见指数族<a class="headerlink" href="#id7" title="永久链接至标题"></a></h3>
 <p>请参考：<a class="reference external" href="https://en.wikipedia.org/wiki/Exponential_family#Table_of_distributions">维基百科 https://en.wikipedia.org/wiki/Exponential_family#Table_of_distributions</a></p>
-</div>
-</div>
-<div class="section" id="ch-24-moments">
-<span id="id8"></span><h2><span class="section-number">3.2. </span>指数族的期望与方差<a class="headerlink" href="#ch-24-moments" title="永久链接至标题">¶</a></h2>
+</section>
+</section>
+<section id="ch-24-moments">
+<span id="id8"></span><h2><span class="section-number">3.2. </span>指数族的期望与方差<a class="headerlink" href="#ch-24-moments" title="永久链接至标题"></a></h2>
 <blockquote>
 <div><p>在数学和统计学中，矩（moment）是对变量分布和形态特点的一组度量。
 n阶矩被定义为一变量的n次方与其概率密度函数（Probability Density Function, PDF）之积的积分。
@@ -1141,7 +1051,7 @@ n阶矩被定义为一变量的n次方与其概率密度函数（Probability Den
 在指数族分布中 <span class="math notranslate nohighlight">\(A(\eta) = \mathop{\ln} \int h(x) exp\{ \eta^T T(x) \} dx\)</span>
 ，其一阶导数为：</p>
 <div class="math notranslate nohighlight" id="equation-eq-24-10">
-<span class="eqno">(3.2.22)<a class="headerlink" href="#equation-eq-24-10" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\frac{d A}{d \eta} &amp;= \frac{d}{d \eta} \left \{
+<span class="eqno">(3.2.22)<a class="headerlink" href="#equation-eq-24-10" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\frac{d A}{d \eta} &amp;= \frac{d}{d \eta} \left \{
 \mathop{\ln}  \int h(x) exp\{ \eta^T T(x) \} dx   \right \}\\&amp;= \frac{  \int T(x) exp\{ \eta^T T(x) \}h(x)dx    }
 {    \int  exp\{ \eta^T T(x) \}h(x)dx   }\\&amp;= \int T(x) exp \{ \eta^T T(x) - A(\eta)    \} h(x) dx\\&amp;= \mathbb{E}[T(x)]\end{aligned}\end{align} \]</div>
 <p>我们看到 <span class="math notranslate nohighlight">\(A(\eta)\)</span> 的一阶导数正好等于 <span class="math notranslate nohighlight">\(T(x)\)</span> 的期望(均值)，对于伯努利分布、多项分布、泊松分布、高斯分布等这些
@@ -1149,22 +1059,22 @@ n阶矩被定义为一变量的n次方与其概率密度函数（Probability Den
 <p>比如上面的示例中，对于伯努利分布，有 <span class="math notranslate nohighlight">\(A(\eta)=ln(1+e^\eta)\)</span> ，
 其一阶导数为：</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-18-24-17">
-<span class="eqno">(3.2.23)<a class="headerlink" href="#equation-probability-model-18-24-17" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\frac{d A}{d \eta} &amp;= \frac{d }{d \eta} ln(1+e^{\eta})\\&amp;= \frac{e^{\eta}}{1 + e^{\eta}}\\&amp;= \frac{1}{1+e^{-\eta}}\\&amp;= \mu\end{aligned}\end{align} \]</div>
+<span class="eqno">(3.2.23)<a class="headerlink" href="#equation-probability-model-18-24-17" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\frac{d A}{d \eta} &amp;= \frac{d }{d \eta} ln(1+e^{\eta})\\&amp;= \frac{e^{\eta}}{1 + e^{\eta}}\\&amp;= \frac{1}{1+e^{-\eta}}\\&amp;= \mu\end{aligned}\end{align} \]</div>
 <p>对于高斯分布有：</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-18-24-18">
-<span class="eqno">(3.2.24)<a class="headerlink" href="#equation-probability-model-18-24-18" title="公式的永久链接">¶</a></span>\[A(\eta) = -\frac{\eta_1^2}{4\eta_2} - \frac{1}{2}ln(-2\eta_2)\]</div>
+<span class="eqno">(3.2.24)<a class="headerlink" href="#equation-probability-model-18-24-18" title="公式的永久链接"></a></span>\[A(\eta) = -\frac{\eta_1^2}{4\eta_2} - \frac{1}{2}ln(-2\eta_2)\]</div>
 <p>其中，<span class="math notranslate nohighlight">\(\eta_1=\mu/\sigma^2,\eta_2=-1/2\sigma^2\)</span> ，我们计算 <span class="math notranslate nohighlight">\(\eta_1\)</span> 的偏导数：</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-18-24-19">
-<span class="eqno">(3.2.25)<a class="headerlink" href="#equation-probability-model-18-24-19" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\frac{\partial A}{\partial \eta_1} &amp;= \frac{\eta_1}{2\eta_2}\\&amp;= \frac{\mu/\sigma^2}{1/\sigma^2}\\&amp;= \mu\end{aligned}\end{align} \]</div>
+<span class="eqno">(3.2.25)<a class="headerlink" href="#equation-probability-model-18-24-19" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\frac{\partial A}{\partial \eta_1} &amp;= \frac{\eta_1}{2\eta_2}\\&amp;= \frac{\mu/\sigma^2}{1/\sigma^2}\\&amp;= \mu\end{aligned}\end{align} \]</div>
 <p>现在我们看下 <span class="math notranslate nohighlight">\(A(\eta)\)</span> 的二阶导数：</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-18-24-20">
-<span class="eqno">(3.2.26)<a class="headerlink" href="#equation-probability-model-18-24-20" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\frac{d^2 A}{d\eta^2} &amp;=
+<span class="eqno">(3.2.26)<a class="headerlink" href="#equation-probability-model-18-24-20" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\frac{d^2 A}{d\eta^2} &amp;=
 \int T(x) exp \{ \eta T(x) -A(\eta)\}\ (T(x)- A'(\eta)) h(x) dx\\&amp;= \int T(x) exp \{\eta T(x) - A(\eta)\}(T(x)-\mathbb{E}[ T(x)] ) h(x) dx\\&amp;= \int T(x)^2 exp\{ \eta T(x)-A(\eta) \} h(x)dx -
 \mathbb{E}[ T(x)] \int T(x) exp\{\eta T(x) -A(\eta)\} h(x) dx\\&amp;= \mathbb{E}[ T(x)^2] - (\mathbb{E}[ T(x)])^2\\&amp;= Var [ T(x)]\end{aligned}\end{align} \]</div>
 <p><span class="math notranslate nohighlight">\(A(\eta)\)</span> 的二阶导数正好是 <span class="math notranslate nohighlight">\(T(x)\)</span> 的方差，对于 <span class="math notranslate nohighlight">\(T(x)=x\)</span> 的分布，就是分布的方差。</p>
 <p>比如对于高斯分布，对于 <span class="math notranslate nohighlight">\(\eta_1\)</span> 的二阶偏导数为：</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-18-24-21">
-<span class="eqno">(3.2.27)<a class="headerlink" href="#equation-probability-model-18-24-21" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\frac{\partial A}{\partial \eta_1} &amp;=- \frac{1}{2\eta_2}\\&amp;= \sigma^2\end{aligned}\end{align} \]</div>
+<span class="eqno">(3.2.27)<a class="headerlink" href="#equation-probability-model-18-24-21" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\frac{\partial A}{\partial \eta_1} &amp;=- \frac{1}{2\eta_2}\\&amp;= \sigma^2\end{aligned}\end{align} \]</div>
 <p>总结一下，对于指数族分布， 我们可以通过对 <span class="math notranslate nohighlight">\(A{\eta}\)</span> 求导来计算分布中 <span class="math notranslate nohighlight">\(T(x)\)</span> 期望和方差，
 当然通过高阶导数还能计算出更多的矩(Moment)。</p>
 <p>此外，我们发现函数 <span class="math notranslate nohighlight">\(A{\eta}\)</span> 的二阶导数是 <span class="math notranslate nohighlight">\(T(x)\)</span> 的方差，我们都知道方差肯定是大于等于0的，
@@ -1173,20 +1083,20 @@ n阶矩被定义为一变量的n次方与其概率密度函数（Probability Den
 我们定义 <span class="math notranslate nohighlight">\(A(\eta)\)</span> 的一阶导数用符号 <span class="math notranslate nohighlight">\(\mu\)</span> 表示，则有 <span class="math notranslate nohighlight">\(u\triangleq \mathbb{E}[T(x)]\)</span>
 ， <span class="math notranslate nohighlight">\(\mu\)</span> 和 <span class="math notranslate nohighlight">\(\eta\)</span> 之间的关系可以用如下函数表示：</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-18-24-22">
-<span class="eqno">(3.2.28)<a class="headerlink" href="#equation-probability-model-18-24-22" title="公式的永久链接">¶</a></span>\[\mu = \frac{d A}{d \eta}\]</div>
+<span class="eqno">(3.2.28)<a class="headerlink" href="#equation-probability-model-18-24-22" title="公式的永久链接"></a></span>\[\mu = \frac{d A}{d \eta}\]</div>
 <p>并且这个函数是可逆的，也就是说已知 <span class="math notranslate nohighlight">\(\mu\)</span> 就能求出 <span class="math notranslate nohighlight">\(\eta\)</span> ；
 反过来，已知 <span class="math notranslate nohighlight">\(\eta\)</span> 就能求出 <span class="math notranslate nohighlight">\(\mu\)</span> 。
 比如对于伯努利分布：</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-18-24-23">
-<span class="eqno">(3.2.29)<a class="headerlink" href="#equation-probability-model-18-24-23" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\eta &amp;= \frac{\mu}{1-\mu}\\\mu &amp;= \frac{1}{1+e^{-\eta}} \ \text{(logistic function)}\end{aligned}\end{align} \]</div>
+<span class="eqno">(3.2.29)<a class="headerlink" href="#equation-probability-model-18-24-23" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\eta &amp;= \frac{\mu}{1-\mu}\\\mu &amp;= \frac{1}{1+e^{-\eta}} \ \text{(logistic function)}\end{aligned}\end{align} \]</div>
 <p>对于多项式分布：</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-18-24-24">
-<span class="eqno">(3.2.30)<a class="headerlink" href="#equation-probability-model-18-24-24" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\eta_i &amp;= \ln \left ( \frac{\mu_i}{1-\sum_{i=1}^{m-1}} \right )\\\mu_i &amp;= \frac{e^{\eta_i}}{\sum_{j=1}^{m} e^{\eta_j}} \ \text{(softmax function)}\end{aligned}\end{align} \]</div>
+<span class="eqno">(3.2.30)<a class="headerlink" href="#equation-probability-model-18-24-24" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\eta_i &amp;= \ln \left ( \frac{\mu_i}{1-\sum_{i=1}^{m-1}} \right )\\\mu_i &amp;= \frac{e^{\eta_i}}{\sum_{j=1}^{m} e^{\eta_j}} \ \text{(softmax function)}\end{aligned}\end{align} \]</div>
 <p>由于 <span class="math notranslate nohighlight">\(\mu\)</span> 和 <span class="math notranslate nohighlight">\(\eta\)</span> 是可逆的，所以对于指数族分布，也可以用 <span class="math notranslate nohighlight">\(\mu\)</span> 去定义分布模型，也就是用
 <span class="math notranslate nohighlight">\(\mu\)</span> 去当做模型的参数。事实上，我们常见的分布都是这么做的，比如伯努利分布、高斯分布等等。</p>
-</div>
-<div class="section" id="id9">
-<h2><span class="section-number">3.3. </span>最大似然估计<a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="id9">
+<h2><span class="section-number">3.3. </span>最大似然估计<a class="headerlink" href="#id9" title="永久链接至标题"></a></h2>
 <p>现在我们讨论下指数族的最大似然估计，
 我们知道指数族的自然参数 <span class="math notranslate nohighlight">\(\eta\)</span> 和特定分布的原始参数 <span class="math notranslate nohighlight">\(\theta\)</span> 是一一对应的，二者是存在可逆关系的，
 所有只要我们能估计出自然参数 <span class="math notranslate nohighlight">\(\eta\)</span> ，就一定能通过逆函数 <span class="math notranslate nohighlight">\(\phi(\cdot)^{-1}\)</span> 得到分布的真实参数
@@ -1195,30 +1105,30 @@ n阶矩被定义为一变量的n次方与其概率密度函数（Probability Den
 并且样本集是满足IID(独立同分布)的。</p>
 <p>首先回顾一下指数族分布的标准形式：</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-18-24-25">
-<span class="eqno">(3.3.28)<a class="headerlink" href="#equation-probability-model-18-24-25" title="公式的永久链接">¶</a></span>\[p(x|\eta) =  exp \{\eta^T T(x) - A(\eta) + S(x) \}\]</div>
+<span class="eqno">(3.3.28)<a class="headerlink" href="#equation-probability-model-18-24-25" title="公式的永久链接"></a></span>\[p(x|\eta) =  exp \{\eta^T T(x) - A(\eta) + S(x) \}\]</div>
 <p>我们知道样本的似然就是所有样本发生的联合概率：</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-18-24-26">
-<span class="eqno">(3.3.29)<a class="headerlink" href="#equation-probability-model-18-24-26" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}L(\eta;\mathcal{D}) &amp;= p(\mathcal{D}|\eta)\\&amp;= p(x_1,\dots,x_N|\eta)\\&amp;= \prod_{i=1}^N  p(x_i|\eta)\\&amp;= \prod_{i=1}^N  \exp \{\eta^T T(x_i) - A(\eta) + S(x_i) \}\\&amp;=  \exp \{ \eta^T \sum_{i=1}^N  T(x_i) - N A(\eta) + \sum_{i=1}^N S(x_i) \}\end{aligned}\end{align} \]</div>
+<span class="eqno">(3.3.29)<a class="headerlink" href="#equation-probability-model-18-24-26" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}L(\eta;\mathcal{D}) &amp;= p(\mathcal{D}|\eta)\\&amp;= p(x_1,\dots,x_N|\eta)\\&amp;= \prod_{i=1}^N  p(x_i|\eta)\\&amp;= \prod_{i=1}^N  \exp \{\eta^T T(x_i) - A(\eta) + S(x_i) \}\\&amp;=  \exp \{ \eta^T \sum_{i=1}^N  T(x_i) - N A(\eta) + \sum_{i=1}^N S(x_i) \}\end{aligned}\end{align} \]</div>
 <p>对比一下，我们发现指数族分布的联合概率仍然是指数族：</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-18-24-27">
-<span class="eqno">(3.3.30)<a class="headerlink" href="#equation-probability-model-18-24-27" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}T(x) &amp;\Longrightarrow \sum_{i=1}^N  T(x_i)\\A(\eta) &amp;\Longrightarrow N A(\eta)\\S(x) &amp;\Longrightarrow \sum_{i=1}^N S(x_i)\end{aligned}\end{align} \]</div>
+<span class="eqno">(3.3.30)<a class="headerlink" href="#equation-probability-model-18-24-27" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}T(x) &amp;\Longrightarrow \sum_{i=1}^N  T(x_i)\\A(\eta) &amp;\Longrightarrow N A(\eta)\\S(x) &amp;\Longrightarrow \sum_{i=1}^N S(x_i)\end{aligned}\end{align} \]</div>
 <p>现在我们为似然函数加上对数，得到对数似然函数：</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-18-24-28">
-<span class="eqno">(3.3.31)<a class="headerlink" href="#equation-probability-model-18-24-28" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\ell(\eta;\mathcal{D}) &amp;= \ln L(\eta;\mathcal{D})\\&amp;=  \eta^T \sum_{i=1}^N  T(x_i) - N A(\eta) + \sum_{i=1}^N S(x_i)\end{aligned}\end{align} \]</div>
+<span class="eqno">(3.3.31)<a class="headerlink" href="#equation-probability-model-18-24-28" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\ell(\eta;\mathcal{D}) &amp;= \ln L(\eta;\mathcal{D})\\&amp;=  \eta^T \sum_{i=1}^N  T(x_i) - N A(\eta) + \sum_{i=1}^N S(x_i)\end{aligned}\end{align} \]</div>
 <p>我们对参数 <span class="math notranslate nohighlight">\(\eta\)</span> 求导：</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-18-24-29">
-<span class="eqno">(3.3.32)<a class="headerlink" href="#equation-probability-model-18-24-29" title="公式的永久链接">¶</a></span>\[\nabla_{\eta} \ell = \sum_{i=1}^{N} T(x_i) - N \nabla_{\eta} A(\eta)\]</div>
+<span class="eqno">(3.3.32)<a class="headerlink" href="#equation-probability-model-18-24-29" title="公式的永久链接"></a></span>\[\nabla_{\eta} \ell = \sum_{i=1}^{N} T(x_i) - N \nabla_{\eta} A(\eta)\]</div>
 <p>上述公式中的 <span class="math notranslate nohighlight">\(\nabla_{\eta} A(\eta)\)</span> 表示对函数 <span class="math notranslate nohighlight">\(A(\eta)\)</span> 关于 <span class="math notranslate nohighlight">\(\eta\)</span> 求导，
 这里函数 <span class="math notranslate nohighlight">\(A(\eta)\)</span> 是一个关于 <span class="math notranslate nohighlight">\(\eta\)</span> 的函数。
 我们令这个导数为0，可得：</p>
 <div class="math notranslate nohighlight" id="equation-eq-24-18">
-<span class="eqno">(3.3.33)<a class="headerlink" href="#equation-eq-24-18" title="公式的永久链接">¶</a></span>\[\nabla_{\eta} A(\eta) = \frac{1}{N} \sum_{i=1}^{N} T(x_i)\]</div>
+<span class="eqno">(3.3.33)<a class="headerlink" href="#equation-eq-24-18" title="公式的永久链接"></a></span>\[\nabla_{\eta} A(\eta) = \frac{1}{N} \sum_{i=1}^{N} T(x_i)\]</div>
 <p>由 <a class="reference internal" href="#equation-eq-24-10">公式(3.2.22)</a> 我们知道 <span class="math notranslate nohighlight">\(A(\eta)\)</span> 的一阶导数等于 <span class="math notranslate nohighlight">\(T(x)\)</span> 的期望 <span class="math notranslate nohighlight">\(\mathbb{E}[T(x)]\)</span> ，
 即 <span class="math notranslate nohighlight">\(\nabla_{\eta} A(\eta)=\mathbb{E}[T(x)]\)</span> 。
 我们令 <span class="math notranslate nohighlight">\(\mu \triangleq \nabla_{\eta} A(\eta) =\mathbb{E}[T(x)]\)</span> ，
 结合公式 <a class="reference internal" href="#equation-eq-24-18">公式(3.3.33)</a> 有：</p>
 <div class="math notranslate nohighlight" id="equation-eq-24-19">
-<span class="eqno">(3.3.34)<a class="headerlink" href="#equation-eq-24-19" title="公式的永久链接">¶</a></span>\[\mu_{ML}=\mathbb{E}[T(x)] =  \frac{1}{N} \sum_{i=1}^{N} T(x)\]</div>
+<span class="eqno">(3.3.34)<a class="headerlink" href="#equation-eq-24-19" title="公式的永久链接"></a></span>\[\mu_{ML}=\mathbb{E}[T(x)] =  \frac{1}{N} \sum_{i=1}^{N} T(x)\]</div>
 <p>从 <a class="reference internal" href="#equation-eq-24-19">公式(3.3.34)</a> 可以看出，指数族分布理论期望值(均值参数)等于样本的期望值(平均值)。
 均值参数的最大似然估计值，只和样本的统计量 <span class="math notranslate nohighlight">\(\sum_{i=1}^N T(x)\)</span> 有关，
 而不再依赖样本的其它信息，所以 <span class="math notranslate nohighlight">\(\sum_{i=1}^N T(x)\)</span> (或者说 <span class="math notranslate nohighlight">\(T(x)\)</span> )是指数族的充分统计量。
@@ -1230,12 +1140,12 @@ n阶矩被定义为一变量的n次方与其概率密度函数（Probability Den
 前文说过，事实上对于很多常见分布是直接用 <span class="math notranslate nohighlight">\(\mu\)</span> 作为参数的，所以有了最大似然的估计值 <span class="math notranslate nohighlight">\(\mu_{ML}\)</span>
 就直接是模型的参数估计值。
 <a class="reference internal" href="#equation-eq-24-19">公式(3.3.34)</a> 也直接说明了当样本数量趋近无穷大时，最大似然估计值和 <span class="math notranslate nohighlight">\(\mu\)</span> 的真实值是一致的。</p>
-</div>
-<div class="section" id="kl">
-<h2><span class="section-number">3.4. </span>最大似然估计与KL散度的关系<a class="headerlink" href="#kl" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="kl">
+<h2><span class="section-number">3.4. </span>最大似然估计与KL散度的关系<a class="headerlink" href="#kl" title="永久链接至标题"></a></h2>
 <p>本节我们讨论一下指数族的最大似然估计和KL散度的关系，在开始前我们先回顾一下KL散度的定义。</p>
 <dl class="glossary simple">
-<dt id="term-KL-KullbackLeibler-divergence">KL散度（Kullback–Leibler divergence)<a class="headerlink" href="#term-KL-KullbackLeibler-divergence" title="Permalink to this term">¶</a></dt><dd><p>KL散度（Kullback–Leibler divergence，简称KLD），在信息系统中称为相对熵（relative entropy），
+<dt id="term-KL-KullbackLeibler-divergence">KL散度（Kullback–Leibler divergence)<a class="headerlink" href="#term-KL-KullbackLeibler-divergence" title="Permalink to this term"></a></dt><dd><p>KL散度（Kullback–Leibler divergence，简称KLD），在信息系统中称为相对熵（relative entropy），
 在连续时间序列中称为randomness，在统计模型推断中称为信息增益（information gain），
 也称信息散度（information divergence）。
 KL散度是两个概率分布P和Q差别的 <strong>非对称性</strong> 的度量，可以理解成是用来度量两个分布的相似性。
@@ -1244,23 +1154,23 @@ KL散度是两个概率分布P和Q差别的 <strong>非对称性</strong> 的度
 </dl>
 <p>对于离散随机变量，概率分布P和Q的KL散度按照下式定义：</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-18-24-30">
-<span class="eqno">(3.4.35)<a class="headerlink" href="#equation-probability-model-18-24-30" title="公式的永久链接">¶</a></span>\[D_{KL}(P \parallel Q) = \sum_{i} P(i) \ln \frac{P(i)}{Q(i)}\]</div>
+<span class="eqno">(3.4.35)<a class="headerlink" href="#equation-probability-model-18-24-30" title="公式的永久链接"></a></span>\[D_{KL}(P \parallel Q) = \sum_{i} P(i) \ln \frac{P(i)}{Q(i)}\]</div>
 <p>或者：</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-18-24-31">
-<span class="eqno">(3.4.36)<a class="headerlink" href="#equation-probability-model-18-24-31" title="公式的永久链接">¶</a></span>\[D_{KL}(P \parallel Q) = -\sum_{i} P(i) \ln \frac{Q(i)}{P(i)}\]</div>
+<span class="eqno">(3.4.36)<a class="headerlink" href="#equation-probability-model-18-24-31" title="公式的永久链接"></a></span>\[D_{KL}(P \parallel Q) = -\sum_{i} P(i) \ln \frac{Q(i)}{P(i)}\]</div>
 <p>即按照概率P求得P和Q的对数商的平均值(期望)，其中对数的底可以是任意的。
 KL散度仅当概率P和Q各自总和均为1，且对于任何i皆满足
 <span class="math notranslate nohighlight">\(Q(i)&gt;0,P(i)&gt;0\)</span> 时才有定义。
 式中出现 <span class="math notranslate nohighlight">\(0\ln 0\)</span> 的情况，其值按0处理。</p>
 <p>对于连续随机变量，其概率分布P和Q可按积分方式定义为:</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-18-24-32">
-<span class="eqno">(3.4.37)<a class="headerlink" href="#equation-probability-model-18-24-32" title="公式的永久链接">¶</a></span>\[D_{KL}(P \parallel Q) = \int P(x) \ln \frac{P(x)}{Q(x)} dx\]</div>
+<span class="eqno">(3.4.37)<a class="headerlink" href="#equation-probability-model-18-24-32" title="公式的永久链接"></a></span>\[D_{KL}(P \parallel Q) = \int P(x) \ln \frac{P(x)}{Q(x)} dx\]</div>
 <p>相对熵的值为非负数 <span class="math notranslate nohighlight">\(D_{KL}(P \parallel Q) \ge 0\)</span> ，
 由吉布斯不等式可知，当且仅当P = Q时 <span class="math notranslate nohighlight">\(D_{KL}(P \parallel Q)\)</span> 为零。
 尽管从直觉上KL散度是个度量或距离函数, 但是它实际上并不是一个真正的度量或距离。
 因为KL散度不具有对称性：从分布P到Q的距离通常并不等于从Q到P的距离。</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-18-24-33">
-<span class="eqno">(3.4.38)<a class="headerlink" href="#equation-probability-model-18-24-33" title="公式的永久链接">¶</a></span>\[D_{KL}(P \parallel Q) \neq D_{KL}(Q \parallel P)\]</div>
+<span class="eqno">(3.4.38)<a class="headerlink" href="#equation-probability-model-18-24-33" title="公式的永久链接"></a></span>\[D_{KL}(P \parallel Q) \neq D_{KL}(Q \parallel P)\]</div>
 <p>我们可以根据信息理论量重写对数似然函数，其中
 <span class="math notranslate nohighlight">\(x_m\)</span> 为随机变量的一个可能取值，
 <span class="math notranslate nohighlight">\(\hat{p}_{\mathcal{D}}(x_m)\)</span> 表示在样本中变量值为 <span class="math notranslate nohighlight">\(x_m\)</span>
@@ -1269,7 +1179,7 @@ KL散度仅当概率P和Q各自总和均为1，且对于任何i皆满足
 此外，定义 <span class="math notranslate nohighlight">\(n_m\)</span> 表示样本中  <span class="math notranslate nohighlight">\(x_m\)</span> 出现的次数，则有
 <span class="math notranslate nohighlight">\(n_m=N \hat{p}_{\mathcal{D}}(x_m)\)</span> 。</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-18-24-34">
-<span class="eqno">(3.4.39)<a class="headerlink" href="#equation-probability-model-18-24-34" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\ell(\eta;\mathcal{D}) &amp;= \sum_{i=1}^{N} \log p(x^{(i)};\eta)\\&amp;= \sum_{x_m \in \mathcal{X} } \log  p(x_m;\eta)^{n_{m}}\\&amp;= N \sum_{x_m \in \mathcal{X} } \hat{p}_{\mathcal{D}}(x_m) \log p(x_m;\eta)\\&amp;= N \sum_{x_m \in \mathcal{X} } \hat{p}_{\mathcal{D}}(x_m) [ \log p(x_m;\eta) -log \hat{p}_{\mathcal{D}}(x_m) + log  \hat{p}_{\mathcal{D}}(x_m) ]\\&amp;= N \sum_{x_m \in \mathcal{X} } \hat{p}_{\mathcal{D}}(x_m) [ \log \frac{p(x_m;\eta)}{\hat{p}_{\mathcal{D}}(x_m)} + log  \hat{p}_{\mathcal{D}}(x_m) ]\\&amp;= N \underbrace{\sum_{x_m \in \mathcal{X} } \hat{p}_{\mathcal{D}}(x_m)
+<span class="eqno">(3.4.39)<a class="headerlink" href="#equation-probability-model-18-24-34" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\ell(\eta;\mathcal{D}) &amp;= \sum_{i=1}^{N} \log p(x^{(i)};\eta)\\&amp;= \sum_{x_m \in \mathcal{X} } \log  p(x_m;\eta)^{n_{m}}\\&amp;= N \sum_{x_m \in \mathcal{X} } \hat{p}_{\mathcal{D}}(x_m) \log p(x_m;\eta)\\&amp;= N \sum_{x_m \in \mathcal{X} } \hat{p}_{\mathcal{D}}(x_m) [ \log p(x_m;\eta) -log \hat{p}_{\mathcal{D}}(x_m) + log  \hat{p}_{\mathcal{D}}(x_m) ]\\&amp;= N \sum_{x_m \in \mathcal{X} } \hat{p}_{\mathcal{D}}(x_m) [ \log \frac{p(x_m;\eta)}{\hat{p}_{\mathcal{D}}(x_m)} + log  \hat{p}_{\mathcal{D}}(x_m) ]\\&amp;= N \underbrace{\sum_{x_m \in \mathcal{X} } \hat{p}_{\mathcal{D}}(x_m)
 \log \frac{p(x_m;\eta)}{\hat{p}_{\mathcal{D}}(x_m)}}_{\text{负的KL散度}}
 + N \underbrace{ \sum_{x_m \in \mathcal{X} } \hat{p}_{\mathcal{D}}(x_m) log  \hat{p}_{\mathcal{D}}(x_m)}_{\text{经验分布的信息熵}}\\
 &amp;= N( H(\hat{p}_{\mathcal{D}}) - D( \hat{p}_{\mathcal{D}} \parallel p(x ; \eta)  ) )\end{aligned}\end{align} \]</div>
@@ -1281,20 +1191,27 @@ KL散度仅当概率P和Q各自总和均为1，且对于任何i皆满足
 令 <span class="math notranslate nohighlight">\(p(\cdot;\eta)=\hat{p}_{\mathcal{D}}\)</span> ，即可使KL散度为零，得到精确匹配。
 然而，在大多数有趣的问题中，我们无法完全匹配数据分布(如果可以，我们只会过度拟合）。
 相反，我们通常优化由 <span class="math notranslate nohighlight">\(\eta\)</span> 参数化的受限类分布，来得到近似解。</p>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="19.%E5%A4%9A%E7%BB%B4%E9%AB%98%E6%96%AF%E5%88%86%E5%B8%83_26.html" class="btn btn-neutral float-right" title="4. 多维高斯分布" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html" class="btn btn-neutral float-left" title="2. 参数估计" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html" class="btn btn-neutral float-left" title="2. 参数估计" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="19.%E5%A4%9A%E7%BB%B4%E9%AB%98%E6%96%AF%E5%88%86%E5%B8%83_26.html" class="btn btn-neutral float-right" title="4. 多维高斯分布" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2018, zhangzhenhu(acmtiger@outlook.com) 禁止一切形式的转载！.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
+  
 
 
     <script src="https://utteranc.es/client.js"
@@ -1307,42 +1224,16 @@ KL散度仅当概率P和Q各自总和均为1，且对于任何i皆满足
 
 
 
-  <div role="contentinfo">
-    <p>
-        &#169; 版权所有 2018, zhangzhenhu(acmtiger@outlook.com) 禁止一切形式的转载！.
-
-    </p>
-  </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-
-
-
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

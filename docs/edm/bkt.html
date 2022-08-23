@@ -1,99 +1,51 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="zh-CN" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>1. 贝叶斯知识追踪(Bayesian Knowledge Tracing,BKT) &mdash; 张振虎的博客 张振虎 文档</title>
-  
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
     <link rel="canonical" href="https://zhangzhenhu.github.io/blog/edm/bkt.html" />
-
-  
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/translations.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2.7.7/unpacked/MathJax.min.js"></script>
         <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"Macros": {"RR": "{\\bf R}", "bold": ["{\\bf #1}", 1]}}})</script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
+    <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
     <link rel="next" title="自然语言处理" href="../nlp/index.html" />
     <link rel="prev" title="教育领域数据挖掘" href="index.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../index.html" class="icon icon-home"> 张振虎的博客
-          
-
-          
           </a>
-
-          
-            
-            
               <div class="version">
                 acmtiger@outlook.com
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="在文档中搜索" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">目录:</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">目录:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../glm/source/index.html">广义线性模型</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../glm/source/%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80/content.html">1. 概率基础</a><ul>
@@ -141,7 +93,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#id2">3.1. 统计量和充分统计量</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-sample-distribution">3.2. 抽样分布</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-sample-distribution-normal">3.2.1. 正态分布</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#t">3.2.2. t分布</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#t">3.2.2. 学生t分布</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#id5">3.2.3. 卡方分布</a></li>
 </ul>
 </li>
@@ -746,7 +698,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../audio/feature.html#id18">1.5. 分帧与加窗</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../audio/feature.html#id19">1.5.1. 预加重处理</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../audio/feature.html#id20">1.5.2. 分帧与加窗</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../audio/feature.html#id20">1.5.2. 分帧与加窗处理</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../audio/feature.html#id21">1.6. 声音的感官度量</a><ul>
@@ -788,26 +740,26 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">1. 贝叶斯知识追踪(Bayesian Knowledge Tracing,BKT)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id1">1.1. 简介</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#hidden-markov-model-hmm">1.2. 隐马尔科夫模型(Hidden Markov Model,HMM)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id5">1.3. 贝叶斯知识追踪(Bayesian Knowledge Tracing,BKT)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#bayesian-knowledge-tracing">1.3. 贝叶斯知识追踪(Bayesian Knowledge Tracing)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#bkt">1.3.1. BKT的参数估计</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#item-response-theory-irt">1.4. 项目反映理论(Item Response Theory,IRT)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#bktirt">1.5. BKT结合IRT</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id6">1.6. 实验</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id7">1.6.1. 数据集</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id8">1.6.2. 实验方法</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id9">1.6.3. 实验结果</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id10">1.6.4. 项目代码</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">1.6. 实验</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id6">1.6.1. 数据集</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id7">1.6.2. 实验方法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id8">1.6.3. 实验结果</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id9">1.6.4. 项目代码</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id11">1.7. 未来工作</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id12">1.7.1. 题目难度的计算</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id10">1.7. 未来工作</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id11">1.7.1. 题目难度的计算</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#irt">1.7.2. 多参数IRT模型</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id13">1.7.3. 参数估计算法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id12">1.7.3. 参数估计算法</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id14">1.8. 参考文献</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id13">1.8. 参考文献</a></li>
 </ul>
 </li>
 </ul>
@@ -904,90 +856,48 @@
 </li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">张振虎的博客</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="index.html">教育领域数据挖掘</a> &raquo;</li>
-        
       <li><span class="section-number">1. </span>贝叶斯知识追踪(Bayesian Knowledge Tracing,BKT)</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
-            <a href="../_sources/edm/bkt.rst.txt" rel="nofollow"> View page source</a>
-          
-        
+            <a href="../_sources/edm/bkt.rst.txt" rel="nofollow"> 查看页面源码</a>
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="bayesian-knowledge-tracing-bkt">
-<h1><span class="section-number">1. </span>贝叶斯知识追踪(Bayesian Knowledge Tracing,BKT)<a class="headerlink" href="#bayesian-knowledge-tracing-bkt" title="永久链接至标题">¶</a></h1>
-<div class="section" id="id1">
-<h2><span class="section-number">1.1. </span>简介<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+             
+  <section id="bayesian-knowledge-tracing-bkt">
+<h1><span class="section-number">1. </span>贝叶斯知识追踪(Bayesian Knowledge Tracing,BKT)<a class="headerlink" href="#bayesian-knowledge-tracing-bkt" title="永久链接至标题"></a></h1>
+<section id="id1">
+<h2><span class="section-number">1.1. </span>简介<a class="headerlink" href="#id1" title="永久链接至标题"></a></h2>
 <p>目前在教育领域的数据挖掘应用中，很重要的一个场景就是对学生的学习过程进行建模。
 当前行业内比较流行的一种建模方式就是贝叶斯知识追踪(Bayesian Knowledge Tracing,BKT)，
-由Corbett, A. T. 和 Anderson, J. R.在1995年提出 <a class="footnote-reference brackets" href="#id15" id="id2">1</a> 。直到今日，仍然有很多人在研究改进BKT模型。</p>
+由Corbett, A. T. 和 Anderson, J. R.在1995年提出 <a class="footnote-reference brackets" href="#id14" id="id2">1</a> 。直到今日，仍然有很多人在研究改进BKT模型。</p>
 <p>虽然BKT模型在很多场景下效果良好，但还是存在一些不足的。其中一个不足之处就是，BKT是对”知识点”进行建模的，没有包含”学生个体”和”题目”的差异信息。
 本文讨论的是一种通过结合IRT（项目反应理论，Item Response Theory）模型进而引入题目信息的方法。</p>
-</div>
-<div class="section" id="hidden-markov-model-hmm">
-<h2><span class="section-number">1.2. </span>隐马尔科夫模型(Hidden Markov Model,HMM)<a class="headerlink" href="#hidden-markov-model-hmm" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="hidden-markov-model-hmm">
+<h2><span class="section-number">1.2. </span>隐马尔科夫模型(Hidden Markov Model,HMM)<a class="headerlink" href="#hidden-markov-model-hmm" title="永久链接至标题"></a></h2>
 <p>BKT模型其实质就是一个标准的HMM模型，所以在学习BKT之前，需要先学习了解HMM模型。
-本文暂且不做详细说明，请读者查阅其它相关资料（ <a class="footnote-reference brackets" href="#id16" id="id3">2</a> , <a class="footnote-reference brackets" href="#id17" id="id4">3</a> , <code class="xref download docutils literal notranslate"><span class="pre">HMM学习最佳范例</span></code> ）。</p>
-</div>
-<div class="section" id="id5">
-<h2><span class="section-number">1.3. </span>贝叶斯知识追踪(Bayesian Knowledge Tracing,BKT)<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h2>
+本文暂且不做详细说明，请读者查阅其它相关资料（ <a class="footnote-reference brackets" href="#id15" id="id3">2</a> , <a class="footnote-reference brackets" href="#id16" id="id4">3</a> , <a class="reference download internal" download="" href="../_downloads/b2ad5f69bc5688398a85d9f676558d06/HMM%E5%AD%A6%E4%B9%A0%E6%9C%80%E4%BD%B3%E8%8C%83%E4%BE%8B.pdf"><code class="xref download docutils literal notranslate"><span class="pre">HMM学习最佳范例</span></code></a> ）。</p>
+</section>
+<section id="bayesian-knowledge-tracing">
+<h2><span class="section-number">1.3. </span>贝叶斯知识追踪(Bayesian Knowledge Tracing)<a class="headerlink" href="#bayesian-knowledge-tracing" title="永久链接至标题"></a></h2>
 <p>通常场景下，学生对一个知识点的学习是一个过程，学习过程中往往伴随着作答练习题辅助学习。
 学生对知识点的学习结果(掌握状态)影响着题目的作答结果，并且整个过程中学生对于知识点的掌握状态也在发生变化，从未掌握到掌握的变化。
 整个过程非常符合HMM的建模过程。</p>
@@ -1002,16 +912,16 @@
 <p>我们用0代表学生”未掌握”当前知识点，用1代表”掌握”了知识点；用0代表学生作答题目错误，1代表学生作答题目正确。
 隐状态集合为：</p>
 <div class="math notranslate nohighlight" id="equation-edm-bkt-0">
-<span class="eqno">(1.3.9)<a class="headerlink" href="#equation-edm-bkt-0" title="公式的永久链接">¶</a></span>\[S=\{0(未掌握),1(掌握)\}\]</div>
+<span class="eqno">(1.3.9)<a class="headerlink" href="#equation-edm-bkt-0" title="公式的永久链接"></a></span>\[S=\{0(未掌握),1(掌握)\}\]</div>
 <p>观测变量集合为:</p>
 <div class="math notranslate nohighlight" id="equation-edm-bkt-1">
-<span class="eqno">(1.3.10)<a class="headerlink" href="#equation-edm-bkt-1" title="公式的永久链接">¶</a></span>\[V=\{0(作答错误),1(作答正确)\}\]</div>
+<span class="eqno">(1.3.10)<a class="headerlink" href="#equation-edm-bkt-1" title="公式的永久链接"></a></span>\[V=\{0(作答错误),1(作答正确)\}\]</div>
 <p>初始状态下，学生对当前知识点的”掌握”的概率为 <span class="math notranslate nohighlight">\(P(L_0)\)</span> ,则”未掌握”的概率是 <span class="math notranslate nohighlight">\(1-P(L_0)\)</span> ，HMM的初始概率矩阵为:</p>
 <div class="math notranslate nohighlight" id="equation-edm-bkt-2">
-<span class="eqno">(1.3.11)<a class="headerlink" href="#equation-edm-bkt-2" title="公式的永久链接">¶</a></span>\[\pi = [1-P(L_0),P(L_0)]\]</div>
+<span class="eqno">(1.3.11)<a class="headerlink" href="#equation-edm-bkt-2" title="公式的永久链接"></a></span>\[\pi = [1-P(L_0),P(L_0)]\]</div>
 <p>学习过程中，学生知识点掌握状态发生变化。假设从”未掌握”到”掌握”的学习进步概率为 <span class="math notranslate nohighlight">\(P(T)\)</span> ,HMM的转移概率矩阵为：</p>
 <div class="math notranslate nohighlight" id="equation-edm-bkt-3">
-<span class="eqno">(1.3.12)<a class="headerlink" href="#equation-edm-bkt-3" title="公式的永久链接">¶</a></span>\[\begin{split}A = \left [ \begin{matrix}
+<span class="eqno">(1.3.12)<a class="headerlink" href="#equation-edm-bkt-3" title="公式的永久链接"></a></span>\[\begin{split}A = \left [ \begin{matrix}
  &amp; 未掌握 &amp; 掌握  \\
  未掌握 &amp; 1-P(T) &amp; P(T) \\
  掌握 &amp; 0 &amp; 1
@@ -1025,17 +935,17 @@
 但实际中，即使学生”未掌握”知识点也有一定可能猜对题目，我们假设猜测(Guess)的概率为 <span class="math notranslate nohighlight">\(P(G)\)</span> ;
 即使学生”掌握”了知识点，也可能做错题目，我们假设失误(Slip)的概率为  <span class="math notranslate nohighlight">\(P(S)\)</span> 。</p>
 <div class="math notranslate nohighlight" id="equation-edm-bkt-4">
-<span class="eqno">(1.3.13)<a class="headerlink" href="#equation-edm-bkt-4" title="公式的永久链接">¶</a></span>\[\begin{split} B = \left [ \begin{matrix}
+<span class="eqno">(1.3.13)<a class="headerlink" href="#equation-edm-bkt-4" title="公式的永久链接"></a></span>\[\begin{split} B = \left [ \begin{matrix}
 &amp; 错误 &amp; 正确  \\
 未掌握 &amp; 1-P(G) &amp; P(G) \\
 掌握 &amp; P(S) &amp; 1-P(S)
    \end{matrix} \right ]\end{split}\]</div>
 <p>学生在学习过程中，题目的作答结果序列就是HMM的观测序列。</p>
 <div class="math notranslate nohighlight" id="equation-edm-bkt-5">
-<span class="eqno">(1.3.14)<a class="headerlink" href="#equation-edm-bkt-5" title="公式的永久链接">¶</a></span>\[O=[0,1,1,0,1,0,...]\]</div>
-<div class="figure align-default">
+<span class="eqno">(1.3.14)<a class="headerlink" href="#equation-edm-bkt-5" title="公式的永久链接"></a></span>\[O=[0,1,1,0,1,0,...]\]</div>
+<figure class="align-default">
 <img alt="../_images/BKT.png" src="../_images/BKT.png" />
-</div>
+</figure>
 <p>BKT模型是对”知识点”的建模，也就是一个”知识点”训练一个BKT模型，同一个”知识点”下多个学生的作答序列，作为多个独立的观测序列进行模型训练。</p>
 <p>BKT模型的应用
 ===========================================NeuralNetwork.rst</p>
@@ -1044,8 +954,8 @@
 <li><p>判断一个学生对当前知识点的”掌握”状态。已知BKT(HMM)模型，解码隐状态序列。</p></li>
 <li><p>预测一个学生题目作答结果。已知BKT(HMM)模型和观测序列（学生的作答序列），预测下一个观测值(下一题作答结果)。</p></li>
 </ol>
-<div class="section" id="bkt">
-<h3><span class="section-number">1.3.1. </span>BKT的参数估计<a class="headerlink" href="#bkt" title="永久链接至标题">¶</a></h3>
+<section id="bkt">
+<h3><span class="section-number">1.3.1. </span>BKT的参数估计<a class="headerlink" href="#bkt" title="永久链接至标题"></a></h3>
 <p>BKT模型实际就是一个标准的HMM模型，其参数估计过程就是HMM模型的参数估计过程，具体参数估计算法可以参考以下资料：</p>
 <ul class="simple">
 <li><p>李航的《统计学习》</p></li>
@@ -1056,13 +966,13 @@
 <p class="admonition-title">重要</p>
 <p>注意多观测序列和浮点数溢出问题。</p>
 </div>
-</div>
-</div>
-<div class="section" id="item-response-theory-irt">
-<h2><span class="section-number">1.4. </span>项目反映理论(Item Response Theory,IRT)<a class="headerlink" href="#item-response-theory-irt" title="永久链接至标题">¶</a></h2>
-</div>
-<div class="section" id="bktirt">
-<h2><span class="section-number">1.5. </span>BKT结合IRT<a class="headerlink" href="#bktirt" title="永久链接至标题">¶</a></h2>
+</section>
+</section>
+<section id="item-response-theory-irt">
+<h2><span class="section-number">1.4. </span>项目反映理论(Item Response Theory,IRT)<a class="headerlink" href="#item-response-theory-irt" title="永久链接至标题"></a></h2>
+</section>
+<section id="bktirt">
+<h2><span class="section-number">1.5. </span>BKT结合IRT<a class="headerlink" href="#bktirt" title="永久链接至标题"></a></h2>
 <p><strong>标准BKT的缺点</strong></p>
 <p>BKT还是有很多缺点的，这里列举一些和本文相关的缺陷。</p>
 <ol class="arabic simple">
@@ -1078,9 +988,9 @@
 这样就把BKT的隐状态的含义扩展成IRT中学生的潜在能力状态。
 原始BKT中隐状态是一个二值变量，现在可以扩展成多个值(为了计算简单，这里仍然使用离散值)。
 其值表示IRT中的  <span class="math notranslate nohighlight">\(\theta\)</span> ，IRT中的题目参数通过其他方法计算得到。</p>
-<div class="figure align-default">
+<figure class="align-default">
 <img alt="../_images/IRT-BKT.jpg" src="../_images/IRT-BKT.jpg" />
-</div>
+</figure>
 <p>通过引入IRT，有两点改进</p>
 <ol class="arabic simple">
 <li><p>可以引入题目差异信息。</p></li>
@@ -1092,7 +1002,7 @@
 </ol>
 <p>为了简化，我们只采用单参数IRT模型(Rasch模型)</p>
 <div class="math notranslate nohighlight" id="equation-edm-bkt-6">
-<span class="eqno">(1.5.5)<a class="headerlink" href="#equation-edm-bkt-6" title="公式的永久链接">¶</a></span>\[P = \frac{1}{1+e^{-(\theta-b)}}\]</div>
+<span class="eqno">(1.5.5)<a class="headerlink" href="#equation-edm-bkt-6" title="公式的永久链接"></a></span>\[P = \frac{1}{1+e^{-(\theta-b)}}\]</div>
 <p>其中，<span class="math notranslate nohighlight">\(\theta\)</span> 表示HMM中的隐状态。 参数b表示题目难度。</p>
 <p><strong>隐状态的取值</strong></p>
 <p>为了计算简便，隐状态的取值为 [0,n]，n为隐状态的数量，每个值代表学生对知识点的掌握程度。0表示完全不会，n表示熟练掌握。</p>
@@ -1100,39 +1010,39 @@
 <p>利用题目的正确率去表示题目难度，正确率越高题目难度越小；反之，正确率越低题目难度越大；</p>
 <p>由于很多题目作答次数较少，正确率不能准确反映题目难度，我们采用 <strong>拉普拉斯修正</strong> 的方法计算题目正确率。</p>
 <div class="math notranslate nohighlight" id="equation-edm-bkt-7">
-<span class="eqno">(1.5.6)<a class="headerlink" href="#equation-edm-bkt-7" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}correct\_rate &amp;= \frac{(correct\_count + 1)} { (correct\_count+wrong\_count + 2)}\\difficulty &amp;= (1 - correct\_rate) * (stat\_count - \delta)\end{aligned}\end{align} \]</div>
+<span class="eqno">(1.5.6)<a class="headerlink" href="#equation-edm-bkt-7" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}correct\_rate &amp;= \frac{(correct\_count + 1)} { (correct\_count+wrong\_count + 2)}\\difficulty &amp;= (1 - correct\_rate) * (stat\_count - \delta)\end{aligned}\end{align} \]</div>
 <p>其中， <span class="math notranslate nohighlight">\(\delta\)</span> 是一个修正参数，由于IRT的特性，当 <span class="math notranslate nohighlight">\(\theta=b\)</span> 时，IRT的概率结果是 0.5，
 而我们的模型中隐状态的最大值表示学生掌握知识点的极限值，
 这时理论上学生能极大概率作答正确难度最高的题目，所以b的最大值要小于 <span class="math notranslate nohighlight">\(\theta=b\)</span> 的最大值，通过 <span class="math notranslate nohighlight">\(\delta\)</span> 调整二者之间的差值。</p>
 <p>初始概率矩阵</p>
 <div class="math notranslate nohighlight" id="equation-edm-bkt-8">
-<span class="eqno">(1.5.7)<a class="headerlink" href="#equation-edm-bkt-8" title="公式的永久链接">¶</a></span>\[\pi = [p_0,p_1,...,p_n]\]</div>
+<span class="eqno">(1.5.7)<a class="headerlink" href="#equation-edm-bkt-8" title="公式的永久链接"></a></span>\[\pi = [p_0,p_1,...,p_n]\]</div>
 <p>转移概率矩阵</p>
 <div class="math notranslate nohighlight" id="equation-edm-bkt-9">
-<span class="eqno">(1.5.8)<a class="headerlink" href="#equation-edm-bkt-9" title="公式的永久链接">¶</a></span>\[\begin{split}A = \left [ \begin{matrix}
+<span class="eqno">(1.5.8)<a class="headerlink" href="#equation-edm-bkt-9" title="公式的永久链接"></a></span>\[\begin{split}A = \left [ \begin{matrix}
    p_{00} &amp; p_{01}  &amp; P_{0..} &amp; p_{0n} \\
    p_{..0} &amp; p_{..1}  &amp; P_{...} &amp; p_{..n} \\
    p_{n0} &amp; p_{n1}  &amp; P_{n..} &amp; p_{nn} \\
   \end{matrix} \right ]\end{split}\]</div>
 <p>观测概率矩阵</p>
 <div class="math notranslate nohighlight" id="equation-edm-bkt-10">
-<span class="eqno">(1.5.9)<a class="headerlink" href="#equation-edm-bkt-10" title="公式的永久链接">¶</a></span>\[\begin{split} B = \left [ \begin{matrix}
+<span class="eqno">(1.5.9)<a class="headerlink" href="#equation-edm-bkt-10" title="公式的永久链接"></a></span>\[\begin{split} B = \left [ \begin{matrix}
 &amp; 错误 &amp; 正确  \\
 状态0 &amp; 1-P(IRT|\theta=0) &amp; P(IRT|\theta=0) \\
 状态1 &amp; 1-P(IRT|\theta=1) &amp; P(IRT|\theta=1) \\
 .. &amp; .. &amp; .. \\
 状态n &amp; 1-P(IRT|\theta=n) &amp; P(IRT|\theta=n)
    \end{matrix} \right ]\end{split}\]</div>
-</div>
-<div class="section" id="id6">
-<h2><span class="section-number">1.6. </span>实验<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h2>
-<div class="section" id="id7">
-<h3><span class="section-number">1.6.1. </span>数据集<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id5">
+<h2><span class="section-number">1.6. </span>实验<a class="headerlink" href="#id5" title="永久链接至标题"></a></h2>
+<section id="id6">
+<h3><span class="section-number">1.6.1. </span>数据集<a class="headerlink" href="#id6" title="永久链接至标题"></a></h3>
 <p>我们使用 KDD Cup 2010 Educational Datamining Challenge (<a class="reference external" href="http://pslcdatashop.web.cmu.edu/KDDCup">http://pslcdatashop.web.cmu.edu/KDDCup</a>) 的公开数据集。</p>
 <p>数据集是由 Carnegie Learning Inc 提供的，是学生在线上学习系统中的题目作答数据，数学课程中关于线性代数的学习数据。
 我们这里使用 Development Data Sets ，包括三组数据，每组数据又分别包括train和test数据集。</p>
-<table class="docutils align-default" id="id21">
-<caption><span class="caption-number">表 1.6.1 </span><span class="caption-text">Development Data Sets</span><a class="headerlink" href="#id21" title="永久链接至表格">¶</a></caption>
+<table class="docutils align-default" id="id20">
+<caption><span class="caption-number">表 1.6.1 </span><span class="caption-text">Development Data Sets</span><a class="headerlink" href="#id20" title="永久链接至表格"></a></caption>
 <colgroup>
 <col style="width: 43%" />
 <col style="width: 13%" />
@@ -1169,8 +1079,8 @@
 </tr>
 </tbody>
 </table>
-<table class="docutils align-default" id="id22">
-<caption><span class="caption-number">表 1.6.2 </span><span class="caption-text">Challenge Data Sets</span><a class="headerlink" href="#id22" title="永久链接至表格">¶</a></caption>
+<table class="docutils align-default" id="id21">
+<caption><span class="caption-number">表 1.6.2 </span><span class="caption-text">Challenge Data Sets</span><a class="headerlink" href="#id21" title="永久链接至表格"></a></caption>
 <colgroup>
 <col style="width: 46%" />
 <col style="width: 14%" />
@@ -1202,9 +1112,9 @@
 </tbody>
 </table>
 <p>详细的数据说明请参考 <a class="reference external" href="http://pslcdatashop.web.cmu.edu/KDDCup/rules_data_format.jsp">http://pslcdatashop.web.cmu.edu/KDDCup/rules_data_format.jsp</a></p>
-</div>
-<div class="section" id="id8">
-<h3><span class="section-number">1.6.2. </span>实验方法<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id7">
+<h3><span class="section-number">1.6.2. </span>实验方法<a class="headerlink" href="#id7" title="永久链接至标题"></a></h3>
 <p>我们对比三种不同模型分别在上述三个数据集下的差异。</p>
 <ol class="arabic simple">
 <li><p>原始BKT模型，每个知识点训练一个模型，别名：Standard-BKT。</p></li>
@@ -1228,11 +1138,11 @@ KDD cup 的数据集中，每个题目的KC(KC Model Name)列包含多个知识�
 <li><p>对于 IRT-BKT 模型，可能test中的某个题目，在训练集中未出现过，无法得到题目难度参数，也将无法预测。</p></li>
 </ol>
 <p><strong>总之，是无法保证测试集中所有数据都能使用训练好的模型进行预测，这样的数据我们就抛弃，既然无法预测也就不能反映模型预测效果。</strong></p>
-</div>
-<div class="section" id="id9">
-<h3><span class="section-number">1.6.3. </span>实验结果<a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h3>
-<div class="section" id="development-data-sets">
-<h4><span class="section-number">1.6.3.1. </span>开发数据集(Development Data Sets)<a class="headerlink" href="#development-data-sets" title="永久链接至标题">¶</a></h4>
+</section>
+<section id="id8">
+<h3><span class="section-number">1.6.3. </span>实验结果<a class="headerlink" href="#id8" title="永久链接至标题"></a></h3>
+<section id="development-data-sets">
+<h4><span class="section-number">1.6.3.1. </span>开发数据集(Development Data Sets)<a class="headerlink" href="#development-data-sets" title="永久链接至标题"></a></h4>
 <dl class="field-list simple">
 <dt class="field-odd">test size</dt>
 <dd class="field-odd"><p>可以成功预测的测试集数据量</p>
@@ -1250,8 +1160,8 @@ KDD cup 的数据集中，每个题目的KC(KC Model Name)列包含多个知识�
 <dd class="field-odd"><p>acc 和 correct rate 的差值</p>
 </dd>
 </dl>
-<table class="docutils align-default" id="id23">
-<caption><span class="caption-number">表 1.6.3 </span><span class="caption-text">对比报告</span><a class="headerlink" href="#id23" title="永久链接至表格">¶</a></caption>
+<table class="docutils align-default" id="id22">
+<caption><span class="caption-number">表 1.6.3 </span><span class="caption-text">对比报告</span><a class="headerlink" href="#id22" title="永久链接至表格"></a></caption>
 <colgroup>
 <col style="width: 27%" />
 <col style="width: 23%" />
@@ -1426,13 +1336,13 @@ KDD cup 的数据集中，每个题目的KC(KC Model Name)列包含多个知识�
 <p>均方根误差(rmse)有2%~8%的提升。</p>
 </dd>
 </dl>
-</div>
-<div class="section" id="challenge-data-sets">
-<h4><span class="section-number">1.6.3.2. </span>挑战数据集(Challenge Data Sets)<a class="headerlink" href="#challenge-data-sets" title="永久链接至标题">¶</a></h4>
+</section>
+<section id="challenge-data-sets">
+<h4><span class="section-number">1.6.3.2. </span>挑战数据集(Challenge Data Sets)<a class="headerlink" href="#challenge-data-sets" title="永久链接至标题"></a></h4>
 <p>KDD CUP 2010 Challenge 榜单结果</p>
-<div class="figure align-default">
+<figure class="align-default">
 <img alt="../_images/kddcup_2010_full_results.png" src="../_images/kddcup_2010_full_results.png" />
-</div>
+</figure>
 <p>我们的模型得分:</p>
 <blockquote>
 <div><table class="docutils align-default">
@@ -1452,29 +1362,31 @@ KDD cup 的数据集中，每个题目的KC(KC Model Name)列包含多个知识�
 </tbody>
 </table>
 </div></blockquote>
-<div class="figure align-default" id="id24">
+<figure class="align-default" id="id23">
 <img alt="../_images/kddcup_2010_mine_cup_score.png" src="../_images/kddcup_2010_mine_cup_score.png" />
-<p class="caption"><span class="caption-number">图 1.6.1 </span><span class="caption-text">cup score of team acmtiger</span><a class="headerlink" href="#id24" title="永久链接至图片">¶</a></p>
-</div>
-</div>
-</div>
-<div class="section" id="id10">
-<h3><span class="section-number">1.6.4. </span>项目代码<a class="headerlink" href="#id10" title="永久链接至标题">¶</a></h3>
+<figcaption>
+<p><span class="caption-number">图 1.6.1 </span><span class="caption-text">cup score of team acmtiger</span><a class="headerlink" href="#id23" title="永久链接至图片"></a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+<section id="id9">
+<h3><span class="section-number">1.6.4. </span>项目代码<a class="headerlink" href="#id9" title="永久链接至标题"></a></h3>
 <p>为了性能，BKT算法采用c++编写，利用 cython 实现python api。</p>
 <p>BKT项目代码</p>
 <p>本文实验入口文件</p>
-</div>
-</div>
-<div class="section" id="id11">
-<h2><span class="section-number">1.7. </span>未来工作<a class="headerlink" href="#id11" title="永久链接至标题">¶</a></h2>
-<div class="section" id="id12">
-<h3><span class="section-number">1.7.1. </span>题目难度的计算<a class="headerlink" href="#id12" title="永久链接至标题">¶</a></h3>
-</div>
-<div class="section" id="irt">
-<h3><span class="section-number">1.7.2. </span>多参数IRT模型<a class="headerlink" href="#irt" title="永久链接至标题">¶</a></h3>
-</div>
-<div class="section" id="id13">
-<h3><span class="section-number">1.7.3. </span>参数估计算法<a class="headerlink" href="#id13" title="永久链接至标题">¶</a></h3>
+</section>
+</section>
+<section id="id10">
+<h2><span class="section-number">1.7. </span>未来工作<a class="headerlink" href="#id10" title="永久链接至标题"></a></h2>
+<section id="id11">
+<h3><span class="section-number">1.7.1. </span>题目难度的计算<a class="headerlink" href="#id11" title="永久链接至标题"></a></h3>
+</section>
+<section id="irt">
+<h3><span class="section-number">1.7.2. </span>多参数IRT模型<a class="headerlink" href="#irt" title="永久链接至标题"></a></h3>
+</section>
+<section id="id12">
+<h3><span class="section-number">1.7.3. </span>参数估计算法<a class="headerlink" href="#id12" title="永久链接至标题"></a></h3>
 <p>目前使用的期望最大化算法(EM,expectation maximization method)参数估计算法，
 后续可以尝试使用  Conjugate Gradient Search [1], or discretized brute-force search [7]</p>
 <p>摘自  Individualized Bayesian Knowledge Tracing Models</p>
@@ -1496,44 +1408,51 @@ KDD cup 的数据集中，每个题目的KC(KC Model Name)列包含多个知识�
 <span class="n">permits</span> <span class="n">us</span> <span class="n">to</span> <span class="n">lower</span> <span class="n">the</span> <span class="n">computational</span> <span class="n">cost</span> <span class="n">of</span> <span class="n">fitting</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="id14">
-<h2><span class="section-number">1.8. </span>参考文献<a class="headerlink" href="#id14" title="永久链接至标题">¶</a></h2>
+</section>
+</section>
+<section id="id13">
+<h2><span class="section-number">1.8. </span>参考文献<a class="headerlink" href="#id13" title="永久链接至标题"></a></h2>
 <dl class="footnote brackets">
-<dt class="label" id="id15"><span class="brackets">1</span></dt>
+<dt class="label" id="id14"><span class="brackets">1</span></dt>
 <dd><p>Corbett, A. T. and Anderson, J. R.: Knowledge tracing: Modeling the acquisition of procedural knowledge. User Modeling and User-Adapted Interaction, 4(4), 253-278. (1995)</p>
 </dd>
-<dt class="label" id="id16"><span class="brackets">2</span></dt>
+<dt class="label" id="id15"><span class="brackets">2</span></dt>
 <dd><p>李航 : <em>统计学习方法</em></p>
 </dd>
-<dt class="label" id="id17"><span class="brackets">3</span></dt>
+<dt class="label" id="id16"><span class="brackets">3</span></dt>
 <dd><p>Christopher M Bishop : <em>Pattern Recognition and Machine Learning</em></p>
 </dd>
-<dt class="label" id="id18"><span class="brackets">4</span></dt>
+<dt class="label" id="id17"><span class="brackets">4</span></dt>
 <dd><p>Dawei Shen : <a class="reference external" href="https://pdfs.semanticscholar.org/4ce1/9ab0e07da9aa10be1c336400c8e4d8fc36c5.pdf">Some Mathematics for HMM</a></p>
 </dd>
-<dt class="label" id="id19"><span class="brackets">5</span></dt>
+<dt class="label" id="id18"><span class="brackets">5</span></dt>
 <dd><p>Radek Pel´anek : <a class="reference external" href="https://www.fi.muni.cz/~xpelanek/publications/umuai-overview.pdf">Bayesian Knowledge Tracing, Logistic Models, and Beyond: An Overview of Learner Modeling Techniques</a></p>
 </dd>
-<dt class="label" id="id20"><span class="brackets">6</span></dt>
+<dt class="label" id="id19"><span class="brackets">6</span></dt>
 <dd><p>Michael V. Yudelson, Kenneth R. Koedinger, and Geoffrey J. Gordon : Individualized Bayesian Knowledge Tracing Models</p>
 </dd>
 </dl>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../nlp/index.html" class="btn btn-neutral float-right" title="自然语言处理" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="index.html" class="btn btn-neutral float-left" title="教育领域数据挖掘" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="教育领域数据挖掘" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../nlp/index.html" class="btn btn-neutral float-right" title="自然语言处理" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2018, zhangzhenhu(acmtiger@outlook.com) 禁止一切形式的转载！.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
+  
 
 
     <script src="https://utteranc.es/client.js"
@@ -1546,42 +1465,16 @@ KDD cup 的数据集中，每个题目的KC(KC Model Name)列包含多个知识�
 
 
 
-  <div role="contentinfo">
-    <p>
-        &#169; 版权所有 2018, zhangzhenhu(acmtiger@outlook.com) 禁止一切形式的转载！.
-
-    </p>
-  </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-
-
-
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

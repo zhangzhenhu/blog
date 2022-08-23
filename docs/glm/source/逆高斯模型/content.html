@@ -1,99 +1,51 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="zh-CN" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>11. 逆高斯模型 &mdash; 张振虎的博客 张振虎 文档</title>
-  
-
-  
-  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
     <link rel="canonical" href="https://zhangzhenhu.github.io/blog/glm/source/逆高斯模型/content.html" />
-
-  
   <!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
         <script src="../../../_static/doctools.js"></script>
         <script src="../../../_static/translations.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2.7.7/unpacked/MathJax.min.js"></script>
         <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"Macros": {"RR": "{\\bf R}", "bold": ["{\\bf #1}", 1]}}})</script>
-    
-    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-
-    
+    <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../../genindex.html" />
     <link rel="search" title="搜索" href="../../../search.html" />
     <link rel="next" title="12. 二项式模型" href="../%E4%BA%8C%E9%A1%B9%E6%A8%A1%E5%9E%8B/content.html" />
     <link rel="prev" title="10. 高斯模型" href="../%E9%AB%98%E6%96%AF%E6%A8%A1%E5%9E%8B/content.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../../../index.html" class="icon icon-home"> 张振虎的博客
-          
-
-          
           </a>
-
-          
-            
-            
               <div class="version">
                 acmtiger@outlook.com
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="在文档中搜索" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">目录:</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">目录:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">广义线性模型</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80/content.html">1. 概率基础</a><ul>
@@ -141,7 +93,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#id2">3.1. 统计量和充分统计量</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-sample-distribution">3.2. 抽样分布</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-sample-distribution-normal">3.2.1. 正态分布</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#t">3.2.2. t分布</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#t">3.2.2. 学生t分布</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#id5">3.2.3. 卡方分布</a></li>
 </ul>
 </li>
@@ -746,7 +698,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../audio/feature.html#id18">1.5. 分帧与加窗</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../audio/feature.html#id19">1.5.1. 预加重处理</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../audio/feature.html#id20">1.5.2. 分帧与加窗</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../audio/feature.html#id20">1.5.2. 分帧与加窗处理</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../audio/feature.html#id21">1.6. 声音的感官度量</a><ul>
@@ -788,26 +740,26 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../edm/bkt.html">1. 贝叶斯知识追踪(Bayesian Knowledge Tracing,BKT)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id1">1.1. 简介</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#hidden-markov-model-hmm">1.2. 隐马尔科夫模型(Hidden Markov Model,HMM)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id5">1.3. 贝叶斯知识追踪(Bayesian Knowledge Tracing,BKT)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#bayesian-knowledge-tracing">1.3. 贝叶斯知识追踪(Bayesian Knowledge Tracing)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#bkt">1.3.1. BKT的参数估计</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#item-response-theory-irt">1.4. 项目反映理论(Item Response Theory,IRT)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#bktirt">1.5. BKT结合IRT</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id6">1.6. 实验</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id7">1.6.1. 数据集</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id8">1.6.2. 实验方法</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id9">1.6.3. 实验结果</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id10">1.6.4. 项目代码</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id5">1.6. 实验</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id6">1.6.1. 数据集</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id7">1.6.2. 实验方法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id8">1.6.3. 实验结果</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id9">1.6.4. 项目代码</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id11">1.7. 未来工作</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id12">1.7.1. 题目难度的计算</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id10">1.7. 未来工作</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id11">1.7.1. 题目难度的计算</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#irt">1.7.2. 多参数IRT模型</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id13">1.7.3. 参数估计算法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id12">1.7.3. 参数估计算法</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id14">1.8. 参考文献</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id13">1.8. 参考文献</a></li>
 </ul>
 </li>
 </ul>
@@ -904,86 +856,44 @@
 </li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../../index.html">张振虎的博客</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="../index.html">广义线性模型</a> &raquo;</li>
-        
       <li><span class="section-number">11. </span>逆高斯模型</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
-            <a href="../../../_sources/glm/source/逆高斯模型/content.rst.txt" rel="nofollow"> View page source</a>
-          
-        
+            <a href="../../../_sources/glm/source/逆高斯模型/content.rst.txt" rel="nofollow"> 查看页面源码</a>
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="id1">
-<h1><span class="section-number">11. </span>逆高斯模型<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+             
+  <section id="id1">
+<h1><span class="section-number">11. </span>逆高斯模型<a class="headerlink" href="#id1" title="永久链接至标题"></a></h1>
 <p>逆高斯(inverse Gaussian)模型是所有传统GLM中最不常用的模型，
 虽然在GLM家族谱中总能看到逆高斯模型，
 但是实际当中却很少使用和讨论。
 尽管如此，本书还是单独列出一张讨论逆高斯模型，帮助读者学习和研究。</p>
-<div class="section" id="id2">
-<h2><span class="section-number">11.1. </span>逆高斯分布<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<section id="id2">
+<h2><span class="section-number">11.1. </span>逆高斯分布<a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
 <p>在统计学中，逆高斯分布(inverse Gaussian distribution)，又叫 Wald distribution，
 是拥有两个参数的连续值分布，其支持域是 <span class="math notranslate nohighlight">\((0,+\infty)\)</span>
 。通常其概率密度函数写成：</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-0">
-<span class="eqno">(11.1.1)<a class="headerlink" href="#equation-glm-source-content-0" title="公式的永久链接">¶</a></span>\[f(y;\mu,\lambda) = \left ( \frac{\lambda}{ 2\pi y^3 }  \right )^{1/2}
+<span class="eqno">(11.1.1)<a class="headerlink" href="#equation-glm-source-content-0" title="公式的永久链接"></a></span>\[f(y;\mu,\lambda) = \left ( \frac{\lambda}{ 2\pi y^3 }  \right )^{1/2}
 \exp \{  -\frac{\lambda(y-\mu)^2}{2 \mu^2 y } \}\]</div>
 <p>其中 <span class="math notranslate nohighlight">\(\mu&gt;0\)</span> 是分布的均值参数，
 <span class="math notranslate nohighlight">\(\lambda&gt;0\)</span> 是分布的形状参数(shape parameter)。
@@ -994,17 +904,21 @@
 我们看下在不同参数值情况下，逆高斯分布图形的差异，
 首先我们假设 <span class="math notranslate nohighlight">\(\mu=5.0,\lambda=2.0\)</span>
 。</p>
-<div class="figure align-center" id="id8">
+<figure class="align-center" id="id8">
 <a class="reference internal image-reference" href="../../../_images/Inverse_Gaussian_mu.png"><img alt="../../../_images/Inverse_Gaussian_mu.png" src="../../../_images/Inverse_Gaussian_mu.png" style="width: 320.0px; height: 240.0px;" /></a>
-<p class="caption"><span class="caption-number">图 11.1.1 </span><span class="caption-text"><span class="math notranslate nohighlight">\(\lambda=2.0\)</span> 的逆高斯分布</span><a class="headerlink" href="#id8" title="永久链接至图片">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">图 11.1.1 </span><span class="caption-text"><span class="math notranslate nohighlight">\(\lambda=2.0\)</span> 的逆高斯分布</span><a class="headerlink" href="#id8" title="永久链接至图片"></a></p>
+</figcaption>
+</figure>
 <p>我们看到随着 <span class="math notranslate nohighlight">\(\mu\)</span> 的增大，</p>
 <p>现在我们固定 <span class="math notranslate nohighlight">\(\mu=1.0\)</span>
 ，观察下不同的 <span class="math notranslate nohighlight">\(\lambda\)</span> 值图形的差异</p>
-<div class="figure align-center" id="id9">
+<figure class="align-center" id="id9">
 <a class="reference internal image-reference" href="../../../_images/Inverse_Gaussian_lambda.png"><img alt="../../../_images/Inverse_Gaussian_lambda.png" src="../../../_images/Inverse_Gaussian_lambda.png" style="width: 320.0px; height: 240.0px;" /></a>
-<p class="caption"><span class="caption-number">图 11.1.2 </span><span class="caption-text"><span class="math notranslate nohighlight">\(\mu=1.0\)</span> 的逆高斯分布</span><a class="headerlink" href="#id9" title="永久链接至图片">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">图 11.1.2 </span><span class="caption-text"><span class="math notranslate nohighlight">\(\mu=1.0\)</span> 的逆高斯分布</span><a class="headerlink" href="#id9" title="永久链接至图片"></a></p>
+</figcaption>
+</figure>
 <p>尽管分析师在对数据建模时很少使用此逆高斯模型，但有时它比其他连续模型更适合数据。</p>
 <p>它特别适合于拟合正值连续数据，这些数据包含低值数据且右偏较长。
 与Poisson分布混合以创建稍后讨论的Poisson逆高斯混合模型时，此功能也将非常有用。
@@ -1015,17 +929,17 @@ see section 14.11.</p>
 ，而上面给出逆高斯分布的参数是 <span class="math notranslate nohighlight">\(\mu\)</span> 和 <span class="math notranslate nohighlight">\(\lambda\)</span>
 。实际上，逆高斯分布也可以用 <span class="math notranslate nohighlight">\(\sigma^2\)</span> 表示形状参数，二者的是倒数的关系，
 <span class="math notranslate nohighlight">\(\lambda=1/\sigma^2\)</span></p>
-</div>
-<div class="section" id="id3">
-<h2><span class="section-number">11.2. </span>逆高斯回归模型<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+</section>
+<section id="id3">
+<h2><span class="section-number">11.2. </span>逆高斯回归模型<a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
 <p>。在GLM中，用 <span class="math notranslate nohighlight">\(\sigma^2\)</span> 会更方便一些，
 所以这里用 <span class="math notranslate nohighlight">\(\sigma^2\)</span> 重新参数化逆高斯分布的概率密度函数。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-1">
-<span class="eqno">(11.2.1)<a class="headerlink" href="#equation-glm-source-content-1" title="公式的永久链接">¶</a></span>\[f(y;\mu,\sigma^2) = \frac{1}{\sqrt{ 2\pi y^3 \sigma^2}  }
+<span class="eqno">(11.2.1)<a class="headerlink" href="#equation-glm-source-content-1" title="公式的永久链接"></a></span>\[f(y;\mu,\sigma^2) = \frac{1}{\sqrt{ 2\pi y^3 \sigma^2}  }
 \exp \{  -\frac{(y-\mu)^2}{2(\mu\sigma)^2 y } \}\]</div>
 <p>现在把上式转化成指数族的形式。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-2">
-<span class="eqno">(11.2.2)<a class="headerlink" href="#equation-glm-source-content-2" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}f(y;\mu,\sigma^2) &amp;=\exp \left \{
+<span class="eqno">(11.2.2)<a class="headerlink" href="#equation-glm-source-content-2" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}f(y;\mu,\sigma^2) &amp;=\exp \left \{
 -\frac{ (y-\mu^2)^2 }{2y(\mu\sigma)^2}
 -\frac{1}{2} \ln \left (  2\pi y^3 \sigma^2  \right )
 \right \}\\&amp;= \exp \left \{
@@ -1035,10 +949,10 @@ see section 14.11.</p>
 \right \}\end{aligned}\end{align} \]</div>
 <p>和GLM中指数族的标准形式对比下，不难得到各个组件的内容。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-3">
-<span class="eqno">(11.2.3)<a class="headerlink" href="#equation-glm-source-content-3" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\theta &amp;= \frac{1}{2\mu^2}\\b(\theta) &amp;= \frac{1}{\mu}\\a(\phi) &amp;= -\sigma^2\end{aligned}\end{align} \]</div>
+<span class="eqno">(11.2.3)<a class="headerlink" href="#equation-glm-source-content-3" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\theta &amp;= \frac{1}{2\mu^2}\\b(\theta) &amp;= \frac{1}{\mu}\\a(\phi) &amp;= -\sigma^2\end{aligned}\end{align} \]</div>
 <p>现在来看下逆高斯分布的期望和方差。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-4">
-<span class="eqno">(11.2.4)<a class="headerlink" href="#equation-glm-source-content-4" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}b'(\theta) &amp;= \frac{\partial b}{\partial \mu} \frac{\partial \mu}{\partial \theta}\\&amp;=\left (  \frac{-1}{\mu^2} \right  ) (-\mu^3) = \mu\\
+<span class="eqno">(11.2.4)<a class="headerlink" href="#equation-glm-source-content-4" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}b'(\theta) &amp;= \frac{\partial b}{\partial \mu} \frac{\partial \mu}{\partial \theta}\\&amp;=\left (  \frac{-1}{\mu^2} \right  ) (-\mu^3) = \mu\\
 b''(\theta) &amp;= \frac{\partial^2 b}{\partial \mu^2}
 \left( \frac{\partial \mu}{\partial \theta}   \right )^2
 +\frac{\partial b}{\partial \mu}
@@ -1046,28 +960,28 @@ b''(\theta) &amp;= \frac{\partial^2 b}{\partial \mu^2}
 + \left ( \frac{-1}{\mu^2} \right )(3\mu^5)\\&amp;= 2\mu^3 - 3\mu^3\\&amp;= -\mu^3\end{aligned}\end{align} \]</div>
 <p>逆高斯分布的方差为：</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-5">
-<span class="eqno">(11.2.5)<a class="headerlink" href="#equation-glm-source-content-5" title="公式的永久链接">¶</a></span>\[Var(Y) = a(\phi)b''(\theta) = -\sigma^2(-\mu^3) = \sigma^2 \mu^3\]</div>
+<span class="eqno">(11.2.5)<a class="headerlink" href="#equation-glm-source-content-5" title="公式的永久链接"></a></span>\[Var(Y) = a(\phi)b''(\theta) = -\sigma^2(-\mu^3) = \sigma^2 \mu^3\]</div>
 <p>显然逆高斯分布的方差是和其期望相关的。</p>
 <p>根据标准连接函数的定义，逆高斯分布的标准连接函数为：</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-6">
-<span class="eqno">(11.2.6)<a class="headerlink" href="#equation-glm-source-content-6" title="公式的永久链接">¶</a></span>\[\eta = g(\mu) = \frac{1}{2\mu^2}\]</div>
+<span class="eqno">(11.2.6)<a class="headerlink" href="#equation-glm-source-content-6" title="公式的永久链接"></a></span>\[\eta = g(\mu) = \frac{1}{2\mu^2}\]</div>
 <p>连接函数的导数为：</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-7">
-<span class="eqno">(11.2.7)<a class="headerlink" href="#equation-glm-source-content-7" title="公式的永久链接">¶</a></span>\[g'(\mu) = -\mu^{-3}\]</div>
+<span class="eqno">(11.2.7)<a class="headerlink" href="#equation-glm-source-content-7" title="公式的永久链接"></a></span>\[g'(\mu) = -\mu^{-3}\]</div>
 <p>响应函数 <span class="math notranslate nohighlight">\(r(\eta)\)</span> 为连接函数的反函数。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-8">
-<span class="eqno">(11.2.8)<a class="headerlink" href="#equation-glm-source-content-8" title="公式的永久链接">¶</a></span>\[\mu = r(\eta)=g^{-1}(\eta)=\frac{1}{\sqrt{2\eta}}\]</div>
+<span class="eqno">(11.2.8)<a class="headerlink" href="#equation-glm-source-content-8" title="公式的永久链接"></a></span>\[\mu = r(\eta)=g^{-1}(\eta)=\frac{1}{\sqrt{2\eta}}\]</div>
 <p>总结一下逆高斯模型的关键部分。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-9">
-<span class="eqno">(11.2.9)<a class="headerlink" href="#equation-glm-source-content-9" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\text{标准连接函数：}  &amp; \eta= g(\mu) = \frac{1}{2\mu^2}\\\text{反链接(响应)函数：}  &amp; \mu=r(\eta) = \frac{1}{\sqrt{2\eta}}\\\text{方差函数：}  &amp; \nu= -\mu^3\\\text{分散函数：}  &amp; a(\phi) = -\sigma^2\\\text{连接函数导数：} &amp; g'= -\mu^{-3}\end{aligned}\end{align} \]</div>
-</div>
-<div class="section" id="id4">
-<h2><span class="section-number">11.3. </span>参数估计<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
-<div class="section" id="id5">
-<h3><span class="section-number">11.3.1. </span>似然函数<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
+<span class="eqno">(11.2.9)<a class="headerlink" href="#equation-glm-source-content-9" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\text{标准连接函数：}  &amp; \eta= g(\mu) = \frac{1}{2\mu^2}\\\text{反链接(响应)函数：}  &amp; \mu=r(\eta) = \frac{1}{\sqrt{2\eta}}\\\text{方差函数：}  &amp; \nu= -\mu^3\\\text{分散函数：}  &amp; a(\phi) = -\sigma^2\\\text{连接函数导数：} &amp; g'= -\mu^{-3}\end{aligned}\end{align} \]</div>
+</section>
+<section id="id4">
+<h2><span class="section-number">11.3. </span>参数估计<a class="headerlink" href="#id4" title="永久链接至标题"></a></h2>
+<section id="id5">
+<h3><span class="section-number">11.3.1. </span>似然函数<a class="headerlink" href="#id5" title="永久链接至标题"></a></h3>
 <p>逆高斯分布的指数形式去掉底数就得到了对数似然函数。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-10">
-<span class="eqno">(11.3.1)<a class="headerlink" href="#equation-glm-source-content-10" title="公式的永久链接">¶</a></span>\[\ell= \sum_{i=1}^N  \left \{
+<span class="eqno">(11.3.1)<a class="headerlink" href="#equation-glm-source-content-10" title="公式的永久链接"></a></span>\[\ell= \sum_{i=1}^N  \left \{
 \frac{ y_i/(2\mu^2_i) -1/\mu_i}{-\sigma^2}
 - \frac{1}{2y_i\sigma^2}
 - \frac{ 1}{2 } \ln \left( 2\pi y^3_i \sigma^2 \right)
@@ -1075,32 +989,32 @@ b''(\theta) &amp;= \frac{\partial^2 b}{\partial \mu^2}
 <p>根据 <a class="reference internal" href="../%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/estimate.html#equation-eq-glm-estimate-ll-score">公式(7.1.12)</a>
 ，标准连接函数的Gamma模型的似然函数的一阶偏导为</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-11">
-<span class="eqno">(11.3.2)<a class="headerlink" href="#equation-glm-source-content-11" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}U_j = \frac{\partial \ell}{\partial \beta_j}
+<span class="eqno">(11.3.2)<a class="headerlink" href="#equation-glm-source-content-11" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}U_j = \frac{\partial \ell}{\partial \beta_j}
 &amp;= \sum_{i=1}^N \frac{y_i-\mu_i}{a(\phi) \nu(\mu_i) g(\mu_i)' }  x_{ij}\\&amp;= - \sum_{i=1}^N \frac{y_i-\mu_i}{\sigma^2 }  x_{ij}\end{aligned}\end{align} \]</div>
 <p>我们发现逆高斯模型和高斯模型的得分统计量只差了一个负号。</p>
-</div>
-<div class="section" id="irls">
-<h3><span class="section-number">11.3.2. </span>IRLS<a class="headerlink" href="#irls" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="irls">
+<h3><span class="section-number">11.3.2. </span>IRLS<a class="headerlink" href="#irls" title="永久链接至标题"></a></h3>
 <p>逆高斯模型的 <span class="math notranslate nohighlight">\(W\)</span> 和 <span class="math notranslate nohighlight">\(Z\)</span> 分别为</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-12">
-<span class="eqno">(11.3.3)<a class="headerlink" href="#equation-glm-source-content-12" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}W &amp;= \text{diag} \left \{ \frac{ 1}{ a(\phi) \nu(\hat{\mu}) ( g' )^2}
+<span class="eqno">(11.3.3)<a class="headerlink" href="#equation-glm-source-content-12" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}W &amp;= \text{diag} \left \{ \frac{ 1}{ a(\phi) \nu(\hat{\mu}) ( g' )^2}
 \right \}_{(N\times N)}\\&amp;= \text{diag} \left \{ \frac{ \hat{\mu}^3}{ \sigma^2}
 \right \}_{(N\times N)}\end{aligned}\end{align} \]</div>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-13">
-<span class="eqno">(11.3.4)<a class="headerlink" href="#equation-glm-source-content-13" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}Z &amp;=   \left \{ (y- \hat{\mu}) g'  + \eta
+<span class="eqno">(11.3.4)<a class="headerlink" href="#equation-glm-source-content-13" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}Z &amp;=   \left \{ (y- \hat{\mu}) g'  + \eta
 \right \}_{(N\times 1 )}\\ &amp;=   \left \{ \frac{-(y- \hat{\mu})}{ \hat{\mu}^3}  + \eta
 \right \}_{(N\times 1 )}\end{aligned}\end{align} \]</div>
-</div>
-<div class="section" id="id6">
-<h3><span class="section-number">11.3.3. </span>拟合优度<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id6">
+<h3><span class="section-number">11.3.3. </span>拟合优度<a class="headerlink" href="#id6" title="永久链接至标题"></a></h3>
 <p>逆高斯模型的饱和模型的对数似然函数为</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-14">
-<span class="eqno">(11.3.5)<a class="headerlink" href="#equation-glm-source-content-14" title="公式的永久链接">¶</a></span>\[    \ell(y,\sigma^2;y)= \sum_{i=1}^n  \left \{
+<span class="eqno">(11.3.5)<a class="headerlink" href="#equation-glm-source-content-14" title="公式的永久链接"></a></span>\[    \ell(y,\sigma^2;y)= \sum_{i=1}^n  \left \{
 - \frac{ 1}{2 } \ln \left( 2\pi y^3_i \sigma^2 \right)
 \right \}\]</div>
 <p>逆高斯模型的偏差统计量为</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-15">
-<span class="eqno">(11.3.6)<a class="headerlink" href="#equation-glm-source-content-15" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}D &amp;= 2 \{ \ell(y;y)  - \ell(\hat{\mu};y)\}\\&amp;= 2\sum_{i=1}^N  \left \{
+<span class="eqno">(11.3.6)<a class="headerlink" href="#equation-glm-source-content-15" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}D &amp;= 2 \{ \ell(y;y)  - \ell(\hat{\mu};y)\}\\&amp;= 2\sum_{i=1}^N  \left \{
 - \frac{ 1}{2 } \ln \left( 2\pi y^3_i \sigma^2 \right)
 \right \}
 -
@@ -1122,29 +1036,36 @@ b''(\theta) &amp;= \frac{\partial^2 b}{\partial \mu^2}
 \right \}\end{aligned}\end{align} \]</div>
 <p>逆高斯模型的皮尔逊卡方统计量为</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-16">
-<span class="eqno">(11.3.7)<a class="headerlink" href="#equation-glm-source-content-16" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\chi^2
+<span class="eqno">(11.3.7)<a class="headerlink" href="#equation-glm-source-content-16" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\chi^2
 &amp;= \sum_{i=1}^N \frac{ (y_i-\hat{\mu}_i)^2}{\nu(\hat{\mu}_i)}\\&amp;= \sum_{i=1}^N \frac{ (y_i-\hat{\mu}_i)^2}{-\hat{\mu}^3}\end{aligned}\end{align} \]</div>
-</div>
-</div>
-<div class="section" id="id7">
-<h2><span class="section-number">11.4. </span>其它连接函数<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h2>
+</section>
+</section>
+<section id="id7">
+<h2><span class="section-number">11.4. </span>其它连接函数<a class="headerlink" href="#id7" title="永久链接至标题"></a></h2>
 <p>类似于伽玛模型，除了标准连接函数，
 对数(log)连接函数和恒等(identity)连接函数是也是逆高斯分布经常使用的连接函数。</p>
 <p>对于逆高斯，当对持续时间类型的数据进行建模时，恒等连接函数是另一个合适的选择。</p>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../%E4%BA%8C%E9%A1%B9%E6%A8%A1%E5%9E%8B/content.html" class="btn btn-neutral float-right" title="12. 二项式模型" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="../%E9%AB%98%E6%96%AF%E6%A8%A1%E5%9E%8B/content.html" class="btn btn-neutral float-left" title="10. 高斯模型" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../%E9%AB%98%E6%96%AF%E6%A8%A1%E5%9E%8B/content.html" class="btn btn-neutral float-left" title="10. 高斯模型" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../%E4%BA%8C%E9%A1%B9%E6%A8%A1%E5%9E%8B/content.html" class="btn btn-neutral float-right" title="12. 二项式模型" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2018, zhangzhenhu(acmtiger@outlook.com) 禁止一切形式的转载！.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
+  
 
 
     <script src="https://utteranc.es/client.js"
@@ -1157,42 +1078,16 @@ b''(\theta) &amp;= \frac{\partial^2 b}{\partial \mu^2}
 
 
 
-  <div role="contentinfo">
-    <p>
-        &#169; 版权所有 2018, zhangzhenhu(acmtiger@outlook.com) 禁止一切形式的转载！.
-
-    </p>
-  </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-
-
-
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

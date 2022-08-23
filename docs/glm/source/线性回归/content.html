@@ -1,99 +1,51 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="zh-CN" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>5. 线性回归模型 &mdash; 张振虎的博客 张振虎 文档</title>
-  
-
-  
-  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
     <link rel="canonical" href="https://zhangzhenhu.github.io/blog/glm/source/线性回归/content.html" />
-
-  
   <!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
         <script src="../../../_static/doctools.js"></script>
         <script src="../../../_static/translations.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2.7.7/unpacked/MathJax.min.js"></script>
         <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"Macros": {"RR": "{\\bf R}", "bold": ["{\\bf #1}", 1]}}})</script>
-    
-    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-
-    
+    <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../../genindex.html" />
     <link rel="search" title="搜索" href="../../../search.html" />
     <link rel="next" title="6. 广义线性模型" href="../%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/content.html" />
     <link rel="prev" title="4. 指数族" href="../%E6%8C%87%E6%95%B0%E6%97%8F/content.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../../../index.html" class="icon icon-home"> 张振虎的博客
-          
-
-          
           </a>
-
-          
-            
-            
               <div class="version">
                 acmtiger@outlook.com
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="在文档中搜索" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">目录:</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">目录:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">广义线性模型</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80/content.html">1. 概率基础</a><ul>
@@ -141,7 +93,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#id2">3.1. 统计量和充分统计量</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-sample-distribution">3.2. 抽样分布</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-sample-distribution-normal">3.2.1. 正态分布</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#t">3.2.2. t分布</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#t">3.2.2. 学生t分布</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#id5">3.2.3. 卡方分布</a></li>
 </ul>
 </li>
@@ -746,7 +698,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../audio/feature.html#id18">1.5. 分帧与加窗</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../audio/feature.html#id19">1.5.1. 预加重处理</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../audio/feature.html#id20">1.5.2. 分帧与加窗</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../audio/feature.html#id20">1.5.2. 分帧与加窗处理</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../audio/feature.html#id21">1.6. 声音的感官度量</a><ul>
@@ -788,26 +740,26 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../edm/bkt.html">1. 贝叶斯知识追踪(Bayesian Knowledge Tracing,BKT)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id1">1.1. 简介</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#hidden-markov-model-hmm">1.2. 隐马尔科夫模型(Hidden Markov Model,HMM)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id5">1.3. 贝叶斯知识追踪(Bayesian Knowledge Tracing,BKT)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#bayesian-knowledge-tracing">1.3. 贝叶斯知识追踪(Bayesian Knowledge Tracing)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#bkt">1.3.1. BKT的参数估计</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#item-response-theory-irt">1.4. 项目反映理论(Item Response Theory,IRT)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#bktirt">1.5. BKT结合IRT</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id6">1.6. 实验</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id7">1.6.1. 数据集</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id8">1.6.2. 实验方法</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id9">1.6.3. 实验结果</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id10">1.6.4. 项目代码</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id5">1.6. 实验</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id6">1.6.1. 数据集</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id7">1.6.2. 实验方法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id8">1.6.3. 实验结果</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id9">1.6.4. 项目代码</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id11">1.7. 未来工作</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id12">1.7.1. 题目难度的计算</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id10">1.7. 未来工作</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id11">1.7.1. 题目难度的计算</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#irt">1.7.2. 多参数IRT模型</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id13">1.7.3. 参数估计算法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../edm/bkt.html#id12">1.7.3. 参数估计算法</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id14">1.8. 参考文献</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../edm/bkt.html#id13">1.8. 参考文献</a></li>
 </ul>
 </li>
 </ul>
@@ -904,75 +856,33 @@
 </li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../../index.html">张振虎的博客</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="../index.html">广义线性模型</a> &raquo;</li>
-        
       <li><span class="section-number">5. </span>线性回归模型</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
-            <a href="../../../_sources/glm/source/线性回归/content.rst.txt" rel="nofollow"> View page source</a>
-          
-        
+            <a href="../../../_sources/glm/source/线性回归/content.rst.txt" rel="nofollow"> 查看页面源码</a>
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="ch-29">
-<span id="id1"></span><h1><span class="section-number">5. </span>线性回归模型<a class="headerlink" href="#ch-29" title="永久链接至标题">¶</a></h1>
+             
+  <section id="ch-29">
+<span id="id1"></span><h1><span class="section-number">5. </span>线性回归模型<a class="headerlink" href="#ch-29" title="永久链接至标题"></a></h1>
 <p>在统计分析中，经常需要分析变量之间的关系，
 最常见的场景就是研究某个变量如何取决于其它一个或多个变量，
 通常会把研究的目标变量称为响应变量、输出变量、被解释变量，
@@ -989,15 +899,15 @@
 得益于它的简单，应用十分广泛。
 本书的主题，广义线性模型就是线性回归模型的扩展，
 在讨论广义线性模型之前，先简单回顾一下线性回归模型。</p>
-<div class="section" id="id2">
-<h2><span class="section-number">5.1. </span>最小二乘<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
-<div class="section" id="id3">
-<h3><span class="section-number">5.1.1. </span>最小误差<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h3>
+<section id="id2">
+<h2><span class="section-number">5.1. </span>最小二乘<a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
+<section id="id3">
+<h3><span class="section-number">5.1.1. </span>最小误差<a class="headerlink" href="#id3" title="永久链接至标题"></a></h3>
 <p>通常情况下，机器学习就是要找到输出变量 <span class="math notranslate nohighlight">\(Y\)</span> 和输入变量 <span class="math notranslate nohighlight">\(X\)</span> 的函数关系，
 变量之间最简单的函数关系，就是线性函数关系。
 在线性回归模型中，假设 <span class="math notranslate nohighlight">\(Y\)</span> 与 <span class="math notranslate nohighlight">\(X\)</span> 之间是一个线性函数的关系。</p>
 <div class="math notranslate nohighlight" id="equation-eq-29-1">
-<span class="eqno">(5.1.1)<a class="headerlink" href="#equation-eq-29-1" title="公式的永久链接">¶</a></span>\[y = \beta_0+ \beta_1 x_1 +\beta_2 x_2+\dots+ \beta_p x_p\]</div>
+<span class="eqno">(5.1.1)<a class="headerlink" href="#equation-eq-29-1" title="公式的永久链接"></a></span>\[y = \beta_0+ \beta_1 x_1 +\beta_2 x_2+\dots+ \beta_p x_p\]</div>
 <p>由于输入特征数据 <span class="math notranslate nohighlight">\(X\)</span> 通常是多维的，所以 <span class="math notranslate nohighlight">\(f(x)\)</span> 是一个多元一次函数，
 其中 <span class="math notranslate nohighlight">\(x_j\)</span> 是第 <span class="math notranslate nohighlight">\(j\)</span> 维输入数据，<span class="math notranslate nohighlight">\(x_j\)</span> 可以是任意实数值。
 <span class="math notranslate nohighlight">\(\beta_j (j &gt; 0)\)</span> 是 <span class="math notranslate nohighlight">\(x_j\)</span> 的系数，<span class="math notranslate nohighlight">\(\beta_0\)</span> 是这个线性方程的截距，
@@ -1007,7 +917,7 @@
 然后把 <a class="reference internal" href="../../../probability_model/21.%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92_29.html#equation-eq-29-1">公式(17.2.11)</a> 看成是特征向量 <span class="math notranslate nohighlight">\(x\)</span> 和参数向量 <span class="math notranslate nohighlight">\(\beta\)</span> 的內积形式。
 线性回归模型的简洁表示为：</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-0">
-<span class="eqno">(5.1.2)<a class="headerlink" href="#equation-glm-source-content-0" title="公式的永久链接">¶</a></span>\[y =  \beta_0 \times 1 + \beta_1x_1 +\beta_2 x_2+\dots+\beta_p x_p
+<span class="eqno">(5.1.2)<a class="headerlink" href="#equation-glm-source-content-0" title="公式的永久链接"></a></span>\[y =  \beta_0 \times 1 + \beta_1x_1 +\beta_2 x_2+\dots+\beta_p x_p
 = x^T \beta\]</div>
 <div class="admonition note">
 <p class="admonition-title">注解</p>
@@ -1021,10 +931,12 @@
 比如根据图中蓝色样本点的分布，我们找到红色直线和样本的”走势”一致，
 这样当输入一个新的 <span class="math notranslate nohighlight">\(x_{new}\)</span> 时，就用直线上的点 <span class="math notranslate nohighlight">\(y_{new}=x_{new}^T \beta\)</span>
 作为预测值 <span class="math notranslate nohighlight">\(\hat{y}=y_{new}=x_{new}^T \beta\)</span> 。</p>
-<div class="figure align-center" id="id8">
+<figure class="align-center" id="id8">
 <span id="fg-29-1"></span><a class="reference internal image-reference" href="../../../_images/29_1.png"><img alt="../../../_images/29_1.png" src="../../../_images/29_1.png" style="width: 320.0px; height: 240.0px;" /></a>
-<p class="caption"><span class="caption-number">图 5.1.1 </span><span class="caption-text">单一输入特征的回归模型</span><a class="headerlink" href="#id8" title="永久链接至图片">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">图 5.1.1 </span><span class="caption-text">单一输入特征的回归模型</span><a class="headerlink" href="#id8" title="永久链接至图片"></a></p>
+</figcaption>
+</figure>
 <p>然而空间上存在无数条直线，要如何确定和样本点”走势”相同的直线呢？
 我们的最终目的是用这条之间预测新的样本点，那么理论上预测最准的直线是最优的直线。
 对于一条样本数据 <span class="math notranslate nohighlight">\((x_i,y_i)\)</span> ，模型的预测值是 <span class="math notranslate nohighlight">\(\hat{y}_i = x_i^T \beta\)</span>
@@ -1033,17 +945,19 @@
 我们的目标就是找到一条令所有观测样本残差最小的直线。
 通常我们使用所有样本残差的平方和(residual sum of squares,RSS)做为整体的误差。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-1">
-<span class="eqno">(5.1.3)<a class="headerlink" href="#equation-glm-source-content-1" title="公式的永久链接">¶</a></span>\[J(\beta)=\sum_{i=1}^N (\hat{y}_i-y_i)^2\]</div>
-<div class="figure align-center" id="id9">
+<span class="eqno">(5.1.3)<a class="headerlink" href="#equation-glm-source-content-1" title="公式的永久链接"></a></span>\[J(\beta)=\sum_{i=1}^N (\hat{y}_i-y_i)^2\]</div>
+<figure class="align-center" id="id9">
 <span id="fg-29-2"></span><a class="reference internal image-reference" href="../../../_images/29_2.png"><img alt="../../../_images/29_2.png" src="../../../_images/29_2.png" style="width: 279.0px; height: 216.5px;" /></a>
-<p class="caption"><span class="caption-number">图 5.1.2 </span><span class="caption-text">线性回归的残差</span><a class="headerlink" href="#id9" title="永久链接至图片">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">图 5.1.2 </span><span class="caption-text">线性回归的残差</span><a class="headerlink" href="#id9" title="永久链接至图片"></a></p>
+</figcaption>
+</figure>
 <p>我们认为令 <code class="docutils literal notranslate"><span class="pre">RSS</span></code> 取得最小值的直线的最优的直线，
 所以我们通过极小化 <code class="docutils literal notranslate"><span class="pre">RSS</span></code> 来确定这条最优的直线，
 由于直线是由参数 <span class="math notranslate nohighlight">\(\beta\)</span> 决定的，所以要确定这条直线就是等价于找到参数 <span class="math notranslate nohighlight">\(\beta\)</span> 的值。
 因此：</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-2">
-<span class="eqno">(5.1.4)<a class="headerlink" href="#equation-glm-source-content-2" title="公式的永久链接">¶</a></span>\[\hat{\beta} = \mathop{\arg \max}_{\beta} \sum_{i=1}^N (\hat{y}_i - y_i)^2
+<span class="eqno">(5.1.4)<a class="headerlink" href="#equation-glm-source-content-2" title="公式的永久链接"></a></span>\[\hat{\beta} = \mathop{\arg \max}_{\beta} \sum_{i=1}^N (\hat{y}_i - y_i)^2
 =\mathop{\arg \max}_{\beta} \sum_{i=1}^N (x_i^T \beta-y_i)^2\]</div>
 <div class="admonition note">
 <p class="admonition-title">注解</p>
@@ -1057,27 +971,27 @@
 </div>
 <p><strong>以“残差平方和最小”确定直线位置的方法被称为最小二乘法。</strong>
 用最小二乘法除了计算比较方便外，得到的估计量还具有优良特性， <strong>这种方法对异常值非常敏感</strong>。</p>
-</div>
-<div class="section" id="id4">
-<h3><span class="section-number">5.1.2. </span>参数估计<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id4">
+<h3><span class="section-number">5.1.2. </span>参数估计<a class="headerlink" href="#id4" title="永久链接至标题"></a></h3>
 <p>显然对于线性回归模型， <code class="docutils literal notranslate"><span class="pre">RSS</span></code> 是一个关于 <span class="math notranslate nohighlight">\(\beta\)</span> 的二次函数，
 我们知道二次函数一定是存在唯一的一个极值点的，所以参数 <span class="math notranslate nohighlight">\(\beta\)</span> 一定存在唯一解，
 并且在极值点函数的导数为 <span class="math notranslate nohighlight">\(0\)</span>。
 所以我们可以直接求出 <code class="docutils literal notranslate"><span class="pre">RSS</span></code> 的导数，并令导数为 <span class="math notranslate nohighlight">\(0\)</span> 的方法求得 <span class="math notranslate nohighlight">\(\hat{\beta}\)</span> 。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-3">
-<span class="eqno">(5.1.5)<a class="headerlink" href="#equation-glm-source-content-3" title="公式的永久链接">¶</a></span>\[\frac{\partial J}{\partial \beta} = \sum_{i=1}^N 2 x_i (x_i^T \beta - y_i)\]</div>
+<span class="eqno">(5.1.5)<a class="headerlink" href="#equation-glm-source-content-3" title="公式的永久链接"></a></span>\[\frac{\partial J}{\partial \beta} = \sum_{i=1}^N 2 x_i (x_i^T \beta - y_i)\]</div>
 <p>上述偏导结果中包含所有样本的求和符号 <span class="math notranslate nohighlight">\(\sum_{i=1}^N\)</span> ，为了简单表达我们用矩阵和向量乘积的方式替换求和符号。
 我们用符号 <span class="math notranslate nohighlight">\(X\)</span> 表示训练样本集中所有的输入数据的矩阵，
 用符号 <span class="math notranslate nohighlight">\(y\)</span> 表示训练样本集中所有输出数据的向量。上述偏导用矩阵符号表示为：</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-4">
-<span class="eqno">(5.1.6)<a class="headerlink" href="#equation-glm-source-content-4" title="公式的永久链接">¶</a></span>\[\frac{\partial J}{\partial \beta} = 2X^T (X \beta - y)\]</div>
+<span class="eqno">(5.1.6)<a class="headerlink" href="#equation-glm-source-content-4" title="公式的永久链接"></a></span>\[\frac{\partial J}{\partial \beta} = 2X^T (X \beta - y)\]</div>
 <p>然后我们令导数为0，可以得到：</p>
 <div class="math notranslate nohighlight" id="equation-eq-29-03">
-<span class="eqno">(5.1.7)<a class="headerlink" href="#equation-eq-29-03" title="公式的永久链接">¶</a></span>\[X^TX\beta = X^T y\]</div>
+<span class="eqno">(5.1.7)<a class="headerlink" href="#equation-eq-29-03" title="公式的永久链接"></a></span>\[X^TX\beta = X^T y\]</div>
 <p><a class="reference internal" href="../../../probability_model/21.%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92_29.html#equation-eq-29-03">公式(17.2.17)</a> 通常被称为正规方程组(normal equations)，
 理论上，我们可以根据这个等式得到参数 <span class="math notranslate nohighlight">\(\beta\)</span> 的解析解</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-5">
-<span class="eqno">(5.1.8)<a class="headerlink" href="#equation-glm-source-content-5" title="公式的永久链接">¶</a></span>\[\hat{\beta}=(X^TX)^{-1} X^Ty\]</div>
+<span class="eqno">(5.1.8)<a class="headerlink" href="#equation-glm-source-content-5" title="公式的永久链接"></a></span>\[\hat{\beta}=(X^TX)^{-1} X^Ty\]</div>
 <p>然而，这个解析解需要求矩阵 <span class="math notranslate nohighlight">\(X^TX\)</span> 的逆矩阵，
 矩阵存在逆矩阵需要满足两个条件：(1)是方阵，(2)是满秩的。
 虽然是 <span class="math notranslate nohighlight">\(X^TX\)</span> 方阵，但是未必满秩，
@@ -1086,31 +1000,33 @@
 <p><span class="math notranslate nohighlight">\((X^TX)\)</span> 不存在逆矩阵不代表参数 <span class="math notranslate nohighlight">\(\beta\)</span> 无解，上面已经讲过损失函数 <span class="math notranslate nohighlight">\(J(\beta)\)</span>
 是二次函数，一定存在唯一的极值点，所以参数 <span class="math notranslate nohighlight">\(\beta\)</span> 一定有全局最优解的。
 当无法求得解析解时，我们可以使用迭代法求解，比如基于一阶导数的梯度下降法和基于二阶导数的牛顿法。</p>
-</div>
-</div>
-<div class="section" id="id5">
-<h2><span class="section-number">5.2. </span>线性回归的概率解释<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h2>
+</section>
+</section>
+<section id="id5">
+<h2><span class="section-number">5.2. </span>线性回归的概率解释<a class="headerlink" href="#id5" title="永久链接至标题"></a></h2>
 <p>现在我们尝试在概率的框架下解释线性回归模型。
 在概率的框架下，认为输入变量 <span class="math notranslate nohighlight">\(X\)</span> 和输出变量 <span class="math notranslate nohighlight">\(Y\)</span> 都是随机变量，
 两个变量的联合概率为</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-6">
-<span class="eqno">(5.2.1)<a class="headerlink" href="#equation-glm-source-content-6" title="公式的永久链接">¶</a></span>\[P(X,Y)=P(X)P(Y|X)\]</div>
+<span class="eqno">(5.2.1)<a class="headerlink" href="#equation-glm-source-content-6" title="公式的永久链接"></a></span>\[P(X,Y)=P(X)P(Y|X)\]</div>
 <p>在回归问题中，是给定输入 <span class="math notranslate nohighlight">\(x\)</span> ，模型输出 <span class="math notranslate nohighlight">\(y\)</span> 的值，特征变量 <span class="math notranslate nohighlight">\(X\)</span> 的值是已知的确定的，
 所以不需要边缘概率 <span class="math notranslate nohighlight">\(P(X)\)</span> ，只需要得到条件概率 <span class="math notranslate nohighlight">\(P(Y|X)\)</span> 即可。
 换句话说，不需要对联合概率 <span class="math notranslate nohighlight">\(P(X,Y)\)</span> 进行建模，只需要建模条件概率 <span class="math notranslate nohighlight">\(P(Y|X)\)</span>
 。在概率的框架下，用条件概率 <span class="math notranslate nohighlight">\(P(Y|X)=f(x)\)</span> 去表达这种关系，
 即当 <span class="math notranslate nohighlight">\(X=x\)</span> 时，变量 <span class="math notranslate nohighlight">\(Y=y\)</span> 的概率为 <span class="math notranslate nohighlight">\(P(Y=y|X=x)\)</span> 。</p>
-<div class="section" id="id6">
-<h3><span class="section-number">5.2.1. </span>高斯分布<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h3>
-<div class="figure align-center" id="id10">
+<section id="id6">
+<h3><span class="section-number">5.2.1. </span>高斯分布<a class="headerlink" href="#id6" title="永久链接至标题"></a></h3>
+<figure class="align-center" id="id10">
 <span id="fg-29-12"></span><a class="reference internal image-reference" href="../../../_images/29_12.jpg"><img alt="../../../_images/29_12.jpg" src="../../../_images/29_12.jpg" style="width: 296.7px; height: 203.7px;" /></a>
-<p class="caption"><span class="caption-number">图 5.2.1 </span><span class="caption-text">线性回归模型表示成条件均值函数加上一个高斯噪声。</span><a class="headerlink" href="#id10" title="永久链接至图片">¶</a></p>
-</div>
+<figcaption>
+<p><span class="caption-number">图 5.2.1 </span><span class="caption-text">线性回归模型表示成条件均值函数加上一个高斯噪声。</span><a class="headerlink" href="#id10" title="永久链接至图片"></a></p>
+</figcaption>
+</figure>
 <p>观察 <a class="reference internal" href="../../../probability_model/21.%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92_29.html#fg-29-12"><span class="std std-numref">图 17.3.3</span></a>
 ，变量 <span class="math notranslate nohighlight">\(Y\)</span> 的值，可以看做是线性预测器 <span class="math notranslate nohighlight">\(x^T \beta\)</span> 的值加上一个误差项（噪声）
 <span class="math notranslate nohighlight">\(\epsilon\)</span> 。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-7">
-<span class="eqno">(5.2.2)<a class="headerlink" href="#equation-glm-source-content-7" title="公式的永久链接">¶</a></span>\[y=x^T \beta + \epsilon\]</div>
+<span class="eqno">(5.2.2)<a class="headerlink" href="#equation-glm-source-content-7" title="公式的永久链接"></a></span>\[y=x^T \beta + \epsilon\]</div>
 <p>对于噪声，最普遍常用的就是高斯噪声，
 这里假设 <span class="math notranslate nohighlight">\(\epsilon\)</span> 是一个均值为 <span class="math notranslate nohighlight">\(0\)</span>
 ，方差为 <span class="math notranslate nohighlight">\(\sigma^2\)</span> 的高斯噪声，
@@ -1121,12 +1037,12 @@
 得到的就是一个期望值为 <span class="math notranslate nohighlight">\(x^T \beta\)</span> 随机变量，
 因此输出变量 <span class="math notranslate nohighlight">\(Y\)</span> 是一个高斯变量。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-8">
-<span class="eqno">(5.2.3)<a class="headerlink" href="#equation-glm-source-content-8" title="公式的永久链接">¶</a></span>\[Y \sim \mathcal{N}(x^T \beta,\sigma^2)\]</div>
+<span class="eqno">(5.2.3)<a class="headerlink" href="#equation-glm-source-content-8" title="公式的永久链接"></a></span>\[Y \sim \mathcal{N}(x^T \beta,\sigma^2)\]</div>
 <p>因此条件概率 <span class="math notranslate nohighlight">\(P(Y|X)\)</span> 是均值为 <span class="math notranslate nohighlight">\(x^T \beta\)</span> 方差为 <span class="math notranslate nohighlight">\(\sigma^2\)</span>
 的高斯分布，
 条件概率分布 <span class="math notranslate nohighlight">\(P(Y|X)\)</span> 的概率密度函数为：</p>
 <div class="math notranslate nohighlight" id="equation-eq-29-10">
-<span class="eqno">(5.2.4)<a class="headerlink" href="#equation-eq-29-10" title="公式的永久链接">¶</a></span>\[p(y|x;\beta) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp \{ -\frac{1}{2\sigma^2}(y-\beta^Tx)^2 \}\]</div>
+<span class="eqno">(5.2.4)<a class="headerlink" href="#equation-eq-29-10" title="公式的永久链接"></a></span>\[p(y|x;\beta) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp \{ -\frac{1}{2\sigma^2}(y-\beta^Tx)^2 \}\]</div>
 <div class="admonition note">
 <p class="admonition-title">注解</p>
 <p>实际上 <span class="math notranslate nohighlight">\(Y\)</span> 的概率分布要根据数据的实际分布确定，并不是一定要高斯分布。
@@ -1148,52 +1064,59 @@
 并不要求对 <span class="math notranslate nohighlight">\(x\)</span> 是线性的，所以可以为 <span class="math notranslate nohighlight">\(x\)</span> 加上一个非线性的函数 <span class="math notranslate nohighlight">\(\phi(\cdot)\)</span>
 使模型具有拟合非线性数据的能力。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-9">
-<span class="eqno">(5.2.5)<a class="headerlink" href="#equation-glm-source-content-9" title="公式的永久链接">¶</a></span>\[y=\beta^T \phi(x) + \epsilon =\beta^T x' + \epsilon\]</div>
+<span class="eqno">(5.2.5)<a class="headerlink" href="#equation-glm-source-content-9" title="公式的永久链接"></a></span>\[y=\beta^T \phi(x) + \epsilon =\beta^T x' + \epsilon\]</div>
 <p><span class="math notranslate nohighlight">\(\phi(x)\)</span> 可以看做是对特征数据的预处理 <span class="math notranslate nohighlight">\(x \Rightarrow \phi(x)\)</span>
 ，转化之后的 <span class="math notranslate nohighlight">\(x'=\phi(x)\)</span> 作为模型的输入特征，并不影响线性回归模型的定义和计算。</p>
 <p>高斯假设的线性回归模型是建立在两个很强的假设之上的，(1)条件概率 <span class="math notranslate nohighlight">\(P(Y|X)\)</span> 是高斯分布，
 并且(2)不同的 <span class="math notranslate nohighlight">\(x\)</span> 条件下方差是相同的。然而这种假设在很多时候是不满足的，尤其是第(2)点，
 这也是线性回归的模型的局限性。</p>
-</div>
-<div class="section" id="id7">
-<h3><span class="section-number">5.2.2. </span>参数估计<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="id7">
+<h3><span class="section-number">5.2.2. </span>参数估计<a class="headerlink" href="#id7" title="永久链接至标题"></a></h3>
 <p>假设我们有一个成对的观测数据集 <span class="math notranslate nohighlight">\(\mathcal{D}=\{(x_i,y_i);i=1,2,\dots,N\}\)</span>
 ，其中 <span class="math notranslate nohighlight">\(x_i\)</span> 是一条输入变量 <span class="math notranslate nohighlight">\(X\)</span> 的观测样值，<span class="math notranslate nohighlight">\(y_i\)</span> 是对应的输出变量 <span class="math notranslate nohighlight">\(Y\)</span> 的观测值，
 注意 <span class="math notranslate nohighlight">\(x_i\)</span> 是一个 <span class="math notranslate nohighlight">\(p\)</span> 维的向量(vector)，而 <span class="math notranslate nohighlight">\(y_i\)</span> 是一个标量(scalar)。
 样本集中的样本都是满足独立同分布(IID)的。
 样本集的联合概率可以写成：</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-10">
-<span class="eqno">(5.2.6)<a class="headerlink" href="#equation-glm-source-content-10" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}P(\mathcal{D}) &amp;= \prod_{i=1}^N P(y_i|x_i;\beta)\\&amp;=  {2\pi\sigma^2}^{-\frac{N}{2}} \exp \{ -\frac{1}{2\sigma^2} \sum_{i=1}^N (y_i-x_i^T \beta)^2 \}\end{aligned}\end{align} \]</div>
+<span class="eqno">(5.2.6)<a class="headerlink" href="#equation-glm-source-content-10" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}P(\mathcal{D}) &amp;= \prod_{i=1}^N P(y_i|x_i;\beta)\\&amp;=  {2\pi\sigma^2}^{-\frac{N}{2}} \exp \{ -\frac{1}{2\sigma^2} \sum_{i=1}^N (y_i-x_i^T \beta)^2 \}\end{aligned}\end{align} \]</div>
 <p>我们知道观测样本集的联合概率就是似然函数，我们可以通过最大似然估计法估计出模型的未知参数 <span class="math notranslate nohighlight">\(\beta\)</span> ，
 为了计算简单，通常我们采用极大化对数似然函数的方法估计参数。
 线性回归模型的对数似然函数为：</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-11">
-<span class="eqno">(5.2.7)<a class="headerlink" href="#equation-glm-source-content-11" title="公式的永久链接">¶</a></span>\[\ell(\beta;x,y) = \underbrace{{-\frac{N}{2}} \ln (2\pi\sigma^2)}_{\text{常量}}
+<span class="eqno">(5.2.7)<a class="headerlink" href="#equation-glm-source-content-11" title="公式的永久链接"></a></span>\[\ell(\beta;x,y) = \underbrace{{-\frac{N}{2}} \ln (2\pi\sigma^2)}_{\text{常量}}
 -\frac{1}{2\sigma^2} \sum_{i=1}^N (y_i-x_i^T\beta)^2\]</div>
 <p>由于我们假设方差 <span class="math notranslate nohighlight">\(\sigma^2\)</span> 是常量，所以上述公式的第一项是一个常量，
 在极大化对数似然函数时不影响最终的求解，所以是可以去掉的。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-12">
-<span class="eqno">(5.2.8)<a class="headerlink" href="#equation-glm-source-content-12" title="公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\hat{\beta}_{ML} &amp;={\arg \max}_{\beta}  \ell(\beta;x,y)\\&amp;\triangleq  {\arg \max}_{\beta}
+<span class="eqno">(5.2.8)<a class="headerlink" href="#equation-glm-source-content-12" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\hat{\beta}_{ML} &amp;={\arg \max}_{\beta}  \ell(\beta;x,y)\\&amp;\triangleq  {\arg \max}_{\beta}
 \left \{ -\frac{1}{2\sigma^2} \sum_{i=1}^N (y_i-x_i^T \beta)^2
 \right \}\end{aligned}\end{align} \]</div>
 <p>我们发现这和最小二乘法的损失函数 <span class="math notranslate nohighlight">\(J(\beta)\)</span> 是等价的，
 对数似然函数中的 <span class="math notranslate nohighlight">\(\sum_{i=1}^N (y_i-x_i^T \beta)^2\)</span> 就是残差的平方和(residual sum of squares,RSS)。
 同理，我们可以使用迭代法求的最优解。</p>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/content.html" class="btn btn-neutral float-right" title="6. 广义线性模型" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="../%E6%8C%87%E6%95%B0%E6%97%8F/content.html" class="btn btn-neutral float-left" title="4. 指数族" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../%E6%8C%87%E6%95%B0%E6%97%8F/content.html" class="btn btn-neutral float-left" title="4. 指数族" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/content.html" class="btn btn-neutral float-right" title="6. 广义线性模型" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2018, zhangzhenhu(acmtiger@outlook.com) 禁止一切形式的转载！.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
+  
 
 
     <script src="https://utteranc.es/client.js"
@@ -1206,42 +1129,16 @@
 
 
 
-  <div role="contentinfo">
-    <p>
-        &#169; 版权所有 2018, zhangzhenhu(acmtiger@outlook.com) 禁止一切形式的转载！.
-
-    </p>
-  </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-
-
-
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

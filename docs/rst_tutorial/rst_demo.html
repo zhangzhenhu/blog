@@ -1,99 +1,51 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="zh-CN" >
 <head>
-  <meta charset="utf-8" />
-  <meta content="reStructuredText, demonstration, demo, parser" name="keywords" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+<meta content="reStructuredText, demonstration, demo, parser" name="keywords" />
 <meta content="A demonstration of the reStructuredText markup language, containing examples of all basic constructs and many advanced constructs." lang="en" name="description" xml:lang="en" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>reStructuredText 示例 &mdash; 张振虎的博客 张振虎 文档</title>
-  
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
     <link rel="canonical" href="https://zhangzhenhu.github.io/blog/rst_tutorial/rst_demo.html" />
-
-  
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/translations.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2.7.7/unpacked/MathJax.min.js"></script>
         <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"Macros": {"RR": "{\\bf R}", "bold": ["{\\bf #1}", 1]}}})</script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
+    <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../index.html" class="icon icon-home"> 张振虎的博客
-          
-
-          
           </a>
-
-          
-            
-            
               <div class="version">
                 acmtiger@outlook.com
               </div>
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="在文档中搜索" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">目录:</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">目录:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../glm/source/index.html">广义线性模型</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../glm/source/%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80/content.html">1. 概率基础</a><ul>
@@ -141,7 +93,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#id2">3.1. 统计量和充分统计量</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-sample-distribution">3.2. 抽样分布</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#ch-sample-distribution-normal">3.2.1. 正态分布</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#t">3.2.2. t分布</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#t">3.2.2. 学生t分布</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../glm/source/%E6%8E%A8%E6%96%AD%E4%B8%8E%E6%A3%80%E9%AA%8C/content.html#id5">3.2.3. 卡方分布</a></li>
 </ul>
 </li>
@@ -746,7 +698,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../audio/feature.html#id18">1.5. 分帧与加窗</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../audio/feature.html#id19">1.5.1. 预加重处理</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../audio/feature.html#id20">1.5.2. 分帧与加窗</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../audio/feature.html#id20">1.5.2. 分帧与加窗处理</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../audio/feature.html#id21">1.6. 声音的感官度量</a><ul>
@@ -788,26 +740,26 @@
 <li class="toctree-l2"><a class="reference internal" href="../edm/bkt.html">1. 贝叶斯知识追踪(Bayesian Knowledge Tracing,BKT)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id1">1.1. 简介</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#hidden-markov-model-hmm">1.2. 隐马尔科夫模型(Hidden Markov Model,HMM)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id5">1.3. 贝叶斯知识追踪(Bayesian Knowledge Tracing,BKT)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#bayesian-knowledge-tracing">1.3. 贝叶斯知识追踪(Bayesian Knowledge Tracing)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#bkt">1.3.1. BKT的参数估计</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#item-response-theory-irt">1.4. 项目反映理论(Item Response Theory,IRT)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#bktirt">1.5. BKT结合IRT</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id6">1.6. 实验</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id7">1.6.1. 数据集</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id8">1.6.2. 实验方法</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id9">1.6.3. 实验结果</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id10">1.6.4. 项目代码</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id5">1.6. 实验</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id6">1.6.1. 数据集</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id7">1.6.2. 实验方法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id8">1.6.3. 实验结果</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id9">1.6.4. 项目代码</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id11">1.7. 未来工作</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id12">1.7.1. 题目难度的计算</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id10">1.7. 未来工作</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id11">1.7.1. 题目难度的计算</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#irt">1.7.2. 多参数IRT模型</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id13">1.7.3. 参数估计算法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../edm/bkt.html#id12">1.7.3. 参数估计算法</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id14">1.8. 参考文献</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../edm/bkt.html#id13">1.8. 参考文献</a></li>
 </ul>
 </li>
 </ul>
@@ -904,75 +856,34 @@
 </li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">张振虎的博客</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-        
       <li>reStructuredText 示例</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
-            <a href="../_sources/rst_tutorial/rst_demo.rst.txt" rel="nofollow"> View page source</a>
-          
-        
+            <a href="../_sources/rst_tutorial/rst_demo.rst.txt" rel="nofollow"> 查看页面源码</a>
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="restructuredtext">
-<h1><a class="toc-backref" href="#id33">reStructuredText 示例</a><a class="headerlink" href="#restructuredtext" title="永久链接至标题">¶</a></h1>
-<div class="section" id="examples-of-syntax-constructs">
-<h2><a class="toc-backref" href="#id34">Examples of Syntax Constructs</a><a class="headerlink" href="#examples-of-syntax-constructs" title="永久链接至标题">¶</a></h2>
+             
+  <section id="restructuredtext">
+<h1><a class="toc-backref" href="#id33">reStructuredText 示例</a><a class="headerlink" href="#restructuredtext" title="永久链接至标题"></a></h1>
+<section id="examples-of-syntax-constructs">
+<h2><a class="toc-backref" href="#id34">Examples of Syntax Constructs</a><a class="headerlink" href="#examples-of-syntax-constructs" title="永久链接至标题"></a></h2>
 <dl class="field-list">
 <dt class="field-odd">Author</dt>
 <dd class="field-odd"><p>David Goodger</p>
@@ -1099,27 +1010,27 @@ constructs and many advanced constructs.</p>
 </li>
 </ul>
 </div>
-</div>
-<div class="section" id="structural-elements">
-<h2><a class="toc-backref" href="#id35">Structural Elements 结构元素</a><a class="headerlink" href="#structural-elements" title="永久链接至标题">¶</a></h2>
-<div class="section" id="section-title">
-<h3><a class="toc-backref" href="#id36">Section Title 块标题</a><a class="headerlink" href="#section-title" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="structural-elements">
+<h2><a class="toc-backref" href="#id35">Structural Elements 结构元素</a><a class="headerlink" href="#structural-elements" title="永久链接至标题"></a></h2>
+<section id="section-title">
+<h3><a class="toc-backref" href="#id36">Section Title 块标题</a><a class="headerlink" href="#section-title" title="永久链接至标题"></a></h3>
 <p>That’s it, the text just above this line.</p>
-</div>
-<div class="section" id="transitions">
-<h3><a class="toc-backref" href="#id37">Transitions 分割线</a><a class="headerlink" href="#transitions" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="transitions">
+<h3><a class="toc-backref" href="#id37">Transitions 分割线</a><a class="headerlink" href="#transitions" title="永久链接至标题"></a></h3>
 <p>Here’s a transition:</p>
 <hr class="docutils" />
 <p>It divides the section.</p>
-</div>
-</div>
-<div class="section" id="body-elements">
-<h2><a class="toc-backref" href="#id38">Body Elements  主体元素</a><a class="headerlink" href="#body-elements" title="永久链接至标题">¶</a></h2>
-<div class="section" id="paragraphs">
-<h3><a class="toc-backref" href="#id39">Paragraphs 段落</a><a class="headerlink" href="#paragraphs" title="永久链接至标题">¶</a></h3>
+</section>
+</section>
+<section id="body-elements">
+<h2><a class="toc-backref" href="#id38">Body Elements  主体元素</a><a class="headerlink" href="#body-elements" title="永久链接至标题"></a></h2>
+<section id="paragraphs">
+<h3><a class="toc-backref" href="#id39">Paragraphs 段落</a><a class="headerlink" href="#paragraphs" title="永久链接至标题"></a></h3>
 <p>A paragraph.</p>
-<div class="section" id="inline-markup">
-<h4><a class="toc-backref" href="#id40">Inline Markup 内联标记</a><a class="headerlink" href="#inline-markup" title="永久链接至标题">¶</a></h4>
+<section id="inline-markup">
+<h4><a class="toc-backref" href="#id40">Inline Markup 内联标记</a><a class="headerlink" href="#inline-markup" title="永久链接至标题"></a></h4>
 <p>包括：粗体 斜体 引用 超链接</p>
 <p>Paragraphs contain text and may contain inline markup: <em>emphasis</em>,
 <strong>strong emphasis</strong>, <code class="docutils literal notranslate"><span class="pre">inline</span> <span class="pre">literals</span></code>, standalone hyperlinks
@@ -1147,10 +1058,10 @@ and explicit roles for <em>standard</em> <strong>inline</strong>
 <span class="pre">should</span>&#160;&#160;&#160; <span class="pre">be</span> <span class="pre">grouped</span>&#160;&#160;&#160; <span class="pre">in</span> <span class="pre">pairs).</span></code></p>
 <p>If the <code class="docutils literal notranslate"><span class="pre">--pep-references</span></code> option was supplied, there should be a
 live link to PEP 258 here.</p>
-</div>
-</div>
-<div class="section" id="bullet-lists">
-<h3><a class="toc-backref" href="#id41">Bullet Lists 无编号列表</a><a class="headerlink" href="#bullet-lists" title="永久链接至标题">¶</a></h3>
+</section>
+</section>
+<section id="bullet-lists">
+<h3><a class="toc-backref" href="#id41">Bullet Lists 无编号列表</a><a class="headerlink" href="#bullet-lists" title="永久链接至标题"></a></h3>
 <ul>
 <li><p>A bullet list</p>
 <ul class="simple">
@@ -1172,9 +1083,9 @@ live link to PEP 258 here.</p>
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="enumerated-lists">
-<h3><a class="toc-backref" href="#id42">Enumerated Lists 有编号列表</a><a class="headerlink" href="#enumerated-lists" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="enumerated-lists">
+<h3><a class="toc-backref" href="#id42">Enumerated Lists 有编号列表</a><a class="headerlink" href="#enumerated-lists" title="永久链接至标题"></a></h3>
 <ol class="arabic">
 <li><p>Arabic numerals.</p>
 <ol class="loweralpha simple">
@@ -1209,9 +1120,9 @@ live link to PEP 258 here.</p>
 </li>
 <li><p>List items may also be auto-enumerated.</p></li>
 </ol>
-</div>
-<div class="section" id="definition-lists">
-<h3><a class="toc-backref" href="#id43">Definition Lists 定义列表</a><a class="headerlink" href="#definition-lists" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="definition-lists">
+<h3><a class="toc-backref" href="#id43">Definition Lists 定义列表</a><a class="headerlink" href="#definition-lists" title="永久链接至标题"></a></h3>
 <dl>
 <dt>Term</dt><dd><p>Definition</p>
 </dd>
@@ -1221,9 +1132,9 @@ live link to PEP 258 here.</p>
 <dt>Term</dt><dd><p>Definition</p>
 </dd>
 </dl>
-</div>
-<div class="section" id="field-lists">
-<h3><a class="toc-backref" href="#id44">Field Lists</a><a class="headerlink" href="#field-lists" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="field-lists">
+<h3><a class="toc-backref" href="#id44">Field Lists</a><a class="headerlink" href="#field-lists" title="永久链接至标题"></a></h3>
 <dl class="field-list">
 <dt class="field-odd">what</dt>
 <dd class="field-odd"><p>Field lists map field names to field bodies, like database
@@ -1236,9 +1147,9 @@ an unambiguous variant of RFC 2822 fields.</p>
 relative to the field marker.</p>
 </dd>
 </dl>
-</div>
-<div class="section" id="option-lists">
-<h3><a class="toc-backref" href="#id45">Option Lists 选项列表</a><a class="headerlink" href="#option-lists" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="option-lists">
+<h3><a class="toc-backref" href="#id45">Option Lists 选项列表</a><a class="headerlink" href="#option-lists" title="永久链接至标题"></a></h3>
 <p>For listing command-line options:</p>
 <dl class="option-list">
 <dt><kbd><span class="option">-a</span></kbd></dt>
@@ -1275,9 +1186,9 @@ regardless of where it starts.</p>
 </dl>
 <p>There must be at least two spaces between the option and the
 description.</p>
-</div>
-<div class="section" id="literal-blocks">
-<h3><a class="toc-backref" href="#id46">Literal Blocks 文字块</a><a class="headerlink" href="#literal-blocks" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="literal-blocks">
+<h3><a class="toc-backref" href="#id46">Literal Blocks 文字块</a><a class="headerlink" href="#literal-blocks" title="永久链接至标题"></a></h3>
 <p>Literal blocks are indicated with a double-colon (“::”) at the end of
 the preceding paragraph (over there <code class="docutils literal notranslate"><span class="pre">--&gt;</span></code>).  They can be indented:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">literal_block</span><span class="p">:</span>
@@ -1292,9 +1203,9 @@ the preceding paragraph (over there <code class="docutils literal notranslate"><
 &gt; Why didn&#39;t I think of that?
 </pre></div>
 </div>
-</div>
-<div class="section" id="line-blocks">
-<h3><a class="toc-backref" href="#id47">Line Blocks</a><a class="headerlink" href="#line-blocks" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="line-blocks">
+<h3><a class="toc-backref" href="#id47">Line Blocks</a><a class="headerlink" href="#line-blocks" title="永久链接至标题"></a></h3>
 <div class="line-block">
 <div class="line">This is a line block.  It ends with a blank line.</div>
 <div class="line-block">
@@ -1341,9 +1252,9 @@ the left edge of the text above it.</div>
 <div class="line">Singing…</div>
 </div>
 </div></blockquote>
-</div>
-<div class="section" id="block-quotes">
-<h3><a class="toc-backref" href="#id48">Block Quotes</a><a class="headerlink" href="#block-quotes" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="block-quotes">
+<h3><a class="toc-backref" href="#id48">Block Quotes</a><a class="headerlink" href="#block-quotes" title="永久链接至标题"></a></h3>
 <p>Block quotes consist of indented body elements:</p>
 <blockquote>
 <div><p>My theory by A. Elk.  Brackets Miss, brackets.  This theory goes
@@ -1353,18 +1264,18 @@ far end.  That is my theory, it is mine, and belongs to me and I
 own it, and what it is too.</p>
 <p class="attribution">—Anne Elk (Miss)</p>
 </div></blockquote>
-</div>
-<div class="section" id="doctest-blocks">
-<h3><a class="toc-backref" href="#id49">Doctest Blocks</a><a class="headerlink" href="#doctest-blocks" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="doctest-blocks">
+<h3><a class="toc-backref" href="#id49">Doctest Blocks</a><a class="headerlink" href="#doctest-blocks" title="永久链接至标题"></a></h3>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="s1">&#39;Python-specific usage examples; begun with &quot;&gt;&gt;&gt;&quot;&#39;</span>
 <span class="go">Python-specific usage examples; begun with &quot;&gt;&gt;&gt;&quot;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="s1">&#39;(cut and pasted from interactive Python sessions)&#39;</span>
 <span class="go">(cut and pasted from interactive Python sessions)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="tables">
-<h3><a class="toc-backref" href="#id50">Tables 表格</a><a class="headerlink" href="#tables" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="tables">
+<h3><a class="toc-backref" href="#id50">Tables 表格</a><a class="headerlink" href="#tables" title="永久链接至标题"></a></h3>
 <p>Here’s a grid table followed by a simple table:</p>
 <table class="docutils align-default">
 <colgroup>
@@ -1444,7 +1355,7 @@ empty: <code class="docutils literal notranslate"><span class="pre">--&gt;</span
 </tbody>
 </table>
 <table class="colwidths-given docutils align-default" id="id23">
-<caption><span class="caption-text">Frozen Delights!</span><a class="headerlink" href="#id23" title="永久链接至表格">¶</a></caption>
+<caption><span class="caption-text">Frozen Delights!</span><a class="headerlink" href="#id23" title="永久链接至表格"></a></caption>
 <colgroup>
 <col style="width: 27%" />
 <col style="width: 18%" />
@@ -1478,9 +1389,9 @@ crunchy, now would it?</p></td>
 <dd class="field-odd"><p><a class="reference external" href="https://www.tablesgenerator.com/text_tables">https://www.tablesgenerator.com/text_tables</a></p>
 </dd>
 </dl>
-</div>
-<div class="section" id="footnotes">
-<h3><a class="toc-backref" href="#id51">Footnotes 脚注</a><a class="headerlink" href="#footnotes" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="footnotes">
+<h3><a class="toc-backref" href="#id51">Footnotes 脚注</a><a class="headerlink" href="#footnotes" title="永久链接至标题"></a></h3>
 <dl class="footnote brackets">
 <dt class="label" id="id6"><span class="brackets">1</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id7">2</a>)</span></dt>
 <dd><p>A footnote contains body elements, consistently indented by at
@@ -1510,9 +1421,9 @@ Here’s a reference to the next footnote: <a class="footnote-reference brackets
 nonexistent footnote: <a href="#id82"><span class="problematic" id="id14">[5]_</span></a>.</p>
 </dd>
 </dl>
-</div>
-<div class="section" id="citations">
-<h3><a class="toc-backref" href="#id52">Citations 引用</a><a class="headerlink" href="#citations" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="citations">
+<h3><a class="toc-backref" href="#id52">Citations 引用</a><a class="headerlink" href="#citations" title="永久链接至标题"></a></h3>
 <dl class="citation">
 <dt class="label" id="cit2002"><span class="brackets">CIT2002</span><span class="fn-backref">(<a href="#id5">1</a>,<a href="#id15">2</a>)</span></dt>
 <dd><p>Citations are text-labeled footnotes. They may be
@@ -1521,9 +1432,9 @@ rendered separately and differently from footnotes.</p>
 </dl>
 <p>Here’s a reference to the above, <a class="reference internal" href="#cit2002" id="id15"><span>[CIT2002]</span></a> , and a [nonexistent]_
 citation.</p>
-</div>
-<div class="section" id="targets">
-<h3><a class="toc-backref" href="#id53">Targets</a><a class="headerlink" href="#targets" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="targets">
+<h3><a class="toc-backref" href="#id53">Targets</a><a class="headerlink" href="#targets" title="永久链接至标题"></a></h3>
 <p id="example">This paragraph is pointed to by the explicit “example” target. A
 reference can be found under <a href="#id83"><span class="problematic" id="id84">`Inline Markup`_</span></a>, above. <a class="reference internal" href="#inline-hyperlink-targets">Inline
 hyperlink targets</a> are also possible.</p>
@@ -1535,21 +1446,21 @@ hyperlink targets</a> are also possible.</p>
 refer to the <a class="reference internal" href="#targets">Targets</a> section.</p>
 <p>Here’s a <a href="#id87"><span class="problematic" id="id88">`hyperlink reference without a target`_</span></a>, which generates an
 error.</p>
-<div class="section" id="duplicate-target-names">
-<h4><a class="toc-backref" href="#id54">Duplicate Target Names</a><a class="headerlink" href="#duplicate-target-names" title="永久链接至标题">¶</a></h4>
+<section id="duplicate-target-names">
+<h4><a class="toc-backref" href="#id54">Duplicate Target Names</a><a class="headerlink" href="#duplicate-target-names" title="永久链接至标题"></a></h4>
 <p>Duplicate names in section headers or other implicit targets will
 generate “info” (level-1) system messages.  Duplicate names in
 explicit targets will generate “warning” (level-2) system messages.</p>
-</div>
-<div class="section" id="id17">
-<h4><a class="toc-backref" href="#id55">Duplicate Target Names</a><a class="headerlink" href="#id17" title="永久链接至标题">¶</a></h4>
+</section>
+<section id="id17">
+<h4><a class="toc-backref" href="#id55">Duplicate Target Names</a><a class="headerlink" href="#id17" title="永久链接至标题"></a></h4>
 <p>Since there are two “Duplicate Target Names” section headers, we
 cannot uniquely refer to either of them by name.  If we try to (like
 this: <a href="#id89"><span class="problematic" id="id90">`Duplicate Target Names`_</span></a>), an error is generated.</p>
-</div>
-</div>
-<div class="section" id="directives">
-<h3><a class="toc-backref" href="#id56">Directives 指令</a><a class="headerlink" href="#directives" title="永久链接至标题">¶</a></h3>
+</section>
+</section>
+<section id="directives">
+<h3><a class="toc-backref" href="#id56">Directives 指令</a><a class="headerlink" href="#directives" title="永久链接至标题"></a></h3>
 <div class="contents local topic" id="id18">
 <ul class="simple">
 <li><p><a class="reference internal" href="#document-parts" id="id75">Document Parts</a></p></li>
@@ -1564,19 +1475,20 @@ this: <a href="#id89"><span class="problematic" id="id90">`Duplicate Target Name
 <p>These are just a sample of the many reStructuredText Directives.  For
 others, please see
 <a class="reference external" href="http://docutils.sourceforge.net/docs/ref/rst/directives.html">http://docutils.sourceforge.net/docs/ref/rst/directives.html</a>.</p>
-<div class="section" id="document-parts">
-<h4><a class="toc-backref" href="#id75">Document Parts</a><a class="headerlink" href="#document-parts" title="永久链接至标题">¶</a></h4>
+<section id="document-parts">
+<h4><a class="toc-backref" href="#id75">Document Parts</a><a class="headerlink" href="#document-parts" title="永久链接至标题"></a></h4>
 <p>An example of the “contents” directive can be seen above this section
 (a local, untitled table of <a href="#id91"><span class="problematic" id="id92">contents_</span></a>) and at the beginning of the
 document (a document-wide <a class="reference internal" href="#table-of-contents">table of contents</a>).</p>
-</div>
-<div class="section" id="images">
-<h4><a class="toc-backref" href="#id76">Images 图片</a><a class="headerlink" href="#images" title="永久链接至标题">¶</a></h4>
+</section>
+<section id="images">
+<h4><a class="toc-backref" href="#id76">Images 图片</a><a class="headerlink" href="#images" title="永久链接至标题"></a></h4>
 <p>An image directive (also clickable – a hyperlink reference):</p>
 <a href="#id93"><span class="problematic" id="id94"></span></a><p>A figure directive:</p>
-<div class="figure align-default" id="id24">
+<figure class="align-default" id="id24">
 <img alt="reStructuredText, the markup syntax" src="../_images/title.png" />
-<p class="caption"><span class="caption-text">A figure is an image with a caption and/or a legend:</span><a class="headerlink" href="#id24" title="永久链接至图片">¶</a></p>
+<figcaption>
+<p><span class="caption-text">A figure is an image with a caption and/or a legend:</span><a class="headerlink" href="#id24" title="永久链接至图片"></a></p>
 <div class="legend">
 <table class="docutils align-default">
 <colgroup>
@@ -1597,16 +1509,17 @@ document (a document-wide <a class="reference internal" href="#table-of-contents
 </table>
 <p>This paragraph is also part of the legend.</p>
 </div>
-</div>
-</div>
-<div class="section" id="admonitions">
-<h4><a class="toc-backref" href="#id77">Admonitions 忠告</a><a class="headerlink" href="#admonitions" title="永久链接至标题">¶</a></h4>
+</figcaption>
+</figure>
+</section>
+<section id="admonitions">
+<h4><a class="toc-backref" href="#id77">Admonitions 忠告</a><a class="headerlink" href="#admonitions" title="永久链接至标题"></a></h4>
 <div class="admonition attention">
 <p class="admonition-title">注意</p>
 <p>Directives at large.</p>
 </div>
 <div class="admonition caution">
-<p class="admonition-title">警告</p>
+<p class="admonition-title">小心</p>
 <p>Don’t take any wooden nickels.</p>
 </div>
 <div class="admonition danger">
@@ -1647,10 +1560,10 @@ Reader discretion is strongly advised.</p>
 <p class="admonition-title">And, by the way…</p>
 <p>You can make up your own admonition too.</p>
 </div>
-</div>
-<div class="section" id="topics-sidebars-and-rubrics">
-<h4><a class="toc-backref" href="#id78">Topics, Sidebars, and Rubrics</a><a class="headerlink" href="#topics-sidebars-and-rubrics" title="永久链接至标题">¶</a></h4>
-<div class="sidebar">
+</section>
+<section id="topics-sidebars-and-rubrics">
+<h4><a class="toc-backref" href="#id78">Topics, Sidebars, and Rubrics</a><a class="headerlink" href="#topics-sidebars-and-rubrics" title="永久链接至标题"></a></h4>
+<aside class="sidebar">
 <p class="sidebar-title">Sidebar Title</p>
 <p class="sidebar-subtitle">Optional Subtitle</p>
 <p>This is a sidebar.  It is for text outside the flow of the main
@@ -1658,27 +1571,27 @@ text.</p>
 <p class="rubric">This is a rubric inside a sidebar</p>
 <p>Sidebars often appears beside the main text with a border and
 background color.</p>
-</div>
+</aside>
 <div class="topic">
 <p class="topic-title">Topic Title</p>
 <p>This is a topic.</p>
 </div>
 <p class="rubric">This is a rubric</p>
-</div>
-<div class="section" id="target-footnotes">
-<h4><a class="toc-backref" href="#id79">Target Footnotes</a><a class="headerlink" href="#target-footnotes" title="永久链接至标题">¶</a></h4>
+</section>
+<section id="target-footnotes">
+<h4><a class="toc-backref" href="#id79">Target Footnotes</a><a class="headerlink" href="#target-footnotes" title="永久链接至标题"></a></h4>
 <dl class="footnote brackets">
 <dt class="label" id="id29"><span class="brackets">5</span><span class="fn-backref">(<a href="#id30">1</a>,<a href="#id31">2</a>,<a href="#id32">3</a>)</span></dt>
 <dd><p><a class="reference external" href="http://www.python.org/">http://www.python.org/</a></p>
 </dd>
 </dl>
-</div>
-<div class="section" id="replacement-text">
-<h4><a class="toc-backref" href="#id80">Replacement Text 文本替换</a><a class="headerlink" href="#replacement-text" title="永久链接至标题">¶</a></h4>
+</section>
+<section id="replacement-text">
+<h4><a class="toc-backref" href="#id80">Replacement Text 文本替换</a><a class="headerlink" href="#replacement-text" title="永久链接至标题"></a></h4>
 <p>I recommend you try <a class="reference external" href="http://www.python.org/">Python, <em>the</em> best language around</a> <a class="footnote-reference brackets" href="#id29" id="id32">5</a>.</p>
-</div>
-<div class="section" id="compound-paragraph">
-<h4><a class="toc-backref" href="#id81">Compound Paragraph 复合段落</a><a class="headerlink" href="#compound-paragraph" title="永久链接至标题">¶</a></h4>
+</section>
+<section id="compound-paragraph">
+<h4><a class="toc-backref" href="#id81">Compound Paragraph 复合段落</a><a class="headerlink" href="#compound-paragraph" title="永久链接至标题"></a></h4>
 <div class="compound">
 <p class="compound-first">This paragraph contains a literal block:</p>
 <div class="compound-middle highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Connecting</span><span class="o">...</span> <span class="n">OK</span>
@@ -1692,43 +1605,41 @@ paragraph.</p>
 </div>
 <p>This construct is called a <em>compound paragraph</em> and can be produced
 with the “compound” directive.</p>
-</div>
-</div>
-<div class="section" id="substitution-definitions">
-<h3><a class="toc-backref" href="#id64">Substitution Definitions 替代定义</a><a class="headerlink" href="#substitution-definitions" title="永久链接至标题">¶</a></h3>
+</section>
+</section>
+<section id="substitution-definitions">
+<h3><a class="toc-backref" href="#id64">Substitution Definitions 替代定义</a><a class="headerlink" href="#substitution-definitions" title="永久链接至标题"></a></h3>
 <p>An inline image (<img alt="EXAMPLE" src="../_images/biohazard.png" />) example:</p>
 <p>(Substitution definitions are not visible in the HTML source.)</p>
-</div>
-<div class="section" id="comments">
-<h3><a class="toc-backref" href="#id65">Comments 注释</a><a class="headerlink" href="#comments" title="永久链接至标题">¶</a></h3>
+</section>
+<section id="comments">
+<h3><a class="toc-backref" href="#id65">Comments 注释</a><a class="headerlink" href="#comments" title="永久链接至标题"></a></h3>
 <p>Here’s one:</p>
 <p>(View the HTML source to see the comment.)</p>
-</div>
-<div class="section" id="code">
-<h3><a class="toc-backref" href="#id66">Code 代码</a><a class="headerlink" href="#code" title="永久链接至标题">¶</a></h3>
-<div class="section" id="id19">
-<h4><a class="toc-backref" href="#id67">各种语言的代码插入</a><a class="headerlink" href="#id19" title="永久链接至标题">¶</a></h4>
-<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
-2</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;dfddf&quot;</span><span class="p">)</span>
+</section>
+<section id="code">
+<h3><a class="toc-backref" href="#id66">Code 代码</a><a class="headerlink" href="#code" title="永久链接至标题"></a></h3>
+<section id="id19">
+<h4><a class="toc-backref" href="#id67">各种语言的代码插入</a><a class="headerlink" href="#id19" title="永久链接至标题"></a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="linenos">2</span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;dfddf&quot;</span><span class="p">)</span>
 </pre></div>
-</td></tr></table></div>
+</div>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span> <span class="s2">&quot;dfsdfs&quot;</span>
 cat xxxx
 </pre></div>
 </div>
-</div>
-<div class="section" id="show-line-numbers">
-<h4><a class="toc-backref" href="#id68">Show Line Numbers 显示行号</a><a class="headerlink" href="#show-line-numbers" title="永久链接至标题">¶</a></h4>
+</section>
+<section id="show-line-numbers">
+<h4><a class="toc-backref" href="#id68">Show Line Numbers 显示行号</a><a class="headerlink" href="#show-line-numbers" title="永久链接至标题"></a></h4>
 <p>You can add line numbers to code examples with the :linenos: parameter.</p>
-<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
-2</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;dfddf&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="linenos">2</span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;dfddf&quot;</span><span class="p">)</span>
 </pre></div>
-</td></tr></table></div>
 </div>
-<div class="section" id="highlight-lines">
-<h4><a class="toc-backref" href="#id69">Highlight Lines</a><a class="headerlink" href="#highlight-lines" title="永久链接至标题">¶</a></h4>
+</section>
+<section id="highlight-lines">
+<h4><a class="toc-backref" href="#id69">Highlight Lines</a><a class="headerlink" href="#highlight-lines" title="永久链接至标题"></a></h4>
 <p>You can have certain lines in an example highlighted line numbers to code examples with the :emphasize-lines: parameter.
 In the following example, line 2 (with the :emphasize-lines: directive) is highlighted.</p>
 <div class="highlight-rst notranslate"><div class="highlight"><pre><span></span>\.. code-block:: javascript
@@ -1737,55 +1648,63 @@ In the following example, line 2 (with the :emphasize-lines: directive) is highl
 code . . .
 </pre></div>
 </div>
-</div>
-<div class="section" id="id20">
-<h4><a class="toc-backref" href="#id70">插入独立代码文件</a><a class="headerlink" href="#id20" title="永久链接至标题">¶</a></h4>
+</section>
+<section id="id20">
+<h4><a class="toc-backref" href="#id70">插入独立代码文件</a><a class="headerlink" href="#id20" title="永久链接至标题"></a></h4>
 <p>如下指令
 .. code-block:: rst</p>
 <blockquote>
 <div><p>.. literalinclude:: configuration.json
 :language: JSON</p>
 </div></blockquote>
-</div>
-</div>
-<div class="section" id="math">
-<h3><a class="toc-backref" href="#id71">Math 数据公式</a><a class="headerlink" href="#math" title="永久链接至标题">¶</a></h3>
-<div class="section" id="id21">
-<h4><a class="toc-backref" href="#id72">行内公式</a><a class="headerlink" href="#id21" title="永久链接至标题">¶</a></h4>
+</section>
+</section>
+<section id="math">
+<h3><a class="toc-backref" href="#id71">Math 数据公式</a><a class="headerlink" href="#math" title="永久链接至标题"></a></h3>
+<section id="id21">
+<h4><a class="toc-backref" href="#id72">行内公式</a><a class="headerlink" href="#id21" title="永久链接至标题"></a></h4>
 <p>上式中， <span class="math notranslate nohighlight">\(g(\pmb{\theta})\)</span> 是 <span class="math notranslate nohighlight">\(\pmb{\theta}\)</span> 的概率密度（质量）函数，公式第2行，乘以一个 <span class="math notranslate nohighlight">\(g(\pmb{\theta})\)</span> ，
 然后再除以一个 <span class="math notranslate nohighlight">\(g(\pmb{\theta})\)</span> 等式不变。 <span class="math notranslate nohighlight">\(\sum_{\theta \in \Theta} g(\pmb{\theta})\)</span> 相当于对后面的
 部分 <span class="math notranslate nohighlight">\(\frac{L(\mathbf{Y},\pmb{\theta}|\pmb{\omega})}{g(\pmb{\theta})}\)</span> 求期望，这样结合Jensen不等式得出第三行。</p>
-</div>
-<div class="section" id="id22">
-<h4><a class="toc-backref" href="#id73">段落公式</a><a class="headerlink" href="#id22" title="永久链接至标题">¶</a></h4>
+</section>
+<section id="id22">
+<h4><a class="toc-backref" href="#id73">段落公式</a><a class="headerlink" href="#id22" title="永久链接至标题"></a></h4>
 <p>IRT 公式</p>
 <div class="math notranslate nohighlight" id="equation-rst-tutorial-rst-demo-0">
-<span class="eqno">()<a class="headerlink" href="#equation-rst-tutorial-rst-demo-0" title="公式的永久链接">¶</a></span>\[P(\theta) = c + \frac{(1-c)}{1+e^{-Da(\theta-b)}}\]</div>
+<span class="eqno">()<a class="headerlink" href="#equation-rst-tutorial-rst-demo-0" title="公式的永久链接"></a></span>\[P(\theta) = c + \frac{(1-c)}{1+e^{-Da(\theta-b)}}\]</div>
 <p>复杂公式</p>
 <div class="math notranslate nohighlight" id="equation-rst-tutorial-rst-demo-1">
-<span class="eqno">()<a class="headerlink" href="#equation-rst-tutorial-rst-demo-1" title="公式的永久链接">¶</a></span>\[lnL(\mathbf{Y}|\pmb{\omega}) = \ ln  \sum_{\pmb{\theta} \in \Theta} L(\mathbf{Y},\pmb{\theta}|\pmb{\omega})
+<span class="eqno">()<a class="headerlink" href="#equation-rst-tutorial-rst-demo-1" title="公式的永久链接"></a></span>\[lnL(\mathbf{Y}|\pmb{\omega}) = \ ln  \sum_{\pmb{\theta} \in \Theta} L(\mathbf{Y},\pmb{\theta}|\pmb{\omega})
 \Leftrightarrow  \sum_{\pmb{\theta} \in \Theta} g(\pmb{\theta} | \mathbf{Y},\pmb{\omega})
 ln \frac{L(\mathbf{Y},\pmb{\theta}|\pmb{\omega})}{g(\pmb{\theta}|\mathbf{Y},\pmb{\omega})}
 \tag{6}\]</div>
-</div>
-</div>
-</div>
-<div class="section" id="error-handling">
-<h2><a class="toc-backref" href="#id74">Error Handling</a><a class="headerlink" href="#error-handling" title="永久链接至标题">¶</a></h2>
+</section>
+</section>
+</section>
+<section id="error-handling">
+<h2><a class="toc-backref" href="#id74">Error Handling</a><a class="headerlink" href="#error-handling" title="永久链接至标题"></a></h2>
 <p>Any errors caught during processing will generate system messages.</p>
 <p><a href="#id27"><span class="problematic" id="id28">|*** Expect 6 errors (including this one). ***|</span></a></p>
 <p>There should be six messages in the following, auto-generated
 section, “Docutils System Messages”:</p>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
-           
           </div>
           <footer>
 
   <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2018, zhangzhenhu(acmtiger@outlook.com) 禁止一切形式的转载！.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
+  
 
 
     <script src="https://utteranc.es/client.js"
@@ -1798,42 +1717,16 @@ section, “Docutils System Messages”:</p>
 
 
 
-  <div role="contentinfo">
-    <p>
-        &#169; 版权所有 2018, zhangzhenhu(acmtiger@outlook.com) 禁止一切形式的转载！.
-
-    </p>
-  </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-
-
-
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>
