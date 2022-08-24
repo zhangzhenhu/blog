@@ -1195,7 +1195,7 @@ p(x_{j,n}|y_n=1;\mu_{j1},\sigma_j)^{y_n}  p(x_{j,n}|y_n=0;\mu_{j0},\sigma_j)^{1-
 <span class="eqno">()<a class="headerlink" href="#equation-glm-source-content-18" title="公式的永久链接"></a></span>\[\hat{\theta}_{j,ML} = \mathop{\arg \max}_{\theta_j} \sum_{n=1}^N y_n \log p(x_{j,n}|y_n=1;\mu_{j1},\sigma_j)
 + \sum_{n=1}^N (1-y_n)p(x_{j,n}|y_n=0;\mu_{j0},\sigma_j)\]</div>
 <p>这个公式又是分为两项，每个类别是一项，其中 <span class="math notranslate nohighlight">\(\mu_{j1}\)</span> 只和第一项有关，
-参考 <a class="reference internal" href="../%E6%9C%80%E5%A4%A7%E4%BC%BC%E7%84%B6%E4%BC%B0%E8%AE%A1/content.html#ch-2-gaussian-ml"><span class="std std-numref">节 2.4</span></a> 讲过的
+参考 <a class="reference internal" href="../../../probability_model/2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#ch-2-gaussian-ml"><span class="std std-numref">节 2.1.3</span></a> 讲过的
 高斯分布的最大似然估计，我们去掉常数项。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-19">
 <span class="eqno">()<a class="headerlink" href="#equation-glm-source-content-19" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\hat{\mu}_{j1,ML} &amp;= \mathop{\arg \max}_{\theta_j}

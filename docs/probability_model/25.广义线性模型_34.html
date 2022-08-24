@@ -1591,7 +1591,7 @@ GLM框架下的模型都可以以统计的形式运用IRLS算法进行参数估�
 <p>似然函数可以理解为：</p>
 <div class="math notranslate nohighlight" id="equation-eq-34-22">
 <span class="eqno">(19.2.16)<a class="headerlink" href="#equation-eq-34-22" title="公式的永久链接"></a></span>\[L(\theta,\phi;y)=\prod_{n=1}^N f(\theta,\phi;y_n)\]</div>
-<p><code class="xref eq docutils literal notranslate"><span class="pre">eq_34_21</span></code> 和 <code class="xref eq docutils literal notranslate"><span class="pre">eq_34_22</span></code> 的区别在于，
+<p><a class="reference internal" href="#equation-eq-34-21">公式(19.2.15)</a> 和 <a class="reference internal" href="#equation-eq-34-22">公式(19.2.16)</a> 的区别在于，
 前者是一个概率密度(质量)函数，其是在给定 <span class="math notranslate nohighlight">\(\theta,\phi\)</span> 的条件下关于未知量 <span class="math notranslate nohighlight">\(y\)</span> 的函数；
 后者是一个似然函数，其表达是在给定数据 <span class="math notranslate nohighlight">\(y\)</span> 的条件下关于未知参数 <span class="math notranslate nohighlight">\(\theta,\phi\)</span> 的函数。</p>
 <p>因为联合似然函数是一个函数的连乘形式，所以通常我们会对其进行一个对数转换(log-transform)进而得到一个连加的形式，
@@ -1704,13 +1704,13 @@ GLM框架下的模型都可以以统计的形式运用IRLS算法进行参数估�
 <div class="math notranslate nohighlight" id="equation-eq-34-31">
 <span class="eqno">(19.2.30)<a class="headerlink" href="#equation-eq-34-31" title="公式的永久链接"></a></span>\[\beta^{(t+1)} = \beta^t - \frac{constant}{\ell'(\beta^t)}\]</div>
 <p>通常我们把一阶导 <span class="math notranslate nohighlight">\(\ell'(\beta^t)\)</span> 称为梯度(gradient)，
-<code class="xref eq docutils literal notranslate"><span class="pre">eq_34_31</span></code> 说明只要 <span class="math notranslate nohighlight">\(\beta^{(t+1)}\)</span> 沿着 <span class="math notranslate nohighlight">\(\beta^t\)</span> 的负梯度方向进行移动，我们终将能达到极值点。
+<a class="reference internal" href="#equation-eq-34-31">公式(19.2.30)</a> 说明只要 <span class="math notranslate nohighlight">\(\beta^{(t+1)}\)</span> 沿着 <span class="math notranslate nohighlight">\(\beta^t\)</span> 的负梯度方向进行移动，我们终将能达到极值点。
 注意 <span class="math notranslate nohighlight">\(\frac{constant}{\ell'(\beta^t)}\)</span> <strong>的绝对值的大小影响着前进的速度，</strong>
 <strong>其方向(正负号)决定目标函数是否向着极大值点移动。</strong>
 所以和下面的公式是等价的，<span class="math notranslate nohighlight">\(\alpha\)</span> 称为学习率(learning rate)，是一个人工设置参数，控制的迭代的速度。</p>
 <div class="math notranslate nohighlight" id="equation-eq-34-32">
 <span class="eqno">(19.2.31)<a class="headerlink" href="#equation-eq-34-32" title="公式的永久链接"></a></span>\[\beta^{(t+1)} = \beta^t - \alpha \ell'(\beta^t)\]</div>
-<p>利用 <a class="reference internal" href="../glm/source/%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/estimate.html#equation-eq-34-32">公式(8.3.6)</a> 进行参数迭代求解的方法就称为梯度下降法，梯度下降法的核心就是让参数(自变量)沿着负梯度的方向前进。
+<p>利用 <a class="reference internal" href="#equation-eq-34-32">公式(19.2.31)</a> 进行参数迭代求解的方法就称为梯度下降法，梯度下降法的核心就是让参数(自变量)沿着负梯度的方向前进。
 虽然理论上最终一定能到达极值点，但是实际上会受到学习率参数 <span class="math notranslate nohighlight">\(\alpha\)</span> 的影响，
 学习率可以理解成每次迭代前进的步长(step size)，步长越大前进的越快，收敛性速度就越快；反之，步长越小，收敛越慢。
 但是步长如果大了，就会造成震荡现象，即一步迭代就越过了终点(极值点)，并且在极值点附近往返震荡，永远无法收敛。
@@ -1733,7 +1733,7 @@ GLM框架下的模型都可以以统计的形式运用IRLS算法进行参数估�
 \frac{1}{2}\ell''(\beta^t)(\beta^{(t+1)} - \beta^t)^2 + constant\]</div>
 <p>我们知道目标函数在极值点处的导数应该为0，
 所以如果 <span class="math notranslate nohighlight">\(\beta^{(t+1)}\)</span> 是极值点，那么有 <span class="math notranslate nohighlight">\(\ell'(\beta^{(t+1)})=0\)</span>
-。我们对 <a class="reference internal" href="../glm/source/%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/estimate.html#equation-eq-34-33">公式(8.4.1)</a> 进行求导，注意 <span class="math notranslate nohighlight">\(theta_t\)</span> 和 <span class="math notranslate nohighlight">\(\ell(\beta^t)\)</span> 都是已知常数量。</p>
+。我们对 <a class="reference internal" href="#equation-eq-34-33">公式(19.2.32)</a> 进行求导，注意 <span class="math notranslate nohighlight">\(theta_t\)</span> 和 <span class="math notranslate nohighlight">\(\ell(\beta^t)\)</span> 都是已知常数量。</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-25-34-27">
 <span class="eqno">(19.2.33)<a class="headerlink" href="#equation-probability-model-25-34-27" title="公式的永久链接"></a></span>\[\ell'(\beta^{(t+1)})= \ell'(\beta^t) + \ell''(\beta^t)(\beta^{(t+1)}-\beta^t)=0\]</div>
 <p>通过移项可得：</p>
@@ -1743,7 +1743,7 @@ GLM框架下的模型都可以以统计的形式运用IRLS算法进行参数估�
 通常被称为海森矩阵(Hessian matrix)，常用符号 <span class="math notranslate nohighlight">\(H\)</span> 表示。</p>
 <div class="math notranslate nohighlight" id="equation-eq-34-35">
 <span class="eqno">(19.2.35)<a class="headerlink" href="#equation-eq-34-35" title="公式的永久链接"></a></span>\[ \beta^{(t+1)} = \beta^t - H(\beta^{(t)})^{-1} \ell'(\beta^t)\]</div>
-<p>和梯度下降法的 <a class="reference internal" href="../glm/source/%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B/estimate.html#equation-eq-34-32">公式(8.3.6)</a> 对比下发现，两者非常相似，不同的是牛顿法用Hessian矩阵的逆矩阵 <span class="math notranslate nohighlight">\(H(\beta^{(t)})^{-1}\)</span>
+<p>和梯度下降法的 <a class="reference internal" href="#equation-eq-34-32">公式(19.2.31)</a> 对比下发现，两者非常相似，不同的是牛顿法用Hessian矩阵的逆矩阵 <span class="math notranslate nohighlight">\(H(\beta^{(t)})^{-1}\)</span>
 替代了学习率参数，避免了需要人工设置学习率的问题。相比梯度下降法，牛顿法收敛速度更快，并且也没有震荡无法收敛的问题。
 <span class="math notranslate nohighlight">\(H(\beta^{(t)})\)</span> 是对数似然函数的二阶导数，可以在一阶导 <a class="reference internal" href="#equation-eq-34-jac">公式(19.2.25)</a> 的基础上再进行一次偏导得到。</p>
 <div class="math notranslate nohighlight" id="equation-eq-34-36">
@@ -1773,7 +1773,7 @@ GLM框架下的模型都可以以统计的形式运用IRLS算法进行参数估�
             - \frac{1}{\nu(\mu_n)}  \left ( \frac{\partial^2 \mu}{\partial \eta^2} \right )_n
         \right \}
 \right ] x_{jn}x_{kn}\end{aligned}\end{align} \]</div>
-<p>有了一阶导数和二阶导数(Hessian matrix)，就可以按照 <code class="xref eq docutils literal notranslate"><span class="pre">eq_34_35</span></code>
+<p>有了一阶导数和二阶导数(Hessian matrix)，就可以按照 <a class="reference internal" href="#equation-eq-34-35">公式(19.2.35)</a>
 迭代的更新参数值，直到算法收敛，最终得到参数的最大似然估计值。
 完成优化后，必须为参数 <span class="math notranslate nohighlight">\(\beta\)</span> 估计值估计一个合适的方差矩阵。
 一个明显而合适的选择是基于估计的观测到的海森矩阵。
@@ -1790,7 +1790,7 @@ GLM框架下的模型都可以以统计的形式运用IRLS算法进行参数估�
 ，的估计，一些 Newton–Raphson 的扩展算法可以提供分散参数的ML估计。</p>
 <p>然而，Newton–Raphson 方法存在两大缺点：</p>
 <ol class="arabic simple">
-<li><p>Hessian matrix 的计算复杂度非常高，<code class="xref eq docutils literal notranslate"><span class="pre">eq_34_36</span></code> 。</p></li>
+<li><p>Hessian matrix 的计算复杂度非常高，<a class="reference internal" href="#equation-eq-34-36">公式(19.2.36)</a> 。</p></li>
 <li><p>Hessian matrix 并不是一定存在逆矩阵的，当不存在逆矩阵时，算法无法执行。</p></li>
 </ol>
 <p>由于这两个缺陷的存在，在实际应用中是很少直接使用 Newton–Raphson 法的，
@@ -1818,7 +1818,7 @@ GLM框架下的模型都可以以统计的形式运用IRLS算法进行参数估�
 比如如果是逻辑回归模型，则有：</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-25-34-30">
 <span class="eqno">(19.2.40)<a class="headerlink" href="#equation-probability-model-25-34-30" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}a(\phi) &amp;= 1\\\nu(\mu) &amp;= \mu(1-\mu)\\\mu &amp;= \text{sigmoid}(\eta_n) = \text{sigmoid}(\beta_0)\\\frac{\partial \mu}{\partial \eta} &amp;= \frac{\partial }{\partial \eta} \text{sigmoid} (\eta) = \mu(1-\mu)\end{aligned}\end{align} \]</div>
-<p>代入到 <code class="xref eq docutils literal notranslate"><span class="pre">eq_34_37</span></code> 可得：</p>
+<p>代入到 <a class="reference internal" href="#equation-eq-34-37">公式(19.2.39)</a> 可得：</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-25-34-31">
 <span class="eqno">(19.2.41)<a class="headerlink" href="#equation-probability-model-25-34-31" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\sum_{n=1}^N \frac{(y_n- \mu_n ) }{\mu_n(1-\mu_n)} \mu_n(1-\mu_n) &amp;= 0\\ &amp;\Downarrow\\\sum_{n=1}^N (y_n- \mu_n) &amp;=0\\ &amp;\Downarrow\\\sum_{n=1}^N (y_n- \frac{1}{1+e^{-\beta_0}}) &amp;=0\\ &amp;\Downarrow\\ \underbrace{\frac{1}{N}\sum_{n=1}^N y_n}_{\text{均值}\bar{y}} &amp;=  \frac{1}{1+e^{-\beta_0}}\\
 &amp;\Downarrow{\text{sigmoid反函数求解}}\\\hat{\beta}_0 &amp;= \ln \left (  \frac{\bar{y}}{1-\bar{y}}   \right )\end{aligned}\end{align} \]</div>
@@ -1837,24 +1837,24 @@ GLM框架下的模型都可以以统计的形式运用IRLS算法进行参数估�
 <div class="math notranslate nohighlight" id="equation-probability-model-25-34-32">
 <span class="eqno">(19.2.42)<a class="headerlink" href="#equation-probability-model-25-34-32" title="公式的永久链接"></a></span>\[\beta^{(t+1)} = \beta^t - H(\beta^{(t)})^{-1} \ell'(\beta^t)\]</div>
 <p>其中 <span class="math notranslate nohighlight">\(H(\beta^{(t)})\)</span> 是对数似然函数的二阶偏导数，
-GLM的对数似然函数的二阶偏导数如 <code class="xref eq docutils literal notranslate"><span class="pre">eq_34_36</span></code> 所示，
+GLM的对数似然函数的二阶偏导数如 <a class="reference internal" href="#equation-eq-34-36">公式(19.2.36)</a> 所示，
 显然其计算成本是高昂的，即使计算出来还面临着求逆矩阵的难题。
 那么是不是可以找到 <span class="math notranslate nohighlight">\(H(\beta^{(t)})^{-1}\)</span> 的一个近似替代值呢。
-我们在 <code class="xref std std-numref docutils literal notranslate"><span class="pre">ch_2_Fisher_Information</span></code> 已经讲过 Fisher information
+我们在 <a class="reference internal" href="2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#ch-2-fisher-information"><span class="std std-numref">节 2.6</span></a> 已经讲过 Fisher information
 的定义，我们知道信息矩阵(information matrix)就等于海森矩阵(Hessian matrix)的期望的负数。</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-25-34-33">
 <span class="eqno">(19.2.43)<a class="headerlink" href="#equation-probability-model-25-34-33" title="公式的永久链接"></a></span>\[I(\beta) = - \mathop{\mathbb{E}}_{p(\mathcal{D} ; \beta)}[H(\beta^{(t)})]\]</div>
 <p>我们可以用 <span class="math notranslate nohighlight">\(I(\beta)\)</span> 代替 <span class="math notranslate nohighlight">\(-H(\beta^{(t)})\)</span>
-，回顾一下 <code class="xref std std-numref docutils literal notranslate"><span class="pre">ch_2_Fisher_Information</span></code> 的内容，
+，回顾一下 <a class="reference internal" href="2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#ch-2-fisher-information"><span class="std std-numref">节 2.6</span></a> 的内容，
 信息矩阵 <span class="math notranslate nohighlight">\(I(\beta)\)</span> 就是 Score function (对数似然函数的一阶导数) 的方差，
-当然我们也可以直接对 <code class="xref eq docutils literal notranslate"><span class="pre">eq_34_36</span></code> 的求期望得到，结果是一样的。</p>
+当然我们也可以直接对 <a class="reference internal" href="#equation-eq-34-36">公式(19.2.36)</a> 的求期望得到，结果是一样的。</p>
 <div class="math notranslate nohighlight" id="equation-eq-34-44">
 <span class="eqno">(19.2.44)<a class="headerlink" href="#equation-eq-34-44" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}I(\beta) = - \mathbb{E}[H(\beta^{(t)})] &amp;= \mathbb{E}[S(\beta)S(\beta)^T]\\&amp;= \mathbb{E}[ \frac{ \partial \ell}{\partial \beta_j} \cdot \frac{ \partial \ell}{\partial \beta_k}   ]\\&amp;= \mathbb{E} \left [
 \sum_{n=1}^N \frac{y_n-\mu_n}{a(\phi) \nu(\mu_n) } \left ( \frac{\partial \mu}{\partial \eta} \right )_n x_{jn}
 \cdot
 \sum_{n=1}^N \frac{y_n-\mu_n}{a(\phi) \nu(\mu_n) } \left ( \frac{\partial \mu}{\partial \eta} \right )_n x_{kn}
 \right ]\\&amp;= \sum_{n=1}^N \left ( \frac{\partial \mu}{\partial \eta} \right )^2_n  \frac{ 1}{ a(\phi) \nu(\mu_n) }   x_{jn} x_{kn}\end{aligned}\end{align} \]</div>
-<p>现在我们把 <code class="xref eq docutils literal notranslate"><span class="pre">eq_34_35</span></code> 稍微变换一下，并且我们用 <span class="math notranslate nohighlight">\(I(\beta^{(t)})\)</span> 替换
+<p>现在我们把 <a class="reference internal" href="#equation-eq-34-35">公式(19.2.35)</a> 稍微变换一下，并且我们用 <span class="math notranslate nohighlight">\(I(\beta^{(t)})\)</span> 替换
 <span class="math notranslate nohighlight">\(- H(\beta^{(t)})\)</span> 。</p>
 <div class="math notranslate nohighlight" id="equation-eq-34-45">
 <span class="eqno">(19.2.45)<a class="headerlink" href="#equation-eq-34-45" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}   \Delta \beta^{(t)} = \beta^{(t+1)} - \beta^{(t)} &amp;=  - H(\beta^{(t)})^{-1} \ell'(\beta^{(t)})\\ &amp; \Downarrow{\text{移项}}\\  - H(\beta^{(t)})  \Delta \beta^{(t)} &amp;= \ell'(\beta^{(t)})\\ &amp; \Downarrow{\text{Hessian的期望}}\\- \mathbb{E}[H(\beta^{(t)})] \Delta \beta^{(t)} &amp;= \ell'(\beta^{(t)})\\&amp; \Downarrow{\text{信息矩阵}}\\I(\beta^{(t)})\Delta \beta^{(t)} &amp;= \ell'(\beta^{(t)})\end{aligned}\end{align} \]</div>
@@ -1929,7 +1929,7 @@ IRLS和牛顿法的区别就是，使用的 Hessian 矩阵的期望矩阵(expect
 原来的 Hessian 矩阵是在观测样的基础上计算的，所以称为 observed Hessian
 ，对其在观测样本变量上求期望就得到了 expected Hessian 。</p>
 <p><strong>迭代初始值的设定</strong></p>
-<p>对比下 Newton–Raphson 算法的参数迭代公式( <code class="xref eq docutils literal notranslate"><span class="pre">eq_34_35</span></code> )
+<p>对比下 Newton–Raphson 算法的参数迭代公式( <a class="reference internal" href="#equation-eq-34-35">公式(19.2.35)</a> )
 和IRLS算法的参数迭代公式( <a class="reference internal" href="#equation-eq-34-49-1">公式(19.2.52)</a> )，
 可以发现IRLS算法并不需要直接在 <span class="math notranslate nohighlight">\(\beta^{(t)}\)</span> 的基础上进行参数迭代，
 IRLS算法的参数迭代仅仅依赖 <span class="math notranslate nohighlight">\(\mu\)</span> 和 <span class="math notranslate nohighlight">\(\eta\)</span>
@@ -1949,7 +1949,7 @@ IRLS算法的参数迭代仅仅依赖 <span class="math notranslate nohighlight"
 <div class="math notranslate nohighlight" id="equation-probability-model-25-34-37">
 <span class="eqno">(19.2.54)<a class="headerlink" href="#equation-probability-model-25-34-37" title="公式的永久链接"></a></span>\[\left|\frac{D(y-\mu^{new})-D(y,\mu^{old})   }{D(y,\mu^{old})} \right| &lt;\epsilon\]</div>
 <p><strong>估计量的标准误差</strong></p>
-<p>回顾一下在 <code class="xref std std-numref docutils literal notranslate"><span class="pre">ch_2_MLE_estimator</span></code> 我们讲的最大似然估计量的评价，
+<p>回顾一下在 <a class="reference internal" href="2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#ch-2-mle-estimator"><span class="std std-numref">节 2.7.3</span></a> 我们讲的最大似然估计量的评价，
 我们知道最大似然估计量的协方差矩阵就是 <span class="math notranslate nohighlight">\(I(\beta)^{-1}\)</span>
 ，显然在IRLS算法过程中已经计算出了 <span class="math notranslate nohighlight">\(I(\beta)^{-1}=- \mathbb{E}[H(\beta)]=(X^TW^{(t)} X)^{-1}\)</span>
 ，所以使用IRLS我们可以很方便的得到估计量的标准误差。</p>

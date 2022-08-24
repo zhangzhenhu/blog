@@ -1026,7 +1026,7 @@
 这就相当于从总体正态分布中取得一个独立同分布的采样。
 现在我们要利用这个样本估计出总体的期望参数 <span class="math notranslate nohighlight">\(\mu\)</span> 和方差参数 <span class="math notranslate nohighlight">\(\sigma^2\)</span>
 。</p>
-<p>显然我们可以应用最大似然估计得到参数的估计值，这里我们直接使用 <a class="reference internal" href="../%E6%9C%80%E5%A4%A7%E4%BC%BC%E7%84%B6%E4%BC%B0%E8%AE%A1/content.html#ch-2-gaussian-ml"><span class="std std-numref">节 2.4</span></a> 的结论，
+<p>显然我们可以应用最大似然估计得到参数的估计值，这里我们直接使用 <a class="reference internal" href="../../../probability_model/2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#ch-2-gaussian-ml"><span class="std std-numref">节 2.1.3</span></a> 的结论，
 期望参数 <span class="math notranslate nohighlight">\(\mu\)</span> 和方差参数 <span class="math notranslate nohighlight">\(\sigma^2\)</span> 的最大似然估计量分别是</p>
 <div class="math notranslate nohighlight" id="equation-eq-estimator-eval-014">
 <span class="eqno">(3.2.1)<a class="headerlink" href="#equation-eq-estimator-eval-014" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\hat{\mu} &amp;= \bar{X} = \frac{1}{N} \sum_{i=1}^N X_i\\\hat{\sigma}^2 &amp;= \frac{1}{N-1} \sum_{i=1}^N (X_i-\bar{X})^2\end{aligned}\end{align} \]</div>
@@ -1491,7 +1491,7 @@
 <span class="eqno">(3.4.6)<a class="headerlink" href="#equation-glm-source-content-50" title="公式的永久链接"></a></span>\[(\frac{\partial}{\partial \theta} \mathbb{E}[\hat{\theta}] )^2
 = ( \frac{\partial}{\partial \theta}  \theta)^2
 = 1\]</div>
-<p>因此 <strong>对于无偏估计量</strong>，<code class="xref eq docutils literal notranslate"><span class="pre">eq_2_50</span></code> 可以简化为：</p>
+<p>因此 <strong>对于无偏估计量</strong>，<a class="reference internal" href="../../../probability_model/2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#equation-eq-2-50">公式(2.7.20)</a> 可以简化为：</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-51">
 <span class="eqno">(3.4.7)<a class="headerlink" href="#equation-glm-source-content-51" title="公式的永久链接"></a></span>\[V(\hat{\theta}) \ge \frac{1}{I(\theta)}\]</div>
 <p><span class="math notranslate nohighlight">\(I(\theta)\)</span> 是费歇尔信息(Fisher-Information)矩阵。
@@ -1585,7 +1585,7 @@
 =\frac{\partial}{\partial \theta} 1
 =0\]</div>
 <p><span class="math notranslate nohighlight">\(S(\theta)\)</span> 关于样本变量的期望一定是等于0的，
-结合 <code class="xref eq docutils literal notranslate"><span class="pre">eq_2_33</span></code> 可以推导出 <span class="math notranslate nohighlight">\(S(\theta)\)</span> 的期望为：</p>
+结合 <a class="reference internal" href="../../../probability_model/2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#equation-eq-2-33">公式(2.6.4)</a> 可以推导出 <span class="math notranslate nohighlight">\(S(\theta)\)</span> 的期望为：</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-57">
 <span class="eqno">(3.4.15)<a class="headerlink" href="#equation-glm-source-content-57" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\mathop{\mathbb{E}}_{X} \left[ S(\theta) \right] &amp;= \mathop{\mathbb{E}}_{X} \left[ \nabla \ell(\theta;X) \right]\\&amp;= \int [\nabla \ell(\theta;X)] \, P(X ; \theta) \, \text{d}x\\&amp;= \int [\nabla \log P(X ; \theta)] \, P(X ; \theta) \, \text{d}x\\&amp;= \int \frac{\nabla P(X ; \theta)}{P(X ; \theta)} P(X ; \theta) \, \text{d} x\\&amp;= \int \nabla P(X ; \theta) \, \text{d} x\\&amp;= \nabla \int P(X; \theta) \, \text{d} x\\&amp;= \nabla 1\\&amp;= 0\end{aligned}\end{align} \]</div>
 <p><span class="math notranslate nohighlight">\(S(\theta)\)</span> 的二阶矩(second moment)，也就是其方差(Variance)，被称为 <code class="docutils literal notranslate"><span class="pre">Fisher</span> <span class="pre">information</span></code>，
@@ -1713,7 +1713,7 @@
 显然极大似然估计是一致性估计。
 由于似然估计是一致性估计，似然估计量是渐近收敛于参数真实值的，也就是估计量的偏差渐近为 <span class="math notranslate nohighlight">\(0\)</span>，
 因此可以得出似然估计量是 <strong>渐近无偏估计</strong> 。</p>
-<p>我们知道估计量的 <code class="docutils literal notranslate"><span class="pre">MSE</span></code> 是由偏差和方差组成的（ <code class="xref eq docutils literal notranslate"><span class="pre">eq_2_39</span></code> ），无偏性是对估计量的偏差的评价，
+<p>我们知道估计量的 <code class="docutils literal notranslate"><span class="pre">MSE</span></code> 是由偏差和方差组成的（ <a class="reference internal" href="../../../probability_model/2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#equation-eq-2-39">公式(2.7.2)</a> ），无偏性是对估计量的偏差的评价，
 而估计量的方差影响着估计值的稳定性，方差越小估计量就越稳定，
 并且最大似然估计量的方差符合 <code class="docutils literal notranslate"><span class="pre">CRLB</span></code> 的下界，就等于费歇尔信息的倒数，
 如果 <span class="math notranslate nohighlight">\(\theta\)</span> 是参数向量，估计量的方差为协方差矩阵，

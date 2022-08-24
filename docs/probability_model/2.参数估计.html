@@ -1055,7 +1055,7 @@
 0 &amp;, \ x \ne x_{m} ;
 \end{aligned}
 \right .\end{split}\]</div>
-<p><a class="reference internal" href="../glm/source/%E6%9C%80%E5%A4%A7%E4%BC%BC%E7%84%B6%E4%BC%B0%E8%AE%A1/content.html#equation-2-100-10">公式(2.3.1)</a> 的含义是，变量 <span class="math notranslate nohighlight">\(X\)</span> 取值为类别 <span class="math notranslate nohighlight">\(x_m\)</span> 的概率是 <span class="math notranslate nohighlight">\(\theta_m\)</span> ，
+<p><a class="reference internal" href="#equation-2-100-10">公式(2.1.21)</a> 的含义是，变量 <span class="math notranslate nohighlight">\(X\)</span> 取值为类别 <span class="math notranslate nohighlight">\(x_m\)</span> 的概率是 <span class="math notranslate nohighlight">\(\theta_m\)</span> ，
 即  <span class="math notranslate nohighlight">\(p(x_m)=\theta_m\)</span>
 。其中参数 <span class="math notranslate nohighlight">\(\theta\)</span> 需要满足约束：</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-2-14">
@@ -1219,7 +1219,7 @@
 <p>通过移项可以得到：</p>
 <div class="math notranslate nohighlight" id="equation-eq-2-14">
 <span class="eqno">(2.2.11)<a class="headerlink" href="#equation-eq-2-14" title="公式的永久链接"></a></span>\[ p(\theta|X) = \frac{p(\theta) p(X|\theta)}{p(X)}\]</div>
-<p><a class="reference internal" href="../glm/source/%E8%B4%9D%E5%8F%B6%E6%96%AF%E4%BC%B0%E8%AE%A1/content.html#equation-eq-2-14">公式(4.1.5)</a> 就是贝叶斯定理，贝叶斯定理的核心就是如下的转换:</p>
+<p><a class="reference internal" href="#equation-eq-2-14">公式(2.2.11)</a> 就是贝叶斯定理，贝叶斯定理的核心就是如下的转换:</p>
 <div class="math notranslate nohighlight" id="equation-eq-2-15">
 <span class="eqno">(2.2.12)<a class="headerlink" href="#equation-eq-2-15" title="公式的永久链接"></a></span>\[p(\text{因}|\text{果}) = \frac{p(\text{因})p(\text{果}|\text{因}) }{p(\text{果})}\]</div>
 <p>很多场景下，我们可以看到”果”，也就是我们有变量 <span class="math notranslate nohighlight">\(X\)</span>
@@ -1246,7 +1246,7 @@
 <dt><span class="math notranslate nohighlight">\(p'(\theta)\)</span> 表示的是在没有任何证据(观测样本集)时，经验上对 <span class="math notranslate nohighlight">\(\theta\)</span> 的认知，</dt><dd><p>称为先验概率分布(prior probability distribution)。
 先验一般是根据具体的应用场景凭借经验为之设定一个常见的概率分布，
 如果你对 <span class="math notranslate nohighlight">\(p(\theta)\)</span> 一无所知那可以设定为均匀分布。
-注意这里的 <span class="math notranslate nohighlight">\(p'(\theta)\)</span> 和 <a class="reference internal" href="../glm/source/%E8%B4%9D%E5%8F%B6%E6%96%AF%E4%BC%B0%E8%AE%A1/content.html#equation-eq-2-10">公式(4.1.2)</a> 中的 <span class="math notranslate nohighlight">\(p(\theta)\)</span> 虽然都表示参数变量的边缘概率，
+注意这里的 <span class="math notranslate nohighlight">\(p'(\theta)\)</span> 和 <a class="reference internal" href="#equation-eq-2-10">公式(2.2.8)</a> 中的 <span class="math notranslate nohighlight">\(p(\theta)\)</span> 虽然都表示参数变量的边缘概率，
 但它们是在贝叶斯估计中不同阶段的表示，所以这里我们加了一个上标”‘“进行区分，
 后面我们会说明。</p>
 </dd>
@@ -1274,12 +1274,12 @@
 <span class="eqno">(2.2.20)<a class="headerlink" href="#equation-eq-2-12" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\text{后验概率} &amp;= \frac{\text{似然(likelihood)} \times  \text{先验(prior)}}{\text{证据(evidence)}}\\&amp; \propto \text{似然} \times  \text{先验}\end{aligned}\end{align} \]</div>
 <p>我们可以用贝叶斯推断找到参数变量 <span class="math notranslate nohighlight">\(\theta\)</span> 的后验概率分布 <span class="math notranslate nohighlight">\(p(\theta|\mathcal{D})\)</span>
 ，然后把 <span class="math notranslate nohighlight">\(p(\theta|\mathcal{D})\)</span> 作为参数的”真实”概率分布，
-然后代入到 <a class="reference internal" href="../glm/source/%E8%B4%9D%E5%8F%B6%E6%96%AF%E4%BC%B0%E8%AE%A1/content.html#equation-eq-2-12">公式(4.1.3)</a> 中，
+然后代入到 <a class="reference internal" href="#equation-eq-2-12">公式(2.2.20)</a> 中，
 这样我们就确定了变量 <span class="math notranslate nohighlight">\(X\)</span> 和变量 <span class="math notranslate nohighlight">\(\theta\)</span>
 的联合概率分布，并且依此得到 <span class="math notranslate nohighlight">\(X\)</span> 的边缘概率分布：</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-2-32">
 <span class="eqno">(2.2.17)<a class="headerlink" href="#equation-probability-model-2-32" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}p(X) &amp;= \int p(X,\theta) d\theta\\    &amp;= \int p(\theta|\mathcal{D}) p(X|\theta) d \theta\end{aligned}\end{align} \]</div>
-<p>但是要利用 <a class="reference internal" href="../glm/source/%E8%B4%9D%E5%8F%B6%E6%96%AF%E4%BC%B0%E8%AE%A1/content.html#equation-eq-2-16">公式(4.1.7)</a> 推断出 <span class="math notranslate nohighlight">\(p(\theta|\mathcal{D})\)</span>
+<p>但是要利用 <a class="reference internal" href="#equation-eq-2-16">公式(2.2.13)</a> 推断出 <span class="math notranslate nohighlight">\(p(\theta|\mathcal{D})\)</span>
 还存在两个难点：</p>
 <ol class="arabic simple">
 <li><p>先验分布 <span class="math notranslate nohighlight">\(p'(\theta)\)</span> 如何确定。</p></li>
@@ -1310,15 +1310,15 @@
 稍后我们会举例说明。
 共轭先验也是有缺点的，<strong>其一是只有指数族分布才存在共轭先验，在下一章我们会详细讨论指数族。</strong>
 <strong>其二是，选取共轭先验更多是为了计算简单，而不是为了更精确的估计参数。</strong></p>
-<p>选取了合适的参数先验分布后，就可以利用贝叶斯推断 <a class="reference internal" href="../glm/source/%E8%B4%9D%E5%8F%B6%E6%96%AF%E4%BC%B0%E8%AE%A1/content.html#equation-eq-2-16">公式(4.1.7)</a>
+<p>选取了合适的参数先验分布后，就可以利用贝叶斯推断 <a class="reference internal" href="#equation-eq-2-16">公式(2.2.13)</a>
 得到参数的后验概率分布 <span class="math notranslate nohighlight">\(p(\theta|\mathcal{D})\)</span>
 ，后验概率分布就是我们在观测样本集的条件下对参数变量 <span class="math notranslate nohighlight">\(\theta\)</span>
 概率分布的估计。
-然后就可以用后验概率分布 <span class="math notranslate nohighlight">\(p(\theta|\mathcal{D})\)</span> 替代 <a class="reference internal" href="../glm/source/%E8%B4%9D%E5%8F%B6%E6%96%AF%E4%BC%B0%E8%AE%A1/content.html#equation-eq-2-10">公式(4.1.2)</a>
+然后就可以用后验概率分布 <span class="math notranslate nohighlight">\(p(\theta|\mathcal{D})\)</span> 替代 <a class="reference internal" href="#equation-eq-2-10">公式(2.2.8)</a>
 中参数变量的边缘概率分布。</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-2-33">
 <span class="eqno">(2.2.18)<a class="headerlink" href="#equation-probability-model-2-33" title="公式的永久链接"></a></span>\[p(\theta) \triangleq p(\theta|\mathcal{D})\]</div>
-<p><a class="reference internal" href="../glm/source/%E8%B4%9D%E5%8F%B6%E6%96%AF%E4%BC%B0%E8%AE%A1/content.html#equation-eq-2-10">公式(4.1.2)</a> 表示的联合概率也就变成：</p>
+<p><a class="reference internal" href="#equation-eq-2-10">公式(2.2.8)</a> 表示的联合概率也就变成：</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-2-34">
 <span class="eqno">(2.2.19)<a class="headerlink" href="#equation-probability-model-2-34" title="公式的永久链接"></a></span>\[p(X,\theta) \triangleq p(\theta|\mathcal{D})  p(X|\theta)\]</div>
 <p>此时变量 <span class="math notranslate nohighlight">\(X\)</span> 的边缘概率分布为：</p>
@@ -1366,10 +1366,10 @@
 <div class="math notranslate nohighlight" id="equation-eq-estimate-4">
 <span class="eqno">(2.2.29)<a class="headerlink" href="#equation-eq-estimate-4" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned} p(\theta|\mathcal{D})  &amp;=  \frac{L(\theta;\mathcal{D}) p(\theta)}{p(D)}\\ &amp;= \frac{ \left [ \prod \theta^{x^{(i)}} (1-\theta)^{(1-{x^{(i)}})} \right ]  \frac{\Gamma(a+b)}{\Gamma(a)\Gamma(b)}  \theta^{a-1}(1-\theta)^{b-1}}{p(D)}\\ &amp;=  \frac{ \frac{\Gamma(a+b)}{\Gamma(a)\Gamma(b)} \left [  \theta^{n_1} (1-\theta)^{n_0} \right ]   \theta^{a-1}(1-\theta)^{b-1}}{p(D)}\\ &amp;=  \frac{\frac{\Gamma(a+b)}{\Gamma(a)\Gamma(b)} \theta^{n_1+a-1} (1-\theta)^{n_0+b-1}}{p(D)}\end{aligned}\end{align} \]</div>
 <p>现在我们来看分母 <span class="math notranslate nohighlight">\(p(D)\)</span> ，我们知道分母其实是分子的归一化，由于 <span class="math notranslate nohighlight">\(\theta\)</span> 是连续值，所以分母其实就是分子的积分。
-另外借助 <a class="reference internal" href="../glm/source/%E8%B4%9D%E5%8F%B6%E6%96%AF%E4%BC%B0%E8%AE%A1/content.html#equation-eq-estimate-2">公式(4.1.19)</a> 和 <a class="reference internal" href="../glm/source/%E8%B4%9D%E5%8F%B6%E6%96%AF%E4%BC%B0%E8%AE%A1/content.html#equation-eq-estimate-3">公式(4.1.22)</a> 可以进行简化。</p>
+另外借助 <a class="reference internal" href="#equation-eq-estimate-2">公式(2.2.25)</a> 和 <a class="reference internal" href="#equation-eq-estimate-3">公式(2.2.28)</a> 可以进行简化。</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-2-41">
 <span class="eqno">(2.2.30)<a class="headerlink" href="#equation-probability-model-2-41" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}p(D) &amp;= \int_0^1 \frac{\Gamma(a+b)}{\Gamma(a)\Gamma(b)} \theta^{n_1+a-1} (1-\theta)^{n_0+b-1}\\ &amp;=  \frac{\Gamma(a+b)}{\Gamma(a)\Gamma(b)} \int_0^1  \theta^{n_1+a-1} (1-\theta)^{n_0+b-1}\\ &amp;= \frac{\Gamma(a+b)}{\Gamma(a)\Gamma(b)}  \frac{\Gamma(a+n_1)\Gamma(b+n_0)}{\Gamma(a+b+n_1+n_0)}\end{aligned}\end{align} \]</div>
-<p>我们把分母代入到后验分布 <a class="reference internal" href="../glm/source/%E8%B4%9D%E5%8F%B6%E6%96%AF%E4%BC%B0%E8%AE%A1/content.html#equation-eq-estimate-4">公式(4.1.23)</a> ，可得：</p>
+<p>我们把分母代入到后验分布 <a class="reference internal" href="#equation-eq-estimate-4">公式(2.2.29)</a> ，可得：</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-2-42">
 <span class="eqno">(2.2.31)<a class="headerlink" href="#equation-probability-model-2-42" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}p(\theta|\mathcal{D}) &amp;= \frac{\frac{\Gamma(a+b)}{\Gamma(a)\Gamma(b)} \theta^{n_1+a-1} (1-\theta)^{n_0+b-1}}{p(D)}\\&amp;=  \frac{\frac{\Gamma(a+b)}{\Gamma(a)\Gamma(b)} \theta^{n_1+a-1} (1-\theta)^{n_0+b-1}}
   {\frac{\Gamma(a+b)}{\Gamma(a)\Gamma(b)}  \frac{\Gamma(a+n_1)\Gamma(b+n_0)}{\Gamma(a+b+n_1+n_0)}}\\
@@ -1464,7 +1464,7 @@
 <p class="admonition-title">提示</p>
 <p>后验概率分布正比于似然函数和先验的乘积，如果我们选择一个拥有合适函数形式的先验分布，
 使得两者乘积的结果(后验概率分布)拥有和先验分布相同的函数形式，这样的先验分布就叫做共轭先验，这个性质称为共轭性(conjugacy)。
-比如对于具有多项式分布形式的似然函数是 <span class="math notranslate nohighlight">\(\theta_m\)</span> 的幂指函数 <a class="reference internal" href="../glm/source/%E6%9C%80%E5%A4%A7%E4%BC%BC%E7%84%B6%E4%BC%B0%E8%AE%A1/content.html#equation-20-mutil-likelihood">公式(2.3.3)</a> ，
+比如对于具有多项式分布形式的似然函数是 <span class="math notranslate nohighlight">\(\theta_m\)</span> 的幂指函数 <a class="reference internal" href="#equation-20-mutil-likelihood">公式(2.1.24)</a> ，
 如果选择一个同样是关于  <span class="math notranslate nohighlight">\(\theta_m\)</span> 的幂指函数的先验分布，则二者乘积后的后验概率分布也就具有同样函数形式。</p>
 </div>
 <p>这里我们假设随机变量 <span class="math notranslate nohighlight">\(X\)</span> 是一个以 <span class="math notranslate nohighlight">\(\theta\)</span> 为参数变量的类别分布，
@@ -1503,7 +1503,7 @@
 <div class="math notranslate nohighlight" id="equation-20-integrated-change">
 <span class="eqno">(2.2.46)<a class="headerlink" href="#equation-20-integrated-change" title="公式的永久链接"></a></span>\[\int \prod_{m=1}^M \theta_m^{\alpha_m -1 } d \theta = \frac{\prod_m \Gamma(\alpha_m)}{\Gamma(\sum_m \alpha_m)}\]</div>
 <p><strong>后验分布</strong></p>
-<p>我们把先验分布 <a class="reference internal" href="../glm/source/%E8%B4%9D%E5%8F%B6%E6%96%AF%E4%BC%B0%E8%AE%A1/content.html#equation-20-prior">公式(4.1.37)</a> 、似然函数 <a class="reference internal" href="#equation-20-liklihood">公式(2.2.43)</a>
+<p>我们把先验分布 <a class="reference internal" href="#equation-20-prior">公式(2.2.44)</a> 、似然函数 <a class="reference internal" href="#equation-20-liklihood">公式(2.2.43)</a>
 代入到求后验分布的贝叶斯公式 <a class="reference internal" href="#equation-20-bayes">公式(2.2.41)</a> 中：</p>
 <div class="math notranslate nohighlight" id="equation-20-posterior-distribution">
 <span class="eqno">(2.2.47)<a class="headerlink" href="#equation-20-posterior-distribution" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}p(\theta|\mathcal{D}) &amp;=
@@ -1520,11 +1520,11 @@
 \prod_{m=1}^M \theta_m^{\alpha_m -1 }  \prod_{m=1}^M \theta_m^{n_m } d \theta\\&amp;= \int \frac{\Gamma(\sum_m \alpha_m)}{\prod_m \Gamma(\alpha_m)}
 \prod_{m=1}^M \theta_m^{n_m+\alpha_m -1 } d \theta\\&amp;= \frac{\Gamma(\sum_m \alpha_m)}{\prod_m \Gamma(\alpha_m)}
  \int  \prod_{m=1}^M \theta_m^{n_m+\alpha_m -1 } d \theta\end{aligned}\end{align} \]</div>
-<p>参考一下积分变换 <a class="reference internal" href="../glm/source/%E8%B4%9D%E5%8F%B6%E6%96%AF%E4%BC%B0%E8%AE%A1/content.html#equation-20-integrated-change">公式(4.1.40)</a> ，其中的积分部分可以改写一下得到 <span class="math notranslate nohighlight">\(p(\mathcal{D})\)</span> 。</p>
+<p>参考一下积分变换 <a class="reference internal" href="#equation-20-integrated-change">公式(2.2.46)</a> ，其中的积分部分可以改写一下得到 <span class="math notranslate nohighlight">\(p(\mathcal{D})\)</span> 。</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-2-54">
 <span class="eqno">(2.2.49)<a class="headerlink" href="#equation-probability-model-2-54" title="公式的永久链接"></a></span>\[p(\mathcal{D})  = \frac{\Gamma(\sum_m \alpha_m)}{\prod_m \Gamma(\alpha_m)}
 \frac{\prod_m \Gamma(n_m+ \alpha_m)}{\Gamma(\sum_m n_m + \alpha_m)}\]</div>
-<p>我们把这个代入回后验概率分布 <a class="reference internal" href="../glm/source/%E8%B4%9D%E5%8F%B6%E6%96%AF%E4%BC%B0%E8%AE%A1/content.html#equation-20-posterior-distribution">公式(4.1.41)</a> 的分母部分。</p>
+<p>我们把这个代入回后验概率分布 <a class="reference internal" href="#equation-20-posterior-distribution">公式(2.2.47)</a> 的分母部分。</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-2-55">
 <span class="eqno">(2.2.50)<a class="headerlink" href="#equation-probability-model-2-55" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}p(\theta|\mathcal{D})
 &amp;= \frac{ \frac{\Gamma(\sum_m \alpha_m)}{\prod_m \Gamma(\alpha_m)} \prod_{m=1}^M \theta_m^{n_m+\alpha_m -1 } }
@@ -1540,7 +1540,7 @@
 <p>有了参数的后验概率分布后，我们就可以预测多项式随机变量 <span class="math notranslate nohighlight">\(X\)</span> 新的样本概率，
 在推导预测概率的过程中需要利用几个性质。</p>
 <ul>
-<li><p>上文的积分变换 <a class="reference internal" href="../glm/source/%E8%B4%9D%E5%8F%B6%E6%96%AF%E4%BC%B0%E8%AE%A1/content.html#equation-20-integrated-change">公式(4.1.40)</a>，</p></li>
+<li><p>上文的积分变换 <a class="reference internal" href="#equation-20-integrated-change">公式(2.2.46)</a>，</p></li>
 <li><p>Gamma函数的一个性质 <span class="math notranslate nohighlight">\(\Gamma(x+1)=x\Gamma(x)\)</span> 。</p></li>
 <li><p><span class="math notranslate nohighlight">\(1= \sum_m \mathbb I \{x_m=1\}\)</span> ，因为在类别变量 <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> 的一个采样中 <span class="math notranslate nohighlight">\([x_1,x_2,\ldots,x_M]\)</span> 只有一个元素为1，其它都是0 。</p></li>
 <li><p><span class="math notranslate nohighlight">\(N= \sum_m n_m \)</span> 表示类别 <span class="math notranslate nohighlight">\(x_m\)</span> 在观测样本集 <span class="math notranslate nohighlight">\(\mathcal{D}\)</span> 中出现的次，所有类别出现次数求和自然是总样本数N。</p></li>
@@ -1597,7 +1597,7 @@
 称之为最大后验估计(Maximum a posteriori estimation,MAP)。</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-2-61">
 <span class="eqno">(2.3.8)<a class="headerlink" href="#equation-probability-model-2-61" title="公式的永久链接"></a></span>\[\hat{\theta}_{MAP}  = \mathop{\arg \max}_{\theta} p(\theta|\mathcal{D})\]</div>
-<p>回顾一下公式 <a class="reference internal" href="../glm/source/%E8%B4%9D%E5%8F%B6%E6%96%AF%E4%BC%B0%E8%AE%A1/content.html#equation-eq-2-12">公式(4.1.3)</a>
+<p>回顾一下公式 <a class="reference internal" href="#equation-eq-2-12">公式(2.2.20)</a>
 ，后验概率的分母 <span class="math notranslate nohighlight">\(p(\mathcal{D})\)</span> 是一个定值，
 后验概率是正比于先验乘以似然的。</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-2-62">
@@ -1617,7 +1617,7 @@ PS:如果你不知道什么是损失函数、正则项，没关系可以暂时�
 </div>
 <section id="id11">
 <h3><span class="section-number">2.3.1. </span>伯努利变量<a class="headerlink" href="#id11" title="永久链接至标题"></a></h3>
-<p>我们截取 <a class="reference internal" href="../glm/source/%E8%B4%9D%E5%8F%B6%E6%96%AF%E4%BC%B0%E8%AE%A1/content.html#equation-eq-estimate-4">公式(4.1.23)</a> 的分子部分</p>
+<p>我们截取 <a class="reference internal" href="#equation-eq-estimate-4">公式(2.2.29)</a> 的分子部分</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-2-64">
 <span class="eqno">(2.3.11)<a class="headerlink" href="#equation-probability-model-2-64" title="公式的永久链接"></a></span>\[p(\theta|\mathcal{D}) \propto
  \frac{\Gamma(a+b)}{\Gamma(a)\Gamma(b)} \theta^{n_1+a-1} (1-\theta)^{n_0+b-1}\]</div>
@@ -1636,7 +1636,7 @@ PS:如果你不知道什么是损失函数、正则项，没关系可以暂时�
 </section>
 <section id="id12">
 <h3><span class="section-number">2.3.2. </span>类别变量<a class="headerlink" href="#id12" title="永久链接至标题"></a></h3>
-<p>同理，我们截取 <a class="reference internal" href="../glm/source/%E8%B4%9D%E5%8F%B6%E6%96%AF%E4%BC%B0%E8%AE%A1/content.html#equation-20-posterior-distribution">公式(4.1.41)</a> 的分子部分作为极大化的目标函数。</p>
+<p>同理，我们截取 <a class="reference internal" href="#equation-20-posterior-distribution">公式(2.2.47)</a> 的分子部分作为极大化的目标函数。</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-2-68">
 <span class="eqno">(2.3.15)<a class="headerlink" href="#equation-probability-model-2-68" title="公式的永久链接"></a></span>\[\hat{\theta}_{MAP} = \mathop{\arg \max}_{\theta}
  \frac{\Gamma(\sum_m \alpha_m)}{\prod_m \Gamma(\alpha_m)}
@@ -1725,7 +1725,7 @@ p(X=x_{new}) = p(X=x_{new}|\theta=\hat{\theta}_{E})\end{aligned}\end{align} \]</
 <span class="eqno">(2.4.15)<a class="headerlink" href="#equation-probability-model-2-76" title="公式的永久链接"></a></span>\[\hat{\theta}_{Bayes} = \mathbb{E}_{p(\theta|\mathcal{D})}[\theta]\]</div>
 <p>然而，并不是所有情况下都能求出后验概率分布的期望值的，
 要想求得后验概率分布的期望值，就需要求出后验概率分布 <span class="math notranslate nohighlight">\(p(\theta|\mathcal{D})\)</span> 的具体形式，
-后验概率分布 <a class="reference internal" href="../glm/source/%E8%B4%9D%E5%8F%B6%E6%96%AF%E4%BC%B0%E8%AE%A1/content.html#equation-eq-2-20">公式(4.3.5)</a> 中的分母是对分子的积分，很多时候这个积分的计算复杂度是很高的，以至于无法计算出来。</p>
+后验概率分布 <a class="reference internal" href="#equation-eq-2-20">公式(2.4.12)</a> 中的分母是对分子的积分，很多时候这个积分的计算复杂度是很高的，以至于无法计算出来。</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-2-77">
 <span class="eqno">(2.4.16)<a class="headerlink" href="#equation-probability-model-2-77" title="公式的永久链接"></a></span>\[p(\mathcal{D}) = \int  p(\mathcal{D}|\theta)p(\theta) d\theta\]</div>
 <p>因此有时候我们是无法得到后验概率分布的期望的。而且就算我们得到了后验概率分布的具体形式，
@@ -1734,7 +1734,7 @@ p(X=x_{new}) = p(X=x_{new}|\theta=\hat{\theta}_{E})\end{aligned}\end{align} \]</
 <div class="math notranslate nohighlight" id="equation-probability-model-2-78">
 <span class="eqno">(2.4.17)<a class="headerlink" href="#equation-probability-model-2-78" title="公式的永久链接"></a></span>\[\hat{\theta}_{MAP} = \mathop{\arg \max}_{\theta} p(\theta|\mathcal{D})\]</div>
 <p>最大后验估计的思想是令后验概率中概率最大的那个值作为参数的估计值，而不是期望值。
-我们发现后验概率  <a class="reference internal" href="../glm/source/%E8%B4%9D%E5%8F%B6%E6%96%AF%E4%BC%B0%E8%AE%A1/content.html#equation-eq-2-20">公式(4.3.5)</a> 是正比于分子部分的。</p>
+我们发现后验概率  <a class="reference internal" href="#equation-eq-2-20">公式(2.4.12)</a> 是正比于分子部分的。</p>
 <div class="math notranslate nohighlight" id="equation-eq-2-21">
 <span class="eqno">(2.4.18)<a class="headerlink" href="#equation-eq-2-21" title="公式的永久链接"></a></span>\[p(\theta|\mathcal{D}) \propto p(\mathcal{D}|\theta)p(\theta)\]</div>
 <p>我们只需要通过极大化分子就能得到 <span class="math notranslate nohighlight">\(\theta\)</span> 的最大后验估计值 <span class="math notranslate nohighlight">\(\hat{\theta}_{MAP}\)</span> ，
@@ -1746,7 +1746,7 @@ p(X=x_{new}) = p(X=x_{new}|\theta=\hat{\theta}_{E})\end{aligned}\end{align} \]</
 <span class="eqno">(2.4.20)<a class="headerlink" href="#equation-probability-model-2-80" title="公式的永久链接"></a></span>\[p(X=x_{new}) = p(X=x_{new}|\theta=\hat{\theta}_{MAP})\]</div>
 <p>此外，我们发现其中的 <span class="math notranslate nohighlight">\(p(\mathcal{D}|\theta)\)</span>
 和似然函数 <span class="math notranslate nohighlight">\(L(\theta;\mathcal{D})=p(\mathcal{D}|\theta)\)</span> 是等价的，
-<a class="reference internal" href="../glm/source/%E8%B4%9D%E5%8F%B6%E6%96%AF%E4%BC%B0%E8%AE%A1/content.html#equation-eq-2-21">公式(4.3.11)</a> 可以表示成：</p>
+<a class="reference internal" href="#equation-eq-2-21">公式(2.4.18)</a> 可以表示成：</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-2-81">
 <span class="eqno">(2.4.21)<a class="headerlink" href="#equation-probability-model-2-81" title="公式的永久链接"></a></span>\[\text{后验概率(posterior)} \propto \text{似然(likelihood)} \times \text{先验(prior)}\]</div>
 <p>最大后验估计相当于一个带惩罚(约束)的最大似然估计。</p>
@@ -1906,7 +1906,7 @@ p(X=x_{new}) = p(X=x_{new}|\theta=\hat{\theta}_{E})\end{aligned}\end{align} \]</
 =\frac{\partial}{\partial \theta} 1
 =0\]</div>
 <p><span class="math notranslate nohighlight">\(S(\theta)\)</span> 关于样本变量的期望一定是等于0的，
-结合 <code class="xref eq docutils literal notranslate"><span class="pre">eq_2_33</span></code> 可以推导出 <span class="math notranslate nohighlight">\(S(\theta)\)</span> 的期望为：</p>
+结合 <a class="reference internal" href="#equation-eq-2-33">公式(2.6.4)</a> 可以推导出 <span class="math notranslate nohighlight">\(S(\theta)\)</span> 的期望为：</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-2-88">
 <span class="eqno">(2.6.6)<a class="headerlink" href="#equation-probability-model-2-88" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\mathop{\mathbb{E}}_{p(x ; \theta)} \left[ s(\theta) \right] &amp;= \mathop{\mathbb{E}}_{p(x ; \theta)} \left[ \nabla \ell(\theta;x) \right]\\&amp;= \int [\nabla \ell(\theta;x)] \, p(x ; \theta) \, \text{d}x\\&amp;= \int [\nabla \log p(x ; \theta)] \, p(x ; \theta) \, \text{d}x\\&amp;= \int \frac{\nabla p(x ; \theta)}{p(x ; \theta)} p(x ; \theta) \, \text{d}x\\&amp;= \int \nabla p(x ; \theta) \, \text{d}x\\&amp;= \nabla \int p(x; \theta) \, \text{d}x\\&amp;= \nabla 1\\&amp;= 0\end{aligned}\end{align} \]</div>
 <p><span class="math notranslate nohighlight">\(S(\theta)\)</span> 的二阶矩(second moment)，也就是其方差(Variance)，被称为 Fisher Information，
@@ -2016,7 +2016,7 @@ p(X=x_{new}) = p(X=x_{new}|\theta=\hat{\theta}_{E})\end{aligned}\end{align} \]</
 <span class="eqno">(2.7.5)<a class="headerlink" href="#equation-probability-model-2-96" title="公式的永久链接"></a></span>\[(\frac{\partial}{\partial \theta} \mathbb{E}[\hat{\theta}] )^2
 = ( \frac{\partial}{\partial \theta}  \theta)^2
 = 1\]</div>
-<p>因此对于无偏估计量，<code class="xref eq docutils literal notranslate"><span class="pre">eq_2_50</span></code> 可以简化为：</p>
+<p>因此对于无偏估计量，<a class="reference internal" href="#equation-eq-2-50">公式(2.7.20)</a> 可以简化为：</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-2-97">
 <span class="eqno">(2.7.6)<a class="headerlink" href="#equation-probability-model-2-97" title="公式的永久链接"></a></span>\[Var(\hat{\theta}) \ge \frac{1}{I(\theta)}\]</div>
 <p><span class="math notranslate nohighlight">\(I(\theta)\)</span> 是费歇尔信息(Fisher-Information)矩阵。
@@ -2113,7 +2113,7 @@ p(X=x_{new}) = p(X=x_{new}|\theta=\hat{\theta}_{E})\end{aligned}\end{align} \]</
 <h4><span class="section-number">2.7.2.2. </span>中心极限定理<a class="headerlink" href="#id19" title="永久链接至标题"></a></h4>
 <p>大数定律描述的是样本的均值 <em>“依概率”</em> 渐近收敛于分布的期望(均值)，并没有说明是依据什么概率分布，
 而中心极限定理对此做出了解释。
-回顾 <code class="xref eq docutils literal notranslate"><span class="pre">eq_2_40</span></code>
+回顾 <a class="reference internal" href="#equation-eq-2-40">公式(2.7.12)</a>
 ，我们已经知道样本均值变量的方差为：</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-2-104">
 <span class="eqno">(2.7.14)<a class="headerlink" href="#equation-probability-model-2-104" title="公式的永久链接"></a></span>\[Var[Z_N] =  \frac{ \sigma^2}{N}\]</div>
@@ -2160,7 +2160,7 @@ p(X=x_{new}) = p(X=x_{new}|\theta=\hat{\theta}_{E})\end{aligned}\end{align} \]</
 显然极大似然估计是一致性估计。
 由于似然估计是一致性估计，似然估计量是渐近收敛于参数真实值的，也就是估计量的偏差渐近为0，
 因此可以得出似然估计量是 <strong>渐近无偏估计</strong> 。</p>
-<p>我们知道估计量的MSE是由偏差和方差组成的（ <code class="xref eq docutils literal notranslate"><span class="pre">eq_2_39</span></code> ），无偏性是对估计量的偏差的评价，
+<p>我们知道估计量的MSE是由偏差和方差组成的（ <a class="reference internal" href="#equation-eq-2-39">公式(2.7.2)</a> ），无偏性是对估计量的偏差的评价，
 而估计量的方差影响着估计值的稳定性，方差越小估计量就越稳定，
 MLE估计量的方差就等于费歇尔信息的倒数，
 如果 <span class="math notranslate nohighlight">\(\theta\)</span> 是参数向量，估计量的方差为协方差矩阵，
