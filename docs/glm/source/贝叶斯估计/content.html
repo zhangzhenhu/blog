@@ -930,8 +930,8 @@
 因此 <span class="math notranslate nohighlight">\(P(X;\theta)\)</span> 应该是联合概率分布 <span class="math notranslate nohighlight">\(P(X,\theta)\)</span>
 ，而不是条件概率分布。
 根据链式法则，联合概率可以分解成条件概率的乘积：</p>
-<div class="math notranslate nohighlight" id="equation-eq-2-10">
-<span class="eqno">(4.1.2)<a class="headerlink" href="#equation-eq-2-10" title="公式的永久链接"></a></span>\[P(X,\theta) = P(\theta) P(X|\theta)\]</div>
+<div class="math notranslate nohighlight" id="equation-eq-bayesian-10">
+<span class="eqno">(4.1.2)<a class="headerlink" href="#equation-eq-bayesian-10" title="公式的永久链接"></a></span>\[P(X,\theta) = P(\theta) P(X|\theta)\]</div>
 <p>其中，<span class="math notranslate nohighlight">\(P(\theta)\)</span> 是变量 <span class="math notranslate nohighlight">\(\theta\)</span> 的概率分布，
 <span class="math notranslate nohighlight">\(P(X|\theta)\)</span> 是已知 <span class="math notranslate nohighlight">\(\theta\)</span> 的条件下 <span class="math notranslate nohighlight">\(X\)</span> 的条件概率分布。
 此时，一条 <span class="math notranslate nohighlight">\(X\)</span> 的观测样本的生成过程是：</p>
@@ -945,8 +945,8 @@
 <span class="math notranslate nohighlight">\(\theta\)</span> <strong>也是一个随机值</strong> 。
 事实上，我们并不需要真的去采样参数 <span class="math notranslate nohighlight">\(\theta\)</span> 的值，
 可以通过对联合概率分布进行边缘化操作得到变量 <span class="math notranslate nohighlight">\(X\)</span> 边缘概率分布。</p>
-<div class="math notranslate nohighlight" id="equation-eq-2-12">
-<span class="eqno">(4.1.3)<a class="headerlink" href="#equation-eq-2-12" title="公式的永久链接"></a></span>\[P(X) = \int_0^1 P(X,\theta) d\theta = \int_0^1 P(\theta)  P(X|\theta) d \theta\]</div>
+<div class="math notranslate nohighlight" id="equation-eq-bayesian-12">
+<span class="eqno">(4.1.3)<a class="headerlink" href="#equation-eq-bayesian-12" title="公式的永久链接"></a></span>\[P(X) = \int_0^1 P(X,\theta) d\theta = \int_0^1 P(\theta)  P(X|\theta) d \theta\]</div>
 <p>通过对 <span class="math notranslate nohighlight">\(\theta\)</span> 进行积分，我们可以消除联合概率公式中的参数 <span class="math notranslate nohighlight">\(\theta\)</span>
 ，得到 <span class="math notranslate nohighlight">\(X\)</span> 边缘概率分布 <span class="math notranslate nohighlight">\(P(X)\)</span> ，进而用边缘概率分布 <span class="math notranslate nohighlight">\(P(X)\)</span>
 对 <span class="math notranslate nohighlight">\(X\)</span> 进行采样。</p>
@@ -968,11 +968,11 @@
 <div class="math notranslate nohighlight" id="equation-eq-2-13">
 <span class="eqno">(4.1.4)<a class="headerlink" href="#equation-eq-2-13" title="公式的永久链接"></a></span>\[P(X,\theta) = P(\theta) P(X|\theta) = P(X) P(\theta|X)\]</div>
 <p>通过移项可以得到：</p>
-<div class="math notranslate nohighlight" id="equation-eq-2-14">
-<span class="eqno">(4.1.5)<a class="headerlink" href="#equation-eq-2-14" title="公式的永久链接"></a></span>\[ P(\theta|X) = \frac{P(\theta) P(X|\theta)}{P(X)}\]</div>
-<p><a class="reference internal" href="../../../probability_model/2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#equation-eq-2-14">公式(2.2.11)</a> 就是贝叶斯定理，贝叶斯定理的核心就是如下的转换:</p>
-<div class="math notranslate nohighlight" id="equation-eq-2-15">
-<span class="eqno">(4.1.6)<a class="headerlink" href="#equation-eq-2-15" title="公式的永久链接"></a></span>\[P(\text{因}|\text{果}) = \frac{P(\text{因})P(\text{果}|\text{因}) }{P(\text{果})}\]</div>
+<div class="math notranslate nohighlight" id="equation-eq-bayesian-14">
+<span class="eqno">(4.1.5)<a class="headerlink" href="#equation-eq-bayesian-14" title="公式的永久链接"></a></span>\[ P(\theta|X) = \frac{P(\theta) P(X|\theta)}{P(X)}\]</div>
+<p><a class="reference internal" href="#equation-eq-bayesian-14">公式(4.1.5)</a> 就是贝叶斯定理，贝叶斯定理的核心就是如下的转换:</p>
+<div class="math notranslate nohighlight" id="equation-eq-bayesian-15">
+<span class="eqno">(4.1.6)<a class="headerlink" href="#equation-eq-bayesian-15" title="公式的永久链接"></a></span>\[P(\text{因}|\text{果}) = \frac{P(\text{因})P(\text{果}|\text{因}) }{P(\text{果})}\]</div>
 <p>很多场景下，我们可以看到”果”，也就是我们有变量 <span class="math notranslate nohighlight">\(X\)</span>
 的观测值，但我们不知道导致这个”果”的”因”是什么，也就是不知道变量 <span class="math notranslate nohighlight">\(\theta\)</span>
 是什么。这时我们就可以利用贝叶斯定理推断出”因”，而这就是通常所说的贝叶斯推断(Bayesian inference)，
@@ -988,8 +988,8 @@
 我们把变量 <span class="math notranslate nohighlight">\(X\)</span> 的观测样本 <span class="math notranslate nohighlight">\(\mathcal{D}\)</span>
 和变量 <span class="math notranslate nohighlight">\(\theta\)</span>
 写成贝叶斯定理的形式：</p>
-<div class="math notranslate nohighlight" id="equation-eq-2-16">
-<span class="eqno">(4.1.7)<a class="headerlink" href="#equation-eq-2-16" title="公式的永久链接"></a></span>\[P(\theta|\mathcal{D})
+<div class="math notranslate nohighlight" id="equation-eq-bayesian-16">
+<span class="eqno">(4.1.7)<a class="headerlink" href="#equation-eq-bayesian-16" title="公式的永久链接"></a></span>\[P(\theta|\mathcal{D})
 =\frac{P(\mathcal{D}|\theta) P'(\theta)}{P(\mathcal{D})}\]</div>
 <ul>
 <li><p><span class="math notranslate nohighlight">\(P(\theta|\mathcal{D})\)</span> 表示基于”结果” <span class="math notranslate nohighlight">\(\mathcal{D}\)</span>
@@ -1001,7 +1001,7 @@
 称为 <strong>先验概率分布(prior probability distribution)</strong> 。
 先验一般是根据具体的应用场景凭借经验为之设定一个常见的概率分布，
 如果你对 <span class="math notranslate nohighlight">\(P(\theta)\)</span> 一无所知那可以设定为均匀分布。
-注意这里的 <span class="math notranslate nohighlight">\(P'(\theta)\)</span> 和 <a class="reference internal" href="../../../probability_model/2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#equation-eq-2-10">公式(2.2.8)</a> 中的 <span class="math notranslate nohighlight">\(P(\theta)\)</span> 虽然都表示参数变量的边缘概率，
+注意这里的 <span class="math notranslate nohighlight">\(P'(\theta)\)</span> 和 <a class="reference internal" href="#equation-eq-bayesian-10">公式(4.1.2)</a> 中的 <span class="math notranslate nohighlight">\(P(\theta)\)</span> 虽然都表示参数变量的边缘概率，
 但它们是在贝叶斯估计中不同阶段的表示，所以这里我们加了一个上标 <code class="docutils literal notranslate"><span class="pre">'</span></code> 进行区分，
 后面我们会说明。</p></li>
 <li><p><span class="math notranslate nohighlight">\(P(\mathcal{D}|\theta)\)</span> 就是在有 <span class="math notranslate nohighlight">\(\theta\)</span> 的条件下生成观测样本的的概率，
@@ -1022,16 +1022,16 @@
 </ul>
 <p>综上，贝叶斯推断可以表述成如下方式，
 其中符号 <span class="math notranslate nohighlight">\(\propto\)</span> 表示正比关系。</p>
-<div class="math notranslate nohighlight" id="equation-eq-2-17">
-<span class="eqno">(4.1.10)<a class="headerlink" href="#equation-eq-2-17" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\text{后验概率} &amp;= \frac{\text{似然(likelihood)} \times  \text{先验(prior)}}{\text{证据(evidence)}}\\&amp; \propto \text{似然} \times  \text{先验}\end{aligned}\end{align} \]</div>
+<div class="math notranslate nohighlight" id="equation-eq-bayesian-17">
+<span class="eqno">(4.1.10)<a class="headerlink" href="#equation-eq-bayesian-17" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\text{后验概率} &amp;= \frac{\text{似然(likelihood)} \times  \text{先验(prior)}}{\text{证据(evidence)}}\\&amp; \propto \text{似然} \times  \text{先验}\end{aligned}\end{align} \]</div>
 <p>我们可以用贝叶斯推断找到参数变量 <span class="math notranslate nohighlight">\(\theta\)</span> 的后验概率分布 <span class="math notranslate nohighlight">\(P(\theta|\mathcal{D})\)</span>
 ，然后把 <span class="math notranslate nohighlight">\(P(\theta|\mathcal{D})\)</span> 作为参数的”真实”概率分布， <span class="math notranslate nohighlight">\(P(\theta|\mathcal{D}) \rightarrow P(\theta)\)</span>
-。然后代入到 <a class="reference internal" href="#equation-eq-2-17">公式(4.1.10)</a> 中，
+。然后代入到 <a class="reference internal" href="#equation-eq-bayesian-17">公式(4.1.10)</a> 中，
 这样我们就确定了变量 <span class="math notranslate nohighlight">\(X\)</span> 和变量 <span class="math notranslate nohighlight">\(\theta\)</span>
 的联合概率分布，并且依此得到 <span class="math notranslate nohighlight">\(X\)</span> 的边缘概率分布：</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-3">
 <span class="eqno">(4.1.11)<a class="headerlink" href="#equation-glm-source-content-3" title="公式的永久链接"></a></span>\[P(X) = \int_0^1 P(X,\theta) d\theta = \int_0^1 P(\theta|\mathcal{D}) P(X|\theta) d \theta\]</div>
-<p>但是要利用 <a class="reference internal" href="../../../probability_model/2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#equation-eq-2-16">公式(2.2.13)</a> 推断出 <span class="math notranslate nohighlight">\(P(\theta|\mathcal{D})\)</span>
+<p>但是要利用 <a class="reference internal" href="#equation-eq-bayesian-16">公式(4.1.7)</a> 推断出 <span class="math notranslate nohighlight">\(P(\theta|\mathcal{D})\)</span>
 还存在两个难点：</p>
 <ol class="arabic simple">
 <li><p>先验分布 <span class="math notranslate nohighlight">\(P'(\theta)\)</span> 如何确定。</p></li>
@@ -1047,7 +1047,7 @@
 共轭先验是一种使用非常广泛的确定先验分布的方法，
 本节我们只讨论共轭先验法。</p>
 <p><strong>共轭先验</strong></p>
-<div class="topic" id="ch-conjugate-prior">
+<div class="topic">
 <p class="topic-title">共轭先验(conjugate prior)</p>
 <p>在贝叶斯推断中，如果后验分布与先验分布属于同一种概率分布，则此先验分布称为共轭先验。
 注意，由于后验分布是由先验与似然相乘得到的，所以共轭指的是先验与似然共轭，
@@ -1062,20 +1062,20 @@
 稍后我们会举例说明。
 共轭先验也是有缺点的，<strong>其一是只有指数族分布才存在共轭先验，在下一章我们会详细讨论指数族。</strong>
 <strong>其二是，选取共轭先验更多是为了计算简单，而不是为了更精确的估计参数。</strong></p>
-<p>选取了合适的参数先验分布后，就可以利用贝叶斯推断 <a class="reference internal" href="../../../probability_model/2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#equation-eq-2-16">公式(2.2.13)</a>
+<p>选取了合适的参数先验分布后，就可以利用贝叶斯推断 <a class="reference internal" href="#equation-eq-bayesian-16">公式(4.1.7)</a>
 得到参数的后验概率分布 <span class="math notranslate nohighlight">\(P(\theta|\mathcal{D})\)</span>
 ，后验概率分布就是我们在观测样本集的条件下对参数变量 <span class="math notranslate nohighlight">\(\theta\)</span>
 概率分布的估计。
-然后就可以用后验概率分布 <span class="math notranslate nohighlight">\(P(\theta|\mathcal{D})\)</span> 替代 <a class="reference internal" href="../../../probability_model/2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#equation-eq-2-10">公式(2.2.8)</a>
+然后就可以用后验概率分布 <span class="math notranslate nohighlight">\(P(\theta|\mathcal{D})\)</span> 替代 <a class="reference internal" href="#equation-eq-bayesian-10">公式(4.1.2)</a>
 中参数变量的边缘概率分布。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-4">
 <span class="eqno">(4.1.12)<a class="headerlink" href="#equation-glm-source-content-4" title="公式的永久链接"></a></span>\[P(\theta) \triangleq P(\theta|\mathcal{D})\]</div>
-<p><a class="reference internal" href="../../../probability_model/2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#equation-eq-2-10">公式(2.2.8)</a> 表示的联合概率也就变成：</p>
+<p><a class="reference internal" href="#equation-eq-bayesian-10">公式(4.1.2)</a> 表示的联合概率也就变成：</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-5">
 <span class="eqno">(4.1.13)<a class="headerlink" href="#equation-glm-source-content-5" title="公式的永久链接"></a></span>\[P(X,\theta) \triangleq P(\theta|\mathcal{D})  P(X|\theta)\]</div>
 <p>此时变量 <span class="math notranslate nohighlight">\(X\)</span> 的边缘概率分布为：</p>
-<div class="math notranslate nohighlight" id="equation-eq-2-19">
-<span class="eqno">(4.1.14)<a class="headerlink" href="#equation-eq-2-19" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}P(X) &amp;= \int P(X,\theta) d\theta\\&amp;= \int P(\theta|\mathcal{D})  P(X|\theta) d \theta\\&amp;=  P(X|\mathcal{D})\end{aligned}\end{align} \]</div>
+<div class="math notranslate nohighlight" id="equation-eq-bayesian-19">
+<span class="eqno">(4.1.14)<a class="headerlink" href="#equation-eq-bayesian-19" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}P(X) &amp;= \int P(X,\theta) d\theta\\&amp;= \int P(\theta|\mathcal{D})  P(X|\theta) d \theta\\&amp;=  P(X|\mathcal{D})\end{aligned}\end{align} \]</div>
 <p>有了 <span class="math notranslate nohighlight">\(X\)</span> 的边缘概率分为，就可以预测新样本的概率：</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-6">
 <span class="eqno">(4.1.15)<a class="headerlink" href="#equation-glm-source-content-6" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}P(X=x_{new}) &amp;=  P(X=x_{new}|\mathcal{D})\\&amp;= \int P(\theta|\mathcal{D})  P(X=x_{new}|\theta) d \theta\end{aligned}\end{align} \]</div>
@@ -1096,8 +1096,8 @@
 <div class="math notranslate nohighlight" id="equation-glm-source-content-9">
 <span class="eqno">(4.1.18)<a class="headerlink" href="#equation-glm-source-content-9" title="公式的永久链接"></a></span>\[P'(\theta;a,b)=\frac{\Gamma(a+b)}{\Gamma(a)\Gamma(b)} \theta^{a-1}(1-\theta)^{b-1}\]</div>
 <p>其中 <span class="math notranslate nohighlight">\(\Gamma(\cdot)\)</span> 称为Gamma函数，并有如下性质：</p>
-<div class="math notranslate nohighlight" id="equation-eq-estimate-2">
-<span class="eqno">(4.1.19)<a class="headerlink" href="#equation-eq-estimate-2" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\Gamma(x+1)=x\Gamma(x)\\\Gamma(n)=(n-1)! \, \text{n是整数}\end{aligned}\end{align} \]</div>
+<div class="math notranslate nohighlight" id="equation-eq-bayesian-20">
+<span class="eqno">(4.1.19)<a class="headerlink" href="#equation-eq-bayesian-20" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\Gamma(x+1)=x\Gamma(x)\\\Gamma(n)=(n-1)! \, \text{n是整数}\end{aligned}\end{align} \]</div>
 <p>Beta分布的期望和方差为：</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-10">
 <span class="eqno">(4.1.20)<a class="headerlink" href="#equation-glm-source-content-10" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}E[\theta] = \frac{a}{a+b}\\Var[\theta] = \frac{ab}{(a+b)^2(a+b+1)}\end{aligned}\end{align} \]</div>
@@ -1107,20 +1107,20 @@
 <p>这个先验分布中有两个参数a,b，一般情况我们会根据经验直接给定这两个参数的值，也就是其值已知的。
 那么其中的Gama函数部分 <span class="math notranslate nohighlight">\(\frac{\Gamma(a+b)}{\Gamma(a)\Gamma(b)}\)</span> 是一个常量。
 积分符号内部的常量可以提到积分外面去，我们把这个积分等式做个变形，稍后会用到。</p>
-<div class="math notranslate nohighlight" id="equation-eq-estimate-3">
-<span class="eqno">(4.1.22)<a class="headerlink" href="#equation-eq-estimate-3" title="公式的永久链接"></a></span>\[\int_{0}^1   \theta^{a-1}(1-\theta)^{b-1} d\theta = \frac{\Gamma(a)\Gamma(b)}{\Gamma(a+b)}\]</div>
+<div class="math notranslate nohighlight" id="equation-eq-bayesian-23">
+<span class="eqno">(4.1.22)<a class="headerlink" href="#equation-eq-bayesian-23" title="公式的永久链接"></a></span>\[\int_{0}^1   \theta^{a-1}(1-\theta)^{b-1} d\theta = \frac{\Gamma(a)\Gamma(b)}{\Gamma(a+b)}\]</div>
 <p><strong>后验分布</strong></p>
 <p>有了先验分布后，我们把这个先验分布代入到后验分布中，由于a,b的值是确定的，所以先验分布中的Gamma函数部分
 <span class="math notranslate nohighlight">\(\frac{\Gamma(a+b)}{\Gamma(a)\Gamma(b)}\)</span> 是一个常数，与参数 <span class="math notranslate nohighlight">\(\theta\)</span> 无关，也与观测样本无关。
 此外，我们用 <span class="math notranslate nohighlight">\(n_1\)</span> 表示观测样本中1的次数，用 <span class="math notranslate nohighlight">\(n_0\)</span> 表示观测样本中0出现的次数，
 则有 <span class="math notranslate nohighlight">\(n_1+n_0=N\)</span> 。</p>
-<div class="math notranslate nohighlight" id="equation-eq-estimate-4">
-<span class="eqno">(4.1.23)<a class="headerlink" href="#equation-eq-estimate-4" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned} P(\theta|\mathcal{D})  &amp;=  \frac{P(\mathcal{D}|\theta) P'(\theta)}{P(D)}\\ &amp;=  \frac{L(\theta;\mathcal{D}) P'(\theta)}{P(D)}\\ &amp;= \frac{ \left [ \prod_{i=1}^N \theta^{x^{(i)}} (1-\theta)^{(1-{x^{(i)}})} \right ]  \frac{\Gamma(a+b)}{\Gamma(a)\Gamma(b)}  \theta^{a-1}(1-\theta)^{b-1}}{P(D)}\\ &amp;=  \frac{ \frac{\Gamma(a+b)}{\Gamma(a)\Gamma(b)} \left [  \theta^{n_1} (1-\theta)^{n_0} \right ]   \theta^{a-1}(1-\theta)^{b-1}}{P(D)}\\ &amp;=  \frac{\frac{\Gamma(a+b)}{\Gamma(a)\Gamma(b)} \theta^{n_1+a-1} (1-\theta)^{n_0+b-1}}{P(D)}\end{aligned}\end{align} \]</div>
+<div class="math notranslate nohighlight" id="equation-eq-bayesian-24">
+<span class="eqno">(4.1.23)<a class="headerlink" href="#equation-eq-bayesian-24" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned} P(\theta|\mathcal{D})  &amp;=  \frac{P(\mathcal{D}|\theta) P'(\theta)}{P(D)}\\ &amp;=  \frac{L(\theta;\mathcal{D}) P'(\theta)}{P(D)}\\ &amp;= \frac{ \left [ \prod_{i=1}^N \theta^{x^{(i)}} (1-\theta)^{(1-{x^{(i)}})} \right ]  \frac{\Gamma(a+b)}{\Gamma(a)\Gamma(b)}  \theta^{a-1}(1-\theta)^{b-1}}{P(D)}\\ &amp;=  \frac{ \frac{\Gamma(a+b)}{\Gamma(a)\Gamma(b)} \left [  \theta^{n_1} (1-\theta)^{n_0} \right ]   \theta^{a-1}(1-\theta)^{b-1}}{P(D)}\\ &amp;=  \frac{\frac{\Gamma(a+b)}{\Gamma(a)\Gamma(b)} \theta^{n_1+a-1} (1-\theta)^{n_0+b-1}}{P(D)}\end{aligned}\end{align} \]</div>
 <p>现在我们来看分母 <span class="math notranslate nohighlight">\(P(D)\)</span> ，我们知道分母其实是分子的归一化，由于 <span class="math notranslate nohighlight">\(\theta\)</span> 是连续值，所以分母其实就是分子的积分。
-另外借助 <a class="reference internal" href="../../../probability_model/2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#equation-eq-estimate-2">公式(2.2.25)</a> 和 <a class="reference internal" href="../../../probability_model/2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#equation-eq-estimate-3">公式(2.2.28)</a> 可以进行简化。</p>
+另外借助 <a class="reference internal" href="#equation-eq-bayesian-20">公式(4.1.19)</a> 和 <a class="reference internal" href="#equation-eq-bayesian-23">公式(4.1.22)</a> 可以进行简化。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-12">
 <span class="eqno">(4.1.24)<a class="headerlink" href="#equation-glm-source-content-12" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}P(D) &amp;= \int_0^1 \frac{\Gamma(a+b)}{\Gamma(a)\Gamma(b)} \theta^{n_1+a-1} (1-\theta)^{n_0+b-1} d\theta\\ &amp;=  \frac{\Gamma(a+b)}{\Gamma(a)\Gamma(b)} \int_0^1  \theta^{n_1+a-1} (1-\theta)^{n_0+b-1} d\theta\\ &amp;= \frac{\Gamma(a+b)}{\Gamma(a)\Gamma(b)}  \frac{\Gamma(a+n_1)\Gamma(b+n_0)}{\Gamma(a+b+n_1+n_0)}\end{aligned}\end{align} \]</div>
-<p>我们把分母代入到后验分布 <a class="reference internal" href="../../../probability_model/2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#equation-eq-estimate-4">公式(2.2.29)</a> ，可得：</p>
+<p>我们把分母代入到后验分布 <a class="reference internal" href="#equation-eq-bayesian-24">公式(4.1.23)</a> ，可得：</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-13">
 <span class="eqno">(4.1.25)<a class="headerlink" href="#equation-glm-source-content-13" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}P(\theta|\mathcal{D}) &amp;= \frac{\frac{\Gamma(a+b)}{\Gamma(a)\Gamma(b)} \theta^{n_1+a-1} (1-\theta)^{n_0+b-1}}{P(D)}\\&amp;=  \frac{\frac{\Gamma(a+b)}{\Gamma(a)\Gamma(b)} \theta^{n_1+a-1} (1-\theta)^{n_0+b-1}}
   {\frac{\Gamma(a+b)}{\Gamma(a)\Gamma(b)}  \frac{\Gamma(a+n_1)\Gamma(b+n_0)}{\Gamma(a+b+n_1+n_0)}}\\
@@ -1190,8 +1190,8 @@
 <div class="math notranslate nohighlight" id="equation-glm-source-content-21">
 <span class="eqno">(4.1.34)<a class="headerlink" href="#equation-glm-source-content-21" title="公式的永久链接"></a></span>\[P(X,\theta) = P(\theta)P(X|\theta)\]</div>
 <p>观测变量 <span class="math notranslate nohighlight">\(X\)</span> 的边缘概率分布 <span class="math notranslate nohighlight">\(P(X)\)</span> 需要通过边际化的方法得到：</p>
-<div class="math notranslate nohighlight" id="equation-fm-20-0010">
-<span class="eqno">(4.1.35)<a class="headerlink" href="#equation-fm-20-0010" title="公式的永久链接"></a></span>\[P(X) = \int P(X,\theta) d \theta =
+<div class="math notranslate nohighlight" id="equation-eq-bayesian-30">
+<span class="eqno">(4.1.35)<a class="headerlink" href="#equation-eq-bayesian-30" title="公式的永久链接"></a></span>\[P(X) = \int P(X,\theta) d \theta =
 \int P(\theta) P(X|\theta) d \theta\]</div>
 <p><strong>先验分布</strong></p>
 <p>类别分布的共轭先验是狄利克雷(Dirichlet)分布，
@@ -1214,12 +1214,12 @@
 \frac{\Gamma(\sum_m \alpha_m)}{\prod_m \Gamma(\alpha_m)}
 \int \prod_{m=1}^M \theta_m^{\alpha_m -1 } d \theta = 1\]</div>
 <p>我们把这个积分式稍微变换一下，稍后会使用到。</p>
-<div class="math notranslate nohighlight" id="equation-20-integrated-change">
-<span class="eqno">(4.1.40)<a class="headerlink" href="#equation-20-integrated-change" title="公式的永久链接"></a></span>\[\int \prod_{m=1}^M \theta_m^{\alpha_m -1 } d \theta = \frac{\prod_m \Gamma(\alpha_m)}{\Gamma(\sum_m \alpha_m)}\]</div>
+<div class="math notranslate nohighlight" id="equation-eq-bayesian-integrated-change">
+<span class="eqno">(4.1.40)<a class="headerlink" href="#equation-eq-bayesian-integrated-change" title="公式的永久链接"></a></span>\[\int \prod_{m=1}^M \theta_m^{\alpha_m -1 } d \theta = \frac{\prod_m \Gamma(\alpha_m)}{\Gamma(\sum_m \alpha_m)}\]</div>
 <p><strong>后验分布</strong></p>
 <p>根据贝叶斯公式，可以写出参数变量 <span class="math notranslate nohighlight">\(\theta\)</span> 的后验概率分布：</p>
-<div class="math notranslate nohighlight" id="equation-20-posterior-distribution">
-<span class="eqno">(4.1.41)<a class="headerlink" href="#equation-20-posterior-distribution" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}P(\theta|\mathcal{D}) &amp;=
+<div class="math notranslate nohighlight" id="equation-eq-bayesian-posterior-distribution">
+<span class="eqno">(4.1.41)<a class="headerlink" href="#equation-eq-bayesian-posterior-distribution" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}P(\theta|\mathcal{D}) &amp;=
 \frac{P'(\theta)P(\mathcal{D}|\theta)}{P(\mathcal{D})}\\&amp;= \frac{ P'(\theta) L(\mathcal{D};\theta)}{P(\mathcal{D})}\\
 &amp;= \frac{ \frac{\Gamma(\sum_m \alpha_m)}{\prod_m \Gamma(\alpha_m)}
 \prod_{m=1}^M \theta_m^{\alpha_m -1 }  \prod_{m=1}^M \theta_m^{n_m}  }  {P(\mathcal{D})}\\&amp;= \frac{ \frac{\Gamma(\sum_m \alpha_m)}{\prod_m \Gamma(\alpha_m)}
@@ -1233,11 +1233,11 @@
 \prod_{m=1}^M \theta_m^{\alpha_m -1 }  \prod_{m=1}^M \theta_m^{n_m } d \theta\\&amp;= \int \frac{\Gamma(\sum_m \alpha_m)}{\prod_m \Gamma(\alpha_m)}
 \prod_{m=1}^M \theta_m^{n_m+\alpha_m -1 } d \theta\\&amp;= \frac{\Gamma(\sum_m \alpha_m)}{\prod_m \Gamma(\alpha_m)}
  \int  \prod_{m=1}^M \theta_m^{n_m+\alpha_m -1 } d \theta\end{aligned}\end{align} \]</div>
-<p>参考一下积分变换 <a class="reference internal" href="../../../probability_model/2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#equation-20-integrated-change">公式(2.2.46)</a> ，其中的积分部分可以改写一下得到 <span class="math notranslate nohighlight">\(P(\mathcal{D})\)</span> 。</p>
+<p>参考一下积分变换 <a class="reference internal" href="#equation-eq-bayesian-integrated-change">公式(4.1.40)</a> ，其中的积分部分可以改写一下得到 <span class="math notranslate nohighlight">\(P(\mathcal{D})\)</span> 。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-24">
 <span class="eqno">(4.1.43)<a class="headerlink" href="#equation-glm-source-content-24" title="公式的永久链接"></a></span>\[P(\mathcal{D})  = \frac{\Gamma(\sum_m \alpha_m)}{\prod_m \Gamma(\alpha_m)}
 \frac{\prod_m \Gamma(n_m+ \alpha_m)}{\Gamma(\sum_m n_m + \alpha_m)}\]</div>
-<p>我们把这个代入回后验概率分布 <a class="reference internal" href="../../../probability_model/2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#equation-20-posterior-distribution">公式(2.2.47)</a> 的分母部分。</p>
+<p>我们把这个代入回后验概率分布 <a class="reference internal" href="#equation-eq-bayesian-posterior-distribution">公式(4.1.41)</a> 的分母部分。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-25">
 <span class="eqno">(4.1.44)<a class="headerlink" href="#equation-glm-source-content-25" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}P(\theta|\mathcal{D})
 &amp;= \frac{ \frac{\Gamma(\sum_m \alpha_m)}{\prod_m \Gamma(\alpha_m)} \prod_{m=1}^M \theta_m^{n_m+\alpha_m -1 } }
@@ -1256,12 +1256,12 @@
 ，最后利用 <span class="math notranslate nohighlight">\(P(X)\)</span> 预测变量 <span class="math notranslate nohighlight">\(X\)</span> 的值。
 在推导 <span class="math notranslate nohighlight">\(P(X)\)</span> 的过程中需要利用几个性质：</p>
 <ul class="simple">
-<li><p>积分变换 <a class="reference internal" href="../../../probability_model/2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#equation-20-integrated-change">公式(2.2.46)</a>，</p></li>
+<li><p>积分变换 <a class="reference internal" href="#equation-eq-bayesian-integrated-change">公式(4.1.40)</a>，</p></li>
 <li><p>Gamma函数的性质： <span class="math notranslate nohighlight">\(\Gamma(x+1)=x\Gamma(x)\)</span> 。</p></li>
 <li><p><span class="math notranslate nohighlight">\(n_m\)</span> 表示类别 <span class="math notranslate nohighlight">\(x_m\)</span> 在观测样本集 <span class="math notranslate nohighlight">\(\mathcal{D}\)</span> 中出现的次数，<span class="math notranslate nohighlight">\(N=\sum_m n_m\)</span> 。</p></li>
 </ul>
-<div class="math notranslate nohighlight" id="equation-eq-bayies-cat-new">
-<span class="eqno">(4.1.46)<a class="headerlink" href="#equation-eq-bayies-cat-new" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}P(X)
+<div class="math notranslate nohighlight" id="equation-eq-bayesian-cat-new">
+<span class="eqno">(4.1.46)<a class="headerlink" href="#equation-eq-bayesian-cat-new" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}P(X)
 &amp;= \int P(X,\theta) d \theta\\&amp;= \int P(\theta)P(X|\theta) d \theta\\&amp;\triangleq  \int \underbrace{P(\theta|\mathcal{D})}_{\text{后验概率分布}}
 \underbrace{P(X | \theta)}_{\text{类别分布}}   d \theta\\&amp;= \int \left [
     \frac{\Gamma(\sum_m n_m + \alpha_m)}{\prod_m \Gamma(n_m+ \alpha_m)} \prod_{m=1}^M \theta_m^{n_m+\alpha_m -1 }
@@ -1280,7 +1280,7 @@
 <span class="eqno">(4.1.47)<a class="headerlink" href="#equation-glm-source-content-26" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\prod_m \Gamma(n_m+ \alpha_m+ \delta(x,x_m) )
 &amp;=  \underbrace{\Gamma(n_m+ \alpha_m + 1 )}_{\text{把} x = x_m \text{的项分出来}}
     \prod_{\mathbb{m} \in M, \mathbb{m} \neq m } \Gamma(n_\mathbb{m}+ \alpha_\mathbb{m})\\&amp;= (n_m+ \alpha_m)  \Gamma(n_m+ \alpha_m)  \prod_{\mathbb{m} \in M,\mathbb{m} \neq m} \Gamma(n_\mathbb{m}+ \alpha_\mathbb{m})\\&amp;=(n_m+ \alpha_m) \prod_m \Gamma(n_m+ \alpha_m)\end{aligned}\end{align} \]</div>
-<p>继续化简 <a class="reference internal" href="#equation-eq-bayies-cat-new">公式(4.1.46)</a> ：</p>
+<p>继续化简 <a class="reference internal" href="#equation-eq-bayesian-cat-new">公式(4.1.46)</a> ：</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-27">
 <span class="eqno">(4.1.48)<a class="headerlink" href="#equation-glm-source-content-27" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}P(X)
 &amp;= \frac{\Gamma(\sum_m n_m + \alpha_m)}{\prod_m \Gamma(n_m+ \alpha_m)}
@@ -1324,7 +1324,7 @@
 <p>后验概率的函数是一个关于样本集 <span class="math notranslate nohighlight">\(\mathcal{D}\)</span> 和未知参数 <span class="math notranslate nohighlight">\(\theta\)</span> 的函数，我们的目标是求得令这个函数取得极大值（概率最大）时，
 参数  <span class="math notranslate nohighlight">\(\theta\)</span> 的值，并作为未知  <span class="math notranslate nohighlight">\(\theta\)</span> 的点估计值。这个过程和最大似然估计非常相似，都是通过极大化一个函数求得未知参数的点估计值，
 只不过二者极大化的目标函数不一样。最大似然估计是极大化似然函数，而最大后验估计是极大化参数的后验概率分布。
-回顾一下公式 <a class="reference internal" href="../../../probability_model/2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#equation-eq-2-12">公式(2.2.20)</a>
+回顾一下公式 <a class="reference internal" href="#equation-eq-bayesian-12">公式(4.1.3)</a>
 ，后验概率的分母 <span class="math notranslate nohighlight">\(P(\mathcal{D})\)</span> 是一个定值，
 后验概率是正比于先验乘以似然的。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-31">
@@ -1345,7 +1345,7 @@ PS:如果你不知道什么是损失函数、正则项，没关系可以暂时�
 </div>
 <section id="id6">
 <h3><span class="section-number">4.2.1. </span>伯努利变量<a class="headerlink" href="#id6" title="永久链接至标题"></a></h3>
-<p>我们截取 <a class="reference internal" href="../../../probability_model/2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#equation-eq-estimate-4">公式(2.2.29)</a> 的分子部分</p>
+<p>我们截取 <a class="reference internal" href="#equation-eq-bayesian-24">公式(4.1.23)</a> 的分子部分</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-33">
 <span class="eqno">(4.2.4)<a class="headerlink" href="#equation-glm-source-content-33" title="公式的永久链接"></a></span>\[P(\theta|\mathcal{D}) \propto
  \frac{\Gamma(a+b)}{\Gamma(a)\Gamma(b)} \theta^{n_1+a-1} (1-\theta)^{n_0+b-1}\]</div>
@@ -1364,7 +1364,7 @@ PS:如果你不知道什么是损失函数、正则项，没关系可以暂时�
 </section>
 <section id="id7">
 <h3><span class="section-number">4.2.2. </span>类别变量<a class="headerlink" href="#id7" title="永久链接至标题"></a></h3>
-<p>同理，我们截取 <a class="reference internal" href="../../../probability_model/2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#equation-20-posterior-distribution">公式(2.2.47)</a> 的分子部分作为极大化的目标函数。</p>
+<p>同理，我们截取 <a class="reference internal" href="#equation-eq-bayesian-posterior-distribution">公式(4.1.41)</a> 的分子部分作为极大化的目标函数。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-37">
 <span class="eqno">(4.2.8)<a class="headerlink" href="#equation-glm-source-content-37" title="公式的永久链接"></a></span>\[\hat{\theta}_{MAP} = \mathop{\arg \max}_{\theta}
  \frac{\Gamma(\sum_m \alpha_m)}{\prod_m \Gamma(\alpha_m)}
@@ -1429,8 +1429,8 @@ PS:如果你不知道什么是损失函数、正则项，没关系可以暂时�
 也就是在观测样本集的条件下 <span class="math notranslate nohighlight">\(\theta\)</span> 的概率分布，这些样本都是随机变量 <span class="math notranslate nohighlight">\(X\)</span> 的采样，
 可以把每个样本点都看成随机变量 <span class="math notranslate nohighlight">\(X\)</span> 的一个副本，
 所以有 <span class="math notranslate nohighlight">\(P(\theta|X)\Rightarrow P(\theta|x_1,x_2,\cdots,x_N)= P(\theta|\mathcal{D})\)</span> 。</p>
-<div class="math notranslate nohighlight" id="equation-eq-2-20">
-<span class="eqno">(4.3.5)<a class="headerlink" href="#equation-eq-2-20" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}P(\theta|\mathcal{D}) &amp;= \frac{P(\mathcal{D}|\theta)P(\theta)}{P(\mathcal{D})}\\&amp;=\frac{P(\theta) \prod_{i=1}^N P(x_i|\theta)}{P(x_1,x_2,\cdots,x_N)}\end{aligned}\end{align} \]</div>
+<div class="math notranslate nohighlight" id="equation-eq-bayesian-50">
+<span class="eqno">(4.3.5)<a class="headerlink" href="#equation-eq-bayesian-50" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}P(\theta|\mathcal{D}) &amp;= \frac{P(\mathcal{D}|\theta)P(\theta)}{P(\mathcal{D})}\\&amp;=\frac{P(\theta) \prod_{i=1}^N P(x_i|\theta)}{P(x_1,x_2,\cdots,x_N)}\end{aligned}\end{align} \]</div>
 <p>条件概率分布 <span class="math notranslate nohighlight">\(P(\theta|\mathcal{D})\)</span> 称为参数 <span class="math notranslate nohighlight">\(\theta\)</span> 的
 <em>后验概率分布(posterior distribution)</em> ，
 因为是在观测样本的条件下 <span class="math notranslate nohighlight">\(\theta\)</span> 的概率分布，所以称为后验。
@@ -1453,7 +1453,7 @@ P(X=x_{new}) = P(X=x_{new}|\theta=\hat{\theta}_{E})\end{aligned}\end{align} \]</
 <span class="eqno">(4.3.8)<a class="headerlink" href="#equation-glm-source-content-45" title="公式的永久链接"></a></span>\[\hat{\theta}_{Bayes} = \mathbb{E}_{P(\theta|\mathcal{D})}[\theta]\]</div>
 <p>然而，并不是所有情况下都能求出后验概率分布的期望值的，
 要想求得后验概率分布的期望值，就需要求出后验概率分布 <span class="math notranslate nohighlight">\(P(\theta|\mathcal{D})\)</span> 的具体形式，
-后验概率分布 <a class="reference internal" href="../../../probability_model/2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#equation-eq-2-20">公式(2.4.12)</a> 中的分母是对分子的积分，很多时候这个积分的计算复杂度是很高的，以至于无法计算出来。</p>
+后验概率分布 <a class="reference internal" href="#equation-eq-bayesian-50">公式(4.3.5)</a> 中的分母是对分子的积分，很多时候这个积分的计算复杂度是很高的，以至于无法计算出来。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-46">
 <span class="eqno">(4.3.9)<a class="headerlink" href="#equation-glm-source-content-46" title="公式的永久链接"></a></span>\[P(\mathcal{D}) = \int  P(\mathcal{D}|\theta)P(\theta) d\theta\]</div>
 <p>因此有时候我们是无法得到后验概率分布的期望的。而且就算我们得到了后验概率分布的具体形式，
@@ -1462,9 +1462,9 @@ P(X=x_{new}) = P(X=x_{new}|\theta=\hat{\theta}_{E})\end{aligned}\end{align} \]</
 <div class="math notranslate nohighlight" id="equation-glm-source-content-47">
 <span class="eqno">(4.3.10)<a class="headerlink" href="#equation-glm-source-content-47" title="公式的永久链接"></a></span>\[\hat{\theta}_{MAP} = \mathop{\arg \max}_{\theta} P(\theta|\mathcal{D})\]</div>
 <p>最大后验估计的思想是令后验概率中概率最大的那个值作为参数的估计值，而不是期望值。
-我们发现后验概率  <a class="reference internal" href="../../../probability_model/2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#equation-eq-2-20">公式(2.4.12)</a> 是正比于分子部分的。</p>
-<div class="math notranslate nohighlight" id="equation-eq-2-21">
-<span class="eqno">(4.3.11)<a class="headerlink" href="#equation-eq-2-21" title="公式的永久链接"></a></span>\[P(\theta|\mathcal{D}) \propto P(\mathcal{D}|\theta)P(\theta)\]</div>
+我们发现后验概率  <a class="reference internal" href="#equation-eq-bayesian-50">公式(4.3.5)</a> 是正比于分子部分的。</p>
+<div class="math notranslate nohighlight" id="equation-eq-bayesian-51">
+<span class="eqno">(4.3.11)<a class="headerlink" href="#equation-eq-bayesian-51" title="公式的永久链接"></a></span>\[P(\theta|\mathcal{D}) \propto P(\mathcal{D}|\theta)P(\theta)\]</div>
 <p>我们只需要通过极大化分子就能得到 <span class="math notranslate nohighlight">\(\theta\)</span> 的最大后验估计值 <span class="math notranslate nohighlight">\(\hat{\theta}_{MAP}\)</span> ，
 所以我们不需要计算积分。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-48">
@@ -1474,7 +1474,7 @@ P(X=x_{new}) = P(X=x_{new}|\theta=\hat{\theta}_{E})\end{aligned}\end{align} \]</
 <span class="eqno">(4.3.13)<a class="headerlink" href="#equation-glm-source-content-49" title="公式的永久链接"></a></span>\[P(X=x_{new}) = P(X=x_{new}|\theta=\hat{\theta}_{MAP})\]</div>
 <p>此外，我们发现其中的 <span class="math notranslate nohighlight">\(P(\mathcal{D}|\theta)\)</span>
 和似然函数 <span class="math notranslate nohighlight">\(L(\theta;\mathcal{D})=P(\mathcal{D}|\theta)\)</span> 是等价的，
-<a class="reference internal" href="../../../probability_model/2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#equation-eq-2-21">公式(2.4.18)</a> 可以表示成：</p>
+<a class="reference internal" href="#equation-eq-bayesian-51">公式(4.3.11)</a> 可以表示成：</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-50">
 <span class="eqno">(4.3.14)<a class="headerlink" href="#equation-glm-source-content-50" title="公式的永久链接"></a></span>\[\text{后验概率(posterior)} \propto \text{似然(likelihood)} \times \text{先验(prior)}\]</div>
 <p>最大后验估计相当于一个带惩罚(约束)的最大似然估计。</p>
