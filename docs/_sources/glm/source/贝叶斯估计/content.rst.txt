@@ -2,7 +2,7 @@
 
 .. meta::
    :description lang=zh_CN: 贝叶斯估计
-   :keywords: 贝叶斯估计,贝叶斯,贝叶斯参数估计,Bayesian estimation,最大后验估计,Maximum a posteriori estimation,MAP
+   :keywords: 贝叶斯估计,贝叶斯,贝叶斯参数估计,Bayesian estimation,最大后验估计,Maximum a posteriori estimation,MAP,最大似然估计和最大后验概率的区别,最大后验概率
 
 
 .. _ch_Bayesian_estimation:
@@ -1134,7 +1134,8 @@ Beta分布是一个连续值的概率分布( :math:`\theta \in [0,1]` 是连续�
 
 
 **最后，最大后验估计由于增加了先验信息，不再是无偏估计，而是有偏估计。**
-**在样本数量比较小时，极大似然估计与贝叶斯估计互有优劣，但随着样本数量的增加， 极大似然估计和贝叶斯估计是相似的。**
+**在样本较少时，先验部分作用较大，随着样本逐步增加，先验部分的作用逐步减少。**
+**在样本数量比较小时，极大似然估计与最大后验估计互有优劣，但随着样本数量的增加， 极大似然估计和最大后验估计是相似的。**
 
 
 

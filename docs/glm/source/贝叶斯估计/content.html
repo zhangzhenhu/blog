@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 <meta content="贝叶斯估计" lang="zh_CN" name="description" xml:lang="zh_CN" />
-<meta content="贝叶斯估计,贝叶斯,贝叶斯参数估计,Bayesian estimation,最大后验估计,Maximum a posteriori estimation,MAP" name="keywords" />
+<meta content="贝叶斯估计,贝叶斯,贝叶斯参数估计,Bayesian estimation,最大后验估计,Maximum a posteriori estimation,MAP,最大似然估计和最大后验概率的区别,最大后验概率" name="keywords" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>4. 贝叶斯估计 &mdash; 张振虎的博客 张振虎 文档</title>
@@ -1047,7 +1047,7 @@
 共轭先验是一种使用非常广泛的确定先验分布的方法，
 本节我们只讨论共轭先验法。</p>
 <p><strong>共轭先验</strong></p>
-<div class="topic">
+<div class="topic" id="ch-conjugate-prior">
 <p class="topic-title">共轭先验(conjugate prior)</p>
 <p>在贝叶斯推断中，如果后验分布与先验分布属于同一种概率分布，则此先验分布称为共轭先验。
 注意，由于后验分布是由先验与似然相乘得到的，所以共轭指的是先验与似然共轭，
@@ -1481,7 +1481,8 @@ P(X=x_{new}) = P(X=x_{new}|\theta=\hat{\theta}_{E})\end{aligned}\end{align} \]</
 <div class="math notranslate nohighlight" id="equation-glm-source-content-51">
 <span class="eqno">(4.3.15)<a class="headerlink" href="#equation-glm-source-content-51" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\hat{\theta}_{MAP} &amp;= \mathop{\arg \max}_{\theta} P(\mathcal{D}|\theta)P(\theta)\\&amp;= \mathop{\arg \max}_{\theta} \{ \log P(\mathcal{D}|\theta) + \log P(\theta) \}\end{aligned}\end{align} \]</div>
 <p><strong>最后，最大后验估计由于增加了先验信息，不再是无偏估计，而是有偏估计。</strong>
-<strong>在样本数量比较小时，极大似然估计与贝叶斯估计互有优劣，但随着样本数量的增加， 极大似然估计和贝叶斯估计是相似的。</strong></p>
+<strong>在样本较少时，先验部分作用较大，随着样本逐步增加，先验部分的作用逐步减少。</strong>
+<strong>在样本数量比较小时，极大似然估计与最大后验估计互有优劣，但随着样本数量的增加， 极大似然估计和最大后验估计是相似的。</strong></p>
 </section>
 </section>
 
