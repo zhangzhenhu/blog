@@ -37,7 +37,7 @@
 所有样本的联合概率为
 
 .. math::
-    :label: eq_34_21
+    :label: eq_glm_estimate_21
 
     f(y;\theta,\phi)=\prod_{i=1}^N f(y_i;\theta,\phi)
 
@@ -46,13 +46,13 @@
 样本的联合概率又被称为样本集的似然函数，
 
 .. math::
-    :label: eq_34_22
+    :label: eq_glm_estimate_22
 
 
     L(\theta,\phi;y)=\prod_{i=1}^N f(\theta,\phi;y_i)
 
 
-:eq:`eq_34_21` 和 :eq:`eq_34_22` 的区别在于，
+:eq:`eq_glm_estimate_21` 和 :eq:`eq_glm_estimate_22` 的区别在于，
 前者是一个概率密度(质量)函数，是在给定 :math:`\theta,\phi` 的条件下关变量 :math:`Y` 的函数；
 后者是一个似然函数，其表达是在给定观测样本 :math:`y` 的条件下关于未知参数 :math:`\theta,\phi` 的函数。
 
@@ -492,7 +492,7 @@
 现在我们把对数似然函数按照上式进行展开：
 
 .. math::
-    :label: eq_34_30
+    :label: eq_glm_estimate_30
 
     \ell(\beta^{(t+1)}) = \ell(\beta^t) + \ell'(\beta^t)(\beta^{(t+1)} - \beta^t) + \text{constant}
 
@@ -516,7 +516,7 @@
 对上述公式进行移项处理，可得：
 
 .. math::
-    :label: eq_34_31
+    :label: eq_glm_estimate_31
 
     \beta^{(t+1)} \ge \beta^t - \frac{\text{constant}}{\ell'(\beta^t)}
 
@@ -525,7 +525,7 @@
 
 
 通常我们把一阶导 :math:`\ell'(\beta^t)` 称为梯度(gradient)，
-:eq:`eq_34_31` 说明只要 :math:`\beta^{(t+1)}` 沿着 :math:`\beta^t` 的负梯度方向进行移动，我们终将能达到极值点。
+:eq:`eq_glm_estimate_31` 说明只要 :math:`\beta^{(t+1)}` 沿着 :math:`\beta^t` 的负梯度方向进行移动，我们终将能达到极值点。
 注意 :math:`\frac{constant}{\ell'(\beta^t)}` **的绝对值的大小影响着前进的速度，**
 **其方向(正负号)决定目标函数是否向着极大值点移动。**
 所以和下面的公式是等价的，:math:`\alpha` 称为学习率(learning rate)，是一个人工设置参数，控制的迭代的速度。
@@ -553,7 +553,7 @@
 
 
 
-.. _fg_34_3:
+.. _fg_glm_estimate_3:
 
 .. figure:: pictures/34_3.png
     :scale: 70 %
@@ -598,7 +598,7 @@
 通过移项可得：
 
 .. math::
-    :label: eq_34_34
+    :label: eq_glm_estimate_34
 
     \beta^{(t+1)} = \beta^t - \frac{\ell'(\beta^t)}{\ell''(\beta^t)}
 
@@ -614,7 +614,7 @@
 我们对 :math:`U_j` 继续求导就是对数似然函数的二阶导数。
 
 .. math::
-    :label: eq_34_36
+    :label: eq_glm_estimate_36
 
     &\left (\frac{\partial^2 \ell }{\partial \beta_j \partial \beta_k} \right )
 
@@ -656,7 +656,7 @@
 常用符号 :math:`H` 表示。牛顿法的迭代公式可以写成如下形式，
 
 .. math::
-    :label: eq_34_35
+    :label: eq_glm_estimate_35
 
      \beta^{(t+1)} = \beta^{(t)} - H(\beta^{(t)})^{-1} U(\beta^{(t)})
 
@@ -664,10 +664,10 @@
 和梯度下降法的 :eq:`eq_34_32` 对比下发现，两者非常相似，不同的是牛顿法用 ``Hessian`` 矩阵的逆矩阵 :math:`H(\beta^{(t)})^{-1}`
 替代了学习率参数，避免了需要人工设置学习率的问题。相比梯度下降法，牛顿法收敛速度更快，并且也没有震荡无法收敛的问题。
 
-观察下 :eq:`eq_34_36` ，
+观察下 :eq:`eq_glm_estimate_36` ，
 ``GLM`` 的海森矩阵计算难度是比较大的，为了解决这个问题，
 有时候会用海森的矩阵的期望 :math:`\mathbb{E}[H]` 替代。
-从 :eq:`eq_34_36` 可以看到，海森矩阵是一个关于样本
+从 :eq:`eq_glm_estimate_36` 可以看到，海森矩阵是一个关于样本
 的函数，所以可以对海森矩阵求关于 :math:`y` 的期望。
 
 
@@ -842,7 +842,7 @@
 的解析解。
 
 .. math::
-    :label: eq_34_37
+    :label: eq_glm_estimate_37
 
     \sum_{i=1}^N \frac{y_i-\mu_i}{a(\phi) \nu(\mu_i) } \left ( \frac{\partial \mu}{\partial \eta} \right )_i
     =0
@@ -860,7 +860,7 @@
 
     \frac{\partial \mu}{\partial \eta} &= \frac{\partial }{\partial \eta} \text{sigmoid} (\eta) = \mu(1-\mu)
 
-代入到 :eq:`eq_34_37` 可得：
+代入到 :eq:`eq_glm_estimate_37` 可得：
 
 
 .. math::
@@ -1106,7 +1106,7 @@
 
 **迭代初始值的设定**
 
-对比下 Newton–Raphson 算法的参数迭代公式( :eq:`eq_34_35` )
+对比下 Newton–Raphson 算法的参数迭代公式( :eq:`eq_glm_estimate_35` )
 和IRLS算法的参数迭代公式( :eq:`eq_glm_estimate_045` )，
 可以发现IRLS算法并不需要直接在 :math:`\beta^{(t)}` 的基础上进行参数迭代，
 **IRLS算法的参数迭代仅仅依赖** :math:`\mu` **和** :math:`\eta`
@@ -1176,7 +1176,7 @@ IRLS算法在更新时，只依赖期望 :math:`\mu` 和 线性预测器 :math:`
 在 ``GLM`` 中，期望参数 :math:`\mu_i` 和线性预测器 :math:`\eta_i=\beta^T x_i` 通过连接函数连接到一起，
 协变量参数 :math:`\beta` 取代了期望参数 :math:`\mu_i` 。
 协变量参数 :math:`\beta` 的最大似然估计量的抽样分布同样是高斯分布，
-这里我们省略证明过程，详细的证明过程可参考 :numref:`ch_influence_ml_statistic`。
+这里我们省略证明过程，详细的证明过程可参考 :numref:`ch_glm_influence_wald` 。
 
 .. math::
 

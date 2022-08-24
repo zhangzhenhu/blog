@@ -26,6 +26,7 @@
    概率基础/content.rst
    最大似然估计/content.rst
    推断与检验/content.rst
+   贝叶斯估计/content.rst
    指数族/content.rst
    线性回归/content.rst
    广义线性模型/content.rst
