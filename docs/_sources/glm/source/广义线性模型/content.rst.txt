@@ -376,12 +376,100 @@ GLM的软件工具包(Generalized Linear Interactive Modelling,GLIM)，
 示例：伯努利分布
 =============================
 
+在 :numref:`ch_basic_Bernoulli` 我们已经介绍过伯努利分布，伯努利分布的概率质量函数一般写作
+
+.. math::
+
+        P(Y) = \pi^y (1-\pi)^{1-y}
 
 
+其中 :math:`\pi` 是它的原始参数，表示变量 :math:`Y=1` 的概率。
+现在我们把它变成指数族分布的形式。
+
+
+.. math::
+
+        P(Y) &= \pi^y (1-\pi)^{1-y}
+
+        &= \exp \left \{ \ln \left [   \pi^y (1-\pi)^{1-y}  \right  ]   \right  \}
+
+        &= \exp  \left \{ \ln   \pi^y  + \ln  (1-\pi)^{1-y}    \right  \}
+
+        &= \exp  \left \{  y \ln \pi +  (1-y)\ln  (1-\pi)   \right  \}
+
+        &= \exp  \left \{  y \ln \pi +  \ln  (1-\pi)  - y \ln  (1-\pi)  \right  \}
+
+        &= \exp  \left \{  y \ln \frac{ \pi} {(1-\pi)} +  \ln  (1-\pi)   \right  \}
+
+
+和指数族的标准形式 :eq:`eq_glm_121` 进行对比，首先能看出分散函数部分是没有的，也就是相当于
+
+.. math::
+
+     a(\phi) =  1
+
+不同于高斯分布，伯努利分布没有分散参数，或者是分散参数是常量 :math:`1`
+。事实上，指数族中大部分离散分布都是没有额外的分散参数的。
+
+接下来，看下自然参数 :math:`\theta` 和原始参数 :math:`\pi` 之间的关系。
+
+
+.. math::
+
+       \theta &= \ln \frac{ \pi} {1-\pi}
+
+        \pi &=  \frac{\exp\{\theta\} }{ 1+ \exp\{\theta\}  }
+
+
+然后是累积分布函数 :math:`b(\theta)`
+，
+
+.. math::
+
+
+        b(\theta) = - \ln(1-\pi) = \ln ( 1 + \exp \{\theta\})
+
+
+
+再来看它的期望。注意，这里 :math:`b'(\theta)` 是对 :math:`\theta` 的导数，不是对 :math:`\pi` 的导数。
+
+.. math::
+
+    \mathbb{E}[Y] &=b'(\theta)
+
+    &=  \frac{1}{ 1 + \exp \{\theta\} } \cdot 1 \cdot  \exp \{\theta\}
+
+    &=   \frac{ \exp \{\theta\}}{ 1 + \exp \{\theta\} }
+
+    &=  \pi \triangleq \mu
+
+从这可以看出，对于伯努利分布，原始参数 :math:`\pi` 就是它的期望参数 :math:`\mu`
+。最后，伯努利分布的方差为
+
+
+.. math::
+
+    Var(Y) &= a(\phi) \nu(\mu)
+
+    &= b''(\theta)
+
+    &= \pi(1-\pi) \triangleq  \mu(1-\mu)
+
+
+从中可以看出，伯努利分布是没有额外的分散参数的，同时它的方差是和期望成二次关系。
+这个特性会产生很大的影响，之后的章节会详细讨论这个问题。
 
 
 广义线性模型
 ########################################################
+
+我们在学习统计分析、数据挖掘、机器学习等领域相关内容时，入门模型就是线性回归模型，
+除此之外还有逻辑回归，泊松回归，二项式回归等等，实际上这些都是线性模型。
+这些模型都是由不同的人提出的，我们也是一个一个去学习的，并在不同的场景下去应用。
+后来有人发现，这些模型其实都是一家人，到1972年，``John Nelder`` 和 ``Robert Wedderburn`` 提出了一种模型框架：广义线性模型
+。这些常见的回归模型都可以纳入到这个框架解释，并用统一的参数估计方法去估计模型参数。
+广义线性模型直接用指数族的标准形式对随机变量 :math:`Y` 进行建模，
+不同的回归模型意味着随机变量 :math:`Y` 是不同的指数族分布而已。
 
 
 在 ``GLM`` 框架中，我们假设响应变量 :math:`Y` 是服从指数族分布的，
@@ -391,7 +479,7 @@ GLM的软件工具包(Generalized Linear Interactive Modelling,GLIM)，
 **线性预测器**
 
 既然是线性模型，所以显然，
-我们需要把输入变量 :math:`X` 进行组成一个线性组合。
+我们需要把多维变量 :math:`X` 进行线性组合。
 
 .. math::
     \eta = \beta^T x + b
@@ -404,6 +492,7 @@ GLM的软件工具包(Generalized Linear Interactive Modelling,GLIM)，
 .. math::
     \eta = \beta^T x
 
+在广义线性模型中，通常把 :math:`\eta` 成为线性预测器。
 
 **连接函数**
 
@@ -419,7 +508,7 @@ GLM的软件工具包(Generalized Linear Interactive Modelling,GLIM)，
 
 现在，我们需要通过 :math:`\eta` 得到 :math:`\mu` ，然后把 :math:`\mu` 作为模型的输出值，
 也就是模型预测出的 :math:`Y` 的值。
-那要如何做到呢？显然，可以定义一个函数，将两者联系起来。
+那要如何做到呢？显然，可以定义一个函数，将两者连接起来。
 
 
 
@@ -429,7 +518,7 @@ GLM的软件工具包(Generalized Linear Interactive Modelling,GLIM)，
 
     \mu &= g^{-1}(\eta)
 
-通常把函数 :math:`g` 称为连接函数(link function)，
+在 ``GLM`` 框架中，把函数 :math:`g` 称为连接函数(link function)，
 连接函数 :math:`g` 是用来连接线性预测器 :math:`\eta` 和均值 :math:`\mu` 的。
 连接函数的反函数 :math:`g^{-1}` 可以称为响应函数(response function)，或者激活函数(active function)，
 连接函数可以有很多种选择。
@@ -445,7 +534,7 @@ GLM的软件工具包(Generalized Linear Interactive Modelling,GLIM)，
 显然，一个广义线性模型有三个关键组件：
 
 1. 一个线性预测器 :math:`\eta=\beta^T x` ，被称为系统组件(systematic component)。
-2. 一个指数族分布作为响应变量 :math:`Y` 概率分布 :math:`p(Y;\theta)` ，被称为随机组件(random component)。
+2. 一个指数族分布作为响应变量 :math:`Y` 概率分布 :math:`P(Y;\theta)` ，被称为随机组件(random component)。
 3. 一个连接函数 :math:`g` 使得 :math:`\eta=g(\mu)` ，:math:`\mu` 是 :math:`Y` 的期望，连接函数描述系统组件和随机组件之间的关系。
 
 
@@ -459,7 +548,7 @@ GLM的软件工具包(Generalized Linear Interactive Modelling,GLIM)，
 
     广义线性模型变量之间的关系
 
-广义线性模型是对经典线性模型的扩展，将输出变量 :math:`Y` 的条件概率分布扩展到指数族分布，
+广义线性模型是对经典线性回归模型的扩展，将输出变量 :math:`Y` 的条件概率分布扩展到指数族分布，
 :numref:`fg_34_1` 展示了广义线性模型框架下各个变量之间的关系。
 
 - 输入变量 :math:`X` 和系数 :math:`\beta` 组成一个线性关系， :math:`\eta=\beta^T x` ，
@@ -476,7 +565,7 @@ GLM的软件工具包(Generalized Linear Interactive Modelling,GLIM)，
 
 
 
-线性预测器 :math:`\eta` 和指数族分布的期望 :math:`\mu` 存在函数关系，:math:`\mu=g^-1(\eta)`
+线性预测器 :math:`\eta` 和指数族分布的期望 :math:`\mu` 存在函数关系，:math:`\mu=g^{-1}(\eta)`
 。指数族分布的自然参数 :math:`\theta`
 又和期望 :math:`\mu` 存在着一一映射的关系，:math:`\theta=\psi(\mu)`
 。因此，指数族分布的自然参数 :math:`\theta` 一定是可以转换成一个关于 :math:`\eta`
@@ -509,7 +598,7 @@ GLM的软件工具包(Generalized Linear Interactive Modelling,GLIM)，
 .. math::
     :label: eq_34_glm_002
 
-    p(Y|X;\beta) = \exp \left \{ \frac{ (\beta^Tx )y - b(\beta^Tx  )}{a(\phi)} + c(y,\phi)  \right \}
+    P(Y|X;\beta) = \exp \left \{ \frac{ (\beta^Tx )y - b(\beta^Tx  )}{a(\phi)} + c(y,\phi)  \right \}
 
 
 

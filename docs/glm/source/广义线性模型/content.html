@@ -68,7 +68,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80/content.html#id16">1.7. 边缘化</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80/content.html#id17">1.8. 常见概率分布</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80/content.html#id18">1.8.1. 伯努利分布</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80/content.html#ch-basic-bernoulli">1.8.1. 伯努利分布</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80/content.html#id19">1.8.2. 二项式分布</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80/content.html#id20">1.8.3. 类别分布</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80/content.html#id21">1.8.4. 多项式分布</a></li>
@@ -159,7 +159,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/content.html#id5">6.2. 线性回归的概率解释</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/content.html#id6">6.2.1. 高斯分布</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/content.html#id6">6.2.1. 高斯假设</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/content.html#id7">6.2.2. 参数估计</a></li>
 </ul>
 </li>
@@ -1172,37 +1172,73 @@ GLM的软件工具包(Generalized Linear Interactive Modelling,GLIM)，
 </section>
 <section id="id5">
 <h3><span class="section-number">7.1.3. </span>示例：伯努利分布<a class="headerlink" href="#id5" title="永久链接至标题"></a></h3>
+<p>在 <a class="reference internal" href="../%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80/content.html#ch-basic-bernoulli"><span class="std std-numref">节 1.8.1</span></a> 我们已经介绍过伯努利分布，伯努利分布的概率质量函数一般写作</p>
+<div class="math notranslate nohighlight" id="equation-glm-source-content-13">
+<span class="eqno">(7.1.17)<a class="headerlink" href="#equation-glm-source-content-13" title="公式的永久链接"></a></span>\[P(Y) = \pi^y (1-\pi)^{1-y}\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(\pi\)</span> 是它的原始参数，表示变量 <span class="math notranslate nohighlight">\(Y=1\)</span> 的概率。
+现在我们把它变成指数族分布的形式。</p>
+<div class="math notranslate nohighlight" id="equation-glm-source-content-14">
+<span class="eqno">(7.1.18)<a class="headerlink" href="#equation-glm-source-content-14" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}P(Y) &amp;= \pi^y (1-\pi)^{1-y}\\&amp;= \exp \left \{ \ln \left [   \pi^y (1-\pi)^{1-y}  \right  ]   \right  \}\\&amp;= \exp  \left \{ \ln   \pi^y  + \ln  (1-\pi)^{1-y}    \right  \}\\&amp;= \exp  \left \{  y \ln \pi +  (1-y)\ln  (1-\pi)   \right  \}\\&amp;= \exp  \left \{  y \ln \pi +  \ln  (1-\pi)  - y \ln  (1-\pi)  \right  \}\\&amp;= \exp  \left \{  y \ln \frac{ \pi} {(1-\pi)} +  \ln  (1-\pi)   \right  \}\end{aligned}\end{align} \]</div>
+<p>和指数族的标准形式 <a class="reference internal" href="#equation-eq-glm-121">公式(7.1.3)</a> 进行对比，首先能看出分散函数部分是没有的，也就是相当于</p>
+<div class="math notranslate nohighlight" id="equation-glm-source-content-15">
+<span class="eqno">(7.1.19)<a class="headerlink" href="#equation-glm-source-content-15" title="公式的永久链接"></a></span>\[a(\phi) =  1\]</div>
+<p>不同于高斯分布，伯努利分布没有分散参数，或者是分散参数是常量 <span class="math notranslate nohighlight">\(1\)</span>
+。事实上，指数族中大部分离散分布都是没有额外的分散参数的。</p>
+<p>接下来，看下自然参数 <span class="math notranslate nohighlight">\(\theta\)</span> 和原始参数 <span class="math notranslate nohighlight">\(\pi\)</span> 之间的关系。</p>
+<div class="math notranslate nohighlight" id="equation-glm-source-content-16">
+<span class="eqno">(7.1.20)<a class="headerlink" href="#equation-glm-source-content-16" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\theta &amp;= \ln \frac{ \pi} {1-\pi}\\ \pi &amp;=  \frac{\exp\{\theta\} }{ 1+ \exp\{\theta\}  }\end{aligned}\end{align} \]</div>
+<p>然后是累积分布函数 <span class="math notranslate nohighlight">\(b(\theta)\)</span>
+，</p>
+<div class="math notranslate nohighlight" id="equation-glm-source-content-17">
+<span class="eqno">(7.1.21)<a class="headerlink" href="#equation-glm-source-content-17" title="公式的永久链接"></a></span>\[b(\theta) = - \ln(1-\pi) = \ln ( 1 + \exp \{\theta\})\]</div>
+<p>再来看它的期望。注意，这里 <span class="math notranslate nohighlight">\(b'(\theta)\)</span> 是对 <span class="math notranslate nohighlight">\(\theta\)</span> 的导数，不是对 <span class="math notranslate nohighlight">\(\pi\)</span> 的导数。</p>
+<div class="math notranslate nohighlight" id="equation-glm-source-content-18">
+<span class="eqno">(7.1.22)<a class="headerlink" href="#equation-glm-source-content-18" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\mathbb{E}[Y] &amp;=b'(\theta)\\&amp;=  \frac{1}{ 1 + \exp \{\theta\} } \cdot 1 \cdot  \exp \{\theta\}\\&amp;=   \frac{ \exp \{\theta\}}{ 1 + \exp \{\theta\} }\\&amp;=  \pi \triangleq \mu\end{aligned}\end{align} \]</div>
+<p>从这可以看出，对于伯努利分布，原始参数 <span class="math notranslate nohighlight">\(\pi\)</span> 就是它的期望参数 <span class="math notranslate nohighlight">\(\mu\)</span>
+。最后，伯努利分布的方差为</p>
+<div class="math notranslate nohighlight" id="equation-glm-source-content-19">
+<span class="eqno">(7.1.23)<a class="headerlink" href="#equation-glm-source-content-19" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}Var(Y) &amp;= a(\phi) \nu(\mu)\\&amp;= b''(\theta)\\&amp;= \pi(1-\pi) \triangleq  \mu(1-\mu)\end{aligned}\end{align} \]</div>
+<p>从中可以看出，伯努利分布是没有额外的分散参数的，同时它的方差是和期望成二次关系。
+这个特性会产生很大的影响，之后的章节会详细讨论这个问题。</p>
 </section>
 </section>
 <section id="id6">
 <h2><span class="section-number">7.2. </span>广义线性模型<a class="headerlink" href="#id6" title="永久链接至标题"></a></h2>
+<p>我们在学习统计分析、数据挖掘、机器学习等领域相关内容时，入门模型就是线性回归模型，
+除此之外还有逻辑回归，泊松回归，二项式回归等等，实际上这些都是线性模型。
+这些模型都是由不同的人提出的，我们也是一个一个去学习的，并在不同的场景下去应用。
+后来有人发现，这些模型其实都是一家人，到1972年，<code class="docutils literal notranslate"><span class="pre">John</span> <span class="pre">Nelder</span></code> 和 <code class="docutils literal notranslate"><span class="pre">Robert</span> <span class="pre">Wedderburn</span></code> 提出了一种模型框架：广义线性模型
+。这些常见的回归模型都可以纳入到这个框架解释，并用统一的参数估计方法去估计模型参数。
+广义线性模型直接用指数族的标准形式对随机变量 <span class="math notranslate nohighlight">\(Y\)</span> 进行建模，
+不同的回归模型意味着随机变量 <span class="math notranslate nohighlight">\(Y\)</span> 是不同的指数族分布而已。</p>
 <p>在 <code class="docutils literal notranslate"><span class="pre">GLM</span></code> 框架中，我们假设响应变量 <span class="math notranslate nohighlight">\(Y\)</span> 是服从指数族分布的，
 我们的目的是通过输入变量 <span class="math notranslate nohighlight">\(X\)</span> 预测响应变量 <span class="math notranslate nohighlight">\(Y\)</span> 的值，
 并且GLM是线性模型，也就是通过输入变量 <span class="math notranslate nohighlight">\(X\)</span> 的线性组合预测 <span class="math notranslate nohighlight">\(Y\)</span> 。</p>
 <p><strong>线性预测器</strong></p>
 <p>既然是线性模型，所以显然，
-我们需要把输入变量 <span class="math notranslate nohighlight">\(X\)</span> 进行组成一个线性组合。</p>
-<div class="math notranslate nohighlight" id="equation-glm-source-content-13">
-<span class="eqno">(7.2.1)<a class="headerlink" href="#equation-glm-source-content-13" title="公式的永久链接"></a></span>\[\eta = \beta^T x + b\]</div>
+我们需要把多维变量 <span class="math notranslate nohighlight">\(X\)</span> 进行线性组合。</p>
+<div class="math notranslate nohighlight" id="equation-glm-source-content-20">
+<span class="eqno">(7.2.1)<a class="headerlink" href="#equation-glm-source-content-20" title="公式的永久链接"></a></span>\[\eta = \beta^T x + b\]</div>
 <p><span class="math notranslate nohighlight">\(x\)</span> 可以是一个向量，<span class="math notranslate nohighlight">\(\eta\)</span> 是关于 <span class="math notranslate nohighlight">\(x\)</span> 的
 一个线性函数。为了简洁性，通常会人为的为 <span class="math notranslate nohighlight">\(x\)</span> 加入一维常量值1，
 并且把截距参数 <span class="math notranslate nohighlight">\(b\)</span> 算在 <span class="math notranslate nohighlight">\(\beta\)</span> 中，
 这样上述线性函数可以写成向量內积的形式。</p>
-<div class="math notranslate nohighlight" id="equation-glm-source-content-14">
-<span class="eqno">(7.2.2)<a class="headerlink" href="#equation-glm-source-content-14" title="公式的永久链接"></a></span>\[\eta = \beta^T x\]</div>
+<div class="math notranslate nohighlight" id="equation-glm-source-content-21">
+<span class="eqno">(7.2.2)<a class="headerlink" href="#equation-glm-source-content-21" title="公式的永久链接"></a></span>\[\eta = \beta^T x\]</div>
+<p>在广义线性模型中，通常把 <span class="math notranslate nohighlight">\(\eta\)</span> 成为线性预测器。</p>
 <p><strong>连接函数</strong></p>
 <p>回顾一下我们的初衷，我们需要用输入变量 <span class="math notranslate nohighlight">\(X\)</span> 的线性结果 <span class="math notranslate nohighlight">\(\eta\)</span> 去预测输出变量 <span class="math notranslate nohighlight">\(Y\)</span> 的值，
 <span class="math notranslate nohighlight">\(Y\)</span> 是一个指数族的 <strong>随机变量</strong> ，对于一个随机变量，其值可以是其值域空间中任意的一个值，
 只不过每个值的概率可能不同（当然对于均匀分布其每个值的概率是相同的）。
 但是，我们期望得到 <span class="math notranslate nohighlight">\(Y\)</span> 的一个具体的值，显然随机变量 <span class="math notranslate nohighlight">\(Y\)</span> 的期望值是最好不过选择。</p>
-<div class="math notranslate nohighlight" id="equation-glm-source-content-15">
-<span class="eqno">(7.2.3)<a class="headerlink" href="#equation-glm-source-content-15" title="公式的永久链接"></a></span>\[\mu = \mathbb{E}[Y]\]</div>
+<div class="math notranslate nohighlight" id="equation-glm-source-content-22">
+<span class="eqno">(7.2.3)<a class="headerlink" href="#equation-glm-source-content-22" title="公式的永久链接"></a></span>\[\mu = \mathbb{E}[Y]\]</div>
 <p>现在，我们需要通过 <span class="math notranslate nohighlight">\(\eta\)</span> 得到 <span class="math notranslate nohighlight">\(\mu\)</span> ，然后把 <span class="math notranslate nohighlight">\(\mu\)</span> 作为模型的输出值，
 也就是模型预测出的 <span class="math notranslate nohighlight">\(Y\)</span> 的值。
-那要如何做到呢？显然，可以定义一个函数，将两者联系起来。</p>
-<div class="math notranslate nohighlight" id="equation-glm-source-content-16">
-<span class="eqno">(7.2.4)<a class="headerlink" href="#equation-glm-source-content-16" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\eta &amp;= g(\mu)\\\mu &amp;= g^{-1}(\eta)\end{aligned}\end{align} \]</div>
-<p>通常把函数 <span class="math notranslate nohighlight">\(g\)</span> 称为连接函数(link function)，
+那要如何做到呢？显然，可以定义一个函数，将两者连接起来。</p>
+<div class="math notranslate nohighlight" id="equation-glm-source-content-23">
+<span class="eqno">(7.2.4)<a class="headerlink" href="#equation-glm-source-content-23" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\eta &amp;= g(\mu)\\\mu &amp;= g^{-1}(\eta)\end{aligned}\end{align} \]</div>
+<p>在 <code class="docutils literal notranslate"><span class="pre">GLM</span></code> 框架中，把函数 <span class="math notranslate nohighlight">\(g\)</span> 称为连接函数(link function)，
 连接函数 <span class="math notranslate nohighlight">\(g\)</span> 是用来连接线性预测器 <span class="math notranslate nohighlight">\(\eta\)</span> 和均值 <span class="math notranslate nohighlight">\(\mu\)</span> 的。
 连接函数的反函数 <span class="math notranslate nohighlight">\(g^{-1}\)</span> 可以称为响应函数(response function)，或者激活函数(active function)，
 连接函数可以有很多种选择。
@@ -1215,7 +1251,7 @@ GLM的软件工具包(Generalized Linear Interactive Modelling,GLIM)，
 <p>显然，一个广义线性模型有三个关键组件：</p>
 <ol class="arabic simple">
 <li><p>一个线性预测器 <span class="math notranslate nohighlight">\(\eta=\beta^T x\)</span> ，被称为系统组件(systematic component)。</p></li>
-<li><p>一个指数族分布作为响应变量 <span class="math notranslate nohighlight">\(Y\)</span> 概率分布 <span class="math notranslate nohighlight">\(p(Y;\theta)\)</span> ，被称为随机组件(random component)。</p></li>
+<li><p>一个指数族分布作为响应变量 <span class="math notranslate nohighlight">\(Y\)</span> 概率分布 <span class="math notranslate nohighlight">\(P(Y;\theta)\)</span> ，被称为随机组件(random component)。</p></li>
 <li><p>一个连接函数 <span class="math notranslate nohighlight">\(g\)</span> 使得 <span class="math notranslate nohighlight">\(\eta=g(\mu)\)</span> ，<span class="math notranslate nohighlight">\(\mu\)</span> 是 <span class="math notranslate nohighlight">\(Y\)</span> 的期望，连接函数描述系统组件和随机组件之间的关系。</p></li>
 </ol>
 <figure class="align-center" id="id9">
@@ -1224,7 +1260,7 @@ GLM的软件工具包(Generalized Linear Interactive Modelling,GLIM)，
 <p><span class="caption-number">图 7.2.1 </span><span class="caption-text">广义线性模型变量之间的关系</span><a class="headerlink" href="#id9" title="永久链接至图片"></a></p>
 </figcaption>
 </figure>
-<p>广义线性模型是对经典线性模型的扩展，将输出变量 <span class="math notranslate nohighlight">\(Y\)</span> 的条件概率分布扩展到指数族分布，
+<p>广义线性模型是对经典线性回归模型的扩展，将输出变量 <span class="math notranslate nohighlight">\(Y\)</span> 的条件概率分布扩展到指数族分布，
 <a class="reference internal" href="../../../probability_model/25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#fg-34-1"><span class="std std-numref">图 19.1.1</span></a> 展示了广义线性模型框架下各个变量之间的关系。</p>
 <ul class="simple">
 <li><p>输入变量 <span class="math notranslate nohighlight">\(X\)</span> 和系数 <span class="math notranslate nohighlight">\(\beta\)</span> 组成一个线性关系， <span class="math notranslate nohighlight">\(\eta=\beta^T x\)</span> ，
@@ -1237,7 +1273,7 @@ GLM的软件工具包(Generalized Linear Interactive Modelling,GLIM)，
 激活函数可以是线性的，也可以是非线性的，
 比如，经典线性回归模型的激活函数为 <span class="math notranslate nohighlight">\(\mu=g^{-1}(\eta)=\eta\)</span> ，逻辑回归模型的激活函数为 <span class="math notranslate nohighlight">\(\mu=g^{-1}(\eta)=sigmoid(\eta)\)</span> 。</p></li>
 </ul>
-<p>线性预测器 <span class="math notranslate nohighlight">\(\eta\)</span> 和指数族分布的期望 <span class="math notranslate nohighlight">\(\mu\)</span> 存在函数关系，<span class="math notranslate nohighlight">\(\mu=g^-1(\eta)\)</span>
+<p>线性预测器 <span class="math notranslate nohighlight">\(\eta\)</span> 和指数族分布的期望 <span class="math notranslate nohighlight">\(\mu\)</span> 存在函数关系，<span class="math notranslate nohighlight">\(\mu=g^{-1}(\eta)\)</span>
 。指数族分布的自然参数 <span class="math notranslate nohighlight">\(\theta\)</span>
 又和期望 <span class="math notranslate nohighlight">\(\mu\)</span> 存在着一一映射的关系，<span class="math notranslate nohighlight">\(\theta=\psi(\mu)\)</span>
 。因此，指数族分布的自然参数 <span class="math notranslate nohighlight">\(\theta\)</span> 一定是可以转换成一个关于 <span class="math notranslate nohighlight">\(\eta\)</span>
@@ -1251,26 +1287,26 @@ GLM的软件工具包(Generalized Linear Interactive Modelling,GLIM)，
 和 <span class="math notranslate nohighlight">\(g^{-1}\)</span> 就互为反函数，二者可以抵消掉，此时满足 <span class="math notranslate nohighlight">\(\theta=\eta\)</span>
 ，上式就可以简化成如下形式。</p>
 <div class="math notranslate nohighlight" id="equation-eq-34-glm-002">
-<span class="eqno">(7.2.6)<a class="headerlink" href="#equation-eq-34-glm-002" title="公式的永久链接"></a></span>\[p(Y|X;\beta) = \exp \left \{ \frac{ (\beta^Tx )y - b(\beta^Tx  )}{a(\phi)} + c(y,\phi)  \right \}\]</div>
+<span class="eqno">(7.2.6)<a class="headerlink" href="#equation-eq-34-glm-002" title="公式的永久链接"></a></span>\[P(Y|X;\beta) = \exp \left \{ \frac{ (\beta^Tx )y - b(\beta^Tx  )}{a(\phi)} + c(y,\phi)  \right \}\]</div>
 <p>当连接函数使得 <span class="math notranslate nohighlight">\(\eta=\theta\)</span> 时，称为规范连接(canonical link)函数。
 实际上规范连接函数满足 <span class="math notranslate nohighlight">\(\eta=g(\mu)=\psi(\mu)=\theta\)</span> ，
 换句话说，对于一个特定的指数族分布，其规范连接函数为 <span class="math notranslate nohighlight">\(g=\psi\)</span> 。
 使用规范连接函数可以带来很多统计属性，最直接的就是可以简化参数估计的计算过程。</p>
 <p><strong>传统线性回归模型</strong></p>
 <p>传统的线性回归模型就是假设响应变量 <span class="math notranslate nohighlight">\(Y\)</span> 服从高斯分布，高斯分布的概率密度函数用指数族的形式表示为：</p>
-<div class="math notranslate nohighlight" id="equation-glm-source-content-17">
-<span class="eqno">(7.2.7)<a class="headerlink" href="#equation-glm-source-content-17" title="公式的永久链接"></a></span>\[f(y) = \exp \{ \frac{y\mu-\frac{1}{2}\mu^2}{\sigma^2} - \frac{y^2}{2\sigma^2}
+<div class="math notranslate nohighlight" id="equation-glm-source-content-24">
+<span class="eqno">(7.2.7)<a class="headerlink" href="#equation-glm-source-content-24" title="公式的永久链接"></a></span>\[f(y) = \exp \{ \frac{y\mu-\frac{1}{2}\mu^2}{\sigma^2} - \frac{y^2}{2\sigma^2}
 - \frac{1}{2} \ln (2\pi\sigma^2) \}\]</div>
 <p>和 <a class="reference internal" href="#equation-eq-glm-121">公式(7.1.3)</a> 进行对比，各个标准项为：</p>
-<div class="math notranslate nohighlight" id="equation-glm-source-content-18">
-<span class="eqno">(7.2.8)<a class="headerlink" href="#equation-glm-source-content-18" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\theta &amp;=\mu\\b(\theta) &amp;= \frac{1}{2}\mu^2\\a(\phi) &amp;= \sigma^2\end{aligned}\end{align} \]</div>
+<div class="math notranslate nohighlight" id="equation-glm-source-content-25">
+<span class="eqno">(7.2.8)<a class="headerlink" href="#equation-glm-source-content-25" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\theta &amp;=\mu\\b(\theta) &amp;= \frac{1}{2}\mu^2\\a(\phi) &amp;= \sigma^2\end{aligned}\end{align} \]</div>
 <p>可以看到，高斯分布的自然参数 <span class="math notranslate nohighlight">\(\theta\)</span> 和其期望 <span class="math notranslate nohighlight">\(\mu\)</span> 之间的关系为恒等函数，
 即 <span class="math notranslate nohighlight">\(\theta=\mu\)</span> 。
 在传统线性回归模型中，连接函数采用的也是恒等函数，因此传统线性回归模型采用的是标准连接函数。
 此时满足 <span class="math notranslate nohighlight">\(\theta=\mu=\eta=\beta^Tx\)</span>
 ，模型预测值 <span class="math notranslate nohighlight">\(\hat{y}\)</span> 为：</p>
-<div class="math notranslate nohighlight" id="equation-glm-source-content-19">
-<span class="eqno">(7.2.9)<a class="headerlink" href="#equation-glm-source-content-19" title="公式的永久链接"></a></span>\[\hat{y} = \mu = \eta =\beta^Tx\]</div>
+<div class="math notranslate nohighlight" id="equation-glm-source-content-26">
+<span class="eqno">(7.2.9)<a class="headerlink" href="#equation-glm-source-content-26" title="公式的永久链接"></a></span>\[\hat{y} = \mu = \eta =\beta^Tx\]</div>
 <p>此外，传统线性回归模型中假设所有样本的都具有相同的方差，并且方差是常量1，<span class="math notranslate nohighlight">\(\sigma^2=1\)</span>
 。</p>
 <p>然而，当无法合理地假设数据是正态分布的或者响应变量的结果集有限集时，传统的线性回归模型是不合适的。

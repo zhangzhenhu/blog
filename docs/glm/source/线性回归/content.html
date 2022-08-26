@@ -68,7 +68,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80/content.html#id16">1.7. 边缘化</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80/content.html#id17">1.8. 常见概率分布</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80/content.html#id18">1.8.1. 伯努利分布</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80/content.html#ch-basic-bernoulli">1.8.1. 伯努利分布</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80/content.html#id19">1.8.2. 二项式分布</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80/content.html#id20">1.8.3. 类别分布</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80/content.html#id21">1.8.4. 多项式分布</a></li>
@@ -159,7 +159,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#id5">6.2. 线性回归的概率解释</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id6">6.2.1. 高斯分布</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id6">6.2.1. 高斯假设</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#id7">6.2.2. 参数估计</a></li>
 </ul>
 </li>
@@ -919,15 +919,15 @@
 <p>通常情况下，机器学习就是要找到输出变量 <span class="math notranslate nohighlight">\(Y\)</span> 和输入变量 <span class="math notranslate nohighlight">\(X\)</span> 的函数关系，
 变量之间最简单的函数关系，就是线性函数关系。
 在线性回归模型中，假设 <span class="math notranslate nohighlight">\(Y\)</span> 与 <span class="math notranslate nohighlight">\(X\)</span> 之间是一个线性函数的关系。</p>
-<div class="math notranslate nohighlight" id="equation-eq-29-1">
-<span class="eqno">(6.1.1)<a class="headerlink" href="#equation-eq-29-1" title="公式的永久链接"></a></span>\[y = \beta_0+ \beta_1 x_1 +\beta_2 x_2+\dots+ \beta_p x_p\]</div>
+<div class="math notranslate nohighlight" id="equation-eq-linear-1">
+<span class="eqno">(6.1.1)<a class="headerlink" href="#equation-eq-linear-1" title="公式的永久链接"></a></span>\[y = \beta_0+ \beta_1 x_1 +\beta_2 x_2+\dots+ \beta_p x_p\]</div>
 <p>由于输入特征数据 <span class="math notranslate nohighlight">\(X\)</span> 通常是多维的，所以 <span class="math notranslate nohighlight">\(f(x)\)</span> 是一个多元一次函数，
 其中 <span class="math notranslate nohighlight">\(x_j\)</span> 是第 <span class="math notranslate nohighlight">\(j\)</span> 维输入数据，<span class="math notranslate nohighlight">\(x_j\)</span> 可以是任意实数值。
 <span class="math notranslate nohighlight">\(\beta_j (j &gt; 0)\)</span> 是 <span class="math notranslate nohighlight">\(x_j\)</span> 的系数，<span class="math notranslate nohighlight">\(\beta_0\)</span> 是这个线性方程的截距，
 我们把 <span class="math notranslate nohighlight">\(\beta_j\)</span> 看做这个函数的未知参数，其值暂时是未知的。
-<a class="reference internal" href="../../../probability_model/21.%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92_29.html#equation-eq-29-1">公式(17.2.3)</a> 看上去不是很简洁，通常为了公式的简洁表达，我们令
+<a class="reference internal" href="#equation-eq-linear-1">公式(6.1.1)</a> 看上去不是很简洁，通常为了公式的简洁表达，我们令
 <span class="math notranslate nohighlight">\(\beta^T=[\beta_0,\beta_1,\dots,\beta_p],x^T=[1,x_1,x_2,\dots,x_p]\)</span> ，
-然后把 <a class="reference internal" href="../../../probability_model/21.%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92_29.html#equation-eq-29-1">公式(17.2.3)</a> 看成是特征向量 <span class="math notranslate nohighlight">\(x\)</span> 和参数向量 <span class="math notranslate nohighlight">\(\beta\)</span> 的內积形式。
+然后把 <a class="reference internal" href="#equation-eq-linear-1">公式(6.1.1)</a> 看成是特征向量 <span class="math notranslate nohighlight">\(x\)</span> 和参数向量 <span class="math notranslate nohighlight">\(\beta\)</span> 的內积形式。
 线性回归模型的简洁表示为：</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-0">
 <span class="eqno">(6.1.2)<a class="headerlink" href="#equation-glm-source-content-0" title="公式的永久链接"></a></span>\[y =  \beta_0 \times 1 + \beta_1x_1 +\beta_2 x_2+\dots+\beta_p x_p
@@ -936,7 +936,7 @@
 <p class="admonition-title">注解</p>
 <p>为了满足向量內积的形式，我们人为的增加一列特征数据 <span class="math notranslate nohighlight">\(x_0=1\)</span>，所有输入样本的 <span class="math notranslate nohighlight">\(x_0\)</span> 都为常量1。</p>
 </div>
-<p><a class="reference internal" href="../../../probability_model/21.%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92_29.html#fg-29-1"><span class="std std-numref">图 17.2.1</span></a> 是单一维度输入变量的线性回归模型的图形化展示，
+<p><a class="reference internal" href="#fg-linear-1"><span class="std std-numref">图 6.1.1</span></a> 是单一维度输入变量的线性回归模型的图形化展示，
 为了方便图形化展示，我们假设输入特征变量 <span class="math notranslate nohighlight">\(X\)</span> 只有一维。
 图中蓝色的点代表一些 <span class="math notranslate nohighlight">\((x_i,y_i)\)</span> 的样本点，下标 <span class="math notranslate nohighlight">\(i\)</span> 是样本点的编号。
 线性回归模型的本质就是找到一条直线 <span class="math notranslate nohighlight">\(y=x^T \beta\)</span> (比如图中的红色直线)
@@ -945,7 +945,7 @@
 这样当输入一个新的 <span class="math notranslate nohighlight">\(x_{new}\)</span> 时，就用直线上的点 <span class="math notranslate nohighlight">\(y_{new}=x_{new}^T \beta\)</span>
 作为预测值 <span class="math notranslate nohighlight">\(\hat{y}=y_{new}=x_{new}^T \beta\)</span> 。</p>
 <figure class="align-center" id="id8">
-<span id="fg-29-1"></span><a class="reference internal image-reference" href="../../../_images/29_1.png"><img alt="../../../_images/29_1.png" src="../../../_images/29_1.png" style="width: 320.0px; height: 240.0px;" /></a>
+<span id="fg-linear-1"></span><a class="reference internal image-reference" href="../../../_images/29_1.png"><img alt="../../../_images/29_1.png" src="../../../_images/29_1.png" style="width: 320.0px; height: 240.0px;" /></a>
 <figcaption>
 <p><span class="caption-number">图 6.1.1 </span><span class="caption-text">单一输入特征的回归模型</span><a class="headerlink" href="#id8" title="永久链接至图片"></a></p>
 </figcaption>
@@ -960,7 +960,7 @@
 <div class="math notranslate nohighlight" id="equation-glm-source-content-1">
 <span class="eqno">(6.1.3)<a class="headerlink" href="#equation-glm-source-content-1" title="公式的永久链接"></a></span>\[J(\beta)=\sum_{i=1}^N (\hat{y}_i-y_i)^2\]</div>
 <figure class="align-center" id="id9">
-<span id="fg-29-2"></span><a class="reference internal image-reference" href="../../../_images/29_2.png"><img alt="../../../_images/29_2.png" src="../../../_images/29_2.png" style="width: 279.0px; height: 216.5px;" /></a>
+<span id="fg-linear-2"></span><a class="reference internal image-reference" href="../../../_images/29_2.png"><img alt="../../../_images/29_2.png" src="../../../_images/29_2.png" style="width: 279.0px; height: 216.5px;" /></a>
 <figcaption>
 <p><span class="caption-number">图 6.1.2 </span><span class="caption-text">线性回归的残差</span><a class="headerlink" href="#id9" title="永久链接至图片"></a></p>
 </figcaption>
@@ -999,16 +999,16 @@
 <div class="math notranslate nohighlight" id="equation-glm-source-content-4">
 <span class="eqno">(6.1.6)<a class="headerlink" href="#equation-glm-source-content-4" title="公式的永久链接"></a></span>\[\frac{\partial J}{\partial \beta} = 2X^T (X \beta - y)\]</div>
 <p>然后我们令导数为0，可以得到：</p>
-<div class="math notranslate nohighlight" id="equation-eq-29-03">
-<span class="eqno">(6.1.7)<a class="headerlink" href="#equation-eq-29-03" title="公式的永久链接"></a></span>\[X^TX\beta = X^T y\]</div>
-<p><a class="reference internal" href="../../../probability_model/21.%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92_29.html#equation-eq-29-03">公式(17.2.9)</a> 通常被称为正规方程组(normal equations)，
+<div class="math notranslate nohighlight" id="equation-eq-linear-03">
+<span class="eqno">(6.1.7)<a class="headerlink" href="#equation-eq-linear-03" title="公式的永久链接"></a></span>\[X^TX\beta = X^T y\]</div>
+<p><a class="reference internal" href="#equation-eq-linear-03">公式(6.1.7)</a> 通常被称为正规方程组(normal equations)，
 理论上，我们可以根据这个等式得到参数 <span class="math notranslate nohighlight">\(\beta\)</span> 的解析解</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-5">
 <span class="eqno">(6.1.8)<a class="headerlink" href="#equation-glm-source-content-5" title="公式的永久链接"></a></span>\[\hat{\beta}=(X^TX)^{-1} X^Ty\]</div>
 <p>然而，这个解析解需要求矩阵 <span class="math notranslate nohighlight">\(X^TX\)</span> 的逆矩阵，
 矩阵存在逆矩阵需要满足两个条件：(1)是方阵，(2)是满秩的。
 虽然是 <span class="math notranslate nohighlight">\(X^TX\)</span> 方阵，但是未必满秩，
-那么也就不存在逆矩阵，当逆矩阵不存在时也没没办法计算解析解。
+那么也就不存在逆矩阵，当逆矩阵不存在时无法计算解析解。
 当矩阵 <span class="math notranslate nohighlight">\(X\)</span> 存在(行或列)共线性时，<span class="math notranslate nohighlight">\((X^TX)\)</span> 一定是不满秩的。</p>
 <p><span class="math notranslate nohighlight">\((X^TX)\)</span> 不存在逆矩阵不代表参数 <span class="math notranslate nohighlight">\(\beta\)</span> 无解，上面已经讲过损失函数 <span class="math notranslate nohighlight">\(J(\beta)\)</span>
 是二次函数，一定存在唯一的极值点，所以参数 <span class="math notranslate nohighlight">\(\beta\)</span> 一定有全局最优解的。
@@ -1022,20 +1022,20 @@
 两个变量的联合概率为</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-6">
 <span class="eqno">(6.2.1)<a class="headerlink" href="#equation-glm-source-content-6" title="公式的永久链接"></a></span>\[P(X,Y)=P(X)P(Y|X)\]</div>
-<p>在回归问题中，是给定输入 <span class="math notranslate nohighlight">\(x\)</span> ，模型输出 <span class="math notranslate nohighlight">\(y\)</span> 的值，特征变量 <span class="math notranslate nohighlight">\(X\)</span> 的值是已知的确定的，
+<p>在回归问题中，给定输入 <span class="math notranslate nohighlight">\(x\)</span> ，模型输出 <span class="math notranslate nohighlight">\(y\)</span> 的值，特征变量 <span class="math notranslate nohighlight">\(X\)</span> 的值是已知的、确定的，
 所以不需要边缘概率 <span class="math notranslate nohighlight">\(P(X)\)</span> ，只需要得到条件概率 <span class="math notranslate nohighlight">\(P(Y|X)\)</span> 即可。
 换句话说，不需要对联合概率 <span class="math notranslate nohighlight">\(P(X,Y)\)</span> 进行建模，只需要建模条件概率 <span class="math notranslate nohighlight">\(P(Y|X)\)</span>
 。在概率的框架下，用条件概率 <span class="math notranslate nohighlight">\(P(Y|X)=f(x)\)</span> 去表达这种关系，
 即当 <span class="math notranslate nohighlight">\(X=x\)</span> 时，变量 <span class="math notranslate nohighlight">\(Y=y\)</span> 的概率为 <span class="math notranslate nohighlight">\(P(Y=y|X=x)\)</span> 。</p>
 <section id="id6">
-<h3><span class="section-number">6.2.1. </span>高斯分布<a class="headerlink" href="#id6" title="永久链接至标题"></a></h3>
+<h3><span class="section-number">6.2.1. </span>高斯假设<a class="headerlink" href="#id6" title="永久链接至标题"></a></h3>
 <figure class="align-center" id="id10">
-<span id="fg-29-12"></span><a class="reference internal image-reference" href="../../../_images/29_12.jpg"><img alt="../../../_images/29_12.jpg" src="../../../_images/29_12.jpg" style="width: 296.7px; height: 203.7px;" /></a>
+<span id="fg-linear-12"></span><a class="reference internal image-reference" href="../../../_images/29_12.jpg"><img alt="../../../_images/29_12.jpg" src="../../../_images/29_12.jpg" style="width: 296.7px; height: 203.7px;" /></a>
 <figcaption>
 <p><span class="caption-number">图 6.2.1 </span><span class="caption-text">线性回归模型表示成条件均值函数加上一个高斯噪声。</span><a class="headerlink" href="#id10" title="永久链接至图片"></a></p>
 </figcaption>
 </figure>
-<p>观察 <a class="reference internal" href="../../../probability_model/21.%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92_29.html#fg-29-12"><span class="std std-numref">图 17.3.2</span></a>
+<p>观察 <a class="reference internal" href="#fg-linear-12"><span class="std std-numref">图 6.2.1</span></a>
 ，变量 <span class="math notranslate nohighlight">\(Y\)</span> 的值，可以看做是线性预测器 <span class="math notranslate nohighlight">\(x^T \beta\)</span> 的值加上一个误差项（噪声）
 <span class="math notranslate nohighlight">\(\epsilon\)</span> 。</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-7">
@@ -1054,8 +1054,8 @@
 <p>因此条件概率 <span class="math notranslate nohighlight">\(P(Y|X)\)</span> 是均值为 <span class="math notranslate nohighlight">\(x^T \beta\)</span> 方差为 <span class="math notranslate nohighlight">\(\sigma^2\)</span>
 的高斯分布，
 条件概率分布 <span class="math notranslate nohighlight">\(P(Y|X)\)</span> 的概率密度函数为：</p>
-<div class="math notranslate nohighlight" id="equation-eq-29-10">
-<span class="eqno">(6.2.4)<a class="headerlink" href="#equation-eq-29-10" title="公式的永久链接"></a></span>\[p(y|x;\beta) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp \{ -\frac{1}{2\sigma^2}(y-\beta^Tx)^2 \}\]</div>
+<div class="math notranslate nohighlight" id="equation-eq-linear-10">
+<span class="eqno">(6.2.4)<a class="headerlink" href="#equation-eq-linear-10" title="公式的永久链接"></a></span>\[p(y|x;\beta) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp \{ -\frac{1}{2\sigma^2}(y-\beta^Tx)^2 \}\]</div>
 <div class="admonition note">
 <p class="admonition-title">注解</p>
 <p>实际上 <span class="math notranslate nohighlight">\(Y\)</span> 的概率分布要根据数据的实际分布确定，并不是一定要高斯分布。

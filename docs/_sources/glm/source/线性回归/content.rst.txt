@@ -36,7 +36,7 @@
 
 
 .. math::
-    :label: eq_29_1
+    :label: eq_linear_1
 
     y = \beta_0+ \beta_1 x_1 +\beta_2 x_2+\dots+ \beta_p x_p
 
@@ -46,9 +46,9 @@
 其中 :math:`x_j` 是第 :math:`j` 维输入数据，:math:`x_j` 可以是任意实数值。
 :math:`\beta_j (j > 0)` 是 :math:`x_j` 的系数，:math:`\beta_0` 是这个线性方程的截距，
 我们把 :math:`\beta_j` 看做这个函数的未知参数，其值暂时是未知的。
-:eq:`eq_29_1` 看上去不是很简洁，通常为了公式的简洁表达，我们令
+:eq:`eq_linear_1` 看上去不是很简洁，通常为了公式的简洁表达，我们令
 :math:`\beta^T=[\beta_0,\beta_1,\dots,\beta_p],x^T=[1,x_1,x_2,\dots,x_p]` ，
-然后把 :eq:`eq_29_1` 看成是特征向量 :math:`x` 和参数向量 :math:`\beta` 的內积形式。
+然后把 :eq:`eq_linear_1` 看成是特征向量 :math:`x` 和参数向量 :math:`\beta` 的內积形式。
 线性回归模型的简洁表示为：
 
 .. math::
@@ -60,7 +60,7 @@
     为了满足向量內积的形式，我们人为的增加一列特征数据 :math:`x_0=1`，所有输入样本的 :math:`x_0` 都为常量1。
 
 
-:numref:`fg_29_1` 是单一维度输入变量的线性回归模型的图形化展示，
+:numref:`fg_linear_1` 是单一维度输入变量的线性回归模型的图形化展示，
 为了方便图形化展示，我们假设输入特征变量 :math:`X` 只有一维。
 图中蓝色的点代表一些 :math:`(x_i,y_i)` 的样本点，下标 :math:`i` 是样本点的编号。
 线性回归模型的本质就是找到一条直线 :math:`y=x^T \beta` (比如图中的红色直线)
@@ -70,7 +70,7 @@
 作为预测值 :math:`\hat{y}=y_{new}=x_{new}^T \beta` 。
 
 
-.. _fg_29_1:
+.. _fg_linear_1:
 
 .. figure:: pictures/29_1.png
     :scale: 50 %
@@ -93,7 +93,7 @@
 
     J(\beta)=\sum_{i=1}^N (\hat{y}_i-y_i)^2
 
-.. _fg_29_2:
+.. _fg_linear_2:
 
 .. figure:: pictures/29_2.png
     :scale: 50 %
@@ -164,12 +164,12 @@
 
 
 .. math::
-    :label: eq_29_03
+    :label: eq_linear_03
 
     X^TX\beta = X^T y
 
 
-:eq:`eq_29_03` 通常被称为正规方程组(normal equations)，
+:eq:`eq_linear_03` 通常被称为正规方程组(normal equations)，
 理论上，我们可以根据这个等式得到参数 :math:`\beta` 的解析解
 
 .. math::
@@ -180,7 +180,7 @@
 然而，这个解析解需要求矩阵 :math:`X^TX` 的逆矩阵，
 矩阵存在逆矩阵需要满足两个条件：(1)是方阵，(2)是满秩的。
 虽然是 :math:`X^TX` 方阵，但是未必满秩，
-那么也就不存在逆矩阵，当逆矩阵不存在时也没没办法计算解析解。
+那么也就不存在逆矩阵，当逆矩阵不存在时无法计算解析解。
 当矩阵 :math:`X` 存在(行或列)共线性时，:math:`(X^TX)` 一定是不满秩的。
 
 :math:`(X^TX)` 不存在逆矩阵不代表参数 :math:`\beta` 无解，上面已经讲过损失函数 :math:`J(\beta)`
@@ -202,18 +202,18 @@
 
     P(X,Y)=P(X)P(Y|X)
 
-在回归问题中，是给定输入 :math:`x` ，模型输出 :math:`y` 的值，特征变量 :math:`X` 的值是已知的确定的，
+在回归问题中，给定输入 :math:`x` ，模型输出 :math:`y` 的值，特征变量 :math:`X` 的值是已知的、确定的，
 所以不需要边缘概率 :math:`P(X)` ，只需要得到条件概率 :math:`P(Y|X)` 即可。
 换句话说，不需要对联合概率 :math:`P(X,Y)` 进行建模，只需要建模条件概率 :math:`P(Y|X)`
 。在概率的框架下，用条件概率 :math:`P(Y|X)=f(x)` 去表达这种关系，
 即当 :math:`X=x` 时，变量 :math:`Y=y` 的概率为 :math:`P(Y=y|X=x)` 。
 
 
-高斯分布
+高斯假设
 ============================================
 
 
-.. _fg_29_12:
+.. _fg_linear_12:
 
 .. figure:: pictures/29_12.jpg
     :scale: 30 %
@@ -221,7 +221,7 @@
 
     线性回归模型表示成条件均值函数加上一个高斯噪声。
 
-观察 :numref:`fg_29_12`
+观察 :numref:`fg_linear_12`
 ，变量 :math:`Y` 的值，可以看做是线性预测器 :math:`x^T \beta` 的值加上一个误差项（噪声）
 :math:`\epsilon` 。
 
@@ -252,7 +252,7 @@
 
 
 .. math::
-    :label: eq_29_10
+    :label: eq_linear_10
 
     p(y|x;\beta) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp \{ -\frac{1}{2\sigma^2}(y-\beta^Tx)^2 \}
 
