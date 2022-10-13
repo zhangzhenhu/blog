@@ -135,6 +135,7 @@ html_static_path = [
 
 html_extra_path =[
     "../docs/",
+    "../other/",
 ]
 # Custom sidebar templates, must be a dictionary that maps document names
 # to template names.

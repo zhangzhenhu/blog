@@ -33,6 +33,7 @@ Welcome
 
 .. meta::
    :baidu-site-verification: code-92beWlmuPX
-
+   :google-site-verification: MxGOML7qIMAC8gJpqLgS6Pwxfx2TP68nkzehYsZiqi4
+   :msvalidate.01: 3C5E935623CA4FB23E290E0D1C40889E
 
 
