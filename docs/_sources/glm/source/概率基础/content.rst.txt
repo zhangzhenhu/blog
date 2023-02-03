@@ -1649,7 +1649,7 @@
 
     .. math::
 
-        \mathbb{E}[Y] = a \mu, \quad V(Y) = a^2 \sigma^2
+        \mathbb{E}[Y] = a \mu +b, \quad V(Y) = a^2 \sigma^2
 
     记作 :math:`Y \sim N(a \mu,a^2 \sigma^2)`
 
