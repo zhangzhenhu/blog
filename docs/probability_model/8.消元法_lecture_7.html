@@ -916,7 +916,8 @@
 本章我们讨论图模型中可以精确进行概率查询的消元算法，
 消元法是图模型中进行概率查询的基础算法，属于入门必须课。</p>
 <figure class="align-center" id="id11">
-digraph 模型推断 {
+<div class="graphviz"><object data="../_images/graphviz-6c3dffb2f6793f8e36b192d7718f3ff70e0b61a9.svg" type="image/svg+xml" class="graphviz">
+<p class="warning">digraph 模型推断 {
 graph [rankdir=LR,]
 node [shape=box]
 
@@ -947,7 +948,7 @@ n3 -&gt;{n31 n32}
 
 n31-&gt;{n311 n312 n313}
 n32-&gt;{n321 n322 }
-}
+}</p></object></div>
 <figcaption>
 <p><span class="caption-text">模型推断的类型和求解算法</span><a class="headerlink" href="#id11" title="永久链接至图片"></a></p>
 </figcaption>
@@ -993,12 +994,8 @@ n32-&gt;{n321 n322 }
 <span class="eqno">()<a class="headerlink" href="#equation-probability-model-8-lecture-7-1" title="公式的永久链接"></a></span>\[P(A,B) = P(A)P(B|A)\]</div>
 <p>根据前几章的知识，可以用一个有向图表示这个联合概率分布。</p>
 <figure class="align-center" id="id12">
-digraph AB {
-graph [rankdir=LR,]
-node [shape=circle]
-
-A -&gt; B
-}
+<div class="graphviz"><object data="../_images/graphviz-bd21ee538e078519c38f413405fa252f854c002d.svg" type="image/svg+xml" class="graphviz">
+<p class="warning">alternate text</p></object></div>
 <figcaption>
 <p><span class="caption-text">随机变量A和B的有向图表示</span><a class="headerlink" href="#id12" title="永久链接至图片"></a></p>
 </figcaption>
@@ -1008,13 +1005,8 @@ A -&gt; B
 也就是计算条件概率分布 <span class="math notranslate nohighlight">\(P(A|B=\text{红色})\)</span> ，
 这就是典型的模型推断问题，已知图中部分变量的值，去推断未知变量的概率分布。</p>
 <figure class="align-center" id="id13">
-digraph AB2 {
-graph [rankdir=LR,]
-node [shape=circle]
-B[style=filled]
-
-A -&gt; B
-}
+<div class="graphviz"><object data="../_images/graphviz-b4b82d5855ed2c09e2dc75cdc51f4678df7fc68c.svg" type="image/svg+xml" class="graphviz">
+<p class="warning">alternate text</p></object></div>
 <figcaption>
 <p><span class="caption-text">变量B是观测变量</span><a class="headerlink" href="#id13" title="永久链接至图片"></a></p>
 </figcaption>
@@ -1102,23 +1094,8 @@ A -&gt; B
 </figcaption>
 </figure>
 <figure class="align-center" id="id15">
-<span id="fg-7-a2"></span>digraph example1 {
-graph [rankdir=LR,]
-node [shape=circle]
-
-X1[label=&lt;X&lt;SUB&gt;1&lt;/SUB&gt;&gt;]
-X2[style=filled, label=&lt;X&lt;SUB&gt;2&lt;/SUB&gt;&gt;]
-X3[style=filled, label=&lt;X&lt;SUB&gt;3&lt;/SUB&gt;&gt; ]
-X4[style=filled, label=&lt;X&lt;SUB&gt;4&lt;/SUB&gt;&gt;]
-X5[style=filled, label=&lt;X&lt;SUB&gt;5&lt;/SUB&gt;&gt;]
-X6[style=filled, label=&lt;X&lt;SUB&gt;6&lt;/SUB&gt;&gt;, fillcolor=dimgrey]
-
-
-X1 -&gt; {X2 X3}
-X2 -&gt; {X4 X6}
-X3 -&gt; X5
-X5 -&gt; X6
-}
+<span id="fg-7-a2"></span><div class="graphviz"><object data="../_images/graphviz-b27c410612a2315d8466c3700c745ea91bd650d8.svg" type="image/svg+xml" class="graphviz">
+<p class="warning">alternate text</p></object></div>
 <figcaption>
 <p><span class="caption-text">深色阴影结点 <span class="math notranslate nohighlight">\(X_6\)</span> 是条件变量(证据变量)，浅色阴影结点是需要消除的变量（隐变量）。</span><a class="headerlink" href="#id15" title="永久链接至图片"></a></p>
 </figcaption>

@@ -947,7 +947,8 @@
 <span class="math notranslate nohighlight">\(\theta_k\)</span>
 表示观测变量 <span class="math notranslate nohighlight">\(X_k\)</span> 的参数。</p>
 <figure class="align-center" id="id10">
-<span id="fg-mixture-1-00"></span>digraph 混合模型的有向图表示 {
+<span id="fg-mixture-1-00"></span><div class="graphviz"><object data="../_images/graphviz-2a2b6df50c6a983d6139aedfd1b2723a7b608718.svg" type="image/svg+xml" class="graphviz">
+<p class="warning">digraph 混合模型的有向图表示 {
 node[shape=circle,fixedsize=true,width=0.5];
 rankdir = LR
 
@@ -973,14 +974,14 @@ subgraph cluster_b {
 
 lambda -&gt;Z
 theta-&gt;X
-}
+}</p></object></div>
 <figcaption>
 <p><span class="caption-number">图 20.1.1 </span><span class="caption-text">混合模型的有向图表示</span><a class="headerlink" href="#id10" title="永久链接至图片"></a></p>
 </figcaption>
 </figure>
-<p>在混合模型中，一条样本由两个变量空值，样本的生成过程为：</p>
+<p>在混合模型中，一条观测样本的生成（采样）由两个变量控制，样本的生成过程为：</p>
 <ol class="arabic simple">
-<li><p>首先，从变量 <span class="math notranslate nohighlight">\(Z\)</span> 进行采样，假设采样值为 <span class="math notranslate nohighlight">\(z_k\)</span> 。</p></li>
+<li><p>首先，从变量 <span class="math notranslate nohighlight">\(Z\)</span> 进行采样，假设采样值为 <span class="math notranslate nohighlight">\(z=k\)</span> 。</p></li>
 <li><p>然后，从变量 <span class="math notranslate nohighlight">\(X\)</span> 的第 <span class="math notranslate nohighlight">\(k\)</span> 个分量（记作 <span class="math notranslate nohighlight">\(X_k\)</span>）中采样得到 <span class="math notranslate nohighlight">\(x\)</span> 。</p></li>
 </ol>
 <p>模型的联合概率分布可以写为</p>
@@ -1113,7 +1114,8 @@ EM算法就是对这一问题的有效解决，通过 Jensen 不等式的理论�
 <h3><span class="section-number">20.2.1. </span>模型的表示<a class="headerlink" href="#id8" title="永久链接至标题"></a></h3>
 <p>高斯混合模型的有向图表示为</p>
 <figure class="align-center" id="id11">
-<span id="fg-mixture-2-00"></span>digraph 高斯混合模型的有向图表示 {
+<span id="fg-mixture-2-00"></span><div class="graphviz"><object data="../_images/graphviz-cf7f9d3bbe04cce509b6fb5e928e5e050312ccb8.svg" type="image/svg+xml" class="graphviz">
+<p class="warning">digraph 高斯混合模型的有向图表示 {
 node[shape=circle,fixedsize=true,width=0.5];
 rankdir = LR
 
@@ -1140,7 +1142,7 @@ subgraph cluster_b {
 
 lambda -&gt;Z
 mu,sigma-&gt;X
-}
+}</p></object></div>
 <figcaption>
 <p><span class="caption-number">图 20.2.1 </span><span class="caption-text">高斯混合模型的有向图表示</span><a class="headerlink" href="#id11" title="永久链接至图片"></a></p>
 </figcaption>

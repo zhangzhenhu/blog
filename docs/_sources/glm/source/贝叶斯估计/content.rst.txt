@@ -177,7 +177,7 @@
   .. math::
      P(\mathcal{D}|\theta) &= P(\{x^{(1)},\ldots,x^{(N)}\}|\theta)
 
-     &= \prod_{i=1}^{N} P(x_i|\theta)
+     &= \prod_{i=1}^{N} P(x^{(i)}|\theta)
 
   我们发现这其实就是样本的似然，所以 :math:`P(\mathcal{D}|\theta)` 就是样本的似然值。
 

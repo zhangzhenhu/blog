@@ -923,7 +923,8 @@
 这是因为对 <span class="math notranslate nohighlight">\(P(X,Y)\)</span> 的分解是 <span class="math notranslate nohighlight">\(P(Y)P(X|Y)\)</span>
 。</p>
 <figure class="align-center" id="id12">
-<span id="fig-bc-002"></span>digraph 一个树形概率图模型 {
+<span id="fig-bc-002"></span><div class="graphviz"><object data="../_images/graphviz-1ca3fabc02dffeaae9f63399dff269cdcc84b6fd.svg" type="image/svg+xml" class="graphviz">
+<p class="warning">digraph 一个树形概率图模型 {
 node[shape=circle]
 
 graph[labelloc=&quot;b&quot;, color=none];
@@ -937,7 +938,7 @@ y[label=Y]
 
 y -&gt; xh[ style=invisible dir=none ]
 y -&gt; {x1 x2 x3 xm}
-}
+}</p></object></div>
 <figcaption>
 <p><span class="caption-number">图 16.1 </span><span class="caption-text">贝叶斯分类</span><a class="headerlink" href="#id12" title="永久链接至图片"></a></p>
 </figcaption>
@@ -951,7 +952,8 @@ y -&gt; {x1 x2 x3 xm}
 <li><p>特征变量之间 <em>完全不</em> 独立，如 <a class="reference internal" href="#fig-bc-003"><span class="std std-numref">图 16.2</span></a> (c) 所示。</p></li>
 </ul>
 <figure class="align-center" id="id13">
-<span id="fig-bc-003"></span>digraph 一个树形概率图模型 {
+<span id="fig-bc-003"></span><div class="graphviz"><object data="../_images/graphviz-709b79b3a0c469eaf7d719bc149f4eb2a14fae68.svg" type="image/svg+xml" class="graphviz">
+<p class="warning">digraph 一个树形概率图模型 {
 node[shape=circle]
 
 subgraph cluster_1 {
@@ -997,7 +999,7 @@ subgraph cluster_3 {
 
         c_y -&gt; c_x
 }
-}
+}</p></object></div>
 <figcaption>
 <p><span class="caption-number">图 16.2 </span><span class="caption-text">（a）特征变量完全条件独立；（b）特征变量部分条件独立；（c）特征变量完全不独立。</span><a class="headerlink" href="#id13" title="永久链接至图片"></a></p>
 </figcaption>
@@ -1023,7 +1025,8 @@ subgraph cluster_3 {
 <section id="id3">
 <h3><span class="section-number">16.1.1. </span>模型表示<a class="headerlink" href="#id3" title="永久链接至标题"></a></h3>
 <figure class="align-center" id="id14">
-<span id="fig-bc-012"></span>digraph fig_bc_012 {
+<span id="fig-bc-012"></span><div class="graphviz"><object data="../_images/graphviz-e74431edda4464bfd5f0b8aaf8209e41f97905b8.svg" type="image/svg+xml" class="graphviz">
+<p class="warning">digraph fig_bc_012 {
 node[shape=circle]
 
 graph[labelloc=&quot;b&quot;, color=none];
@@ -1037,7 +1040,7 @@ y[label=Y]
 
 y -&gt; xh[ style=invisible dir=none ]
 y -&gt; {x1 x2 x3 xn}
-}
+}</p></object></div>
 <figcaption>
 <p><span class="caption-number">图 16.1.1 </span><span class="caption-text">朴素贝叶斯模型的有向图结构</span><a class="headerlink" href="#id14" title="永久链接至图片"></a></p>
 </figcaption>
@@ -1421,7 +1424,8 @@ y -&gt; {x1 x2 x3 xn}
 已无法得到 <span class="math notranslate nohighlight">\(P(Y)\)</span> 和 <span class="math notranslate nohighlight">\(P(X|Y)\)</span> ，
 此类模型称之为 <strong>判别模型（discrimination model）</strong>。</p>
 <figure class="align-center" id="id19">
-<span id="fig-bc-102"></span>digraph 生成模型与判别模型 {
+<span id="fig-bc-102"></span><div class="graphviz"><object data="../_images/graphviz-07243de2a6ebcd72b4bcbea5120a4dab31ebe5c4.svg" type="image/svg+xml" class="graphviz">
+<p class="warning">digraph 生成模型与判别模型 {
 node[shape=circle]
 
 subgraph cluster_1 {
@@ -1467,7 +1471,7 @@ subgraph cluster_2 {
 
         {rank=&quot;same&quot;; b_x1 b_x2 b_x3 b_xh b_xn}
 }
-}
+}</p></object></div>
 <figcaption>
 <p><span class="caption-number">图 16.4.1 </span><span class="caption-text">（a）生成模型，对联合概率建模，然后推断出后验条件概率分布；（b）判别模型，直接对因子（ <span class="math notranslate nohighlight">\(P(Y|X)\)</span> ）建模。</span><a class="headerlink" href="#id19" title="永久链接至图片"></a></p>
 </figcaption>

@@ -1007,7 +1007,7 @@
 <li><p><span class="math notranslate nohighlight">\(P(\mathcal{D}|\theta)\)</span> 就是在有 <span class="math notranslate nohighlight">\(\theta\)</span> 的条件下生成观测样本的的概率，
 我们知道观测样本集是符合独立同分布(i.i.d)的，所以展开后具有如下形式：</p>
 <div class="math notranslate nohighlight" id="equation-glm-source-content-1">
-<span class="eqno">(4.1.8)<a class="headerlink" href="#equation-glm-source-content-1" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}P(\mathcal{D}|\theta) &amp;= P(\{x^{(1)},\ldots,x^{(N)}\}|\theta)\\&amp;= \prod_{i=1}^{N} P(x_i|\theta)\end{aligned}\end{align} \]</div>
+<span class="eqno">(4.1.8)<a class="headerlink" href="#equation-glm-source-content-1" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}P(\mathcal{D}|\theta) &amp;= P(\{x^{(1)},\ldots,x^{(N)}\}|\theta)\\&amp;= \prod_{i=1}^{N} P(x^{(i)}|\theta)\end{aligned}\end{align} \]</div>
 <p>我们发现这其实就是样本的似然，所以 <span class="math notranslate nohighlight">\(P(\mathcal{D}|\theta)\)</span> 就是样本的似然值。</p>
 </li>
 <li><p><span class="math notranslate nohighlight">\(P(\mathcal{D})\)</span> 是”果”的观测，直观的讲就是观测样本集的概率，通常被称为证据(evidence)。
@@ -1047,7 +1047,7 @@
 共轭先验是一种使用非常广泛的确定先验分布的方法，
 本节我们只讨论共轭先验法。</p>
 <p><strong>共轭先验</strong></p>
-<div class="topic" id="ch-conjugate-prior">
+<div class="topic">
 <p class="topic-title">共轭先验(conjugate prior)</p>
 <p>在贝叶斯推断中，如果后验分布与先验分布属于同一种概率分布，则此先验分布称为共轭先验。
 注意，由于后验分布是由先验与似然相乘得到的，所以共轭指的是先验与似然共轭，

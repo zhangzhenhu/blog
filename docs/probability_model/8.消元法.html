@@ -919,7 +919,8 @@
 本章我们讨论图模型中可以精确进行概率查询的消元算法，
 消元法是图模型中进行概率查询的基础算法，属于入门必须课。</p>
 <figure class="align-center" id="id10">
-digraph 模型推断 {
+<div class="graphviz"><object data="../_images/graphviz-ebcd13759f54af819127501224f61aea9f5f9174.svg" type="image/svg+xml" class="graphviz">
+<p class="warning">digraph 模型推断 {
 graph [rankdir=LR,]
 node [shape=box]
 
@@ -950,7 +951,7 @@ n3 -&gt;{n31 n32}
 
 n31-&gt;{n311 n312 n313}
 n32-&gt;{n321 n322 }
-}
+}</p></object></div>
 <figcaption>
 <p><span class="caption-number">图 8.1 </span><span class="caption-text">模型推断的类型和求解算法</span><a class="headerlink" href="#id10" title="永久链接至图片"></a></p>
 </figcaption>
@@ -988,12 +989,8 @@ n32-&gt;{n321 n322 }
 <span class="eqno">(8.1.29)<a class="headerlink" href="#equation-probability-model-8-1" title="公式的永久链接"></a></span>\[P(A,B) = P(A)P(B|A)\]</div>
 <p>可以用一个有向图来表示这个联合概率分布</p>
 <figure class="align-center" id="id11">
-<span id="fg-elimination-002"></span>digraph fg_elimination_002 {
-graph [rankdir=LR,]
-node [shape=circle]
-
-A -&gt; B
-}
+<span id="fg-elimination-002"></span><div class="graphviz"><object data="../_images/graphviz-4e4f7c38a9d6807e3670386c9801273086d44141.svg" type="image/svg+xml" class="graphviz">
+<p class="warning">alternate text</p></object></div>
 <figcaption>
 <p><span class="caption-number">图 8.1.1 </span><span class="caption-text">随机变量A和B的有向图表示</span><a class="headerlink" href="#id11" title="永久链接至图片"></a></p>
 </figcaption>
@@ -1099,13 +1096,14 @@ B &amp; P(B) \\
 这时我们就需要根据变量 <span class="math notranslate nohighlight">\(B\)</span> 的观测值(球的颜色)去推断出变量 <span class="math notranslate nohighlight">\(A\)</span> ，
 这就是典型的条件概率推断问题，已知图中部分变量的值，去推断未知变量的边缘概率分布。</p>
 <figure class="align-center" id="id12">
-<span id="fg-elimination-003"></span>digraph fg_elimination_003 {
+<span id="fg-elimination-003"></span><div class="graphviz"><object data="../_images/graphviz-dcb7757e908594e9510307bbfb61392f225fceb8.svg" type="image/svg+xml" class="graphviz">
+<p class="warning">digraph fg_elimination_003 {
 graph [rankdir=LR,]
 node [shape=circle]
 B[style=filled]
 
 A -&gt; B
-}
+}</p></object></div>
 <figcaption>
 <p><span class="caption-number">图 8.1.2 </span><span class="caption-text">灰色阴影的结点表示观测变量</span><a class="headerlink" href="#id12" title="永久链接至图片"></a></p>
 </figcaption>
@@ -1150,23 +1148,8 @@ A -&gt; B
 <section id="id4">
 <h3><span class="section-number">8.2.1. </span>有向图消元算法<a class="headerlink" href="#id4" title="永久链接至标题"></a></h3>
 <figure class="align-center" id="id13">
-<span id="fg-elimination-010"></span>digraph fg_elimination_010 {
-graph [rankdir=LR,]
-node [shape=circle]
-
-X1[label=&lt;X&lt;SUB&gt;1&lt;/SUB&gt;&gt;]
-X2[style=filled, fillcolor=dimgrey, label=&lt;X&lt;SUB&gt;2&lt;/SUB&gt;&gt;]
-X3[style=filled, fillcolor=dimgrey, label=&lt;X&lt;SUB&gt;3&lt;/SUB&gt;&gt; ]
-X4[style=filled, fillcolor=dimgrey, label=&lt;X&lt;SUB&gt;4&lt;/SUB&gt;&gt;]
-X5[style=filled, fillcolor=dimgrey, label=&lt;X&lt;SUB&gt;5&lt;/SUB&gt;&gt;]
-X6[style=filled, label=&lt;X&lt;SUB&gt;6&lt;/SUB&gt;&gt;]
-
-
-X1 -&gt; {X2 X3}
-X2 -&gt; {X4 X6}
-X3 -&gt; X5
-X5 -&gt; X6
-}
+<span id="fg-elimination-010"></span><div class="graphviz"><object data="../_images/graphviz-b83bd4d8e991dea41e18799dc8474a767fc7667c.svg" type="image/svg+xml" class="graphviz">
+<p class="warning">alternate text</p></object></div>
 <figcaption>
 <p><span class="caption-number">图 8.2.1 </span><span class="caption-text">无底色结点表示要推断的变量，浅色阴影结点是观测变量，深色阴影结点表示其它变量。</span><a class="headerlink" href="#id13" title="永久链接至图片"></a></p>
 </figcaption>
