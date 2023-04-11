@@ -1,0 +1,644 @@
+
+.. _ch_VAE:
+
+
+########################################################
+变分自编码器（Variational Autoencoder）
+########################################################
+
+早在2013年，Kingma和Welling就推出了变分自动编码器（VAE），
+简而言之，VAE的想法是训练具有正则化潜在空间的自动编码器。然后，正则化编码器被迫将数据编码为接近高斯的分布，而解码器则从潜在空间重建数据
+
+在传统的自编码模型中，编码器输出的 `code` 仅仅是一个 **数值** 张量而已，
+然而在变分自编码（Variational Autoencoders,VAE）的算法中，把这个 `code` 看做是由 **随机变量** 组成的张量。
+变分自编码器早在2013\ :cite:`Kingma2013AutoEncodingVB` 年就提出了
+，然而前几年并没有引起太大的关注，随着 OpenAI 的 DALL-E 的爆火，扩散模型（diffusion models）进入了大家的视野，
+才使得 VAE 算法得到了关注，这是因为扩散模型是由于 VAE 发展而来的。在详细介绍扩散模型之前，我们先讨论下 VAE 算法。
+
+
+
+
+.. _fg_mixture_vae_001:
+
+.. digraph:: 编解码
+    :align: center
+    :caption: 编解码器
+
+    node[shape=circle,fixedsize=false ];
+    rankdir = LR
+
+    input[label="input" shape="plaintext"]
+    output[label="output" shape="plaintext"]
+    code[label="code" shape="rectangle" style=filled fillcolor = "#FEF9E7" height=1 with=0.2 fixedsize=true]
+
+    encoder[label="encoder" shape="rectangle" style=filled fillcolor = "#D6EAF8"]
+    decoder[label="decoder" shape="rectangle" style=filled fillcolor = "#D5F5E3"];
+
+    input -> encoder -> code -> decoder -> output
+
+
+
+
+
+我们用符号 :math:`Z` 表示编码器输出的 `code` ，它是一个由随机变量组成的张量。由于模型的输出是要还原输入，
+因此输入输出可以看做是同一个变量，记作 :math:`X` ，它同样是由多个随机变量组成的张量。
+:math:`X` 和 :math:`Z` 的张量尺寸（大小）并不要求必须是一样的，事实上通常在编解码的架构中，
+:math:`Z` 的尺寸是远远小于 :math:`X` 的，这样相当于有一个信息压缩的过程。
+在本文的讨论中，符号简洁些和便于理解，暂时忽略张量的问题。
+
+
+.. _fg_mixture_2.00:
+
+.. digraph:: VAE有向图
+    :align: center
+    :caption: :math:`X` 和 :math:`Z` 的图表示
+
+    node[shape=circle,fixedsize=true,width=0.5];
+    rankdir = LR
+
+    X[label=X, style=filled];
+
+    X -> Z[label="P(Z|X)", style=filled]
+    Z -> X[label="P(X|Z)", style=filled]
+
+
+
+
+从 :math:`X` 到 :math:`Z` 的过程，相当于条件概率 :math:`P(Z|X)` ，
+对应编码过程；反过来，从 :math:`Z` 到 :math:`X` 的过程，相当于条件概率 :math:`P(X|Z)`，
+对应解码过程。这个模型中包含两个变量 :math:`X` 和 :math:`Z`，
+二者的联合概率记作 :math:`P(Z,X)`。
+我们期望得到一个生成模型，可以生成（或者是采样） :math:`X` 的新样本，
+这就需要得到这个联合概率 :math:`P(Z,X)` 的完整形式才行。
+根据链式法则，可以对联合概率 :math:`P(Z,X)` 进行分解。
+
+
+.. math::
+
+    P(X,Z) = P(X)P(Z|X) = P(Z)P(X|Z)
+
+通常我们能得到 :math:`X` 的一些观测样本，比如一些图片样本，然而变量 :math:`Z` 是没有真实的观测样本的，
+因此称 :math:`X` 为可观测变量（Observed variable），:math:`Z` 为不可观测变量（Unobserved variable）或者隐变量（Latent variable）。
+根据贝叶斯定理（公式）有
+
+.. math::
+
+    P(Z|X) = \frac{P(Z)P(X|Z)}{P(X)}
+
+通常称 :math:`P(Z|X)` 为变量 :math:`Z` 的后验概率分布，:math:`P(Z)` 为变量 :math:`Z` 的先验概率分布，
+:math:`P(X|Z)` 代观测变量 :math:`X` 的似然（生成概率），:math:`P(X)` 为证据（evidence）。
+当观测样本 :math:`X=x` 确定的情况下，:math:`p(x)` 实际上是常量值，它其实相当于对分子的归一化，这点很重要。
+:math:`p(x)` 可以通过对分子进行积分得到，相当于边际化（消除）变量 :math:`Z`。
+
+
+.. math::
+
+    p(x) = \int_z p(x,z) dz
+
+
+
+在这个模型中包含 :math:`Z` 和 :math:`X` 两个随机变量，完整的模型表示是二者的联合概率分布 :math:`P(X,Y)`
+，假设模型中的未知参数用 :math:`\theta` 表示，模型的参数化表示可以记为 :math:`P(X,Y;\theta)`。
+根据最大似然理论，如果要求解模型的参数，可以通过极大化观测样本的发生概率实现，我们符号 :math:`\mathcal{D}`
+表示观测样本集合，如果变量  :math:`Z` 和 :math:`X`
+都能观测到，即 :math:`\mathcal{D}=\{(z^{(1)},x^{(1)}),\cdots,(z^{(N)},x^{(N)})\}`，
+那么极大化的目标函数（对数似然函数）为
+
+.. math::
+
+    \ell(\theta;\mathcal{D}) = \sum_{i=1}^{N} \ln p_{\theta}(z^{(i)},x^{(i)})
+
+
+
+然而在这里，我们并没有变量 :math:`Z` 的观测样本，它是 **隐变量**，此时观测样本集为 :math:`\mathcal{D}=\{x^{(1)},\cdots,x^{(N)}\}`，
+极大化的目标函数（对数似然函数）变成
+
+
+
+.. math::
+    :label: eq_vae_004
+
+    \ell(\theta;\mathcal{D}) = \sum_{i=1}^{N} \ln p_{\theta}(x^{(i)})
+    = \sum_{i=1}^{N} \ln  \int_z p_{\theta}(x^{(i)},z) dz
+
+
+这时我们发现，在对数中存在积分操作，这个积分导致无法把对数进行展开，同时这个积分也是难以计算的，
+最终导致我们无法通过极大化对数似然进行参数求解。问题的关键就是含有隐变量模型的如何进行参数求解，
+
+
+
+
+
+
+证据下界(Evidence Lower Bound,ELBO)
+########################################################
+
+直接极大化 :eq:`eq_vae_004` 进行参数求解是困难的，但这并没有难倒聪明的数学家们，
+既然无法直接极大化 :eq:`eq_vae_004` ，那是不是可以找到一个替代品呢，或者说它的一个近似表达呢。
+这个近似表达拥有更简单的形式，并且结果和直接极大化 :eq:`eq_vae_004` 是等价的。
+还真的找到了一个这样的函数，它是 :eq:`eq_vae_004` 的一个下界函数，即这个相似函数永远是 **小于等于** :eq:`eq_vae_004`
+的。因为 :eq:`eq_vae_004` 中的 :math:`p(x)` 是证据（evidence），所以这个下界函数被称为证据下界函数(Evidence Lower Bound,ELBO)。
+
+
+接下我们看一下这个下界函数是如何推导出来的，首先定义一个变量 :math:`Z` 的概率密度函数，记作 :math:`q_{\phi}(z)`
+，:math:`{\phi}` 是它的未知参数。同时为了公式简洁，我们暂时忽略 :eq:`eq_vae_004` 中的对样本的求和操作 :math:`\sum_{i=1}^{N}`
+，有没有它不影响过程和结论。整个推导过程并不复杂，其实就是利用 `Jensen` 不等式得到 :eq:`eq_vae_004` 的一个下界函数。
+过程如下：
+
+
+.. math::
+    :label: eq_vae_005
+
+    \ell(\theta;x) &=  \ln  p_{\theta}(x)
+
+     &=  \ln \int_{z} p_{\theta}(x,z)
+
+    &=  \ln \int_{z} q_{\phi}(z) \frac{p_{\theta}(x,z)}{q_{\phi}(z)}  \ \ \ \text{同时乘除} q_{\phi}(z) \text{，等于没变化}
+
+    &=  \ln\mathbb{E}_{q_{\phi}(z) } \left [ \frac{p_{\theta}(x,z)}{q_{\phi}(z)} \right ]
+
+    & \ge  \mathbb{E}_{q_{\phi}(z) } \ln\left [ \frac{p_{\theta}(x,z)}{q_{\phi}(z)} \right ]
+    \ \ \ \text{根据Jensen不等式}
+
+
+    &=  \int_{z} q_{\phi}(z) \ln \left [ \frac{p_{\theta}(x,z)}{q_{\phi}(z)} \right ]
+
+    &=  \left [  \int_{z} q_{\phi}(z) \ln  p_{\theta}(x,z)
+    -   \int_{z} q_{\phi}(z) \ln q_{\phi}(z) \right ]
+
+    &\triangleq \mathcal{L}(q,\theta)
+
+
+利用 ``Jensen`` 不等式的性质，可以为对数似然函数 :math:`\ell(\theta;x)` 找到一个下界函数
+，把这个下界函数记作 :math:`\mathcal{L}(q,\theta)`。
+
+.. math::
+    :label: eq_vae_006
+
+    \mathcal{L}(q,\theta) &= \int_{z} q_{\phi}(z) \ln  p_{\theta}(x,z)
+    -   \int_{z} q_{\phi}(z) \ln q_{\phi}(z)
+
+    &=   \mathbb{E}_{z \sim q_{\phi}} [ \ln  p_{\theta}(x,z) ]
+    - \mathbb{E}_{z \sim q_{\phi}}[ \ln q_{\phi}(z) ]
+
+
+下界函数中含有联合概率 :math:`p(x,z)`
+，根据链式法则，有两种分解方式。
+
+.. math::
+
+     p(x,z) = p(z) p(x|z)=p(x)p(z|x)
+
+其中 :math:`p(z)` 表示 :math:`z` 的先验概率，:math:`p(z|x)` 表示其后验概率。
+接下来，分别用分解两种方式变换下界函数（:eq:`eq_vae_006`）。
+
+
+**第一种形式**，首先使用 :math:`z` 的后验 :math:`p(z|x)` 分解 :math:`p(x,z)` :
+
+.. math::
+    :label: eq_vae_008
+
+        \mathcal{L}(q,\theta) &= \mathbb{E}_{z \sim q_{\phi} } [ \ln  p_{\theta}(x,z) ]
+        - \mathbb{E}_{z \sim q_{\phi} }[ \ln q_{\phi}(z)]
+
+        &= \mathbb{E}_{z \sim q_{\phi}} \left [ \ln  p_{\theta}(x) + \ln  p_{\theta}(z|x) \right ]
+            - \mathbb{E}_{z \sim q_{\phi}}[ \ln q_{\phi}(z)]
+
+        &= \underbrace{\mathbb{E}_{z \sim q_{\phi}} [ \ln  p_{\theta}(x) ]}_{\text{与}z\text{无关，期望符号可以去掉}}
+            + \mathbb{E}_{z \sim q_{\phi}} [\ln  p_{\theta}(z|x) ]
+            - \mathbb{E}_{z \sim q_{\phi}}[ \ln q_{\phi}(z)]
+
+        &= \underbrace{\ln  p_{\theta}(x)}_{\text{观测数据对数似然/证据}}
+            +
+            \underbrace{
+            \mathbb{E}_{z \sim q_{\phi}} [ \ln  p_{\theta}(z|x) ]
+            - \mathbb{E}_{z \sim q_{\phi}}[ \ln q_{\phi}(z)] }_{\text{KL散度}}
+
+        &= \underbrace{ \ell(\theta;x) }_{\text{观测数据对数似然/证据}}
+            - \underbrace{ KL( q_{\phi}(z) || p_{\theta}(z|x) ) }_{ q_{\phi}(z) \text{和后验验} P(Z|X)  \text{的KL散度}}
+
+
+
+对 :eq:`eq_vae_008` 移项整理，可以得出
+
+.. math::
+    :label: eq_vae_009
+
+    \underbrace{ \ell(\theta;x)  }_{\text{观测数据对数似然/证据}}
+    = \underbrace{ \mathcal{L}(q,\theta) }_{\text{证据下界函数 ELBO}}
+    +  \underbrace{  KL(q_{\phi}(z)|| p_{\theta}( z |x ) }_{ \text{KL散度}}
+
+
+可以看出观测数据的对数似然 :math:`\ell(\theta;x)` 就等于下界函数 :math:`\mathcal{L}(q,\theta)`
+加上 :math:`q_{\phi}(z)` 与后验 :math:`p_{\theta}(z|x)` 的KL散度，
+我们知道 KL 散度是衡量两个概率分布是否相近的，如果两个概率分布完全一样，则 KL 散度的值为 :math:`0`。
+也就是说如果令 :math:`q_{\phi}(z)= p_{\theta}(z|x)` 成立，则 :math:`KL(q_{\phi}(z)|| p_{\theta}(z|x))=0`
+，此时就有 :math:`\ell(\theta;x) =  \mathcal{L}(q,\theta)` 成立。
+
+.. important:: **关键结论**
+
+    至此，我们已经证明了下界函数存在，并且只要令 :math:`q_{\phi}(z)= p_{\theta}(z|x)`，
+    下界函数就等于对数似然函数，此时极大化下界函数 :math:`\mathcal{L}(q,\theta)`
+    就等同于极大化观测数据的对数似然函数 :math:`\ell(\theta;x)`。
+
+
+接下来，我们使用 :math:`z` 的先验 :math:`p(z)` 对 :math:`p(x,z)` 进行分解，重新改写 :eq:`eq_vae_006`
+表示的下界函数，即下界函数 :math:`\mathcal{L}(q,\theta)` 的 **第二种形式**
+。
+
+.. math::
+    :label: eq_vae_007
+
+        \mathcal{L}(q,\theta) &= \mathbb{E}_{z \sim q_{\phi}} [ \ln  p_{\theta}(x,z) ]
+        - \mathbb{E}_{z \sim q_{\phi}}[ \ln q_{\phi}(z))]
+
+        &= \mathbb{E}_{z \sim q_{\phi}} [ \ln  p(z) + \ln  p_{\theta}(x|z) ]
+            - \mathbb{E}_{z \sim q_{\phi}}[ \ln q_{\phi}(z))]
+
+        &= \mathbb{E}_{z \sim q_{\phi}} [ \ln  p(z) ]
+            + \mathbb{E}_{z \sim q_{\phi}} [\ln  p_{\theta}(x|z) ]
+            - \mathbb{E}_{z \sim q_{\phi}}[ \ln q_{\phi}(z))]
+
+        &= \mathbb{E}_{z \sim q_{\phi}} [\ln  p_{\theta}(x|z) ] +
+            \underbrace{
+            \mathbb{E}_{z \sim q_{\phi}} [ \ln  p(z) ]
+            - \mathbb{E}_{z \sim q_{\phi}}[ \ln q_{\phi}(z))] }_{\text{KL散度}}
+
+        &=   \mathbb{E}_{z \sim q_{\phi}} [\ln  p_{\theta}(x|z) ]
+            - \underbrace{ KL(q_{\phi}(z)||p(z))}_{q_{\phi}(z) \text{和先验} p(z)  \text{的KL散度}}
+
+
+
+
+
+
+
+根据前文的结论，当 :math:`q_{\phi}(z)` 等于 :math:`z` 的后验 :math:`p_{\theta}(z|x)`
+时，下界函数 :math:`\mathcal{L}(q,\theta)` 和观测数据的对数似然函数 :math:`\ell(\theta;x)`
+是相等的。因此，我们令 :math:`q_{\phi}(z)=p_{\theta}(z|x)`，
+为了符号区分这里记作 :math:`q_{\phi}(z)=q_{\phi}(z|x)`
+，并代入到 :eq:`eq_vae_007` 中，可得
+
+.. math::
+    :label: eq_vae_008
+
+      \mathcal{L}(q,\theta) &=
+        \underbrace{ \mathbb{E}_{z \sim q_{\phi}(z|x) } [\ln  p_{\theta}(x|z) ] }_{\text{①重建项（reconstruction term）}}
+            - \underbrace{ KL( q_{\phi}(z|x) ||p(z))}_{\text{②先验匹配项（prior matching term）}}
+
+      &=  \ell(\theta;x)
+
+
+:eq:`eq_vae_008` 包含两部分，这里详细分析讨论一下这两项。
+
+1. 首先看第①项，其中条件概率 :math:`p_{\theta}(x|z)` ，代表着从隐变量 :math:`z` 到观测变量 :math:`x` 的转换，
+   其中作用就是从 :math:`z` 重建 :math:`x` ，因此可以称为 **重建项（reconstruction term）** ，相当于解码器（decoder）。
+   同时由于隐变量 :math:`Z` 是一个随机变量，没有具体数值，因此需要对 :math:`Z` 求期望（或者说积分），并且求期望时采用的是 :math:`Z`
+   的后验概率密度 :math:`q_{\phi}(z|x)` 。而后验 :math:`q_{\phi}(z|x)` 表示从观测变量 :math:`x` 到隐变量 :math:`z` 的转换过程，
+   其过程相当于编码器。
+
+2. 接下来看第②项，这一项是 :math:`z` 的后验 :math:`q_{\phi}(z|x)` 和先验 :math:`p(z)` 的KL散度，取值为非负，最小值为0。
+   因为我们是要极大化整个式子，而这一项前面有个负号，这一项的值又是非负的，所以相当于要极小化这一项，令它趋近于0，
+   也就是使得后验 :math:`q_{\phi}(z|x)` 和先验 :math:`p(z)` 尽量接近（或者说匹配），
+   所以可以称这一项为 **先验匹配项（prior matching term）**，它的作用其实就相当于一个约束或者正则项。
+
+
+至此，我们找到了原来含有隐变量的对数似然函数 :math:`\ell(\theta;x)` 的一个下界函数（ELBO） :math:`\mathcal{L}(q,\theta)`
+，极大化这个下界函数和极大化对数似然函数求解参数是等价的。并且这个下界函数中包 :math:`q_{\phi}(z|x)` 和 :math:`p_{\theta}(x|z)`
+，这两项正好分别对应编码器和解码器，因此本算法可以看做是自编码器的一种变体。需要注意的是，
+这里 :math:`Z` 被解释成随机变量，而不是数值变量。
+然而问题到这里并没有结束，:math:`p_{\theta}(x|z)` 和 :math:`q_{\phi}(z|x)` 的具体形式还不知道，
+接下来介绍这两项具体是什么样的。
+
+
+
+编码-解码
+########################################################
+
+
+.. _fg_vae_008:
+
+.. figure:: https://data-science-blog.com/wp-content/uploads/2022/04/variational-auto-encoder-image-encoding-decoding.png
+
+
+已知  :math:`Z` 是一个随机变量，在 VAE 算法中假设 :math:`Z` 是服从高斯分布的，它的先验分布 :math:`P(Z)` 是均值为 :math:`0`
+方差为 :math:`1` 的标准正态分布，由于这里 :math:`Z` 是一个张量（向量），所以用一个多维的高斯分布表示，
+记作 :math:`P(Z) \sim \mathcal{N}(0,\textit{I})` 。
+
+这里我们回顾一下多维高斯分布的概率密度函数，接下来会多次用到，
+
+.. math::
+    :label: eq_vae_010
+
+    p(x)  = \frac{1}{(2\pi)^{n/2} |\Sigma |^{1/2}}exp\{-\frac{1}{2}(x - \mu)^{T}\Sigma^{-1}(x - \mu)\}
+
+:eq:`eq_vae_010` 是多维高斯分布概率密度函数的标准形式，如果是单位协方差矩阵 :math:`\textit{I}`
+，把式中 :math:`\Sigma` 替换成 :math:`\textit{I}` 即可。
+
+
+
+**后验分布-编码器**
+
+即然变量 :math:`Z` 是一个高斯变量，自然其后验分布 :math:`q_{\phi}(z|x)` **也是一个高斯分布**
+，只是我们并不知道后验分布的均值和方差，这里我们分别用 :math:`\mu_{z}` 和 :math:`\Sigma_{z}`
+表示后验分布的均值参数和方差参数，
+此时有 :math:`q_{\phi}(z|x)=\mathcal{N}(\mu_{z},\Sigma_{z})`，
+由于模型假设 :math:`Z` 的各维度之间是相互独立的，
+因此其协方差 :math:`\Sigma_z` 是一个对角矩阵，非对角线位置元素值为 :math:`0`
+，对角线元素是未知参数。
+
+在传统的自编码（AE）模型中，:math:`Z` 是一个数值变量，输入变量 :math:`X`
+经过编码器（encoder）直接输出 :math:`Z` 的值。
+然而在 VAE 中，:math:`Z` 是一个 **随机变量**，不能从 :math:`X` 直接映射到  :math:`Z`
+。后验（编码器） :math:`q_{\phi}(z|x)` 是一个条件概率，它的概率密度函数是和 :math:`x` 相关的，
+，输入变量 :math:`X` 是通过影响 :math:`Z` 的均值参数和方差参数间接影响到 :math:`Z`
+。也就是说均值参数 :math:`\mu_{z}` 和方差参数 :math:`\Sigma_{z}` 是和 :math:`x` 相关的。
+这里分别用函数表述它们之间的关系。
+
+.. math::
+
+    \mu_{z} &= \mu_{\phi}(x) = encoder_{\phi}(x)
+
+    \Sigma_{z} &= \Sigma_{\phi}(x) =  encoder_{\phi}(x)
+
+
+函数 :math:`\mu_{\phi}(x)` 和 :math:`\Sigma_{\phi}(x)` 分别是 :math:`x` 到 :math:`\mu_{z}` 和 :math:`\Sigma_{z}`
+的映射，理论上这里可以选择任意合适的映射函数。
+当然，在VAE中映射函数是由神经网络（Neural Network）实现的，由神经网络拟合并输出 :math:`\mu_{z}` 和 :math:`\Sigma_{z}`
+。encoder 输出两个只，分别对应 :math:`\mu_{z}` 和 :math:`\Sigma_{z}`
+，参数 :math:`\phi` 就是 encoder 网络的参数。
+
+.. tip::
+
+    如果你熟悉广义线性模型（Generalized linear models,GLM）就会发现，
+    这里 :math:`q_{\phi}(z|x)` 中的 :math:`x` 到 :math:`\mu_z` 的映射过程和 GLM 中的连接函数的反函数（响应函数）本质上是相同的，
+    区别在于 GLM 中的响应函数是线性函数，
+    相当于单层的（感知器）网络。而VAE中，采用的是更复杂（任意结构的）多层神经网络，更一般化。
+
+
+
+
+**KL散度-正则项**
+
+接下来看下 :eq:`eq_vae_008` 中完整的第②项，即 KL散度部分 :math:`KL( q_{\phi}(z|x) || p(z) )`
+，KL散度中的 :math:`q_{\phi}(z|x)=\mathcal{N}(\mu_z,\Sigma_z)`
+和 :math:`p(z)=  \mathcal{N}(0,\textit{I})` 都是高斯分布，
+而两个高斯分布的 KL 散度是可以直接计算得到的。
+
+.. math::
+    :label: eq_vae_012
+
+    KL( q_{\phi}(z|x) || p(z)  ) &= KL( \mathcal{N}(\mu_z,\Sigma_z) || \mathcal{N}(0,\textit{I}))
+
+    &= \frac{1}{2} \left ( tr ( \Sigma_z) + \mu_z^T \mu_z − k − \log det(\Sigma_z) \right )
+
+
+
+:eq:`eq_vae_012` 就是模型训练过程目标函数的一项
+，其中 :math:`k` 是向量的维度，它的作用 **相当于一个正则项** ，使得后验 :math:`q_{\phi}(z|x)` 尽量接近 :math:`z` 先验。
+KL 散度这一部分就算是解决了，它可以通过 :eq:`eq_vae_012` 计算，其中 :math:`\mu_z`
+和 :math:`\Sigma_z` 都是由编码器网络输出。
+
+
+
+
+**生成分布-解码器**
+
+现在看下 :eq:`eq_vae_008` 中第①部分，它的作用对应着解码器（decoder）部分，
+从变量 :math:`Z` 重建回 :math:`X`。
+先单独看条件概率分布 :math:`p_{\theta}(x|z)`，
+如果把 :math:`Z` 看做输入变量，把 :math:`X` 看做输出变量，
+就是一个从 :math:`z` 到 :math:`x` 的过程，
+可以把它看做是一个 **回归模型** 。
+:math:`X` 可以是任意分布的变量，比如高斯分布（回归、最小二乘）、
+伯努利分布（二分类）、类别分布（多分类）等等，
+如果你熟悉广义线性模型，会更容易理解和扩展。
+
+和解码器部分同理，由于 :math:`X` 是一个随机变量，:math:`z` 到 :math:`x` 的映射是通过
+为 :math:`z` 和 :math:`X` 的均值参数 :math:`\mu_x` 建立映射函数实现的。
+这里并没有建立从 :math:`z` 到 :math:`X` 方差参数 :math:`\Sigma_x` 之间的映射，
+这是因为模型为了简单，假设 :math:`X` 的方差为常量，即单位方差 :math:`\textit{I}`
+，事实上，在大部分回归模型中都是这样假设的。
+
+
+.. math::
+
+    \mu_x = \mu_{\theta}(z) = decoder_{\theta}(z)
+
+这里 :math:`\mu_x` 是 :math:`X` 的期望参数，
+:math:`\mu_{\theta}(z)` 是一个从 :math:`z` 到 :math:`\mu_x` 的映射函数。
+在VAE中，这里同样是一个神经网络（Neural Network）实现，
+如果只有一层感知机网络，就退化成了（广义）线性模型。
+
+
+.. tip::
+
+    同理，这里的映射函数 :math:`\mu_{\theta}(z)` 就相当于广义线性模型中的连接函数。
+
+    - 当 :math:`\mu_{\theta}(z)` 是一个线性函数 :math:`\mu_{\theta}(z)=\theta z +b` 时，就相当于传统线性回归模型（最小二乘）。
+    - 当 :math:`\mu_{\theta}(z)` 是一个线性+sigmoid函数 :math:`\mu_{\theta}(z)=sigmoid(\theta z +b)` 时，就相当于逻辑回归。
+    - 当 :math:`\mu_{\theta}(z)` 是一个线性+softmax函数 :math:`\mu_{\theta}(z)=softmax(\theta z +b)` 时，就相当于多分类。
+
+
+再次强调，encoder 直接输出的并不是变量 :math:`Z` 的具体数值，
+而是 :math:`Z` 的后验分布 :math:`q_{\phi}(z|x)` 的期望参数和方差参数，
+相当于 encoder 得到的后验分布 :math:`q_{\phi}(z|x)` 本身。
+因此完整的第①项是一个关于 :math:`q_{\phi}(z|x)` 的期望，
+就是通过边缘化的方法得到变量 :math:`X` 的重建分布 :math:`p_{\theta}(x|z)`
+（实际上解码器输出的是 :math:`\mu_x`）。
+
+事情到这里并没有结束，这个期望是没办法直接解析计算的，因为后验
+:math:`q_{\phi}(z|x)=\mathcal{N}(\mu_z,\Sigma_z)=\mathcal{N}(\mu_{\phi}(x),\Sigma_{\phi}(x))`
+的表达式中是有一个神经网络（encoder）存在的，所以没有办法用解析计算的方式计算它的积分（求期望就是计算积分）。
+这时可以借助马尔可夫链蒙特卡罗法(Markov Chain Monte Carlo，MCMC)，即采样法 **近似** 实现。
+其实就是从后验概率分布 :math:`q_{\phi}(z|x)` 随机采样很多个 :math:`z` 值，代入进去算平均值。
+假设随机采样出 :math:`L` 个 :math:`z`，
+则 :eq:`eq_vae_008` 中第①部分期望项可以近似等价于
+
+.. math::
+
+
+    \mathbb{E}_{z \sim q_{\phi}(z|x) } [\ln  p_{\theta}(x|z) ] \approx
+    \frac{1}{L} \sum_{l=1}^L  [ \ln  p_{\theta}(x|z^{(l)}) ]
+
+
+采样次数 :math:`L` 可以作为模型的超参数，可以人为指定，根据作者的经验 :math:`L=1` 其实也可以。
+然而这有产生了新的问题，从编码器网络到解码器网络中间有个随机采样，即 :math:`z` 是通过随机采样参数的，
+而随机采样过程是不可导的，这导致梯度不能从解码器传递到编码器。VAE 的作者，
+在这里采用重参数化（reparameterization trick）的技巧来解决这个问题。
+
+
+**重参数化（reparameterization trick）**
+
+重参数化的思想其实很简单，就是稍微调整了一下采样的方法。
+我们需要从后验分布 :math:`q_{\phi}(z|x)` 中随机采样 :math:`z` 的值，
+这个后验分布是一个高斯分布 :math:`\mathcal{N}(\mu_z,\Sigma_z)`
+，直接从这个分布中采样会导致模型不可导，梯度无法传递。
+这里可以利用高斯分布的一个特点来改变采样过程，任意均值和方差的高斯分布都可以从一个标准正态分布 :math:`\mathcal{N}(0,\textit{I})`
+变换得到，我们用符号 :math:`\epsilon` 表示一个多维标准正态分布，即 :math:`\epsilon \sim \mathcal{N}(0,\textit{I})`
+，任意另一个高斯分布 :math:`\mathcal{N}(\mu_z,\Sigma_z)` 的值可以通过下式直接计算得到
+
+
+
+.. math::
+    :label: eq_vae_018
+
+     z &= \mu_z + \sqrt{\Sigma_z} \odot  \epsilon
+
+     &= \mu_{\phi}(x) + \sqrt{\Sigma_{\phi}(x)} \odot \epsilon \ \ ,\epsilon \sim \mathcal{N}(0,\textit{I})
+
+
+也就是说，可以先从标准正态分布 :math:`\epsilon \sim \mathcal{N}(0,\textit{I})` 随机采样一个值，
+然后再通过 :eq:`eq_vae_018` 计算得到 :math:`z` 的值，其中 :math:`\odot` 表示元素乘法。
+这就相当于在 encoder 的输出 :math:`\mu_{\phi}(x)` 的基础上加上随机高斯噪声，再乘上 encoder 的另一个输出
+:math:`\sqrt{\Sigma_{\phi}(x)}`
+，随机采样的是高斯噪声 :math:`\epsilon`
+，而它不影响模型的梯度传递。
+
+有了 :math:`z` 的值后就可以计算生成条件概率 :math:`p_{\theta}(x|z)` 了，
+现在看下具体是怎么计算的，已知 :math:`p_{\theta}(x|z)` 是一个单位方差的高斯分布，
+根据高斯分布的概率密度函数 :eq:`eq_vae_010`
+，:math:`p_{\theta}(x|z)` 的形式为
+
+
+.. math::
+
+    p_{\theta}(x|z) &=  \frac{1}{(2\pi)^{n/2} |\Sigma |^{1/2}}exp\{-\frac{1}{2}(x - \mu)^{T}\Sigma^{-1}(x - \mu)\}
+
+    & \propto exp\{-\frac{1}{2}(x - \mu_{x})^{T}(x - \mu_x)\}
+
+    &=  exp\{-\frac{1}{2}(x - \mu_{\theta}(z) )^{T}(x - \mu_{\theta}(z))\}
+
+    &=  exp\{ -\frac{1}{2}(x - decoder (z) )^{T}(x - decoder(z))\}
+
+
+
+最后给出最终下界函数（ELBO）的形式，
+
+
+.. math::
+    :label: eq_vae_020
+
+      \mathcal{L}(q,\theta) &=
+        \underbrace{ \mathbb{E}_{z \sim q_{\phi}(z|x) } [\ln  p_{\theta}(x|z) ] }_{\text{①对应解码过程}}
+            - \underbrace{ KL( q_{\phi}(z|x) ||p(z))}_{\text{②对应编码过程}}
+
+
+    &=  \frac{1}{L} \sum_{l=1}^L \left [ \ln  p_{\theta}(x|z^{(l)}) \right ]  - KL( \mathcal{N}(\mu_z,\Sigma_z) || \mathcal{N}(0,\textit{I}))
+
+
+    & \propto \frac{1}{L} \sum_{l=1}^L \left [    -\frac{1}{2}(x -  \mu_{x}  )^{T}(x -  \mu_{x}  )    \right  ]
+    - \left [ \frac{1}{2} \left ( tr ( \Sigma_z) + \mu_z^T \mu_z − k − \log det(\Sigma_z) \right )   \right ]
+
+    & =  -\frac{1}{2} \frac{1}{L} \sum_{l=1}^L \left [   (x -  \mu_{x}  )^{T}(x -  \mu_{x}  )    \right  ]
+    - \frac{1}{2} \left [  tr ( \Sigma_z) + \mu_z^T \mu_z − k − \log det(\Sigma_z)  \right ]
+
+
+    & \propto  - \frac{1}{L} \sum_{l=1}^L \left [ \underbrace{   (x -  \mu_{x}  )^{T}(x -  \mu_{x}  )  }_{\text{均方误差}}  \right  ]
+    -  \left [  tr ( \Sigma_z) + \mu_z^T \mu_z − k − \log det(\Sigma_z)  \right ]
+
+
+    & \text{其中，}
+
+
+
+    & \mu_{x}=\mu_{\theta}(z^{(l)}) = decoder(z^{(l)})
+
+    & z^{(l)} =  \mu_{z} + \sqrt{\Sigma_{z}}  \odot \epsilon \ \ ,\epsilon \sim \mathcal{N}(0,\textit{I})
+
+    & \mu_z = \mu_{\phi}(x) = encoder(x)_{\mu_z}
+
+    & \Sigma_z =\Sigma_{\phi}(x) = encoder(x)_{\Sigma_z}
+
+
+由于我们是通过极大化 :math:`\mathcal{L}(q,\theta)` 进行参数求解，
+所以其中一些常数乘项可以去掉，只保留正比（ :math:`\propto` ）项即可，
+极大化上述公式，其实就等价于同时极小化下面两项
+
+.. math::
+
+    \frac{1}{L} \sum_{l=1}^L \left [ \underbrace{   (x -  \mu_{x}  )^{T}(x -  \mu_{x}  )  }_{\text{均方误差}}  \right  ]
+
+和
+
+.. math::
+
+     \left [  tr ( \Sigma_z) + \mu_z^T \mu_z − k − \log det(\Sigma_z)  \right ]
+
+
+这两项，第一项相当于均方误差，第二项是正则项。
+万变不离其宗，最终回到了带有正则项的最小化均方误差。
+
+
+总结
+########################################################
+
+和EM算法的关系
+================================================
+
+未完成， to be continue
+
+1. 计算 :math:`q(Z)=P(Z|X)` 的方式不同。
+    - EM 是用贝叶斯公式的方式计算，需要已知 :math:`P(X|Z;\theta)` 和 :math:`P(Z;\theta)` 具体形式，
+      以及参数 :math:`\theta` 的值。
+
+    .. math::
+
+        q(Z)=P(Z|X) = \frac{P(X|Z;\theta) P(Z;\theta) }{ \int_{z}  P(X|Z;\theta) P(Z;\theta)}
+
+    - VAE 假设 :math:`q(Z)=P(Z|X)` 是高斯分布 :math:`\mathcal{N}(\mu_q,\sigma^2_q)`，然后用某个函数直接映射分布的期望和方差参数。
+
+    .. math::
+
+        \mu_q = f(x,\theta)
+
+        \sigma^2_q = g(x,\theta)
+
+    理论上，这里的 :math:`f` 和 :math:`g` 可以是任何合理的函数，在VAE中用神经网络(Neural Networks)实现。
+
+2. 条件概率 :math:`P(Z|X)`
+
+
+
+为什么叫变分（variational）？
+=================================================
+
+
+在贝叶斯网领域，经常会遇到隐变量问题，当贝叶斯图中同时含有隐变量和观测变量时，通常需要利用观测变量去求出隐变量的后验概率分布，
+这个过程也被称为推断（inference）。我们知道这个后验分布一般是根据贝叶斯定理得到，
+如果可以通过贝叶斯公式直接解析计算得到后验分布，那么就得到了这个后验分布的准确形式，此时称为精准推断。
+然而贝叶斯公式中的分母部分（也就是证据 :math:`p(x)` ）是含有积分的，多数情况下是难以计算的，
+这时就无法直接得到后验概率分布的准确形式。既然无法得到准确的结果，那是否可以得到一个近似的结果呢？
+显然是可行的，这类得到后验概率分布近似结果的方法就成为近似推断（Approximate Inference）。
+变分推断 （variational inference，VI）就是一种近似推断的方法，除此外还有采样法-马尔科夫蒙特卡洛（(Markov chain Monte Carlo, MCMC)）
+等等。
+
+回到本文的 VAE 算法，其中关键的编码器部分的 :math:`q_{\phi}(z|x)` 就是隐变量的后验分布，算法中就采用一个参数化的神经网络（或者说一个参数化的函数）
+去近似拟合这个后验概率分布，因此这个算法被称为 *变分* 自编码器。
+其实解码器部分 :math:`q_{\theta}(x|z)` 从本质上讲，也是在进行推断，只不过 :math:`x` 和 :math:`z` 反过来而已，
+这一部分也是用一个参数化的神经网络近似推断出这个条件概率分布，因此解码器部分也是一个变分推断的过程。
+
+
+VQ-VAE
+########################################################
+
+待完成.....
+
+
+
+参考文献
+########################################################
+
+.. bibliography::
+
+   Kingma2013AutoEncodingVB
+   luo2022understanding
+   Doersch2016TutorialOV
+   Blei2016VariationalIA
+
+
+
+.. meta::
+    :description lang=zh_CN: 变分自编码器
+    :keywords: 变分自编码器,Variational Autoencoder,VAE,扩散模型,Diffusion Model,生成模型,图像生成
+

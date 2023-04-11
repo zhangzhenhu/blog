@@ -6,11 +6,11 @@
 <meta content="变分自编码器,Variational Autoencoder,VAE,扩散模型,Diffusion Model,生成模型,图像生成" name="keywords" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>30. 扩散概率模型（diffusion probabilistic models） &mdash; 张振虎的博客 张振虎 文档</title>
+  <title>2. 扩散概率模型（diffusion probabilistic models） &mdash; 张振虎的博客 张振虎 文档</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
-    <link rel="canonical" href="https://zhangzhenhu.github.io/blog/probability_model/扩散概率模型.html" />
+    <link rel="canonical" href="https://zhangzhenhu.github.io/blog/aigc/扩散概率模型.html" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -25,8 +25,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
-    <link rel="next" title="31. 参考文献" href="%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE.html" />
-    <link rel="prev" title="29. 变分自编码器（Variational Autoencoder）" href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html" /> 
+    <link rel="next" title="3. 稳定扩散模型（Stable diffusion model）" href="%E7%A8%B3%E5%AE%9A%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B.html" />
+    <link rel="prev" title="1. 变分自编码器（Variational Autoencoder）" href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -412,342 +412,321 @@
 <li class="toctree-l2"><a class="reference internal" href="../glm/source/%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE/content.html">参考文献</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="reference internal" href="index_html.html">概率图</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="1.%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80.html">1. 概率基础</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="1.%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80.html#id2">1.1. 概率分布</a></li>
-<li class="toctree-l3"><a class="reference internal" href="1.%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80.html#id3">1.2. 独立性</a></li>
-<li class="toctree-l3"><a class="reference internal" href="1.%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80.html#marginalization">1.3. 边缘化(marginalization)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="1.%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80.html#id6">1.4. 贝叶斯定理</a></li>
-<li class="toctree-l3"><a class="reference internal" href="1.%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80.html#id7">1.5. 期望与方差</a></li>
-<li class="toctree-l3"><a class="reference internal" href="1.%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80.html#id8">1.6. 常见概率分布</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="1.%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80.html#id9">1.6.1. 离散变量</a></li>
-<li class="toctree-l4"><a class="reference internal" href="1.%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80.html#id10">1.6.2. 连续变量</a></li>
-<li class="toctree-l4"><a class="reference internal" href="1.%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80.html#id11">1.6.3. 计数变量</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../probability_model/index_html.html">概率图</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../probability_model/1.%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80.html">1. 概率基础</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/1.%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80.html#id2">1.1. 概率分布</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/1.%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80.html#id3">1.2. 独立性</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/1.%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80.html#marginalization">1.3. 边缘化(marginalization)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/1.%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80.html#id6">1.4. 贝叶斯定理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/1.%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80.html#id7">1.5. 期望与方差</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/1.%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80.html#id8">1.6. 常见概率分布</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../probability_model/1.%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80.html#id9">1.6.1. 离散变量</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../probability_model/1.%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80.html#id10">1.6.2. 连续变量</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../probability_model/1.%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80.html#id11">1.6.3. 计数变量</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="1.%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80.html#id12">1.7. 大数定律</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="1.%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80.html#id13">1.7.1. 独立同分布</a></li>
-<li class="toctree-l4"><a class="reference internal" href="1.%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80.html#id14">1.7.2. 中心极限定理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/1.%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80.html#id12">1.7. 大数定律</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../probability_model/1.%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80.html#id13">1.7.1. 独立同分布</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../probability_model/1.%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80.html#id14">1.7.2. 中心极限定理</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="1.%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80.html#id15">1.8. 信息论基础</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="1.%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80.html#id16">1.8.1. 信息熵</a></li>
-<li class="toctree-l4"><a class="reference internal" href="1.%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80.html#kl">1.8.2. KL散度</a></li>
-<li class="toctree-l4"><a class="reference internal" href="1.%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80.html#id18">1.8.3. 互信息</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html">2. 参数估计</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#ch-liklihood">2.1. 极大似然估计</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#id3">2.1.1. 二值离散变量</a></li>
-<li class="toctree-l4"><a class="reference internal" href="2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#id4">2.1.2. 一般离散变量</a></li>
-<li class="toctree-l4"><a class="reference internal" href="2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#ch-2-gaussian-ml">2.1.3. 高斯分布</a></li>
-<li class="toctree-l4"><a class="reference internal" href="2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#id6">2.1.4. 总结</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#ch-bayesian-estimation">2.2. 贝叶斯估计</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#id8">2.2.1. 伯努利变量</a></li>
-<li class="toctree-l4"><a class="reference internal" href="2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#id9">2.2.2. 类别变量</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#id10">2.3. 最大后验估计</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#id11">2.3.1. 伯努利变量</a></li>
-<li class="toctree-l4"><a class="reference internal" href="2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#id12">2.3.2. 类别变量</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#id13">2.4. 最大似然估计与贝叶斯估计的对比</a></li>
-<li class="toctree-l3"><a class="reference internal" href="2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#id14">2.5. 统计量和充分统计量</a></li>
-<li class="toctree-l3"><a class="reference internal" href="2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#fisher-information">2.6. Fisher Information</a></li>
-<li class="toctree-l3"><a class="reference internal" href="2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#id15">2.7. 估计量的评价</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#id16">2.7.1. 估计量的方差与偏差</a></li>
-<li class="toctree-l4"><a class="reference internal" href="2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#id17">2.7.2. 大数定律和中心极限定理</a></li>
-<li class="toctree-l4"><a class="reference internal" href="2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#ch-2-mle-estimator">2.7.3. 最大似然估计的特性</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/1.%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80.html#id15">1.8. 信息论基础</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../probability_model/1.%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80.html#id16">1.8.1. 信息熵</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../probability_model/1.%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80.html#kl">1.8.2. KL散度</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../probability_model/1.%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80.html#id18">1.8.3. 互信息</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="18.%E6%8C%87%E6%95%B0%E6%97%8F_24.html">3. 指数族</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="18.%E6%8C%87%E6%95%B0%E6%97%8F_24.html#ch-24-1">3.1. 指数族的定义</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="18.%E6%8C%87%E6%95%B0%E6%97%8F_24.html#id3">3.1.1. 伯努利分布</a></li>
-<li class="toctree-l4"><a class="reference internal" href="18.%E6%8C%87%E6%95%B0%E6%97%8F_24.html#id4">3.1.2. 类别分布</a></li>
-<li class="toctree-l4"><a class="reference internal" href="18.%E6%8C%87%E6%95%B0%E6%97%8F_24.html#id5">3.1.3. 泊松分布</a></li>
-<li class="toctree-l4"><a class="reference internal" href="18.%E6%8C%87%E6%95%B0%E6%97%8F_24.html#id6">3.1.4. 高斯分布</a></li>
-<li class="toctree-l4"><a class="reference internal" href="18.%E6%8C%87%E6%95%B0%E6%97%8F_24.html#id7">3.1.5. 其它常见指数族</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../probability_model/2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html">2. 参数估计</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#ch-liklihood">2.1. 极大似然估计</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../probability_model/2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#id3">2.1.1. 二值离散变量</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../probability_model/2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#id4">2.1.2. 一般离散变量</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../probability_model/2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#ch-2-gaussian-ml">2.1.3. 高斯分布</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../probability_model/2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#id6">2.1.4. 总结</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="18.%E6%8C%87%E6%95%B0%E6%97%8F_24.html#ch-24-moments">3.2. 指数族的期望与方差</a></li>
-<li class="toctree-l3"><a class="reference internal" href="18.%E6%8C%87%E6%95%B0%E6%97%8F_24.html#id9">3.3. 最大似然估计</a></li>
-<li class="toctree-l3"><a class="reference internal" href="18.%E6%8C%87%E6%95%B0%E6%97%8F_24.html#kl">3.4. 最大似然估计与KL散度的关系</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#ch-bayesian-estimation">2.2. 贝叶斯估计</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../probability_model/2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#id8">2.2.1. 伯努利变量</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../probability_model/2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#id9">2.2.2. 类别变量</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="19.%E5%A4%9A%E7%BB%B4%E9%AB%98%E6%96%AF%E5%88%86%E5%B8%83_26.html">4. 多维高斯分布</a></li>
-<li class="toctree-l2"><a class="reference internal" href="4.%E6%9C%89%E5%90%91%E5%9B%BE_lecture_2.html">5. 有向图(Directed Graphical Models)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="4.%E6%9C%89%E5%90%91%E5%9B%BE_lecture_2.html#id1">5.1. 有向图</a></li>
-<li class="toctree-l3"><a class="reference internal" href="4.%E6%9C%89%E5%90%91%E5%9B%BE_lecture_2.html#id2">5.2. 条件独立性</a></li>
-<li class="toctree-l3"><a class="reference internal" href="4.%E6%9C%89%E5%90%91%E5%9B%BE_lecture_2.html#id3">5.3. 本章总结</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#id10">2.3. 最大后验估计</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../probability_model/2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#id11">2.3.1. 伯努利变量</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../probability_model/2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#id12">2.3.2. 类别变量</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="5.%E6%97%A0%E5%90%91%E5%9B%BE_lecture_3.html">6. 无向图(Undirected Graphical Models)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="5.%E6%97%A0%E5%90%91%E5%9B%BE_lecture_3.html#id1">6.1. 无向图的定义</a></li>
-<li class="toctree-l3"><a class="reference internal" href="5.%E6%97%A0%E5%90%91%E5%9B%BE_lecture_3.html#id2">6.2. 条件独立性</a></li>
-<li class="toctree-l3"><a class="reference internal" href="5.%E6%97%A0%E5%90%91%E5%9B%BE_lecture_3.html#id3">6.3. 图的分解</a></li>
-<li class="toctree-l3"><a class="reference internal" href="5.%E6%97%A0%E5%90%91%E5%9B%BE_lecture_3.html#vs">6.4. 有向图 vs 无向图</a></li>
-<li class="toctree-l3"><a class="reference internal" href="5.%E6%97%A0%E5%90%91%E5%9B%BE_lecture_3.html#id4">6.5. 树</a></li>
-<li class="toctree-l3"><a class="reference internal" href="5.%E6%97%A0%E5%90%91%E5%9B%BE_lecture_3.html#id5">6.6. 本章总结</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="6.%E5%9B%A0%E5%AD%90%E5%9B%BE_lecture_4.html">7. 因子图</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="6.%E5%9B%A0%E5%AD%90%E5%9B%BE_lecture_4.html#id2">7.1. 因子图的定义</a></li>
-<li class="toctree-l3"><a class="reference internal" href="6.%E5%9B%A0%E5%AD%90%E5%9B%BE_lecture_4.html#id3">7.2. 图模型之间的转换</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="6.%E5%9B%A0%E5%AD%90%E5%9B%BE_lecture_4.html#id4">7.2.1. 转换为因子图</a></li>
-<li class="toctree-l4"><a class="reference internal" href="6.%E5%9B%A0%E5%AD%90%E5%9B%BE_lecture_4.html#id5">7.2.2. 因子图转换为有向图</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="6.%E5%9B%A0%E5%AD%90%E5%9B%BE_lecture_4.html#id6">7.3. 图模型的评价</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="6.%E5%9B%A0%E5%AD%90%E5%9B%BE_lecture_4.html#i-map">7.3.1. I-map</a></li>
-<li class="toctree-l4"><a class="reference internal" href="6.%E5%9B%A0%E5%AD%90%E5%9B%BE_lecture_4.html#d-map">7.3.2. D-map</a></li>
-<li class="toctree-l4"><a class="reference internal" href="6.%E5%9B%A0%E5%AD%90%E5%9B%BE_lecture_4.html#p-map">7.3.3. P-map</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#id13">2.4. 最大似然估计与贝叶斯估计的对比</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#id14">2.5. 统计量和充分统计量</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#fisher-information">2.6. Fisher Information</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#id15">2.7. 估计量的评价</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../probability_model/2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#id16">2.7.1. 估计量的方差与偏差</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../probability_model/2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#id17">2.7.2. 大数定律和中心极限定理</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../probability_model/2.%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1.html#ch-2-mle-estimator">2.7.3. 最大似然估计的特性</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="8.%E6%B6%88%E5%85%83%E6%B3%95.html">8. 模型推断：消元法</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="8.%E6%B6%88%E5%85%83%E6%B3%95.html#id2">8.1. 什么是模型的推断</a></li>
-<li class="toctree-l3"><a class="reference internal" href="8.%E6%B6%88%E5%85%83%E6%B3%95.html#id3">8.2. 消元法</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="8.%E6%B6%88%E5%85%83%E6%B3%95.html#id4">8.2.1. 有向图消元算法</a></li>
-<li class="toctree-l4"><a class="reference internal" href="8.%E6%B6%88%E5%85%83%E6%B3%95.html#ch-condition-margin">8.2.2. 条件概率和边缘概率</a></li>
-<li class="toctree-l4"><a class="reference internal" href="8.%E6%B6%88%E5%85%83%E6%B3%95.html#id6">8.2.3. 无向图的消元法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../probability_model/18.%E6%8C%87%E6%95%B0%E6%97%8F_24.html">3. 指数族</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/18.%E6%8C%87%E6%95%B0%E6%97%8F_24.html#ch-24-1">3.1. 指数族的定义</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../probability_model/18.%E6%8C%87%E6%95%B0%E6%97%8F_24.html#id3">3.1.1. 伯努利分布</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../probability_model/18.%E6%8C%87%E6%95%B0%E6%97%8F_24.html#id4">3.1.2. 类别分布</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../probability_model/18.%E6%8C%87%E6%95%B0%E6%97%8F_24.html#id5">3.1.3. 泊松分布</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../probability_model/18.%E6%8C%87%E6%95%B0%E6%97%8F_24.html#id6">3.1.4. 高斯分布</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../probability_model/18.%E6%8C%87%E6%95%B0%E6%97%8F_24.html#id7">3.1.5. 其它常见指数族</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="8.%E6%B6%88%E5%85%83%E6%B3%95.html#id7">8.3. 图消除</a></li>
-<li class="toctree-l3"><a class="reference internal" href="8.%E6%B6%88%E5%85%83%E6%B3%95.html#id9">8.4. 总结</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/18.%E6%8C%87%E6%95%B0%E6%97%8F_24.html#ch-24-moments">3.2. 指数族的期望与方差</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/18.%E6%8C%87%E6%95%B0%E6%97%8F_24.html#id9">3.3. 最大似然估计</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/18.%E6%8C%87%E6%95%B0%E6%97%8F_24.html#kl">3.4. 最大似然估计与KL散度的关系</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="9.%E5%92%8C%E7%A7%AF%E7%AE%97%E6%B3%95_lecture_8.html">9. 加和乘积算法(sum-product algorithm)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="9.%E5%92%8C%E7%A7%AF%E7%AE%97%E6%B3%95_lecture_8.html#id1">9.1. 树结构</a></li>
-<li class="toctree-l3"><a class="reference internal" href="9.%E5%92%8C%E7%A7%AF%E7%AE%97%E6%B3%95_lecture_8.html#id2">9.2. 从消元法到信息传播</a></li>
-<li class="toctree-l3"><a class="reference internal" href="9.%E5%92%8C%E7%A7%AF%E7%AE%97%E6%B3%95_lecture_8.html#id3">9.3. 树模型的和积算法</a></li>
-<li class="toctree-l3"><a class="reference internal" href="9.%E5%92%8C%E7%A7%AF%E7%AE%97%E6%B3%95_lecture_8.html#id4">9.4. 因子图的和积算法</a></li>
-<li class="toctree-l3"><a class="reference internal" href="9.%E5%92%8C%E7%A7%AF%E7%AE%97%E6%B3%95_lecture_8.html#id5">9.5. 类树结构图模型</a></li>
-<li class="toctree-l3"><a class="reference internal" href="9.%E5%92%8C%E7%A7%AF%E7%AE%97%E6%B3%95_lecture_8.html#polytrees">9.6. 多重树(polytrees)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="9.%E5%92%8C%E7%A7%AF%E7%AE%97%E6%B3%95_lecture_8.html#id6">9.7. 总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../probability_model/19.%E5%A4%9A%E7%BB%B4%E9%AB%98%E6%96%AF%E5%88%86%E5%B8%83_26.html">4. 多维高斯分布</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../probability_model/4.%E6%9C%89%E5%90%91%E5%9B%BE_lecture_2.html">5. 有向图(Directed Graphical Models)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/4.%E6%9C%89%E5%90%91%E5%9B%BE_lecture_2.html#id1">5.1. 有向图</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/4.%E6%9C%89%E5%90%91%E5%9B%BE_lecture_2.html#id2">5.2. 条件独立性</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/4.%E6%9C%89%E5%90%91%E5%9B%BE_lecture_2.html#id3">5.3. 本章总结</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="11.%E6%9C%80%E5%A4%A7%E5%90%8E%E9%AA%8C%E4%BC%B0%E8%AE%A1_lecture_11.html">10. 最大后验估计</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="11.%E6%9C%80%E5%A4%A7%E5%90%8E%E9%AA%8C%E4%BC%B0%E8%AE%A1_lecture_11.html#id2">10.1. 最大后验概率</a></li>
-<li class="toctree-l3"><a class="reference internal" href="11.%E6%9C%80%E5%A4%A7%E5%90%8E%E9%AA%8C%E4%BC%B0%E8%AE%A1_lecture_11.html#id3">10.2. 最大化后验的状态</a></li>
-<li class="toctree-l3"><a class="reference internal" href="11.%E6%9C%80%E5%A4%A7%E5%90%8E%E9%AA%8C%E4%BC%B0%E8%AE%A1_lecture_11.html#id4">10.3. 本章总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../probability_model/5.%E6%97%A0%E5%90%91%E5%9B%BE_lecture_3.html">6. 无向图(Undirected Graphical Models)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/5.%E6%97%A0%E5%90%91%E5%9B%BE_lecture_3.html#id1">6.1. 无向图的定义</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/5.%E6%97%A0%E5%90%91%E5%9B%BE_lecture_3.html#id2">6.2. 条件独立性</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/5.%E6%97%A0%E5%90%91%E5%9B%BE_lecture_3.html#id3">6.3. 图的分解</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/5.%E6%97%A0%E5%90%91%E5%9B%BE_lecture_3.html#vs">6.4. 有向图 vs 无向图</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/5.%E6%97%A0%E5%90%91%E5%9B%BE_lecture_3.html#id4">6.5. 树</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/5.%E6%97%A0%E5%90%91%E5%9B%BE_lecture_3.html#id5">6.6. 本章总结</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="12.%E5%AE%8C%E6%95%B4%E8%A7%82%E6%B5%8B%E7%9A%84%E5%8F%82%E6%95%B0%E5%AD%A6%E4%B9%A0_lecture_20.html">11. 完整观测的参数学习</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="12.%E5%AE%8C%E6%95%B4%E8%A7%82%E6%B5%8B%E7%9A%84%E5%8F%82%E6%95%B0%E5%AD%A6%E4%B9%A0_lecture_20.html#id2">11.1. 有向图的参数学习</a></li>
-<li class="toctree-l3"><a class="reference internal" href="12.%E5%AE%8C%E6%95%B4%E8%A7%82%E6%B5%8B%E7%9A%84%E5%8F%82%E6%95%B0%E5%AD%A6%E4%B9%A0_lecture_20.html#id3">11.2. 无向图的参数学习</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="12.%E5%AE%8C%E6%95%B4%E8%A7%82%E6%B5%8B%E7%9A%84%E5%8F%82%E6%95%B0%E5%AD%A6%E4%B9%A0_lecture_20.html#id4">11.2.1. 成对二值变量模型</a></li>
-<li class="toctree-l4"><a class="reference internal" href="12.%E5%AE%8C%E6%95%B4%E8%A7%82%E6%B5%8B%E7%9A%84%E5%8F%82%E6%95%B0%E5%AD%A6%E4%B9%A0_lecture_20.html#id5">11.2.2. 一般二值变量模型</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../probability_model/6.%E5%9B%A0%E5%AD%90%E5%9B%BE_lecture_4.html">7. 因子图</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/6.%E5%9B%A0%E5%AD%90%E5%9B%BE_lecture_4.html#id2">7.1. 因子图的定义</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/6.%E5%9B%A0%E5%AD%90%E5%9B%BE_lecture_4.html#id3">7.2. 图模型之间的转换</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../probability_model/6.%E5%9B%A0%E5%AD%90%E5%9B%BE_lecture_4.html#id4">7.2.1. 转换为因子图</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../probability_model/6.%E5%9B%A0%E5%AD%90%E5%9B%BE_lecture_4.html#id5">7.2.2. 因子图转换为有向图</a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="13.%E4%B8%8D%E5%AE%8C%E6%95%B4%E8%A7%82%E6%B5%8B%E7%9A%84%E5%8F%82%E6%95%B0%E5%AD%A6%E4%B9%A0_lecture_22.html">12. 不完整观测的学习</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="13.%E4%B8%8D%E5%AE%8C%E6%95%B4%E8%A7%82%E6%B5%8B%E7%9A%84%E5%8F%82%E6%95%B0%E5%AD%A6%E4%B9%A0_lecture_22.html#id2">12.1. 隐变量</a></li>
-<li class="toctree-l3"><a class="reference internal" href="13.%E4%B8%8D%E5%AE%8C%E6%95%B4%E8%A7%82%E6%B5%8B%E7%9A%84%E5%8F%82%E6%95%B0%E5%AD%A6%E4%B9%A0_lecture_22.html#em">12.2. 期望最大化算法(EM)</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="14.%E5%9B%BE%E5%BD%A2%E7%BB%93%E6%9E%84%E7%9A%84%E5%AD%A6%E4%B9%A0_lecture_23.html">13. 有向图结构学习</a></li>
-<li class="toctree-l2"><a class="reference internal" href="16.%E5%8F%98%E5%88%86%E6%8E%A8%E6%96%AD_lecture_17.html">14. 变分推断</a></li>
-<li class="toctree-l2"><a class="reference internal" href="17.%E9%87%87%E6%A0%B7%E6%B3%95_lecture_18.html">15. 马尔科夫蒙特卡洛</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="17.%E9%87%87%E6%A0%B7%E6%B3%95_lecture_18.html#why-sampling">15.1. Why sampling？</a></li>
-<li class="toctree-l3"><a class="reference internal" href="17.%E9%87%87%E6%A0%B7%E6%B3%95_lecture_18.html#monte-carlo">15.2. 蒙特卡罗(Monte Carlo)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="17.%E9%87%87%E6%A0%B7%E6%B3%95_lecture_18.html#markov-chain">15.3. 马尔科夫链(Markov Chain)</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="17.%E9%87%87%E6%A0%B7%E6%B3%95_lecture_18.html#id2">15.3.1. 一个例子</a></li>
-<li class="toctree-l4"><a class="reference internal" href="17.%E9%87%87%E6%A0%B7%E6%B3%95_lecture_18.html#time-reversibility">15.3.2. 时间可逆性(Time Reversibility)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="17.%E9%87%87%E6%A0%B7%E6%B3%95_lecture_18.html#id3">15.3.3. 总结</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="17.%E9%87%87%E6%A0%B7%E6%B3%95_lecture_18.html#markov-chain-monte-carlo">15.4. Markov Chain Monte Carlo</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="17.%E9%87%87%E6%A0%B7%E6%B3%95_lecture_18.html#metropolis-hastings">15.4.1. Metropolis-Hastings</a></li>
-<li class="toctree-l4"><a class="reference internal" href="17.%E9%87%87%E6%A0%B7%E6%B3%95_lecture_18.html#id4">15.4.2. 例子：正态分布的采样</a></li>
-<li class="toctree-l4"><a class="reference internal" href="17.%E9%87%87%E6%A0%B7%E6%B3%95_lecture_18.html#id5">15.4.3. 多变量采样</a></li>
-<li class="toctree-l4"><a class="reference internal" href="17.%E9%87%87%E6%A0%B7%E6%B3%95_lecture_18.html#gibbs">15.4.4. Gibbs 采样</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="17.%E9%87%87%E6%A0%B7%E6%B3%95_lecture_18.html#mixing-time">15.5. Mixing Time</a></li>
-<li class="toctree-l3"><a class="reference internal" href="17.%E9%87%87%E6%A0%B7%E6%B3%95_lecture_18.html#approximate-map-and-partitioning">15.6. Approximate MAP and Partitioning</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%88%86%E7%B1%BB%E5%99%A8.html">16. 贝叶斯分类器</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%88%86%E7%B1%BB%E5%99%A8.html#id2">16.1. 朴素贝叶斯模型</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%88%86%E7%B1%BB%E5%99%A8.html#id3">16.1.1. 模型表示</a></li>
-<li class="toctree-l4"><a class="reference internal" href="%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%88%86%E7%B1%BB%E5%99%A8.html#id4">16.1.2. 参数估计</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%88%86%E7%B1%BB%E5%99%A8.html#id5">16.2. 高斯判别模型</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%88%86%E7%B1%BB%E5%99%A8.html#id6">16.2.1. 一元高斯模型</a></li>
-<li class="toctree-l4"><a class="reference internal" href="%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%88%86%E7%B1%BB%E5%99%A8.html#id7">16.2.2. 多元高斯模型</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%88%86%E7%B1%BB%E5%99%A8.html#id8">16.3. 逻辑回归</a></li>
-<li class="toctree-l3"><a class="reference internal" href="%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%88%86%E7%B1%BB%E5%99%A8.html#id9">16.4. 生成模型和判别模型</a></li>
-<li class="toctree-l3"><a class="reference internal" href="%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%88%86%E7%B1%BB%E5%99%A8.html#id10">16.5. 多分类</a></li>
-<li class="toctree-l3"><a class="reference internal" href="%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%88%86%E7%B1%BB%E5%99%A8.html#id11">16.6. 其它扩展</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="21.%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92_29.html">17. 回归模型</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="21.%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92_29.html#id2">17.1. 机器学习的概率解释</a></li>
-<li class="toctree-l3"><a class="reference internal" href="21.%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92_29.html#id3">17.2. 经典线性回归</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="21.%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92_29.html#id4">17.2.1. 参数估计</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="21.%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92_29.html#id5">17.3. 线性回归的概率解释</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="21.%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92_29.html#id6">17.3.1. 参数估计</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="21.%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92_29.html#id7">17.4. 凸函数最优化问题</a></li>
-<li class="toctree-l3"><a class="reference internal" href="21.%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92_29.html#id8">17.5. 岭回归</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="22.%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB_32.html">18. 分类模型</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="22.%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB_32.html#id2">18.1. 生成模型与判别模型</a></li>
-<li class="toctree-l3"><a class="reference internal" href="22.%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB_32.html#id3">18.2. 线性回归与线性分类</a></li>
-<li class="toctree-l3"><a class="reference internal" href="22.%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB_32.html#id4">18.3. 生成模型</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="22.%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB_32.html#id5">18.3.1. 高斯判别模型</a></li>
-<li class="toctree-l4"><a class="reference internal" href="22.%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB_32.html#id6">18.3.2. 朴素贝叶斯模型</a></li>
-<li class="toctree-l4"><a class="reference internal" href="22.%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB_32.html#id7">18.3.3. 指数族</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="22.%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB_32.html#id8">18.4. 判别模型</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="22.%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB_32.html#id9">18.4.1. 逻辑回归</a></li>
-<li class="toctree-l4"><a class="reference internal" href="22.%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB_32.html#id10">18.4.2. 多分类</a></li>
-<li class="toctree-l4"><a class="reference internal" href="22.%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB_32.html#id11">18.4.3. 最大熵模型</a></li>
-<li class="toctree-l4"><a class="reference internal" href="22.%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB_32.html#probit">18.4.4. Probit 回归</a></li>
-<li class="toctree-l4"><a class="reference internal" href="22.%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB_32.html#noisy-or">18.4.5. Noisy-OR 模型</a></li>
-<li class="toctree-l4"><a class="reference internal" href="22.%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB_32.html#id12">18.4.6. 其它指数模型</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/6.%E5%9B%A0%E5%AD%90%E5%9B%BE_lecture_4.html#id6">7.3. 图模型的评价</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../probability_model/6.%E5%9B%A0%E5%AD%90%E5%9B%BE_lecture_4.html#i-map">7.3.1. I-map</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../probability_model/6.%E5%9B%A0%E5%AD%90%E5%9B%BE_lecture_4.html#d-map">7.3.2. D-map</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../probability_model/6.%E5%9B%A0%E5%AD%90%E5%9B%BE_lecture_4.html#p-map">7.3.3. P-map</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html">19. 广义线性模型</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#id2">19.1. 定义</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#id3">19.1.1. 指数族分布</a></li>
-<li class="toctree-l4"><a class="reference internal" href="25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#id4">19.1.2. 链接函数</a></li>
-<li class="toctree-l4"><a class="reference internal" href="25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#id5">19.1.3. 例子</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../probability_model/8.%E6%B6%88%E5%85%83%E6%B3%95.html">8. 模型推断：消元法</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/8.%E6%B6%88%E5%85%83%E6%B3%95.html#id2">8.1. 什么是模型的推断</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/8.%E6%B6%88%E5%85%83%E6%B3%95.html#id3">8.2. 消元法</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../probability_model/8.%E6%B6%88%E5%85%83%E6%B3%95.html#id4">8.2.1. 有向图消元算法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../probability_model/8.%E6%B6%88%E5%85%83%E6%B3%95.html#ch-condition-margin">8.2.2. 条件概率和边缘概率</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../probability_model/8.%E6%B6%88%E5%85%83%E6%B3%95.html#id6">8.2.3. 无向图的消元法</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#id6">19.2. 参数估计</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#id7">19.2.1. 梯度下降法</a></li>
-<li class="toctree-l4"><a class="reference internal" href="25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#id8">19.2.2. 牛顿法</a></li>
-<li class="toctree-l4"><a class="reference internal" href="25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#irls">19.2.3. 迭代重加权最小二乘(IRLS)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/8.%E6%B6%88%E5%85%83%E6%B3%95.html#id7">8.3. 图消除</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/8.%E6%B6%88%E5%85%83%E6%B3%95.html#id9">8.4. 总结</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#goodness-of-fit">19.3. goodness of fit</a></li>
-<li class="toctree-l3"><a class="reference internal" href="25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#id9">19.4. 连续值响应模型</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#id10">19.4.1. 高斯族</a></li>
-<li class="toctree-l4"><a class="reference internal" href="25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#gamma">19.4.2. Gamma族</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../probability_model/9.%E5%92%8C%E7%A7%AF%E7%AE%97%E6%B3%95_lecture_8.html">9. 加和乘积算法(sum-product algorithm)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/9.%E5%92%8C%E7%A7%AF%E7%AE%97%E6%B3%95_lecture_8.html#id1">9.1. 树结构</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/9.%E5%92%8C%E7%A7%AF%E7%AE%97%E6%B3%95_lecture_8.html#id2">9.2. 从消元法到信息传播</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/9.%E5%92%8C%E7%A7%AF%E7%AE%97%E6%B3%95_lecture_8.html#id3">9.3. 树模型的和积算法</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/9.%E5%92%8C%E7%A7%AF%E7%AE%97%E6%B3%95_lecture_8.html#id4">9.4. 因子图的和积算法</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/9.%E5%92%8C%E7%A7%AF%E7%AE%97%E6%B3%95_lecture_8.html#id5">9.5. 类树结构图模型</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/9.%E5%92%8C%E7%A7%AF%E7%AE%97%E6%B3%95_lecture_8.html#polytrees">9.6. 多重树(polytrees)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/9.%E5%92%8C%E7%A7%AF%E7%AE%97%E6%B3%95_lecture_8.html#id6">9.7. 总结</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#id12">19.5. 二项响应模型</a></li>
-<li class="toctree-l3"><a class="reference internal" href="25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#id13">19.6. 多项响应模型</a></li>
-<li class="toctree-l3"><a class="reference internal" href="25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#id14">19.7. 计数响应模型</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#id15">19.7.1. 泊松分布</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../probability_model/11.%E6%9C%80%E5%A4%A7%E5%90%8E%E9%AA%8C%E4%BC%B0%E8%AE%A1_lecture_11.html">10. 最大后验估计</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/11.%E6%9C%80%E5%A4%A7%E5%90%8E%E9%AA%8C%E4%BC%B0%E8%AE%A1_lecture_11.html#id2">10.1. 最大后验概率</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/11.%E6%9C%80%E5%A4%A7%E5%90%8E%E9%AA%8C%E4%BC%B0%E8%AE%A1_lecture_11.html#id3">10.2. 最大化后验的状态</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/11.%E6%9C%80%E5%A4%A7%E5%90%8E%E9%AA%8C%E4%BC%B0%E8%AE%A1_lecture_11.html#id4">10.3. 本章总结</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#id16">19.8. GLM扩展</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../probability_model/12.%E5%AE%8C%E6%95%B4%E8%A7%82%E6%B5%8B%E7%9A%84%E5%8F%82%E6%95%B0%E5%AD%A6%E4%B9%A0_lecture_20.html">11. 完整观测的参数学习</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/12.%E5%AE%8C%E6%95%B4%E8%A7%82%E6%B5%8B%E7%9A%84%E5%8F%82%E6%95%B0%E5%AD%A6%E4%B9%A0_lecture_20.html#id2">11.1. 有向图的参数学习</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/12.%E5%AE%8C%E6%95%B4%E8%A7%82%E6%B5%8B%E7%9A%84%E5%8F%82%E6%95%B0%E5%AD%A6%E4%B9%A0_lecture_20.html#id3">11.2. 无向图的参数学习</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../probability_model/12.%E5%AE%8C%E6%95%B4%E8%A7%82%E6%B5%8B%E7%9A%84%E5%8F%82%E6%95%B0%E5%AD%A6%E4%B9%A0_lecture_20.html#id4">11.2.1. 成对二值变量模型</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../probability_model/12.%E5%AE%8C%E6%95%B4%E8%A7%82%E6%B5%8B%E7%9A%84%E5%8F%82%E6%95%B0%E5%AD%A6%E4%B9%A0_lecture_20.html#id5">11.2.2. 一般二值变量模型</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="31.%E6%B7%B7%E5%90%88%E6%A8%A1%E5%9E%8B_41.html">20. 混合模型</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="31.%E6%B7%B7%E5%90%88%E6%A8%A1%E5%9E%8B_41.html#id2">20.1. 一般混合模型</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="31.%E6%B7%B7%E5%90%88%E6%A8%A1%E5%9E%8B_41.html#id3">20.1.1. 模型的有向图表示</a></li>
-<li class="toctree-l4"><a class="reference internal" href="31.%E6%B7%B7%E5%90%88%E6%A8%A1%E5%9E%8B_41.html#id5">20.1.2. 参数估计</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="31.%E6%B7%B7%E5%90%88%E6%A8%A1%E5%9E%8B_41.html#id8">20.2. 高斯混合模型</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="31.%E6%B7%B7%E5%90%88%E6%A8%A1%E5%9E%8B_41.html#id9">20.2.1. 模型的表示</a></li>
-<li class="toctree-l4"><a class="reference internal" href="31.%E6%B7%B7%E5%90%88%E6%A8%A1%E5%9E%8B_41.html#id10">20.2.2. 参数估计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../probability_model/13.%E4%B8%8D%E5%AE%8C%E6%95%B4%E8%A7%82%E6%B5%8B%E7%9A%84%E5%8F%82%E6%95%B0%E5%AD%A6%E4%B9%A0_lecture_22.html">12. 不完整观测的学习</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/13.%E4%B8%8D%E5%AE%8C%E6%95%B4%E8%A7%82%E6%B5%8B%E7%9A%84%E5%8F%82%E6%95%B0%E5%AD%A6%E4%B9%A0_lecture_22.html#id2">12.1. 隐变量</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/13.%E4%B8%8D%E5%AE%8C%E6%95%B4%E8%A7%82%E6%B5%8B%E7%9A%84%E5%8F%82%E6%95%B0%E5%AD%A6%E4%B9%A0_lecture_22.html#em">12.2. 期望最大化算法(EM)</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="31.%E6%B7%B7%E5%90%88%E6%A8%A1%E5%9E%8B_41.html#k-means">20.3. K-means</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../probability_model/14.%E5%9B%BE%E5%BD%A2%E7%BB%93%E6%9E%84%E7%9A%84%E5%AD%A6%E4%B9%A0_lecture_23.html">13. 有向图结构学习</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../probability_model/16.%E5%8F%98%E5%88%86%E6%8E%A8%E6%96%AD_lecture_17.html">14. 变分推断</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../probability_model/17.%E9%87%87%E6%A0%B7%E6%B3%95_lecture_18.html">15. 马尔科夫蒙特卡洛</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/17.%E9%87%87%E6%A0%B7%E6%B3%95_lecture_18.html#why-sampling">15.1. Why sampling？</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/17.%E9%87%87%E6%A0%B7%E6%B3%95_lecture_18.html#monte-carlo">15.2. 蒙特卡罗(Monte Carlo)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/17.%E9%87%87%E6%A0%B7%E6%B3%95_lecture_18.html#markov-chain">15.3. 马尔科夫链(Markov Chain)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../probability_model/17.%E9%87%87%E6%A0%B7%E6%B3%95_lecture_18.html#id2">15.3.1. 一个例子</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../probability_model/17.%E9%87%87%E6%A0%B7%E6%B3%95_lecture_18.html#time-reversibility">15.3.2. 时间可逆性(Time Reversibility)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../probability_model/17.%E9%87%87%E6%A0%B7%E6%B3%95_lecture_18.html#id3">15.3.3. 总结</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="32.%E5%9B%A0%E5%AD%90%E5%88%86%E6%9E%90_42.html">21. 因子分析</a></li>
-<li class="toctree-l2"><a class="reference internal" href="%E4%BA%8C%E5%8F%98%E9%87%8F%E6%A8%A1%E5%9E%8B.html">22. 二变量模型</a></li>
-<li class="toctree-l2"><a class="reference internal" href="33.LDA_43.html">23. 主题模型</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="33.LDA_43.html#plsa">23.1. PLSA</a></li>
-<li class="toctree-l3"><a class="reference internal" href="33.LDA_43.html#lda">23.2. LDA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/17.%E9%87%87%E6%A0%B7%E6%B3%95_lecture_18.html#markov-chain-monte-carlo">15.4. Markov Chain Monte Carlo</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../probability_model/17.%E9%87%87%E6%A0%B7%E6%B3%95_lecture_18.html#metropolis-hastings">15.4.1. Metropolis-Hastings</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../probability_model/17.%E9%87%87%E6%A0%B7%E6%B3%95_lecture_18.html#id4">15.4.2. 例子：正态分布的采样</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../probability_model/17.%E9%87%87%E6%A0%B7%E6%B3%95_lecture_18.html#id5">15.4.3. 多变量采样</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../probability_model/17.%E9%87%87%E6%A0%B7%E6%B3%95_lecture_18.html#gibbs">15.4.4. Gibbs 采样</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="26.%E9%9A%90%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB_36.html">24. 隐马尔可夫模型</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="26.%E9%9A%90%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB_36.html#id2">24.1. 隐马尔可夫模型</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="26.%E9%9A%90%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB_36.html#id3">24.1.1. 马尔可夫模型和朴素贝叶斯模型的关系</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/17.%E9%87%87%E6%A0%B7%E6%B3%95_lecture_18.html#mixing-time">15.5. Mixing Time</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/17.%E9%87%87%E6%A0%B7%E6%B3%95_lecture_18.html#approximate-map-and-partitioning">15.6. Approximate MAP and Partitioning</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="26.%E9%9A%90%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB_36.html#id4">24.2. 参考文献</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../probability_model/%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%88%86%E7%B1%BB%E5%99%A8.html">16. 贝叶斯分类器</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%88%86%E7%B1%BB%E5%99%A8.html#id2">16.1. 朴素贝叶斯模型</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../probability_model/%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%88%86%E7%B1%BB%E5%99%A8.html#id3">16.1.1. 模型表示</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../probability_model/%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%88%86%E7%B1%BB%E5%99%A8.html#id4">16.1.2. 参数估计</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="27.%E6%9D%A1%E4%BB%B6%E9%9A%8F%E6%9C%BA%E5%9C%BA_37.html">25. 条件随机场</a></li>
-<li class="toctree-l2"><a class="reference internal" href="28.%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2%E5%99%A8_38.html">26. 卡尔曼滤波器</a></li>
-<li class="toctree-l2"><a class="reference internal" href="40.%E9%A1%B9%E7%9B%AE%E5%8F%8D%E5%BA%94%E7%90%86%E8%AE%BA_50.html">27. 项目反应理论</a></li>
-<li class="toctree-l2"><a class="reference internal" href="41.%E8%B4%9D%E5%8F%B6%E6%96%AF%E7%9F%A5%E8%AF%86%E8%BF%BD%E8%B8%AA_51.html">28. 贝叶斯知识追踪</a></li>
-<li class="toctree-l2"><a class="reference internal" href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html">29. 变分自编码器（Variational Autoencoder）</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html#evidence-lower-bound-elbo">29.1. 证据下界(Evidence Lower Bound,ELBO)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html#id2">29.2. 编码-解码</a></li>
-<li class="toctree-l3"><a class="reference internal" href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html#id3">29.3. 总结</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html#em">29.3.1. 和EM算法的关系</a></li>
-<li class="toctree-l4"><a class="reference internal" href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html#variational">29.3.2. 为什么叫变分（variational）？</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%88%86%E7%B1%BB%E5%99%A8.html#id5">16.2. 高斯判别模型</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../probability_model/%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%88%86%E7%B1%BB%E5%99%A8.html#id6">16.2.1. 一元高斯模型</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../probability_model/%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%88%86%E7%B1%BB%E5%99%A8.html#id7">16.2.2. 多元高斯模型</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html#id4">29.4. 参考文献</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%88%86%E7%B1%BB%E5%99%A8.html#id8">16.3. 逻辑回归</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%88%86%E7%B1%BB%E5%99%A8.html#id9">16.4. 生成模型和判别模型</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%88%86%E7%B1%BB%E5%99%A8.html#id10">16.5. 多分类</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%88%86%E7%B1%BB%E5%99%A8.html#id11">16.6. 其它扩展</a></li>
 </ul>
 </li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">30. 扩散概率模型（diffusion probabilistic models）</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#diffusion-probabilistic-model">30.1. 扩散概率模型（diffusion probabilistic model）</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#markovian-hierarchical-variational-autoencoder-mhvae">30.1.1. 马尔科夫分层自编码器（Markovian Hierarchical Variational Autoencoder,MHVAE)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id6">30.1.2. 扩散模型</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id8">30.1.3. 前向-后向</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#elbo">30.1.4. ELBO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../probability_model/21.%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92_29.html">17. 回归模型</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/21.%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92_29.html#id2">17.1. 机器学习的概率解释</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/21.%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92_29.html#id3">17.2. 经典线性回归</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../probability_model/21.%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92_29.html#id4">17.2.1. 参数估计</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#denoising-diffusion-probabilistic-model-ddpm">30.2. 降噪扩散概率模型（Denoising diffusion probabilistic model,DDPM）</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#guidance">30.3. Guidance</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#latent-diffusion-model-ldm">30.4. 潜在扩散模型（Latent diffusion model,LDM）</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#stable-diffusion-probabilistic-model-sdm">30.4.1. 稳定扩散模型（Stable diffusion probabilistic model,SDM）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/21.%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92_29.html#id5">17.3. 线性回归的概率解释</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../probability_model/21.%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92_29.html#id6">17.3.1. 参数估计</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id23">30.5. 参考文献</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/21.%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92_29.html#id7">17.4. 凸函数最优化问题</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/21.%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92_29.html#id8">17.5. 岭回归</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE.html">31. 参考文献</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../probability_model/22.%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB_32.html">18. 分类模型</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/22.%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB_32.html#id2">18.1. 生成模型与判别模型</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/22.%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB_32.html#id3">18.2. 线性回归与线性分类</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/22.%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB_32.html#id4">18.3. 生成模型</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../probability_model/22.%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB_32.html#id5">18.3.1. 高斯判别模型</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../probability_model/22.%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB_32.html#id6">18.3.2. 朴素贝叶斯模型</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../probability_model/22.%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB_32.html#id7">18.3.3. 指数族</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="reference internal" href="aigc_index.html">AI内容生成（ai-gc）</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html">29. 变分自编码器（Variational Autoencoder）</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html#evidence-lower-bound-elbo">29.1. 证据下界(Evidence Lower Bound,ELBO)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html#id2">29.2. 编码-解码</a></li>
-<li class="toctree-l3"><a class="reference internal" href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html#id3">29.3. 总结</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html#em">29.3.1. 和EM算法的关系</a></li>
-<li class="toctree-l4"><a class="reference internal" href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html#variational">29.3.2. 为什么叫变分（variational）？</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/22.%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB_32.html#id8">18.4. 判别模型</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../probability_model/22.%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB_32.html#id9">18.4.1. 逻辑回归</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../probability_model/22.%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB_32.html#id10">18.4.2. 多分类</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../probability_model/22.%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB_32.html#id11">18.4.3. 最大熵模型</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../probability_model/22.%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB_32.html#probit">18.4.4. Probit 回归</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../probability_model/22.%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB_32.html#noisy-or">18.4.5. Noisy-OR 模型</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../probability_model/22.%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB_32.html#id12">18.4.6. 其它指数模型</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html#id4">29.4. 参考文献</a></li>
 </ul>
 </li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">30. 扩散概率模型（diffusion probabilistic models）</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#diffusion-probabilistic-model">30.1. 扩散概率模型（diffusion probabilistic model）</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#markovian-hierarchical-variational-autoencoder-mhvae">30.1.1. 马尔科夫分层自编码器（Markovian Hierarchical Variational Autoencoder,MHVAE)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id6">30.1.2. 扩散模型</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id8">30.1.3. 前向-后向</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#elbo">30.1.4. ELBO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../probability_model/25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html">19. 广义线性模型</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#id2">19.1. 定义</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../probability_model/25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#id3">19.1.1. 指数族分布</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../probability_model/25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#id4">19.1.2. 链接函数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../probability_model/25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#id5">19.1.3. 例子</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#denoising-diffusion-probabilistic-model-ddpm">30.2. 降噪扩散概率模型（Denoising diffusion probabilistic model,DDPM）</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#guidance">30.3. Guidance</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#latent-diffusion-model-ldm">30.4. 潜在扩散模型（Latent diffusion model,LDM）</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#stable-diffusion-probabilistic-model-sdm">30.4.1. 稳定扩散模型（Stable diffusion probabilistic model,SDM）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#id6">19.2. 参数估计</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../probability_model/25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#id7">19.2.1. 梯度下降法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../probability_model/25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#id8">19.2.2. 牛顿法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../probability_model/25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#irls">19.2.3. 迭代重加权最小二乘(IRLS)</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id23">30.5. 参考文献</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#goodness-of-fit">19.3. goodness of fit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#id9">19.4. 连续值响应模型</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../probability_model/25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#id10">19.4.1. 高斯族</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../probability_model/25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#gamma">19.4.2. Gamma族</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#id12">19.5. 二项响应模型</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#id13">19.6. 多项响应模型</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#id14">19.7. 计数响应模型</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../probability_model/25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#id15">19.7.1. 泊松分布</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/25.%E5%B9%BF%E4%B9%89%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B_34.html#id16">19.8. GLM扩展</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../probability_model/31.%E6%B7%B7%E5%90%88%E6%A8%A1%E5%9E%8B_41.html">20. 混合模型</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/31.%E6%B7%B7%E5%90%88%E6%A8%A1%E5%9E%8B_41.html#id2">20.1. 一般混合模型</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../probability_model/31.%E6%B7%B7%E5%90%88%E6%A8%A1%E5%9E%8B_41.html#id3">20.1.1. 模型的有向图表示</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../probability_model/31.%E6%B7%B7%E5%90%88%E6%A8%A1%E5%9E%8B_41.html#id5">20.1.2. 参数估计</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/31.%E6%B7%B7%E5%90%88%E6%A8%A1%E5%9E%8B_41.html#id8">20.2. 高斯混合模型</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../probability_model/31.%E6%B7%B7%E5%90%88%E6%A8%A1%E5%9E%8B_41.html#id9">20.2.1. 模型的表示</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../probability_model/31.%E6%B7%B7%E5%90%88%E6%A8%A1%E5%9E%8B_41.html#id10">20.2.2. 参数估计</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/31.%E6%B7%B7%E5%90%88%E6%A8%A1%E5%9E%8B_41.html#k-means">20.3. K-means</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../probability_model/32.%E5%9B%A0%E5%AD%90%E5%88%86%E6%9E%90_42.html">21. 因子分析</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../probability_model/%E4%BA%8C%E5%8F%98%E9%87%8F%E6%A8%A1%E5%9E%8B.html">22. 二变量模型</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../probability_model/33.LDA_43.html">23. 主题模型</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/33.LDA_43.html#plsa">23.1. PLSA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/33.LDA_43.html#lda">23.2. LDA</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../probability_model/26.%E9%9A%90%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB_36.html">24. 隐马尔可夫模型</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/26.%E9%9A%90%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB_36.html#id2">24.1. 隐马尔可夫模型</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../probability_model/26.%E9%9A%90%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB_36.html#id3">24.1.1. 马尔可夫模型和朴素贝叶斯模型的关系</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../probability_model/26.%E9%9A%90%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB_36.html#id4">24.2. 参考文献</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../probability_model/27.%E6%9D%A1%E4%BB%B6%E9%9A%8F%E6%9C%BA%E5%9C%BA_37.html">25. 条件随机场</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../probability_model/28.%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2%E5%99%A8_38.html">26. 卡尔曼滤波器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../probability_model/40.%E9%A1%B9%E7%9B%AE%E5%8F%8D%E5%BA%94%E7%90%86%E8%AE%BA_50.html">27. 项目反应理论</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../probability_model/41.%E8%B4%9D%E5%8F%B6%E6%96%AF%E7%9F%A5%E8%AF%86%E8%BF%BD%E8%B8%AA_51.html">28. 贝叶斯知识追踪</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../probability_model/%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE.html">29. 参考文献</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">AI内容生成（ai-gc）</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html">1. 变分自编码器（Variational Autoencoder）</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html#evidence-lower-bound-elbo">1.1. 证据下界(Evidence Lower Bound,ELBO)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html#id2">1.2. 编码-解码</a></li>
+<li class="toctree-l3"><a class="reference internal" href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html#id3">1.3. 总结</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html#em">1.3.1. 和EM算法的关系</a></li>
+<li class="toctree-l4"><a class="reference internal" href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html#variational">1.3.2. 为什么叫变分（variational）？</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html#vq-vae">1.4. VQ-VAE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html#id4">1.5. 参考文献</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">2. 扩散概率模型（diffusion probabilistic models）</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#diffusion-probabilistic-model">2.1. 扩散概率模型（diffusion probabilistic model）</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#markovian-hierarchical-variational-autoencoder-mhvae">2.1.1. 马尔科夫分层自编码器（Markovian Hierarchical Variational Autoencoder,MHVAE)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id6">2.1.2. 扩散模型</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id8">2.1.3. 前向-后向</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#elbo">2.1.4. ELBO</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#denoising-diffusion-probabilistic-model-ddpm">2.2. 降噪扩散概率模型（Denoising diffusion probabilistic model,DDPM）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#guidance">2.3. Guidance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#unet">2.4. UNET</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#improved-denoising-diffusion-probabilistic-models-ddpm">2.5. 改进降噪扩散概率模型（Improved Denoising Diffusion Probabilistic Models,DDPM）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id17">2.6. 参考文献</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="%E7%A8%B3%E5%AE%9A%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B.html">3. 稳定扩散模型（Stable diffusion model）</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="%E7%A8%B3%E5%AE%9A%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B.html#latent-diffusion-model-ldm">3.1. 潜在扩散模型（Latent diffusion model,LDM）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="%E7%A8%B3%E5%AE%9A%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B.html#stable-diffusion-probabilistic-model-sdm">3.2. 稳定扩散模型（Stable diffusion probabilistic model,SDM）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="%E7%A8%B3%E5%AE%9A%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B.html#id3">3.3. 参考文献</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dalle2.html">4. DALL·E 2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="imgen.html">5. Imagen</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../audio/index.html">语音技术</a><ul>
@@ -945,10 +924,10 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="index_html.html">概率图</a> &raquo;</li>
-      <li><span class="section-number">30. </span>扩散概率模型（diffusion probabilistic models）</li>
+          <li><a href="index.html">AI内容生成（ai-gc）</a> &raquo;</li>
+      <li><span class="section-number">2. </span>扩散概率模型（diffusion probabilistic models）</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/probability_model/扩散概率模型.rst.txt" rel="nofollow"> 查看页面源码</a>
+            <a href="../_sources/aigc/扩散概率模型.rst.txt" rel="nofollow"> 查看页面源码</a>
       </li>
   </ul>
   <hr/>
@@ -957,75 +936,75 @@
            <div itemprop="articleBody">
              
   <section id="diffusion-probabilistic-models">
-<span id="ch-ddpm"></span><h1><span class="section-number">30. </span>扩散概率模型（diffusion probabilistic models）<a class="headerlink" href="#diffusion-probabilistic-models" title="永久链接至标题"></a></h1>
+<span id="ch-ddpm"></span><h1><span class="section-number">2. </span>扩散概率模型（diffusion probabilistic models）<a class="headerlink" href="#diffusion-probabilistic-models" title="永久链接至标题"></a></h1>
 <p>随着 OpenAI 发布 DALL-E 模型，图像生成一下子火爆起来，其中的扩散模型算法也步入了众多工程师的视野。
 扩散模型于2015年引入，其动机来自非平衡热力学(non-equilibrium thermodynamics)，
 本章我们介绍扩散模型的原理。</p>
 <section id="diffusion-probabilistic-model">
-<h2><span class="section-number">30.1. </span>扩散概率模型（diffusion probabilistic model）<a class="headerlink" href="#diffusion-probabilistic-model" title="永久链接至标题"></a></h2>
+<h2><span class="section-number">2.1. </span>扩散概率模型（diffusion probabilistic model）<a class="headerlink" href="#diffusion-probabilistic-model" title="永久链接至标题"></a></h2>
 <p>早在2015年，就由 <cite>Jascha Sohl-Dickstein</cite> 和 <cite>Eric</cite>
-等人提出了概率扩散模型（diffusion probabilistic model,DPM） <span id="id1">[<a class="reference internal" href="#id37" title="Jascha Sohl-Dickstein, Eric A. Weiss, Niru Maheswaranathan, and Surya Ganguli. Deep unsupervised learning using nonequilibrium thermodynamics. 2015. arXiv:1503.03585.">SDWMG15</a>]</span>，可以简称为扩散模型（diffusion model,DM）。
-在原论文 <span id="id2">[<a class="reference internal" href="#id37" title="Jascha Sohl-Dickstein, Eric A. Weiss, Niru Maheswaranathan, and Surya Ganguli. Deep unsupervised learning using nonequilibrium thermodynamics. 2015. arXiv:1503.03585.">SDWMG15</a>]</span> 中作者表示是受到了非平衡统计物理学（non-equilibrium statistical physics）
+等人提出了概率扩散模型（diffusion probabilistic model,DPM） <span id="id1">[<a class="reference internal" href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html#id18" title="Jascha Sohl-Dickstein, Eric A. Weiss, Niru Maheswaranathan, and Surya Ganguli. Deep unsupervised learning using nonequilibrium thermodynamics. 2015. arXiv:1503.03585.">SDWMG15</a>]</span>，可以简称为扩散模型（diffusion model,DM）。
+在原论文 <span id="id2">[<a class="reference internal" href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html#id18" title="Jascha Sohl-Dickstein, Eric A. Weiss, Niru Maheswaranathan, and Surya Ganguli. Deep unsupervised learning using nonequilibrium thermodynamics. 2015. arXiv:1503.03585.">SDWMG15</a>]</span> 中作者表示是受到了非平衡统计物理学（non-equilibrium statistical physics）
 的启发进而提出了这个模型。当然这个劳什子 <cite>non-equilibrium statistical physics</cite> 大部分人包括我完全不了解，
 所以我们不管它，我们从概率学的角度来阐述这个模型。</p>
 <section id="markovian-hierarchical-variational-autoencoder-mhvae">
-<h3><span class="section-number">30.1.1. </span>马尔科夫分层自编码器（Markovian Hierarchical Variational Autoencoder,MHVAE)<a class="headerlink" href="#markovian-hierarchical-variational-autoencoder-mhvae" title="永久链接至标题"></a></h3>
+<h3><span class="section-number">2.1.1. </span>马尔科夫分层自编码器（Markovian Hierarchical Variational Autoencoder,MHVAE)<a class="headerlink" href="#markovian-hierarchical-variational-autoencoder-mhvae" title="永久链接至标题"></a></h3>
 <p>事实上，从某个角度上看，扩散模型可以看做是VAE（变分自编码器）的一个扩展，因此我们从 VAE 的角度入手。
-首先回顾一下VAE模型（如 <a class="reference internal" href="#fg-dm-001"><span class="std std-numref">图 30.1.1</span></a>），其中有两个变量 <span class="math notranslate nohighlight">\(X\)</span> 和 <span class="math notranslate nohighlight">\(Z\)</span>。
+首先回顾一下VAE模型（如 <a class="reference internal" href="#fg-dm-001"><span class="std std-numref">图 2.1.1</span></a>），其中有两个变量 <span class="math notranslate nohighlight">\(X\)</span> 和 <span class="math notranslate nohighlight">\(Z\)</span>。
 自编码的过程是把输入 <span class="math notranslate nohighlight">\(x\)</span> 编码成 <span class="math notranslate nohighlight">\(z\)</span>，然后在从 <span class="math notranslate nohighlight">\(z\)</span> 解码回 <span class="math notranslate nohighlight">\(x\)</span>，
 <span class="math notranslate nohighlight">\(x\)</span> 表示编码器的输入和解码器的输出，<span class="math notranslate nohighlight">\(z\)</span> 表示编码器的输出和解码器的输入。
 就像图中所示那样，<span class="math notranslate nohighlight">\(p(z|x)\)</span> 对应编码过程，<span class="math notranslate nohighlight">\(p(x|z)\)</span> 对应解码过程，
 <span class="math notranslate nohighlight">\(x\)</span> 是可观测的，<span class="math notranslate nohighlight">\(z\)</span> 是不可观测的。不熟悉的读者可以复习一下上一章节
-<a class="reference internal" href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html#ch-vae"><span class="std std-numref">29变分自编码器</span></a>
+<a class="reference internal" href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html#ch-vae"><span class="std std-numref">1变分自编码器</span></a>
 。</p>
-<figure class="align-center" id="id40">
+<figure class="align-center" id="id34">
 <span id="fg-dm-001"></span><a class="reference internal image-reference" href="../_images/diffusion_vae.png"><img alt="../_images/diffusion_vae.png" src="../_images/diffusion_vae.png" style="width: 175.68px; height: 166.56px;" /></a>
 <figcaption>
-<p><span class="caption-number">图 30.1.1 </span><span class="caption-text">变分自编码器（VAE）的图表示 （图片来自 <span id="id3">[<a class="reference internal" href="#id34" title="Calvin Luo. Understanding diffusion models: a unified perspective. 2022. arXiv:2208.11970.">Luo22</a>]</span>）</span><a class="headerlink" href="#id40" title="永久链接至图片"></a></p>
+<p><span class="caption-number">图 2.1.1 </span><span class="caption-text">变分自编码器（VAE）的图表示 （图片来自 <span id="id3">[<a class="reference internal" href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html#id15" title="Calvin Luo. Understanding diffusion models: a unified perspective. 2022. arXiv:2208.11970.">Luo22</a>]</span>）</span><a class="headerlink" href="#id34" title="永久链接至图片"></a></p>
 </figcaption>
 </figure>
 <p>在 VAE 中编码过程只进行了一次，是否可以进行多次呢
-（当然扩散模型的原论文 <span id="id4">[<a class="reference internal" href="#id37" title="Jascha Sohl-Dickstein, Eric A. Weiss, Niru Maheswaranathan, and Surya Ganguli. Deep unsupervised learning using nonequilibrium thermodynamics. 2015. arXiv:1503.03585.">SDWMG15</a>]</span> 并不是从这个角度出发进而提出扩散模型的）？
-如<a class="reference internal" href="#fg-dm-002"><span class="std std-numref">图 30.1.2</span></a> 所示，把 VAE 的编码过程扩展成多次，从图上看，形如一个马尔科夫链的链式结构。
+（当然扩散模型的原论文 <span id="id4">[<a class="reference internal" href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html#id18" title="Jascha Sohl-Dickstein, Eric A. Weiss, Niru Maheswaranathan, and Surya Ganguli. Deep unsupervised learning using nonequilibrium thermodynamics. 2015. arXiv:1503.03585.">SDWMG15</a>]</span> 并不是从这个角度出发进而提出扩散模型的）？
+如<a class="reference internal" href="#fg-dm-002"><span class="std std-numref">图 2.1.2</span></a> 所示，把 VAE 的编码过程扩展成多次，从图上看，形如一个马尔科夫链的链式结构。
 整个链是双向的，从左到右是一个逐步编码的过程，相当于把 VAE 的编码器循环执行了 <span class="math notranslate nohighlight">\(T\)</span> 次；
 从右到左是一个逐步解码的过程，相当于把 VAE 的解码器循环执行了 <span class="math notranslate nohighlight">\(T\)</span> 次。
 我们把编码过程称为前向过程（Forward Trajectory），解码过程称逆向过程（Reverse Trajectory），
 无论前向还是逆向，每一个步骤（时刻） <span class="math notranslate nohighlight">\(t\)</span> 仅与它的上一个步骤（时刻）相关，
 这是一个典型的马尔科夫过程（Markov chain）。</p>
-<figure class="align-center" id="id41">
+<figure class="align-center" id="id35">
 <span id="fg-dm-002"></span><a class="reference internal image-reference" href="../_images/diffusion_hvae.png"><img alt="../_images/diffusion_hvae.png" src="../_images/diffusion_hvae.png" style="width: 470.64px; height: 166.56px;" /></a>
 <figcaption>
-<p><span class="caption-number">图 30.1.2 </span><span class="caption-text">马尔科夫分层自编码器（MHVAE）的图表示（图片来自 <span id="id5">[<a class="reference internal" href="#id34" title="Calvin Luo. Understanding diffusion models: a unified perspective. 2022. arXiv:2208.11970.">Luo22</a>]</span>）</span><a class="headerlink" href="#id41" title="永久链接至图片"></a></p>
+<p><span class="caption-number">图 2.1.2 </span><span class="caption-text">马尔科夫分层自编码器（MHVAE）的图表示（图片来自 <span id="id5">[<a class="reference internal" href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html#id15" title="Calvin Luo. Understanding diffusion models: a unified perspective. 2022. arXiv:2208.11970.">Luo22</a>]</span>）</span><a class="headerlink" href="#id35" title="永久链接至图片"></a></p>
 </figcaption>
 </figure>
 <p><span class="math notranslate nohighlight">\(q(z_{t}|z_{t-1})\)</span> 表示一个步骤的编码过程，<span class="math notranslate nohighlight">\(p(z_{t}|z_{t-1})\)</span>
 表示一个步骤的解码过程。
 模型所有的时刻的 <span class="math notranslate nohighlight">\(z_{1:T}\)</span> 构成了模型的隐变量集合，
 整个模型的联合概率分布可以是表示为</p>
-<div class="math notranslate nohighlight" id="equation-probability-model-0">
-<span class="eqno">(30.1.1)<a class="headerlink" href="#equation-probability-model-0" title="公式的永久链接"></a></span>\[p(x,z_{1:T}) = p(z_T) p_{\theta}(x|z_1) \prod_{t=2}^T p_{\theta}(z_{t-1}|z)\]</div>
+<div class="math notranslate nohighlight" id="equation-aigc-0">
+<span class="eqno">(2.1.39)<a class="headerlink" href="#equation-aigc-0" title="公式的永久链接"></a></span>\[p(x,z_{1:T}) = p(z_T) p_{\theta}(x|z_1) \prod_{t=2}^T p_{\theta}(z_{t-1}|z)\]</div>
 <p>隐变量 <span class="math notranslate nohighlight">\(Z_{1:T}\)</span> 的后验概率 <span class="math notranslate nohighlight">\(q_{\phi}(z_{1:T}|x)\)</span> 可以分解为</p>
-<div class="math notranslate nohighlight" id="equation-probability-model-1">
-<span class="eqno">(30.1.2)<a class="headerlink" href="#equation-probability-model-1" title="公式的永久链接"></a></span>\[q_{\phi}(z_{1:T}|x) = q_{\phi}(z_{1}|x) \prod_{t=2}^T q_{\phi}(z_{t}|z_{t-1})\]</div>
+<div class="math notranslate nohighlight" id="equation-aigc-1">
+<span class="eqno">(2.1.40)<a class="headerlink" href="#equation-aigc-1" title="公式的永久链接"></a></span>\[q_{\phi}(z_{1:T}|x) = q_{\phi}(z_{1}|x) \prod_{t=2}^T q_{\phi}(z_{t}|z_{t-1})\]</div>
 <p>在这个模型中，仍然是只有变量 <span class="math notranslate nohighlight">\(X\)</span> 是可观测的，观测样本的对数似然为 <span class="math notranslate nohighlight">\(\ln p(x)\)</span>
 ，和 VAE 中的推导是相同的，我们需要找到它的下界函数（ELBO）。</p>
 <div class="math notranslate nohighlight" id="equation-eq-ddpm-010">
-<span class="eqno">(30.1.3)<a class="headerlink" href="#equation-eq-ddpm-010" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned} \ln p(x) &amp;= \ln \int p(x,z_{1:T}) d z_{1:T}\\ &amp;= \ln \int \frac{p(x,z_{1:T}) q_{\phi}(z_{1:T}|x) }{  q_{\phi}(z_{1:T}|x) }  d z_{1:T}
+<span class="eqno">(2.1.41)<a class="headerlink" href="#equation-eq-ddpm-010" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned} \ln p(x) &amp;= \ln \int p(x,z_{1:T}) d z_{1:T}\\ &amp;= \ln \int \frac{p(x,z_{1:T}) q_{\phi}(z_{1:T}|x) }{  q_{\phi}(z_{1:T}|x) }  d z_{1:T}
  &amp;(\text{乘上} 1= \frac{ q_{\phi}(z_{1:T}|x) }{  q_{\phi}(z_{1:T}|x) } \text{相当于没变化}  )\\ &amp;= \ln \mathbb{E}_{ q_{\phi}(z_{1:T}|x)} \left [ \frac{ p(x,z_{1:T}) }{  q_{\phi}(z_{1:T}|x) }  \right ]
   &amp;(\text{积分变期望})\\&amp; \ge \mathbb{E}_{ q_{\phi}(z_{1:T}|x)} \left [  \ln \frac{ p(x,z_{1:T}) }{  q_{\phi}(z_{1:T}|x) }    \right ]
 &amp;(\text{应用 Jensen 不等式})\end{aligned}\end{align} \]</div>
-<p><a class="reference internal" href="#equation-eq-ddpm-010">公式(30.1.3)</a> 和 VAE 相比并没有太大变化，只是把 VAE 中的 <span class="math notranslate nohighlight">\(z\)</span> 换成了 <span class="math notranslate nohighlight">\(z_{1:T}\)</span>
-，有关 EBLO 更详细的推导和介绍可以参考 VAE 的章节：<a class="reference internal" href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html#ch-vae"><span class="std std-numref">29变分自编码器</span></a>
+<p><a class="reference internal" href="#equation-eq-ddpm-010">公式(2.1.41)</a> 和 VAE 相比并没有太大变化，只是把 VAE 中的 <span class="math notranslate nohighlight">\(z\)</span> 换成了 <span class="math notranslate nohighlight">\(z_{1:T}\)</span>
+，有关 EBLO 更详细的推导和介绍可以参考 VAE 的章节：<a class="reference internal" href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html#ch-vae"><span class="std std-numref">1变分自编码器</span></a>
 。</p>
 </section>
 <section id="id6">
-<h3><span class="section-number">30.1.2. </span>扩散模型<a class="headerlink" href="#id6" title="永久链接至标题"></a></h3>
+<h3><span class="section-number">2.1.2. </span>扩散模型<a class="headerlink" href="#id6" title="永久链接至标题"></a></h3>
 <p>把 VAE 扩展成马尔科夫链式结构就得到了 MHVAE，
 MHVAE 是扩散模型的雏形，只需要在 MHVAE 的基础上再稍微调整一下就得到了扩散模型。</p>
-<figure class="align-center" id="id42">
+<figure class="align-center" id="id36">
 <span id="fg-dm-003"></span><a class="reference internal image-reference" href="../_images/diffusion_vdm_base.png"><img alt="../_images/diffusion_vdm_base.png" src="../_images/diffusion_vdm_base.png" style="width: 554.2px; height: 217.5px;" /></a>
 <figcaption>
-<p><span class="caption-number">图 30.1.3 </span><span class="caption-text">扩散模型的图表示（图片来自 <span id="id7">[<a class="reference internal" href="#id34" title="Calvin Luo. Understanding diffusion models: a unified perspective. 2022. arXiv:2208.11970.">Luo22</a>]</span>）</span><a class="headerlink" href="#id42" title="永久链接至图片"></a></p>
+<p><span class="caption-number">图 2.1.3 </span><span class="caption-text">扩散模型的图表示（图片来自 <span id="id7">[<a class="reference internal" href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html#id15" title="Calvin Luo. Understanding diffusion models: a unified perspective. 2022. arXiv:2208.11970.">Luo22</a>]</span>）</span><a class="headerlink" href="#id36" title="永久链接至图片"></a></p>
 </figcaption>
 </figure>
 <ul class="simple">
@@ -1043,7 +1022,7 @@ MHVAE 是扩散模型的雏形，只需要在 MHVAE 的基础上再稍微调整�
 </ul>
 </section>
 <section id="id8">
-<h3><span class="section-number">30.1.3. </span>前向-后向<a class="headerlink" href="#id8" title="永久链接至标题"></a></h3>
+<h3><span class="section-number">2.1.3. </span>前向-后向<a class="headerlink" href="#id8" title="永久链接至标题"></a></h3>
 <p><strong>前向过程</strong></p>
 <p><span class="math notranslate nohighlight">\(x_0\)</span> 是模型的原始输入，它是一个可观测到的数据，比如一张图片，
 前向过程，就是逐步把 <span class="math notranslate nohighlight">\(x_0\)</span> 转化成 <span class="math notranslate nohighlight">\(x_T\)</span> 的过程。
@@ -1051,34 +1030,34 @@ MHVAE 是扩散模型的雏形，只需要在 MHVAE 的基础上再稍微调整�
 前向过程的概率表示是后验概率 <span class="math notranslate nohighlight">\(q(z_{1:T}|x_0)\)</span>，
 根据链式发展，可以展开为</p>
 <div class="math notranslate nohighlight" id="equation-eq-ddpm-020">
-<span class="eqno">(30.1.4)<a class="headerlink" href="#equation-eq-ddpm-020" title="公式的永久链接"></a></span>\[q(x_{1:T}|x_0) = \prod_{t=1}^T q(x_t|x_{t-1})\]</div>
+<span class="eqno">(2.1.42)<a class="headerlink" href="#equation-eq-ddpm-020" title="公式的永久链接"></a></span>\[q(x_{1:T}|x_0) = \prod_{t=1}^T q(x_t|x_{t-1})\]</div>
 <p>根据第二项假设，每一个 <span class="math notranslate nohighlight">\(x_t\)</span> 都可以看做一个高斯变量，
 前向过程每一个步骤的编码器 <span class="math notranslate nohighlight">\(q(x_t|x_{t-1}\)</span> 固定为一个线性高斯变换，
 所谓线性高斯变换是指 <span class="math notranslate nohighlight">\(x_t\)</span> 的均值和 <span class="math notranslate nohighlight">\(x_{t-1}\)</span> 的值是线性关系。
 在这里我们定义一个系数 <span class="math notranslate nohighlight">\(\alpha_t\)</span>，<span class="math notranslate nohighlight">\(x_t\)</span> 的均值 <span class="math notranslate nohighlight">\(\mu_{x_t}\)</span>
 和 <span class="math notranslate nohighlight">\(x_{t-1}\)</span> 的关系定义为：</p>
 <div class="math notranslate nohighlight" id="equation-eq-ddpm-021">
-<span class="eqno">(30.1.5)<a class="headerlink" href="#equation-eq-ddpm-021" title="公式的永久链接"></a></span>\[\mu_{x_t} = \sqrt{\alpha_t} \ x_{t-1}\]</div>
+<span class="eqno">(2.1.43)<a class="headerlink" href="#equation-eq-ddpm-021" title="公式的永久链接"></a></span>\[\mu_{x_t} = \sqrt{\alpha_t} \ x_{t-1}\]</div>
 <p><span class="math notranslate nohighlight">\(x_t\)</span> 的方差定义成与 <span class="math notranslate nohighlight">\(x_{t-1}\)</span> <strong>无关</strong>，而是经过缩放的单位方差，
 定义为</p>
 <div class="math notranslate nohighlight" id="equation-eq-ddpm-022">
-<span class="eqno">(30.1.6)<a class="headerlink" href="#equation-eq-ddpm-022" title="公式的永久链接"></a></span>\[\Sigma_{x_t} = (1- \alpha_t ) \textit{I}\]</div>
+<span class="eqno">(2.1.44)<a class="headerlink" href="#equation-eq-ddpm-022" title="公式的永久链接"></a></span>\[\Sigma_{x_t} = (1- \alpha_t ) \textit{I}\]</div>
 <p><span class="math notranslate nohighlight">\(q(x_t|x_{t-1})\)</span> 就是一个以 <span class="math notranslate nohighlight">\(\sqrt{\alpha_t} \ x_{t-1}\)</span> 为均值，
 以 <span class="math notranslate nohighlight">\((1- \alpha_t ) \textit{I}\)</span> 为方差的高斯分布。
-按照线性高斯的特征，如 <a class="reference internal" href="#equation-eq-ddpm-023">公式(30.1.7)</a> 所示，
+按照线性高斯的特征，如 <a class="reference internal" href="#equation-eq-ddpm-023">公式(2.1.45)</a> 所示，
 它可以看做是在 <span class="math notranslate nohighlight">\(\sqrt{\alpha_t} \ x_{t-1}\)</span> 基础上加上一个
 <span class="math notranslate nohighlight">\(\mathcal{N} (0, (1- \alpha_t ) \textit{I} )\)</span> 的随机高斯噪声。
 <strong>这就相当于每一个步骤都在前一个步骤的基础上加上一个随机高斯噪声数据，随着</strong><span class="math notranslate nohighlight">\(t\)</span>
 <strong>的增加，</strong><span class="math notranslate nohighlight">\(x_t\)</span> <strong>逐步变成一个高斯噪声数据</strong>。
-如<a class="reference internal" href="#fg-dm-003"><span class="std std-numref">图 30.1.3</span></a> 所示，一张正常的图片逐步变成一张高斯噪声图。
+如<a class="reference internal" href="#fg-dm-003"><span class="std std-numref">图 2.1.3</span></a> 所示，一张正常的图片逐步变成一张高斯噪声图。
 这个过程好比把一滴墨水滴入一杯水中，随着时间的推移，墨水逐步扩散分不到各处，这杯水变成浑浊的一杯水，
 原来的墨滴再也看不到了，这就是这个模型被称为扩散模型（diffusion model）的原因。</p>
 <div class="math notranslate nohighlight" id="equation-eq-ddpm-023">
-<span class="eqno">(30.1.7)<a class="headerlink" href="#equation-eq-ddpm-023" title="公式的永久链接"></a></span>\[q(x_t|x_{t-1}) = \mathcal{N} (\sqrt{\alpha_t} \ x_{t-1}, (1- \alpha_t ) \textit{I} )\]</div>
+<span class="eqno">(2.1.45)<a class="headerlink" href="#equation-eq-ddpm-023" title="公式的永久链接"></a></span>\[q(x_t|x_{t-1}) = \mathcal{N} (\sqrt{\alpha_t} \ x_{t-1}, (1- \alpha_t ) \textit{I} )\]</div>
 <div class="math notranslate nohighlight" id="equation-eq-ddpm-024">
-<span class="eqno">(30.1.8)<a class="headerlink" href="#equation-eq-ddpm-024" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}x_{t} &amp;=\sqrt{\alpha_t} \ x_{t-1} + \mathcal{N} (0, (1- \alpha_t ) \textit{I} )\\&amp;=\sqrt{\alpha_t} \ x_{t-1} +  \sqrt{1- \alpha_t } \ \epsilon \ \ \ ,\epsilon \sim \mathcal{N} (0, \textit{I} )\end{aligned}\end{align} \]</div>
-<p>至于系数 <span class="math notranslate nohighlight">\(\alpha_t\)</span> 的值可以作为一个超参数有人工指定<span id="id9">[<a class="reference internal" href="#id36" title="Jonathan Ho, Ajay Jain, and Pieter Abbeel. Denoising diffusion probabilistic models. 2020. arXiv:2006.11239.">HJA20</a>]</span>
-，也可以作为一个可学习的参数由模型学习<span id="id10">[<a class="reference internal" href="#id35" title="Diederik P. Kingma, Tim Salimans, Ben Poole, and Jonathan Ho. Variational diffusion models. 2022. arXiv:2107.00630.">KSPH22</a>]</span>，
+<span class="eqno">(2.1.46)<a class="headerlink" href="#equation-eq-ddpm-024" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}x_{t} &amp;=\sqrt{\alpha_t} \ x_{t-1} + \mathcal{N} (0, (1- \alpha_t ) \textit{I} )\\&amp;=\sqrt{\alpha_t} \ x_{t-1} +  \sqrt{1- \alpha_t } \ \epsilon \ \ \ ,\epsilon \sim \mathcal{N} (0, \textit{I} )\end{aligned}\end{align} \]</div>
+<p>至于系数 <span class="math notranslate nohighlight">\(\alpha_t\)</span> 的值可以作为一个超参数有人工指定<span id="id9">[<a class="reference internal" href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html#id17" title="Jonathan Ho, Ajay Jain, and Pieter Abbeel. Denoising diffusion probabilistic models. 2020. arXiv:2006.11239.">HJA20</a>]</span>
+，也可以作为一个可学习的参数由模型学习<span id="id10">[<a class="reference internal" href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html#id16" title="Diederik P. Kingma, Tim Salimans, Ben Poole, and Jonathan Ho. Variational diffusion models. 2022. arXiv:2107.00630.">KSPH22</a>]</span>，
 这里我们从直觉的角度来理解系数 <span class="math notranslate nohighlight">\(\alpha_t\)</span> 的作用。</p>
 <ol class="arabic simple">
 <li><dl class="simple">
@@ -1102,7 +1081,7 @@ MHVAE 是扩散模型的雏形，只需要在 MHVAE 的基础上再稍微调整�
 </dl>
 </li>
 <li><dl class="simple">
-<dt>这个线性关系（线性高斯），为什么没有截距项？</dt><dd><p>观察下 <a class="reference internal" href="#equation-eq-ddpm-023">公式(30.1.7)</a>，其中的高斯噪声 <span class="math notranslate nohighlight">\(\sqrt{1- \alpha_t } \ \epsilon\)</span> 就相当于截距。</p>
+<dt>这个线性关系（线性高斯），为什么没有截距项？</dt><dd><p>观察下 <a class="reference internal" href="#equation-eq-ddpm-023">公式(2.1.45)</a>，其中的高斯噪声 <span class="math notranslate nohighlight">\(\sqrt{1- \alpha_t } \ \epsilon\)</span> 就相当于截距。</p>
 </dd>
 </dl>
 </li>
@@ -1113,14 +1092,14 @@ MHVAE 是扩散模型的雏形，只需要在 MHVAE 的基础上再稍微调整�
 我们希望扩散的前期慢一点，后期快一点，因此 <span class="math notranslate nohighlight">\(\alpha_t\)</span> 最好是逐渐变小的。</p>
 <p>总的来说，前向过程就是一个逐步添加高斯噪声，并且最终变成一个纯的高斯噪声数据。
 另外前向过程中的编码分布 <span class="math notranslate nohighlight">\(q(x_t|x_{t-1})\)</span> 并没有进行参数化表示，而是假定是一个确定的线性高斯变换。</p>
-<p>在前向过程我们需要计算每一个时刻的 <span class="math notranslate nohighlight">\(x_t\)</span>，最直接的计算方式就是写一个循环，按照公式 <a class="reference internal" href="#equation-eq-ddpm-023">公式(30.1.7)</a>
+<p>在前向过程我们需要计算每一个时刻的 <span class="math notranslate nohighlight">\(x_t\)</span>，最直接的计算方式就是写一个循环，按照公式 <a class="reference internal" href="#equation-eq-ddpm-023">公式(2.1.45)</a>
 逐步从 <span class="math notranslate nohighlight">\(x_0\)</span> 算到 <span class="math notranslate nohighlight">\(x_T\)</span>，公式中的 <span class="math notranslate nohighlight">\(\epsilon_{t}\)</span> 就是从一个标准正态分布随机采样，
 这和 VAE 中是一样的。这样用循环计算当然可以，但是当 <span class="math notranslate nohighlight">\(T\)</span> 较大时，明显是效率低下的。
 事实上，得益于 <span class="math notranslate nohighlight">\(q(x_t|x_{t-1})\)</span> 是线性高斯的假设，这里有一个计算上的小技巧，可以直接从 <span class="math notranslate nohighlight">\(x_0\)</span>
 一步计算任意的 <span class="math notranslate nohighlight">\(t\)</span>，这样就可以并行计算全部的 <span class="math notranslate nohighlight">\(x_t\)</span>。
 如下是具体的推导过程：</p>
 <div class="math notranslate nohighlight" id="equation-eq-ddpm-025">
-<span class="eqno">(30.1.9)<a class="headerlink" href="#equation-eq-ddpm-025" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}x_t &amp;= \sqrt{\alpha_t} \ x_{t-1} + \sqrt{1-\alpha_t} \ \epsilon_{t}\\&amp;= \sqrt{\alpha_t} \left(   \sqrt{\alpha_{t-1}} \ x_{t-2} + \sqrt{1-\alpha_{t-1}} \ \epsilon_{t-1}  \right ) + \sqrt{1-\alpha_t} \ \epsilon_{t}\\&amp;=  \sqrt{\alpha_t \alpha_{t-1} }  \ x_{t-2}
+<span class="eqno">(2.1.47)<a class="headerlink" href="#equation-eq-ddpm-025" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}x_t &amp;= \sqrt{\alpha_t} \ x_{t-1} + \sqrt{1-\alpha_t} \ \epsilon_{t}\\&amp;= \sqrt{\alpha_t} \left(   \sqrt{\alpha_{t-1}} \ x_{t-2} + \sqrt{1-\alpha_{t-1}} \ \epsilon_{t-1}  \right ) + \sqrt{1-\alpha_t} \ \epsilon_{t}\\&amp;=  \sqrt{\alpha_t \alpha_{t-1} }  \ x_{t-2}
 + \underbrace{ \sqrt{\alpha_t - \alpha_t \alpha_{t-1} }\ \epsilon_{t-1} + \sqrt{1- \alpha_t} \ \epsilon_{t}
   }_{\text{两个相互独立的0均值的高斯分布相加}}\\
 &amp;=  \sqrt{\alpha_t \alpha_{t-1} }  \ x_{t-2}
@@ -1128,7 +1107,7 @@ MHVAE 是扩散模型的雏形，只需要在 MHVAE 的基础上再稍微调整�
 }_{\text{两个方差相加，用一个新的高斯分布代替}}\\&amp;= \sqrt{\alpha_t \alpha_{t-1} }  \ x_{t-2} + \sqrt{1- \alpha_t \alpha_{t-1}} \ \epsilon\\&amp;= ...\\&amp;= \sqrt{\prod_{i=1}^t \alpha_i} \ x_0 + \sqrt{1- \prod_{i=1}^t \alpha_i }  \ \epsilon\\&amp;= \sqrt{\bar{\alpha_i} } \ x_0 + \sqrt{1- \bar{ \alpha_i} }  \ \epsilon  \ \ \ ,
 \bar{\alpha} = \prod_{i=1}^t \alpha_i ,\ \ \epsilon \sim \mathcal{N}(0,\textit(I))\\&amp;\sim \mathcal{N}(\sqrt{\bar{\alpha_i} } \ x_0,  (1- \bar{ \alpha_i})    \textit{I})\end{aligned}\end{align} \]</div>
 <p><strong>逆向过程</strong></p>
-<p>如图<a class="reference internal" href="#fg-dm-003"><span class="std std-numref">图 30.1.3</span></a>，逆向过程是从右到左的解码过程，输入一个随机高斯噪声 <span class="math notranslate nohighlight">\(x_T\)</span>，
+<p>如图<a class="reference internal" href="#fg-dm-003"><span class="std std-numref">图 2.1.3</span></a>，逆向过程是从右到左的解码过程，输入一个随机高斯噪声 <span class="math notranslate nohighlight">\(x_T\)</span>，
 逐步的解码成一个有意义的数据，比如生成一张图片。
 解码过程的每一个时刻 <span class="math notranslate nohighlight">\(t\)</span> 要把 <span class="math notranslate nohighlight">\(x_{t+1}\)</span> 还原成 <span class="math notranslate nohighlight">\(x_t\)</span>，
 每一步骤对应条件概率表示成 <span class="math notranslate nohighlight">\(p(x_t|x_{t+1})\)</span>。
@@ -1141,13 +1120,13 @@ MHVAE 是扩散模型的雏形，只需要在 MHVAE 的基础上再稍微调整�
 类似于 VAE 模型，通过最大化 ELBO 来进行参数学习。</p>
 </section>
 <section id="elbo">
-<h3><span class="section-number">30.1.4. </span>ELBO<a class="headerlink" href="#elbo" title="永久链接至标题"></a></h3>
+<h3><span class="section-number">2.1.4. </span>ELBO<a class="headerlink" href="#elbo" title="永久链接至标题"></a></h3>
 <p>显然扩散模型的学习过程和原始的VAE以及上一节介绍的 MHVAE 相似的，原始的观测数据对数似然 <span class="math notranslate nohighlight">\(\ln p(x)\)</span>
 是无法直接极大化的，需要用它的下界函数（ELBO）进行替代。
-接下来我们推导一下扩散模型的 ELBO 函数，我们在 <a class="reference internal" href="#equation-eq-ddpm-010">公式(30.1.3)</a> 的基础上继续推演，
+接下来我们推导一下扩散模型的 ELBO 函数，我们在 <a class="reference internal" href="#equation-eq-ddpm-010">公式(2.1.41)</a> 的基础上继续推演，
 推导过程如下：</p>
 <div class="math notranslate nohighlight" id="equation-eq-ddpm-031">
-<span class="eqno">(30.1.10)<a class="headerlink" href="#equation-eq-ddpm-031" title="公式的永久链接"></a></span>\[\begin{split}\begin{align}
+<span class="eqno">(2.1.48)<a class="headerlink" href="#equation-eq-ddpm-031" title="公式的永久链接"></a></span>\[\begin{split}\begin{align}
 {\ln p(x)}
 &amp;= {\ln \int p(x_{0:T}) dx_{1:T}}\\
 &amp;= {\ln \int \frac{p(x_{0:T})q(x_{1:T}|x_0)}{q(x_{1:T}|x_0)} dx_{1:T}}\\
@@ -1184,21 +1163,21 @@ MHVAE 是扩散模型的雏形，只需要在 MHVAE 的基础上再稍微调整�
 是需要一个参数化的模型去学习的，也就是我们的模型学习的是 <span class="math notranslate nohighlight">\(p_{{\theta}}(x_{t}|x_{t+1})\)</span>，其中
 <span class="math notranslate nohighlight">\(\theta\)</span> 表示模型需要学习的参数集合。</p></li>
 </ul>
-<figure class="align-center" id="id43">
+<figure class="align-center" id="id37">
 <span id="fg-dm-006"></span><a class="reference internal image-reference" href="../_images/diffusion_first_derivation.png"><img alt="../_images/diffusion_first_derivation.png" src="../_images/diffusion_first_derivation.png" style="width: 554.2px; height: 217.60000000000002px;" /></a>
 <figcaption>
-<p><span class="caption-number">图 30.1.4 </span><span class="caption-text">根据 ELBO（ <a class="reference internal" href="#equation-eq-ddpm-031">公式(30.1.10)</a>）显示，对于每一个时刻 <span class="math notranslate nohighlight">\(t\)</span>，最小化绿色和粉色箭头所代表的分布之间的差异。（图片来自 <span id="id11">[<a class="reference internal" href="#id34" title="Calvin Luo. Understanding diffusion models: a unified perspective. 2022. arXiv:2208.11970.">Luo22</a>]</span>）</span><a class="headerlink" href="#id43" title="永久链接至图片"></a></p>
+<p><span class="caption-number">图 2.1.4 </span><span class="caption-text">根据 ELBO（ <a class="reference internal" href="#equation-eq-ddpm-031">公式(2.1.48)</a>）显示，对于每一个时刻 <span class="math notranslate nohighlight">\(t\)</span>，最小化绿色和粉色箭头所代表的分布之间的差异。（图片来自 <span id="id11">[<a class="reference internal" href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html#id15" title="Calvin Luo. Understanding diffusion models: a unified perspective. 2022. arXiv:2208.11970.">Luo22</a>]</span>）</span><a class="headerlink" href="#id37" title="永久链接至图片"></a></p>
 </figcaption>
 </figure>
-<p>在极大化 <a class="reference internal" href="#equation-eq-ddpm-031">公式(30.1.10)</a> 时，第二项不包含任意可学习参数，因此可以忽略掉。
+<p>在极大化 <a class="reference internal" href="#equation-eq-ddpm-031">公式(2.1.48)</a> 时，第二项不包含任意可学习参数，因此可以忽略掉。
 另外两项都是一个期望项，解决方法和 VAE 一样，可以通过采样法（MCMC）近似求解期望。
 然而，第三项存在一个小问题，它的期望是关于两个变量的， <span class="math notranslate nohighlight">\((x_{t-1},x_{t+1})\)</span>，
-用采样法（MCMC）同时对两个随机变量进行采样，会导致更大的方差，这会使得优化过程不稳定，不容易收敛 <span id="id12">[<a class="reference internal" href="#id34" title="Calvin Luo. Understanding diffusion models: a unified perspective. 2022. arXiv:2208.11970.">Luo22</a>]</span>。
-因此直接优化 <a class="reference internal" href="#equation-eq-ddpm-031">公式(30.1.10)</a> 并不是最佳的选择，我们继续看能不能改进一下。</p>
+用采样法（MCMC）同时对两个随机变量进行采样，会导致更大的方差，这会使得优化过程不稳定，不容易收敛 <span id="id12">[<a class="reference internal" href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html#id15" title="Calvin Luo. Understanding diffusion models: a unified perspective. 2022. arXiv:2208.11970.">Luo22</a>]</span>。
+因此直接优化 <a class="reference internal" href="#equation-eq-ddpm-031">公式(2.1.48)</a> 并不是最佳的选择，我们继续看能不能改进一下。</p>
 <p>改进方法的推导中依赖几个等式替换，在推导前先给出这几个依赖等式。
 首先根据条件独立性原则，有下式成立</p>
 <div class="math notranslate nohighlight" id="equation-eq-ddpm-032">
-<span class="eqno">(30.1.11)<a class="headerlink" href="#equation-eq-ddpm-032" title="公式的永久链接"></a></span>\[q(x_t | x_{t-1}) = q(x_t | x_{t-1}, x_0)\]</div>
+<span class="eqno">(2.1.49)<a class="headerlink" href="#equation-eq-ddpm-032" title="公式的永久链接"></a></span>\[q(x_t | x_{t-1}) = q(x_t | x_{t-1}, x_0)\]</div>
 <div class="admonition note">
 <p class="admonition-title">注解</p>
 <p>条件独立性</p>
@@ -1209,11 +1188,11 @@ MHVAE 是扩散模型的雏形，只需要在 MHVAE 的基础上再稍微调整�
 </div>
 <p><span class="math notranslate nohighlight">\(q(x_t | x_{t-1}, x_0)\)</span> 可以进一步根据贝叶斯定理求得，如下：</p>
 <div class="math notranslate nohighlight" id="equation-eq-ddpm-033">
-<span class="eqno">(30.1.12)<a class="headerlink" href="#equation-eq-ddpm-033" title="公式的永久链接"></a></span>\[q(x_t | x_{t-1}, x_0) = \frac{q(x_{t-1} \mid x_t, x_0)q(x_t \mid x_0)}{q(x_{t-1} \mid x_0)}\]</div>
-<p>有了 <a class="reference internal" href="#equation-eq-ddpm-032">公式(30.1.11)</a> 和 <a class="reference internal" href="#equation-eq-ddpm-033">公式(30.1.12)</a>，
+<span class="eqno">(2.1.50)<a class="headerlink" href="#equation-eq-ddpm-033" title="公式的永久链接"></a></span>\[q(x_t | x_{t-1}, x_0) = \frac{q(x_{t-1} \mid x_t, x_0)q(x_t \mid x_0)}{q(x_{t-1} \mid x_0)}\]</div>
+<p>有了 <a class="reference internal" href="#equation-eq-ddpm-032">公式(2.1.49)</a> 和 <a class="reference internal" href="#equation-eq-ddpm-033">公式(2.1.50)</a>，
 我再重新推导 ELBO 函数，推导过程如下：</p>
 <div class="math notranslate nohighlight" id="equation-eq-ddpm-035">
-<span class="eqno">(30.1.13)<a class="headerlink" href="#equation-eq-ddpm-035" title="公式的永久链接"></a></span>\[\begin{split}\begin{align}
+<span class="eqno">(2.1.51)<a class="headerlink" href="#equation-eq-ddpm-035" title="公式的永久链接"></a></span>\[\begin{split}\begin{align}
 {\ln p(x)}
 &amp;\geq {\mathbb{E}_{q(x_{1:T}|x_0)}\left[\ln \frac{p(x_{0:T})}{q(x_{1:T}|x_0)}\right]}\\
 &amp;= {\mathbb{E}_{q(x_{1:T}|x_0)}\left[\ln \frac{p(x_T)\prod_{t=1}^{T}p_{{\theta}}(x_{t-1}|x_t)}{\prod_{t = 1}^{T}q(x_{t}|x_{t-1})}\right]}\\
@@ -1240,7 +1219,7 @@ MHVAE 是扩散模型的雏形，只需要在 MHVAE 的基础上再稍微调整�
     &amp;- \sum_{t=2}^{T} \underbrace{\mathbb{E}_{q(x_{t}|x_0)}\left[\KL{q(x_{t-1}|x_t, x_0)}{p_{{\theta}}(x_{t-1}|x_t)}\right]}_\text{denoising matching term}\\
     \end{aligned}
 \end{align}\end{split}\]</div>
-<p>对比一下 <a class="reference internal" href="#equation-eq-ddpm-035">公式(30.1.13)</a> 和 <a class="reference internal" href="#equation-eq-ddpm-031">公式(30.1.10)</a> 发生了一些变化，</p>
+<p>对比一下 <a class="reference internal" href="#equation-eq-ddpm-035">公式(2.1.51)</a> 和 <a class="reference internal" href="#equation-eq-ddpm-031">公式(2.1.48)</a> 发生了一些变化，</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(\mathbb{E}_{q(x_{1}|x_0)}\left[\ln p_{{\theta}}(x_0|x_1)\right]\)</span>，这一项没有变化。</p></li>
 <li><p><span class="math notranslate nohighlight">\(\KL{q(x_T|x_0)}{p(x_T)}\)</span>，这一项发生变化，其中由 <span class="math notranslate nohighlight">\(q(x_T|x_{T-1})\)</span> 变成了 <span class="math notranslate nohighlight">\(q(x_T|x_0)\)</span>，
@@ -1248,17 +1227,17 @@ MHVAE 是扩散模型的雏形，只需要在 MHVAE 的基础上再稍微调整�
 <li><p>关键是第3项的变化，需要积分（采样）的变量只剩一个了，这样就简单了很多。
 其中 <span class="math notranslate nohighlight">\(q(x_{t-1}|x_t, x_0)\)</span> 表示解码器的真实分布，带有 <span class="math notranslate nohighlight">\(\theta\)</span> 的 <span class="math notranslate nohighlight">\(p_{{\theta}}(x_{t-1}|x_t)\)</span>
 表示参数化的模型，二者的 KL 散度正好表达了参数化模型 <span class="math notranslate nohighlight">\(p_{{\theta}}(x_{t-1}|x_t)\)</span> 要尽量和真实分布
-<span class="math notranslate nohighlight">\(q(x_{t-1}|x_t, x_0)\)</span> 接近，如图 <a class="reference internal" href="#fg-dm-007"><span class="std std-numref">图 30.1.5</span></a> 所示。</p></li>
+<span class="math notranslate nohighlight">\(q(x_{t-1}|x_t, x_0)\)</span> 接近，如图 <a class="reference internal" href="#fg-dm-007"><span class="std std-numref">图 2.1.5</span></a> 所示。</p></li>
 </ul>
-<figure class="align-center" id="id44">
+<figure class="align-center" id="id38">
 <span id="fg-dm-007"></span><a class="reference internal image-reference" href="../_images/diffusion_second_derivation.png"><img alt="../_images/diffusion_second_derivation.png" src="../_images/diffusion_second_derivation.png" style="width: 554.2px; height: 257.1px;" /></a>
 <figcaption>
-<p><span class="caption-number">图 30.1.5 </span><span class="caption-text"><a class="reference internal" href="#equation-eq-ddpm-035">公式(30.1.13)</a> 对应的可视化图形表示。粉色箭头表示根据贝叶斯公式得到的逆过程中解码器的真实分布 <span class="math notranslate nohighlight">\(:math:\)</span>，
+<p><span class="caption-number">图 2.1.5 </span><span class="caption-text"><a class="reference internal" href="#equation-eq-ddpm-035">公式(2.1.51)</a> 对应的可视化图形表示。粉色箭头表示根据贝叶斯公式得到的逆过程中解码器的真实分布 <span class="math notranslate nohighlight">\(:math:\)</span>，
 绿色箭头表示需要学习的近似分布  <span class="math notranslate nohighlight">\(p_{{\theta}}(x_{t-1}|x_t)\)</span>，
-二者的 KL 散度表示必须领二者进尽可能的接近。（图片来自 <span id="id13">[<a class="reference internal" href="#id34" title="Calvin Luo. Understanding diffusion models: a unified perspective. 2022. arXiv:2208.11970.">Luo22</a>]</span>）</span><a class="headerlink" href="#id44" title="永久链接至图片"></a></p>
+二者的 KL 散度表示必须领二者进尽可能的接近。（图片来自 <span id="id13">[<a class="reference internal" href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html#id15" title="Calvin Luo. Understanding diffusion models: a unified perspective. 2022. arXiv:2208.11970.">Luo22</a>]</span>）</span><a class="headerlink" href="#id38" title="永久链接至图片"></a></p>
 </figcaption>
 </figure>
-<p>要想极大化 <a class="reference internal" href="#equation-eq-ddpm-035">公式(30.1.13)</a> 形式的 ELBO 函数，还需要其中每一项展开成具体的参数化公式，
+<p>要想极大化 <a class="reference internal" href="#equation-eq-ddpm-035">公式(2.1.51)</a> 形式的 ELBO 函数，还需要其中每一项展开成具体的参数化公式，
 第二项不包含参数 <span class="math notranslate nohighlight">\(\theta\)</span>，所以可以直接忽略。</p>
 <p><strong>prior matching term</strong></p>
 <p>第一项 <span class="math notranslate nohighlight">\(p_{{\theta}}(x_0|x_1)\)</span> 和 VAE 中是解码器是类似的， 它是一个依赖 <span class="math notranslate nohighlight">\(x_1\)</span>
@@ -1268,12 +1247,12 @@ MHVAE 是扩散模型的雏形，只需要在 MHVAE 的基础上再稍微调整�
 。即模型输入 <span class="math notranslate nohighlight">\(x_1\)</span> 和 <span class="math notranslate nohighlight">\(t=1\)</span>，输出 <span class="math notranslate nohighlight">\(\mu_{\theta}(x_1,t=1)\)</span>。
 根据高斯分布的概率密度函数，对 <span class="math notranslate nohighlight">\(\ln p(x_0|x_1)\)</span> 进行展开</p>
 <div class="math notranslate nohighlight" id="equation-eq-ddpm-035-1">
-<span class="eqno">(30.1.14)<a class="headerlink" href="#equation-eq-ddpm-035-1" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\ln p(x_0|x_1) &amp;=\ln \frac{1}{(2\pi)^{n/2} |\Sigma |^{1/2}}exp\{-\frac{1}{2}(x_0 - \mu_{\theta}(x_1,t=1))^{T}\Sigma^{-1}(x - \mu_{\theta}(x_1,t=1))\}\\&amp; \propto -\frac{1}{2}(x_0 - \mu_{\theta}(x_1,t=1))^{T}(x_0 - \mu_{\theta}(x_1,t=1))\}\\&amp; = -\frac{1}{2} \left\lVert x_0 - \mu_{\theta}(x_1,t=1) \right\rVert_2^2\end{aligned}\end{align} \]</div>
+<span class="eqno">(2.1.52)<a class="headerlink" href="#equation-eq-ddpm-035-1" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\ln p(x_0|x_1) &amp;=\ln \frac{1}{(2\pi)^{n/2} |\Sigma |^{1/2}}exp\{-\frac{1}{2}(x_0 - \mu_{\theta}(x_1,t=1))^{T}\Sigma^{-1}(x - \mu_{\theta}(x_1,t=1))\}\\&amp; \propto -\frac{1}{2}(x_0 - \mu_{\theta}(x_1,t=1))^{T}(x_0 - \mu_{\theta}(x_1,t=1))\}\\&amp; = -\frac{1}{2} \left\lVert x_0 - \mu_{\theta}(x_1,t=1) \right\rVert_2^2\end{aligned}\end{align} \]</div>
 <p>从中可以看出极大化 <span class="math notranslate nohighlight">\(\ln p(x_0|x_1)\)</span> 就等价于极小化模型输出 <span class="math notranslate nohighlight">\(\mu_{\theta}(x_1,t=1)\)</span>
 和 <span class="math notranslate nohighlight">\(x_0\)</span> 的平方误差，模型输出其实就相当于在预测 <span class="math notranslate nohighlight">\(x_0\)</span> 的值，因此我们可以把模型输出
 <span class="math notranslate nohighlight">\(\mu_{\theta}(x_1,t=1)\)</span> 用符号 <span class="math notranslate nohighlight">\(\hat x_{0}(x_1,t=1)\)</span> 来表示。</p>
 <div class="math notranslate nohighlight" id="equation-eq-ddpm-035-2">
-<span class="eqno">(30.1.15)<a class="headerlink" href="#equation-eq-ddpm-035-2" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}&amp; {\operatorname{\arg\max}}_{\theta}
+<span class="eqno">(2.1.53)<a class="headerlink" href="#equation-eq-ddpm-035-2" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}&amp; {\operatorname{\arg\max}}_{\theta}
 \mathbb{E}_{q(x_{1}|x_0)}\left[\ln p_{{\theta}}(x_0|x_1)\right]\\&amp;\Leftrightarrow  {\operatorname{\arg\max}}_{\theta} \  \mathbb{E}_{q(x_{1}|x_0)}
  \left [ -\frac{1}{2} \left\lVert x_0 - \hat x_{0}(x_1,t=1) \right\rVert_2^2 \right ]\\&amp;\Leftrightarrow   {\operatorname{\arg\min}}_{\theta} \  \mathbb{E}_{q(x_{1}|x_0)}
 \left [ \left\lVert x_0 - \hat x_{0}(x_1,t=1) \right\rVert_2^2 \right ]\end{aligned}\end{align} \]</div>
@@ -1281,11 +1260,11 @@ MHVAE 是扩散模型的雏形，只需要在 MHVAE 的基础上再稍微调整�
 <p>这一项是一个 KL 散度，KL 散度的两项都是高斯分布，
 只要能找到这两个高斯分布的均值和方差，就可以解析计算它们的 KL 散度了。
 我们先来推导下真实分布 <span class="math notranslate nohighlight">\(q(x_{t-1}|x_t, x_0)\)</span>，
-在 <a class="reference internal" href="#equation-eq-ddpm-033">公式(30.1.12)</a> 基础上继续推导展开，注意在这个过程中，
+在 <a class="reference internal" href="#equation-eq-ddpm-033">公式(2.1.50)</a> 基础上继续推导展开，注意在这个过程中，
 <span class="math notranslate nohighlight">\(x_{t-1}\)</span> 是未知量（分布的变量），
 <span class="math notranslate nohighlight">\(x_{t},x_0\)</span> 是已知量。</p>
 <div class="math notranslate nohighlight" id="equation-eq-ddpm-036">
-<span class="eqno">(30.1.16)<a class="headerlink" href="#equation-eq-ddpm-036" title="公式的永久链接"></a></span>\[\begin{split}\begin{align}
+<span class="eqno">(2.1.54)<a class="headerlink" href="#equation-eq-ddpm-036" title="公式的永久链接"></a></span>\[\begin{split}\begin{align}
 {q(x_{t-1}|x_t, x_0)}
 &amp;= {\frac{q(x_t | x_{t-1}, x_0)q(x_{t-1}|x_0)}{q(x_{t}|x_0)}}\\
 &amp;= {\frac{\mathcal{N}(x_{t} ; \sqrt{\alpha_t} x_{t-1}, (1 - \alpha_t)\textit{I})\mathcal{N}(x_{t-1} ; \sqrt{\bar\alpha_{t-1}}x_0, (1 - \bar\alpha_{t-1}) \textit{I})}{\mathcal{N}(x_{t} ; \sqrt{\bar\alpha_{t}}x_0, (1 - \bar\alpha_{t})\textit{I})}}\\
@@ -1305,7 +1284,7 @@ MHVAE 是扩散模型的雏形，只需要在 MHVAE 的基础上再稍微调整�
 <p>上面推导过程中的 <span class="math notranslate nohighlight">\(C(x_t, x_0)\)</span> 无关的项，它仅仅与 <span class="math notranslate nohighlight">\(x_0,x_{t},\alpha\)</span> 同样是一个高斯分布，它均值记作 <span class="math notranslate nohighlight">\(\mu_q(x_t, x_0)\)</span>，是一个关于 <span class="math notranslate nohighlight">\(x_t, x_0\)</span> 的函数。
 方差记作 <span class="math notranslate nohighlight">\(\Sigma_q(t)\)</span>，仅与 <span class="math notranslate nohighlight">\(\alpha\)</span> 有关，如果把 <span class="math notranslate nohighlight">\(\alpha\)</span> 当做一个超参数，那么显然方差是可以直接计算的。</p>
 <div class="math notranslate nohighlight" id="equation-eq-ddpm-037">
-<span class="eqno">(30.1.17)<a class="headerlink" href="#equation-eq-ddpm-037" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\mu_q(x_t, x_0) &amp;= { \frac{\sqrt{\alpha_t}(1-\bar\alpha_{t-1})x_{t} + \sqrt{\bar\alpha_{t-1}}(1-\alpha_t)x_0}{1 -\bar\alpha_{t}}}\\\Sigma_q(t) &amp;= \frac{(1 - \alpha_t)(1 - \bar\alpha_{t-1})}{ 1 -\bar\alpha_{t}}  \textit{I} = \sigma_q^2(t)   \textit{I}\end{aligned}\end{align} \]</div>
+<span class="eqno">(2.1.55)<a class="headerlink" href="#equation-eq-ddpm-037" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\mu_q(x_t, x_0) &amp;= { \frac{\sqrt{\alpha_t}(1-\bar\alpha_{t-1})x_{t} + \sqrt{\bar\alpha_{t-1}}(1-\alpha_t)x_0}{1 -\bar\alpha_{t}}}\\\Sigma_q(t) &amp;= \frac{(1 - \alpha_t)(1 - \bar\alpha_{t-1})}{ 1 -\bar\alpha_{t}}  \textit{I} = \sigma_q^2(t)   \textit{I}\end{aligned}\end{align} \]</div>
 <p>我们的参数化模型分布 <span class="math notranslate nohighlight">\(p_\theta(x_{t-1}|x_t)\)</span>，需要尽可能的接近真实高斯分布 <span class="math notranslate nohighlight">\(q(x_{t-1}|x_t, x_0)\)</span>
 ，显然 <span class="math notranslate nohighlight">\(p_\theta(x_{t-1}|x_t)\)</span> 也需要是一个高斯分布才行，我们用 <span class="math notranslate nohighlight">\(\mu_{\theta}\)</span> 表示它的均值，
 <span class="math notranslate nohighlight">\(\Sigma_\theta\)</span> 表示的方差。
@@ -1314,7 +1293,7 @@ MHVAE 是扩散模型的雏形，只需要在 MHVAE 的基础上再稍微调整�
 <p>现在，真实分布 <span class="math notranslate nohighlight">\(q(x_{t-1}|x_t, x_0)\)</span> 和参数化学习分布 <span class="math notranslate nohighlight">\(p_\theta(x_{t-1}|x_t)\)</span> 各自的均值和方差表达式都确定了，
 又已知两个高斯分布的 KL 散度计算公式如下：</p>
 <div class="math notranslate nohighlight" id="equation-eq-ddpm-038">
-<span class="eqno">(30.1.18)<a class="headerlink" href="#equation-eq-ddpm-038" title="公式的永久链接"></a></span>\[\begin{align}
+<span class="eqno">(2.1.56)<a class="headerlink" href="#equation-eq-ddpm-038" title="公式的永久链接"></a></span>\[\begin{align}
 \KL{\mathcal{N}(x; {\mu}_x,{\Sigma}_x)}{\mathcal{N}(y; {\mu}_y,{\Sigma}_y)}
 &amp;=\frac{1}{2}\left[\log\frac{|{\Sigma}_y|}{|{\Sigma}_x|} - d + \text{tr}({\Sigma}_y^{-1}{\Sigma}_x)
 + ({\mu}_y-{\mu}_x)^T {\Sigma}_y^{-1} ({\mu}_y-{\mu}_x)\right]
@@ -1322,7 +1301,7 @@ MHVAE 是扩散模型的雏形，只需要在 MHVAE 的基础上再稍微调整�
 <p>根据这个公式，可以得到真实分布 <span class="math notranslate nohighlight">\(q(x_{t-1}|x_t, x_0)\)</span> 和参数化学习分布 <span class="math notranslate nohighlight">\(p_\theta(x_{t-1}|x_t)\)</span>
 的 KL 散度为</p>
 <div class="math notranslate nohighlight" id="equation-eq-ddpm-039">
-<span class="eqno">(30.1.19)<a class="headerlink" href="#equation-eq-ddpm-039" title="公式的永久链接"></a></span>\[\begin{split}\begin{align}
+<span class="eqno">(2.1.57)<a class="headerlink" href="#equation-eq-ddpm-039" title="公式的永久链接"></a></span>\[\begin{split}\begin{align}
 &amp; \quad \,\KL{q(x_{t-1}|x_t, x_0)}{p_{{\theta}}(x_{t-1}|x_t)} \\
 &amp;= \KL{\mathcal{N}(x_{t-1}; {\mu}_q,{\Sigma}_q(t))}{\mathcal{N}(x_{t-1}; {\mu}_{{\theta}},{\Sigma}_q(t))}\\
 &amp;=\frac{1}{2}\left[\log\frac{|{\Sigma}_q(t)|}{|{\Sigma}_q(t)|} - d + \text{tr}({\Sigma}_q(t)^{-1}{\Sigma}_q(t))
@@ -1340,19 +1319,19 @@ MHVAE 是扩散模型的雏形，只需要在 MHVAE 的基础上再稍微调整�
 也就是说我们的参数化模型输入 <span class="math notranslate nohighlight">\(x_t\)</span> ，并且输出 <span class="math notranslate nohighlight">\(\mu_{\theta}\)</span>。
 前面我们已经推到出 <span class="math notranslate nohighlight">\({\mu}_q\)</span> 为</p>
 <div class="math notranslate nohighlight" id="equation-eq-ddpm-040">
-<span class="eqno">(30.1.20)<a class="headerlink" href="#equation-eq-ddpm-040" title="公式的永久链接"></a></span>\[\mu_q(x_t, x_0) = { \frac{\sqrt{\alpha_t}(1-\bar\alpha_{t-1})x_{t} + \sqrt{\bar\alpha_{t-1}}(1-\alpha_t)x_0}{1 -\bar\alpha_{t}}}\]</div>
+<span class="eqno">(2.1.58)<a class="headerlink" href="#equation-eq-ddpm-040" title="公式的永久链接"></a></span>\[\mu_q(x_t, x_0) = { \frac{\sqrt{\alpha_t}(1-\bar\alpha_{t-1})x_{t} + \sqrt{\bar\alpha_{t-1}}(1-\alpha_t)x_0}{1 -\bar\alpha_{t}}}\]</div>
 <p>从中可以看出 <span class="math notranslate nohighlight">\({\mu}_q\)</span> 本身也是一个关于 <span class="math notranslate nohighlight">\(x_t\)</span> 的函数，
 我们的目标是使得 <span class="math notranslate nohighlight">\(\mu_{\theta}\)</span> 和 <span class="math notranslate nohighlight">\({\mu}_q\)</span> 尽量接近，
-那么我们完全可以把 <span class="math notranslate nohighlight">\({\mu}_{\theta}\)</span> 也定义成类似 <span class="math notranslate nohighlight">\({\mu}_q\)</span> （<a class="reference internal" href="#equation-eq-ddpm-040">公式(30.1.20)</a>）
+那么我们完全可以把 <span class="math notranslate nohighlight">\({\mu}_{\theta}\)</span> 也定义成类似 <span class="math notranslate nohighlight">\({\mu}_q\)</span> （<a class="reference internal" href="#equation-eq-ddpm-040">公式(2.1.58)</a>）
 的计算方式，即</p>
 <div class="math notranslate nohighlight" id="equation-eq-ddpm-041">
-<span class="eqno">(30.1.21)<a class="headerlink" href="#equation-eq-ddpm-041" title="公式的永久链接"></a></span>\[\mu_{\theta}={\mu}_{{\theta}}(x_t, t) = \frac{\sqrt{\alpha_t}(1-\bar\alpha_{t-1})x_{t} + \sqrt{\bar\alpha_{t-1}}(1-\alpha_t)\hat x_{{\theta}}(x_t, t)}{1 -\bar\alpha_{t}}\]</div>
+<span class="eqno">(2.1.59)<a class="headerlink" href="#equation-eq-ddpm-041" title="公式的永久链接"></a></span>\[\mu_{\theta}={\mu}_{{\theta}}(x_t, t) = \frac{\sqrt{\alpha_t}(1-\bar\alpha_{t-1})x_{t} + \sqrt{\bar\alpha_{t-1}}(1-\alpha_t)\hat x_{{\theta}}(x_t, t)}{1 -\bar\alpha_{t}}\]</div>
 <p>模型不再直接预测 <span class="math notranslate nohighlight">\({\mu}_q\)</span> ，而是预测输出 <span class="math notranslate nohighlight">\(\hat x_{{\theta}}(x_t, t)\)</span> ，
-然后利用公式 <a class="reference internal" href="#equation-eq-ddpm-041">公式(30.1.21)</a> 计算得到 <span class="math notranslate nohighlight">\({\mu}_q\)</span> 的预测值，
+然后利用公式 <a class="reference internal" href="#equation-eq-ddpm-041">公式(2.1.59)</a> 计算得到 <span class="math notranslate nohighlight">\({\mu}_q\)</span> 的预测值，
 这样一来，<span class="math notranslate nohighlight">\(\left\lVert{\mu}_{{\theta}}-{\mu}_q\right\rVert_2^2\)</span>
 可以简化成</p>
 <div class="math notranslate nohighlight" id="equation-eq-ddpm-042">
-<span class="eqno">(30.1.22)<a class="headerlink" href="#equation-eq-ddpm-042" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}&amp; \quad \left\lVert{\mu}_{{\theta}}-{\mu}_q \right\rVert_2^2\\&amp;= \left\lVert  \frac{\sqrt{\alpha_t}(1-\bar\alpha_{t-1})x_{t} + \sqrt{\bar\alpha_{t-1}}(1-\alpha_t)\hat x_{{\theta}}(x_t, t)}{1 -\bar\alpha_{t}}
+<span class="eqno">(2.1.60)<a class="headerlink" href="#equation-eq-ddpm-042" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}&amp; \quad \left\lVert{\mu}_{{\theta}}-{\mu}_q \right\rVert_2^2\\&amp;= \left\lVert  \frac{\sqrt{\alpha_t}(1-\bar\alpha_{t-1})x_{t} + \sqrt{\bar\alpha_{t-1}}(1-\alpha_t)\hat x_{{\theta}}(x_t, t)}{1 -\bar\alpha_{t}}
 -    { \frac{\sqrt{\alpha_t}(1-\bar\alpha_{t-1})x_{t} + \sqrt{\bar\alpha_{t-1}}(1-\alpha_t)x_0}{1 -\bar\alpha_{t}}}
 \right\rVert_2^2\\&amp;= \left\lVert  \frac{ \sqrt{\bar\alpha_{t-1}}(1-\alpha_t)\hat x_{{\theta}}(x_t, t)}{1 -\bar\alpha_{t}}
 -    { \frac{\sqrt{\bar\alpha_{t-1}}(1-\alpha_t)x_0}{1 -\bar\alpha_{t}}}
@@ -1364,10 +1343,10 @@ MHVAE 是扩散模型的雏形，只需要在 MHVAE 的基础上再稍微调整�
 我们的参数化模型输入为 <span class="math notranslate nohighlight">\(x_t, t\)</span> ，
 预测输出 <span class="math notranslate nohighlight">\(\hat x_{{\theta}}(x_t, t)\)</span>，
 我们要最小化这个输出值和 <span class="math notranslate nohighlight">\(x_0\)</span> 的平方误差。
-极大化 ELBO 函数（ <a class="reference internal" href="#equation-eq-ddpm-035">公式(30.1.13)</a> ）中的第3项的负的 KL 散度，
+极大化 ELBO 函数（ <a class="reference internal" href="#equation-eq-ddpm-035">公式(2.1.51)</a> ）中的第3项的负的 KL 散度，
 就等价于极小化模型输出和 <span class="math notranslate nohighlight">\(x_0\)</span> 的平方误差。</p>
 <div class="math notranslate nohighlight" id="equation-eq-ddpm-043">
-<span class="eqno">(30.1.23)<a class="headerlink" href="#equation-eq-ddpm-043" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}&amp; {\operatorname{\arg\max}}_{\theta} \left[ -\sum_{t=2}^{T}
+<span class="eqno">(2.1.61)<a class="headerlink" href="#equation-eq-ddpm-043" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}&amp; {\operatorname{\arg\max}}_{\theta} \left[ -\sum_{t=2}^{T}
     \mathbb{E}_{q(x_{t}|x_0)} \left[\KL{q(x_{t-1}|x_t, x_0)}{p_{{\theta}}(x_{t-1}|x_t)}\right]
     \right ]\\&amp; \Leftrightarrow {\operatorname{\arg\min}}_{\theta}  \left [
    \sum_{t=2}^{T}
@@ -1377,17 +1356,17 @@ MHVAE 是扩散模型的雏形，只需要在 MHVAE 的基础上再稍微调整�
    \sum_{t=2}^{T}
     \mathbb{E}_{q(x_{t}|x_0)}  \left [ \left\lVert  ( \hat x_{{\theta}}(x_t, t) -  x_0 ) \right\rVert_2^2 \right ] \right ]\end{aligned}\end{align} \]</div>
 <p><strong>最终的目标函数</strong></p>
-<p>最后我们整合一下 <a class="reference internal" href="#equation-eq-ddpm-035-2">公式(30.1.15)</a> 和 <a class="reference internal" href="#equation-eq-ddpm-043">公式(30.1.23)</a>
+<p>最后我们整合一下 <a class="reference internal" href="#equation-eq-ddpm-035-2">公式(2.1.53)</a> 和 <a class="reference internal" href="#equation-eq-ddpm-043">公式(2.1.61)</a>
 就得到了最终的目标函数，可以看到最终的目标函数其实非常简洁，
 对任意 <span class="math notranslate nohighlight">\(t \in [1,T]\)</span>，
 参数化模型输入 <span class="math notranslate nohighlight">\(x_t\)</span> 和 <span class="math notranslate nohighlight">\(t\)</span>，输出 <span class="math notranslate nohighlight">\(\hat x_{{\theta}}(x_t, t)\)</span>
 ，模型的目标是优化预测值 <span class="math notranslate nohighlight">\(\hat x_{{\theta}}(x_t, t)\)</span> 和真实值 <span class="math notranslate nohighlight">\(x_0\)</span> 之间的平方误差。
 公式中期望 <span class="math notranslate nohighlight">\(\mathbb{E}_{q(x_{t}|x_0)}\)</span> 的解决方法和 VAE 中一样，随机采样 <span class="math notranslate nohighlight">\(x_t\)</span>
 即可，采样次数记为 <span class="math notranslate nohighlight">\(L\)</span> 次，<span class="math notranslate nohighlight">\(L\)</span> 可以设为一个超参数，从经验上看 <span class="math notranslate nohighlight">\(L=1\)</span>
-其实就可以了。至于如何采样 <span class="math notranslate nohighlight">\(x_t\)</span> 的值，显然在前向过程中通过 <a class="reference internal" href="#equation-eq-ddpm-025">公式(30.1.9)</a>
+其实就可以了。至于如何采样 <span class="math notranslate nohighlight">\(x_t\)</span> 的值，显然在前向过程中通过 <a class="reference internal" href="#equation-eq-ddpm-025">公式(2.1.47)</a>
 可以直接计算得到。</p>
 <div class="math notranslate nohighlight" id="equation-eq-ddpm-044">
-<span class="eqno">(30.1.24)<a class="headerlink" href="#equation-eq-ddpm-044" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}    &amp; {\operatorname{\arg\max}}_{\theta} \quad \text{ELBO}\\    &amp; \Leftrightarrow {\operatorname{\arg\max}}_{\theta} \left [
+<span class="eqno">(2.1.62)<a class="headerlink" href="#equation-eq-ddpm-044" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}    &amp; {\operatorname{\arg\max}}_{\theta} \quad \text{ELBO}\\    &amp; \Leftrightarrow {\operatorname{\arg\max}}_{\theta} \left [
           \mathbb{E}_{q(x_{1}|x_0)}\left[\ln p_{{\theta}}(x_0|x_1)\right]
         - \sum_{t=2}^{T} \mathbb{E}_{q(x_{t}|x_0)}\left[\KL{q(x_{t-1}|x_t, x_0)}{p_{{\theta}}(x_{t-1}|x_t)}\right]
         \right]\\    &amp;\Leftrightarrow  {\operatorname{\arg\min}}_{\theta}
@@ -1403,11 +1382,11 @@ MHVAE 是扩散模型的雏形，只需要在 MHVAE 的基础上再稍微调整�
 在模训练阶段前向过程和逆向过程都要计算，而在模型推理（应用）阶段，不需要前向过程，仅有逆向即可。
 在应用中，输入一个随机高斯噪声数据，然后迭代（循环）执行 <span class="math notranslate nohighlight">\(p_{\theta}(x_{t-1}|x_t)\)</span>
 最终还原成（生成）一个新的有效图片。</p>
-<p>仔细观察下 <a class="reference internal" href="#equation-eq-ddpm-044">公式(30.1.24)</a>，在每一个时刻 <span class="math notranslate nohighlight">\(t\)</span> 模型预测都是原始的 <span class="math notranslate nohighlight">\(x_0\)</span>
+<p>仔细观察下 <a class="reference internal" href="#equation-eq-ddpm-044">公式(2.1.62)</a>，在每一个时刻 <span class="math notranslate nohighlight">\(t\)</span> 模型预测都是原始的 <span class="math notranslate nohighlight">\(x_0\)</span>
 ，从直觉上讲，感觉就不是很合理。当 <span class="math notranslate nohighlight">\(t\)</span> 比较大时，<span class="math notranslate nohighlight">\(x_t\)</span> 距离 <span class="math notranslate nohighlight">\(x_0\)</span> 应该是比较远的，
 虽然表示时刻的 <span class="math notranslate nohighlight">\(t\)</span> 也作为模型的输入，但同样的模型参数要同时解决不同的 <span class="math notranslate nohighlight">\(t\)</span>，其实是比较困难的。
 事实也证明了 DPM 效果确实不是很靠谱，生成的图像质量通常并不高，
-在论文<span id="id14">[<a class="reference internal" href="#id36" title="Jonathan Ho, Ajay Jain, and Pieter Abbeel. Denoising diffusion probabilistic models. 2020. arXiv:2006.11239.">HJA20</a>]</span> 中做了相应的对比实现，证明了这个这个结论。
+在论文<span id="id14">[<a class="reference internal" href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html#id17" title="Jonathan Ho, Ajay Jain, and Pieter Abbeel. Denoising diffusion probabilistic models. 2020. arXiv:2006.11239.">HJA20</a>]</span> 中做了相应的对比实现，证明了这个这个结论。
 所以虽然 DPM 在 2015年就提出了，但一直没有引发热度，
 直到2020年，Ho et al 等人发表了论文 DPM 的改进模型 “Denoising Diffusion Probabilistic Models (DDPMs)”
 ，进一步 OPEN AI  发布了基于 DDPM 的 DALL-E ，DALL-E 的效果是非常显著的，这才是得扩散模型得到足够的关注。
@@ -1415,38 +1394,41 @@ MHVAE 是扩散模型的雏形，只需要在 MHVAE 的基础上再稍微调整�
 </section>
 </section>
 <section id="denoising-diffusion-probabilistic-model-ddpm">
-<h2><span class="section-number">30.2. </span>降噪扩散概率模型（Denoising diffusion probabilistic model,DDPM）<a class="headerlink" href="#denoising-diffusion-probabilistic-model-ddpm" title="永久链接至标题"></a></h2>
+<h2><span class="section-number">2.2. </span>降噪扩散概率模型（Denoising diffusion probabilistic model,DDPM）<a class="headerlink" href="#denoising-diffusion-probabilistic-model-ddpm" title="永久链接至标题"></a></h2>
 <p>在 2020年 Ho et al 等人发表了论文 “Denoising Diffusion Probabilistic Models (DDPMs)”
 ，DDPM 对 DPM 做了关键的改进和优化，解决了 DPM 的一些不足，使得扩散模型生成的图像质量得到了大幅提升，
 这才使得扩散模型在图像生成领域大放异彩。
-DDPM 做的一个关键改进就是参数化模型预测的内容做了调整，不再是预测原始的 <span class="math notranslate nohighlight">\(x_0\)</span>
-，而是预测每一个时刻添加的噪声。</p>
-<p>回顾下 <a class="reference internal" href="#equation-eq-ddpm-025">公式(30.1.9)</a>，在前向过程中，我们得到 <span class="math notranslate nohighlight">\(q(x_t|x_0)\)</span>
+DDPM 做的关键改进就是参数化模型预测的内容做了调整：</p>
+<ul class="simple">
+<li><p>不再是预测原始的 <span class="math notranslate nohighlight">\(x_0\)</span>，而是预测每一个时刻添加的噪声，降低了模型的学习难度。</p></li>
+<li><p>模型不再预测方差，而是把方差看做一个常量，进一步降低了模型的难度。</p></li>
+</ul>
+<p>回顾下 <a class="reference internal" href="#equation-eq-ddpm-025">公式(2.1.47)</a>，在前向过程中，我们得到 <span class="math notranslate nohighlight">\(q(x_t|x_0)\)</span>
 的分布为：</p>
-<div class="math notranslate nohighlight" id="equation-probability-model-2">
-<span class="eqno">(30.2.1)<a class="headerlink" href="#equation-probability-model-2" title="公式的永久链接"></a></span>\[q(x_t|x_0) \sim \mathcal{N}(\sqrt{\bar{\alpha_i} } \ x_0,  (1- \bar{ \alpha_i})    \textit{I})\]</div>
+<div class="math notranslate nohighlight" id="equation-aigc-2">
+<span class="eqno">(2.2.56)<a class="headerlink" href="#equation-aigc-2" title="公式的永久链接"></a></span>\[q(x_t|x_0) \sim \mathcal{N}(\sqrt{\bar{\alpha_i} } \ x_0,  (1- \bar{ \alpha_i})    \textit{I})\]</div>
 <p><span class="math notranslate nohighlight">\(x_t\)</span> 的采样过程为</p>
 <div class="math notranslate nohighlight" id="equation-eq-ddpm-051">
-<span class="eqno">(30.2.2)<a class="headerlink" href="#equation-eq-ddpm-051" title="公式的永久链接"></a></span>\[x_t = \sqrt{\bar{\alpha_i} } \ x_0 + \sqrt{1- \bar{ \alpha_i} }  \ \epsilon  \ \ \ ,
+<span class="eqno">(2.2.57)<a class="headerlink" href="#equation-eq-ddpm-051" title="公式的永久链接"></a></span>\[x_t = \sqrt{\bar{\alpha_i} } \ x_0 + \sqrt{1- \bar{ \alpha_i} }  \ \epsilon  \ \ \ ,
 \bar{\alpha} = \prod_{i=1}^t \alpha_i ,\ \ \epsilon \sim \mathcal{N}(0,\textit(I))\]</div>
-<p><a class="reference internal" href="#equation-eq-ddpm-051">公式(30.2.2)</a> 表达了从 <span class="math notranslate nohighlight">\(x_0\)</span> 计算 <span class="math notranslate nohighlight">\(x_t\)</span> 的关系，
+<p><a class="reference internal" href="#equation-eq-ddpm-051">公式(2.2.57)</a> 表达了从 <span class="math notranslate nohighlight">\(x_0\)</span> 计算 <span class="math notranslate nohighlight">\(x_t\)</span> 的关系，
 现在可以把它反过来，用 <span class="math notranslate nohighlight">\(x_t\)</span> 得到 <span class="math notranslate nohighlight">\(x_0\)</span>。</p>
 <div class="math notranslate nohighlight" id="equation-eq-ddpm-052">
-<span class="eqno">(30.2.3)<a class="headerlink" href="#equation-eq-ddpm-052" title="公式的永久链接"></a></span>\[x_0 =  \frac{x_t -\sqrt{1- \bar{ \alpha_i} }  \ \epsilon }{ \sqrt{\bar{\alpha_i} }  }
+<span class="eqno">(2.2.58)<a class="headerlink" href="#equation-eq-ddpm-052" title="公式的永久链接"></a></span>\[x_0 =  \frac{x_t -\sqrt{1- \bar{ \alpha_i} }  \ \epsilon }{ \sqrt{\bar{\alpha_i} }  }
 ,\ \ \epsilon \sim \mathcal{N}(0,\textit(I))\]</div>
-<p>我们在 <a class="reference internal" href="#equation-eq-ddpm-039">公式(30.1.19)</a> 的基础上，重新推导下 ELBO 中第三项 KL 散度，
-为方便阅读，把 <a class="reference internal" href="#equation-eq-ddpm-039">公式(30.1.19)</a> 复制到这里。</p>
+<p>我们在 <a class="reference internal" href="#equation-eq-ddpm-039">公式(2.1.57)</a> 的基础上，重新推导下 ELBO 中第三项 KL 散度，
+为方便阅读，把 <a class="reference internal" href="#equation-eq-ddpm-039">公式(2.1.57)</a> 复制到这里。</p>
 <div class="math notranslate nohighlight" id="equation-eq-ddpm-053">
-<span class="eqno">(30.2.4)<a class="headerlink" href="#equation-eq-ddpm-053" title="公式的永久链接"></a></span>\[\KL{q(x_{t-1}|x_t, x_0)}{p_{{\theta}}(x_{t-1}|x_t)}
+<span class="eqno">(2.2.59)<a class="headerlink" href="#equation-eq-ddpm-053" title="公式的永久链接"></a></span>\[\KL{q(x_{t-1}|x_t, x_0)}{p_{{\theta}}(x_{t-1}|x_t)}
 =\frac{1}{2\sigma_q^2(t)}\left[\left\lVert{\mu}_{{\theta}}-{\mu}_q\right\rVert_2^2\right]\]</div>
 <p>其中 <span class="math notranslate nohighlight">\({\mu}_q\)</span> 代表逆过程真实分布 <span class="math notranslate nohighlight">\(q(x_{t-1}|x_t, x_0)\)</span> 的均值，
 <span class="math notranslate nohighlight">\(\mu_{\theta}\)</span> 代表需要学习的近似逆过程分布 <span class="math notranslate nohighlight">\(p_{{\theta}}(x_{t-1}|x_t)\)</span>
 的均值，同时也是我们的参数化模型的预测输出值。
 假定 <span class="math notranslate nohighlight">\(q(x_{t-1}|x_t, x_0)\)</span> 与 <span class="math notranslate nohighlight">\(p_{{\theta}}(x_{t-1}|x_t)\)</span>
 的方差是相同的，并且都是 <span class="math notranslate nohighlight">\(\sigma_q^2(t)\)</span>。
-这次利用 <a class="reference internal" href="#equation-eq-ddpm-052">公式(30.2.3)</a> 对 <span class="math notranslate nohighlight">\({\mu}_q\)</span> 重新推导</p>
+这次利用 <a class="reference internal" href="#equation-eq-ddpm-052">公式(2.2.58)</a> 对 <span class="math notranslate nohighlight">\({\mu}_q\)</span> 重新推导</p>
 <div class="math notranslate nohighlight" id="equation-eq-ddpm-054">
-<span class="eqno">(30.2.5)<a class="headerlink" href="#equation-eq-ddpm-054" title="公式的永久链接"></a></span>\[\begin{split}\begin{align}
+<span class="eqno">(2.2.60)<a class="headerlink" href="#equation-eq-ddpm-054" title="公式的永久链接"></a></span>\[\begin{split}\begin{align}
 {\mu}_q &amp;= {\mu}_q(x_t, x_0) = \frac{\sqrt{\alpha_t}(1-\bar\alpha_{t-1})x_{t} + \sqrt{\bar\alpha_{t-1}}(1-\alpha_t)x_0}{1 -\bar\alpha_{t}}\\
 &amp;= \frac{\sqrt{\alpha_t}(1-\bar\alpha_{t-1})x_{t} + \sqrt{\bar\alpha_{t-1}}(1-\alpha_t)\frac{x_t - \sqrt{1 - \bar\alpha_t}\epsilon }{\sqrt{\bar\alpha_t}}}{1 -\bar\alpha_{t}}\\
 &amp;= \frac{\sqrt{\alpha_t}(1-\bar\alpha_{t-1})x_{t} + (1-\alpha_t)\frac{x_t - \sqrt{1 - \bar\alpha_t}\epsilon }{\sqrt{\alpha_t}}}{1 -\bar\alpha_{t}}\\
@@ -1460,12 +1442,12 @@ DDPM 做的一个关键改进就是参数化模型预测的内容做了调整，
 <p>接下，把模型的预测输出 <span class="math notranslate nohighlight">\(\mu_{\theta}\)</span>
 ，也按照这个形式进行参数化</p>
 <div class="math notranslate nohighlight" id="equation-eq-ddpm-055">
-<span class="eqno">(30.2.6)<a class="headerlink" href="#equation-eq-ddpm-055" title="公式的永久链接"></a></span>\[\mu_{\theta}={\mu}_{{\theta}}(x_t, t) = \frac{1}{\sqrt{\alpha_t}}x_t - \frac{1 - \alpha_t}{\sqrt{1 - \bar\alpha_t}\sqrt{\alpha_t}} {\hat\epsilon}_{ {\theta}}(x_t, t)\]</div>
-<p>令 <span class="math notranslate nohighlight">\({\hat\epsilon}_{ {\theta}}(x_t, t)\)</span> 表示模型的预测输出，然后通过 <a class="reference internal" href="#equation-eq-ddpm-055">公式(30.2.6)</a>
+<span class="eqno">(2.2.61)<a class="headerlink" href="#equation-eq-ddpm-055" title="公式的永久链接"></a></span>\[\mu_{\theta}={\mu}_{{\theta}}(x_t, t) = \frac{1}{\sqrt{\alpha_t}}x_t - \frac{1 - \alpha_t}{\sqrt{1 - \bar\alpha_t}\sqrt{\alpha_t}} {\hat\epsilon}_{ {\theta}}(x_t, t)\]</div>
+<p>令 <span class="math notranslate nohighlight">\({\hat\epsilon}_{ {\theta}}(x_t, t)\)</span> 表示模型的预测输出，然后通过 <a class="reference internal" href="#equation-eq-ddpm-055">公式(2.2.61)</a>
 计算得到 <span class="math notranslate nohighlight">\(\mu_{\theta}\)</span>。
-把 <a class="reference internal" href="#equation-eq-ddpm-054">公式(30.2.5)</a> 和 <a class="reference internal" href="#equation-eq-ddpm-055">公式(30.2.6)</a> 一起带入 <a class="reference internal" href="#equation-eq-ddpm-053">公式(30.2.4)</a></p>
+把 <a class="reference internal" href="#equation-eq-ddpm-054">公式(2.2.60)</a> 和 <a class="reference internal" href="#equation-eq-ddpm-055">公式(2.2.61)</a> 一起带入 <a class="reference internal" href="#equation-eq-ddpm-053">公式(2.2.59)</a></p>
 <div class="math notranslate nohighlight" id="equation-eq-ddpm-056">
-<span class="eqno">(30.2.7)<a class="headerlink" href="#equation-eq-ddpm-056" title="公式的永久链接"></a></span>\[\begin{split}\begin{align}
+<span class="eqno">(2.2.62)<a class="headerlink" href="#equation-eq-ddpm-056" title="公式的永久链接"></a></span>\[\begin{split}\begin{align}
 &amp;  \KL{q(x_{t-1}|x_t, x_0)}{p_{{\theta}}(x_{t-1}|x_t)} \\
 &amp;=\frac{1}{2\sigma_q^2(t)}\left[\left\lVert{\mu}_{{\theta}}-{\mu}_q\right\rVert_2^2\right]\\
 &amp;= \frac{1}{2\sigma_q^2(t)}\left[\left\lVert\frac{1}{\sqrt{\alpha_t}}x_t - \frac{1 - \alpha_t}{\sqrt{1 - \bar\alpha_t}\sqrt{\alpha_t}}{\hat\epsilon}_{{\theta}}(x_t, t) -
@@ -1475,9 +1457,9 @@ DDPM 做的一个关键改进就是参数化模型预测的内容做了调整，
 &amp;= \frac{1}{2\sigma_q^2(t)}\frac{(1 - \alpha_t)^2}{(1 - \bar\alpha_t)\alpha_t}\left[\left\lVert\epsilon  - {\hat\epsilon}_{{\theta}}(x_t, t)\right\rVert_2^2\right]
 \end{align}\end{split}\]</div>
 <p>其中 <span class="math notranslate nohighlight">\(\epsilon\)</span> 表示从时刻 <span class="math notranslate nohighlight">\(t-1\)</span> 到时刻 <span class="math notranslate nohighlight">\(t\)</span> 的前向过程中，
-按照公式 <a class="reference internal" href="#equation-eq-ddpm-024">公式(30.1.8)</a> 添加到 <span class="math notranslate nohighlight">\(x_{t-1}\)</span> 的随机高斯噪声。</p>
+按照公式 <a class="reference internal" href="#equation-eq-ddpm-024">公式(2.1.46)</a> 添加到 <span class="math notranslate nohighlight">\(x_{t-1}\)</span> 的随机高斯噪声。</p>
 <div class="math notranslate nohighlight" id="equation-eq-ddpm-057">
-<span class="eqno">(30.2.8)<a class="headerlink" href="#equation-eq-ddpm-057" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}x_t &amp;=\sqrt{\alpha_t} \ x_{t-1} +  \sqrt{1- \alpha_t } \ \epsilon\\&amp;= \sqrt{\bar{\alpha_i} } \ x_0 + \sqrt{1- \bar{ \alpha_i} }  \ \epsilon  \ \ \ ,
+<span class="eqno">(2.2.63)<a class="headerlink" href="#equation-eq-ddpm-057" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}x_t &amp;=\sqrt{\alpha_t} \ x_{t-1} +  \sqrt{1- \alpha_t } \ \epsilon\\&amp;= \sqrt{\bar{\alpha_i} } \ x_0 + \sqrt{1- \bar{ \alpha_i} }  \ \epsilon  \ \ \ ,
 \bar{\alpha} = \prod_{i=1}^t \alpha_i ,\ \ \epsilon \sim \mathcal{N}(0,\textit(I))\\&amp;\sim \mathcal{N}(\sqrt{\bar{\alpha_i} } \ x_0,  (1- \bar{ \alpha_i})    \textit{I})\end{aligned}\end{align} \]</div>
 <p>对于每一个时刻 <span class="math notranslate nohighlight">\(t\)</span>:</p>
 <ol class="arabic simple">
@@ -1493,147 +1475,74 @@ DDPM 做的一个关键改进就是参数化模型预测的内容做了调整，
 从 DDPM 的论文中也证明了一点。
 相比原来的 DPM，DDPM 能生成更高质量的图像数据。</p>
 <p>论文中给出的训练过程伪代码：</p>
-<figure class="align-center" id="fg-dm-010">
-<a class="reference internal image-reference" href="../_images/diffusion_training.webp"><img alt="../_images/diffusion_training.webp" src="../_images/diffusion_training.webp" style="width: 655.0px; height: 180.5px;" /></a>
+<figure class="align-center" id="id39">
+<span id="fg-dm-010"></span><a class="reference internal image-reference" href="../_images/diffusion_training.webp"><img alt="../_images/diffusion_training.webp" src="../_images/diffusion_training.webp" style="width: 655.0px; height: 180.5px;" /></a>
+<figcaption>
+<p><span class="caption-number">图 2.2.1 </span><span class="caption-text">DDPM训练过程伪代码（来自 <span id="id15">[<a class="reference internal" href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html#id17" title="Jonathan Ho, Ajay Jain, and Pieter Abbeel. Denoising diffusion probabilistic models. 2020. arXiv:2006.11239.">HJA20</a>]</span>）</span><a class="headerlink" href="#id39" title="永久链接至图片"></a></p>
+</figcaption>
 </figure>
 <p>论文中给出的采样（图像生成）过程伪代码如下：</p>
-<figure class="align-center" id="fg-dm-011">
-<a class="reference internal image-reference" href="../_images/diffusion_sampling.webp"><img alt="../_images/diffusion_sampling.webp" src="../_images/diffusion_sampling.webp" style="width: 630.0px; height: 222.75px;" /></a>
+<figure class="align-center" id="id40">
+<span id="fg-dm-011"></span><a class="reference internal image-reference" href="../_images/diffusion_sampling.webp"><img alt="../_images/diffusion_sampling.webp" src="../_images/diffusion_sampling.webp" style="width: 630.0px; height: 222.75px;" /></a>
+<figcaption>
+<p><span class="caption-number">图 2.2.2 </span><span class="caption-text">DDPM采样过程伪代码（来自 <span id="id16">[<a class="reference internal" href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html#id17" title="Jonathan Ho, Ajay Jain, and Pieter Abbeel. Denoising diffusion probabilistic models. 2020. arXiv:2006.11239.">HJA20</a>]</span>）</span><a class="headerlink" href="#id40" title="永久链接至图片"></a></p>
+</figcaption>
 </figure>
 <p>其中 <span class="math notranslate nohighlight">\(\beta_t = 1 - \alpha_t\)</span>
 ，<span class="math notranslate nohighlight">\(\sigma_{t}\)</span>  是逆过程分布 <span class="math notranslate nohighlight">\(q(x_{t-1}|x_t, x_0)\)</span> 的标准差，
-参照 <a class="reference internal" href="#equation-eq-ddpm-036">公式(30.1.16)</a>。</p>
+参照 <a class="reference internal" href="#equation-eq-ddpm-036">公式(2.1.54)</a>。</p>
 <p>在采样（图像生成）过程有一个细节，最后生成的图像（输出值）<span class="math notranslate nohighlight">\(\tilde{x}_0\)</span>
 并不是通过 <span class="math notranslate nohighlight">\(x_{t-1}\)</span> 计算得到的，二者计算方式不一样。
 逆过程中，<span class="math notranslate nohighlight">\(x_{t-1}\)</span> 的分布是 <span class="math notranslate nohighlight">\(q(x_{t-1}|x_t, x_0)\)</span>，
 它是一个高斯分布的随机变量，它需要通过采样得到，
 所以上图伪代码中，是先计算出其均值 <span class="math notranslate nohighlight">\(\tilde{\mu}\)</span>，
 然后再加上一项随机高斯噪声 <span class="math notranslate nohighlight">\(\sigma_t z\)</span> 。</p>
-<p>而最终生成的图像 <span class="math notranslate nohighlight">\(x_0\)</span> 是根据 <a class="reference internal" href="#equation-eq-ddpm-057">公式(30.2.8)</a> 的逆运算得到的。
+<p>而最终生成的图像 <span class="math notranslate nohighlight">\(x_0\)</span> 是根据 <a class="reference internal" href="#equation-eq-ddpm-057">公式(2.2.63)</a> 的逆运算得到的。
 其实当 <span class="math notranslate nohighlight">\(t=1\)</span> 时， <span class="math notranslate nohighlight">\(\tilde{x_0}\)</span> 和
 <span class="math notranslate nohighlight">\(\tilde{\mu}\)</span> 是相同的。
 当 <span class="math notranslate nohighlight">\(t=1\)</span> 时，有 <span class="math notranslate nohighlight">\(\bar{\alpha}_1 = \alpha_1\)</span>
 ，此时</p>
-<div class="math notranslate nohighlight" id="equation-probability-model-3">
-<span class="eqno">(30.2.9)<a class="headerlink" href="#equation-probability-model-3" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\tilde{\mu} &amp;= \frac{1} {\sqrt{\alpha_t}} (x_t - \frac{\beta_t}{\sqrt{1-\bar{\alpha_t}} } \epsilon_{\theta}(x_t,t) )\\&amp;=  \frac{1} {\sqrt{\alpha_1}} (x_1 - \frac{1-\alpha_1}{\sqrt{1-\bar{\alpha_1}} } \bar{\epsilon} )\\&amp;=  \frac{1} {\sqrt{\alpha_1}} (x_1 - \frac{1-\alpha_1}{\sqrt{1-\bar{\alpha_1}} } \bar{\epsilon} )\\&amp;=  \frac{1} {\sqrt{\alpha_1}} (x_1 - \frac{1-\alpha_1}{\sqrt{1-\alpha_1} } \bar{\epsilon} )\\&amp;=  \frac{1} {\sqrt{\alpha_1}} (x_1 -  \sqrt{1-\alpha_1}  \bar{\epsilon} )\\&amp;=  \tilde{x}_0\end{aligned}\end{align} \]</div>
+<div class="math notranslate nohighlight" id="equation-aigc-3">
+<span class="eqno">(2.2.64)<a class="headerlink" href="#equation-aigc-3" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\tilde{\mu} &amp;= \frac{1} {\sqrt{\alpha_t}} (x_t - \frac{\beta_t}{\sqrt{1-\bar{\alpha_t}} } \epsilon_{\theta}(x_t,t) )\\&amp;=  \frac{1} {\sqrt{\alpha_1}} (x_1 - \frac{1-\alpha_1}{\sqrt{1-\bar{\alpha_1}} } \bar{\epsilon} )\\&amp;=  \frac{1} {\sqrt{\alpha_1}} (x_1 - \frac{1-\alpha_1}{\sqrt{1-\bar{\alpha_1}} } \bar{\epsilon} )\\&amp;=  \frac{1} {\sqrt{\alpha_1}} (x_1 - \frac{1-\alpha_1}{\sqrt{1-\alpha_1} } \bar{\epsilon} )\\&amp;=  \frac{1} {\sqrt{\alpha_1}} (x_1 -  \sqrt{1-\alpha_1}  \bar{\epsilon} )\\&amp;=  \tilde{x}_0\end{aligned}\end{align} \]</div>
 <p>也就是说我们最终输出的 <span class="math notranslate nohighlight">\(\tilde{x}_0\)</span> 是 <span class="math notranslate nohighlight">\(q(x_{t-1}|x_t, x_0)\)</span> 的期望，
 而不是  <span class="math notranslate nohighlight">\(q(x_{t-1}|x_t, x_0)\)</span> 的采样值，这和我们的 ELBO 函数的第一项是一致的。
 事实上，所有的回归模型最终输出的都是期望值。</p>
 </section>
 <section id="guidance">
-<h2><span class="section-number">30.3. </span>Guidance<a class="headerlink" href="#guidance" title="永久链接至标题"></a></h2>
+<h2><span class="section-number">2.3. </span>Guidance<a class="headerlink" href="#guidance" title="永久链接至标题"></a></h2>
 <p>to be continue</p>
 </section>
-<section id="latent-diffusion-model-ldm">
-<h2><span class="section-number">30.4. </span>潜在扩散模型（Latent diffusion model,LDM）<a class="headerlink" href="#latent-diffusion-model-ldm" title="永久链接至标题"></a></h2>
-<p>DDPM 模型在生成图像质量上效果已经非常好，但它也有个缺点，
-那就是 <span class="math notranslate nohighlight">\(x_t\)</span> 的尺寸是和图片一致的，<span class="math notranslate nohighlight">\(x_t\)</span> 的元素和图片的像素是一一对应的，
-所以称 DDPM 是像素(pixel)空间的生成模型。
-我们知道一张图片的尺寸是 <span class="math notranslate nohighlight">\(3 \times H \times W\)</span>
-，如果想生成一张高尺寸的图像， <span class="math notranslate nohighlight">\(x_t\)</span> 的张量大小是非常大的，这就需要极大的显卡（硬件）资源，包括计算资源和显存资源。
-同样的，它的训练成本也是高昂的。高昂的成本极大的限制了它在民用领用的发展。</p>
-<p>2021 年 CompVis 小组发布了论文 <cite>High-Resolution Image Synthesis with Latent Diffusion Models</cite>
-<span id="id17">[<a class="reference internal" href="#id39" title="Robin Rombach, Andreas Blattmann, Dominik Lorenz, Patrick Esser, and Björn Ommer. High-resolution image synthesis with latent diffusion models. 2021. arXiv:2112.10752.">RBL+21</a>]</span>，针对这个问题做了一些改进，
-主要的改进点有：</p>
-<ul class="simple">
-<li><p>引入一个自编码器，先对原始对象进行压缩编码，编码后的向量再应用到扩散模型。</p></li>
-<li><p>通过在 UNET 中加入 Attention 机制，处理条件变量 <span class="math notranslate nohighlight">\(y\)</span>。</p></li>
-</ul>
-<p><strong>潜在空间</strong></p>
-<p>针对 DDPM 消耗资源的问题，解决方法也简单。
-引入一个自编码器，比如上一章介绍的变分编码器（VAE），先对原始图像进行压缩编码，得到图像的低维表示 <span class="math notranslate nohighlight">\(z_0\)</span>
-，然后 <span class="math notranslate nohighlight">\(z_0\)</span> 作为 DDPM 的输入，执行 DDPM 的算法过程，DDPM 生成的结果再经过解码器还原成图像。
-由于 <span class="math notranslate nohighlight">\(z_0\)</span> 是压缩过的，其尺寸远远小于原始的图像，这样就能极大的减少 DDPM 资源的消耗。
-压缩后 <span class="math notranslate nohighlight">\(z_0\)</span> 所在的数据空间称为潜在空间（latent space）,
-<span class="math notranslate nohighlight">\(z_0\)</span> 可以称为潜在数据。</p>
-<figure class="align-center" id="id45">
-<span id="fg-dm-031"></span><a class="reference internal image-reference" href="../_images/diffusion_ldm_vae.webp"><img alt="../_images/diffusion_ldm_vae.webp" src="../_images/diffusion_ldm_vae.webp" style="width: 432.0px; height: 184.0px;" /></a>
-<figcaption>
-<p><span class="caption-number">图 30.4.1 </span><span class="caption-text">LDM 中自编码器示意图（图片来自 <a class="reference external" href="https://medium.com/&#64;steinsfu/stable-diffusion-clearly-explained-ed008044e07e">blog</a> ）</span><a class="headerlink" href="#id45" title="永久链接至图片"></a></p>
-</figcaption>
-</figure>
-<p>这个自编码器（VAE）可以是提前预训练好的模型，在训练扩散模型时，编码器的参数是冻住的，
-如 <a class="reference internal" href="#fg-dm-031"><span class="std std-numref">图 30.4.1</span></a> 所示</p>
-<ul class="simple">
-<li><p>通过使用预训练的编码器 <span class="math notranslate nohighlight">\(E\)</span>，我们可以将全尺寸图像编码为低维潜在数据（压缩数据）。</p></li>
-<li><p>通过使用预训练的解码器 <span class="math notranslate nohighlight">\(D\)</span>，我们可以将潜在数据解码回图像。</p></li>
-</ul>
-<figure class="align-center" id="fg-dm-032">
-<a class="reference internal image-reference" href="../_images/diffusion_ldm_2.webp"><img alt="../_images/diffusion_ldm_2.webp" src="../_images/diffusion_ldm_2.webp" style="width: 433.6px; height: 359.20000000000005px;" /></a>
-</figure>
-<p>正向扩散过程→给潜在数据增加噪声，逆向扩散过程→从潜在数据中消除噪声。
-整个 DDPM 的过程都是在潜在空间执行的，
-所以这个算法被称为潜在扩散模型（Latent diffusion model,LDM）。
-增加一个自编码器并没有改变 DDPM 的算法过程，所以并不需要对 DDPM 算法代码做任何改动。</p>
-<p><strong>条件处理</strong></p>
-<p>在 DDPM 的过程中，可以增加额外的指导信息，使其生成我们的想要的图像，
-比如文本生成图像、图像生成图像等等。</p>
-<figure class="align-center" id="fg-dm-033">
-<a class="reference internal image-reference" href="../_images/diffusion_ldm_3.webp"><img alt="../_images/diffusion_ldm_3.webp" src="../_images/diffusion_ldm_3.webp" style="width: 743.2px; height: 335.20000000000005px;" /></a>
-</figure>
-<p>用符号 <span class="math notranslate nohighlight">\(y\)</span> 表示额外的条件数据，用 <span class="math notranslate nohighlight">\(\tau_{\theta}\)</span>
-表示 <span class="math notranslate nohighlight">\(y\)</span> 的加工处理过程，它负责把 <span class="math notranslate nohighlight">\(y\)</span> 加工成特征向量。
-比如，如果 <span class="math notranslate nohighlight">\(y\)</span> 是一段文本的 prompt，
-<span class="math notranslate nohighlight">\(\tau_{\theta}\)</span> 就是可以是一个 text-encoder，
-论文中使用的预训练好的 CLIP 模型中的 text-encoder。
-之所以用 CLIP 模型的 text-encoder，
-是因为 CLIP 模型本身就是一个文本图像的多模态模型，
-它的 text-encoder 能更贴近图像的特征空间，
-这里选用一个预训练好的 CLIP 模型即可。</p>
-<p>通过在 UNET 网络中增加 Attention 机制把文本的嵌入向量( <span class="math notranslate nohighlight">\(\tau_{\theta}(y)\)</span> ）
-加入到 UNET 网络中。加入不同的内容可以通过一个开关（switch）来控制，
-如 <code class="xref std std-numref docutils literal notranslate"><span class="pre">fg_dm_033</span></code> 所示。</p>
-<ul class="simple">
-<li><p>对于文本输入，它们首先使用语言模型 <span class="math notranslate nohighlight">\(\tau_{\theta}(y)\)</span> （例如BERT，CLIP）转换为嵌入（向量），然后通过（多头）注意（Q，K，V）层映射到U-Net。</p></li>
-<li><p>对于其他空间对齐的输入（例如语义图、图像、修复），可以使用串联来完成调节。</p></li>
-</ul>
-<p>关于注意力机制的实现细节，可以直接参考论文代码，
-LDM模型论文的代码和预训练的模型已经在 Github 开源，地址为： <cite>https://github.com/CompVis/latent-diffusion</cite>
-。</p>
-<p><strong>训练过程</strong></p>
-<p>相比于 DDPM ，条件化的 LDM 目标函数稍微变化了一点，具体变化内容可以参考 <code class="xref std std-numref docutils literal notranslate"><span class="pre">fg_dm_034</span></code>。</p>
-<figure class="align-center" id="fg-dm-034">
-<a class="reference internal image-reference" href="../_images/diffusion_ldm_7.png"><img alt="../_images/diffusion_ldm_7.png" src="../_images/diffusion_ldm_7.png" style="width: 440.0px; height: 232.0px;" /></a>
-</figure>
-<p><strong>生成（采样）过程</strong></p>
-<figure class="align-center" id="fg-dm-035">
-<a class="reference internal image-reference" href="../_images/diffusion_ldm_4.webp"><img alt="../_images/diffusion_ldm_4.webp" src="../_images/diffusion_ldm_4.webp" style="width: 810.4000000000001px; height: 283.2px;" /></a>
-</figure>
-<p><code class="xref std std-numref docutils literal notranslate"><span class="pre">fg_dm_035</span></code> 是 LDM 采样过程的图形化表示，
-过程并不复杂，经过 DDPM 采样生成的 <span class="math notranslate nohighlight">\(z_0\)</span> 需要用解码器 <span class="math notranslate nohighlight">\(D\)</span>
-还原成图像。</p>
-<figure class="align-center" id="id46">
-<span id="fg-dm-036"></span><a class="reference internal image-reference" href="../_images/diffusion_ldm.png"><img alt="../_images/diffusion_ldm.png" src="../_images/diffusion_ldm.png" style="width: 520.0px; height: 258.8px;" /></a>
-<figcaption>
-<p><span class="caption-number">图 30.4.2 </span><span class="caption-text">LDM 示意图 ( 来自 <span id="id22">[<a class="reference internal" href="#id39" title="Robin Rombach, Andreas Blattmann, Dominik Lorenz, Patrick Esser, and Björn Ommer. High-resolution image synthesis with latent diffusion models. 2021. arXiv:2112.10752.">RBL+21</a>]</span> )</span><a class="headerlink" href="#id46" title="永久链接至图片"></a></p>
-</figcaption>
-</figure>
-<section id="stable-diffusion-probabilistic-model-sdm">
-<h3><span class="section-number">30.4.1. </span>稳定扩散模型（Stable diffusion probabilistic model,SDM）<a class="headerlink" href="#stable-diffusion-probabilistic-model-sdm" title="永久链接至标题"></a></h3>
-<p>2022年 CompVis 开源了一个预训练好的  text-to-image 的 LDM 模型</p>
-<p>Stable Diffusion is a latent text-to-image diffusion model capable of generating photo-realistic images given any text input.</p>
-<p>为什么都是 Unet？</p>
+<section id="unet">
+<h2><span class="section-number">2.4. </span>UNET<a class="headerlink" href="#unet" title="永久链接至标题"></a></h2>
+<p>待补充</p>
 </section>
+<section id="improved-denoising-diffusion-probabilistic-models-ddpm">
+<h2><span class="section-number">2.5. </span>改进降噪扩散概率模型（Improved Denoising Diffusion Probabilistic Models,DDPM）<a class="headerlink" href="#improved-denoising-diffusion-probabilistic-models-ddpm" title="永久链接至标题"></a></h2>
+<ol class="arabic simple">
+<li><p>学习方差</p></li>
+<li><p>线性的schedule 改成余弦schedule</p></li>
+</ol>
+<p>待补充</p>
 </section>
-<section id="id23">
-<h2><span class="section-number">30.5. </span>参考文献<a class="headerlink" href="#id23" title="永久链接至标题"></a></h2>
-<p id="id24"><dl class="citation">
-<dt class="label" id="id36"><span class="brackets">HJA20</span><span class="fn-backref">(<a href="#id9">1</a>,<a href="#id14">2</a>,<a href="#id15">3</a>,<a href="#id16">4</a>)</span></dt>
+<section id="id17">
+<h2><span class="section-number">2.6. </span>参考文献<a class="headerlink" href="#id17" title="永久链接至标题"></a></h2>
+<p id="id18"><dl class="citation">
+<dt class="label" id="id30"><span class="brackets">HJA20</span><span class="fn-backref">(<a href="#id9">1</a>,<a href="#id14">2</a>,<a href="#id15">3</a>,<a href="#id16">4</a>)</span></dt>
 <dd><p>Jonathan Ho, Ajay Jain, and Pieter Abbeel. Denoising diffusion probabilistic models. 2020. <a class="reference external" href="https://arxiv.org/abs/2006.11239">arXiv:2006.11239</a>.</p>
 </dd>
-<dt class="label" id="id35"><span class="brackets"><a class="fn-backref" href="#id10">KSPH22</a></span></dt>
+<dt class="label" id="id29"><span class="brackets"><a class="fn-backref" href="#id10">KSPH22</a></span></dt>
 <dd><p>Diederik P. Kingma, Tim Salimans, Ben Poole, and Jonathan Ho. Variational diffusion models. 2022. <a class="reference external" href="https://arxiv.org/abs/2107.00630">arXiv:2107.00630</a>.</p>
 </dd>
-<dt class="label" id="id32"><span class="brackets">KW13</span></dt>
+<dt class="label" id="id26"><span class="brackets">KW13</span></dt>
 <dd><p>Diederik P. Kingma and Max Welling. Auto-encoding variational bayes. <em>CoRR</em>, 2013.</p>
 </dd>
-<dt class="label" id="id34"><span class="brackets">Luo22</span><span class="fn-backref">(<a href="#id3">1</a>,<a href="#id5">2</a>,<a href="#id7">3</a>,<a href="#id11">4</a>,<a href="#id12">5</a>,<a href="#id13">6</a>)</span></dt>
+<dt class="label" id="id28"><span class="brackets">Luo22</span><span class="fn-backref">(<a href="#id3">1</a>,<a href="#id5">2</a>,<a href="#id7">3</a>,<a href="#id11">4</a>,<a href="#id12">5</a>,<a href="#id13">6</a>)</span></dt>
 <dd><p>Calvin Luo. Understanding diffusion models: a unified perspective. 2022. <a class="reference external" href="https://arxiv.org/abs/2208.11970">arXiv:2208.11970</a>.</p>
 </dd>
-<dt class="label" id="id39"><span class="brackets">RBL+21</span><span class="fn-backref">(<a href="#id17">1</a>,<a href="#id22">2</a>)</span></dt>
+<dt class="label" id="id33"><span class="brackets">RBL+21</span></dt>
 <dd><p>Robin Rombach, Andreas Blattmann, Dominik Lorenz, Patrick Esser, and Björn Ommer. High-resolution image synthesis with latent diffusion models. 2021. <a class="reference external" href="https://arxiv.org/abs/2112.10752">arXiv:2112.10752</a>.</p>
 </dd>
-<dt class="label" id="id37"><span class="brackets">SDWMG15</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id2">2</a>,<a href="#id4">3</a>)</span></dt>
+<dt class="label" id="id31"><span class="brackets">SDWMG15</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id2">2</a>,<a href="#id4">3</a>)</span></dt>
 <dd><p>Jascha Sohl-Dickstein, Eric A. Weiss, Niru Maheswaranathan, and Surya Ganguli. Deep unsupervised learning using nonequilibrium thermodynamics. 2015. <a class="reference external" href="https://arxiv.org/abs/1503.03585">arXiv:1503.03585</a>.</p>
 </dd>
 </dl>
@@ -1645,8 +1554,8 @@ LDM模型论文的代码和预训练的模型已经在 Github 开源，地址为
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html" class="btn btn-neutral float-left" title="29. 变分自编码器（Variational Autoencoder）" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
-        <a href="%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE.html" class="btn btn-neutral float-right" title="31. 参考文献" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html" class="btn btn-neutral float-left" title="1. 变分自编码器（Variational Autoencoder）" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="%E7%A8%B3%E5%AE%9A%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B.html" class="btn btn-neutral float-right" title="3. 稳定扩散模型（Stable diffusion model）" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

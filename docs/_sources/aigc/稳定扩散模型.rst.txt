@@ -1,0 +1,198 @@
+.. _ch_LDM:
+
+##############################################################
+稳定扩散模型（Stable diffusion model）
+##############################################################
+
+
+DDPM 模型在生成图像质量上效果已经非常好，但它也有个缺点，
+那就是 :math:`x_t` 的尺寸是和图片一致的，:math:`x_t` 的元素和图片的像素是一一对应的，
+所以称 DDPM 是像素(pixel)空间的生成模型。
+我们知道一张图片的尺寸是 :math:`3 \times H \times W`
+，如果想生成一张高尺寸的图像， :math:`x_t` 的张量大小是非常大的，这就需要极大的显卡（硬件）资源，包括计算资源和显存资源。
+同样的，它的训练成本也是高昂的。高昂的成本极大的限制了它在民用领用的发展。
+
+
+潜在扩散模型（Latent diffusion model,LDM）
+############################################################################
+
+2021 年 CompVis 小组发布了论文 `High-Resolution Image Synthesis with Latent Diffusion Models`
+:cite:`rombach2021highresolution`，针对这个问题做了一些改进，
+主要的改进点有：
+
+- 引入一个自编码器，先对原始对象进行压缩编码，编码后的向量再应用到扩散模型。
+- 通过在 UNET 中加入 Attention 机制，处理条件变量 :math:`y`。
+
+
+
+**潜在空间**
+
+针对 DDPM 消耗资源的问题，解决方法也简单。
+引入一个自编码器，比如上一章介绍的变分编码器（VAE），先对原始图像进行压缩编码，得到图像的低维表示 :math:`z_0`
+，然后 :math:`z_0` 作为 DDPM 的输入，执行 DDPM 的算法过程，DDPM 生成的结果再经过解码器还原成图像。
+由于 :math:`z_0` 是压缩过的，其尺寸远远小于原始的图像，这样就能极大的减少 DDPM 资源的消耗。
+压缩后 :math:`z_0` 所在的数据空间称为潜在空间（latent space）,
+:math:`z_0` 可以称为潜在数据。
+
+
+
+
+
+.. _fg_dm_031:
+
+.. figure:: pictures/diffusion_ldm_vae.webp
+   :scale: 80 %
+   :align: center
+
+   LDM 中自编码器示意图（图片来自 `blog <https://medium.com/@steinsfu/stable-diffusion-clearly-explained-ed008044e07e>`_ ）
+
+
+
+这个自编码器（VAE）可以是提前预训练好的模型，在训练扩散模型时，编码器的参数是冻住的，
+如 :numref:`fg_dm_031` 所示
+
+- 通过使用预训练的编码器 :math:`E`，我们可以将全尺寸图像编码为低维潜在数据（压缩数据）。
+- 通过使用预训练的解码器 :math:`D`，我们可以将潜在数据解码回图像。
+
+
+
+.. _fg_dm_032:
+
+.. figure:: pictures/diffusion_ldm_2.webp
+   :scale: 80 %
+   :align: center
+
+   LDM 中DDPM是在潜在空间执行的（图片来自
+   blog <https://medium.com/@steinsfu/stable-diffusion-clearly-explained-ed008044e07e>`_ ）
+
+
+正向扩散过程→给潜在数据增加噪声，逆向扩散过程→从潜在数据中消除噪声。
+整个 DDPM 的过程都是在潜在空间执行的，
+所以这个算法被称为潜在扩散模型（Latent diffusion model,LDM）。
+增加一个自编码器并没有改变 DDPM 的算法过程，所以并不需要对 DDPM 算法代码做任何改动。
+
+
+**条件处理**
+
+
+在 DDPM 的过程中，可以增加额外的指导信息，使其生成我们的想要的图像，
+比如文本生成图像、图像生成图像等等。
+
+
+
+.. _fg_dm_033:
+
+.. figure:: pictures/diffusion_ldm_3.webp
+   :scale: 80 %
+   :align: center
+
+   条件化的LDM（图片来自 blog <https://medium.com/@steinsfu/stable-diffusion-clearly-explained-ed008044e07e> ）
+
+
+
+
+用符号 :math:`y` 表示额外的条件数据，用 :math:`\tau_{\theta}`
+表示 :math:`y` 的加工处理过程，它负责把 :math:`y` 加工成特征向量。
+比如，如果 :math:`y` 是一段文本的 prompt，
+:math:`\tau_{\theta}` 就是可以是一个 text-encoder，
+论文中使用的预训练好的 CLIP 模型中的 text-encoder。
+之所以用 CLIP 模型的 text-encoder，
+是因为 CLIP 模型本身就是一个文本图像的多模态模型，
+它的 text-encoder 能更贴近图像的特征空间，
+这里选用一个预训练好的 CLIP 模型即可。
+
+
+
+通过在 UNET 网络中增加 Attention 机制把文本的嵌入向量( :math:`\tau_{\theta}(y)` ）
+加入到 UNET 网络中。加入不同的内容可以通过一个开关（switch）来控制，
+如 :numref:`fg_dm_033` 所示。
+
+- 对于文本输入，它们首先使用语言模型 :math:`\tau_{\theta}(y)` （例如BERT，CLIP）转换为嵌入（向量），然后通过（多头）注意（Q，K，V）层映射到U-Net。
+- 对于其他空间对齐的输入（例如语义图、图像、修复），可以使用串联来完成调节。
+
+
+关于注意力机制的实现细节，可以直接参考论文代码，
+LDM模型论文的代码和预训练的模型已经在 Github 开源，地址为： `https://github.com/CompVis/latent-diffusion`
+。
+
+
+**训练过程**
+
+相比于 DDPM ，条件化的 LDM 目标函数稍微变化了一点，具体变化内容可以参考 :numref:`fg_dm_034`。
+
+.. _fg_dm_034:
+
+.. figure:: pictures/diffusion_ldm_7.png
+   :scale: 40 %
+   :align: center
+
+   LDM 目标函数的变化（图片来自 blog <https://medium.com/@steinsfu/stable-diffusion-clearly-explained-ed008044e07e> )
+
+
+
+
+**生成（采样）过程**
+
+
+.. _fg_dm_035:
+
+.. figure:: pictures/diffusion_ldm_4.webp
+   :scale: 70 %
+   :align: center
+
+   LDM采样过程的图示（图片来自 blog <https://medium.com/@steinsfu/stable-diffusion-clearly-explained-ed008044e07e> ）
+
+
+
+:numref:`fg_dm_035` 是 LDM 采样过程的图形化表示，
+过程并不复杂，经过 DDPM 采样生成的 :math:`z_0` 需要用解码器 :math:`D`
+还原成图像。
+
+
+
+
+
+.. _fg_dm_036:
+
+.. figure:: pictures/diffusion_ldm.png
+   :scale: 20 %
+   :align: center
+
+   LDM 示意图 (来自 :cite:`rombach2021highresolution`)
+
+
+
+
+稳定扩散模型（Stable diffusion probabilistic model,SDM）
+############################################################################
+
+
+2022年 CompVis 开源了一个预训练好的  text-to-image 的 LDM 模型
+
+Stable Diffusion is a latent text-to-image diffusion model capable of generating photo-realistic images given any text input.
+
+为什么都是 Unet？
+
+
+
+
+
+
+参考文献
+########################################################
+
+.. bibliography::
+
+   sohldickstein2015deep
+   ho2020denoising
+   kingma2022variational
+   luo2022understanding
+   rombach2021highresolution
+
+
+
+
+.. meta::
+    :description lang=zh_CN: 潜在扩散模型
+    :keywords: 变分自编码器,Variational Autoencoder,VAE,扩散模型,Diffusion Model,生成模型,图像生成
+

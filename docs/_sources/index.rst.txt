@@ -22,7 +22,7 @@ Welcome
 
    glm/source/index.rst
    probability_model/index_html.rst
-   probability_model/aigc_index.rst
+   aigc/index.rst
    audio/index.rst
    edm/index.rst
    nlp/index.rst
