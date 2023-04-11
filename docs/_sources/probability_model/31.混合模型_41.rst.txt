@@ -59,7 +59,7 @@
 ，随机变量 :math:`Z` 用于表示当前数据来源于哪一个具体的分布。
 假设数据来源于 :math:`K` 个不同参数的分布，
 则类别变量 :math:`Z` 有 :math:`K` 个取值，
-:math:`Z_i=z_k` 表示第 :math:`i`
+:math:`Z^{i}=z_k` 表示第 :math:`i`
 条观测样本来源于第 :math:`k` 个分布。
 用 :math:`X` 表示观测变量，
 观测变量 :math:`X` 一共有 :math:`K` 个分量，
@@ -85,12 +85,10 @@
 
     lambda[label="𝜆" shape="plaintext"]
 
-
-
     subgraph cluster_a {
 
-        Z[label=<Z<SUB>i</SUB>>];
-        X[label=<X<SUB>i</SUB>>, style=filled];
+        Z[label=<Z<SUP>i</SUP>>];
+        X[label=<X<SUP>i</SUP>>, style=filled];
         Z -> {X};
 
         label="N";
@@ -122,15 +120,20 @@
 
     P(Z,X;\lambda,\theta) = P(Z;\lambda)P(X|Z;\theta)
 
-其中变量 :math:`Z` 是一个类别变量，它的边缘概率分布可以写为
+其中变量 :math:`Z` 是一个类别变量，假设它有 :math:`K` 个不同的值，即 :math:`Z \in [1,K]`。
+:math:`\lambda_k` 表示 :math:`Z=k` 的的概率，即 :math:`P(Z=k) = \lambda_k`。
+令 :math:`z_k = \mathbb{I} (z,k)` 表示指示函数，当满足 :math:`z=k` 时，其值为 :math:`1`，
+否则为 :math:`0`。
+变量 :math:`Z` 的先验概率分布可以写为
 
 .. math::
     :label: eq_mixture_01.05
 
     P(Z;\lambda) = \prod_{k=1}^K \lambda_k^{z_k} ,\quad \sum_{k=1}^K \lambda_k = 1
 
-响应的变量 :math:`X` 有 :math:`K` 个分量，所有分量都属于同一种概率分布，只是参数不同。
-条件概率分布 :math:`P(X|Z;\theta)` 就表示每个分量的概率分布，
+响应的变量 :math:`X` 有 :math:`K` 个分量，所有分量都属于同一种概率分布，只是参数不同，
+显然这里 :math:`X` 是包含 :math:`K` 分布的参数分布族。
+条件概率分布 :math:`P(X|Z;\theta)`
 可以写为
 
 .. math::
@@ -138,9 +141,54 @@
 
     P(X|Z;\theta) = \prod_{k=1}^K P(X;\theta_k)^{z_k}
 
-分量 :math:`X_k` 的具体分布取决于你的实际场景（数据），
-当 :math:`X_k` 是高斯分布时就被称为高斯混合模型，
+分量 :math:`P(X;\theta_k)` 具体是什么分布可以根据你的实际场景（数据）进行相应的假设，
+当假设为高斯分布时就被称为高斯混合模型，
 这里我们暂时不关心它的具体形式，下一节再讨论高斯混合模型。
+这里我们探讨一下 :math:`Z` 和 :math:`X` 的关系，类别变量 :math:`Z` 是一个单变量，而变量 :math:`X`
+是多变量（参数分布族）组合而成，二者的关系可以简单理解成下图所示。
+
+.. digraph:: Z和X的关系
+    :align: center
+    :caption: Z和X的关系
+
+    node[shape=circle,width=0.6];
+    rankdir = LR
+
+    X1[label=<X<SUB>1</SUB>(𝜃<SUB>1</SUB>)>, style=filled]
+    X2[label=<X<SUB>2</SUB>(𝜃<SUB>2</SUB>)>, style=filled]
+    X3[label="...", style=filled]
+    XK[label=<X<SUB>k</SUB>(𝜃<SUB>k</SUB>)>, style=filled]
+
+    Z -> X1[label="z=1", style=filled]
+    Z -> X2[label="z=2", style=filled]
+    Z -> X3[label="...", style=filled]
+    Z -> XK[label="z=k", style=filled]
+
+
+变量 :math:`Z` 的取值决定了从变量 :math:`X` 的哪个分量中取值，
+:math:`Z` 影响的是 :math:`\theta` 的值，不同的 :math:`Z` 值意味着不同的 :math:`\theta` 值。
+实际上变量 :math:`X` 的每个分量仅仅是分布参数 :math:`\theta` 的值不同，
+变量 :math:`X` 可以看做是由一个参数分布族"组合"而成的混合变量。
+在这里 :math:`P(Z)` 是一个服从类别分布的单变量，
+条件概率分布 :math:`P(X|Z)` 是在 :math:`Z` 的值确定的条件下 :math:`X` 的概率分布，
+根据全概率公式，变量 :math:`X` 的边缘概率分布为
+
+.. math::
+
+    P(X)  = \sum_z P(X|Z)P(Z)
+
+
+如果我们假设 :math:`P(X|Z)` 是高斯分布，
+此时边缘概率分布 :math:`P(X)` 是什么分布呢？
+注意，它并不是一个高斯分布，而是多个高斯分布混合在一起的一个"未知分布"。
+直观的理解是，当把 :math:`X` 的样本（观测数据样本）分成 :math:`K` 组后，每一组的样本单独看，是服从高斯分布的样本，
+但是把他们都组合一起，形成一个大的样本集合，显然并不服从某个特定的高斯分布，而是多个不同的高斯分布的样本混合在一起。
+
+
+.. todo:: 补充一个多个高斯分布组合成一个分布的图
+
+
+
 
 参数估计
 ===========================================
@@ -156,15 +204,15 @@
 .. math::
     :label: eq_mixture_02.02
 
-    \ell &= \sum_i^N \ln P(Z_i,X_i;\lambda,\theta)\\
-    &= \sum_i^N \ln  P(Z_i;\lambda)P(X_i|Z_i;\theta) \\
-    &=  \sum_i^N \ln  P(Z_i;\lambda) +  \sum_i^N \ln P(X_i|Z_i;\theta)\\
-    &=  \sum_i^N \ln  P(Z_i;\lambda) +  \sum_i^N \ln \prod_{k=1}^K P(X_i;\theta_k)^{z_k} \\
-    &=  \sum_i^N \ln  P(Z_i;\lambda) +  \sum_i^N \sum_{k=1}^K  {z_k} \ln  P(X_i;\theta_k)
+    \ell &= \sum_i^N \ln P(Z^{i},X^{i};\lambda,\theta)\\
+    &= \sum_i^N \ln  P(Z^{i};\lambda)P(X^{i}|Z^{i};\theta) \\
+    &=  \sum_i^N \ln  P(Z^{i};\lambda) +  \sum_i^N \ln P(X^{i}|Z^{i};\theta)\\
+    &=  \sum_i^N \ln  P(Z^{i};\lambda) +  \sum_i^N \ln \prod_{k=1}^K P(X^{i};\theta_k)^{z_k} \\
+    &=  \sum_i^N \ln  P(Z^{i};\lambda) +  \sum_i^N \sum_{k=1}^K  {z_k} \ln  P(X^{i};\theta_k)
 
 
 可以看到，在完整观测数据的情况下，
-:math:`P(Z_i;\lambda)` 和 :math:`P(X_k;\theta_k)`
+:math:`P(Z^{i};\lambda)` 和 :math:`P(X_k;\theta_k)`
 可以分别独立的使用观测数据进行参数估计，估计过程比较简单。
 这里就不赘述了，如果读者不理解这步之后的估计过程，可以重新学习本书之前的章节。
 
@@ -182,16 +230,16 @@
 .. math::
     :label: eq_mixture_02.03
 
-    P(X_1,X_2,\cdots,X_N;\theta) = \prod_{i=1}^N P(X_i;\theta)
+    P(X_1,X_2,\cdots,X_N;\theta) = \prod_{i=1}^N P(X^{i};\theta)
 
 
 根据图模型的推断理论，需要在联合概率的基础上通过边际化（消元）的方法得到边缘概率
-:math:`P(X_i;\theta)` ，
+:math:`P(X^{i};\theta)` ，
 
 .. math::
     :label: eq_mixture_02.04
 
-    P(X_i;\theta) = \sum_z P(X_i,Z_i;\lambda,\theta)
+    P(X^{i};\theta) = \sum_z P(X^{i},Z^{i};\lambda,\theta)
 
 
 此时对数似然函数为
@@ -199,8 +247,8 @@
 .. math::
     :label: eq_mixture_02.05
 
-    \ell &= \sum_{i=1}^N \ln P(X_i;\theta) \\
-    &= \sum_{i=1}^N \ln  \sum_z P(X_i,Z_i;\lambda,\theta)
+    \ell &= \sum_{i=1}^N \ln P(X^{i};\theta) \\
+    &= \sum_{i=1}^N \ln  \sum_z P(X^{i},Z^{i};\lambda,\theta)
 
 
 可以看到上式中对数 :math:`\ln` 内部存在一个求和符号，
@@ -222,32 +270,32 @@ EM算法的具体推导过程这里不再赘述，读者可以回顾一下
 
 **E-步骤：** 得到隐变量的后验概率分布
 
-用 :math:`\gamma(Z_i)` 表示 :math:`Z_i` 的后验概率分布的概率质量函数，
+用 :math:`\gamma(Z^{i})` 表示 :math:`Z^{i}` 的后验概率分布的概率质量函数，
 根据贝叶斯公式有
 
 .. math::
     :label: eq_mixture_02.06
 
-    \gamma(Z_i) &= P(Z_i|X_i;\lambda^{t-1},\theta^{t-1}) \\
-    &= \frac{P(X_i,Z_i;\lambda^{t-1},\theta^{t-1})}{P(X_i)} \\
-    &= \frac{P(Z_i;\lambda^{t-1})P(X_i|Z_i;\theta^{t-1})}{\sum_z  P(Z_i;\lambda^{t-1})P(X_i|Z_i;\theta^{t-1}) }
+    \gamma(Z^{i}) &= P(Z^{i}|X^{i};\lambda^{t-1},\theta^{t-1}) \\
+    &= \frac{P(X^{i},Z^{i};\lambda^{t-1},\theta^{t-1})}{P(X^{i})} \\
+    &= \frac{P(Z^{i};\lambda^{t-1})P(X^{i}|Z^{i};\theta^{t-1})}{\sum_z  P(Z^{i};\lambda^{t-1})P(X^{i}|Z^{i};\theta^{t-1}) }
 
 具体的 :math:`\gamma(Z=z_k)` 为
 
 .. math::
     :label: eq_mixture_02.07
 
-    \gamma(Z_i=z_k)
-    &= \frac{P(Z_i=z_k;\lambda^{t-1})P(X_i|Z_i=z_k;\theta^{t-1})}{\sum_{k=1}^K P(Z_i=z_k;\lambda^{t-1})P(X_i|Z_i=z_k;\theta^{t-1})}\\
-    &= \frac{P(Z_i=z_k;\lambda^{t-1})P(X_i;\theta_k^{t-1})}{\sum_{k=1}^K P(Z_i=z_k;\lambda^{t-1})P(X_i;\theta_k^{t-1})  }
+    \gamma(Z^{i}=z_k)
+    &= \frac{P(Z^{i}=z_k;\lambda^{t-1})P(X^{i}|Z^{i}=z_k;\theta^{t-1})}{\sum_{k=1}^K P(Z^{i}=z_k;\lambda^{t-1})P(X^{i}|Z^{i}=z_k;\theta^{t-1})}\\
+    &= \frac{P(Z^{i}=z_k;\lambda^{t-1})P(X^{i};\theta_k^{t-1})}{\sum_{k=1}^K P(Z^{i}=z_k;\lambda^{t-1})P(X^{i};\theta_k^{t-1})  }
 
 
 其中 :math:`\lambda^{t-1},\theta^{t-1}` 都是已知量，其值使用上一轮迭代得到的估计值。
 这一步的结果，
-就是为每一条样本 :math:`X_i`
-计算一个后验概率分布 :math:`\gamma_{ik}`，其表示样本 :math:`X_i`
+就是为每一条样本 :math:`X^{i}`
+计算一个后验概率分布 :math:`\gamma^{i}_{k}`，其表示样本 :math:`X^{i}`
 来自于各个分量的概率，
-也可以认为是各个分量对样本 :math:`X_i`
+也可以认为是各个分量对样本 :math:`X^{i}`
 的"贡献"。
 
 
@@ -259,37 +307,37 @@ EM算法的具体推导过程这里不再赘述，读者可以回顾一下
 .. math::
     :label: eq_mixture_02.08
 
-    Q &= \sum_{i=1}^N \sum_{k=1}^K \gamma(Z_i=z_k;\lambda^{t-1},\theta^{t-1})
-    \ln P(X_i,Z_i=z_k;\lambda^{t},\theta^{t}) \\
-    &= \sum_{i=1}^N \sum_{k=1}^K \gamma(Z_i=z_k;\lambda^{t-1},\theta^{t-1})
-    \ln \left [ P(Z_i;\lambda^{t})P(X_i|Z_i=z_k;\theta^{t})\right ] \\
-    &= \sum_{i=1}^N \sum_{k=1}^K \gamma(Z_i=z_k;\lambda^{t-1},\theta^{t-1})
-    \left [ \ln P(Z_i=z_k;\lambda^{t}) + \ln P(X_i|Z_i=z_k;\theta^{t}) \right ] \\
-    &= \sum_{i=1}^N \sum_{k=1}^K \gamma(Z_i=z_k;\lambda^{t-1},\theta^{t-1})
-    \left [ \ln P(Z_i=z_k;\lambda^{t}) + \ln P(X_{i};\theta^{t}) \right ] \\
-    &= \left [ \sum_{i=1}^N \sum_{k=1}^K \gamma(Z_i=z_k;\lambda^{t-1},\theta^{t-1})\ln P(Z_i=z_k;\lambda^{t})
+    Q &= \sum_{i=1}^N \sum_{k=1}^K \gamma(Z^{i}=z_k;\lambda^{t-1},\theta^{t-1})
+    \ln P(X^{i},Z^{i}=z_k;\lambda^{t},\theta^{t}) \\
+    &= \sum_{i=1}^N \sum_{k=1}^K \gamma(Z^{i}=z_k;\lambda^{t-1},\theta^{t-1})
+    \ln \left [ P(Z^{i};\lambda^{t})P(X^{i}|Z^{i}=z_k;\theta^{t})\right ] \\
+    &= \sum_{i=1}^N \sum_{k=1}^K \gamma(Z^{i}=z_k;\lambda^{t-1},\theta^{t-1})
+    \left [ \ln P(Z^{i}=z_k;\lambda^{t}) + \ln P(X^{i}|Z^{i}=z_k;\theta^{t}) \right ] \\
+    &= \sum_{i=1}^N \sum_{k=1}^K \gamma(Z^{i}=z_k;\lambda^{t-1},\theta^{t-1})
+    \left [ \ln P(Z^{i}=z_k;\lambda^{t}) + \ln P(X_{i};\theta^{t}) \right ] \\
+    &= \left [ \sum_{i=1}^N \sum_{k=1}^K \gamma(Z^{i}=z_k;\lambda^{t-1},\theta^{t-1})\ln P(Z^{i}=z_k;\lambda^{t})
     \right ] \\
-    &\quad + \left [ \sum_{i=1}^N \sum_{k=1}^K \gamma(Z_i=z_k;\lambda^{t-1},\theta^{t-1}) \ln P(X_{i};\theta^{t}) \right ]
+    &\quad + \left [ \sum_{i=1}^N \sum_{k=1}^K \gamma(Z^{i}=z_k;\lambda^{t-1},\theta^{t-1}) \ln P(X_{i};\theta^{t}) \right ]
 
 
-令 :math:`\gamma_{ik}=\gamma(Z_i=z_k;\lambda^{t-1},\theta^{t-1})`
+令 :math:`\gamma^{i}_{k}=\gamma(Z^{i}=z_k;\lambda^{t-1},\theta^{t-1})`
 ，上式的一个简洁表示为
 
 .. math::
     :label: eq_mixture_02.09
 
 
-    Q = \left [ \sum_{i=1}^N \sum_{k=1}^K  \gamma_{ik} \ln P(Z_i=z_k;\lambda^{t})
+    Q = \left [ \sum_{i=1}^N \sum_{k=1}^K  \gamma^{i}_{k} \ln P(Z^{i}=z_k;\lambda^{t})
     \right ] +
-    \left [ \sum_{i=1}^N \sum_{k=1}^K \gamma_{ik} \ln P(X_{i};\theta^{t}) \right ]
+    \left [ \sum_{i=1}^N \sum_{k=1}^K \gamma^{i}_{k} \ln P(X^{i};\theta^{t}) \right ]
 
 
 
 可以看到在 :eq:`eq_mixture_02.09` 中，对数内的联合概率项已经可以分解开，和完整观测的对数似然函数一样，
 可以独立的估计每一项局部条件概率的参数。
-稍微有点区别的是，每一项前面多了一个系数 :math:`\gamma_{ik}`
+稍微有点区别的是，每一项前面多了一个系数 :math:`\gamma^{i}_{k}`
 ，并且需要对这个系数进行求和。
-:math:`\gamma_{ik}` 可以看做是一个权重，可以理解成每一个分量对观测样本的"贡献"
+:math:`\gamma^{i}_{k}` 可以看做是一个权重，可以理解成每一个分量对观测样本的"贡献"
 ，事实上，它含义就是在取得观测样本的条件下，观测样本 :math:`i`
 来自于第 :math:`k` 个分量的概率。
 
@@ -331,8 +379,8 @@ EM算法的具体推导过程这里不再赘述，读者可以回顾一下
 
     subgraph cluster_a {
 
-        Z[label=<Z<SUB>i</SUB>>];
-        X[style=filled,label=<𝑋<SUB>i</SUB>>];
+        Z[label=<Z<SUP>i</SUP>>];
+        X[style=filled,label=<𝑋<SUP>i</SUP>>];
         Z -> {X};
 
         label="N";
@@ -392,9 +440,9 @@ EM算法的具体推导过程这里不再赘述，读者可以回顾一下
 .. math::
     :label: eq_mixture_03.07
 
-    \gamma_{ik}
-    &= \frac{P(Z_i=z_k;\lambda^{t-1})P(\pmb{X}_{i}=\pmb{x}_i;\theta_k^{t-1})}
-    {\sum_{k=1}^K P(Z_i=z_k;\lambda^{t-1})P(\pmb{X}_{i}=\pmb{x}_i;\theta_k^{t-1})  }\\
+    \gamma^{i}_{k}
+    &= \frac{P(Z^{i}=z_k;\lambda^{t-1})P(\pmb{X}_{i}=\pmb{x}_i;\theta_k^{t-1})}
+    {\sum_{k=1}^K P(Z^{i}=z_k;\lambda^{t-1})P(\pmb{X}_{i}=\pmb{x}_i;\theta_k^{t-1})  }\\
     &= \frac{ \lambda_k   \mathcal{N}(\pmb{x}_i; \pmb{\mu}_k,\Sigma_k)   }
     {\sum_{k=1}^K \lambda_k   \mathcal{N}(\pmb{x}_i ; \pmb{\mu}_k,\Sigma_k) }
 
@@ -409,13 +457,13 @@ EM算法的具体推导过程这里不再赘述，读者可以回顾一下
     :label: eq_mixture_03.09
 
 
-    Q &= \left [ \sum_{i=1}^N \sum_{k=1}^K  \gamma_{ik} \ln P(Z_i=z_k;\lambda^{t}) \right ]
-     + \left [ \sum_{i=1}^N \sum_{k=1}^K \gamma_{ik} \ln P(\pmb{X}_{i}=\pmb{x}_i;\theta^{t}_k) \right ] \\
-    &= \left [ \sum_{i=1}^N \sum_{k=1}^K  \gamma_{ik} \lambda_k \right ]
-    + \left [ \sum_{i=1}^N \sum_{k=1}^K \gamma_{ik} \ln  \mathcal{N}(\pmb{x}_i ; \pmb{\mu}_k,\Sigma_k)  \right ]
+    Q &= \left [ \sum_{i=1}^N \sum_{k=1}^K  \gamma^{i}_{k} \ln P(Z^{i}=z_k;\lambda^{t}) \right ]
+     + \left [ \sum_{i=1}^N \sum_{k=1}^K \gamma^{i}_{k} \ln P(\pmb{X}_{i}=\pmb{x}_i;\theta^{t}_k) \right ] \\
+    &= \left [ \sum_{i=1}^N \sum_{k=1}^K  \gamma^{i}_{k} \lambda_k \right ]
+    + \left [ \sum_{i=1}^N \sum_{k=1}^K \gamma^{i}_{k} \ln  \mathcal{N}(\pmb{x}_i ; \pmb{\mu}_k,\Sigma_k)  \right ]
 
 
-在这一步骤中，:math:`\gamma_{ik}` 由上一步计算得到，其值是已知的；
+在这一步骤中，:math:`\gamma^{i}_{k}` 由上一步计算得到，其值是已知的；
 所有模型参数是未知的，需要极大化求解。
 对于高斯混合模型来讲，可以直接令目标函数参数的偏导数为零得到参数估计值。
 
@@ -423,17 +471,17 @@ EM算法的具体推导过程这里不再赘述，读者可以回顾一下
 
     \lambda_k &= \frac{N_k}{N}
 
-    \pmb{\mu}_k &= \frac{\sum_{i=1}^N \gamma_{ik} \pmb{x}_i  }{N_k}
+    \pmb{\mu}_k &= \frac{\sum_{i=1}^N \gamma^{i}_{k} \pmb{x}_i  }{N_k}
 
 
-    \Sigma_k &= \frac{  \sum_{i=1}^N \gamma_{ik} (\pmb{x}_i- \pmb{\mu}_k)^2   }{N_k}
+    \Sigma_k &= \frac{  \sum_{i=1}^N \gamma^{i}_{k} (\pmb{x}_i- \pmb{\mu}_k)^2   }{N_k}
 
 
 其中
 
 .. math::
 
-    N_k = \sum_{i=1}^N \gamma_{ik}
+    N_k = \sum_{i=1}^N \gamma^{i}_{k}
 
 
 得到参数值后检查是否收敛，如果没有收敛则重复执行E步骤和M步骤，直到参数收敛为止。

@@ -18,7 +18,8 @@
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/translations.js"></script>
-        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script>window.MathJax = {"tex": {"macros": {"RR": "{\\bf R}", "bold": ["{\\bf #1}", 1], "KL": ["{D_\\textrm{KL}\\left ( #1 \\| #2 \\right )}", 2], "EE": ["{\\mathbb{E}_{#1} \\left [ #2 \\right ]}", 2, ""], "scalemath": ["{\\scalebox{#1}{\\mbox{\\ensuremath{\\displaystyle #2}}}}", 2], "ind": ["{\\perp\\!\\!\\!\\!\\perp}"]}}}</script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
@@ -655,12 +656,12 @@
 <li class="toctree-l2"><a class="reference internal" href="31.%E6%B7%B7%E5%90%88%E6%A8%A1%E5%9E%8B_41.html">20. 混合模型</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="31.%E6%B7%B7%E5%90%88%E6%A8%A1%E5%9E%8B_41.html#id2">20.1. 一般混合模型</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="31.%E6%B7%B7%E5%90%88%E6%A8%A1%E5%9E%8B_41.html#id3">20.1.1. 模型的有向图表示</a></li>
-<li class="toctree-l4"><a class="reference internal" href="31.%E6%B7%B7%E5%90%88%E6%A8%A1%E5%9E%8B_41.html#id4">20.1.2. 参数估计</a></li>
+<li class="toctree-l4"><a class="reference internal" href="31.%E6%B7%B7%E5%90%88%E6%A8%A1%E5%9E%8B_41.html#id5">20.1.2. 参数估计</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="31.%E6%B7%B7%E5%90%88%E6%A8%A1%E5%9E%8B_41.html#id7">20.2. 高斯混合模型</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="31.%E6%B7%B7%E5%90%88%E6%A8%A1%E5%9E%8B_41.html#id8">20.2.1. 模型的表示</a></li>
-<li class="toctree-l4"><a class="reference internal" href="31.%E6%B7%B7%E5%90%88%E6%A8%A1%E5%9E%8B_41.html#id9">20.2.2. 参数估计</a></li>
+<li class="toctree-l3"><a class="reference internal" href="31.%E6%B7%B7%E5%90%88%E6%A8%A1%E5%9E%8B_41.html#id8">20.2. 高斯混合模型</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="31.%E6%B7%B7%E5%90%88%E6%A8%A1%E5%9E%8B_41.html#id9">20.2.1. 模型的表示</a></li>
+<li class="toctree-l4"><a class="reference internal" href="31.%E6%B7%B7%E5%90%88%E6%A8%A1%E5%9E%8B_41.html#id10">20.2.2. 参数估计</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="31.%E6%B7%B7%E5%90%88%E6%A8%A1%E5%9E%8B_41.html#k-means">20.3. K-means</a></li>
@@ -685,7 +686,66 @@
 <li class="toctree-l2"><a class="reference internal" href="28.%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2%E5%99%A8_38.html">26. 卡尔曼滤波器</a></li>
 <li class="toctree-l2"><a class="reference internal" href="40.%E9%A1%B9%E7%9B%AE%E5%8F%8D%E5%BA%94%E7%90%86%E8%AE%BA_50.html">27. 项目反应理论</a></li>
 <li class="toctree-l2"><a class="reference internal" href="41.%E8%B4%9D%E5%8F%B6%E6%96%AF%E7%9F%A5%E8%AF%86%E8%BF%BD%E8%B8%AA_51.html">28. 贝叶斯知识追踪</a></li>
-<li class="toctree-l2"><a class="reference internal" href="%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE.html">29. 参考文献</a></li>
+<li class="toctree-l2"><a class="reference internal" href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html">29. 变分自编码器（Variational Autoencoder）</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html#evidence-lower-bound-elbo">29.1. 证据下界(Evidence Lower Bound,ELBO)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html#id2">29.2. 编码-解码</a></li>
+<li class="toctree-l3"><a class="reference internal" href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html#id3">29.3. 总结</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html#em">29.3.1. 和EM算法的关系</a></li>
+<li class="toctree-l4"><a class="reference internal" href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html#variational">29.3.2. 为什么叫变分（variational）？</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html#id4">29.4. 参考文献</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="%E6%89%A9%E6%95%A3%E6%A6%82%E7%8E%87%E6%A8%A1%E5%9E%8B.html">30. 扩散概率模型（diffusion probabilistic models）</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="%E6%89%A9%E6%95%A3%E6%A6%82%E7%8E%87%E6%A8%A1%E5%9E%8B.html#diffusion-probabilistic-model">30.1. 扩散概率模型（diffusion probabilistic model）</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="%E6%89%A9%E6%95%A3%E6%A6%82%E7%8E%87%E6%A8%A1%E5%9E%8B.html#markovian-hierarchical-variational-autoencoder-mhvae">30.1.1. 马尔科夫分层自编码器（Markovian Hierarchical Variational Autoencoder,MHVAE)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="%E6%89%A9%E6%95%A3%E6%A6%82%E7%8E%87%E6%A8%A1%E5%9E%8B.html#id6">30.1.2. 扩散模型</a></li>
+<li class="toctree-l4"><a class="reference internal" href="%E6%89%A9%E6%95%A3%E6%A6%82%E7%8E%87%E6%A8%A1%E5%9E%8B.html#id8">30.1.3. 前向-后向</a></li>
+<li class="toctree-l4"><a class="reference internal" href="%E6%89%A9%E6%95%A3%E6%A6%82%E7%8E%87%E6%A8%A1%E5%9E%8B.html#elbo">30.1.4. ELBO</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="%E6%89%A9%E6%95%A3%E6%A6%82%E7%8E%87%E6%A8%A1%E5%9E%8B.html#denoising-diffusion-probabilistic-model-ddpm">30.2. 降噪扩散概率模型（Denoising diffusion probabilistic model,DDPM）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="%E6%89%A9%E6%95%A3%E6%A6%82%E7%8E%87%E6%A8%A1%E5%9E%8B.html#guidance">30.3. Guidance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="%E6%89%A9%E6%95%A3%E6%A6%82%E7%8E%87%E6%A8%A1%E5%9E%8B.html#latent-diffusion-model-ldm">30.4. 潜在扩散模型（Latent diffusion model,LDM）</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="%E6%89%A9%E6%95%A3%E6%A6%82%E7%8E%87%E6%A8%A1%E5%9E%8B.html#stable-diffusion-probabilistic-model-sdm">30.4.1. 稳定扩散模型（Stable diffusion probabilistic model,SDM）</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="%E6%89%A9%E6%95%A3%E6%A6%82%E7%8E%87%E6%A8%A1%E5%9E%8B.html#id23">30.5. 参考文献</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE.html">31. 参考文献</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="aigc_index.html">AI内容生成（ai-gc）</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html">29. 变分自编码器（Variational Autoencoder）</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html#evidence-lower-bound-elbo">29.1. 证据下界(Evidence Lower Bound,ELBO)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html#id2">29.2. 编码-解码</a></li>
+<li class="toctree-l3"><a class="reference internal" href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html#id3">29.3. 总结</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html#em">29.3.1. 和EM算法的关系</a></li>
+<li class="toctree-l4"><a class="reference internal" href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html#variational">29.3.2. 为什么叫变分（variational）？</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html#id4">29.4. 参考文献</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="%E6%89%A9%E6%95%A3%E6%A6%82%E7%8E%87%E6%A8%A1%E5%9E%8B.html">30. 扩散概率模型（diffusion probabilistic models）</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="%E6%89%A9%E6%95%A3%E6%A6%82%E7%8E%87%E6%A8%A1%E5%9E%8B.html#diffusion-probabilistic-model">30.1. 扩散概率模型（diffusion probabilistic model）</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="%E6%89%A9%E6%95%A3%E6%A6%82%E7%8E%87%E6%A8%A1%E5%9E%8B.html#markovian-hierarchical-variational-autoencoder-mhvae">30.1.1. 马尔科夫分层自编码器（Markovian Hierarchical Variational Autoencoder,MHVAE)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="%E6%89%A9%E6%95%A3%E6%A6%82%E7%8E%87%E6%A8%A1%E5%9E%8B.html#id6">30.1.2. 扩散模型</a></li>
+<li class="toctree-l4"><a class="reference internal" href="%E6%89%A9%E6%95%A3%E6%A6%82%E7%8E%87%E6%A8%A1%E5%9E%8B.html#id8">30.1.3. 前向-后向</a></li>
+<li class="toctree-l4"><a class="reference internal" href="%E6%89%A9%E6%95%A3%E6%A6%82%E7%8E%87%E6%A8%A1%E5%9E%8B.html#elbo">30.1.4. ELBO</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="%E6%89%A9%E6%95%A3%E6%A6%82%E7%8E%87%E6%A8%A1%E5%9E%8B.html#denoising-diffusion-probabilistic-model-ddpm">30.2. 降噪扩散概率模型（Denoising diffusion probabilistic model,DDPM）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="%E6%89%A9%E6%95%A3%E6%A6%82%E7%8E%87%E6%A8%A1%E5%9E%8B.html#guidance">30.3. Guidance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="%E6%89%A9%E6%95%A3%E6%A6%82%E7%8E%87%E6%A8%A1%E5%9E%8B.html#latent-diffusion-model-ldm">30.4. 潜在扩散模型（Latent diffusion model,LDM）</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="%E6%89%A9%E6%95%A3%E6%A6%82%E7%8E%87%E6%A8%A1%E5%9E%8B.html#stable-diffusion-probabilistic-model-sdm">30.4.1. 稳定扩散模型（Stable diffusion probabilistic model,SDM）</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="%E6%89%A9%E6%95%A3%E6%A6%82%E7%8E%87%E6%A8%A1%E5%9E%8B.html#id23">30.5. 参考文献</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../audio/index.html">语音技术</a><ul>
@@ -905,7 +965,7 @@
 <p>我们已经知道通常模型参数估计的方法是使用极大似然估计，似然函数的含义是观测数据的概率。
 假设模型中变量集合是
 <span class="math notranslate nohighlight">\(X=\{X_1,\dots,X_M\}\)</span> ，
-模型的参数集合是 <span class="math notranslate nohighlight">\(\theta=\{\theta_1,\dots,\theta_K \}\)</span> ，模型的联合概率分布是
+模型的参数集合是 <span class="math notranslate nohighlight">\(\theta=\{\theta_1,\dots,\theta_K \}\)</span> ，模型的联合概率分布记作
 <span class="math notranslate nohighlight">\(P(X;\theta)=P(X_1,\dots,X_M;\theta)\)</span> ，
 我们知道无论是有向图、无向图还是因子图，模型的联合概率分布都是可以分解成多个因子函数的乘积形式的</p>
 <div class="math notranslate nohighlight" id="equation-eq-em-01-01">
@@ -914,13 +974,13 @@
 <span class="math notranslate nohighlight">\(\mathcal{D}=\{ X^{(1)},\ldots,X^{(N)} \}\)</span>
 ，上标表示样本编号，此观测数据的对数似然函数为：</p>
 <div class="math notranslate nohighlight" id="equation-eq-em-01-02">
-<span class="eqno">(12.1.3)<a class="headerlink" href="#equation-eq-em-01-02" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\ell(\theta;\mathcal{D}) &amp;= \ln P(\mathcal{D};\theta)\\&amp;= \ln\prod_{i=1}^N P(X^{(i)};\theta)\\&amp;= \sum_{i=1}^N \ln P(X^{(i)};\theta)\\&amp;= \sum_{i=1}^N \ln\prod_{c \in C} \psi_c (X_c;\theta_c)\\&amp;= \sum_{i=1}^N \sum_{c \in C} \ln  \psi_c (X_c;\theta_c)\end{aligned}\end{align} \]</div>
+<span class="eqno">(12.1.3)<a class="headerlink" href="#equation-eq-em-01-02" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\ell(\theta;\mathcal{D}) &amp;= \ln P(\mathcal{D};\theta)\\&amp;= \ln\prod_{i=1}^N P(X^{i};\theta)\\&amp;= \sum_{i=1}^N \ln P(X^{i};\theta)\\&amp;= \sum_{i=1}^N \ln\prod_{c \in C} \psi_c (X_c;\theta_c)\\&amp;= \sum_{i=1}^N \sum_{c \in C} \ln  \psi_c (X_c;\theta_c)\end{aligned}\end{align} \]</div>
 <p>在这个过程中利用对数函数的性质，把对数符号里面的乘法(连乘)转变成对数符号外面的加法(求和)，
 这样对数似然函数就拆解成很多因子函数的的对数的加和，
 这时有两个特点：</p>
 <ol class="arabic simple">
 <li><p>每个因子函数的参数 <span class="math notranslate nohighlight">\(\theta_c\)</span> 只出现在其中一个子项中。</p></li>
-<li><p>各个因子函数之间是加法</p></li>
+<li><p>各个因子函数之间是加法。</p></li>
 </ol>
 <p>我们通过极大化对数似然函数 <span class="math notranslate nohighlight">\(\ell(\theta;\mathcal{D})\)</span> 来求解参数，这时需要求解每个参数的偏导数，
 而根据求偏导的规则，在满足上面两个特点的时，参数之间的偏导数是互不相关的，也就一个每个参数的偏导数不包含其它参数，
@@ -940,11 +1000,11 @@
 依据前面章节的知识，模型中观测变量集合 <span class="math notranslate nohighlight">\(X\)</span> 的边缘概率分布 <span class="math notranslate nohighlight">\(P(X;\theta)\)</span>
 需要通过边际化的方法的到</p>
 <div class="math notranslate nohighlight" id="equation-eq-em-01-03">
-<span class="eqno">(12.1.4)<a class="headerlink" href="#equation-eq-em-01-03" title="公式的永久链接"></a></span>\[P(X;\theta)= \sum_{Z} P(X,Z;\theta)\]</div>
+<span class="eqno">(12.1.4)<a class="headerlink" href="#equation-eq-em-01-03" title="公式的永久链接"></a></span>\[P(X;\theta)= \sum_{z} P(X,Z;\theta)\]</div>
 <p>观测数据的对数似然函数也就变成了如下形式：</p>
 <div class="math notranslate nohighlight" id="equation-eq-em-01-04">
-<span class="eqno">(12.1.5)<a class="headerlink" href="#equation-eq-em-01-04" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\ell(\theta;\mathcal{D}) &amp;= \ln \prod_{i=1}^N P(X^{(i)};\theta)\\&amp;= \ln \prod_{i=1}^N \sum_{Z} P(X^{(i)},Z;\theta)\\&amp;= \sum_{i=1}^N \ln \sum_{Z} P(X^{(i)},Z;\theta)\end{aligned}\end{align} \]</div>
-<p>发现没有，对数操作里面有求和符号 <span class="math notranslate nohighlight">\(\sum_{Z}\)</span> ，这就导致 <span class="math notranslate nohighlight">\(\ln\)</span> 里面的内容无法再继续拆解成独立的子项。
+<span class="eqno">(12.1.5)<a class="headerlink" href="#equation-eq-em-01-04" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\ell(\theta;\mathcal{D}) &amp;= \ln \prod_{i=1}^N P(X^{i};\theta)\\&amp;= \ln \prod_{i=1}^N \sum_{z} P(X^{i},Z);\theta)\\&amp;= \sum_{i=1}^N \ln \sum_{z} P(X^{i},Z;\theta)\end{aligned}\end{align} \]</div>
+<p>发现没有，对数操作里面有求和符号 <span class="math notranslate nohighlight">\(\sum_{z}\)</span> ，这就导致 <span class="math notranslate nohighlight">\(\ln\)</span> 里面的内容无法再继续拆解成独立的子项。
 这时再对参数求偏导将变得十分困难。所以，我们需要解决这个求和符号的问题。</p>
 <div class="admonition hint">
 <p class="admonition-title">提示</p>
@@ -955,7 +1015,7 @@
 ，我们称其为 <strong>完整数据对数似然(complete data log-likelihood)</strong> 。
 反之，如果模型包含不可观测的隐变量集合 <span class="math notranslate nohighlight">\(Z\)</span>
 ，则对数似然函数记作
-<span class="math notranslate nohighlight">\(\ell(\theta;X)=\ln \sum_{Z} P(X,Z;\theta)\)</span>
+<span class="math notranslate nohighlight">\(\ell(\theta;X)=\ln \sum_{z} P(X,z;\theta)\)</span>
 ，我们能称其为 <strong>不完整数据对数似然(incomplete data log-likelihood)</strong>。
 隐变量的出现，给模型的参数估计带来了极大的困难。</p>
 </section>
@@ -982,116 +1042,133 @@
 并且求和符号是关于隐变量集合 <span class="math notranslate nohighlight">\(Z\)</span> 的，
 可以通过引入一个隐变量 <span class="math notranslate nohighlight">\(Z\)</span> 的概率分布函数，把这个求和操作转成一个求期望的操作，
 然后就可以利用上Jensen不等式的性质。</p>
-<p>定义一个隐变量集合 <span class="math notranslate nohighlight">\(Z\)</span> 的一个概率密度（质量）函数，记作 <span class="math notranslate nohighlight">\(q(Z)\)</span>
-，这个概率分布函数具体是什么在此先不讨论，稍后再做讨论。
-为了符号的简洁性，这里我们用粗体表示观测样本的集合，
-即显变量的观测样本集 <span class="math notranslate nohighlight">\(\mathcal{D}\)</span> 记作 <span class="math notranslate nohighlight">\(\pmb{X}\)</span>。
-接下来，对 <a class="reference internal" href="#equation-eq-em-01-04">公式(12.1.5)</a> 进行如下变换。</p>
+<p><strong>下界函数</strong></p>
+<p>定义一个隐变量 <span class="math notranslate nohighlight">\(Z\)</span> 的概率密度（质量）函数，记作 <span class="math notranslate nohighlight">\(q(Z)\)</span>
+，这个函数具体形式先不讨论，稍后再做讨论。
+注意 <span class="math notranslate nohighlight">\(q(Z)\)</span> 是与观测样本无关的，对所有样本都是相同的，即与 <span class="math notranslate nohighlight">\(i\)</span> 无关的。
+接下来，通过在 <a class="reference internal" href="#equation-eq-em-01-04">公式(12.1.5)</a> 中引入 <span class="math notranslate nohighlight">\(q(Z)\)</span> 对其进行一些变换。
+为了符号的简洁，我们忽略对所有观测样本的求和操作，暂时只关注一条样本的对数似然。</p>
 <div class="math notranslate nohighlight" id="equation-eq-em-02-03">
-<span class="eqno">(12.2.12)<a class="headerlink" href="#equation-eq-em-02-03" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\ell(\theta;\mathcal{D}) &amp;= \sum_{i=1}^N \ln  P(X_i;\theta)\\ &amp;= \sum_{i=1}^N \ln\sum_{Z} P(X_i,Z_i;\theta)\\&amp;=\sum_{i=1}^N  \ln\sum_{Z} q(Z) \frac{P(X_i,Z_i;\theta)}{q(Z)}\\&amp;= \sum_{i=1}^N \ln\mathbb{E}_{q(Z) } \left [ \frac{P(X_i,Z_i;\theta)}{q(Z)} \right ]\\&amp; \ge\sum_{i=1}^N  \mathbb{E}_{q(Z) } \ln\left [ \frac{P(X_i,Z_i;\theta)}{q(Z)} \right ]
+<span class="eqno">(12.2.12)<a class="headerlink" href="#equation-eq-em-02-03" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\ell(\theta;X^{i}) &amp;=  \ln  P(X^{i};\theta)\\ &amp;=  \ln \sum_{z} P(X^{i},Z;\theta)\\&amp;=  \ln \sum_{z} q(Z) \frac{P(X^{i},Z;\theta)}{q(Z)}\\&amp;=  \ln\mathbb{E}_{q(Z) } \left [ \frac{P(X^{i},Z;\theta)}{q(Z)} \right ]\\&amp; \ge  \mathbb{E}_{q(Z) } \ln\left [ \frac{P(X^{i},Z;\theta)}{q(Z)} \right ]
 \ \ \ \text{根据Jensen不等式}\\
-&amp;=\sum_{i=1}^N  \sum_{Z} q(Z) \ln \left [ \frac{P(X_i,Z_i;\theta)}{q(Z)} \right ]\\&amp;=\sum_{i=1}^N  \left [  \sum_{Z} q(Z_i) \ln  P(X_i,Z_i;\theta)
--   \sum_{Z} q(Z) \ln q(Z) \right ]\\&amp;\triangleq \mathcal{L}(q,\theta)\end{aligned}\end{align} \]</div>
-<p>利用 <code class="docutils literal notranslate"><span class="pre">Jensen</span></code> 不等式的性质，可以为观测数据的对数似然函数 <span class="math notranslate nohighlight">\(\ell(\theta;\mathcal{D})\)</span> 找到一个下界函数
+&amp;=  \sum_{z} q(Z) \ln \left [ \frac{P(X^{i},Z;\theta)}{q(Z)} \right ]\\&amp;=  \left [  \sum_{z} q(Z) \ln  P(X^{i},Z;\theta)
+-   \sum_{z} q(Z) \ln q(Z) \right ]\\&amp;\triangleq \mathcal{L}(q,\theta)\end{aligned}\end{align} \]</div>
+<p>利用 <code class="docutils literal notranslate"><span class="pre">Jensen</span></code> 不等式的性质，可以为对数似然函数 <span class="math notranslate nohighlight">\(\ell(\theta;X^{i})\)</span> 找到一个下界函数
 ，把这个下界函数记作 <span class="math notranslate nohighlight">\(\mathcal{L}(q,\theta)\)</span>。</p>
 <div class="math notranslate nohighlight" id="equation-eq-em-02-04">
-<span class="eqno">(12.2.13)<a class="headerlink" href="#equation-eq-em-02-04" title="公式的永久链接"></a></span>\[\mathcal{L}(q,\theta) =\sum_{i=1}^N \left [ \sum_{Z} q(Z) \ln  P(X_i,Z_i;\theta)
--   \sum_{Z} q(Z) \ln q(Z) \right ]\]</div>
+<span class="eqno">(12.2.13)<a class="headerlink" href="#equation-eq-em-02-04" title="公式的永久链接"></a></span>\[\mathcal{L}(q,\theta) = \sum_{z} q(Z) \ln  P(X^{i},Z;\theta)
+-   \sum_{z} q(Z) \ln q(Z)\]</div>
 <p>由于观测数据的对数似然函数也被称作 <strong>证据(evidence)</strong>，
 因此这个下界函数又被称为 <strong>证据下界（evidence lower bound,ELBO）</strong>
 。这个下界函数的另一个常用名称是 <strong>负变分自由能（variational free energy）</strong>。</p>
 <p>观察 <a class="reference internal" href="#equation-eq-em-02-04">公式(12.2.13)</a>，
-下界函数分为两部分，第一部分 <span class="math notranslate nohighlight">\(\sum_{Z} q(Z) \ln  P(X_i,Z_i;\theta)\)</span>
+下界函数分为两部分，第一部分 <span class="math notranslate nohighlight">\(\sum_{z} q(Z) \ln  P(X^{i},Z;\theta)\)</span>
 可以看做完整数据对数似然（模型联合概率）的期望。
-第二部分 <span class="math notranslate nohighlight">\(\sum_{Z} q(Z) \ln q(Z)\)</span>
+第二部分 <span class="math notranslate nohighlight">\(\sum_{z} q(Z) \ln q(Z)\)</span>
 是 <span class="math notranslate nohighlight">\(q(Z)\)</span> 的 <strong>熵</strong>，记作 <span class="math notranslate nohighlight">\(H(q)\)</span>
-。为了令公式更加简洁，这里我们用向量的形式替换样本的求和，
+。为了令公式更加简洁，
 证据下界函数可以改写成如下形式</p>
 <div class="math notranslate nohighlight" id="equation-eq-em-02-05">
-<span class="eqno">(12.2.14)<a class="headerlink" href="#equation-eq-em-02-05" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\mathcal{L}(q,\theta) &amp;=  \sum_{i=1}^N  \left [ \sum_{Z} q(Z) \ln  P(X_i,Z_i;\theta)
--   \sum_{Z} q(Z) \ln q(Z) \right ]\\&amp;= \sum_{i=1}^N  \left [  \mathbb{E}_{z \sim q} [ \ln  P(\pmb{X},\pmb{Z};\theta) ]
-- \mathbb{E}_{z \sim q}[ \ln q(z) ]   \right ]\\&amp;= \mathbb{E}_{\pmb{z} \sim q} [ \ln  P(\pmb{X},\pmb{Z};\theta) ] -   H(q(\pmb{Z}))\end{aligned}\end{align} \]</div>
+<span class="eqno">(12.2.14)<a class="headerlink" href="#equation-eq-em-02-05" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\mathcal{L}(q,\theta) &amp;=   \sum_{z} q(Z) \ln  P(X^{i},Z;\theta)
+-   \sum_{z} q(Z) \ln q(Z)\\&amp;=   \mathbb{E}_{z \sim q} [ \ln  P(X^{i},Z;\theta) ]
+- \mathbb{E}_{z \sim q}[ \ln q(Z) ]\\&amp;= \mathbb{E}_{z \sim q} [ \ell(\theta;X^{i},Z) ] -   H(q(Z))\end{aligned}\end{align} \]</div>
 <p>证据下界 <span class="math notranslate nohighlight">\(\mathcal{L}(q,\theta)\)</span> 是观测对数似然函数 <span class="math notranslate nohighlight">\(\ell(\theta;\mathcal{D})\)</span>
 的一个下界函数，意味着有 <span class="math notranslate nohighlight">\(\mathcal{L}(q,\theta) \le \ell(\theta;\mathcal{D})\)</span>
 一直成立，<strong>并且与</strong> <span class="math notranslate nohighlight">\(q(Z)\)</span> <strong>的具体形式无关</strong>，
 换句话说，无论 <span class="math notranslate nohighlight">\(q(Z)\)</span> 是什么，这个不等式都成立。</p>
-<div class="admonition tip">
-<p class="admonition-title">小技巧</p>
-<p>这个下界函数还有另外两种形式，</p>
-<p>第一种形式：</p>
-<div class="math notranslate nohighlight" id="equation-eq-em-02-06">
-<span class="eqno">(12.2.15)<a class="headerlink" href="#equation-eq-em-02-06" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\mathcal{L}(q,\theta) &amp;= \mathbb{E}_{\pmb{z} \sim q} [ \ln  P(\pmb{X},\pmb{Z};\theta) ]
-- \mathbb{E}_{\pmb{z} \sim q}[ \ln q(\pmb{Z}))]\\&amp;= \mathbb{E}_{\pmb{z} \sim q} [ \ln  P(\pmb{Z}) + \ln  P(\pmb{X}|\pmb{Z};\theta) ]
-    - \mathbb{E}_{\pmb{z} \sim q}[ \ln q(\pmb{Z}))]\\&amp;= \mathbb{E}_{\pmb{z} \sim q} [ \ln  P(\pmb{Z}) ]
-    + \mathbb{E}_{\pmb{z} \sim q} [\ln  P(\pmb{X}|\pmb{Z};\theta) ]
-    - \mathbb{E}_{\pmb{z} \sim q}[ \ln q(\pmb{Z}))]\\&amp;= \mathbb{E}_{\pmb{z} \sim q} [\ln  P(\pmb{X}|\pmb{Z};\theta) ] +
+<p>此时，我们找到了对数似然函数
+的一个下界函数 <span class="math notranslate nohighlight">\(\mathcal{L}(q,\theta)\)</span> ，并且 <strong>这个下界函数中对数内已经没有了求和(积分)符号，可以方便的求导和极大化</strong> 。
+那么我们是不是可以通过极大化这个下界函数 <span class="math notranslate nohighlight">\(\mathcal{L}(q,\theta)\)</span> 去求解模型的原始参数值呢？</p>
+<p>观察 <a class="reference internal" href="#equation-eq-em-02-05">公式(12.2.14)</a>， 下界函数中含有联合概率分布 <span class="math notranslate nohighlight">\(P(X,Z;\theta)\)</span>
+，根据链式法则，有两种分解方式。</p>
+<div class="math notranslate nohighlight" id="equation-probability-model-13-lecture-22-0">
+<span class="eqno">(12.2.15)<a class="headerlink" href="#equation-probability-model-13-lecture-22-0" title="公式的永久链接"></a></span>\[P(X,Z;\theta) = P(Z) P(X|Z)=P(X)P(Z|X)\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(P(Z)\)</span> 表示 <span class="math notranslate nohighlight">\(Z\)</span> 的先验概率分布，<span class="math notranslate nohighlight">\(P(Z|X)\)</span> 表示其后验概率分布。
+接下来，分别用分解两种方式变换下界函数。</p>
+<p><strong>第一种形式</strong>，使用 <span class="math notranslate nohighlight">\(Z\)</span> 的先验分布 <span class="math notranslate nohighlight">\(P(Z)\)</span> :</p>
+<blockquote>
+<div><div class="math notranslate nohighlight" id="equation-eq-em-02-06">
+<span class="eqno">(12.2.16)<a class="headerlink" href="#equation-eq-em-02-06" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\mathcal{L}(q,\theta) &amp;= \mathbb{E}_{z \sim q} [ \ln  P(X^{i},Z;\theta) ]
+- \mathbb{E}_{z \sim q}[ \ln q(Z))]\\&amp;= \mathbb{E}_{z \sim q} [ \ln  P(Z) + \ln  P(X^{i}|Z;\theta) ]
+    - \mathbb{E}_{z \sim q}[ \ln q(Z))]\\&amp;= \mathbb{E}_{z \sim q} [ \ln  P(Z) ]
+    + \mathbb{E}_{z \sim q} [\ln  P(X^{i}|Z;\theta) ]
+    - \mathbb{E}_{z \sim q}[ \ln q(Z))]\\&amp;= \mathbb{E}_{z \sim q} [\ln  P(X^{i}|Z;\theta) ] +
     \underbrace{
-    \mathbb{E}_{\pmb{z} \sim q} [ \ln  P(\pmb{Z}) ]
-    - \mathbb{E}_{\pmb{z} \sim q}[ \ln q(\pmb{Z}))] }_{\text{KL散度}}\\&amp;= \mathbb{E}_{\pmb{z} \sim q} [\ln  P(\pmb{X}|\pmb{Z};\theta) ]
-    - KL(q(Z)||P(Z))\end{aligned}\end{align} \]</div>
-<p>第二种形式：</p>
-<div class="math notranslate nohighlight" id="equation-eq-em-02-07">
-<span class="eqno">(12.2.16)<a class="headerlink" href="#equation-eq-em-02-07" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\mathcal{L}(q,\theta) &amp;= \mathbb{E}_{\pmb{z} \sim q} [ \ln  P(\pmb{X},\pmb{Z};\theta) ]
-- \mathbb{E}_{\pmb{z} \sim q}[ \ln q(\pmb{Z}))]\\&amp;= \mathbb{E}_{\pmb{z} \sim q} \left [ \ln  P(\pmb{X};\theta) + \ln  P(\pmb{Z}|\pmb{X}) \right ]
-    - \mathbb{E}_{\pmb{z} \sim q}[ \ln q(\pmb{Z}))]\\&amp;= \underbrace{\mathbb{E}_{\pmb{z} \sim q} [ \ln  P(\pmb{X};\theta) ]}_{\text{与}z\text{无关，期望符号可以去掉}}
-    + \mathbb{E}_{\pmb{z} \sim q} [\ln  P(\pmb{Z}|\pmb{X}) ]
-    - \mathbb{E}_{\pmb{z} \sim q}[ \ln q(\pmb{Z}))]\\&amp;= \underbrace{\ln  P(\pmb{X};\theta)}_{\text{观测数据对数似然}}
+    \mathbb{E}_{z \sim q} [ \ln  P(Z) ]
+    - \mathbb{E}_{z \sim q}[ \ln q(Z))] }_{\text{KL散度}}\\&amp;= \mathbb{E}_{z \sim q} [\ln  P(X^{i}|Z;\theta) ]
+    - \underbrace{ KL(q(Z)||P(Z))}_{q(Z) \text{和先验} P(Z)  \text{的KL散度}}\end{aligned}\end{align} \]</div>
+</div></blockquote>
+<p><strong>第二种形式</strong>，使用 <span class="math notranslate nohighlight">\(Z\)</span> 的后验验分布 <span class="math notranslate nohighlight">\(P(Z|X)\)</span> :</p>
+<blockquote>
+<div><div class="math notranslate nohighlight" id="equation-eq-em-02-07">
+<span class="eqno">(12.2.17)<a class="headerlink" href="#equation-eq-em-02-07" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\mathcal{L}(q,\theta) &amp;= \mathbb{E}_{z \sim q} [ \ln  P(X^{i},Z;\theta) ]
+- \mathbb{E}_{z \sim q}[ \ln q(Z))]\\&amp;= \mathbb{E}_{z \sim q} \left [ \ln  P(X^{i};\theta) + \ln  P(Z|X^{i}) \right ]
+    - \mathbb{E}_{z \sim q}[ \ln q(Z))]\\&amp;= \underbrace{\mathbb{E}_{z \sim q} [ \ln  P(X^{i};\theta) ]}_{\text{与}z\text{无关，期望符号可以去掉}}
+    + \mathbb{E}_{z \sim q} [\ln  P(Z|X^{i}) ]
+    - \mathbb{E}_{z \sim q}[ \ln q(Z))]\\&amp;= \underbrace{\ln  P(X^{i};\theta)}_{\text{观测数据对数似然}}
     +
     \underbrace{
-    \mathbb{E}_{\pmb{z} \sim q} [ \ln  P(\pmb{Z}|\pmb{X})) ]
-    - \mathbb{E}_{\pmb{z} \sim q}[ \ln q(\pmb{Z})] }_{\text{KL散度}}\\&amp;= \ell(\theta;\mathcal{D})
-    - KL(q(Z)||P(Z|\pmb{X}))\end{aligned}\end{align} \]</div>
-</div>
-<p>我们找到模型中观测变量对数似然函数
-的一个下界函数 <span class="math notranslate nohighlight">\(\mathcal{L}(q,\theta)\)</span> ，且 <strong>这个下界函数中对数内已经没有了求和符号</strong> 。
-那么我们是不是可以通过极大化这个下界函数 <span class="math notranslate nohighlight">\(\mathcal{L}(q,\theta)\)</span> 去求解参数值呢？
-我们发现对数似然函数 <span class="math notranslate nohighlight">\(\ell(\theta;\mathcal{D})\)</span> 是 <em>大于等于</em> 这个下界函数的，
-那么如果能令这个 <em>等号</em> 成立，也就是让下界函数等于对数似然函数，那两者极大化的解就是等价的。</p>
-<p>我们令概率分布 <span class="math notranslate nohighlight">\(q(Z)\)</span> 为 <span class="math notranslate nohighlight">\(Z\)</span> 的后验概率分布
-<span class="math notranslate nohighlight">\(q(Z)=P(Z|X;\theta)\)</span>
-，则可以发现下界函数 <span class="math notranslate nohighlight">\(\mathcal{L}(q,\theta)\)</span>
-与对数似然函数 <span class="math notranslate nohighlight">\(\ell(\theta;\mathcal{D})\)</span> 是等价。</p>
-<div class="math notranslate nohighlight" id="equation-eq-em-02-08">
-<span class="eqno">(12.2.17)<a class="headerlink" href="#equation-eq-em-02-08" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\mathcal{L}(q,\theta) &amp;= \sum_{i=1}^N  \sum_{Z} q(Z_i) \ln \left [ \frac{P(X_i,Z_i;\theta)}{q(Z_i)} \right ]\\&amp; = \sum_{i=1}^N  \sum_{Z} P(Z_i|X_i;\theta) \ln
-\left [ \frac{P(X_i,Z_i;\theta)}{P(Z_i|X_i;\theta)} \right ]\\&amp; =  \sum_{i=1}^N \sum_{Z} P(Z_i|X_i;\theta) \ln
-\left [ \frac{P(X_i;\theta) P(Z_i|X_i;\theta)}{P(Z_i|X_i;\theta)} \right ]\\&amp; = \sum_{i=1}^N  \sum_{Z} P(Z_i|X_i;\theta) \underbrace{ \ln P(X_i;\theta)}_{\text{与z无关}}\\&amp; = \sum_{i=1}^N \ln P(X_i;\theta)  \underbrace{ \sum_{Z} P(Z_i|X_i;\theta)}_{=1}\\&amp; = \sum_{i=1}^N  \ln P(X_i;\theta)\\&amp;= \ell(\theta;\mathcal{D})\end{aligned}\end{align} \]</div>
-<p>到此我们已经找到了解决方法，
-符号 <span class="math notranslate nohighlight">\(t\)</span> 表示迭代的轮次，<span class="math notranslate nohighlight">\(t-1\)</span> 表示上一轮的迭代，
+    \mathbb{E}_{z \sim q} [ \ln  P(Z|X^{i})) ]
+    - \mathbb{E}_{z \sim q}[ \ln q(Z)] }_{\text{KL散度}}\\&amp;= \underbrace{ \ell(\theta;X^{i}) }_{\text{观测数据对数似然}}
+    - \underbrace{ KL(q(Z)||P(Z|X^{i}))}_{ q(Z) \text{和后验验} P(Z|X)  \text{的KL散度}}\end{aligned}\end{align} \]</div>
+</div></blockquote>
+<p>这里我们重点关注第二种形式，<a class="reference internal" href="#equation-eq-em-02-07">公式(12.2.17)</a> 可以写成</p>
+<div class="math notranslate nohighlight" id="equation-probability-model-13-lecture-22-1">
+<span class="eqno">(12.2.18)<a class="headerlink" href="#equation-probability-model-13-lecture-22-1" title="公式的永久链接"></a></span>\[\ell(\theta;X^{i}) =  \mathcal{L}(q,\theta)  +  KL(q(Z)||P(Z|X^{i}))\]</div>
+<p>观测数据的对数似然就等于下界函数加上 <span class="math notranslate nohighlight">\(q(Z)\)</span> 与后验 <span class="math notranslate nohighlight">\(P(Z|X)\)</span> 的KL散度，
+我们知道KL散度是衡量两个概率分布是否相近的，如果两个概率分布完全一样，则KL散度的值为0。
+也就是说如果令 <span class="math notranslate nohighlight">\(q(Z)=P(Z|X^{i})\)</span> 成立，则 <span class="math notranslate nohighlight">\(KL(q(Z)||P(Z|X^{i}))=0\)</span>
+，此时就有 <span class="math notranslate nohighlight">\(\ell(\theta;X^{i}) =  \mathcal{L}(q,\theta)\)</span> 成立。</p>
+<p>到此，我们找到了含有隐变量模型参数估计的一个方法，首先利用观测样本求出隐变量的后验分布 <span class="math notranslate nohighlight">\(q(Z)=P(Z|X)\)</span>
+，然后把这个后验分布带入到下界函数 <span class="math notranslate nohighlight">\(\mathcal{L}(q,\theta)\)</span> 中，并且极大化这个函数求解参数，
+后验分布 <span class="math notranslate nohighlight">\(P(Z|X)\)</span> 可以利用贝叶斯定理得到，</p>
+<div class="math notranslate nohighlight" id="equation-probability-model-13-lecture-22-2">
+<span class="eqno">(12.2.19)<a class="headerlink" href="#equation-probability-model-13-lecture-22-2" title="公式的永久链接"></a></span>\[q(Z)=P(Z|X) = \frac{P(X|Z;\theta) P(Z;\theta) }{ \sum_{z}  P(X|Z;\theta) P(Z;\theta)}\]</div>
+<p>我们发现计算后验分布 <span class="math notranslate nohighlight">\(q(Z)=P(Z|X)\)</span> 依赖两个条件：</p>
+<ol class="arabic simple">
+<li><p>先验分布 <span class="math notranslate nohighlight">\(P(Z;\theta)\)</span> 及其参数。</p></li>
+<li><p>条件概率分布 <span class="math notranslate nohighlight">\(P(X|Z;\theta)\)</span> 及其参数。</p></li>
+</ol>
+<p>因此我们需要给出 <span class="math notranslate nohighlight">\(P(Z;\theta)\)</span> 和 <span class="math notranslate nohighlight">\(P(X|Z;\theta)\)</span> 的分布定义，
+至于参数 <span class="math notranslate nohighlight">\(\theta\)</span> 的值，可以用迭代过程中上一轮的参数值，而这这就是EM算法的思想。</p>
+<p><strong>EM算法的过程</strong></p>
+<p>令符号 <span class="math notranslate nohighlight">\(t\)</span> 表示迭代的轮次，<span class="math notranslate nohighlight">\(t-1\)</span> 表示上一轮的迭代，
 <span class="math notranslate nohighlight">\(t\)</span> 表示当前轮的迭代。
 首先利用上一轮的参数值以及观测数据得到隐变量的后验概率分布，</p>
-<div class="math notranslate nohighlight" id="equation-probability-model-13-lecture-22-0">
-<span class="eqno">(12.2.18)<a class="headerlink" href="#equation-probability-model-13-lecture-22-0" title="公式的永久链接"></a></span>\[q(Z_i) = P(Z_i|X_i;\theta^{t-1})\]</div>
-<p>然后定义一个辅助函数 <span class="math notranslate nohighlight">\(Q(\theta,\theta^{t-1})\)</span>
-，</p>
-<div class="math notranslate nohighlight" id="equation-probability-model-13-lecture-22-1">
-<span class="eqno">(12.2.19)<a class="headerlink" href="#equation-probability-model-13-lecture-22-1" title="公式的永久链接"></a></span>\[\begin{split}Q(\theta^t,\theta^{t-1})
-&amp;= \sum_{i=1}^N \sum_{Z} P(Z_i|X_i;\theta^{t-1}) \ln
-\left [ \frac{P(X_i,Z_i;\theta^t)}{P(Z_i|X_i;\theta^{t-1})} \right ]\\
-&amp;=\sum_{i=1}^N  \sum_{Z} P(Z_i|X_i;\theta^{t-1})
-\left [ \ln P(X_i,Z_i;\theta^t) - \ln {P(Z_i|X_i;\theta^{t-1})} \right ] \\
-&amp;= \sum_{i=1}^N \sum_{Z} \left [ P(Z_i|X_i;\theta^{t-1}) \ln P(X_i,Z_i;\theta^t) \right ]
-- \underbrace{\sum_{Z} \left [ P(Z_i|X_i;\theta^{t-1}) \ln {P(Z_i|X_i;\theta^{t-1})} \right ]}_{\text{与参数} \theta 无关}\\
-&amp;\triangleq  \sum_{i=1}^N \sum_{Z} P(Z_i|X_i;\theta^{t-1}) \ln P(X_i,Z_i;\theta^t)\end{split}\]</div>
+<div class="math notranslate nohighlight" id="equation-probability-model-13-lecture-22-3">
+<span class="eqno">(12.2.20)<a class="headerlink" href="#equation-probability-model-13-lecture-22-3" title="公式的永久链接"></a></span>\[q(Z^{i}) = P(Z^{i}|X^{i};\theta^{t-1})\]</div>
+<p>然后定义一个辅助函数(下界函数) <span class="math notranslate nohighlight">\(Q(\theta,\theta^{t-1})\)</span>
+，通过极大化它求解本来的参数 <span class="math notranslate nohighlight">\(\theta^t\)</span>
+。</p>
+<div class="math notranslate nohighlight" id="equation-probability-model-13-lecture-22-4">
+<span class="eqno">(12.2.21)<a class="headerlink" href="#equation-probability-model-13-lecture-22-4" title="公式的永久链接"></a></span>\[\begin{split}Q(\theta^t,\theta^{t-1})
+&amp;= \sum_{i=1}^N \sum_{z} P(Z^{i}|X^{i};\theta^{t-1}) \ln
+\left [ \frac{P(X^{i},Z^{i};\theta^t)}{P(Z^{i}|X^{i};\theta^{t-1})} \right ]\\
+&amp;=\sum_{i=1}^N  \sum_{z} P(Z^{i}|X^{i};\theta^{t-1})
+\left [ \ln P(X^{i},Z^{i};\theta^t) - \ln {P(Z^{i}|X^{i};\theta^{t-1})} \right ] \\
+&amp;= \sum_{i=1}^N \sum_{z} \left [ P(Z^{i}|X^{i};\theta^{t-1}) \ln P(X^{i},Z^{i};\theta^t) \right ]
+- \underbrace{\sum_{z} \left [ P(Z^{i}|X^{i};\theta^{t-1}) \ln {P(Z|X^{i};\theta^{t-1})} \right ]}_{\text{与参数} \theta^t 无关，可以去掉}\\
+&amp;\triangleq  \sum_{i=1}^N \sum_{z} P(Z^{i}|X^{i};\theta^{t-1}) \ln P(X^{i},Z^{i};\theta^t)\end{split}\]</div>
 <p>这个辅助函数中对数的内部就是模型的联合概率，这个完整数据观测的对数似然函数一样了，
 可以方便的进行因子分解后求参数的偏导，
 只需要极大化这个辅助函数得到本轮的参数值即可。</p>
-<div class="math notranslate nohighlight" id="equation-probability-model-13-lecture-22-2">
-<span class="eqno">(12.2.20)<a class="headerlink" href="#equation-probability-model-13-lecture-22-2" title="公式的永久链接"></a></span>\[\theta^t = \mathop{\arg \max}_{\theta} Q(\theta^t,\theta^{t-1})
-= \mathop{\arg \max}_{\theta} \sum_{i=1}^N \sum_{Z} P(Z_i|X_i;\theta^{t-1}) \ln P(X_i,Z_i;\theta^t)\]</div>
+<div class="math notranslate nohighlight" id="equation-probability-model-13-lecture-22-5">
+<span class="eqno">(12.2.22)<a class="headerlink" href="#equation-probability-model-13-lecture-22-5" title="公式的永久链接"></a></span>\[\theta^t = \mathop{\arg \max}_{\theta} Q(\theta^t,\theta^{t-1})
+= \mathop{\arg \max}_{\theta} \sum_{i=1}^N \sum_{z} P(Z^{i}|X^{i};\theta^{t-1}) \ln P(X^{i},Z^{i};\theta^t)\]</div>
 <p>由于极大化的辅助函数是一个关于隐变量后验分布的期望形式，因此被称为期望最大化(Expectation-Maximization)算法，一般简称为EM算法。
 最后整理一下算法的执行过程，EM算法是一个迭代式的算法，
 每次迭代有两个过程：E(Expectation)步骤和M(Maximization)步骤，
 交替的执行这两个过程，知道参数收敛。</p>
 <dl>
-<dt><strong>初始：</strong> 初始化模型的参数，可以选择随机初始化赋值，也可以使用一些复杂的参数初始化方法。</dt><dd><div class="math notranslate nohighlight" id="equation-probability-model-13-lecture-22-3">
-<span class="eqno">(12.2.21)<a class="headerlink" href="#equation-probability-model-13-lecture-22-3" title="公式的永久链接"></a></span>\[\theta = \theta_0\]</div>
+<dt><strong>初始：</strong> 初始化模型的参数，可以选择随机初始化赋值，也可以使用一些复杂的参数初始化方法。</dt><dd><div class="math notranslate nohighlight" id="equation-probability-model-13-lecture-22-6">
+<span class="eqno">(12.2.23)<a class="headerlink" href="#equation-probability-model-13-lecture-22-6" title="公式的永久链接"></a></span>\[\theta = \theta_0\]</div>
 </dd>
-<dt><strong>E步骤：</strong> 计算隐变量集合 <span class="math notranslate nohighlight">\(Z\)</span> 的后验概率分布，也可以看做是得到 <span class="math notranslate nohighlight">\(Q(\theta^t,\theta^{t-1})\)</span> 辅助函数。</dt><dd><div class="math notranslate nohighlight" id="equation-probability-model-13-lecture-22-4">
-<span class="eqno">(12.2.22)<a class="headerlink" href="#equation-probability-model-13-lecture-22-4" title="公式的永久链接"></a></span>\[q(Z_i) = P(Z_i|X_i;\theta^{t-1})\]</div>
+<dt><strong>E步骤：</strong> 计算隐变量集合 <span class="math notranslate nohighlight">\(Z\)</span> 的后验概率分布，也可以看做是得到 <span class="math notranslate nohighlight">\(Q(\theta^t,\theta^{t-1})\)</span> 辅助函数。</dt><dd><div class="math notranslate nohighlight" id="equation-probability-model-13-lecture-22-7">
+<span class="eqno">(12.2.24)<a class="headerlink" href="#equation-probability-model-13-lecture-22-7" title="公式的永久链接"></a></span>\[q(Z^{i}) = P(Z^{i}|X^{i};\theta^{t-1})\]</div>
 </dd>
-<dt><strong>M步骤：</strong> 极大化辅助函数 <span class="math notranslate nohighlight">\(Q(\theta^t,\theta^{t-1})\)</span> 得到本轮迭代的参数值。</dt><dd><div class="math notranslate nohighlight" id="equation-probability-model-13-lecture-22-5">
-<span class="eqno">(12.2.23)<a class="headerlink" href="#equation-probability-model-13-lecture-22-5" title="公式的永久链接"></a></span>\[\theta^t = \mathop{\arg \max}_{\theta} Q(\theta^t,\theta^{t-1})
-= \mathop{\arg \max}_{\theta} \sum_{i=1}^N \sum_{Z} P(Z_i|X_i;\theta^{t-1}) \ln P(X_i,Z_i;\theta^t)\]</div>
+<dt><strong>M步骤：</strong> 极大化辅助函数 <span class="math notranslate nohighlight">\(Q(\theta^t,\theta^{t-1})\)</span> 得到本轮迭代的参数值。</dt><dd><div class="math notranslate nohighlight" id="equation-probability-model-13-lecture-22-8">
+<span class="eqno">(12.2.25)<a class="headerlink" href="#equation-probability-model-13-lecture-22-8" title="公式的永久链接"></a></span>\[\theta^t = \mathop{\arg \max}_{\theta} Q(\theta^t,\theta^{t-1})
+= \mathop{\arg \max}_{\theta} \sum_{i=1}^N \sum_{z} P(Z^{i}|X^{i};\theta^{t-1}) \ln P(X^{i},Z^{i};\theta^t)\]</div>
 <p>这里就和正常的极大似然估计是一样的了，可以通过梯度法得到最优的参数值。</p>
 </dd>
 </dl>

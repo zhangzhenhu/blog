@@ -17,7 +17,7 @@
 我们已经知道通常模型参数估计的方法是使用极大似然估计，似然函数的含义是观测数据的概率。
 假设模型中变量集合是
 :math:`X=\{X_1,\dots,X_M\}` ，
-模型的参数集合是 :math:`\theta=\{\theta_1,\dots,\theta_K \}` ，模型的联合概率分布是
+模型的参数集合是 :math:`\theta=\{\theta_1,\dots,\theta_K \}` ，模型的联合概率分布记作
 :math:`P(X;\theta)=P(X_1,\dots,X_M;\theta)` ，
 我们知道无论是有向图、无向图还是因子图，模型的联合概率分布都是可以分解成多个因子函数的乘积形式的
 
@@ -36,9 +36,9 @@
 
     \ell(\theta;\mathcal{D}) &= \ln P(\mathcal{D};\theta)
 
-    &= \ln\prod_{i=1}^N P(X^{(i)};\theta)
+    &= \ln\prod_{i=1}^N P(X^{i};\theta)
 
-    &= \sum_{i=1}^N \ln P(X^{(i)};\theta)
+    &= \sum_{i=1}^N \ln P(X^{i};\theta)
 
     &= \sum_{i=1}^N \ln\prod_{c \in C} \psi_c (X_c;\theta_c)
 
@@ -50,7 +50,7 @@
 这时有两个特点：
 
 1. 每个因子函数的参数 :math:`\theta_c` 只出现在其中一个子项中。
-2. 各个因子函数之间是加法
+2. 各个因子函数之间是加法。
 
 我们通过极大化对数似然函数 :math:`\ell(\theta;\mathcal{D})` 来求解参数，这时需要求解每个参数的偏导数，
 而根据求偏导的规则，在满足上面两个特点的时，参数之间的偏导数是互不相关的，也就一个每个参数的偏导数不包含其它参数，
@@ -76,7 +76,7 @@
 .. math::
     :label: eq_em_01.03
 
-    P(X;\theta)= \sum_{Z} P(X,Z;\theta)
+    P(X;\theta)= \sum_{z} P(X,Z;\theta)
 
 观测数据的对数似然函数也就变成了如下形式：
 
@@ -84,14 +84,14 @@
     :label: eq_em_01.04
 
 
-    \ell(\theta;\mathcal{D}) &= \ln \prod_{i=1}^N P(X^{(i)};\theta)
+    \ell(\theta;\mathcal{D}) &= \ln \prod_{i=1}^N P(X^{i};\theta)
 
-    &= \ln \prod_{i=1}^N \sum_{Z} P(X^{(i)},Z;\theta)
+    &= \ln \prod_{i=1}^N \sum_{z} P(X^{i},Z);\theta)
 
-    &= \sum_{i=1}^N \ln \sum_{Z} P(X^{(i)},Z;\theta)
+    &= \sum_{i=1}^N \ln \sum_{z} P(X^{i},Z;\theta)
 
 
-发现没有，对数操作里面有求和符号 :math:`\sum_{Z}` ，这就导致 :math:`\ln` 里面的内容无法再继续拆解成独立的子项。
+发现没有，对数操作里面有求和符号 :math:`\sum_{z}` ，这就导致 :math:`\ln` 里面的内容无法再继续拆解成独立的子项。
 这时再对参数求偏导将变得十分困难。所以，我们需要解决这个求和符号的问题。
 
 .. hint::
@@ -103,7 +103,7 @@
 ，我们称其为 **完整数据对数似然(complete data log-likelihood)** 。
 反之，如果模型包含不可观测的隐变量集合 :math:`Z`
 ，则对数似然函数记作
-:math:`\ell(\theta;X)=\ln \sum_{Z} P(X,Z;\theta)`
+:math:`\ell(\theta;X)=\ln \sum_{z} P(X,z;\theta)`
 ，我们能称其为 **不完整数据对数似然(incomplete data log-likelihood)**。
 隐变量的出现，给模型的参数估计带来了极大的困难。
 
@@ -141,45 +141,48 @@ Jensen不等式是一个关于期望的不等式运算，
 然后就可以利用上Jensen不等式的性质。
 
 
-定义一个隐变量集合 :math:`Z` 的一个概率密度（质量）函数，记作 :math:`q(Z)`
-，这个概率分布函数具体是什么在此先不讨论，稍后再做讨论。
-为了符号的简洁性，这里我们用粗体表示观测样本的集合，
-即显变量的观测样本集 :math:`\mathcal{D}` 记作 :math:`\pmb{X}`。
-接下来，对 :eq:`eq_em_01.04` 进行如下变换。
+**下界函数**
+
+
+定义一个隐变量 :math:`Z` 的概率密度（质量）函数，记作 :math:`q(Z)`
+，这个函数具体形式先不讨论，稍后再做讨论。
+注意 :math:`q(Z)` 是与观测样本无关的，对所有样本都是相同的，即与 :math:`i` 无关的。
+接下来，通过在 :eq:`eq_em_01.04` 中引入 :math:`q(Z)` 对其进行一些变换。
+为了符号的简洁，我们忽略对所有观测样本的求和操作，暂时只关注一条样本的对数似然。
 
 
 .. math::
     :label: eq_em_02.03
 
-    \ell(\theta;\mathcal{D}) &= \sum_{i=1}^N \ln  P(X_i;\theta)
+    \ell(\theta;X^{i}) &=  \ln  P(X^{i};\theta)
 
-     &= \sum_{i=1}^N \ln\sum_{Z} P(X_i,Z_i;\theta)
+     &=  \ln \sum_{z} P(X^{i},Z;\theta)
 
-    &=\sum_{i=1}^N  \ln\sum_{Z} q(Z) \frac{P(X_i,Z_i;\theta)}{q(Z)}
+    &=  \ln \sum_{z} q(Z) \frac{P(X^{i},Z;\theta)}{q(Z)}
 
-    &= \sum_{i=1}^N \ln\mathbb{E}_{q(Z) } \left [ \frac{P(X_i,Z_i;\theta)}{q(Z)} \right ]
+    &=  \ln\mathbb{E}_{q(Z) } \left [ \frac{P(X^{i},Z;\theta)}{q(Z)} \right ]
 
-    & \ge\sum_{i=1}^N  \mathbb{E}_{q(Z) } \ln\left [ \frac{P(X_i,Z_i;\theta)}{q(Z)} \right ]
+    & \ge  \mathbb{E}_{q(Z) } \ln\left [ \frac{P(X^{i},Z;\theta)}{q(Z)} \right ]
     \ \ \ \text{根据Jensen不等式}
 
 
-    &=\sum_{i=1}^N  \sum_{Z} q(Z) \ln \left [ \frac{P(X_i,Z_i;\theta)}{q(Z)} \right ]
+    &=  \sum_{z} q(Z) \ln \left [ \frac{P(X^{i},Z;\theta)}{q(Z)} \right ]
 
-    &=\sum_{i=1}^N  \left [  \sum_{Z} q(Z_i) \ln  P(X_i,Z_i;\theta)
-    -   \sum_{Z} q(Z) \ln q(Z) \right ]
+    &=  \left [  \sum_{z} q(Z) \ln  P(X^{i},Z;\theta)
+    -   \sum_{z} q(Z) \ln q(Z) \right ]
 
     &\triangleq \mathcal{L}(q,\theta)
 
 
 
-利用 ``Jensen`` 不等式的性质，可以为观测数据的对数似然函数 :math:`\ell(\theta;\mathcal{D})` 找到一个下界函数
+利用 ``Jensen`` 不等式的性质，可以为对数似然函数 :math:`\ell(\theta;X^{i})` 找到一个下界函数
 ，把这个下界函数记作 :math:`\mathcal{L}(q,\theta)`。
 
 .. math::
     :label: eq_em_02.04
 
-    \mathcal{L}(q,\theta) =\sum_{i=1}^N \left [ \sum_{Z} q(Z) \ln  P(X_i,Z_i;\theta)
-    -   \sum_{Z} q(Z) \ln q(Z) \right ]
+    \mathcal{L}(q,\theta) = \sum_{z} q(Z) \ln  P(X^{i},Z;\theta)
+    -   \sum_{z} q(Z) \ln q(Z)
 
 
 由于观测数据的对数似然函数也被称作 **证据(evidence)**，
@@ -187,23 +190,23 @@ Jensen不等式是一个关于期望的不等式运算，
 。这个下界函数的另一个常用名称是 **负变分自由能（variational free energy）**。
 
 观察 :eq:`eq_em_02.04`，
-下界函数分为两部分，第一部分 :math:`\sum_{Z} q(Z) \ln  P(X_i,Z_i;\theta)`
+下界函数分为两部分，第一部分 :math:`\sum_{z} q(Z) \ln  P(X^{i},Z;\theta)`
 可以看做完整数据对数似然（模型联合概率）的期望。
-第二部分 :math:`\sum_{Z} q(Z) \ln q(Z)`
+第二部分 :math:`\sum_{z} q(Z) \ln q(Z)`
 是 :math:`q(Z)` 的 **熵**，记作 :math:`H(q)`
-。为了令公式更加简洁，这里我们用向量的形式替换样本的求和，
+。为了令公式更加简洁，
 证据下界函数可以改写成如下形式
 
 .. math::
     :label: eq_em_02.05
 
-    \mathcal{L}(q,\theta) &=  \sum_{i=1}^N  \left [ \sum_{Z} q(Z) \ln  P(X_i,Z_i;\theta)
-    -   \sum_{Z} q(Z) \ln q(Z) \right ]
+    \mathcal{L}(q,\theta) &=   \sum_{z} q(Z) \ln  P(X^{i},Z;\theta)
+    -   \sum_{z} q(Z) \ln q(Z)
 
-    &= \sum_{i=1}^N  \left [  \mathbb{E}_{z \sim q} [ \ln  P(\pmb{X},\pmb{Z};\theta) ]
-    - \mathbb{E}_{z \sim q}[ \ln q(z) ]   \right ]
+    &=   \mathbb{E}_{z \sim q} [ \ln  P(X^{i},Z;\theta) ]
+    - \mathbb{E}_{z \sim q}[ \ln q(Z) ]
 
-    &= \mathbb{E}_{\pmb{z} \sim q} [ \ln  P(\pmb{X},\pmb{Z};\theta) ] -   H(q(\pmb{Z}))
+    &= \mathbb{E}_{z \sim q} [ \ell(\theta;X^{i},Z) ] -   H(q(Z))
 
 
 
@@ -213,115 +216,127 @@ Jensen不等式是一个关于期望的不等式运算，
 换句话说，无论 :math:`q(Z)` 是什么，这个不等式都成立。
 
 
+此时，我们找到了对数似然函数
+的一个下界函数 :math:`\mathcal{L}(q,\theta)` ，并且 **这个下界函数中对数内已经没有了求和(积分)符号，可以方便的求导和极大化** 。
+那么我们是不是可以通过极大化这个下界函数 :math:`\mathcal{L}(q,\theta)` 去求解模型的原始参数值呢？
 
-.. tip::
-    这个下界函数还有另外两种形式，
 
-    第一种形式：
+观察 :eq:`eq_em_02.05`， 下界函数中含有联合概率分布 :math:`P(X,Z;\theta)`
+，根据链式法则，有两种分解方式。
+
+.. math::
+
+     P(X,Z;\theta) = P(Z) P(X|Z)=P(X)P(Z|X)
+
+其中 :math:`P(Z)` 表示 :math:`Z` 的先验概率分布，:math:`P(Z|X)` 表示其后验概率分布。
+接下来，分别用分解两种方式变换下界函数。
+
+**第一种形式**，使用 :math:`Z` 的先验分布 :math:`P(Z)` :
 
     .. math::
         :label: eq_em_02.06
 
-        \mathcal{L}(q,\theta) &= \mathbb{E}_{\pmb{z} \sim q} [ \ln  P(\pmb{X},\pmb{Z};\theta) ]
-        - \mathbb{E}_{\pmb{z} \sim q}[ \ln q(\pmb{Z}))]
+        \mathcal{L}(q,\theta) &= \mathbb{E}_{z \sim q} [ \ln  P(X^{i},Z;\theta) ]
+        - \mathbb{E}_{z \sim q}[ \ln q(Z))]
 
-        &= \mathbb{E}_{\pmb{z} \sim q} [ \ln  P(\pmb{Z}) + \ln  P(\pmb{X}|\pmb{Z};\theta) ]
-            - \mathbb{E}_{\pmb{z} \sim q}[ \ln q(\pmb{Z}))]
+        &= \mathbb{E}_{z \sim q} [ \ln  P(Z) + \ln  P(X^{i}|Z;\theta) ]
+            - \mathbb{E}_{z \sim q}[ \ln q(Z))]
 
-        &= \mathbb{E}_{\pmb{z} \sim q} [ \ln  P(\pmb{Z}) ]
-            + \mathbb{E}_{\pmb{z} \sim q} [\ln  P(\pmb{X}|\pmb{Z};\theta) ]
-            - \mathbb{E}_{\pmb{z} \sim q}[ \ln q(\pmb{Z}))]
+        &= \mathbb{E}_{z \sim q} [ \ln  P(Z) ]
+            + \mathbb{E}_{z \sim q} [\ln  P(X^{i}|Z;\theta) ]
+            - \mathbb{E}_{z \sim q}[ \ln q(Z))]
 
-        &= \mathbb{E}_{\pmb{z} \sim q} [\ln  P(\pmb{X}|\pmb{Z};\theta) ] +
+        &= \mathbb{E}_{z \sim q} [\ln  P(X^{i}|Z;\theta) ] +
             \underbrace{
-            \mathbb{E}_{\pmb{z} \sim q} [ \ln  P(\pmb{Z}) ]
-            - \mathbb{E}_{\pmb{z} \sim q}[ \ln q(\pmb{Z}))] }_{\text{KL散度}}
+            \mathbb{E}_{z \sim q} [ \ln  P(Z) ]
+            - \mathbb{E}_{z \sim q}[ \ln q(Z))] }_{\text{KL散度}}
 
-        &= \mathbb{E}_{\pmb{z} \sim q} [\ln  P(\pmb{X}|\pmb{Z};\theta) ]
-            - KL(q(Z)||P(Z))
+        &= \mathbb{E}_{z \sim q} [\ln  P(X^{i}|Z;\theta) ]
+            - \underbrace{ KL(q(Z)||P(Z))}_{q(Z) \text{和先验} P(Z)  \text{的KL散度}}
 
-    第二种形式：
+
+**第二种形式**，使用 :math:`Z` 的后验验分布 :math:`P(Z|X)` :
+
 
     .. math::
         :label: eq_em_02.07
 
-        \mathcal{L}(q,\theta) &= \mathbb{E}_{\pmb{z} \sim q} [ \ln  P(\pmb{X},\pmb{Z};\theta) ]
-        - \mathbb{E}_{\pmb{z} \sim q}[ \ln q(\pmb{Z}))]
+        \mathcal{L}(q,\theta) &= \mathbb{E}_{z \sim q} [ \ln  P(X^{i},Z;\theta) ]
+        - \mathbb{E}_{z \sim q}[ \ln q(Z))]
 
-        &= \mathbb{E}_{\pmb{z} \sim q} \left [ \ln  P(\pmb{X};\theta) + \ln  P(\pmb{Z}|\pmb{X}) \right ]
-            - \mathbb{E}_{\pmb{z} \sim q}[ \ln q(\pmb{Z}))]
+        &= \mathbb{E}_{z \sim q} \left [ \ln  P(X^{i};\theta) + \ln  P(Z|X^{i}) \right ]
+            - \mathbb{E}_{z \sim q}[ \ln q(Z))]
 
-        &= \underbrace{\mathbb{E}_{\pmb{z} \sim q} [ \ln  P(\pmb{X};\theta) ]}_{\text{与}z\text{无关，期望符号可以去掉}}
-            + \mathbb{E}_{\pmb{z} \sim q} [\ln  P(\pmb{Z}|\pmb{X}) ]
-            - \mathbb{E}_{\pmb{z} \sim q}[ \ln q(\pmb{Z}))]
+        &= \underbrace{\mathbb{E}_{z \sim q} [ \ln  P(X^{i};\theta) ]}_{\text{与}z\text{无关，期望符号可以去掉}}
+            + \mathbb{E}_{z \sim q} [\ln  P(Z|X^{i}) ]
+            - \mathbb{E}_{z \sim q}[ \ln q(Z))]
 
-        &= \underbrace{\ln  P(\pmb{X};\theta)}_{\text{观测数据对数似然}}
+        &= \underbrace{\ln  P(X^{i};\theta)}_{\text{观测数据对数似然}}
             +
             \underbrace{
-            \mathbb{E}_{\pmb{z} \sim q} [ \ln  P(\pmb{Z}|\pmb{X})) ]
-            - \mathbb{E}_{\pmb{z} \sim q}[ \ln q(\pmb{Z})] }_{\text{KL散度}}
+            \mathbb{E}_{z \sim q} [ \ln  P(Z|X^{i})) ]
+            - \mathbb{E}_{z \sim q}[ \ln q(Z)] }_{\text{KL散度}}
 
-        &= \ell(\theta;\mathcal{D})
-            - KL(q(Z)||P(Z|\pmb{X}))
+        &= \underbrace{ \ell(\theta;X^{i}) }_{\text{观测数据对数似然}}
+            - \underbrace{ KL(q(Z)||P(Z|X^{i}))}_{ q(Z) \text{和后验验} P(Z|X)  \text{的KL散度}}
 
 
 
-我们找到模型中观测变量对数似然函数
-的一个下界函数 :math:`\mathcal{L}(q,\theta)` ，且 **这个下界函数中对数内已经没有了求和符号** 。
-那么我们是不是可以通过极大化这个下界函数 :math:`\mathcal{L}(q,\theta)` 去求解参数值呢？
-我们发现对数似然函数 :math:`\ell(\theta;\mathcal{D})` 是 *大于等于* 这个下界函数的，
-那么如果能令这个 *等号* 成立，也就是让下界函数等于对数似然函数，那两者极大化的解就是等价的。
-
-我们令概率分布 :math:`q(Z)` 为 :math:`Z` 的后验概率分布
-:math:`q(Z)=P(Z|X;\theta)`
-，则可以发现下界函数 :math:`\mathcal{L}(q,\theta)`
-与对数似然函数 :math:`\ell(\theta;\mathcal{D})` 是等价。
-
+这里我们重点关注第二种形式，:eq:`eq_em_02.07` 可以写成
 
 .. math::
-    :label: eq_em_02.08
 
-    \mathcal{L}(q,\theta) &= \sum_{i=1}^N  \sum_{Z} q(Z_i) \ln \left [ \frac{P(X_i,Z_i;\theta)}{q(Z_i)} \right ]
+    \ell(\theta;X^{i}) =  \mathcal{L}(q,\theta)  +  KL(q(Z)||P(Z|X^{i}))
 
-    & = \sum_{i=1}^N  \sum_{Z} P(Z_i|X_i;\theta) \ln
-    \left [ \frac{P(X_i,Z_i;\theta)}{P(Z_i|X_i;\theta)} \right ]
-
-    & =  \sum_{i=1}^N \sum_{Z} P(Z_i|X_i;\theta) \ln
-    \left [ \frac{P(X_i;\theta) P(Z_i|X_i;\theta)}{P(Z_i|X_i;\theta)} \right ]
-
-    & = \sum_{i=1}^N  \sum_{Z} P(Z_i|X_i;\theta) \underbrace{ \ln P(X_i;\theta)}_{\text{与z无关}}
-
-    & = \sum_{i=1}^N \ln P(X_i;\theta)  \underbrace{ \sum_{Z} P(Z_i|X_i;\theta)}_{=1}
-
-    & = \sum_{i=1}^N  \ln P(X_i;\theta)
-
-    &= \ell(\theta;\mathcal{D})
+观测数据的对数似然就等于下界函数加上 :math:`q(Z)` 与后验 :math:`P(Z|X)` 的KL散度，
+我们知道KL散度是衡量两个概率分布是否相近的，如果两个概率分布完全一样，则KL散度的值为0。
+也就是说如果令 :math:`q(Z)=P(Z|X^{i})` 成立，则 :math:`KL(q(Z)||P(Z|X^{i}))=0`
+，此时就有 :math:`\ell(\theta;X^{i}) =  \mathcal{L}(q,\theta)` 成立。
 
 
+到此，我们找到了含有隐变量模型参数估计的一个方法，首先利用观测样本求出隐变量的后验分布 :math:`q(Z)=P(Z|X)`
+，然后把这个后验分布带入到下界函数 :math:`\mathcal{L}(q,\theta)` 中，并且极大化这个函数求解参数，
+后验分布 :math:`P(Z|X)` 可以利用贝叶斯定理得到，
+
+.. math::
+
+    q(Z)=P(Z|X) = \frac{P(X|Z;\theta) P(Z;\theta) }{ \sum_{z}  P(X|Z;\theta) P(Z;\theta)}
 
 
-到此我们已经找到了解决方法，
-符号 :math:`t` 表示迭代的轮次，:math:`t-1` 表示上一轮的迭代，
+我们发现计算后验分布 :math:`q(Z)=P(Z|X)` 依赖两个条件：
+
+1. 先验分布 :math:`P(Z;\theta)` 及其参数。
+2. 条件概率分布 :math:`P(X|Z;\theta)` 及其参数。
+
+因此我们需要给出 :math:`P(Z;\theta)` 和 :math:`P(X|Z;\theta)` 的分布定义，
+至于参数 :math:`\theta` 的值，可以用迭代过程中上一轮的参数值，而这这就是EM算法的思想。
+
+
+
+**EM算法的过程**
+
+令符号 :math:`t` 表示迭代的轮次，:math:`t-1` 表示上一轮的迭代，
 :math:`t` 表示当前轮的迭代。
 首先利用上一轮的参数值以及观测数据得到隐变量的后验概率分布，
 
 .. math::
-    q(Z_i) = P(Z_i|X_i;\theta^{t-1})
+    q(Z^{i}) = P(Z^{i}|X^{i};\theta^{t-1})
 
 
-然后定义一个辅助函数 :math:`Q(\theta,\theta^{t-1})`
-，
+然后定义一个辅助函数(下界函数) :math:`Q(\theta,\theta^{t-1})`
+，通过极大化它求解本来的参数 :math:`\theta^t`
+。
 
 .. math::
 
     Q(\theta^t,\theta^{t-1})
-    &= \sum_{i=1}^N \sum_{Z} P(Z_i|X_i;\theta^{t-1}) \ln
-    \left [ \frac{P(X_i,Z_i;\theta^t)}{P(Z_i|X_i;\theta^{t-1})} \right ]\\
-    &=\sum_{i=1}^N  \sum_{Z} P(Z_i|X_i;\theta^{t-1})
-    \left [ \ln P(X_i,Z_i;\theta^t) - \ln {P(Z_i|X_i;\theta^{t-1})} \right ] \\
-    &= \sum_{i=1}^N \sum_{Z} \left [ P(Z_i|X_i;\theta^{t-1}) \ln P(X_i,Z_i;\theta^t) \right ]
-    - \underbrace{\sum_{Z} \left [ P(Z_i|X_i;\theta^{t-1}) \ln {P(Z_i|X_i;\theta^{t-1})} \right ]}_{\text{与参数} \theta 无关}\\
-    &\triangleq  \sum_{i=1}^N \sum_{Z} P(Z_i|X_i;\theta^{t-1}) \ln P(X_i,Z_i;\theta^t)
+    &= \sum_{i=1}^N \sum_{z} P(Z^{i}|X^{i};\theta^{t-1}) \ln
+    \left [ \frac{P(X^{i},Z^{i};\theta^t)}{P(Z^{i}|X^{i};\theta^{t-1})} \right ]\\
+    &=\sum_{i=1}^N  \sum_{z} P(Z^{i}|X^{i};\theta^{t-1})
+    \left [ \ln P(X^{i},Z^{i};\theta^t) - \ln {P(Z^{i}|X^{i};\theta^{t-1})} \right ] \\
+    &= \sum_{i=1}^N \sum_{z} \left [ P(Z^{i}|X^{i};\theta^{t-1}) \ln P(X^{i},Z^{i};\theta^t) \right ]
+    - \underbrace{\sum_{z} \left [ P(Z^{i}|X^{i};\theta^{t-1}) \ln {P(Z|X^{i};\theta^{t-1})} \right ]}_{\text{与参数} \theta^t 无关，可以去掉}\\
+    &\triangleq  \sum_{i=1}^N \sum_{z} P(Z^{i}|X^{i};\theta^{t-1}) \ln P(X^{i},Z^{i};\theta^t)
 
 
 
@@ -332,7 +347,7 @@ Jensen不等式是一个关于期望的不等式运算，
 .. math::
 
     \theta^t = \mathop{\arg \max}_{\theta} Q(\theta^t,\theta^{t-1})
-    = \mathop{\arg \max}_{\theta} \sum_{i=1}^N \sum_{Z} P(Z_i|X_i;\theta^{t-1}) \ln P(X_i,Z_i;\theta^t)
+    = \mathop{\arg \max}_{\theta} \sum_{i=1}^N \sum_{z} P(Z^{i}|X^{i};\theta^{t-1}) \ln P(X^{i},Z^{i};\theta^t)
 
 
 
@@ -348,13 +363,13 @@ Jensen不等式是一个关于期望的不等式运算，
 
 **E步骤：** 计算隐变量集合 :math:`Z` 的后验概率分布，也可以看做是得到 :math:`Q(\theta^t,\theta^{t-1})` 辅助函数。
     .. math::
-        q(Z_i) = P(Z_i|X_i;\theta^{t-1})
+        q(Z^{i}) = P(Z^{i}|X^{i};\theta^{t-1})
 
 **M步骤：** 极大化辅助函数 :math:`Q(\theta^t,\theta^{t-1})` 得到本轮迭代的参数值。
     .. math::
 
         \theta^t = \mathop{\arg \max}_{\theta} Q(\theta^t,\theta^{t-1})
-        = \mathop{\arg \max}_{\theta} \sum_{i=1}^N \sum_{Z} P(Z_i|X_i;\theta^{t-1}) \ln P(X_i,Z_i;\theta^t)
+        = \mathop{\arg \max}_{\theta} \sum_{i=1}^N \sum_{z} P(Z^{i}|X^{i};\theta^{t-1}) \ln P(X^{i},Z^{i};\theta^t)
     这里就和正常的极大似然估计是一样的了，可以通过梯度法得到最优的参数值。
 
 **迭代：** 交替执行E步骤和M步骤，直到参数收敛。

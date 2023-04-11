@@ -130,6 +130,9 @@
         <loc>https://zhangzhenhu.github.io/blog/glm/source/高斯模型/draft.html</loc>
     </url>
     <url>
+        <loc>https://zhangzhenhu.github.io/blog/important.html</loc>
+    </url>
+    <url>
         <loc>https://zhangzhenhu.github.io/blog/index.html</loc>
     </url>
     <url>
@@ -244,6 +247,9 @@
         <loc>https://zhangzhenhu.github.io/blog/probability_model/9.和积算法_lecture_8.html</loc>
     </url>
     <url>
+        <loc>https://zhangzhenhu.github.io/blog/probability_model/aigc_index.html</loc>
+    </url>
+    <url>
         <loc>https://zhangzhenhu.github.io/blog/probability_model/index_html.html</loc>
     </url>
     <url>
@@ -259,7 +265,13 @@
         <loc>https://zhangzhenhu.github.io/blog/probability_model/参考文献.html</loc>
     </url>
     <url>
+        <loc>https://zhangzhenhu.github.io/blog/probability_model/变分自编码器.html</loc>
+    </url>
+    <url>
         <loc>https://zhangzhenhu.github.io/blog/probability_model/声明.html</loc>
+    </url>
+    <url>
+        <loc>https://zhangzhenhu.github.io/blog/probability_model/扩散概率模型.html</loc>
     </url>
     <url>
         <loc>https://zhangzhenhu.github.io/blog/probability_model/贝叶斯分类器.html</loc>
