@@ -1,0 +1,255 @@
+
+##############################################################
+条件控制扩散模型
+##############################################################
+
+
+无论是 DDPM 还是 DDIM，这些扩散模型在生成图片时，都是输入一个随机高斯噪声数据，
+然后逐步的产出一张有意的真实图片。这个过程中每一步都是一个随机过程，所以每次执行产出的图片都不一样，
+生成的图像多样性非常好。
+但这也是一个缺点：**生成的图像不可控，无法控制这个生成过程并令其生成我们想要的图像内容**。
+
+
+鉴于此，很多研究中在如何控制图像生成过程方面提出了很多有效的方案。
+直觉的讲，我们可以在扩散过程中引入额外的信息来指导或者说控制整个扩散模型，
+假设这个额外的信息为 :math:`y`，它可以是一段文本、一张图片或者图像的类别标签。
+引入 :math:`y` 之后的模型就变成了一个以 :math:`y` 为条件的条件概率分布。
+
+.. math::
+
+    p(x_{1:T} | y,x_0)
+
+
+自然而然地，接下来就需要探讨，引入 :math:`y` 之后对前向扩散过程和逆向采用过程分别有什么影响，需要做出什么调整。
+首先看下对前向扩散过程的影响，先说结论：**引入**  :math:`y` **之后，对前向扩散过程没有任何影响**。
+其实，从直觉上讲，前向扩散过程是对原始图片加噪声，直至变成纯噪声，这个过程显然与 :math:`y` 没有任何关系。
+但做研究要严谨，还是需要给出数学证明的。
+证明过程在论文 :footcite:`dhariwal2021diffusion` 中已经给出，这里直接搬过来。
+
+
+首先定义带有小帽子 :math:`\hat{q}` 的符号表示引入 :math:`y` 之后的条件扩散模型中的概率分布，
+不带小帽子的符号 :math:`q` 表示原始（无条件）扩散模型的概率分布。
+在这里你可以先把 :math:`y` 理解成原始图像 :math:`x_0` 的类别标签（label），
+它是已知的，即训练输入是 :math:`(x_0,y)` 这样的数据对，类似于图像分类任务的训练样本。
+
+先考虑，单一时刻 :math:`t` 的变化，扩散模型本身是一个马尔科夫链，其定义中已经明确了：
+任意时刻的 :math:`x_t` 至于它上一个时刻的状态有关。
+因此任意单一时刻的前向扩散条件概率（加噪声）过程一定是与 :math:`y`
+无关的，即下面的式子是一定成立的。
+
+.. math::
+    \hat{q} (x_{t}|x_{t-1}, y) := q(x_{t}|x_{t-1})
+
+
+基于这个事实，可以推导出另一个等式，即
+
+.. math::
+
+    \hat{q}(x_{t}|x_{t-1}) &= \int_{y} \hat{q}(x_{t},y|x_{t-1}) d y
+
+    &= \int_{y} \hat{q}(x_{t}|y,x_{t-1})  \hat{q}(y|x_{t-1}) d y
+
+    &= \int_{y} q(x_{t}|x_{t-1})  \hat{q}(y|x_{t-1}) d y
+
+    &=  q(x_{t}|x_{t-1}) \underbrace{ \int_{y} \hat{q}(y|x_{t-1}) d y}_{\text{这里积分为}1}
+
+    &=  q(x_{t}|x_{t-1})
+
+    &= \hat{q} (x_{t}|x_{t-1},y)
+
+
+基于相同的逻辑，可以推导出条件扩散模型中的前向扩散过程的联合概率 :math:`\hat{q}(x_{1:T}|x_0)`
+和非条件（原始）扩散模型的前向扩散过程联合概率 :math:`q(x_{1:T} |x_{0})` 是等价的。
+推导过程如下：
+
+
+.. math::
+
+    \hat{q}(x_{1:T} |x_{0}) &= \int_y \hat{q} (x_{1:T},y|x_0)dy
+
+    &=  \int_y   \hat{q}(y|x_0) \hat{q} (x_{1:T}|x_0,y)dy
+
+    &=  \int_y   \hat{q}(y|x_0)  \prod_{t=1}^T \hat{q} (x_t|x_{t-1},y)dy
+
+    &=  \int_y   \hat{q}(y|x_0)  \prod_{t=1}^T \hat{q} (x_t|x_{t-1})dy
+
+    &=  \prod_{t=1}^T \hat{q} (x_t|x_{t-1}) \underbrace{\int_y   \hat{q}(y|x_0)  dy}_{\text{积分为}1}
+
+    &=  \prod_{t=1}^T \hat{q} (x_t|x_{t-1})
+
+    &= q(x_{1:T} |x_{0})
+
+
+到这里，证明了加不加条件 :math:`y` 对前向扩散过程没有任何影响，即：**条件扩散模型的前向过程与非条件扩散模型的前向过程完全一样**。
+
+接下来就该讨论条件 :math:`y` 对逆向采样过程的影响，显然我们的目的就是要令 :math:`y` 对采样过程产生影响。
+原始的无条件的扩散模型的逆向过程联合概率为
+
+.. math::
+
+    p(x_{0:T} ) = p(x_{T} ) \prod_{t=1}^T p_{\theta}(x_{t−1}|x_{t})
+
+添加额外信息 :math:`y` 之后，条件扩散模型的逆向过程联合概率为
+
+
+.. math::
+
+
+    p(x_{0:T} |y) = p(x_{T} ) \prod_{t=1}^T p_{\theta}(x_{t−1}|x_{t},y)
+
+
+
+上一章讲过，扩散模型有三种解释，即参数化模型有三种预测方案，分别是
+
+1. 直接预测原始的 :math:`x_0`， :math:`\hat{x}_{\theta}(x_t,t) \approx x_0`
+2. 预测噪声数据， :math:`\hat{\epsilon}_{\theta}(x_t,t) \approx \epsilon_0`
+3. 预测得分（梯度）， :math:`\hat{s}_{\theta}(x_t,t) \approx \nabla_{x_t} \log p(x_t)`
+
+最直觉（简单）的添加条件的方式，就是和添加 :math:`t` 一样，直接把 :math:`y` 作为模型的输入，添加到模型中即可，
+上面三种方式分别改成：
+
+
+1. 直接预测原始的 :math:`x_0`， :math:`\hat{x}_{\theta}(x_t,t,y) \approx x_0`
+2. 预测噪声数据 ，:math:`\hat{\epsilon}_{\theta}(x_t,t,y) \approx \epsilon_0`
+3. 预测得分（梯度）， :math:`\hat{s}_{\theta}(x_t,t,y) \approx \nabla_{x_t}  \log p(x_t|y)`
+
+首先这么做是可以的，但效果可能并不好，
+以这种方式训练的条件扩散模型可能会学会忽略或淡化任何给定的条件信息 :footcite:`luo2022understanding`
+。接下来看一下不同的 guidance 方案具体是如何做的。
+
+
+
+classifier guidance
+=========================================================================
+OpenAI 的团队在 2021 年发表一篇论文 :footcite:`dhariwal2021diffusion` : `A. Diffusion models beat gans on image synthesis`
+，在这篇论文中，提出一种利用图片类别标签指导图像生成的方案，称为 `classifier guidance`，
+通过这种改进使扩散模型生成图像的质量大幅提升，并在 IS 和 FID 评分上超过了 GAN 模型，
+所以你看论文的名字，简单直接。
+论文的源码在： `https://github.com/openai/guided-diffusion` 。
+实际上这篇论文做了很多改进，比如对UNET也做了改进。但这里我们只关注 guidance 部分。
+原论文的推导过程比较繁杂，这里我们采用另一篇文章 :footcite:`luo2022understanding` 的推导方案，
+直接从 score function 的角度去理解。
+
+
+
+
+如上文所述，扩散模型的降噪过程的预测模型可以从三个角度去理解，其中一种角度是参数化神经网络模型预测的是 :math:`x_t`
+的对数梯度，也叫得分（score），公式表示为
+
+.. math::
+
+    \hat{s}_{\theta}(x_t,t) \approx \nabla_{x_t} \log p(x_t)
+
+
+引入条件信息 :math:`y` 之后，相当于原来的 :math:`\nabla_{x_t} \log p(x_t)` 变成了 :math:`\nabla_{x_t} \log p(x_t|y)`
+，所以只要推导出 :math:`\nabla_{x_t} \log p(x_t|y)` 是什么即可，
+推导过程如下：
+
+
+.. math::
+
+    \nabla_{x_t} \log p(x_t|y) &= \nabla_{x_t} \log \left( \frac{p(x_t)p(y|x_t)}{p(y)} \right)
+
+    &= \nabla_{x_t} \log p(x_t) + \nabla_{x_t}  \log p(y|x_t)
+     - \underbrace{\nabla_{x_t}  \log p(y)}_{\text{与 }x_t\text{无关，为0}  }
+
+    &= \underbrace{\nabla_{x_t} \log p(x_t)}_\text{unconditional score}
+    + \underbrace{\nabla_{x_t} \log p(y|x_t)}_\text{adversarial gradient}
+
+
+展开后有两项，第一项 :math:`\nabla_{x_t} \log p(x_t)` 就是无条件扩散模型的梯度本身，
+称为 `无条件分数（unconditional score）`。
+第二项 :math:`\nabla_{x_t} \log p(y|x_t)` 称为 `对抗梯度（adversarial gradient）`
+，其中 :math:`p(y|x_t)` 显然代表一个分类器， :math:`x_t` 是分类器的输入， :math:`y`
+是分类器预测的标签。
+
+显然，条件扩散模型的分数项 :math:`\nabla_{x_t} \log p(x_t|y)`
+就是在非条件扩散模型分数项 :math:`\nabla_{x_t} \log p(x_t)` 的基础上加了一项分类器的对抗梯度。
+
+.. math::
+
+    \text{condition score} = \text{unconditional score} + \text{adversarial gradient}
+
+
+
+分类器 :math:`p(y|x_t)` 的输入不是初始的图像数据 :math:`x_0`，
+而是对应时刻加了噪声的 :math:`x_t`。
+**这个分类器需要再训练条件扩散模型之前，独立的训练好**。
+当然此分类训练过程中，需要用扩散模型的前向加噪过程得到 :math:`x_t`
+作为分类器的输入。在实现时，
+
+1. 预训练好一个噪声分类器 :math:`p(y|x_t)`。
+2. 在原来非条件扩散模型每一个时刻 :math:`t` 的采样过程中，
+    1. 把模型的预测输出 :math:`\hat{s}_{\theta}(x_t,t)`
+    2. 同时把 :math:`x_t` 输入到预训练好的噪声分类器 :math:`p(y|x_t)`，并计算出梯度 :math:`\nabla_{x_t} \log p(y|x_t)`。
+    3. 计算 :math:`\hat{s}_{\theta}(x_t,t,y) = \hat{s}_{\theta}(x_t,t) + \nabla_{x_t} \log p(y|x_t)` 。
+    4. 继续原来处理。
+
+
+
+噪声分类器的对抗梯度 :math:`\nabla_{x_t} \log p(y|x_t)` 影响着采样降噪过程，它可以是采样过程向着类别标签 :math:`y`
+的方向前进，进而得到贴近标签 :math:`y` 的图像，比如当 :math:`y=\text{"小狗"}` 时，
+就会生成有小狗的图像，并且生成的图像更加逼真。
+然而引入 `classifier guidance` 后，**虽然生成图像的质量提高了，更加逼真，但是显然它会降低多样性**。
+
+
+为了能更灵活的控制生成内容的方向，论文中增加了一个超参数 :math:`\lambda`，
+作为一个权重项。显然这个权重可以调节类别引导的作用大小。
+
+.. math::
+
+    \nabla_{x_t} \log p(x_t|y)  = \nabla_{x_t} \log p(x_t) +\lambda \nabla_{x_t} \log p(y|x_t)
+
+
+虽然引入 `classifier guidance` 效果很明显，但缺点也很明显：
+
+1. 需要额外一个分类器模型，极大增加了成本，包括训练成本和采样成本。
+2. 分类器的类别毕竟是有限集，不能涵盖全部情况，对于没有覆盖的标签类别会很不友好。
+
+
+
+Classifier-free guidance
+=========================================================================
+
+紧跟 OpenAI 之后，谷歌大脑团队发表了一篇论文 `Classifier-free diffusion guidance` :footcite:`ho2022classifierfree`
+，双方战况激烈啊。
+
+
+
+
+
+
+`Classifier-free` 的成本更大了一些，但是效果更好一些，
+财大气粗的 OpenAI’s GLIDE :footcite:`GLIDE` ，
+OpenAI’s DALL·E 2 :footcite:`Dalle2`
+和 Google’s Imagen :footcite:`Imagen`
+都采用了这个机制。
+
+`
+
+
+CLIP Guidance
+=========================================================================
+
+Radford, A., Kim, J. W., Hallacy, C., Ramesh, A., Goh, G., Agarwal, S., Sastry, G., Askell, A., Mishkin, P., Clark, J., Krueger, G., and Sutskever, I. Learning transferable visual models from natural language supervision. arXiv:2103.00020, 2021.
+
+
+
+待补充
+
+
+
+
+参考文献
+########################################################
+
+.. footbibliography::
+
+
+
+
+
+
+.. meta::
+    :description lang=zh_CN: 扩散模型
+    :keywords: 变分自编码器,Variational Autoencoder,VAE,扩散模型,Diffusion Model,生成模型,图像生成
