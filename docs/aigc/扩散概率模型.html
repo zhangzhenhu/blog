@@ -25,7 +25,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
-    <link rel="next" title="3. 稳定扩散模型（Stable diffusion model）" href="%E7%A8%B3%E5%AE%9A%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B.html" />
+    <link rel="next" title="3. 条件控制扩散模型" href="Guidance.html" />
     <link rel="prev" title="1. 变分自编码器（Variational Autoencoder）" href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html" /> 
 </head>
 
@@ -713,20 +713,33 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#denoising-diffusion-probabilistic-model-ddpm">2.2. 降噪扩散概率模型（Denoising diffusion probabilistic model,DDPM）</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#guidance">2.3. Guidance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#improved-denoising-diffusion-probabilistic-models-ddpm">2.3. 改进降噪扩散概率模型（Improved Denoising Diffusion Probabilistic Models,DDPM）</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#unet">2.4. UNET</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#improved-denoising-diffusion-probabilistic-models-ddpm">2.5. 改进降噪扩散概率模型（Improved Denoising Diffusion Probabilistic Models,DDPM）</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id17">2.6. 参考文献</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id17">2.5. 参考文献</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="%E7%A8%B3%E5%AE%9A%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B.html">3. 稳定扩散模型（Stable diffusion model）</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="%E7%A8%B3%E5%AE%9A%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B.html#latent-diffusion-model-ldm">3.1. 潜在扩散模型（Latent diffusion model,LDM）</a></li>
-<li class="toctree-l3"><a class="reference internal" href="%E7%A8%B3%E5%AE%9A%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B.html#stable-diffusion-probabilistic-model-sdm">3.2. 稳定扩散模型（Stable diffusion probabilistic model,SDM）</a></li>
-<li class="toctree-l3"><a class="reference internal" href="%E7%A8%B3%E5%AE%9A%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B.html#id3">3.3. 参考文献</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Guidance.html">3. 条件控制扩散模型</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Guidance.html#classifier-guidance">3.1. classifier guidance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Guidance.html#classifier-free-guidance">3.2. Classifier-free guidance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Guidance.html#clip-guidance">3.3. CLIP Guidance</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Guidance.html#id12">3.3.1. 参考文献</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="dalle2.html">4. DALL·E 2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="imgen.html">5. Imagen</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="%E7%A8%B3%E5%AE%9A%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B.html">4. 稳定扩散模型（Stable diffusion model）</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="%E7%A8%B3%E5%AE%9A%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B.html#latent-diffusion-model-ldm">4.1. 潜在扩散模型（Latent diffusion model,LDM）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="%E7%A8%B3%E5%AE%9A%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B.html#stable-diffusion-probabilistic-model-sdm">4.2. 稳定扩散模型（Stable diffusion probabilistic model,SDM）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="%E7%A8%B3%E5%AE%9A%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B.html#id3">4.3. 参考文献</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dalle2.html">5. DALL·E 2</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dalle2.html#glide">5.1. GLIDE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dalle2.html#unclip">5.2. Unclip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dalle2.html#id1">5.3. 参考文献</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="imgen.html">6. Imagen</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../audio/index.html">语音技术</a><ul>
@@ -943,8 +956,8 @@
 <section id="diffusion-probabilistic-model">
 <h2><span class="section-number">2.1. </span>扩散概率模型（diffusion probabilistic model）<a class="headerlink" href="#diffusion-probabilistic-model" title="永久链接至标题"></a></h2>
 <p>早在2015年，就由 <cite>Jascha Sohl-Dickstein</cite> 和 <cite>Eric</cite>
-等人提出了概率扩散模型（diffusion probabilistic model,DPM） <span id="id1">[<a class="reference internal" href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html#id18" title="Jascha Sohl-Dickstein, Eric A. Weiss, Niru Maheswaranathan, and Surya Ganguli. Deep unsupervised learning using nonequilibrium thermodynamics. 2015. arXiv:1503.03585.">SDWMG15</a>]</span>，可以简称为扩散模型（diffusion model,DM）。
-在原论文 <span id="id2">[<a class="reference internal" href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html#id18" title="Jascha Sohl-Dickstein, Eric A. Weiss, Niru Maheswaranathan, and Surya Ganguli. Deep unsupervised learning using nonequilibrium thermodynamics. 2015. arXiv:1503.03585.">SDWMG15</a>]</span> 中作者表示是受到了非平衡统计物理学（non-equilibrium statistical physics）
+等人提出了概率扩散模型（diffusion probabilistic model,DPM） <a class="footnote-reference brackets" href="#footcite-sohldickstein2015deep" id="id1">1</a>，可以简称为扩散模型（diffusion model,DM）。
+在原论文 <a class="footnote-reference brackets" href="#footcite-sohldickstein2015deep" id="id2">1</a> 中作者表示是受到了非平衡统计物理学（non-equilibrium statistical physics）
 的启发进而提出了这个模型。当然这个劳什子 <cite>non-equilibrium statistical physics</cite> 大部分人包括我完全不了解，
 所以我们不管它，我们从概率学的角度来阐述这个模型。</p>
 <section id="markovian-hierarchical-variational-autoencoder-mhvae">
@@ -957,24 +970,24 @@
 <span class="math notranslate nohighlight">\(x\)</span> 是可观测的，<span class="math notranslate nohighlight">\(z\)</span> 是不可观测的。不熟悉的读者可以复习一下上一章节
 <a class="reference internal" href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html#ch-vae"><span class="std std-numref">1变分自编码器</span></a>
 。</p>
-<figure class="align-center" id="id34">
+<figure class="align-center" id="id19">
 <span id="fg-dm-001"></span><a class="reference internal image-reference" href="../_images/diffusion_vae.png"><img alt="../_images/diffusion_vae.png" src="../_images/diffusion_vae.png" style="width: 175.68px; height: 166.56px;" /></a>
 <figcaption>
-<p><span class="caption-number">图 2.1.1 </span><span class="caption-text">变分自编码器（VAE）的图表示 （图片来自 <span id="id3">[<a class="reference internal" href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html#id15" title="Calvin Luo. Understanding diffusion models: a unified perspective. 2022. arXiv:2208.11970.">Luo22</a>]</span>）</span><a class="headerlink" href="#id34" title="永久链接至图片"></a></p>
+<p><span class="caption-number">图 2.1.1 </span><span class="caption-text">变分自编码器（VAE）的图表示 （图片来自 <a class="footnote-reference brackets" href="#footcite-luo2022understanding" id="id3">2</a>）</span><a class="headerlink" href="#id19" title="永久链接至图片"></a></p>
 </figcaption>
 </figure>
 <p>在 VAE 中编码过程只进行了一次，是否可以进行多次呢
-（当然扩散模型的原论文 <span id="id4">[<a class="reference internal" href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html#id18" title="Jascha Sohl-Dickstein, Eric A. Weiss, Niru Maheswaranathan, and Surya Ganguli. Deep unsupervised learning using nonequilibrium thermodynamics. 2015. arXiv:1503.03585.">SDWMG15</a>]</span> 并不是从这个角度出发进而提出扩散模型的）？
+（当然扩散模型的原论文 <a class="footnote-reference brackets" href="#footcite-sohldickstein2015deep" id="id4">1</a> 并不是从这个角度出发进而提出扩散模型的）？
 如<a class="reference internal" href="#fg-dm-002"><span class="std std-numref">图 2.1.2</span></a> 所示，把 VAE 的编码过程扩展成多次，从图上看，形如一个马尔科夫链的链式结构。
 整个链是双向的，从左到右是一个逐步编码的过程，相当于把 VAE 的编码器循环执行了 <span class="math notranslate nohighlight">\(T\)</span> 次；
 从右到左是一个逐步解码的过程，相当于把 VAE 的解码器循环执行了 <span class="math notranslate nohighlight">\(T\)</span> 次。
 我们把编码过程称为前向过程（Forward Trajectory），解码过程称逆向过程（Reverse Trajectory），
 无论前向还是逆向，每一个步骤（时刻） <span class="math notranslate nohighlight">\(t\)</span> 仅与它的上一个步骤（时刻）相关，
 这是一个典型的马尔科夫过程（Markov chain）。</p>
-<figure class="align-center" id="id35">
+<figure class="align-center" id="id20">
 <span id="fg-dm-002"></span><a class="reference internal image-reference" href="../_images/diffusion_hvae.png"><img alt="../_images/diffusion_hvae.png" src="../_images/diffusion_hvae.png" style="width: 470.64px; height: 166.56px;" /></a>
 <figcaption>
-<p><span class="caption-number">图 2.1.2 </span><span class="caption-text">马尔科夫分层自编码器（MHVAE）的图表示（图片来自 <span id="id5">[<a class="reference internal" href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html#id15" title="Calvin Luo. Understanding diffusion models: a unified perspective. 2022. arXiv:2208.11970.">Luo22</a>]</span>）</span><a class="headerlink" href="#id35" title="永久链接至图片"></a></p>
+<p><span class="caption-number">图 2.1.2 </span><span class="caption-text">马尔科夫分层自编码器（MHVAE）的图表示（图片来自 <a class="footnote-reference brackets" href="#footcite-luo2022understanding" id="id5">2</a>）</span><a class="headerlink" href="#id20" title="永久链接至图片"></a></p>
 </figcaption>
 </figure>
 <p><span class="math notranslate nohighlight">\(q(z_{t}|z_{t-1})\)</span> 表示一个步骤的编码过程，<span class="math notranslate nohighlight">\(p(z_{t}|z_{t-1})\)</span>
@@ -1001,10 +1014,10 @@
 <h3><span class="section-number">2.1.2. </span>扩散模型<a class="headerlink" href="#id6" title="永久链接至标题"></a></h3>
 <p>把 VAE 扩展成马尔科夫链式结构就得到了 MHVAE，
 MHVAE 是扩散模型的雏形，只需要在 MHVAE 的基础上再稍微调整一下就得到了扩散模型。</p>
-<figure class="align-center" id="id36">
+<figure class="align-center" id="id21">
 <span id="fg-dm-003"></span><a class="reference internal image-reference" href="../_images/diffusion_vdm_base.png"><img alt="../_images/diffusion_vdm_base.png" src="../_images/diffusion_vdm_base.png" style="width: 554.2px; height: 217.5px;" /></a>
 <figcaption>
-<p><span class="caption-number">图 2.1.3 </span><span class="caption-text">扩散模型的图表示（图片来自 <span id="id7">[<a class="reference internal" href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html#id15" title="Calvin Luo. Understanding diffusion models: a unified perspective. 2022. arXiv:2208.11970.">Luo22</a>]</span>）</span><a class="headerlink" href="#id36" title="永久链接至图片"></a></p>
+<p><span class="caption-number">图 2.1.3 </span><span class="caption-text">扩散模型的图表示（图片来自 <a class="footnote-reference brackets" href="#footcite-luo2022understanding" id="id7">2</a>）</span><a class="headerlink" href="#id21" title="永久链接至图片"></a></p>
 </figcaption>
 </figure>
 <ul class="simple">
@@ -1032,16 +1045,23 @@ MHVAE 是扩散模型的雏形，只需要在 MHVAE 的基础上再稍微调整�
 <div class="math notranslate nohighlight" id="equation-eq-ddpm-020">
 <span class="eqno">(2.1.42)<a class="headerlink" href="#equation-eq-ddpm-020" title="公式的永久链接"></a></span>\[q(x_{1:T}|x_0) = \prod_{t=1}^T q(x_t|x_{t-1})\]</div>
 <p>根据第二项假设，每一个 <span class="math notranslate nohighlight">\(x_t\)</span> 都可以看做一个高斯变量，
-前向过程每一个步骤的编码器 <span class="math notranslate nohighlight">\(q(x_t|x_{t-1}\)</span> 固定为一个线性高斯变换，
-所谓线性高斯变换是指 <span class="math notranslate nohighlight">\(x_t\)</span> 的均值和 <span class="math notranslate nohighlight">\(x_{t-1}\)</span> 的值是线性关系。
-在这里我们定义一个系数 <span class="math notranslate nohighlight">\(\alpha_t\)</span>，<span class="math notranslate nohighlight">\(x_t\)</span> 的均值 <span class="math notranslate nohighlight">\(\mu_{x_t}\)</span>
-和 <span class="math notranslate nohighlight">\(x_{t-1}\)</span> 的关系定义为：</p>
+前向过程每一个步骤的编码器 <span class="math notranslate nohighlight">\(q(x_t|x_{t-1})\)</span> 固定为一个线性高斯变换，
+所谓线性高斯变换是指 <span class="math notranslate nohighlight">\(x_t\)</span> 的均值和 <span class="math notranslate nohighlight">\(x_{t-1}\)</span> 的值是线性关系。</p>
+<p>在本论文中，定义 <span class="math notranslate nohighlight">\(q(x_t|x_{t-1})\)</span> 的方差与 <span class="math notranslate nohighlight">\(x_{t-1}\)</span> 是独立的，
+并且为 <span class="math notranslate nohighlight">\(\beta_t \textit{I}\)</span>，
+其中 <span class="math notranslate nohighlight">\(0 \lt \beta_1 \lt \beta_2 \lt \dots \beta_T \lt 1\)</span>
+。这么做的意义：<strong>前期方差较小，添加的噪声少，扩散速度慢；随着方差逐步加大，添加的噪声越来越多，扩散的速度加快。</strong>
+<span class="math notranslate nohighlight">\(\beta_t\)</span> 作为一个超参数存在，人工指定它的值。</p>
+<p>定义 <span class="math notranslate nohighlight">\(q(x_t|x_{t-1})\)</span> 的均值 <span class="math notranslate nohighlight">\(\mu_{x_t}\)</span>
+和 <span class="math notranslate nohighlight">\(x_{t-1}\)</span> 是线性关系，
+这里设定另外一个系数 <span class="math notranslate nohighlight">\(\alpha_t\)</span>，并且令 <span class="math notranslate nohighlight">\(\alpha_t = 1-\beta_t\)</span>。
+<span class="math notranslate nohighlight">\(\mu_{x_t}\)</span> 与 <span class="math notranslate nohighlight">\(x_{t-1}\)</span> 的关系定义为：</p>
 <div class="math notranslate nohighlight" id="equation-eq-ddpm-021">
-<span class="eqno">(2.1.43)<a class="headerlink" href="#equation-eq-ddpm-021" title="公式的永久链接"></a></span>\[\mu_{x_t} = \sqrt{\alpha_t} \ x_{t-1}\]</div>
+<span class="eqno">(2.1.43)<a class="headerlink" href="#equation-eq-ddpm-021" title="公式的永久链接"></a></span>\[\mu_{x_t} =  \sqrt{\alpha_t} \ x_{t-1}\]</div>
 <p><span class="math notranslate nohighlight">\(x_t\)</span> 的方差定义成与 <span class="math notranslate nohighlight">\(x_{t-1}\)</span> <strong>无关</strong>，而是经过缩放的单位方差，
 定义为</p>
 <div class="math notranslate nohighlight" id="equation-eq-ddpm-022">
-<span class="eqno">(2.1.44)<a class="headerlink" href="#equation-eq-ddpm-022" title="公式的永久链接"></a></span>\[\Sigma_{x_t} = (1- \alpha_t ) \textit{I}\]</div>
+<span class="eqno">(2.1.44)<a class="headerlink" href="#equation-eq-ddpm-022" title="公式的永久链接"></a></span>\[\Sigma_{x_t} = \beta_t \textit{I} =  (1- \alpha_t ) \textit{I}\]</div>
 <p><span class="math notranslate nohighlight">\(q(x_t|x_{t-1})\)</span> 就是一个以 <span class="math notranslate nohighlight">\(\sqrt{\alpha_t} \ x_{t-1}\)</span> 为均值，
 以 <span class="math notranslate nohighlight">\((1- \alpha_t ) \textit{I}\)</span> 为方差的高斯分布。
 按照线性高斯的特征，如 <a class="reference internal" href="#equation-eq-ddpm-023">公式(2.1.45)</a> 所示，
@@ -1056,12 +1076,12 @@ MHVAE 是扩散模型的雏形，只需要在 MHVAE 的基础上再稍微调整�
 <span class="eqno">(2.1.45)<a class="headerlink" href="#equation-eq-ddpm-023" title="公式的永久链接"></a></span>\[q(x_t|x_{t-1}) = \mathcal{N} (\sqrt{\alpha_t} \ x_{t-1}, (1- \alpha_t ) \textit{I} )\]</div>
 <div class="math notranslate nohighlight" id="equation-eq-ddpm-024">
 <span class="eqno">(2.1.46)<a class="headerlink" href="#equation-eq-ddpm-024" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}x_{t} &amp;=\sqrt{\alpha_t} \ x_{t-1} + \mathcal{N} (0, (1- \alpha_t ) \textit{I} )\\&amp;=\sqrt{\alpha_t} \ x_{t-1} +  \sqrt{1- \alpha_t } \ \epsilon \ \ \ ,\epsilon \sim \mathcal{N} (0, \textit{I} )\end{aligned}\end{align} \]</div>
-<p>至于系数 <span class="math notranslate nohighlight">\(\alpha_t\)</span> 的值可以作为一个超参数有人工指定<span id="id9">[<a class="reference internal" href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html#id17" title="Jonathan Ho, Ajay Jain, and Pieter Abbeel. Denoising diffusion probabilistic models. 2020. arXiv:2006.11239.">HJA20</a>]</span>
-，也可以作为一个可学习的参数由模型学习<span id="id10">[<a class="reference internal" href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html#id16" title="Diederik P. Kingma, Tim Salimans, Ben Poole, and Jonathan Ho. Variational diffusion models. 2022. arXiv:2107.00630.">KSPH22</a>]</span>，
-这里我们从直觉的角度来理解系数 <span class="math notranslate nohighlight">\(\alpha_t\)</span> 的作用。</p>
+<p>至于系数 <span class="math notranslate nohighlight">\(\beta_t\)</span> 的值可以作为一个超参数有人工指定<a class="footnote-reference brackets" href="#footcite-ho2020denoising" id="id9">3</a>
+，也可以作为一个可学习的参数由模型学习<a class="footnote-reference brackets" href="#footcite-kingma2022variational" id="id10">4</a>，
+这里我们从直觉的角度来理解系数 <span class="math notranslate nohighlight">\(\beta_t\)</span> 的作用。</p>
 <ol class="arabic simple">
 <li><dl class="simple">
-<dt>为什么要有系数 <span class="math notranslate nohighlight">\(\alpha_t\)</span> ？</dt><dd><p>前向扩散过程是希望 <span class="math notranslate nohighlight">\(x_t\)</span> 渐进趋近于<strong>标准正态分布</strong>，即均值趋近于 <span class="math notranslate nohighlight">\(0\)</span>，
+<dt>为什么要有系数 <span class="math notranslate nohighlight">\(\beta_t\)</span> ？</dt><dd><p>前向扩散过程是希望 <span class="math notranslate nohighlight">\(x_t\)</span> 渐进趋近于<strong>标准正态分布</strong>，即均值趋近于 <span class="math notranslate nohighlight">\(0\)</span>，
 方差趋近于单位方差 <span class="math notranslate nohighlight">\(\textit{I}\)</span>，并且 <span class="math notranslate nohighlight">\(x_t\)</span> 只和它的<strong>上一步</strong> <span class="math notranslate nohighlight">\(x_{t-1}\)</span>
 有关，同时  <span class="math notranslate nohighlight">\(x_t\)</span> 和 <span class="math notranslate nohighlight">\(x_{t-1}\)</span> 是线性高斯变化，也就是说 <span class="math notranslate nohighlight">\(\mu_{x_t}\)</span>
 和 <span class="math notranslate nohighlight">\(x_{t-1}\)</span> 的关系必然是某个系数乘上 <span class="math notranslate nohighlight">\(x_{t-1}\)</span> 的线性关系。</p>
@@ -1163,16 +1183,16 @@ MHVAE 是扩散模型的雏形，只需要在 MHVAE 的基础上再稍微调整�
 是需要一个参数化的模型去学习的，也就是我们的模型学习的是 <span class="math notranslate nohighlight">\(p_{{\theta}}(x_{t}|x_{t+1})\)</span>，其中
 <span class="math notranslate nohighlight">\(\theta\)</span> 表示模型需要学习的参数集合。</p></li>
 </ul>
-<figure class="align-center" id="id37">
+<figure class="align-center" id="id22">
 <span id="fg-dm-006"></span><a class="reference internal image-reference" href="../_images/diffusion_first_derivation.png"><img alt="../_images/diffusion_first_derivation.png" src="../_images/diffusion_first_derivation.png" style="width: 554.2px; height: 217.60000000000002px;" /></a>
 <figcaption>
-<p><span class="caption-number">图 2.1.4 </span><span class="caption-text">根据 ELBO（ <a class="reference internal" href="#equation-eq-ddpm-031">公式(2.1.48)</a>）显示，对于每一个时刻 <span class="math notranslate nohighlight">\(t\)</span>，最小化绿色和粉色箭头所代表的分布之间的差异。（图片来自 <span id="id11">[<a class="reference internal" href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html#id15" title="Calvin Luo. Understanding diffusion models: a unified perspective. 2022. arXiv:2208.11970.">Luo22</a>]</span>）</span><a class="headerlink" href="#id37" title="永久链接至图片"></a></p>
+<p><span class="caption-number">图 2.1.4 </span><span class="caption-text">根据 ELBO（ <a class="reference internal" href="#equation-eq-ddpm-031">公式(2.1.48)</a>）显示，对于每一个时刻 <span class="math notranslate nohighlight">\(t\)</span>，最小化绿色和粉色箭头所代表的分布之间的差异。（图片来自 <a class="footnote-reference brackets" href="#footcite-luo2022understanding" id="id11">2</a>）</span><a class="headerlink" href="#id22" title="永久链接至图片"></a></p>
 </figcaption>
 </figure>
 <p>在极大化 <a class="reference internal" href="#equation-eq-ddpm-031">公式(2.1.48)</a> 时，第二项不包含任意可学习参数，因此可以忽略掉。
 另外两项都是一个期望项，解决方法和 VAE 一样，可以通过采样法（MCMC）近似求解期望。
 然而，第三项存在一个小问题，它的期望是关于两个变量的， <span class="math notranslate nohighlight">\((x_{t-1},x_{t+1})\)</span>，
-用采样法（MCMC）同时对两个随机变量进行采样，会导致更大的方差，这会使得优化过程不稳定，不容易收敛 <span id="id12">[<a class="reference internal" href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html#id15" title="Calvin Luo. Understanding diffusion models: a unified perspective. 2022. arXiv:2208.11970.">Luo22</a>]</span>。
+用采样法（MCMC）同时对两个随机变量进行采样，会导致更大的方差，这会使得优化过程不稳定，不容易收敛 <a class="footnote-reference brackets" href="#footcite-luo2022understanding" id="id12">2</a>。
 因此直接优化 <a class="reference internal" href="#equation-eq-ddpm-031">公式(2.1.48)</a> 并不是最佳的选择，我们继续看能不能改进一下。</p>
 <p>改进方法的推导中依赖几个等式替换，在推导前先给出这几个依赖等式。
 首先根据条件独立性原则，有下式成立</p>
@@ -1229,12 +1249,12 @@ MHVAE 是扩散模型的雏形，只需要在 MHVAE 的基础上再稍微调整�
 表示参数化的模型，二者的 KL 散度正好表达了参数化模型 <span class="math notranslate nohighlight">\(p_{{\theta}}(x_{t-1}|x_t)\)</span> 要尽量和真实分布
 <span class="math notranslate nohighlight">\(q(x_{t-1}|x_t, x_0)\)</span> 接近，如图 <a class="reference internal" href="#fg-dm-007"><span class="std std-numref">图 2.1.5</span></a> 所示。</p></li>
 </ul>
-<figure class="align-center" id="id38">
+<figure class="align-center" id="id23">
 <span id="fg-dm-007"></span><a class="reference internal image-reference" href="../_images/diffusion_second_derivation.png"><img alt="../_images/diffusion_second_derivation.png" src="../_images/diffusion_second_derivation.png" style="width: 554.2px; height: 257.1px;" /></a>
 <figcaption>
-<p><span class="caption-number">图 2.1.5 </span><span class="caption-text"><a class="reference internal" href="#equation-eq-ddpm-035">公式(2.1.51)</a> 对应的可视化图形表示。粉色箭头表示根据贝叶斯公式得到的逆过程中解码器的真实分布 <span class="math notranslate nohighlight">\(:math:\)</span>，
-绿色箭头表示需要学习的近似分布  <span class="math notranslate nohighlight">\(p_{{\theta}}(x_{t-1}|x_t)\)</span>，
-二者的 KL 散度表示必须领二者进尽可能的接近。（图片来自 <span id="id13">[<a class="reference internal" href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html#id15" title="Calvin Luo. Understanding diffusion models: a unified perspective. 2022. arXiv:2208.11970.">Luo22</a>]</span>）</span><a class="headerlink" href="#id38" title="永久链接至图片"></a></p>
+<p><span class="caption-number">图 2.1.5 </span><span class="caption-text"><a class="reference internal" href="#equation-eq-ddpm-035">公式(2.1.51)</a> 对应的可视化图形表示。粉色箭头表示根据贝叶斯公式得到的逆过程中解码器的真实分布 <span class="math notranslate nohighlight">\(q(x_{t-1}|x_t, x_0)\)</span>，
+绿色箭头表示需要学习的近似分布 <span class="math notranslate nohighlight">\(p_{{\theta}}(x_{t-1}|x_t)\)</span>，
+二者的 KL 散度表示必须领二者进尽可能的接近。（图片来自 <a class="footnote-reference brackets" href="#footcite-luo2022understanding" id="id13">2</a>）</span><a class="headerlink" href="#id23" title="永久链接至图片"></a></p>
 </figcaption>
 </figure>
 <p>要想极大化 <a class="reference internal" href="#equation-eq-ddpm-035">公式(2.1.51)</a> 形式的 ELBO 函数，还需要其中每一项展开成具体的参数化公式，
@@ -1281,7 +1301,9 @@ MHVAE 是扩散模型的雏形，只需要在 MHVAE 的基础上再稍微调整�
 &amp;= {\text{exp}\left\{-\frac{1}{2}\left(\frac{1}{\frac{(1 - \alpha_t)(1 - \bar\alpha_{t-1})}{1 -\bar\alpha_{t}}}\right)\left[x_{t-1}^2 - 2\frac{\sqrt{\alpha_t}(1-\bar\alpha_{t-1})x_{t} + \sqrt{\bar\alpha_{t-1}}(1-\alpha_t)x_0}{1 -\bar\alpha_{t}}x_{t-1}\right]\right\}}\\
 &amp;\propto {\mathcal{N}(x_{t-1} ;} \underbrace{{\frac{\sqrt{\alpha_t}(1-\bar\alpha_{t-1})x_{t} + \sqrt{\bar\alpha_{t-1}}(1-\alpha_t)x_0}{1 -\bar\alpha_{t}}}}_{\mu_q(x_t, x_0)}, \underbrace{{\frac{(1 - \alpha_t)(1 - \bar\alpha_{t-1})}{1 -\bar\alpha_{t}}\textit{I}}}_{{\Sigma}_q(t)})
 \end{align}\end{split}\]</div>
-<p>上面推导过程中的 <span class="math notranslate nohighlight">\(C(x_t, x_0)\)</span> 无关的项，它仅仅与 <span class="math notranslate nohighlight">\(x_0,x_{t},\alpha\)</span> 同样是一个高斯分布，它均值记作 <span class="math notranslate nohighlight">\(\mu_q(x_t, x_0)\)</span>，是一个关于 <span class="math notranslate nohighlight">\(x_t, x_0\)</span> 的函数。
+<p>上面推导过程中的 <span class="math notranslate nohighlight">\(C(x_t, x_0)\)</span> 无关的项，它仅仅与 <span class="math notranslate nohighlight">\(x_0,x_{t},\alpha\)</span> 有关，
+所以可以把它看做是常量，可以不关注它。
+总之最后的结果是 <span class="math notranslate nohighlight">\(q(x_{t-1}|x_t, x_0)\)</span> 同样是一个高斯分布，它均值记作 <span class="math notranslate nohighlight">\(\mu_q(x_t, x_0)\)</span>，是一个关于 <span class="math notranslate nohighlight">\(x_t, x_0\)</span> 的函数。
 方差记作 <span class="math notranslate nohighlight">\(\Sigma_q(t)\)</span>，仅与 <span class="math notranslate nohighlight">\(\alpha\)</span> 有关，如果把 <span class="math notranslate nohighlight">\(\alpha\)</span> 当做一个超参数，那么显然方差是可以直接计算的。</p>
 <div class="math notranslate nohighlight" id="equation-eq-ddpm-037">
 <span class="eqno">(2.1.55)<a class="headerlink" href="#equation-eq-ddpm-037" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\mu_q(x_t, x_0) &amp;= { \frac{\sqrt{\alpha_t}(1-\bar\alpha_{t-1})x_{t} + \sqrt{\bar\alpha_{t-1}}(1-\alpha_t)x_0}{1 -\bar\alpha_{t}}}\\\Sigma_q(t) &amp;= \frac{(1 - \alpha_t)(1 - \bar\alpha_{t-1})}{ 1 -\bar\alpha_{t}}  \textit{I} = \sigma_q^2(t)   \textit{I}\end{aligned}\end{align} \]</div>
@@ -1386,7 +1408,7 @@ MHVAE 是扩散模型的雏形，只需要在 MHVAE 的基础上再稍微调整�
 ，从直觉上讲，感觉就不是很合理。当 <span class="math notranslate nohighlight">\(t\)</span> 比较大时，<span class="math notranslate nohighlight">\(x_t\)</span> 距离 <span class="math notranslate nohighlight">\(x_0\)</span> 应该是比较远的，
 虽然表示时刻的 <span class="math notranslate nohighlight">\(t\)</span> 也作为模型的输入，但同样的模型参数要同时解决不同的 <span class="math notranslate nohighlight">\(t\)</span>，其实是比较困难的。
 事实也证明了 DPM 效果确实不是很靠谱，生成的图像质量通常并不高，
-在论文<span id="id14">[<a class="reference internal" href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html#id17" title="Jonathan Ho, Ajay Jain, and Pieter Abbeel. Denoising diffusion probabilistic models. 2020. arXiv:2006.11239.">HJA20</a>]</span> 中做了相应的对比实现，证明了这个这个结论。
+在论文<a class="footnote-reference brackets" href="#footcite-ho2020denoising" id="id14">3</a> 中做了相应的对比实现，证明了这个这个结论。
 所以虽然 DPM 在 2015年就提出了，但一直没有引发热度，
 直到2020年，Ho et al 等人发表了论文 DPM 的改进模型 “Denoising Diffusion Probabilistic Models (DDPMs)”
 ，进一步 OPEN AI  发布了基于 DDPM 的 DALL-E ，DALL-E 的效果是非常显著的，这才是得扩散模型得到足够的关注。
@@ -1475,17 +1497,17 @@ DDPM 做的关键改进就是参数化模型预测的内容做了调整：</p>
 从 DDPM 的论文中也证明了一点。
 相比原来的 DPM，DDPM 能生成更高质量的图像数据。</p>
 <p>论文中给出的训练过程伪代码：</p>
-<figure class="align-center" id="id39">
+<figure class="align-center" id="id24">
 <span id="fg-dm-010"></span><a class="reference internal image-reference" href="../_images/diffusion_training.webp"><img alt="../_images/diffusion_training.webp" src="../_images/diffusion_training.webp" style="width: 655.0px; height: 180.5px;" /></a>
 <figcaption>
-<p><span class="caption-number">图 2.2.1 </span><span class="caption-text">DDPM训练过程伪代码（来自 <span id="id15">[<a class="reference internal" href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html#id17" title="Jonathan Ho, Ajay Jain, and Pieter Abbeel. Denoising diffusion probabilistic models. 2020. arXiv:2006.11239.">HJA20</a>]</span>）</span><a class="headerlink" href="#id39" title="永久链接至图片"></a></p>
+<p><span class="caption-number">图 2.2.1 </span><span class="caption-text">DDPM训练过程伪代码（来自 <a class="footnote-reference brackets" href="#footcite-ho2020denoising" id="id15">3</a>）</span><a class="headerlink" href="#id24" title="永久链接至图片"></a></p>
 </figcaption>
 </figure>
 <p>论文中给出的采样（图像生成）过程伪代码如下：</p>
-<figure class="align-center" id="id40">
+<figure class="align-center" id="id25">
 <span id="fg-dm-011"></span><a class="reference internal image-reference" href="../_images/diffusion_sampling.webp"><img alt="../_images/diffusion_sampling.webp" src="../_images/diffusion_sampling.webp" style="width: 630.0px; height: 222.75px;" /></a>
 <figcaption>
-<p><span class="caption-number">图 2.2.2 </span><span class="caption-text">DDPM采样过程伪代码（来自 <span id="id16">[<a class="reference internal" href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html#id17" title="Jonathan Ho, Ajay Jain, and Pieter Abbeel. Denoising diffusion probabilistic models. 2020. arXiv:2006.11239.">HJA20</a>]</span>）</span><a class="headerlink" href="#id40" title="永久链接至图片"></a></p>
+<p><span class="caption-number">图 2.2.2 </span><span class="caption-text">DDPM采样过程伪代码（来自 <a class="footnote-reference brackets" href="#footcite-ho2020denoising" id="id16">3</a>）</span><a class="headerlink" href="#id25" title="永久链接至图片"></a></p>
 </figcaption>
 </figure>
 <p>其中 <span class="math notranslate nohighlight">\(\beta_t = 1 - \alpha_t\)</span>
@@ -1508,42 +1530,33 @@ DDPM 做的关键改进就是参数化模型预测的内容做了调整：</p>
 而不是  <span class="math notranslate nohighlight">\(q(x_{t-1}|x_t, x_0)\)</span> 的采样值，这和我们的 ELBO 函数的第一项是一致的。
 事实上，所有的回归模型最终输出的都是期望值。</p>
 </section>
-<section id="guidance">
-<h2><span class="section-number">2.3. </span>Guidance<a class="headerlink" href="#guidance" title="永久链接至标题"></a></h2>
-<p>to be continue</p>
-</section>
-<section id="unet">
-<h2><span class="section-number">2.4. </span>UNET<a class="headerlink" href="#unet" title="永久链接至标题"></a></h2>
-<p>待补充</p>
-</section>
 <section id="improved-denoising-diffusion-probabilistic-models-ddpm">
-<h2><span class="section-number">2.5. </span>改进降噪扩散概率模型（Improved Denoising Diffusion Probabilistic Models,DDPM）<a class="headerlink" href="#improved-denoising-diffusion-probabilistic-models-ddpm" title="永久链接至标题"></a></h2>
+<h2><span class="section-number">2.3. </span>改进降噪扩散概率模型（Improved Denoising Diffusion Probabilistic Models,DDPM）<a class="headerlink" href="#improved-denoising-diffusion-probabilistic-models-ddpm" title="永久链接至标题"></a></h2>
 <ol class="arabic simple">
 <li><p>学习方差</p></li>
 <li><p>线性的schedule 改成余弦schedule</p></li>
 </ol>
 <p>待补充</p>
+<p>源码 <a class="reference external" href="https://github.com/openai/improved-diffusion">https://github.com/openai/improved-diffusion</a></p>
+</section>
+<section id="unet">
+<h2><span class="section-number">2.4. </span>UNET<a class="headerlink" href="#unet" title="永久链接至标题"></a></h2>
+<p>待补充</p>
 </section>
 <section id="id17">
-<h2><span class="section-number">2.6. </span>参考文献<a class="headerlink" href="#id17" title="永久链接至标题"></a></h2>
-<p id="id18"><dl class="citation">
-<dt class="label" id="id30"><span class="brackets">HJA20</span><span class="fn-backref">(<a href="#id9">1</a>,<a href="#id14">2</a>,<a href="#id15">3</a>,<a href="#id16">4</a>)</span></dt>
-<dd><p>Jonathan Ho, Ajay Jain, and Pieter Abbeel. Denoising diffusion probabilistic models. 2020. <a class="reference external" href="https://arxiv.org/abs/2006.11239">arXiv:2006.11239</a>.</p>
+<h2><span class="section-number">2.5. </span>参考文献<a class="headerlink" href="#id17" title="永久链接至标题"></a></h2>
+<p id="id18"><dl class="footnote brackets">
+<dt class="label" id="footcite-sohldickstein2015deep"><span class="brackets">1</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id2">2</a>,<a href="#id4">3</a>)</span></dt>
+<dd><p>Jascha Sohl-Dickstein, Eric A. Weiss, Niru Maheswaranathan, and Surya Ganguli. Deep unsupervised learning using nonequilibrium thermodynamics. 2015. <a class="reference external" href="https://arxiv.org/abs/1503.03585">arXiv:1503.03585</a>.</p>
 </dd>
-<dt class="label" id="id29"><span class="brackets"><a class="fn-backref" href="#id10">KSPH22</a></span></dt>
-<dd><p>Diederik P. Kingma, Tim Salimans, Ben Poole, and Jonathan Ho. Variational diffusion models. 2022. <a class="reference external" href="https://arxiv.org/abs/2107.00630">arXiv:2107.00630</a>.</p>
-</dd>
-<dt class="label" id="id26"><span class="brackets">KW13</span></dt>
-<dd><p>Diederik P. Kingma and Max Welling. Auto-encoding variational bayes. <em>CoRR</em>, 2013.</p>
-</dd>
-<dt class="label" id="id28"><span class="brackets">Luo22</span><span class="fn-backref">(<a href="#id3">1</a>,<a href="#id5">2</a>,<a href="#id7">3</a>,<a href="#id11">4</a>,<a href="#id12">5</a>,<a href="#id13">6</a>)</span></dt>
+<dt class="label" id="footcite-luo2022understanding"><span class="brackets">2</span><span class="fn-backref">(<a href="#id3">1</a>,<a href="#id5">2</a>,<a href="#id7">3</a>,<a href="#id11">4</a>,<a href="#id12">5</a>,<a href="#id13">6</a>)</span></dt>
 <dd><p>Calvin Luo. Understanding diffusion models: a unified perspective. 2022. <a class="reference external" href="https://arxiv.org/abs/2208.11970">arXiv:2208.11970</a>.</p>
 </dd>
-<dt class="label" id="id33"><span class="brackets">RBL+21</span></dt>
-<dd><p>Robin Rombach, Andreas Blattmann, Dominik Lorenz, Patrick Esser, and Björn Ommer. High-resolution image synthesis with latent diffusion models. 2021. <a class="reference external" href="https://arxiv.org/abs/2112.10752">arXiv:2112.10752</a>.</p>
+<dt class="label" id="footcite-ho2020denoising"><span class="brackets">3</span><span class="fn-backref">(<a href="#id9">1</a>,<a href="#id14">2</a>,<a href="#id15">3</a>,<a href="#id16">4</a>)</span></dt>
+<dd><p>Jonathan Ho, Ajay Jain, and Pieter Abbeel. Denoising diffusion probabilistic models. 2020. <a class="reference external" href="https://arxiv.org/abs/2006.11239">arXiv:2006.11239</a>.</p>
 </dd>
-<dt class="label" id="id31"><span class="brackets">SDWMG15</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id2">2</a>,<a href="#id4">3</a>)</span></dt>
-<dd><p>Jascha Sohl-Dickstein, Eric A. Weiss, Niru Maheswaranathan, and Surya Ganguli. Deep unsupervised learning using nonequilibrium thermodynamics. 2015. <a class="reference external" href="https://arxiv.org/abs/1503.03585">arXiv:1503.03585</a>.</p>
+<dt class="label" id="footcite-kingma2022variational"><span class="brackets"><a class="fn-backref" href="#id10">4</a></span></dt>
+<dd><p>Diederik P. Kingma, Tim Salimans, Ben Poole, and Jonathan Ho. Variational diffusion models. 2022. <a class="reference external" href="https://arxiv.org/abs/2107.00630">arXiv:2107.00630</a>.</p>
 </dd>
 </dl>
 </p>
@@ -1555,7 +1568,7 @@ DDPM 做的关键改进就是参数化模型预测的内容做了调整：</p>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html" class="btn btn-neutral float-left" title="1. 变分自编码器（Variational Autoencoder）" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
-        <a href="%E7%A8%B3%E5%AE%9A%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B.html" class="btn btn-neutral float-right" title="3. 稳定扩散模型（Stable diffusion model）" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="Guidance.html" class="btn btn-neutral float-right" title="3. 条件控制扩散模型" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

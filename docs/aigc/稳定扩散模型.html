@@ -6,7 +6,7 @@
 <meta content="变分自编码器,Variational Autoencoder,VAE,扩散模型,Diffusion Model,生成模型,图像生成" name="keywords" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>3. 稳定扩散模型（Stable diffusion model） &mdash; 张振虎的博客 张振虎 文档</title>
+  <title>4. 稳定扩散模型（Stable diffusion model） &mdash; 张振虎的博客 张振虎 文档</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
@@ -25,8 +25,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
-    <link rel="next" title="4. DALL·E 2" href="dalle2.html" />
-    <link rel="prev" title="2. 扩散概率模型（diffusion probabilistic models）" href="%E6%89%A9%E6%95%A3%E6%A6%82%E7%8E%87%E6%A8%A1%E5%9E%8B.html" /> 
+    <link rel="next" title="5. DALL·E 2" href="dalle2.html" />
+    <link rel="prev" title="3. 条件控制扩散模型" href="Guidance.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -713,20 +713,33 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="%E6%89%A9%E6%95%A3%E6%A6%82%E7%8E%87%E6%A8%A1%E5%9E%8B.html#denoising-diffusion-probabilistic-model-ddpm">2.2. 降噪扩散概率模型（Denoising diffusion probabilistic model,DDPM）</a></li>
-<li class="toctree-l3"><a class="reference internal" href="%E6%89%A9%E6%95%A3%E6%A6%82%E7%8E%87%E6%A8%A1%E5%9E%8B.html#guidance">2.3. Guidance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="%E6%89%A9%E6%95%A3%E6%A6%82%E7%8E%87%E6%A8%A1%E5%9E%8B.html#improved-denoising-diffusion-probabilistic-models-ddpm">2.3. 改进降噪扩散概率模型（Improved Denoising Diffusion Probabilistic Models,DDPM）</a></li>
 <li class="toctree-l3"><a class="reference internal" href="%E6%89%A9%E6%95%A3%E6%A6%82%E7%8E%87%E6%A8%A1%E5%9E%8B.html#unet">2.4. UNET</a></li>
-<li class="toctree-l3"><a class="reference internal" href="%E6%89%A9%E6%95%A3%E6%A6%82%E7%8E%87%E6%A8%A1%E5%9E%8B.html#improved-denoising-diffusion-probabilistic-models-ddpm">2.5. 改进降噪扩散概率模型（Improved Denoising Diffusion Probabilistic Models,DDPM）</a></li>
-<li class="toctree-l3"><a class="reference internal" href="%E6%89%A9%E6%95%A3%E6%A6%82%E7%8E%87%E6%A8%A1%E5%9E%8B.html#id17">2.6. 参考文献</a></li>
+<li class="toctree-l3"><a class="reference internal" href="%E6%89%A9%E6%95%A3%E6%A6%82%E7%8E%87%E6%A8%A1%E5%9E%8B.html#id17">2.5. 参考文献</a></li>
 </ul>
 </li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">3. 稳定扩散模型（Stable diffusion model）</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#latent-diffusion-model-ldm">3.1. 潜在扩散模型（Latent diffusion model,LDM）</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#stable-diffusion-probabilistic-model-sdm">3.2. 稳定扩散模型（Stable diffusion probabilistic model,SDM）</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id3">3.3. 参考文献</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Guidance.html">3. 条件控制扩散模型</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Guidance.html#classifier-guidance">3.1. classifier guidance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Guidance.html#classifier-free-guidance">3.2. Classifier-free guidance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Guidance.html#clip-guidance">3.3. CLIP Guidance</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Guidance.html#id12">3.3.1. 参考文献</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="dalle2.html">4. DALL·E 2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="imgen.html">5. Imagen</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">4. 稳定扩散模型（Stable diffusion model）</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#latent-diffusion-model-ldm">4.1. 潜在扩散模型（Latent diffusion model,LDM）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stable-diffusion-probabilistic-model-sdm">4.2. 稳定扩散模型（Stable diffusion probabilistic model,SDM）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">4.3. 参考文献</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dalle2.html">5. DALL·E 2</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dalle2.html#glide">5.1. GLIDE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dalle2.html#unclip">5.2. Unclip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dalle2.html#id1">5.3. 参考文献</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="imgen.html">6. Imagen</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../audio/index.html">语音技术</a><ul>
@@ -925,7 +938,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
           <li><a href="index.html">AI内容生成（ai-gc）</a> &raquo;</li>
-      <li><span class="section-number">3. </span>稳定扩散模型（Stable diffusion model）</li>
+      <li><span class="section-number">4. </span>稳定扩散模型（Stable diffusion model）</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/aigc/稳定扩散模型.rst.txt" rel="nofollow"> 查看页面源码</a>
       </li>
@@ -936,7 +949,7 @@
            <div itemprop="articleBody">
              
   <section id="stable-diffusion-model">
-<span id="ch-ldm"></span><h1><span class="section-number">3. </span>稳定扩散模型（Stable diffusion model）<a class="headerlink" href="#stable-diffusion-model" title="永久链接至标题"></a></h1>
+<span id="ch-ldm"></span><h1><span class="section-number">4. </span>稳定扩散模型（Stable diffusion model）<a class="headerlink" href="#stable-diffusion-model" title="永久链接至标题"></a></h1>
 <p>DDPM 模型在生成图像质量上效果已经非常好，但它也有个缺点，
 那就是 <span class="math notranslate nohighlight">\(x_t\)</span> 的尺寸是和图片一致的，<span class="math notranslate nohighlight">\(x_t\)</span> 的元素和图片的像素是一一对应的，
 所以称 DDPM 是像素(pixel)空间的生成模型。
@@ -944,9 +957,9 @@
 ，如果想生成一张高尺寸的图像， <span class="math notranslate nohighlight">\(x_t\)</span> 的张量大小是非常大的，这就需要极大的显卡（硬件）资源，包括计算资源和显存资源。
 同样的，它的训练成本也是高昂的。高昂的成本极大的限制了它在民用领用的发展。</p>
 <section id="latent-diffusion-model-ldm">
-<h2><span class="section-number">3.1. </span>潜在扩散模型（Latent diffusion model,LDM）<a class="headerlink" href="#latent-diffusion-model-ldm" title="永久链接至标题"></a></h2>
+<h2><span class="section-number">4.1. </span>潜在扩散模型（Latent diffusion model,LDM）<a class="headerlink" href="#latent-diffusion-model-ldm" title="永久链接至标题"></a></h2>
 <p>2021 年 CompVis 小组发布了论文 <cite>High-Resolution Image Synthesis with Latent Diffusion Models</cite>
-<span id="id1">[<a class="reference internal" href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html#id20" title="Robin Rombach, Andreas Blattmann, Dominik Lorenz, Patrick Esser, and Björn Ommer. High-resolution image synthesis with latent diffusion models. 2021. arXiv:2112.10752.">RBL+21</a>]</span>，针对这个问题做了一些改进，
+<a class="footnote-reference brackets" href="#footcite-rombach2021highresolution" id="id1">1</a>，针对这个问题做了一些改进，
 主要的改进点有：</p>
 <ul class="simple">
 <li><p>引入一个自编码器，先对原始对象进行压缩编码，编码后的向量再应用到扩散模型。</p></li>
@@ -959,23 +972,23 @@
 由于 <span class="math notranslate nohighlight">\(z_0\)</span> 是压缩过的，其尺寸远远小于原始的图像，这样就能极大的减少 DDPM 资源的消耗。
 压缩后 <span class="math notranslate nohighlight">\(z_0\)</span> 所在的数据空间称为潜在空间（latent space）,
 <span class="math notranslate nohighlight">\(z_0\)</span> 可以称为潜在数据。</p>
-<figure class="align-center" id="id20">
+<figure class="align-center" id="id5">
 <span id="fg-dm-031"></span><a class="reference internal image-reference" href="../_images/diffusion_ldm_vae.webp"><img alt="../_images/diffusion_ldm_vae.webp" src="../_images/diffusion_ldm_vae.webp" style="width: 432.0px; height: 184.0px;" /></a>
 <figcaption>
-<p><span class="caption-number">图 3.1.1 </span><span class="caption-text">LDM 中自编码器示意图（图片来自 <a class="reference external" href="https://medium.com/&#64;steinsfu/stable-diffusion-clearly-explained-ed008044e07e">blog</a> ）</span><a class="headerlink" href="#id20" title="永久链接至图片"></a></p>
+<p><span class="caption-number">图 4.1.1 </span><span class="caption-text">LDM 中自编码器示意图（图片来自 <a class="reference external" href="https://medium.com/&#64;steinsfu/stable-diffusion-clearly-explained-ed008044e07e">blog</a> ）</span><a class="headerlink" href="#id5" title="永久链接至图片"></a></p>
 </figcaption>
 </figure>
 <p>这个自编码器（VAE）可以是提前预训练好的模型，在训练扩散模型时，编码器的参数是冻住的，
-如 <a class="reference internal" href="#fg-dm-031"><span class="std std-numref">图 3.1.1</span></a> 所示</p>
+如 <a class="reference internal" href="#fg-dm-031"><span class="std std-numref">图 4.1.1</span></a> 所示</p>
 <ul class="simple">
 <li><p>通过使用预训练的编码器 <span class="math notranslate nohighlight">\(E\)</span>，我们可以将全尺寸图像编码为低维潜在数据（压缩数据）。</p></li>
 <li><p>通过使用预训练的解码器 <span class="math notranslate nohighlight">\(D\)</span>，我们可以将潜在数据解码回图像。</p></li>
 </ul>
-<figure class="align-center" id="id21">
+<figure class="align-center" id="id6">
 <span id="fg-dm-032"></span><a class="reference internal image-reference" href="../_images/diffusion_ldm_2.webp"><img alt="../_images/diffusion_ldm_2.webp" src="../_images/diffusion_ldm_2.webp" style="width: 433.6px; height: 359.20000000000005px;" /></a>
 <figcaption>
-<p><span class="caption-number">图 3.1.2 </span><span class="caption-text">LDM 中DDPM是在潜在空间执行的（图片来自
-blog &lt;<a class="reference external" href="https://medium.com/&#64;steinsfu/stable-diffusion-clearly-explained-ed008044e07e">https://medium.com/&#64;steinsfu/stable-diffusion-clearly-explained-ed008044e07e</a>&gt;`_ ）</span><a class="headerlink" href="#id21" title="永久链接至图片"></a></p>
+<p><span class="caption-number">图 4.1.2 </span><span class="caption-text">LDM 中DDPM是在潜在空间执行的（图片来自
+blog &lt;<a class="reference external" href="https://medium.com/&#64;steinsfu/stable-diffusion-clearly-explained-ed008044e07e">https://medium.com/&#64;steinsfu/stable-diffusion-clearly-explained-ed008044e07e</a>&gt;`_ ）</span><a class="headerlink" href="#id6" title="永久链接至图片"></a></p>
 </figcaption>
 </figure>
 <p>正向扩散过程→给潜在数据增加噪声，逆向扩散过程→从潜在数据中消除噪声。
@@ -985,10 +998,10 @@ blog &lt;<a class="reference external" href="https://medium.com/&#64;steinsfu/st
 <p><strong>条件处理</strong></p>
 <p>在 DDPM 的过程中，可以增加额外的指导信息，使其生成我们的想要的图像，
 比如文本生成图像、图像生成图像等等。</p>
-<figure class="align-center" id="id22">
+<figure class="align-center" id="id7">
 <span id="fg-dm-033"></span><a class="reference internal image-reference" href="../_images/diffusion_ldm_3.webp"><img alt="../_images/diffusion_ldm_3.webp" src="../_images/diffusion_ldm_3.webp" style="width: 743.2px; height: 335.20000000000005px;" /></a>
 <figcaption>
-<p><span class="caption-number">图 3.1.3 </span><span class="caption-text">条件化的LDM（图片来自 blog &lt;<a class="reference external" href="https://medium.com/&#64;steinsfu/stable-diffusion-clearly-explained-ed008044e07e">https://medium.com/&#64;steinsfu/stable-diffusion-clearly-explained-ed008044e07e</a>&gt; ）</span><a class="headerlink" href="#id22" title="永久链接至图片"></a></p>
+<p><span class="caption-number">图 4.1.3 </span><span class="caption-text">条件化的LDM（图片来自 blog &lt;<a class="reference external" href="https://medium.com/&#64;steinsfu/stable-diffusion-clearly-explained-ed008044e07e">https://medium.com/&#64;steinsfu/stable-diffusion-clearly-explained-ed008044e07e</a>&gt; ）</span><a class="headerlink" href="#id7" title="永久链接至图片"></a></p>
 </figcaption>
 </figure>
 <p>用符号 <span class="math notranslate nohighlight">\(y\)</span> 表示额外的条件数据，用 <span class="math notranslate nohighlight">\(\tau_{\theta}\)</span>
@@ -1002,7 +1015,7 @@ blog &lt;<a class="reference external" href="https://medium.com/&#64;steinsfu/st
 这里选用一个预训练好的 CLIP 模型即可。</p>
 <p>通过在 UNET 网络中增加 Attention 机制把文本的嵌入向量( <span class="math notranslate nohighlight">\(\tau_{\theta}(y)\)</span> ）
 加入到 UNET 网络中。加入不同的内容可以通过一个开关（switch）来控制，
-如 <a class="reference internal" href="#fg-dm-033"><span class="std std-numref">图 3.1.3</span></a> 所示。</p>
+如 <a class="reference internal" href="#fg-dm-033"><span class="std std-numref">图 4.1.3</span></a> 所示。</p>
 <ul class="simple">
 <li><p>对于文本输入，它们首先使用语言模型 <span class="math notranslate nohighlight">\(\tau_{\theta}(y)\)</span> （例如BERT，CLIP）转换为嵌入（向量），然后通过（多头）注意（Q，K，V）层映射到U-Net。</p></li>
 <li><p>对于其他空间对齐的输入（例如语义图、图像、修复），可以使用串联来完成调节。</p></li>
@@ -1011,56 +1024,41 @@ blog &lt;<a class="reference external" href="https://medium.com/&#64;steinsfu/st
 LDM模型论文的代码和预训练的模型已经在 Github 开源，地址为： <cite>https://github.com/CompVis/latent-diffusion</cite>
 。</p>
 <p><strong>训练过程</strong></p>
-<p>相比于 DDPM ，条件化的 LDM 目标函数稍微变化了一点，具体变化内容可以参考 <a class="reference internal" href="#fg-dm-034"><span class="std std-numref">图 3.1.4</span></a>。</p>
-<figure class="align-center" id="id23">
+<p>相比于 DDPM ，条件化的 LDM 目标函数稍微变化了一点，具体变化内容可以参考 <a class="reference internal" href="#fg-dm-034"><span class="std std-numref">图 4.1.4</span></a>。</p>
+<figure class="align-center" id="id8">
 <span id="fg-dm-034"></span><a class="reference internal image-reference" href="../_images/diffusion_ldm_7.png"><img alt="../_images/diffusion_ldm_7.png" src="../_images/diffusion_ldm_7.png" style="width: 440.0px; height: 232.0px;" /></a>
 <figcaption>
-<p><span class="caption-number">图 3.1.4 </span><span class="caption-text">LDM 目标函数的变化（图片来自 blog &lt;<a class="reference external" href="https://medium.com/&#64;steinsfu/stable-diffusion-clearly-explained-ed008044e07e">https://medium.com/&#64;steinsfu/stable-diffusion-clearly-explained-ed008044e07e</a>&gt; )</span><a class="headerlink" href="#id23" title="永久链接至图片"></a></p>
+<p><span class="caption-number">图 4.1.4 </span><span class="caption-text">LDM 目标函数的变化（图片来自 blog &lt;<a class="reference external" href="https://medium.com/&#64;steinsfu/stable-diffusion-clearly-explained-ed008044e07e">https://medium.com/&#64;steinsfu/stable-diffusion-clearly-explained-ed008044e07e</a>&gt; )</span><a class="headerlink" href="#id8" title="永久链接至图片"></a></p>
 </figcaption>
 </figure>
 <p><strong>生成（采样）过程</strong></p>
-<figure class="align-center" id="id24">
+<figure class="align-center" id="id9">
 <span id="fg-dm-035"></span><a class="reference internal image-reference" href="../_images/diffusion_ldm_4.webp"><img alt="../_images/diffusion_ldm_4.webp" src="../_images/diffusion_ldm_4.webp" style="width: 709.0999999999999px; height: 247.79999999999998px;" /></a>
 <figcaption>
-<p><span class="caption-number">图 3.1.5 </span><span class="caption-text">LDM采样过程的图示（图片来自 blog &lt;<a class="reference external" href="https://medium.com/&#64;steinsfu/stable-diffusion-clearly-explained-ed008044e07e">https://medium.com/&#64;steinsfu/stable-diffusion-clearly-explained-ed008044e07e</a>&gt; ）</span><a class="headerlink" href="#id24" title="永久链接至图片"></a></p>
+<p><span class="caption-number">图 4.1.5 </span><span class="caption-text">LDM采样过程的图示（图片来自 blog &lt;<a class="reference external" href="https://medium.com/&#64;steinsfu/stable-diffusion-clearly-explained-ed008044e07e">https://medium.com/&#64;steinsfu/stable-diffusion-clearly-explained-ed008044e07e</a>&gt; ）</span><a class="headerlink" href="#id9" title="永久链接至图片"></a></p>
 </figcaption>
 </figure>
-<p><a class="reference internal" href="#fg-dm-035"><span class="std std-numref">图 3.1.5</span></a> 是 LDM 采样过程的图形化表示，
+<p><a class="reference internal" href="#fg-dm-035"><span class="std std-numref">图 4.1.5</span></a> 是 LDM 采样过程的图形化表示，
 过程并不复杂，经过 DDPM 采样生成的 <span class="math notranslate nohighlight">\(z_0\)</span> 需要用解码器 <span class="math notranslate nohighlight">\(D\)</span>
 还原成图像。</p>
-<figure class="align-center" id="id25">
+<figure class="align-center" id="id10">
 <span id="fg-dm-036"></span><a class="reference internal image-reference" href="../_images/diffusion_ldm.png"><img alt="../_images/diffusion_ldm.png" src="../_images/diffusion_ldm.png" style="width: 520.0px; height: 258.8px;" /></a>
 <figcaption>
-<p><span class="caption-number">图 3.1.6 </span><span class="caption-text">LDM 示意图 (来自 <span id="id2">[<a class="reference internal" href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html#id20" title="Robin Rombach, Andreas Blattmann, Dominik Lorenz, Patrick Esser, and Björn Ommer. High-resolution image synthesis with latent diffusion models. 2021. arXiv:2112.10752.">RBL+21</a>]</span>)</span><a class="headerlink" href="#id25" title="永久链接至图片"></a></p>
+<p><span class="caption-number">图 4.1.6 </span><span class="caption-text">LDM 示意图 (来自 <a class="footnote-reference brackets" href="#footcite-rombach2021highresolution" id="id2">1</a>)</span><a class="headerlink" href="#id10" title="永久链接至图片"></a></p>
 </figcaption>
 </figure>
 </section>
 <section id="stable-diffusion-probabilistic-model-sdm">
-<h2><span class="section-number">3.2. </span>稳定扩散模型（Stable diffusion probabilistic model,SDM）<a class="headerlink" href="#stable-diffusion-probabilistic-model-sdm" title="永久链接至标题"></a></h2>
+<h2><span class="section-number">4.2. </span>稳定扩散模型（Stable diffusion probabilistic model,SDM）<a class="headerlink" href="#stable-diffusion-probabilistic-model-sdm" title="永久链接至标题"></a></h2>
 <p>2022年 CompVis 开源了一个预训练好的  text-to-image 的 LDM 模型</p>
 <p>Stable Diffusion is a latent text-to-image diffusion model capable of generating photo-realistic images given any text input.</p>
 <p>为什么都是 Unet？</p>
 </section>
 <section id="id3">
-<h2><span class="section-number">3.3. </span>参考文献<a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
-<p id="id4"><dl class="citation">
-<dt class="label" id="id16"><span class="brackets">HJA20</span></dt>
-<dd><p>Jonathan Ho, Ajay Jain, and Pieter Abbeel. Denoising diffusion probabilistic models. 2020. <a class="reference external" href="https://arxiv.org/abs/2006.11239">arXiv:2006.11239</a>.</p>
-</dd>
-<dt class="label" id="id15"><span class="brackets">KSPH22</span></dt>
-<dd><p>Diederik P. Kingma, Tim Salimans, Ben Poole, and Jonathan Ho. Variational diffusion models. 2022. <a class="reference external" href="https://arxiv.org/abs/2107.00630">arXiv:2107.00630</a>.</p>
-</dd>
-<dt class="label" id="id12"><span class="brackets">KW13</span></dt>
-<dd><p>Diederik P. Kingma and Max Welling. Auto-encoding variational bayes. <em>CoRR</em>, 2013.</p>
-</dd>
-<dt class="label" id="id14"><span class="brackets">Luo22</span></dt>
-<dd><p>Calvin Luo. Understanding diffusion models: a unified perspective. 2022. <a class="reference external" href="https://arxiv.org/abs/2208.11970">arXiv:2208.11970</a>.</p>
-</dd>
-<dt class="label" id="id19"><span class="brackets">RBL+21</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id2">2</a>)</span></dt>
+<h2><span class="section-number">4.3. </span>参考文献<a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
+<p id="id4"><dl class="footnote brackets">
+<dt class="label" id="footcite-rombach2021highresolution"><span class="brackets">1</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id2">2</a>)</span></dt>
 <dd><p>Robin Rombach, Andreas Blattmann, Dominik Lorenz, Patrick Esser, and Björn Ommer. High-resolution image synthesis with latent diffusion models. 2021. <a class="reference external" href="https://arxiv.org/abs/2112.10752">arXiv:2112.10752</a>.</p>
-</dd>
-<dt class="label" id="id17"><span class="brackets">SDWMG15</span></dt>
-<dd><p>Jascha Sohl-Dickstein, Eric A. Weiss, Niru Maheswaranathan, and Surya Ganguli. Deep unsupervised learning using nonequilibrium thermodynamics. 2015. <a class="reference external" href="https://arxiv.org/abs/1503.03585">arXiv:1503.03585</a>.</p>
 </dd>
 </dl>
 </p>
@@ -1071,8 +1069,8 @@ LDM模型论文的代码和预训练的模型已经在 Github 开源，地址为
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="%E6%89%A9%E6%95%A3%E6%A6%82%E7%8E%87%E6%A8%A1%E5%9E%8B.html" class="btn btn-neutral float-left" title="2. 扩散概率模型（diffusion probabilistic models）" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
-        <a href="dalle2.html" class="btn btn-neutral float-right" title="4. DALL·E 2" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="Guidance.html" class="btn btn-neutral float-left" title="3. 条件控制扩散模型" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="dalle2.html" class="btn btn-neutral float-right" title="5. DALL·E 2" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

@@ -1,6 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
+        <loc>https://zhangzhenhu.github.io/blog/aigc/Guidance.html</loc>
+    </url>
+    <url>
         <loc>https://zhangzhenhu.github.io/blog/aigc/dalle2.html</loc>
     </url>
     <url>
@@ -146,6 +149,9 @@
     </url>
     <url>
         <loc>https://zhangzhenhu.github.io/blog/glm/source/高斯模型/draft.html</loc>
+    </url>
+    <url>
+        <loc>https://zhangzhenhu.github.io/blog/important.html</loc>
     </url>
     <url>
         <loc>https://zhangzhenhu.github.io/blog/index.html</loc>

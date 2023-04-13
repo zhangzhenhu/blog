@@ -13,8 +13,8 @@
 ##############################################################
 
 早在2015年，就由 `Jascha Sohl-Dickstein` 和 `Eric`
-等人提出了概率扩散模型（diffusion probabilistic model,DPM） :cite:`sohldickstein2015deep`，可以简称为扩散模型（diffusion model,DM）。
-在原论文 :cite:`sohldickstein2015deep` 中作者表示是受到了非平衡统计物理学（non-equilibrium statistical physics）
+等人提出了概率扩散模型（diffusion probabilistic model,DPM） :footcite:`sohldickstein2015deep`，可以简称为扩散模型（diffusion model,DM）。
+在原论文 :footcite:`sohldickstein2015deep` 中作者表示是受到了非平衡统计物理学（non-equilibrium statistical physics）
 的启发进而提出了这个模型。当然这个劳什子 `non-equilibrium statistical physics` 大部分人包括我完全不了解，
 所以我们不管它，我们从概率学的角度来阐述这个模型。
 
@@ -36,11 +36,11 @@
    :scale: 12 %
    :align: center
 
-   变分自编码器（VAE）的图表示 （图片来自 :cite:`luo2022understanding`）
+   变分自编码器（VAE）的图表示 （图片来自 :footcite:`luo2022understanding`）
 
 
 在 VAE 中编码过程只进行了一次，是否可以进行多次呢
-（当然扩散模型的原论文 :cite:`sohldickstein2015deep` 并不是从这个角度出发进而提出扩散模型的）？
+（当然扩散模型的原论文 :footcite:`sohldickstein2015deep` 并不是从这个角度出发进而提出扩散模型的）？
 如\ :numref:`fg_dm_002` 所示，把 VAE 的编码过程扩展成多次，从图上看，形如一个马尔科夫链的链式结构。
 整个链是双向的，从左到右是一个逐步编码的过程，相当于把 VAE 的编码器循环执行了 :math:`T` 次；
 从右到左是一个逐步解码的过程，相当于把 VAE 的解码器循环执行了 :math:`T` 次。
@@ -56,7 +56,7 @@
    :scale: 12 %
    :align: center
 
-   马尔科夫分层自编码器（MHVAE）的图表示（图片来自 :cite:`luo2022understanding`）
+   马尔科夫分层自编码器（MHVAE）的图表示（图片来自 :footcite:`luo2022understanding`）
 
 
 
@@ -114,7 +114,7 @@ MHVAE 是扩散模型的雏形，只需要在 MHVAE 的基础上再稍微调整�
    :scale: 10 %
    :align: center
 
-   扩散模型的图表示（图片来自 :cite:`luo2022understanding`）
+   扩散模型的图表示（图片来自 :footcite:`luo2022understanding`）
 
 
 - 首先，不再区分 :math:`x` 和 :math:`z`，反正都是对输入数据 :math:`x` 进行变换，
@@ -149,15 +149,25 @@ MHVAE 是扩散模型的雏形，只需要在 MHVAE 的基础上再稍微调整�
 
 
 根据第二项假设，每一个 :math:`x_t` 都可以看做一个高斯变量，
-前向过程每一个步骤的编码器 :math:`q(x_t|x_{t-1}` 固定为一个线性高斯变换，
+前向过程每一个步骤的编码器 :math:`q(x_t|x_{t-1})` 固定为一个线性高斯变换，
 所谓线性高斯变换是指 :math:`x_t` 的均值和 :math:`x_{t-1}` 的值是线性关系。
-在这里我们定义一个系数 :math:`\alpha_t`，:math:`x_t` 的均值 :math:`\mu_{x_t}`
-和 :math:`x_{t-1}` 的关系定义为：
+
+在本论文中，定义 :math:`q(x_t|x_{t-1})` 的方差与 :math:`x_{t-1}` 是独立的，
+并且为 :math:`\beta_t \textit{I}`，
+其中 :math:`0 \lt \beta_1 \lt \beta_2 \lt \dots \beta_T \lt 1`
+。这么做的意义：**前期方差较小，添加的噪声少，扩散速度慢；随着方差逐步加大，添加的噪声越来越多，扩散的速度加快。**
+:math:`\beta_t` 作为一个超参数存在，人工指定它的值。
+
+
+定义 :math:`q(x_t|x_{t-1})` 的均值 :math:`\mu_{x_t}`
+和 :math:`x_{t-1}` 是线性关系，
+这里设定另外一个系数 :math:`\alpha_t`，并且令 :math:`\alpha_t = 1-\beta_t`。
+:math:`\mu_{x_t}` 与 :math:`x_{t-1}` 的关系定义为：
 
 .. math::
     :label: eq_ddpm_021
 
-    \mu_{x_t} = \sqrt{\alpha_t} \ x_{t-1}
+    \mu_{x_t} =  \sqrt{\alpha_t} \ x_{t-1}
 
 
 
@@ -167,7 +177,8 @@ MHVAE 是扩散模型的雏形，只需要在 MHVAE 的基础上再稍微调整�
 .. math::
     :label: eq_ddpm_022
 
-    \Sigma_{x_t} = (1- \alpha_t ) \textit{I}
+    \Sigma_{x_t} = \beta_t \textit{I} =  (1- \alpha_t ) \textit{I}
+
 
 :math:`q(x_t|x_{t-1})` 就是一个以 :math:`\sqrt{\alpha_t} \ x_{t-1}` 为均值，
 以 :math:`(1- \alpha_t ) \textit{I}` 为方差的高斯分布。
@@ -195,11 +206,11 @@ MHVAE 是扩散模型的雏形，只需要在 MHVAE 的基础上再稍微调整�
 
 
 
-至于系数 :math:`\alpha_t` 的值可以作为一个超参数有人工指定\ :cite:`ho2020denoising`
-，也可以作为一个可学习的参数由模型学习\ :cite:`kingma2022variational`，
-这里我们从直觉的角度来理解系数 :math:`\alpha_t` 的作用。
+至于系数 :math:`\beta_t` 的值可以作为一个超参数有人工指定\ :footcite:`ho2020denoising`
+，也可以作为一个可学习的参数由模型学习\ :footcite:`kingma2022variational`，
+这里我们从直觉的角度来理解系数 :math:`\beta_t` 的作用。
 
-1. 为什么要有系数 :math:`\alpha_t` ？
+1. 为什么要有系数 :math:`\beta_t` ？
     前向扩散过程是希望 :math:`x_t` 渐进趋近于\ **标准正态分布**，即均值趋近于 :math:`0`，
     方差趋近于单位方差 :math:`\textit{I}`，并且 :math:`x_t` 只和它的\ **上一步** :math:`x_{t-1}`
     有关，同时  :math:`x_t` 和 :math:`x_{t-1}` 是线性高斯变化，也就是说 :math:`\mu_{x_t}`
@@ -338,12 +349,12 @@ ELBO
    :scale: 10 %
    :align: center
 
-   根据 ELBO（ :eq:`eq_ddpm_031`）显示，对于每一个时刻 :math:`t`，最小化绿色和粉色箭头所代表的分布之间的差异。（图片来自 :cite:`luo2022understanding`）
+   根据 ELBO（ :eq:`eq_ddpm_031`）显示，对于每一个时刻 :math:`t`，最小化绿色和粉色箭头所代表的分布之间的差异。（图片来自 :footcite:`luo2022understanding`）
 
 在极大化 :eq:`eq_ddpm_031` 时，第二项不包含任意可学习参数，因此可以忽略掉。
 另外两项都是一个期望项，解决方法和 VAE 一样，可以通过采样法（MCMC）近似求解期望。
 然而，第三项存在一个小问题，它的期望是关于两个变量的， :math:`(x_{t-1},x_{t+1})`，
-用采样法（MCMC）同时对两个随机变量进行采样，会导致更大的方差，这会使得优化过程不稳定，不容易收敛 :cite:`luo2022understanding`。
+用采样法（MCMC）同时对两个随机变量进行采样，会导致更大的方差，这会使得优化过程不稳定，不容易收敛 :footcite:`luo2022understanding`。
 因此直接优化 :eq:`eq_ddpm_031` 并不是最佳的选择，我们继续看能不能改进一下。
 
 改进方法的推导中依赖几个等式替换，在推导前先给出这几个依赖等式。
@@ -426,9 +437,9 @@ ELBO
    :scale: 10 %
    :align: center
 
-   :eq:`eq_ddpm_035` 对应的可视化图形表示。粉色箭头表示根据贝叶斯公式得到的逆过程中解码器的真实分布 :math:`:math:`q(x_{t-1}|x_t, x_0)``，
-   绿色箭头表示需要学习的近似分布  :math:`p_{{\theta}}(x_{t-1}|x_t)`，
-   二者的 KL 散度表示必须领二者进尽可能的接近。（图片来自 :cite:`luo2022understanding`）
+   :eq:`eq_ddpm_035` 对应的可视化图形表示。粉色箭头表示根据贝叶斯公式得到的逆过程中解码器的真实分布 :math:`q(x_{t-1}|x_t, x_0)`，
+   绿色箭头表示需要学习的近似分布 :math:`p_{{\theta}}(x_{t-1}|x_t)`，
+   二者的 KL 散度表示必须领二者进尽可能的接近。（图片来自 :footcite:`luo2022understanding`）
 
 
 要想极大化 :eq:`eq_ddpm_035` 形式的 ELBO 函数，还需要其中每一项展开成具体的参数化公式，
@@ -505,8 +516,9 @@ ELBO
 
 
 
-上面推导过程中的 :math:`C(x_t, x_0)`是一项与 :math:`x_{t-1}` 无关的项，它仅仅与 :math:`x_0,x_{t},\alpha`有关，所以可以把它看做是常量，可以不关注它。
-总是最后的结果是 :math:`q(x_{t-1}|x_t, x_0)` 同样是一个高斯分布，它均值记作 :math:`\mu_q(x_t, x_0)`，是一个关于 :math:`x_t, x_0` 的函数。
+上面推导过程中的 :math:`C(x_t, x_0)`是一项与 :math:`x_{t-1}` 无关的项，它仅仅与 :math:`x_0,x_{t},\alpha` 有关，
+所以可以把它看做是常量，可以不关注它。
+总之最后的结果是 :math:`q(x_{t-1}|x_t, x_0)` 同样是一个高斯分布，它均值记作 :math:`\mu_q(x_t, x_0)`，是一个关于 :math:`x_t, x_0` 的函数。
 方差记作 :math:`\Sigma_q(t)`，仅与 :math:`\alpha` 有关，如果把 :math:`\alpha` 当做一个超参数，那么显然方差是可以直接计算的。
 
 .. math::
@@ -690,7 +702,7 @@ ELBO
 ，从直觉上讲，感觉就不是很合理。当 :math:`t` 比较大时，:math:`x_t` 距离 :math:`x_0` 应该是比较远的，
 虽然表示时刻的 :math:`t` 也作为模型的输入，但同样的模型参数要同时解决不同的 :math:`t`，其实是比较困难的。
 事实也证明了 DPM 效果确实不是很靠谱，生成的图像质量通常并不高，
-在论文\ :cite:`ho2020denoising` 中做了相应的对比实现，证明了这个这个结论。
+在论文\ :footcite:`ho2020denoising` 中做了相应的对比实现，证明了这个这个结论。
 所以虽然 DPM 在 2015年就提出了，但一直没有引发热度，
 直到2020年，Ho et al 等人发表了论文 DPM 的改进模型 "Denoising Diffusion Probabilistic Models (DDPMs)"
 ，进一步 OPEN AI  发布了基于 DDPM 的 DALL-E ，DALL-E 的效果是非常显著的，这才是得扩散模型得到足够的关注。
@@ -836,7 +848,7 @@ DDPM 做的关键改进就是参数化模型预测的内容做了调整：
    :scale: 25 %
    :align: center
 
-   DDPM训练过程伪代码（来自 :cite:`ho2020denoising`）
+   DDPM训练过程伪代码（来自 :footcite:`ho2020denoising`）
 
 
 论文中给出的采样（图像生成）过程伪代码如下：
@@ -848,7 +860,7 @@ DDPM 做的关键改进就是参数化模型预测的内容做了调整：
    :scale: 45 %
    :align: center
 
-   DDPM采样过程伪代码（来自 :cite:`ho2020denoising`）
+   DDPM采样过程伪代码（来自 :footcite:`ho2020denoising`）
 
 
 其中 :math:`\beta_t = 1 - \alpha_t`
@@ -890,10 +902,19 @@ DDPM 做的关键改进就是参数化模型预测的内容做了调整：
 
 
 
-Guidance
-##############################################################
 
-to be continue
+
+改进降噪扩散概率模型（Improved Denoising Diffusion Probabilistic Models,DDPM）
+################################################################################################
+
+1. 学习方差
+2. 线性的schedule 改成余弦schedule
+
+
+待补充
+
+源码 https://github.com/openai/improved-diffusion
+
 
 
 
@@ -906,28 +927,13 @@ UNET
 
 
 
-改进降噪扩散概率模型（Improved Denoising Diffusion Probabilistic Models,DDPM）
-################################################################################################
-
-1. 学习方差
-2. 线性的schedule 改成余弦schedule
-
-
-待补充
-
-
 
 参考文献
 ########################################################
 
-.. bibliography::
+.. footbibliography::
 
-   sohldickstein2015deep
-   ho2020denoising
-   kingma2022variational
-   luo2022understanding
-   rombach2021highresolution
-   nichol2021improved
+
 
 
 

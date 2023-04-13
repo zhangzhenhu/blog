@@ -11,7 +11,7 @@
 
 在传统的自编码模型中，编码器输出的 `code` 仅仅是一个 **数值** 张量而已，
 然而在变分自编码（Variational Autoencoders,VAE）的算法中，把这个 `code` 看做是由 **随机变量** 组成的张量。
-变分自编码器早在2013\ :cite:`Kingma2013AutoEncodingVB` 年就提出了
+变分自编码器早在2013 :footcite:`kingma2013autoencoding` 年就提出了
 ，然而前几年并没有引起太大的关注，随着 OpenAI 的 DALL-E 的爆火，扩散模型（diffusion models）进入了大家的视野，
 才使得 VAE 算法得到了关注，这是因为扩散模型是由于 VAE 发展而来的。在详细介绍扩散模型之前，我们先讨论下 VAE 算法。
 
@@ -196,7 +196,7 @@
 **第一种形式**，首先使用 :math:`z` 的后验 :math:`p(z|x)` 分解 :math:`p(x,z)` :
 
 .. math::
-    :label: eq_vae_008
+    :label: eq_vae_0081
 
         \mathcal{L}(q,\theta) &= \mathbb{E}_{z \sim q_{\phi} } [ \ln  p_{\theta}(x,z) ]
         - \mathbb{E}_{z \sim q_{\phi} }[ \ln q_{\phi}(z)]
@@ -219,7 +219,7 @@
 
 
 
-对 :eq:`eq_vae_008` 移项整理，可以得出
+对 :eq:`eq_vae_0081` 移项整理，可以得出
 
 .. math::
     :label: eq_vae_009
@@ -280,7 +280,7 @@
 ，并代入到 :eq:`eq_vae_007` 中，可得
 
 .. math::
-    :label: eq_vae_008
+    :label: eq_vae_0082
 
       \mathcal{L}(q,\theta) &=
         \underbrace{ \mathbb{E}_{z \sim q_{\phi}(z|x) } [\ln  p_{\theta}(x|z) ] }_{\text{①重建项（reconstruction term）}}
@@ -289,7 +289,7 @@
       &=  \ell(\theta;x)
 
 
-:eq:`eq_vae_008` 包含两部分，这里详细分析讨论一下这两项。
+:eq:`eq_vae_0082` 包含两部分，这里详细分析讨论一下这两项。
 
 1. 首先看第①项，其中条件概率 :math:`p_{\theta}(x|z)` ，代表着从隐变量 :math:`z` 到观测变量 :math:`x` 的转换，
    其中作用就是从 :math:`z` 重建 :math:`x` ，因此可以称为 **重建项（reconstruction term）** ，相当于解码器（decoder）。
@@ -380,7 +380,7 @@
 
 **KL散度-正则项**
 
-接下来看下 :eq:`eq_vae_008` 中完整的第②项，即 KL散度部分 :math:`KL( q_{\phi}(z|x) || p(z) )`
+接下来看下 :eq:`eq_vae_0082` 中完整的第②项，即 KL散度部分 :math:`KL( q_{\phi}(z|x) || p(z) )`
 ，KL散度中的 :math:`q_{\phi}(z|x)=\mathcal{N}(\mu_z,\Sigma_z)`
 和 :math:`p(z)=  \mathcal{N}(0,\textit{I})` 都是高斯分布，
 而两个高斯分布的 KL 散度是可以直接计算得到的。
@@ -404,7 +404,7 @@ KL 散度这一部分就算是解决了，它可以通过 :eq:`eq_vae_012` 计�
 
 **生成分布-解码器**
 
-现在看下 :eq:`eq_vae_008` 中第①部分，它的作用对应着解码器（decoder）部分，
+现在看下 :eq:`eq_vae_0082` 中第①部分，它的作用对应着解码器（decoder）部分，
 从变量 :math:`Z` 重建回 :math:`X`。
 先单独看条件概率分布 :math:`p_{\theta}(x|z)`，
 如果把 :math:`Z` 看做输入变量，把 :math:`X` 看做输出变量，
@@ -453,7 +453,7 @@ KL 散度这一部分就算是解决了，它可以通过 :eq:`eq_vae_012` 计�
 这时可以借助马尔可夫链蒙特卡罗法(Markov Chain Monte Carlo，MCMC)，即采样法 **近似** 实现。
 其实就是从后验概率分布 :math:`q_{\phi}(z|x)` 随机采样很多个 :math:`z` 值，代入进去算平均值。
 假设随机采样出 :math:`L` 个 :math:`z`，
-则 :eq:`eq_vae_008` 中第①部分期望项可以近似等价于
+则 :eq:`eq_vae_0082` 中第①部分期望项可以近似等价于
 
 .. math::
 
@@ -629,12 +629,9 @@ VQ-VAE
 参考文献
 ########################################################
 
-.. bibliography::
+.. footbibliography::
 
-   Kingma2013AutoEncodingVB
-   luo2022understanding
-   Doersch2016TutorialOV
-   Blei2016VariationalIA
+
 
 
 

@@ -17,7 +17,7 @@ DDPM 模型在生成图像质量上效果已经非常好，但它也有个缺点
 ############################################################################
 
 2021 年 CompVis 小组发布了论文 `High-Resolution Image Synthesis with Latent Diffusion Models`
-:cite:`rombach2021highresolution`，针对这个问题做了一些改进，
+:footcite:`rombach2021highresolution`，针对这个问题做了一些改进，
 主要的改进点有：
 
 - 引入一个自编码器，先对原始对象进行压缩编码，编码后的向量再应用到扩散模型。
@@ -158,7 +158,7 @@ LDM模型论文的代码和预训练的模型已经在 Github 开源，地址为
    :scale: 20 %
    :align: center
 
-   LDM 示意图 (来自 :cite:`rombach2021highresolution`)
+   LDM 示意图 (来自 :footcite:`rombach2021highresolution`)
 
 
 
@@ -181,13 +181,9 @@ Stable Diffusion is a latent text-to-image diffusion model capable of generating
 参考文献
 ########################################################
 
-.. bibliography::
+.. footbibliography::
 
-   sohldickstein2015deep
-   ho2020denoising
-   kingma2022variational
-   luo2022understanding
-   rombach2021highresolution
+
 
 
 

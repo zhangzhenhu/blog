@@ -6,5 +6,39 @@ DALL·E 2
 ########################################################
 
 
+DALL·E 模型是 OpenAI 推出的文本-图像生成工具，目前为止 OpenAI 推出了两个版本：DALL·E 和 DALL·E2
+，这两个版本的技术架构并不同，DALL·E 是基于 VQ-VAE和GPT的，而 DALL·E2 是基于扩散模型的。
+DALL·E2 的效果远超 DALL·E ，所以这里我们重点介绍 DALL·E2。
+DALL·E2 是建立在 OpenAI 之前的工作 GLIDE 模型之上的，所以我们先介绍 GLIDE。
+
+
+
+GLIDE
+########################################################
+
+OpenAI 在2021年发表了一篇论文 `GLIDE: Towards Photorealistic Image Generation and Editing with Text-Guided Diffusion Models`
+，这篇论文提出了 xxxxxxx
+并且对比了 `CLIP guidance` 和 `classifier-free guidance` 两种策略的效果，并得出结论：后者在图片真实性和主题相似方面效果更好
+并且他们认为他们的模型在经过fine-tune后，可以执行图像修复（image inpainting），从而实现强大的文本驱动图像编辑。
+模型代码开源地址为：https://github.com/openai/glide-text2im
+
+
+
+
 
 待补充
+
+
+Unclip
+########################################################
+
+
+
+
+
+参考文献
+########################################################
+
+.. bibliography::
+
+   nichol2022glide
