@@ -16,6 +16,7 @@
 引入 :math:`y` 之后的模型就变成了一个以 :math:`y` 为条件的条件概率分布。
 
 .. math::
+   :label: eq_guidance_01
 
     p(x_{1:T} | y,x_0)
 
@@ -38,12 +39,15 @@
 无关的，即下面的式子是一定成立的。
 
 .. math::
+    :label: eq_guidance_02
+
     \hat{q} (x_{t}|x_{t-1}, y) := q(x_{t}|x_{t-1})
 
 
 基于这个事实，可以推导出另一个等式，即
 
 .. math::
+    :label: eq_guidance_03
 
     \hat{q}(x_{t}|x_{t-1}) &= \int_{y} \hat{q}(x_{t},y|x_{t-1}) d y
 
@@ -64,6 +68,7 @@
 
 
 .. math::
+    :label: eq_guidance_04
 
     \hat{q}(x_{1:T} |x_{0}) &= \int_y \hat{q} (x_{1:T},y|x_0)dy
 
@@ -86,6 +91,7 @@
 原始的无条件的扩散模型的逆向过程联合概率为
 
 .. math::
+    :label: eq_guidance_05
 
     p(x_{0:T} ) = p(x_{T} ) \prod_{t=1}^T p_{\theta}(x_{t−1}|x_{t})
 
@@ -93,7 +99,7 @@
 
 
 .. math::
-
+    :label: eq_guidance_06
 
     p(x_{0:T} |y) = p(x_{T} ) \prod_{t=1}^T p_{\theta}(x_{t−1}|x_{t},y)
 
@@ -137,6 +143,7 @@ OpenAI 的团队在 2021 年发表一篇论文 :footcite:`dhariwal2021diffusion`
 的对数梯度，也叫得分（score），公式表示为
 
 .. math::
+    :label: eq_guidance_07
 
     \hat{s}_{\theta}(x_t,t) \approx \nabla_{x_t} \log p(x_t)
 
@@ -147,6 +154,7 @@ OpenAI 的团队在 2021 年发表一篇论文 :footcite:`dhariwal2021diffusion`
 
 
 .. math::
+    :label: eq_guidance_08
 
     \nabla_{x_t} \log p(x_t|y) &= \nabla_{x_t} \log \left( \frac{p(x_t)p(y|x_t)}{p(y)} \right)
 
@@ -167,6 +175,7 @@ OpenAI 的团队在 2021 年发表一篇论文 :footcite:`dhariwal2021diffusion`
 就是在非条件扩散模型分数项 :math:`\nabla_{x_t} \log p(x_t)` 的基础上加了一项分类器的对抗梯度。
 
 .. math::
+    :label: eq_guidance_09
 
     \text{condition score} = \text{unconditional score} + \text{adversarial gradient}
 
@@ -197,6 +206,7 @@ OpenAI 的团队在 2021 年发表一篇论文 :footcite:`dhariwal2021diffusion`
 作为一个权重项。显然这个权重可以调节类别引导的作用大小。
 
 .. math::
+    :label: eq_guidance_10
 
     \nabla_{x_t} \log p(x_t|y)  = \nabla_{x_t} \log p(x_t) +\lambda \nabla_{x_t} \log p(y|x_t)
 
@@ -207,19 +217,39 @@ OpenAI 的团队在 2021 年发表一篇论文 :footcite:`dhariwal2021diffusion`
 2. 分类器的类别毕竟是有限集，不能涵盖全部情况，对于没有覆盖的标签类别会很不友好。
 
 
+后来《More Control for Free! Image Synthesis with Semantic Diffusion Guidance》推广了“Classifier”的概念，使得它也可以按图、按文来生成。Classifier-Guidance方案的训练成本比较低（熟悉NLP的读者可能还会想起与之很相似的PPLM模型），但是推断成本会高些，而且控制细节上通常没那么到位。
+
 
 Classifier-free guidance
 =========================================================================
 
 紧跟 OpenAI 之后，谷歌大脑团队发表了一篇论文 `Classifier-free diffusion guidance` :footcite:`ho2022classifierfree`
-，双方战况激烈啊。
+，双方战况激烈啊。`Classifier-free` 只需要在  `classifier guidance` 基础上稍微变换一下即可，
+我们把 :eq:`eq_guidance_08` 移项
+
+.. math::
+   :label: eq_guidance_101
+
+   \nabla_{x_t} \log p(y|x_t) = \nabla_{x_t} \log p(x_t|y) - \nabla_{x_t} \log p(x_t)
+
+
+然后把它带入到 :eq:`eq_guidance_10`，可得
+
+.. math::
+
+    \nabla_{x_t} \log p(x_t|y)
+    &= \nabla_{x_t} \log p(x_t) + \gamma\left(\nabla_{x_t} \log p(x_t|y) - \nabla\log p(x_t)\right)\\
+    &= \nabla_{x_t} \log p(x_t) + \gamma\nabla\log p(x_t|y) - \gamma\nabla_{x_t} \log p(x_t)\\
+    &= \underbrace{\gamma\nabla_{x_t} \log p(x_t|y)}_\text{conditional score}
+    + \underbrace{(1 - \gamma)\nabla_{x_t} \log p(x_t)}_\text{unconditional score}
 
 
 
 
 
 
-`Classifier-free` 的成本更大了一些，但是效果更好一些，
+
+`Classifier-free` 的训练成本更大了一些，但是效果更好一些，
 财大气粗的 OpenAI’s GLIDE :footcite:`GLIDE` ，
 OpenAI’s DALL·E 2 :footcite:`Dalle2`
 和 Google’s Imagen :footcite:`Imagen`
@@ -242,6 +272,8 @@ Radford, A., Kim, J. W., Hallacy, C., Ramesh, A., Goh, G., Agarwal, S., Sastry, 
 
 参考文献
 ########################################################
+
+
 
 .. footbibliography::
 

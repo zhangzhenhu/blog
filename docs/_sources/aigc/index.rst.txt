@@ -20,6 +20,9 @@ AI内容生成（ai-gc）
 
    变分自编码器.rst
    扩散概率模型.rst
+   ddim.rst
+   Score-Based_Generative_Models.rst
+
    Guidance.rst
    稳定扩散模型.rst
    dalle2.rst

@@ -133,22 +133,49 @@ MHVAE 是扩散模型的雏形，只需要在 MHVAE 的基础上再稍微调整�
 前向-后向
 ===================================================================
 
+
+如\ :numref:`fg_dm_003` 所示，它是一个马尔科夫链式结构的贝叶斯网络（有向图网络），
+:math:`x_0` 是模型的起点变量，它可以代表真实图片的分布（或者说随机变量）。
+从 :math:`x_0` 开始，按照这个链式结构逐步的演变成一个标准的高斯分布 :math:`x_T`。
+整个网络的联合概率分布可以表示为 :math:`p(x_{0:T})`，
+如果按照从左到右的顺序对这个联合概率进行链式拆解
+
+
+.. math::
+
+    p(x_{0:T}) = q(x_0) \prod_{t=1}^T q(x_t|x_{t-1})
+
+我们把从左到右的演变过程称为前向过程，因为它是把一个真实图片 :math:`x_0`
+逐步添加噪声，并最终变成一个纯粹的随机高斯变量 :math:`x_T` 的过程，所以也可以称其扩散过程。
+
+
+如果按照从右到左的顺序，正好是前向扩散过程的逆过程，所以称之为逆过程，
+它可以从一个纯粹的高斯噪声（标准高斯分布）随机变量 :math:`x_T` 逐步演变，最终得到一个真实图片 :math:`x_0`
+，这个过程相当于生成了一张新图片，所以也称为（图像）生成过程
+，而这个过程在统计概率学上，本质是从一个联合概率分布进行采样的过程，所以也可以称为采样（sample）过程。
+同样，可以按照从右到左的顺序对联合概率 :math:`p(x_{0:T})` 进行链式分解
+
+.. math::
+
+    p(x_{0:T}) = p(x_T) \prod_{t=T}^1 p(x_{t-1}|x_{t})
+
+
 **前向过程**
 
-:math:`x_0` 是模型的原始输入，它是一个可观测到的数据，比如一张图片，
-前向过程，就是逐步把 :math:`x_0` 转化成 :math:`x_T` 的过程。
-这个过程中 :math:`x_0` 是已知观测值，:math:`x_{1:T}` 是未知的隐变量，
-前向过程的概率表示是后验概率 :math:`q(z_{1:T}|x_0)`，
-根据链式发展，可以展开为
+然而，代表真实图像 :math:`x_0` 的真实概率分布 :math:`p(x_0)` 的概率密度函数是不知道的，
+但我们能得到一批真实的图像样本，也就是我们有 :math:`x_0` 的观测样本，
+此时 :math:`x_0` 是已知观测值，:math:`x_{1:T}` 是未知的隐变量，
+这时整个马尔科夫网络的联合概率变成了一个条件概率 :math:`q(x_{1:T}|x_0)`，
+根据链式法则，可以展开为
 
 
 .. math::
     :label: eq_ddpm_020
 
-    q(x_{1:T}|x_0) = \prod_{t=1}^T q(x_t|x_{t-1})
+    q(x_{1:T}|x_0) = q(x_1|x_0) \prod_{t=2}^T q(x_t|x_{t-1}) =  \prod_{t=1}^T q(x_t|x_{t-1})
 
 
-根据第二项假设，每一个 :math:`x_t` 都可以看做一个高斯变量，
+根据第二项假设，每一个 :math:`x_t` 都是一个高斯变量，
 前向过程每一个步骤的编码器 :math:`q(x_t|x_{t-1})` 固定为一个线性高斯变换，
 所谓线性高斯变换是指 :math:`x_t` 的均值和 :math:`x_{t-1}` 的值是线性关系。
 
@@ -267,35 +294,83 @@ MHVAE 是扩散模型的雏形，只需要在 MHVAE 的基础上再稍微调整�
 
     &= \sqrt{\prod_{i=1}^t \alpha_i} \ x_0 + \sqrt{1- \prod_{i=1}^t \alpha_i }  \ \epsilon
 
-    &= \sqrt{\bar{\alpha_i} } \ x_0 + \sqrt{1- \bar{ \alpha_i} }  \ \epsilon  \ \ \ ,
-    \bar{\alpha} = \prod_{i=1}^t \alpha_i ,\ \ \epsilon \sim \mathcal{N}(0,\textit(I))
+    &= \sqrt{\bar{ \alpha}_t } \ x_0 + \sqrt{1- \bar{ \alpha}_t }  \ \epsilon  \ \ \ ,
+    \bar{\alpha} = \prod_{i=1}^t \alpha_i ,\ \ \epsilon \sim \mathcal{N}(0,\textit{I})
 
-    &\sim \mathcal{N}(\sqrt{\bar{\alpha_i} } \ x_0,  (1- \bar{ \alpha_i})    \textit{I})
+    &\sim \mathcal{N}(\sqrt{\bar{\alpha}_t } \ x_0,  (1- \bar{ \alpha}_t)    \textit{I})
 
+
+
+前项过程的每一个步骤的转换条件概率 :math:`q(x_t|x_{t-1})`
+代表着从 :math:`x_{t-1})` 到 :math:`x_t` 的转换方法（过程），
+而且我们已经得到了条件概率分布 :math:`q(x_t|x_{t-1})` 的具体形式（ :eq:`eq_ddpm_023` ）
+，具体的，当有了 :math:`x_{t-1}` 的值后，可以根据 :eq:`eq_ddpm_024`
+计算 :math:`x_{t}` 的值，就这样循环计算，直到计算出 :math:`x_{T}` 的值。
+得益于条件高斯分布的特性，我们推导出一个计算小技巧，:eq:`eq_ddpm_025`，
+可以直接从 :math:`x_0` 计算出任意时刻的 :math:`x_t`
+，不用再逐步循环计算，这极大的提高了我们的计算速度。
+
+最后的重点，我们发现只要设置了超参数 :math:`\alpha_{0:T}` 的值，这个前向计算过程是可以直接解析（使用公式）计算的，
+没有未知参数，不需要用一个模型学习这个过程。
+然而逆向过程就不能直接计算的，是需要用模型学习的。
 
 
 **逆向过程**
 
-如图\ :numref:`fg_dm_003`，逆向过程是从右到左的解码过程，输入一个随机高斯噪声 :math:`x_T`，
+如\ :numref:`fg_dm_003`，逆向过程是从右到左的解码过程，从 :math:`x_T` （随机高斯噪声）开始，
 逐步的解码成一个有意义的数据，比如生成一张图片。
 解码过程的每一个时刻 :math:`t` 要把 :math:`x_{t+1}` 还原成 :math:`x_t`，
-每一步骤对应条件概率表示成 :math:`p(x_t|x_{t+1})`。
-在模型应用时，我们主要用的就是这个逆向过程，或者说生成过程，输入一张噪声图片，生成一有意义的图片。
-不同于前向过程（不需要模型学习），逆向过程是需要模型去学习的，也就是我们需要用一个参数化的模型学习 :math:`p(x_t|x_{t+1})`。
-定义符号 :math:`\theta` 表示模型的学习参数，
-为了符号区分，不带 :math:`\theta` 的 :math:`p(x_t|x_{t+1})` 表示解码器的真实分布，
-带 :math:`\theta` 的 :math:`p_{\theta}(x_t|x_{t+1})` 表示参数化模型学习的近似分布。
+每一步骤对应的条件概率表示成 :math:`p(x_t|x_{t+1})`。
+按照逆向过程，对联合概率 :math:`p(x_{0:T})`
+进行分解为：
 
+
+.. math::
+    :label: eq_ddpm_026
+
+    p(x_{0:T}) = p(x_T) \prod_{t={T-1}}^0 p(x_{t}|x_{t+1})
+
+
+其中 :math:`p(x_T)` 的概率密度是知道的，它是一个标准高斯分布，即 :math:`p(x_T) \sim (0,\textit{I})`
+。然而 :math:`p_{\theta}(x_{t}|x_{t+1})` 是难以计算的，
+即使根据贝叶斯定理得出 :math:`p_{\theta}(x_{t}|x_{t+1})` 的表达式，
+它的分母部分（归一化项）是含有积分的，这个积分是没有解析解的，是非常难以计算的。
+因此，我们想到用一个模型（神经网络）取拟合学习条件概率分布 :math:`p_{\theta}(x_{t}|x_{t+1})`
+，然后利用学习好的模型，充当 :math:`p_{\theta}(x_{t}|x_{t+1})`
+，这样就有了逆向过程的完整链式结构（ :eq:`eq_ddpm_026`）
+，也就可以通过逆向过程，从一个随机高斯噪声 :math:`x_T`
+逐步生成一张真实的图片 :math:`x_0`。
+
+
+
+为了符号区分，
+定义符号 :math:`\theta` 表示模型的学习参数，
+不带 :math:`\theta` 的 :math:`p(x_t|x_{t+1})` 表示解码器的真实分布，
+带 :math:`\theta` 的 :math:`p_{\theta}(x_t|x_{t+1})` 表示参数化模型学习的近似分布。
 下一步就是如何学习 :math:`p_{\theta}(x_t|x_{t+1})`，
 类似于 VAE 模型，通过最大化 ELBO 来进行参数学习。
 
 
 
-ELBO
+目标函数（ELBO）
 ==========================================================
 
-显然扩散模型的学习过程和原始的VAE以及上一节介绍的 MHVAE 相似的，原始的观测数据对数似然 :math:`\ln p(x)`
-是无法直接极大化的，需要用它的下界函数（ELBO）进行替代。
+我们知道学习一个概率分布的未知参数的常用算法是极大似然估计，
+极大似然估计是通过极大化观测数据的对数概率（似然）实现的。
+在这里，整个网络的联合概率分布是 :math:`p(x_{0:T})`
+，其中，我们只有 :math:`x_0` 的观测数据（样本）
+，没有 :math:`x_{1:T}` 的观测样本，
+因此我们极大化的是边缘分布 :math:`p(x_0)`，而不是联合分布 :math:`p(x_{0:T})`
+。边缘分布 :math:`p(x_0)` 可以通过边际化得到
+
+.. math::
+
+    p(x_0) = \int p(x_{0:T}) dx_{1:T}
+
+
+
+显然扩散模型的学习过程和原始的VAE以及上一节介绍的 MHVAE 相似的，原始的观测数据对数似然 :math:`\ln p(x_0)`
+包含隐变量的积分操作，是无法直接极大化的，需要用它的下界函数（ELBO）进行替代。
 接下来我们推导一下扩散模型的 ELBO 函数，我们在 :eq:`eq_ddpm_010` 的基础上继续推演，
 推导过程如下：
 
@@ -304,7 +379,7 @@ ELBO
     :label: eq_ddpm_031
 
     \begin{align}
-    {\ln p(x)}
+    {\ln p(x_0)}
     &= {\ln \int p(x_{0:T}) dx_{1:T}}\\
     &= {\ln \int \frac{p(x_{0:T})q(x_{1:T}|x_0)}{q(x_{1:T}|x_0)} dx_{1:T}}\\
     &= {\ln \mathbb{E}_{q(x_{1:T}|x_0)}\left[\frac{p(x_{0:T})}{q(x_{1:T}|x_0)}\right]}\\
@@ -384,11 +459,13 @@ ELBO
 我再重新推导 ELBO 函数，推导过程如下：
 
 
+
+
 .. math::
     :label: eq_ddpm_035
 
     \begin{align}
-    {\ln p(x)}
+    {\ln p(x_0)}
     &\geq {\mathbb{E}_{q(x_{1:T}|x_0)}\left[\ln \frac{p(x_{0:T})}{q(x_{1:T}|x_0)}\right]}\\
     &= {\mathbb{E}_{q(x_{1:T}|x_0)}\left[\ln \frac{p(x_T)\prod_{t=1}^{T}p_{{\theta}}(x_{t-1}|x_t)}{\prod_{t = 1}^{T}q(x_{t}|x_{t-1})}\right]}\\
     &= {\mathbb{E}_{q(x_{1:T}|x_0)}\left[\ln \frac{p(x_T)p_{{\theta}}(x_0|x_1)\prod_{t=2}^{T}p_{{\theta}}(x_{t-1}|x_t)}{q(x_1|x_0)\prod_{t = 2}^{T}q(x_{t}|x_{t-1})}\right]}\\
@@ -445,12 +522,13 @@ ELBO
 要想极大化 :eq:`eq_ddpm_035` 形式的 ELBO 函数，还需要其中每一项展开成具体的参数化公式，
 第二项不包含参数 :math:`\theta`，所以可以直接忽略。
 
-**prior matching term**
+**reconstruction term**
 
 第一项 :math:`p_{{\theta}}(x_0|x_1)` 和 VAE 中是解码器是类似的， 它是一个依赖 :math:`x_1`
-的条件高斯分布。 假设它的均值记作 :math:`\mu_{\theta}(x_1,t=1)`，
-它是一个关于 :math:`x_1` 和 :math:`t=1` 的参数化函数，我们用一个参数化的神经网络模型去拟合它。
-和 VAE 不同的是，这里我们不再用模型去测它的方差，而是假设它的方差是一个常量，记作 :math:`\Sigma`
+的条件高斯分布。 假设它的均值 :math:`\mu_{\theta}` 是一个关于 :math:`x_1` 和 :math:`t=1` 的参数化函数，
+记作 :math:`\mu_{\theta}(x_1,t=1)`，根据以前的套路，我们可以用一个参数化的神经网络模型去拟合它。
+和 VAE 不同的是，这里我们不再用模型去预测 :math:`p_{{\theta}}(x_0|x_1)` 的方差，
+而是假设它的方差是一个常量，暂时记作 :math:`\Sigma`
 。即模型输入 :math:`x_1` 和 :math:`t=1`，输出 :math:`\mu_{\theta}(x_1,t=1)`。
 根据高斯分布的概率密度函数，对 :math:`\ln p(x_0|x_1)` 进行展开
 
@@ -482,15 +560,31 @@ ELBO
     \left [ \left\lVert x_0 - \hat x_{0}(x_1,t=1) \right\rVert_2^2 \right ]
 
 
+可以看到，这一项其实就相当于，我们用一个模型去预测样本 :math:`x_0`，损失函数等价于 **均方误差**。
+至于其中的期望项 :math:`\mathbb{E}_{q(x_{1}|x_0)}` ，是由于模型的输入 :math:`x_1` 是一个随机变量，
+并不是一个数值变量，所以需要对随机变量 :math:`x_1` 求期望，而求期望时随机变量 :math:`x_1` 的概率分布用的是条件概率
+分布 :math:`q(x_{1}|x_0)` ，这个概率分布用 :eq:`eq_ddpm_023` 即可求得。
+当然按照 VAE 相似的套路，我们可以通过采样法近似求解期望。
+这里可以暂时先不关注这一项的具体实现，接着看后面的内容，在最后的表达式中，这一项其实可以和第三项合并在一起。
+
+**prior matching term**
+
+第二项是先验匹配项（prior matching term），它是一个 KL 散度，:math:`q(x_T|x_0)` 是前向扩散过程生成的 :math:`x_T`
+的后验分布（有了观察样本 :math:`x_0` 之后，所以是后验）；
+:math:`p(x_T)` 是逆向生成过程中 :math:`x_T` 的先验分布。这一项就是约束 :math:`x_T` 的后验分布要和先验分布尽量接近，
+VAE 中也有类似的一项，起作用相当于正则项。不过在这里 :math:`q(x_T|x_0)` 和 :math:`p(x_T)`
+都没有包含未知参数，所以在极大化 ELBO 时，这一项相当于常数项，可以忽略。
+
+
 **denoising matching term**
 
 
-这一项是一个 KL 散度，KL 散度的两项都是高斯分布，
+这一项也是一个 KL 散度，KL 散度的两项都是高斯分布，
 只要能找到这两个高斯分布的均值和方差，就可以解析计算它们的 KL 散度了。
 我们先来推导下真实分布 :math:`q(x_{t-1}|x_t, x_0)`，
-在 :eq:`eq_ddpm_033` 基础上继续推导展开，注意在这个过程中，
-:math:`x_{t-1}` 是未知量（分布的变量），
-:math:`x_{t},x_0` 是已知量。
+在 :eq:`eq_ddpm_033` 的基础上继续推导展开，注意 :math:`q(x_{t-1}|x_t, x_0)` 是条件概率分布，
+其中 :math:`x_{t-1}` **是未知量（分布的目标变量）**，
+:math:`x_{t},x_0` 是 **条件变量**。
 
 
 .. math::
@@ -516,7 +610,7 @@ ELBO
 
 
 
-上面推导过程中的 :math:`C(x_t, x_0)`是一项与 :math:`x_{t-1}` 无关的项，它仅仅与 :math:`x_0,x_{t},\alpha` 有关，
+上面推导过程中的 :math:`C(x_t, x_0)` 是与目标变量 :math:`x_{t-1}` 无关的项，它仅仅与 :math:`x_0,x_{t},\alpha` 有关，
 所以可以把它看做是常量，可以不关注它。
 总之最后的结果是 :math:`q(x_{t-1}|x_t, x_0)` 同样是一个高斯分布，它均值记作 :math:`\mu_q(x_t, x_0)`，是一个关于 :math:`x_t, x_0` 的函数。
 方差记作 :math:`\Sigma_q(t)`，仅与 :math:`\alpha` 有关，如果把 :math:`\alpha` 当做一个超参数，那么显然方差是可以直接计算的。
@@ -534,11 +628,18 @@ ELBO
 我们的参数化模型分布 :math:`p_\theta(x_{t-1}|x_t)`，需要尽可能的接近真实高斯分布 :math:`q(x_{t-1}|x_t, x_0)`
 ，显然 :math:`p_\theta(x_{t-1}|x_t)` 也需要是一个高斯分布才行，我们用 :math:`\mu_{\theta}` 表示它的均值，
 :math:`\Sigma_\theta` 表示的方差。
-真实分布 :math:`q(x_{t-1}|x_t, x_0)` 的方差 :math:`\Sigma_q(t)` 是一个仅与 :math:`\alpha` 有关的常量，
-因此我们不再用模型去学习方差，直接假设 :math:`\Sigma_\theta=\Sigma_q(t)` 即可。
+真实分布 :math:`q(x_{t-1}|x_t, x_0)` 的方差 :math:`\Sigma_q(t)` 是一个仅与 :math:`\alpha` 有关的量，
+**在本论文中把它看做一个不需要模型学习的常量**，直接假设 :math:`\Sigma_\theta=\Sigma_q(t)` 即可。
+在本论文中，作者认为这个方差学习与否，最终效果差异不大，所以就没有用模型去学习。
+然而后来，有其他学者发布新的论文，提出了学习方差的改进方法，认为学习方差效果会更好。
+后面的章节会详细介绍这个改进方法，这里先假设方差是不需要模型学习的常量即可。
+
+.. math::
+
+    p_{\theta} (x_{t-1}|x_t) \sim \mathcal{N}(x_{t-1} ;\mu_{\theta},\Sigma_q(t))
 
 
-现在，真实分布 :math:`q(x_{t-1}|x_t, x_0)` 和参数化学习分布 :math:`p_\theta(x_{t-1}|x_t)` 各自的均值和方差表达式都确定了，
+现在，真实分布 :math:`q(x_{t-1}|x_t, x_0)` 和参数化模型学习分布 :math:`p_\theta(x_{t-1}|x_t)` 各自的均值和方差表达式都确定了，
 又已知两个高斯分布的 KL 散度计算公式如下：
 
 .. math::
@@ -573,7 +674,7 @@ ELBO
 
 极大化 ELBO 函数，等同于极小化 :math:`\KL{q(x_{t-1}|x_t, x_0)}{p_{{\theta}}(x_{t-1}|x_t)}`
 ，又相当于极小化 :math:`\left[\left\lVert{\mu}_{{\theta}}-{\mu}_q\right\rVert_2^2\right]`
-。 :math:`\mu_{\theta}` 是参数化学习分布 :math:`p_\theta(x_{t-1}|x_t)` 的均值，
+，又是一个均方误差。 :math:`\mu_{\theta}` 是参数化模型学习的分布 :math:`p_\theta(x_{t-1}|x_t)` 的均值，
 也是我们的模型需要预测（输出）的值，
 显然 :math:`\mu_{\theta}` 是和 :math:`x_t` 相关的，即它肯定是 :math:`x_t` 的一个函数，
 也就是说我们的参数化模型输入 :math:`x_t` ，并且输出 :math:`\mu_{\theta}`。
@@ -587,7 +688,7 @@ ELBO
 
 从中可以看出 :math:`{\mu}_q` 本身也是一个关于 :math:`x_t` 的函数，
 我们的目标是使得 :math:`\mu_{\theta}` 和 :math:`{\mu}_q` 尽量接近，
-那么我们完全可以把 :math:`{\mu}_{\theta}` 也定义成类似 :math:`{\mu}_q` （:eq:`eq_ddpm_040`）
+那么我们完全可以把 :math:`{\mu}_{\theta}` **人为定义成类似**  :math:`{\mu}_q` （:eq:`eq_ddpm_040`）
 的计算方式，即
 
 .. math::
@@ -680,12 +781,12 @@ ELBO
             \mathbb{E}_{q(x_{1}|x_0)} \left [ \left\lVert x_0 - \hat x_{0}(x_1,t=1) \right\rVert_2^2 \right ]
         \right ]
         + \left [
-        \sum_{t=1}^{T}
+        \sum_{t=2}^{T}
         \mathbb{E}_{q(x_{t}|x_0)}   \left [ \left\lVert( \hat x_{{\theta}}(x_t, t) - x_0 )  \right\rVert_2^2 \right ]
         \right ]
 
         &  \Leftrightarrow  {\operatorname{\arg\min}}_{\theta}
-        \mathbb{E}_{q(x_{t}|x_0)}   \left [ \left\lVert( \hat x_{{\theta}}(x_t, t) - x_0 )  \right\rVert_2^2 \right ]
+         \sum_{t=1}^{T} \mathbb{E}_{q(x_{t}|x_0)}   \left [ \left\lVert( \hat x_{{\theta}}(x_t, t) - x_0 )  \right\rVert_2^2 \right ]
 
 
 
@@ -693,12 +794,57 @@ ELBO
 
 
 
-在这个变分扩散模型中，前向过程不需要学习，模型只学习了解码分布 :math:`p_{\theta}(x_{t-1}|x_t)`。
+在这个变分扩散模型中，前向过程不需要学习，模型只学习解码分布 :math:`p_{\theta}(x_{t-1}|x_t)`。
 在模训练阶段前向过程和逆向过程都要计算，而在模型推理（应用）阶段，不需要前向过程，仅有逆向即可。
-在应用中，输入一个随机高斯噪声数据，然后迭代（循环）执行 :math:`p_{\theta}(x_{t-1}|x_t)`
+在推理时，输入一个随机高斯噪声数据，然后迭代（循环）执行 :math:`p_{\theta}(x_{t-1}|x_t)`
 最终还原成（生成）一个新的有效图片。
 
-仔细观察下 :eq:`eq_ddpm_044`，在每一个时刻 :math:`t` 模型预测都是原始的 :math:`x_0`
+
+图片生成（采样）过程
+===========================================================
+
+
+训练完成的神经网络模型为 :math:`\hat{x}_{\theta}(x_t, t)`
+，它的输入 :math:`x_t` 和 :math:`t`
+，输出是对 :math:`x_0` 的预测。有个它之后，就可以得到逆过程中的条件概率分布 :math:`p(x_{t-1}|x_{t})`
+的一个近似表示。
+
+
+
+.. math::
+    :label: eq_ddpm_045
+
+    p(x_{t-1}|x_{t})
+    &\approx p_{\theta} (x_{t-1}|x_{t})
+
+    &\approx  q(x_{t-1}|x_t, x_0)
+
+    &\sim  \mathcal{N} (x_{t-1} ; \mu_q(x_t, x_0) , \Sigma_q(t) )
+
+其中，均值 :math:`\mu_q(x_t, x_0)` 和 方差 :math:`\Sigma_q(t)` 分别为
+
+
+.. math::
+    :label: eq_ddpm_046
+
+
+    \mu_q(x_t, x_0) &= { \frac{\sqrt{\alpha_t}(1-\bar\alpha_{t-1})x_{t} + \sqrt{\bar\alpha_{t-1}}(1-\alpha_t) \hat{x}_{\theta}(x_t, t) }{1 -\bar\alpha_{t}}}
+
+    \Sigma_q(t) &= \frac{(1 - \alpha_t)(1 - \bar\alpha_{t-1})}{ 1 -\bar\alpha_{t}}  \textit{I} = \sigma_q^2(t)   \textit{I}
+
+
+逆向生成（采样）过程可以简述为
+
+1. 设定 :math:`T=1000`。
+2. 从一个标准高斯分布中采样得到 :math:`x_T`。
+3. 利用神经网络模型计算 :math:`\hat{x}_{\theta}(x_t, t)`
+4. 计算出 :math:`p(x_{t-1}|x_{t})` 的均值 :math:`\mu_q(x_t, x_0)` 和方差 :math:`\Sigma_q(t)`。
+5. 从 :math:`p(x_{t-1}|x_{t})` 随机采样的到 :math:`x_{t-1}`
+6. 重复步骤3~5，直到 :math:`t=1` 。
+
+
+
+在每一个时刻 :math:`t` 模型预测都是原始的 :math:`x_0`
 ，从直觉上讲，感觉就不是很合理。当 :math:`t` 比较大时，:math:`x_t` 距离 :math:`x_0` 应该是比较远的，
 虽然表示时刻的 :math:`t` 也作为模型的输入，但同样的模型参数要同时解决不同的 :math:`t`，其实是比较困难的。
 事实也证明了 DPM 效果确实不是很靠谱，生成的图像质量通常并不高，
@@ -720,14 +866,14 @@ ELBO
 DDPM 做的关键改进就是参数化模型预测的内容做了调整：
 
 - 不再是预测原始的 :math:`x_0`，而是预测每一个时刻添加的噪声，降低了模型的学习难度。
-- 模型不再预测方差，而是把方差看做一个常量，进一步降低了模型的难度。
+
 
 回顾下 :eq:`eq_ddpm_025`，在前向过程中，我们得到 :math:`q(x_t|x_0)`
 的分布为：
 
 .. math::
 
-    q(x_t|x_0) \sim \mathcal{N}(\sqrt{\bar{\alpha_i} } \ x_0,  (1- \bar{ \alpha_i})    \textit{I})
+    q(x_t|x_0) \sim \mathcal{N}(x_t; \sqrt{\bar{\alpha}_t } \ x_0,  (1- \bar{ \alpha}_t)    \textit{I})
 
 
 :math:`x_t` 的采样过程为
@@ -735,8 +881,8 @@ DDPM 做的关键改进就是参数化模型预测的内容做了调整：
 .. math::
     :label: eq_ddpm_051
 
-    x_t = \sqrt{\bar{\alpha_i} } \ x_0 + \sqrt{1- \bar{ \alpha_i} }  \ \epsilon  \ \ \ ,
-    \bar{\alpha} = \prod_{i=1}^t \alpha_i ,\ \ \epsilon \sim \mathcal{N}(0,\textit(I))
+    x_t = \sqrt{\bar{\alpha}_t } \ x_0 + \sqrt{1- \bar{ \alpha}_t }  \ \epsilon_t  \ \ \ ,
+    \bar{\alpha}_t = \prod_{i=1}^t \alpha_i ,\ \ \epsilon_t \sim \mathcal{N}(0,\textit{I})
 
 
 :eq:`eq_ddpm_051` 表达了从 :math:`x_0` 计算 :math:`x_t` 的关系，
@@ -745,8 +891,8 @@ DDPM 做的关键改进就是参数化模型预测的内容做了调整：
 .. math::
     :label: eq_ddpm_052
 
-    x_0 =  \frac{x_t -\sqrt{1- \bar{ \alpha_i} }  \ \epsilon }{ \sqrt{\bar{\alpha_i} }  }
-    ,\ \ \epsilon \sim \mathcal{N}(0,\textit(I))
+    x_0 =  \frac{x_t -\sqrt{1- \bar{ \alpha}_t }  \ \epsilon_t }{ \sqrt{\bar{\alpha}_t }  }
+    ,\ \ \epsilon_t \sim \mathcal{N}(0,\textit{I})
 
 
 
@@ -819,10 +965,10 @@ DDPM 做的关键改进就是参数化模型预测的内容做了调整：
 
     x_t &=\sqrt{\alpha_t} \ x_{t-1} +  \sqrt{1- \alpha_t } \ \epsilon
 
-    &= \sqrt{\bar{\alpha_i} } \ x_0 + \sqrt{1- \bar{ \alpha_i} }  \ \epsilon  \ \ \ ,
-    \bar{\alpha} = \prod_{i=1}^t \alpha_i ,\ \ \epsilon \sim \mathcal{N}(0,\textit(I))
+    &= \sqrt{\bar{\alpha}_t } \ x_0 + \sqrt{1- \bar{ \alpha}_t }  \ \epsilon  \ \ \ ,
+    \bar{\alpha}_t = \prod_{i=1}^t \alpha_i ,\ \ \epsilon \sim \mathcal{N}(0,\textit{I})
 
-    &\sim \mathcal{N}(\sqrt{\bar{\alpha_i} } \ x_0,  (1- \bar{ \alpha_i})    \textit{I})
+    &\sim \mathcal{N}(\sqrt{\bar{\alpha_t} } \ x_0,  (1- \bar{ \alpha_t})    \textit{I})
 
 对于每一个时刻 :math:`t`:
 
@@ -834,7 +980,10 @@ DDPM 做的关键改进就是参数化模型预测的内容做了调整：
 
 
 参数化模型直接输出值是 :math:`{\hat\epsilon}_{ {\theta}}(x_t, t)`
-，这是就相当于 **模型预测是每一步的噪声**，
+，这是就相当于 **模型预测是每一步从**  :math:`x_{t-1}` 到 :math:`t`  **添加的噪声**。
+由于预测噪声之后，再通过 :eq:`eq_ddpm_055` 就得到了逆向过程 :math:`p_{{\theta}}(x_{t-1}|x_t)`
+的期望。
+
 从直觉上讲，模型预测每一步的噪声比直接预测 :math:`x_0` 要容易很多，
 从 DDPM 的论文中也证明了一点。
 相比原来的 DPM，DDPM 能生成更高质量的图像数据。
@@ -870,7 +1019,7 @@ DDPM 做的关键改进就是参数化模型预测的内容做了调整：
 在采样（图像生成）过程有一个细节，最后生成的图像（输出值）\ :math:`\tilde{x}_0`
 并不是通过 :math:`x_{t-1}` 计算得到的，二者计算方式不一样。
 逆过程中，:math:`x_{t-1}` 的分布是 :math:`q(x_{t-1}|x_t, x_0)`，
-它是一个高斯分布的随机变量，它需要通过采样得到，
+它是一个高斯分布的随机变量，它需要通过随机采样得到，
 所以上图伪代码中，是先计算出其均值 :math:`\tilde{\mu}`，
 然后再加上一项随机高斯噪声 :math:`\sigma_t z` 。
 
@@ -881,6 +1030,7 @@ DDPM 做的关键改进就是参数化模型预测的内容做了调整：
 ，此时
 
 .. math::
+    :label: eq_ddpm_058
 
     \tilde{\mu} &= \frac{1} {\sqrt{\alpha_t}} (x_t - \frac{\beta_t}{\sqrt{1-\bar{\alpha_t}} } \epsilon_{\theta}(x_t,t) )
 
@@ -895,16 +1045,235 @@ DDPM 做的关键改进就是参数化模型预测的内容做了调整：
     &=  \tilde{x}_0
 
 
-也就是说我们最终输出的 :math:`\tilde{x}_0` 是 :math:`q(x_{t-1}|x_t, x_0)` 的期望，
-而不是  :math:`q(x_{t-1}|x_t, x_0)` 的采样值，这和我们的 ELBO 函数的第一项是一致的。
+也就是说我们最终输出的 :math:`\tilde{x}_0` 是 :math:`q(x_{t-1}|x_t, x_0,t=1)` 的期望，
+而不是  :math:`q(x_{t-1}|x_t, x_0,t=1)` 的采样值，这和我们的 ELBO 函数的第一项是一致的。
 事实上，所有的回归模型最终输出的都是期望值。
 
+.. _ch_ddpm_score_based:
+
+基于分数的解释（Score-based DDPM）
+################################################################################################
+
+在2019年，宋旸 :cite:`song2019generative` 提出了一种基于分数的扩散模型 :footcite:p:`song2019generative` ，
+实际上这种基于分数的扩散模型和本章基于马尔科夫的扩散模型是等价的，
+论文 :cite:`luo2022understanding` :footcite:`luo2022understanding` 给出了这种等价说明。
+后续的章节我们再单独详细的介绍宋旸论文中基于分数扩散模型的原理，
+这里我们暂且按照论文 :cite:`luo2022understanding` 的内容给出和 DDPM 等价的分数模型。
+
+
+首先需要一个关于 `Tweedie` 公式（Tweedie’s Formula）的背景知识。
+在统计学中，经常需要根据观测样本估计一个概率分布的未知参数，估计算法有很多，比如最大似然估计、贝叶斯估计等等。
+`Tweedie` 公式是一种估计指数族分布均值参数的方法，如果你不知道什么是指数族，可以查看本博客中广义线性模型的内容。
+高斯分布就是指数族分布中的一种，所以可以 `Tweedie` 公式估计高斯分布的均值参数。
+这里省略 `Tweedie` 公式的证明过程，只关注怎么使用 `Tweedie` 公式。
+
+假设有一个（多元）高斯随机变量 :math:`z \sim (\mathcal{N}{z;\mu_z,\Sigma_z})`
+， `Tweedie` 公式可以写为
+
+.. math::
+
+    \mathbb{E}[\mu_z | z] = z + \Sigma_z \underbrace{ \nabla_z \log p(z)}_{\text{score}}
+
+其中等式左边 :math:`\mathbb{E}[\mu_z | z]` 表示：有 :math:`z` 的样本条件下，
+:math:`\mu_z` 的期望，直观地理解，就是用 :math:`z` 的样本估计 :math:`\mu_z` 的值。
+等式右边就是具体计算方式，在这里只需要 :math:`z` 的一条样本就可以。
+:math:`\log p(z)` 就是观测样本的对数似然，
+:math:`\nabla_z \log p(z)` 就是观测样本的对数似然的一阶导数，又名梯度，
+也叫 `Stein` 分数（Stein score），简称分数(score)。
+注意，还有另外一个分数， `fisher score` ，二者不太一样，不要搞混了。
+`fisher score` 是对数似然关于 **参数** 的梯度 :math:`\nabla_{\theta} \log p(z;\theta)`
+; `Stein score` 是对数似然关于 **观测变量（样本）**  的梯度 :math:`\nabla_z \log p(z)`。
+
+
+回到 :eq:`eq_ddpm_025`，在前向过程中，我们得到 :math:`q(x_t|x_0)`
+
+.. math::
+
+    q(x_t|x_0) = \mathcal{N}(x_{t} ; \sqrt{\bar\alpha_t} x_0, \left(1 - \bar\alpha_t\right)\textit{I})
+
+:math:`q(x_t|x_0)` 是一个高斯分布，虽然已知它的均值是 :math:`\sqrt{\bar\alpha_t} x_0`，
+但我们仍可以利用 `Tweedie` 公式估计它的均值参数
+
+.. math::
+
+     \sqrt{\bar\alpha_t} x_0 = \mathbb{E}\left[{\mu}_{x_t}|x_t\right] = x_t + (1 - \bar\alpha_t)\nabla_{x_t}\log p(x_t)
+
+
+对上式进行移项可以得到一个新的关系式
+
+.. math::
+    :label: eq_ddpm_065
+
+    x_0 = \frac{x_t + (1 - \bar\alpha_t)\nabla\log p(x_t)}{\sqrt{\bar\alpha_t}}
+
+这个关系式是一个分数表达 :math:`x_0` 的等式。
+现在回到逆过程中的真实分布 :math:`q(x_{t-1}|x_t,x_0)`
+，它的均值 :math:`{\mu}_q(x_t, x_0)` 在 :eq:`eq_ddpm_040`
+中已经给出，这里把 :eq:`eq_ddpm_065` 带入进去
+
+
+
+.. math::
+    :label: eq_ddpm_066
+
+    \begin{align}
+    {\mu}_q(x_t, x_0) &= \frac{\sqrt{\alpha_t}(1-\bar\alpha_{t-1})x_{t} + \sqrt{\bar\alpha_{t-1}}(1-\alpha_t)x_0}{1 -\bar\alpha_{t}}\\
+    &= \frac{\sqrt{\alpha_t}(1-\bar\alpha_{t-1})x_{t} + \sqrt{\bar\alpha_{t-1}}(1-\alpha_t)\frac{x_t + (1 - \bar\alpha_t)\nabla\log p(x_t)}{\sqrt{\bar\alpha_t}}}{1 -\bar\alpha_{t}}\\
+    &= \frac{\sqrt{\alpha_t}(1-\bar\alpha_{t-1})x_{t} + (1-\alpha_t)\frac{x_t + (1 - \bar\alpha_t)\nabla\log p(x_t)}{\sqrt{\alpha_t}}}{1 -\bar\alpha_{t}}\\
+    &= \frac{\sqrt{\alpha_t}(1-\bar\alpha_{t-1})x_{t}}{1 - \bar\alpha_t} + \frac{(1-\alpha_t)x_t}{(1-\bar\alpha_t)\sqrt{\alpha_t}} + \frac{(1 - \alpha_t)(1 - \bar\alpha_t)\nabla\log p(x_t)}{(1-\bar\alpha_t)\sqrt{\alpha_t}}\\
+    &= \left(\frac{\sqrt{\alpha_t}(1-\bar\alpha_{t-1})}{1 - \bar\alpha_t} + \frac{1-\alpha_t}{(1-\bar\alpha_t)\sqrt{\alpha_t}}\right)x_t + \frac{1 - \alpha_t}{\sqrt{\alpha_t}}\nabla\log p(x_t)\\
+    &= \left(\frac{\alpha_t(1-\bar\alpha_{t-1})}{(1 - \bar\alpha_t)\sqrt{\alpha_t}} + \frac{1-\alpha_t}{(1-\bar\alpha_t)\sqrt{\alpha_t}}\right)x_t + \frac{1 - \alpha_t}{\sqrt{\alpha_t}}\nabla\log p(x_t)\\
+    &= \frac{\alpha_t-\bar\alpha_{t} + 1-\alpha_t}{(1 - \bar\alpha_t)\sqrt{\alpha_t}}x_t + \frac{1 - \alpha_t}{\sqrt{\alpha_t}}\nabla\log p(x_t)\\
+    &= \frac{1-\bar\alpha_t}{(1 - \bar\alpha_t)\sqrt{\alpha_t}}x_t + \frac{1 - \alpha_t}{\sqrt{\alpha_t}}\nabla\log p(x_t)\\
+    &= \frac{1}{\sqrt{\alpha_t}}x_t + \frac{1 - \alpha_t}{\sqrt{\alpha_t}} \nabla\log p(x_t)
+    \end{align}
+
+
+重新按照个形式设定参数化分布 :math:`p_{\theta}(x_{t-1}|x_t)` 均值 :math:`\mu_{\theta}`
+的表达式
+
+.. math::
+    :label: eq_ddpm_067
+
+    \mu_{\theta}(x_t, t) = \frac{1}{\sqrt{\alpha_t}}x_t + \frac{1 - \alpha_t}{\sqrt{\alpha_t}}s_{{\theta}}(x_t, t)
+
+现在 :math:`s_{{\theta}}(x_t, t)` 是模型学习预测的内容，
+相当于模型直接预测的是分数 :math:`\nabla_{x_t} \log p(x_t)`，
+最后我们推导下目标函数 ELBO 中相关的 KL 散度。
+
+.. math::
+    :label: eq_ddpm_068
+
+    \begin{align}
+    & \quad \,\argmin_{{\theta}} \KL{q(x_{t-1}|x_t, x_0)}{p_{{\theta}}(x_{t-1}|x_t)} \nonumber \\
+    &= \argmin_{{\theta}}\KL{\mathcal{N}\left(x_{t-1}; {\mu}_q,{\Sigma}_q\left(t\right)\right)}{\mathcal{N}\left(x_{t-1}; {\mu}_{{\theta}},{\Sigma}_q\left(t\right)\right)}\\
+    &=\argmin_{{\theta}}\frac{1}{2\sigma_q^2(t)}\left[\left\lVert\frac{1}{\sqrt{\alpha_t}}x_t + \frac{1 - \alpha_t}{\sqrt{\alpha_t}}s_{{\theta}}(x_t, t) -
+    \frac{1}{\sqrt{\alpha_t}}x_t - \frac{1 - \alpha_t}{\sqrt{\alpha_t}}\nabla\log p(x_t)\right\rVert_2^2\right]\\
+    &=\argmin_{{\theta}}\frac{1}{2\sigma_q^2(t)}\left[\left\lVert \frac{1 - \alpha_t}{\sqrt{\alpha_t}}s_{{\theta}}(x_t, t) - \frac{1 - \alpha_t}{\sqrt{\alpha_t}}\nabla\log p(x_t)\right\rVert_2^2\right]\\
+    &=\argmin_{{\theta}}\frac{1}{2\sigma_q^2(t)}\left[\left\lVert \frac{1 - \alpha_t}{\sqrt{\alpha_t}}(s_{{\theta}}(x_t, t) - \nabla\log p(x_t))\right\rVert_2^2\right]\\
+    &=\argmin_{{\theta}}\frac{1}{2\sigma_q^2(t)}\frac{(1 - \alpha_t)^2}{\alpha_t}\left[\left\lVert s_{{\theta}}(x_t, t) - \nabla\log p(x_t)\right\rVert_2^2\right] \label{eq:123}
+    \end{align}
+
+最后的目标函数仍然是均方误差的形式，和原始扩散模型以及基于噪声的扩散模型是高度一致的。
+公式中的 :math:`\nabla\log p(x_t)` 是梯度的真实值，这个可以直接计算得到，`pytorch` 中可以计算指定变量的梯度。
+:math:`s_{{\theta}}(x_t, t)` 代表一个神经网络模型，它去学习和预测 :math:`\nabla\log p(x_t)`
+。
+
+接下来看下梯度和噪声的关系，结合 :eq:`eq_ddpm_065` 和 :eq:`eq_ddpm_052` 可得
+
+.. math::
+
+    \begin{align}
+    x_0 = \frac{x_t + (1 - \bar\alpha_t)\nabla\log p(x_t)}{\sqrt{\bar\alpha_t}} &= \frac{x_t - \sqrt{1 - \bar\alpha_t}{\epsilon}_t}{\sqrt{\bar\alpha_t}}\\
+    \therefore (1 - \bar\alpha_t)\nabla\log p(x_t) &= -\sqrt{1 - \bar\alpha_t}{\epsilon}_t\\
+    \nabla\log p(x_t) &= -\frac{1}{\sqrt{1 - \bar\alpha_t}}{\epsilon}_t
+    \end{align}
+
+我们知道梯度的方向，是函数极值的方向。
+梯度 :math:`\nabla\log p(x_t)` 指向的是对数概率函数 :math:`\log p(x_t)` 概率密度最大的方向，
+它和添加的噪声相差一个负号，正好是相反的，梯度的方向是噪声的反方向，这十分符合直觉。
+
+
+扩散模型的三种等价表示
+################################################################################################
+
+到这里我们一共介绍了扩撒模型的三种不同形式，1）直接预测初始样本；2）预测噪声；3）预测分数。
+这三种形式理论是等价的，然后对于模型的学习难度以及灵活性的却是不同的。
+这里我们把这三种形式进行总结对比一下，方便理解和复习。
+
+
+逆向过程中真实的（后验）分布为 :math:`q(x_{t-1}|x_t,x_0)`
+，它是一个条件高斯分布，均值记为 :math:`\mu_q`，
+方差记为 :math:`\Sigma_{q(t)}`，
+
+.. math::
+
+    q(x_{t-1}|x_t,x_0) \sim \mathcal{N}(x_{t-1},\mu_q,\Sigma_{q(t)})
+
+方差 :math:`\Sigma_{q(t)}` 的表达式为
+
+.. math::
+
+    \Sigma_q(t) = \frac{(1 - \alpha_t)(1 - \bar\alpha_{t-1})}{ 1 -\bar\alpha_{t}}  \textit{I} = \sigma_q^2(t)   \textit{I}
+
+方差看做一个已知的常量，默认模型不去学习它。
+我们的参数化模型学习的分布记为 :math:`p_{\theta}(x_{t-1}|x_t)`,
+我们要令 :math:`p_{\theta}(x_{t-1}|x_t)` 尽量近似真实分布 :math:`q(x_{t-1}|x_t,x_0)`。
+实际实现时，模型学习拟合的是真实分布 :math:`q(x_{t-1}|x_t,x_0)` 的均值 :math:`\mu_q`，
+然而它可以推导出三种不同等价的形式，因此也就有三种不同的学习方式。
+
+
+**第一种形式：学习初始样本**
+
+均值 :math:`\mu_q` 的第一种表达式为
+
+.. math::
+    :label: eq_ddpm_083
+
+
+    \mu_q(x_t, x_0) = { \frac{\sqrt{\alpha_t}(1-\bar\alpha_{t-1})x_{t} + \sqrt{\bar\alpha_{t-1}}(1-\alpha_t)x_0}{1 -\bar\alpha_{t}}}
+
+按照个形式设定参数化分布 :math:`p_{\theta}(x_{t-1}|x_t)` 的均值 :math:`\mu_{\theta}`
+
+.. math::
+    :label: eq_ddpm_084
+
+    \mu_{\theta}={\mu}_{{\theta}}(x_t, t) = \frac{\sqrt{\alpha_t}(1-\bar\alpha_{t-1})x_{t} + \sqrt{\bar\alpha_{t-1}}(1-\alpha_t)\hat x_{{\theta}}(x_t, t)}{1 -\bar\alpha_{t}}
+
+
+此时模型实际学习的是初始样本 :math:`x_0`，
+显然这种形式对模型来说难度比较大，所以效果并不突出。
+
+
+**第二种形式：学习噪声**
+
+均值 :math:`\mu_q` 的第二种表达式为
+
+.. math::
+    :label: eq_ddpm_085
+
+
+    \mu_q(x_t, x_0) = \frac{1}{\sqrt{\alpha_t}}x_t - \frac{1 - \alpha_t}{\sqrt{1 - \bar\alpha_t}\sqrt{\alpha_t}}\ \epsilon
+
+同理，按照个形式设定参数化分布 :math:`p_{\theta}(x_{t-1}|x_t)` 的均值 :math:`\mu_{\theta}`
+
+
+.. math::
+    :label: eq_ddpm_086
+
+    \mu_{\theta}={\mu}_{{\theta}}(x_t, t) = \frac{1}{\sqrt{\alpha_t}}x_t - \frac{1 - \alpha_t}{\sqrt{1 - \bar\alpha_t}\sqrt{\alpha_t}} {\hat\epsilon}_{ {\theta}}(x_t, t)
+
+
+此时模型学习预测的噪声 :math:`\epsilon`
+，相比直接学习初始样本 :math:`x_0`，每一步学习噪声简单了许多，模型的效果提升很大。
+
+
+**第三种形式：学习分数**
+
+依据 `Tweedie` 公式，均值 :math:`\mu_q` 的表达式可以写成基于分数的形式
+
+
+.. math::
+    :label: eq_ddpm_087
+
+    {\mu}_q(x_t, x_0) =  \frac{1}{\sqrt{\alpha_t}}x_t + \frac{1 - \alpha_t}{\sqrt{\alpha_t}}\nabla\log p(x_t)
+
+同样，按照个形式设定参数化分布 :math:`p_{\theta}(x_{t-1}|x_t)` 的均值 :math:`\mu_{\theta}`
+
+.. math::
+    :label: eq_ddpm_088
+
+    {\mu}_q(x_t, x_0) =  \frac{1}{\sqrt{\alpha_t}}x_t + \frac{1 - \alpha_t}{\sqrt{\alpha_t}} s_{\theta}(x_t,t)
+
+此时模型学习预测的是分数（梯度） :math:`\nabla\log p(x_t)`。
+相比学习噪声，学习分数有个好处，他可以令我在逆过程采样图片时采用基于分数的采样算法，
+而基于分数的采样算法种类很多，这极大的增加了算法的灵活性。
 
 
 
 
 
-改进降噪扩散概率模型（Improved Denoising Diffusion Probabilistic Models,DDPM）
+改进降噪扩散概率模型（Improved Denoising Diffusion Probabilistic Models,IDDPM）
 ################################################################################################
 
 1. 学习方差
@@ -918,12 +1287,7 @@ DDPM 做的关键改进就是参数化模型预测的内容做了调整：
 
 
 
-UNET
-##############################################################
 
-
-
-待补充
 
 
 

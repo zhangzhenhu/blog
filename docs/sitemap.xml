@@ -4,13 +4,22 @@
         <loc>https://zhangzhenhu.github.io/blog/aigc/Guidance.html</loc>
     </url>
     <url>
+        <loc>https://zhangzhenhu.github.io/blog/aigc/Score-Based_Generative_Models.html</loc>
+    </url>
+    <url>
         <loc>https://zhangzhenhu.github.io/blog/aigc/dalle2.html</loc>
+    </url>
+    <url>
+        <loc>https://zhangzhenhu.github.io/blog/aigc/ddim.html</loc>
     </url>
     <url>
         <loc>https://zhangzhenhu.github.io/blog/aigc/imgen.html</loc>
     </url>
     <url>
         <loc>https://zhangzhenhu.github.io/blog/aigc/index.html</loc>
+    </url>
+    <url>
+        <loc>https://zhangzhenhu.github.io/blog/aigc/samplers.html</loc>
     </url>
     <url>
         <loc>https://zhangzhenhu.github.io/blog/aigc/变分自编码器.html</loc>

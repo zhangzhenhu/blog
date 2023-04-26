@@ -21,11 +21,11 @@
         <script src="../_static/doctools.js"></script>
         <script src="../_static/translations.js"></script>
         <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-        <script>window.MathJax = {"tex": {"macros": {"RR": "{\\bf R}", "bold": ["{\\bf #1}", 1], "KL": ["{D_\\textrm{KL}\\left ( #1 \\| #2 \\right )}", 2], "EE": ["{\\mathbb{E}_{#1} \\left [ #2 \\right ]}", 2, ""], "scalemath": ["{\\scalebox{#1}{\\mbox{\\ensuremath{\\displaystyle #2}}}}", 2], "ind": ["{\\perp\\!\\!\\!\\!\\perp}"]}}}</script>
+        <script>window.MathJax = {"tex": {"macros": {"RR": "{\\bf R}", "bold": ["{\\bf #1}", 1], "KL": ["{D_\\textrm{KL}\\left ( #1 \\| #2 \\right )}", 2], "EE": ["{\\mathbb{E}_{#1} \\left [ #2 \\right ]}", 2, ""], "scalemath": ["{\\scalebox{#1}{\\mbox{\\ensuremath{\\displaystyle #2}}}}", 2], "argmin": ["{\\operatorname{\\arg\\min}}"], "ind": ["{\\perp\\!\\!\\!\\!\\perp}"]}}}</script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
-    <link rel="next" title="3. 条件控制扩散模型" href="Guidance.html" />
+    <link rel="next" title="3. 去噪扩散隐式模型（Denoising Diffusion Implicit Models,DDIM）" href="ddim.html" />
     <link rel="prev" title="1. 变分自编码器（Variational Autoencoder）" href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html" /> 
 </head>
 
@@ -709,37 +709,56 @@
 <li class="toctree-l4"><a class="reference internal" href="#markovian-hierarchical-variational-autoencoder-mhvae">2.1.1. 马尔科夫分层自编码器（Markovian Hierarchical Variational Autoencoder,MHVAE)</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#id6">2.1.2. 扩散模型</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#id8">2.1.3. 前向-后向</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#elbo">2.1.4. ELBO</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#elbo">2.1.4. 目标函数（ELBO）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id14">2.1.5. 图片生成（采样）过程</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#denoising-diffusion-probabilistic-model-ddpm">2.2. 降噪扩散概率模型（Denoising diffusion probabilistic model,DDPM）</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#improved-denoising-diffusion-probabilistic-models-ddpm">2.3. 改进降噪扩散概率模型（Improved Denoising Diffusion Probabilistic Models,DDPM）</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#unet">2.4. UNET</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id17">2.5. 参考文献</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#score-based-ddpm">2.3. 基于分数的解释（Score-based DDPM）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id23">2.4. 扩散模型的三种等价表示</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#improved-denoising-diffusion-probabilistic-models-iddpm">2.5. 改进降噪扩散概率模型（Improved Denoising Diffusion Probabilistic Models,IDDPM）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id24">2.6. 参考文献</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="Guidance.html">3. 条件控制扩散模型</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="Guidance.html#classifier-guidance">3.1. classifier guidance</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Guidance.html#classifier-free-guidance">3.2. Classifier-free guidance</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Guidance.html#clip-guidance">3.3. CLIP Guidance</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="Guidance.html#id12">3.3.1. 参考文献</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ddim.html">3. 去噪扩散隐式模型（Denoising Diffusion Implicit Models,DDIM）</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ddim.html#id1">3.1. 扩散模型的回顾</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ddim.html#id2">3.2. 非马尔科夫前向过程</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ddim.html#id4">3.3. 加速采样</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ddim.html#id5">3.4. 参考文献</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Score-Based_Generative_Models.html">4. 基于分数的生成模型</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Score-Based_Generative_Models.html#denoising-score-matching-with-langevin-dynamics">4.1. DENOISING SCORE MATCHING WITH LANGEVIN DYNAMICS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Score-Based_Generative_Models.html#id2">4.2. 随机微分方程</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Score-Based_Generative_Models.html#id3">4.2.1. 微分方程</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Score-Based_Generative_Models.html#id4">4.2.2. 随机微分方程</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Score-Based_Generative_Models.html#id5">4.2.3. 基于随机微分方程的生成模型</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="%E7%A8%B3%E5%AE%9A%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B.html">4. 稳定扩散模型（Stable diffusion model）</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="%E7%A8%B3%E5%AE%9A%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B.html#latent-diffusion-model-ldm">4.1. 潜在扩散模型（Latent diffusion model,LDM）</a></li>
-<li class="toctree-l3"><a class="reference internal" href="%E7%A8%B3%E5%AE%9A%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B.html#stable-diffusion-probabilistic-model-sdm">4.2. 稳定扩散模型（Stable diffusion probabilistic model,SDM）</a></li>
-<li class="toctree-l3"><a class="reference internal" href="%E7%A8%B3%E5%AE%9A%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B.html#id3">4.3. 参考文献</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Guidance.html">5. 条件控制扩散模型</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Guidance.html#classifier-guidance">5.1. classifier guidance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Guidance.html#classifier-free-guidance">5.2. Classifier-free guidance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Guidance.html#clip-guidance">5.3. CLIP Guidance</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Guidance.html#id12">5.3.1. 参考文献</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="dalle2.html">5. DALL·E 2</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="dalle2.html#glide">5.1. GLIDE</a></li>
-<li class="toctree-l3"><a class="reference internal" href="dalle2.html#unclip">5.2. Unclip</a></li>
-<li class="toctree-l3"><a class="reference internal" href="dalle2.html#id1">5.3. 参考文献</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="imgen.html">6. Imagen</a></li>
+<li class="toctree-l2"><a class="reference internal" href="%E7%A8%B3%E5%AE%9A%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B.html">6. 稳定扩散模型（Stable diffusion model）</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="%E7%A8%B3%E5%AE%9A%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B.html#latent-diffusion-model-ldm">6.1. 潜在扩散模型（Latent diffusion model,LDM）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="%E7%A8%B3%E5%AE%9A%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B.html#stable-diffusion-probabilistic-model-sdm">6.2. 稳定扩散模型（Stable diffusion probabilistic model,SDM）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="%E7%A8%B3%E5%AE%9A%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B.html#id3">6.3. 参考文献</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dalle2.html">7. DALL·E 2</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dalle2.html#glide">7.1. GLIDE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dalle2.html#unclip">7.2. Unclip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dalle2.html#id1">7.3. 参考文献</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="imgen.html">8. Imagen</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../audio/index.html">语音技术</a><ul>
@@ -970,10 +989,10 @@
 <span class="math notranslate nohighlight">\(x\)</span> 是可观测的，<span class="math notranslate nohighlight">\(z\)</span> 是不可观测的。不熟悉的读者可以复习一下上一章节
 <a class="reference internal" href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html#ch-vae"><span class="std std-numref">1变分自编码器</span></a>
 。</p>
-<figure class="align-center" id="id19">
+<figure class="align-center" id="id26">
 <span id="fg-dm-001"></span><a class="reference internal image-reference" href="../_images/diffusion_vae.png"><img alt="../_images/diffusion_vae.png" src="../_images/diffusion_vae.png" style="width: 175.68px; height: 166.56px;" /></a>
 <figcaption>
-<p><span class="caption-number">图 2.1.1 </span><span class="caption-text">变分自编码器（VAE）的图表示 （图片来自 <a class="footnote-reference brackets" href="#footcite-luo2022understanding" id="id3">2</a>）</span><a class="headerlink" href="#id19" title="永久链接至图片"></a></p>
+<p><span class="caption-number">图 2.1.1 </span><span class="caption-text">变分自编码器（VAE）的图表示 （图片来自 <a class="footnote-reference brackets" href="#footcite-luo2022understanding" id="id3">2</a>）</span><a class="headerlink" href="#id26" title="永久链接至图片"></a></p>
 </figcaption>
 </figure>
 <p>在 VAE 中编码过程只进行了一次，是否可以进行多次呢
@@ -984,10 +1003,10 @@
 我们把编码过程称为前向过程（Forward Trajectory），解码过程称逆向过程（Reverse Trajectory），
 无论前向还是逆向，每一个步骤（时刻） <span class="math notranslate nohighlight">\(t\)</span> 仅与它的上一个步骤（时刻）相关，
 这是一个典型的马尔科夫过程（Markov chain）。</p>
-<figure class="align-center" id="id20">
+<figure class="align-center" id="id27">
 <span id="fg-dm-002"></span><a class="reference internal image-reference" href="../_images/diffusion_hvae.png"><img alt="../_images/diffusion_hvae.png" src="../_images/diffusion_hvae.png" style="width: 470.64px; height: 166.56px;" /></a>
 <figcaption>
-<p><span class="caption-number">图 2.1.2 </span><span class="caption-text">马尔科夫分层自编码器（MHVAE）的图表示（图片来自 <a class="footnote-reference brackets" href="#footcite-luo2022understanding" id="id5">2</a>）</span><a class="headerlink" href="#id20" title="永久链接至图片"></a></p>
+<p><span class="caption-number">图 2.1.2 </span><span class="caption-text">马尔科夫分层自编码器（MHVAE）的图表示（图片来自 <a class="footnote-reference brackets" href="#footcite-luo2022understanding" id="id5">2</a>）</span><a class="headerlink" href="#id27" title="永久链接至图片"></a></p>
 </figcaption>
 </figure>
 <p><span class="math notranslate nohighlight">\(q(z_{t}|z_{t-1})\)</span> 表示一个步骤的编码过程，<span class="math notranslate nohighlight">\(p(z_{t}|z_{t-1})\)</span>
@@ -1014,10 +1033,10 @@
 <h3><span class="section-number">2.1.2. </span>扩散模型<a class="headerlink" href="#id6" title="永久链接至标题"></a></h3>
 <p>把 VAE 扩展成马尔科夫链式结构就得到了 MHVAE，
 MHVAE 是扩散模型的雏形，只需要在 MHVAE 的基础上再稍微调整一下就得到了扩散模型。</p>
-<figure class="align-center" id="id21">
+<figure class="align-center" id="id28">
 <span id="fg-dm-003"></span><a class="reference internal image-reference" href="../_images/diffusion_vdm_base.png"><img alt="../_images/diffusion_vdm_base.png" src="../_images/diffusion_vdm_base.png" style="width: 554.2px; height: 217.5px;" /></a>
 <figcaption>
-<p><span class="caption-number">图 2.1.3 </span><span class="caption-text">扩散模型的图表示（图片来自 <a class="footnote-reference brackets" href="#footcite-luo2022understanding" id="id7">2</a>）</span><a class="headerlink" href="#id21" title="永久链接至图片"></a></p>
+<p><span class="caption-number">图 2.1.3 </span><span class="caption-text">扩散模型的图表示（图片来自 <a class="footnote-reference brackets" href="#footcite-luo2022understanding" id="id7">2</a>）</span><a class="headerlink" href="#id28" title="永久链接至图片"></a></p>
 </figcaption>
 </figure>
 <ul class="simple">
@@ -1036,15 +1055,31 @@ MHVAE 是扩散模型的雏形，只需要在 MHVAE 的基础上再稍微调整�
 </section>
 <section id="id8">
 <h3><span class="section-number">2.1.3. </span>前向-后向<a class="headerlink" href="#id8" title="永久链接至标题"></a></h3>
+<p>如<a class="reference internal" href="#fg-dm-003"><span class="std std-numref">图 2.1.3</span></a> 所示，它是一个马尔科夫链式结构的贝叶斯网络（有向图网络），
+<span class="math notranslate nohighlight">\(x_0\)</span> 是模型的起点变量，它可以代表真实图片的分布（或者说随机变量）。
+从 <span class="math notranslate nohighlight">\(x_0\)</span> 开始，按照这个链式结构逐步的演变成一个标准的高斯分布 <span class="math notranslate nohighlight">\(x_T\)</span>。
+整个网络的联合概率分布可以表示为 <span class="math notranslate nohighlight">\(p(x_{0:T})\)</span>，
+如果按照从左到右的顺序对这个联合概率进行链式拆解</p>
+<div class="math notranslate nohighlight" id="equation-aigc-2">
+<span class="eqno">(2.1.42)<a class="headerlink" href="#equation-aigc-2" title="公式的永久链接"></a></span>\[p(x_{0:T}) = q(x_0) \prod_{t=1}^T q(x_t|x_{t-1})\]</div>
+<p>我们把从左到右的演变过程称为前向过程，因为它是把一个真实图片 <span class="math notranslate nohighlight">\(x_0\)</span>
+逐步添加噪声，并最终变成一个纯粹的随机高斯变量 <span class="math notranslate nohighlight">\(x_T\)</span> 的过程，所以也可以称其扩散过程。</p>
+<p>如果按照从右到左的顺序，正好是前向扩散过程的逆过程，所以称之为逆过程，
+它可以从一个纯粹的高斯噪声（标准高斯分布）随机变量 <span class="math notranslate nohighlight">\(x_T\)</span> 逐步演变，最终得到一个真实图片 <span class="math notranslate nohighlight">\(x_0\)</span>
+，这个过程相当于生成了一张新图片，所以也称为（图像）生成过程
+，而这个过程在统计概率学上，本质是从一个联合概率分布进行采样的过程，所以也可以称为采样（sample）过程。
+同样，可以按照从右到左的顺序对联合概率 <span class="math notranslate nohighlight">\(p(x_{0:T})\)</span> 进行链式分解</p>
+<div class="math notranslate nohighlight" id="equation-aigc-3">
+<span class="eqno">(2.1.43)<a class="headerlink" href="#equation-aigc-3" title="公式的永久链接"></a></span>\[p(x_{0:T}) = p(x_T) \prod_{t=T}^1 p(x_{t-1}|x_{t})\]</div>
 <p><strong>前向过程</strong></p>
-<p><span class="math notranslate nohighlight">\(x_0\)</span> 是模型的原始输入，它是一个可观测到的数据，比如一张图片，
-前向过程，就是逐步把 <span class="math notranslate nohighlight">\(x_0\)</span> 转化成 <span class="math notranslate nohighlight">\(x_T\)</span> 的过程。
-这个过程中 <span class="math notranslate nohighlight">\(x_0\)</span> 是已知观测值，<span class="math notranslate nohighlight">\(x_{1:T}\)</span> 是未知的隐变量，
-前向过程的概率表示是后验概率 <span class="math notranslate nohighlight">\(q(z_{1:T}|x_0)\)</span>，
-根据链式发展，可以展开为</p>
+<p>然而，代表真实图像 <span class="math notranslate nohighlight">\(x_0\)</span> 的真实概率分布 <span class="math notranslate nohighlight">\(p(x_0)\)</span> 的概率密度函数是不知道的，
+但我们能得到一批真实的图像样本，也就是我们有 <span class="math notranslate nohighlight">\(x_0\)</span> 的观测样本，
+此时 <span class="math notranslate nohighlight">\(x_0\)</span> 是已知观测值，<span class="math notranslate nohighlight">\(x_{1:T}\)</span> 是未知的隐变量，
+这时整个马尔科夫网络的联合概率变成了一个条件概率 <span class="math notranslate nohighlight">\(q(x_{1:T}|x_0)\)</span>，
+根据链式法则，可以展开为</p>
 <div class="math notranslate nohighlight" id="equation-eq-ddpm-020">
-<span class="eqno">(2.1.42)<a class="headerlink" href="#equation-eq-ddpm-020" title="公式的永久链接"></a></span>\[q(x_{1:T}|x_0) = \prod_{t=1}^T q(x_t|x_{t-1})\]</div>
-<p>根据第二项假设，每一个 <span class="math notranslate nohighlight">\(x_t\)</span> 都可以看做一个高斯变量，
+<span class="eqno">(2.1.44)<a class="headerlink" href="#equation-eq-ddpm-020" title="公式的永久链接"></a></span>\[q(x_{1:T}|x_0) = q(x_1|x_0) \prod_{t=2}^T q(x_t|x_{t-1}) =  \prod_{t=1}^T q(x_t|x_{t-1})\]</div>
+<p>根据第二项假设，每一个 <span class="math notranslate nohighlight">\(x_t\)</span> 都是一个高斯变量，
 前向过程每一个步骤的编码器 <span class="math notranslate nohighlight">\(q(x_t|x_{t-1})\)</span> 固定为一个线性高斯变换，
 所谓线性高斯变换是指 <span class="math notranslate nohighlight">\(x_t\)</span> 的均值和 <span class="math notranslate nohighlight">\(x_{t-1}\)</span> 的值是线性关系。</p>
 <p>在本论文中，定义 <span class="math notranslate nohighlight">\(q(x_t|x_{t-1})\)</span> 的方差与 <span class="math notranslate nohighlight">\(x_{t-1}\)</span> 是独立的，
@@ -1057,14 +1092,14 @@ MHVAE 是扩散模型的雏形，只需要在 MHVAE 的基础上再稍微调整�
 这里设定另外一个系数 <span class="math notranslate nohighlight">\(\alpha_t\)</span>，并且令 <span class="math notranslate nohighlight">\(\alpha_t = 1-\beta_t\)</span>。
 <span class="math notranslate nohighlight">\(\mu_{x_t}\)</span> 与 <span class="math notranslate nohighlight">\(x_{t-1}\)</span> 的关系定义为：</p>
 <div class="math notranslate nohighlight" id="equation-eq-ddpm-021">
-<span class="eqno">(2.1.43)<a class="headerlink" href="#equation-eq-ddpm-021" title="公式的永久链接"></a></span>\[\mu_{x_t} =  \sqrt{\alpha_t} \ x_{t-1}\]</div>
+<span class="eqno">(2.1.45)<a class="headerlink" href="#equation-eq-ddpm-021" title="公式的永久链接"></a></span>\[\mu_{x_t} =  \sqrt{\alpha_t} \ x_{t-1}\]</div>
 <p><span class="math notranslate nohighlight">\(x_t\)</span> 的方差定义成与 <span class="math notranslate nohighlight">\(x_{t-1}\)</span> <strong>无关</strong>，而是经过缩放的单位方差，
 定义为</p>
 <div class="math notranslate nohighlight" id="equation-eq-ddpm-022">
-<span class="eqno">(2.1.44)<a class="headerlink" href="#equation-eq-ddpm-022" title="公式的永久链接"></a></span>\[\Sigma_{x_t} = \beta_t \textit{I} =  (1- \alpha_t ) \textit{I}\]</div>
+<span class="eqno">(2.1.46)<a class="headerlink" href="#equation-eq-ddpm-022" title="公式的永久链接"></a></span>\[\Sigma_{x_t} = \beta_t \textit{I} =  (1- \alpha_t ) \textit{I}\]</div>
 <p><span class="math notranslate nohighlight">\(q(x_t|x_{t-1})\)</span> 就是一个以 <span class="math notranslate nohighlight">\(\sqrt{\alpha_t} \ x_{t-1}\)</span> 为均值，
 以 <span class="math notranslate nohighlight">\((1- \alpha_t ) \textit{I}\)</span> 为方差的高斯分布。
-按照线性高斯的特征，如 <a class="reference internal" href="#equation-eq-ddpm-023">公式(2.1.45)</a> 所示，
+按照线性高斯的特征，如 <a class="reference internal" href="#equation-eq-ddpm-023">公式(2.1.47)</a> 所示，
 它可以看做是在 <span class="math notranslate nohighlight">\(\sqrt{\alpha_t} \ x_{t-1}\)</span> 基础上加上一个
 <span class="math notranslate nohighlight">\(\mathcal{N} (0, (1- \alpha_t ) \textit{I} )\)</span> 的随机高斯噪声。
 <strong>这就相当于每一个步骤都在前一个步骤的基础上加上一个随机高斯噪声数据，随着</strong><span class="math notranslate nohighlight">\(t\)</span>
@@ -1073,9 +1108,9 @@ MHVAE 是扩散模型的雏形，只需要在 MHVAE 的基础上再稍微调整�
 这个过程好比把一滴墨水滴入一杯水中，随着时间的推移，墨水逐步扩散分不到各处，这杯水变成浑浊的一杯水，
 原来的墨滴再也看不到了，这就是这个模型被称为扩散模型（diffusion model）的原因。</p>
 <div class="math notranslate nohighlight" id="equation-eq-ddpm-023">
-<span class="eqno">(2.1.45)<a class="headerlink" href="#equation-eq-ddpm-023" title="公式的永久链接"></a></span>\[q(x_t|x_{t-1}) = \mathcal{N} (\sqrt{\alpha_t} \ x_{t-1}, (1- \alpha_t ) \textit{I} )\]</div>
+<span class="eqno">(2.1.47)<a class="headerlink" href="#equation-eq-ddpm-023" title="公式的永久链接"></a></span>\[q(x_t|x_{t-1}) = \mathcal{N} (\sqrt{\alpha_t} \ x_{t-1}, (1- \alpha_t ) \textit{I} )\]</div>
 <div class="math notranslate nohighlight" id="equation-eq-ddpm-024">
-<span class="eqno">(2.1.46)<a class="headerlink" href="#equation-eq-ddpm-024" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}x_{t} &amp;=\sqrt{\alpha_t} \ x_{t-1} + \mathcal{N} (0, (1- \alpha_t ) \textit{I} )\\&amp;=\sqrt{\alpha_t} \ x_{t-1} +  \sqrt{1- \alpha_t } \ \epsilon \ \ \ ,\epsilon \sim \mathcal{N} (0, \textit{I} )\end{aligned}\end{align} \]</div>
+<span class="eqno">(2.1.48)<a class="headerlink" href="#equation-eq-ddpm-024" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}x_{t} &amp;=\sqrt{\alpha_t} \ x_{t-1} + \mathcal{N} (0, (1- \alpha_t ) \textit{I} )\\&amp;=\sqrt{\alpha_t} \ x_{t-1} +  \sqrt{1- \alpha_t } \ \epsilon \ \ \ ,\epsilon \sim \mathcal{N} (0, \textit{I} )\end{aligned}\end{align} \]</div>
 <p>至于系数 <span class="math notranslate nohighlight">\(\beta_t\)</span> 的值可以作为一个超参数有人工指定<a class="footnote-reference brackets" href="#footcite-ho2020denoising" id="id9">3</a>
 ，也可以作为一个可学习的参数由模型学习<a class="footnote-reference brackets" href="#footcite-kingma2022variational" id="id10">4</a>，
 这里我们从直觉的角度来理解系数 <span class="math notranslate nohighlight">\(\beta_t\)</span> 的作用。</p>
@@ -1101,7 +1136,7 @@ MHVAE 是扩散模型的雏形，只需要在 MHVAE 的基础上再稍微调整�
 </dl>
 </li>
 <li><dl class="simple">
-<dt>这个线性关系（线性高斯），为什么没有截距项？</dt><dd><p>观察下 <a class="reference internal" href="#equation-eq-ddpm-023">公式(2.1.45)</a>，其中的高斯噪声 <span class="math notranslate nohighlight">\(\sqrt{1- \alpha_t } \ \epsilon\)</span> 就相当于截距。</p>
+<dt>这个线性关系（线性高斯），为什么没有截距项？</dt><dd><p>观察下 <a class="reference internal" href="#equation-eq-ddpm-023">公式(2.1.47)</a>，其中的高斯噪声 <span class="math notranslate nohighlight">\(\sqrt{1- \alpha_t } \ \epsilon\)</span> 就相当于截距。</p>
 </dd>
 </dl>
 </li>
@@ -1112,42 +1147,74 @@ MHVAE 是扩散模型的雏形，只需要在 MHVAE 的基础上再稍微调整�
 我们希望扩散的前期慢一点，后期快一点，因此 <span class="math notranslate nohighlight">\(\alpha_t\)</span> 最好是逐渐变小的。</p>
 <p>总的来说，前向过程就是一个逐步添加高斯噪声，并且最终变成一个纯的高斯噪声数据。
 另外前向过程中的编码分布 <span class="math notranslate nohighlight">\(q(x_t|x_{t-1})\)</span> 并没有进行参数化表示，而是假定是一个确定的线性高斯变换。</p>
-<p>在前向过程我们需要计算每一个时刻的 <span class="math notranslate nohighlight">\(x_t\)</span>，最直接的计算方式就是写一个循环，按照公式 <a class="reference internal" href="#equation-eq-ddpm-023">公式(2.1.45)</a>
+<p>在前向过程我们需要计算每一个时刻的 <span class="math notranslate nohighlight">\(x_t\)</span>，最直接的计算方式就是写一个循环，按照公式 <a class="reference internal" href="#equation-eq-ddpm-023">公式(2.1.47)</a>
 逐步从 <span class="math notranslate nohighlight">\(x_0\)</span> 算到 <span class="math notranslate nohighlight">\(x_T\)</span>，公式中的 <span class="math notranslate nohighlight">\(\epsilon_{t}\)</span> 就是从一个标准正态分布随机采样，
 这和 VAE 中是一样的。这样用循环计算当然可以，但是当 <span class="math notranslate nohighlight">\(T\)</span> 较大时，明显是效率低下的。
 事实上，得益于 <span class="math notranslate nohighlight">\(q(x_t|x_{t-1})\)</span> 是线性高斯的假设，这里有一个计算上的小技巧，可以直接从 <span class="math notranslate nohighlight">\(x_0\)</span>
 一步计算任意的 <span class="math notranslate nohighlight">\(t\)</span>，这样就可以并行计算全部的 <span class="math notranslate nohighlight">\(x_t\)</span>。
 如下是具体的推导过程：</p>
 <div class="math notranslate nohighlight" id="equation-eq-ddpm-025">
-<span class="eqno">(2.1.47)<a class="headerlink" href="#equation-eq-ddpm-025" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}x_t &amp;= \sqrt{\alpha_t} \ x_{t-1} + \sqrt{1-\alpha_t} \ \epsilon_{t}\\&amp;= \sqrt{\alpha_t} \left(   \sqrt{\alpha_{t-1}} \ x_{t-2} + \sqrt{1-\alpha_{t-1}} \ \epsilon_{t-1}  \right ) + \sqrt{1-\alpha_t} \ \epsilon_{t}\\&amp;=  \sqrt{\alpha_t \alpha_{t-1} }  \ x_{t-2}
+<span class="eqno">(2.1.49)<a class="headerlink" href="#equation-eq-ddpm-025" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}x_t &amp;= \sqrt{\alpha_t} \ x_{t-1} + \sqrt{1-\alpha_t} \ \epsilon_{t}\\&amp;= \sqrt{\alpha_t} \left(   \sqrt{\alpha_{t-1}} \ x_{t-2} + \sqrt{1-\alpha_{t-1}} \ \epsilon_{t-1}  \right ) + \sqrt{1-\alpha_t} \ \epsilon_{t}\\&amp;=  \sqrt{\alpha_t \alpha_{t-1} }  \ x_{t-2}
 + \underbrace{ \sqrt{\alpha_t - \alpha_t \alpha_{t-1} }\ \epsilon_{t-1} + \sqrt{1- \alpha_t} \ \epsilon_{t}
   }_{\text{两个相互独立的0均值的高斯分布相加}}\\
 &amp;=  \sqrt{\alpha_t \alpha_{t-1} }  \ x_{t-2}
 + \underbrace{  \sqrt{ \sqrt{\alpha_t - \alpha_t \alpha_{t-1} }^2 + \sqrt{1- \alpha_t}^2  } \ \epsilon
-}_{\text{两个方差相加，用一个新的高斯分布代替}}\\&amp;= \sqrt{\alpha_t \alpha_{t-1} }  \ x_{t-2} + \sqrt{1- \alpha_t \alpha_{t-1}} \ \epsilon\\&amp;= ...\\&amp;= \sqrt{\prod_{i=1}^t \alpha_i} \ x_0 + \sqrt{1- \prod_{i=1}^t \alpha_i }  \ \epsilon\\&amp;= \sqrt{\bar{\alpha_i} } \ x_0 + \sqrt{1- \bar{ \alpha_i} }  \ \epsilon  \ \ \ ,
-\bar{\alpha} = \prod_{i=1}^t \alpha_i ,\ \ \epsilon \sim \mathcal{N}(0,\textit(I))\\&amp;\sim \mathcal{N}(\sqrt{\bar{\alpha_i} } \ x_0,  (1- \bar{ \alpha_i})    \textit{I})\end{aligned}\end{align} \]</div>
+}_{\text{两个方差相加，用一个新的高斯分布代替}}\\&amp;= \sqrt{\alpha_t \alpha_{t-1} }  \ x_{t-2} + \sqrt{1- \alpha_t \alpha_{t-1}} \ \epsilon\\&amp;= ...\\&amp;= \sqrt{\prod_{i=1}^t \alpha_i} \ x_0 + \sqrt{1- \prod_{i=1}^t \alpha_i }  \ \epsilon\\&amp;= \sqrt{\bar{ \alpha}_t } \ x_0 + \sqrt{1- \bar{ \alpha}_t }  \ \epsilon  \ \ \ ,
+\bar{\alpha} = \prod_{i=1}^t \alpha_i ,\ \ \epsilon \sim \mathcal{N}(0,\textit{I})\\&amp;\sim \mathcal{N}(\sqrt{\bar{\alpha}_t } \ x_0,  (1- \bar{ \alpha}_t)    \textit{I})\end{aligned}\end{align} \]</div>
+<p>前项过程的每一个步骤的转换条件概率 <span class="math notranslate nohighlight">\(q(x_t|x_{t-1})\)</span>
+代表着从 <span class="math notranslate nohighlight">\(x_{t-1})\)</span> 到 <span class="math notranslate nohighlight">\(x_t\)</span> 的转换方法（过程），
+而且我们已经得到了条件概率分布 <span class="math notranslate nohighlight">\(q(x_t|x_{t-1})\)</span> 的具体形式（ <a class="reference internal" href="#equation-eq-ddpm-023">公式(2.1.47)</a> ）
+，具体的，当有了 <span class="math notranslate nohighlight">\(x_{t-1}\)</span> 的值后，可以根据 <a class="reference internal" href="#equation-eq-ddpm-024">公式(2.1.48)</a>
+计算 <span class="math notranslate nohighlight">\(x_{t}\)</span> 的值，就这样循环计算，直到计算出 <span class="math notranslate nohighlight">\(x_{T}\)</span> 的值。
+得益于条件高斯分布的特性，我们推导出一个计算小技巧，<a class="reference internal" href="#equation-eq-ddpm-025">公式(2.1.49)</a>，
+可以直接从 <span class="math notranslate nohighlight">\(x_0\)</span> 计算出任意时刻的 <span class="math notranslate nohighlight">\(x_t\)</span>
+，不用再逐步循环计算，这极大的提高了我们的计算速度。</p>
+<p>最后的重点，我们发现只要设置了超参数 <span class="math notranslate nohighlight">\(\alpha_{0:T}\)</span> 的值，这个前向计算过程是可以直接解析（使用公式）计算的，
+没有未知参数，不需要用一个模型学习这个过程。
+然而逆向过程就不能直接计算的，是需要用模型学习的。</p>
 <p><strong>逆向过程</strong></p>
-<p>如图<a class="reference internal" href="#fg-dm-003"><span class="std std-numref">图 2.1.3</span></a>，逆向过程是从右到左的解码过程，输入一个随机高斯噪声 <span class="math notranslate nohighlight">\(x_T\)</span>，
+<p>如<a class="reference internal" href="#fg-dm-003"><span class="std std-numref">图 2.1.3</span></a>，逆向过程是从右到左的解码过程，从 <span class="math notranslate nohighlight">\(x_T\)</span> （随机高斯噪声）开始，
 逐步的解码成一个有意义的数据，比如生成一张图片。
 解码过程的每一个时刻 <span class="math notranslate nohighlight">\(t\)</span> 要把 <span class="math notranslate nohighlight">\(x_{t+1}\)</span> 还原成 <span class="math notranslate nohighlight">\(x_t\)</span>，
-每一步骤对应条件概率表示成 <span class="math notranslate nohighlight">\(p(x_t|x_{t+1})\)</span>。
-在模型应用时，我们主要用的就是这个逆向过程，或者说生成过程，输入一张噪声图片，生成一有意义的图片。
-不同于前向过程（不需要模型学习），逆向过程是需要模型去学习的，也就是我们需要用一个参数化的模型学习 <span class="math notranslate nohighlight">\(p(x_t|x_{t+1})\)</span>。
+每一步骤对应的条件概率表示成 <span class="math notranslate nohighlight">\(p(x_t|x_{t+1})\)</span>。
+按照逆向过程，对联合概率 <span class="math notranslate nohighlight">\(p(x_{0:T})\)</span>
+进行分解为：</p>
+<div class="math notranslate nohighlight" id="equation-eq-ddpm-026">
+<span class="eqno">(2.1.50)<a class="headerlink" href="#equation-eq-ddpm-026" title="公式的永久链接"></a></span>\[p(x_{0:T}) = p(x_T) \prod_{t={T-1}}^0 p(x_{t}|x_{t+1})\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(p(x_T)\)</span> 的概率密度是知道的，它是一个标准高斯分布，即 <span class="math notranslate nohighlight">\(p(x_T) \sim (0,\textit{I})\)</span>
+。然而 <span class="math notranslate nohighlight">\(p_{\theta}(x_{t}|x_{t+1})\)</span> 是难以计算的，
+即使根据贝叶斯定理得出 <span class="math notranslate nohighlight">\(p_{\theta}(x_{t}|x_{t+1})\)</span> 的表达式，
+它的分母部分（归一化项）是含有积分的，这个积分是没有解析解的，是非常难以计算的。
+因此，我们想到用一个模型（神经网络）取拟合学习条件概率分布 <span class="math notranslate nohighlight">\(p_{\theta}(x_{t}|x_{t+1})\)</span>
+，然后利用学习好的模型，充当 <span class="math notranslate nohighlight">\(p_{\theta}(x_{t}|x_{t+1})\)</span>
+，这样就有了逆向过程的完整链式结构（ <a class="reference internal" href="#equation-eq-ddpm-026">公式(2.1.50)</a>）
+，也就可以通过逆向过程，从一个随机高斯噪声 <span class="math notranslate nohighlight">\(x_T\)</span>
+逐步生成一张真实的图片 <span class="math notranslate nohighlight">\(x_0\)</span>。</p>
+<p>为了符号区分，
 定义符号 <span class="math notranslate nohighlight">\(\theta\)</span> 表示模型的学习参数，
-为了符号区分，不带 <span class="math notranslate nohighlight">\(\theta\)</span> 的 <span class="math notranslate nohighlight">\(p(x_t|x_{t+1})\)</span> 表示解码器的真实分布，
-带 <span class="math notranslate nohighlight">\(\theta\)</span> 的 <span class="math notranslate nohighlight">\(p_{\theta}(x_t|x_{t+1})\)</span> 表示参数化模型学习的近似分布。</p>
-<p>下一步就是如何学习 <span class="math notranslate nohighlight">\(p_{\theta}(x_t|x_{t+1})\)</span>，
+不带 <span class="math notranslate nohighlight">\(\theta\)</span> 的 <span class="math notranslate nohighlight">\(p(x_t|x_{t+1})\)</span> 表示解码器的真实分布，
+带 <span class="math notranslate nohighlight">\(\theta\)</span> 的 <span class="math notranslate nohighlight">\(p_{\theta}(x_t|x_{t+1})\)</span> 表示参数化模型学习的近似分布。
+下一步就是如何学习 <span class="math notranslate nohighlight">\(p_{\theta}(x_t|x_{t+1})\)</span>，
 类似于 VAE 模型，通过最大化 ELBO 来进行参数学习。</p>
 </section>
 <section id="elbo">
-<h3><span class="section-number">2.1.4. </span>ELBO<a class="headerlink" href="#elbo" title="永久链接至标题"></a></h3>
-<p>显然扩散模型的学习过程和原始的VAE以及上一节介绍的 MHVAE 相似的，原始的观测数据对数似然 <span class="math notranslate nohighlight">\(\ln p(x)\)</span>
-是无法直接极大化的，需要用它的下界函数（ELBO）进行替代。
+<h3><span class="section-number">2.1.4. </span>目标函数（ELBO）<a class="headerlink" href="#elbo" title="永久链接至标题"></a></h3>
+<p>我们知道学习一个概率分布的未知参数的常用算法是极大似然估计，
+极大似然估计是通过极大化观测数据的对数概率（似然）实现的。
+在这里，整个网络的联合概率分布是 <span class="math notranslate nohighlight">\(p(x_{0:T})\)</span>
+，其中，我们只有 <span class="math notranslate nohighlight">\(x_0\)</span> 的观测数据（样本）
+，没有 <span class="math notranslate nohighlight">\(x_{1:T}\)</span> 的观测样本，
+因此我们极大化的是边缘分布 <span class="math notranslate nohighlight">\(p(x_0)\)</span>，而不是联合分布 <span class="math notranslate nohighlight">\(p(x_{0:T})\)</span>
+。边缘分布 <span class="math notranslate nohighlight">\(p(x_0)\)</span> 可以通过边际化得到</p>
+<div class="math notranslate nohighlight" id="equation-aigc-4">
+<span class="eqno">(2.1.51)<a class="headerlink" href="#equation-aigc-4" title="公式的永久链接"></a></span>\[p(x_0) = \int p(x_{0:T}) dx_{1:T}\]</div>
+<p>显然扩散模型的学习过程和原始的VAE以及上一节介绍的 MHVAE 相似的，原始的观测数据对数似然 <span class="math notranslate nohighlight">\(\ln p(x_0)\)</span>
+包含隐变量的积分操作，是无法直接极大化的，需要用它的下界函数（ELBO）进行替代。
 接下来我们推导一下扩散模型的 ELBO 函数，我们在 <a class="reference internal" href="#equation-eq-ddpm-010">公式(2.1.41)</a> 的基础上继续推演，
 推导过程如下：</p>
 <div class="math notranslate nohighlight" id="equation-eq-ddpm-031">
-<span class="eqno">(2.1.48)<a class="headerlink" href="#equation-eq-ddpm-031" title="公式的永久链接"></a></span>\[\begin{split}\begin{align}
-{\ln p(x)}
+<span class="eqno">(2.1.52)<a class="headerlink" href="#equation-eq-ddpm-031" title="公式的永久链接"></a></span>\[\begin{split}\begin{align}
+{\ln p(x_0)}
 &amp;= {\ln \int p(x_{0:T}) dx_{1:T}}\\
 &amp;= {\ln \int \frac{p(x_{0:T})q(x_{1:T}|x_0)}{q(x_{1:T}|x_0)} dx_{1:T}}\\
 &amp;= {\ln \mathbb{E}_{q(x_{1:T}|x_0)}\left[\frac{p(x_{0:T})}{q(x_{1:T}|x_0)}\right]}\\
@@ -1183,21 +1250,21 @@ MHVAE 是扩散模型的雏形，只需要在 MHVAE 的基础上再稍微调整�
 是需要一个参数化的模型去学习的，也就是我们的模型学习的是 <span class="math notranslate nohighlight">\(p_{{\theta}}(x_{t}|x_{t+1})\)</span>，其中
 <span class="math notranslate nohighlight">\(\theta\)</span> 表示模型需要学习的参数集合。</p></li>
 </ul>
-<figure class="align-center" id="id22">
+<figure class="align-center" id="id29">
 <span id="fg-dm-006"></span><a class="reference internal image-reference" href="../_images/diffusion_first_derivation.png"><img alt="../_images/diffusion_first_derivation.png" src="../_images/diffusion_first_derivation.png" style="width: 554.2px; height: 217.60000000000002px;" /></a>
 <figcaption>
-<p><span class="caption-number">图 2.1.4 </span><span class="caption-text">根据 ELBO（ <a class="reference internal" href="#equation-eq-ddpm-031">公式(2.1.48)</a>）显示，对于每一个时刻 <span class="math notranslate nohighlight">\(t\)</span>，最小化绿色和粉色箭头所代表的分布之间的差异。（图片来自 <a class="footnote-reference brackets" href="#footcite-luo2022understanding" id="id11">2</a>）</span><a class="headerlink" href="#id22" title="永久链接至图片"></a></p>
+<p><span class="caption-number">图 2.1.4 </span><span class="caption-text">根据 ELBO（ <a class="reference internal" href="#equation-eq-ddpm-031">公式(2.1.52)</a>）显示，对于每一个时刻 <span class="math notranslate nohighlight">\(t\)</span>，最小化绿色和粉色箭头所代表的分布之间的差异。（图片来自 <a class="footnote-reference brackets" href="#footcite-luo2022understanding" id="id11">2</a>）</span><a class="headerlink" href="#id29" title="永久链接至图片"></a></p>
 </figcaption>
 </figure>
-<p>在极大化 <a class="reference internal" href="#equation-eq-ddpm-031">公式(2.1.48)</a> 时，第二项不包含任意可学习参数，因此可以忽略掉。
+<p>在极大化 <a class="reference internal" href="#equation-eq-ddpm-031">公式(2.1.52)</a> 时，第二项不包含任意可学习参数，因此可以忽略掉。
 另外两项都是一个期望项，解决方法和 VAE 一样，可以通过采样法（MCMC）近似求解期望。
 然而，第三项存在一个小问题，它的期望是关于两个变量的， <span class="math notranslate nohighlight">\((x_{t-1},x_{t+1})\)</span>，
 用采样法（MCMC）同时对两个随机变量进行采样，会导致更大的方差，这会使得优化过程不稳定，不容易收敛 <a class="footnote-reference brackets" href="#footcite-luo2022understanding" id="id12">2</a>。
-因此直接优化 <a class="reference internal" href="#equation-eq-ddpm-031">公式(2.1.48)</a> 并不是最佳的选择，我们继续看能不能改进一下。</p>
+因此直接优化 <a class="reference internal" href="#equation-eq-ddpm-031">公式(2.1.52)</a> 并不是最佳的选择，我们继续看能不能改进一下。</p>
 <p>改进方法的推导中依赖几个等式替换，在推导前先给出这几个依赖等式。
 首先根据条件独立性原则，有下式成立</p>
 <div class="math notranslate nohighlight" id="equation-eq-ddpm-032">
-<span class="eqno">(2.1.49)<a class="headerlink" href="#equation-eq-ddpm-032" title="公式的永久链接"></a></span>\[q(x_t | x_{t-1}) = q(x_t | x_{t-1}, x_0)\]</div>
+<span class="eqno">(2.1.53)<a class="headerlink" href="#equation-eq-ddpm-032" title="公式的永久链接"></a></span>\[q(x_t | x_{t-1}) = q(x_t | x_{t-1}, x_0)\]</div>
 <div class="admonition note">
 <p class="admonition-title">注解</p>
 <p>条件独立性</p>
@@ -1208,12 +1275,12 @@ MHVAE 是扩散模型的雏形，只需要在 MHVAE 的基础上再稍微调整�
 </div>
 <p><span class="math notranslate nohighlight">\(q(x_t | x_{t-1}, x_0)\)</span> 可以进一步根据贝叶斯定理求得，如下：</p>
 <div class="math notranslate nohighlight" id="equation-eq-ddpm-033">
-<span class="eqno">(2.1.50)<a class="headerlink" href="#equation-eq-ddpm-033" title="公式的永久链接"></a></span>\[q(x_t | x_{t-1}, x_0) = \frac{q(x_{t-1} \mid x_t, x_0)q(x_t \mid x_0)}{q(x_{t-1} \mid x_0)}\]</div>
-<p>有了 <a class="reference internal" href="#equation-eq-ddpm-032">公式(2.1.49)</a> 和 <a class="reference internal" href="#equation-eq-ddpm-033">公式(2.1.50)</a>，
+<span class="eqno">(2.1.54)<a class="headerlink" href="#equation-eq-ddpm-033" title="公式的永久链接"></a></span>\[q(x_t | x_{t-1}, x_0) = \frac{q(x_{t-1} \mid x_t, x_0)q(x_t \mid x_0)}{q(x_{t-1} \mid x_0)}\]</div>
+<p>有了 <a class="reference internal" href="#equation-eq-ddpm-032">公式(2.1.53)</a> 和 <a class="reference internal" href="#equation-eq-ddpm-033">公式(2.1.54)</a>，
 我再重新推导 ELBO 函数，推导过程如下：</p>
 <div class="math notranslate nohighlight" id="equation-eq-ddpm-035">
-<span class="eqno">(2.1.51)<a class="headerlink" href="#equation-eq-ddpm-035" title="公式的永久链接"></a></span>\[\begin{split}\begin{align}
-{\ln p(x)}
+<span class="eqno">(2.1.55)<a class="headerlink" href="#equation-eq-ddpm-035" title="公式的永久链接"></a></span>\[\begin{split}\begin{align}
+{\ln p(x_0)}
 &amp;\geq {\mathbb{E}_{q(x_{1:T}|x_0)}\left[\ln \frac{p(x_{0:T})}{q(x_{1:T}|x_0)}\right]}\\
 &amp;= {\mathbb{E}_{q(x_{1:T}|x_0)}\left[\ln \frac{p(x_T)\prod_{t=1}^{T}p_{{\theta}}(x_{t-1}|x_t)}{\prod_{t = 1}^{T}q(x_{t}|x_{t-1})}\right]}\\
 &amp;= {\mathbb{E}_{q(x_{1:T}|x_0)}\left[\ln \frac{p(x_T)p_{{\theta}}(x_0|x_1)\prod_{t=2}^{T}p_{{\theta}}(x_{t-1}|x_t)}{q(x_1|x_0)\prod_{t = 2}^{T}q(x_{t}|x_{t-1})}\right]}\\
@@ -1239,7 +1306,7 @@ MHVAE 是扩散模型的雏形，只需要在 MHVAE 的基础上再稍微调整�
     &amp;- \sum_{t=2}^{T} \underbrace{\mathbb{E}_{q(x_{t}|x_0)}\left[\KL{q(x_{t-1}|x_t, x_0)}{p_{{\theta}}(x_{t-1}|x_t)}\right]}_\text{denoising matching term}\\
     \end{aligned}
 \end{align}\end{split}\]</div>
-<p>对比一下 <a class="reference internal" href="#equation-eq-ddpm-035">公式(2.1.51)</a> 和 <a class="reference internal" href="#equation-eq-ddpm-031">公式(2.1.48)</a> 发生了一些变化，</p>
+<p>对比一下 <a class="reference internal" href="#equation-eq-ddpm-035">公式(2.1.55)</a> 和 <a class="reference internal" href="#equation-eq-ddpm-031">公式(2.1.52)</a> 发生了一些变化，</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(\mathbb{E}_{q(x_{1}|x_0)}\left[\ln p_{{\theta}}(x_0|x_1)\right]\)</span>，这一项没有变化。</p></li>
 <li><p><span class="math notranslate nohighlight">\(\KL{q(x_T|x_0)}{p(x_T)}\)</span>，这一项发生变化，其中由 <span class="math notranslate nohighlight">\(q(x_T|x_{T-1})\)</span> 变成了 <span class="math notranslate nohighlight">\(q(x_T|x_0)\)</span>，
@@ -1249,42 +1316,55 @@ MHVAE 是扩散模型的雏形，只需要在 MHVAE 的基础上再稍微调整�
 表示参数化的模型，二者的 KL 散度正好表达了参数化模型 <span class="math notranslate nohighlight">\(p_{{\theta}}(x_{t-1}|x_t)\)</span> 要尽量和真实分布
 <span class="math notranslate nohighlight">\(q(x_{t-1}|x_t, x_0)\)</span> 接近，如图 <a class="reference internal" href="#fg-dm-007"><span class="std std-numref">图 2.1.5</span></a> 所示。</p></li>
 </ul>
-<figure class="align-center" id="id23">
+<figure class="align-center" id="id30">
 <span id="fg-dm-007"></span><a class="reference internal image-reference" href="../_images/diffusion_second_derivation.png"><img alt="../_images/diffusion_second_derivation.png" src="../_images/diffusion_second_derivation.png" style="width: 554.2px; height: 257.1px;" /></a>
 <figcaption>
-<p><span class="caption-number">图 2.1.5 </span><span class="caption-text"><a class="reference internal" href="#equation-eq-ddpm-035">公式(2.1.51)</a> 对应的可视化图形表示。粉色箭头表示根据贝叶斯公式得到的逆过程中解码器的真实分布 <span class="math notranslate nohighlight">\(q(x_{t-1}|x_t, x_0)\)</span>，
+<p><span class="caption-number">图 2.1.5 </span><span class="caption-text"><a class="reference internal" href="#equation-eq-ddpm-035">公式(2.1.55)</a> 对应的可视化图形表示。粉色箭头表示根据贝叶斯公式得到的逆过程中解码器的真实分布 <span class="math notranslate nohighlight">\(q(x_{t-1}|x_t, x_0)\)</span>，
 绿色箭头表示需要学习的近似分布 <span class="math notranslate nohighlight">\(p_{{\theta}}(x_{t-1}|x_t)\)</span>，
-二者的 KL 散度表示必须领二者进尽可能的接近。（图片来自 <a class="footnote-reference brackets" href="#footcite-luo2022understanding" id="id13">2</a>）</span><a class="headerlink" href="#id23" title="永久链接至图片"></a></p>
+二者的 KL 散度表示必须领二者进尽可能的接近。（图片来自 <a class="footnote-reference brackets" href="#footcite-luo2022understanding" id="id13">2</a>）</span><a class="headerlink" href="#id30" title="永久链接至图片"></a></p>
 </figcaption>
 </figure>
-<p>要想极大化 <a class="reference internal" href="#equation-eq-ddpm-035">公式(2.1.51)</a> 形式的 ELBO 函数，还需要其中每一项展开成具体的参数化公式，
+<p>要想极大化 <a class="reference internal" href="#equation-eq-ddpm-035">公式(2.1.55)</a> 形式的 ELBO 函数，还需要其中每一项展开成具体的参数化公式，
 第二项不包含参数 <span class="math notranslate nohighlight">\(\theta\)</span>，所以可以直接忽略。</p>
-<p><strong>prior matching term</strong></p>
+<p><strong>reconstruction term</strong></p>
 <p>第一项 <span class="math notranslate nohighlight">\(p_{{\theta}}(x_0|x_1)\)</span> 和 VAE 中是解码器是类似的， 它是一个依赖 <span class="math notranslate nohighlight">\(x_1\)</span>
-的条件高斯分布。 假设它的均值记作 <span class="math notranslate nohighlight">\(\mu_{\theta}(x_1,t=1)\)</span>，
-它是一个关于 <span class="math notranslate nohighlight">\(x_1\)</span> 和 <span class="math notranslate nohighlight">\(t=1\)</span> 的参数化函数，我们用一个参数化的神经网络模型去拟合它。
-和 VAE 不同的是，这里我们不再用模型去测它的方差，而是假设它的方差是一个常量，记作 <span class="math notranslate nohighlight">\(\Sigma\)</span>
+的条件高斯分布。 假设它的均值 <span class="math notranslate nohighlight">\(\mu_{\theta}\)</span> 是一个关于 <span class="math notranslate nohighlight">\(x_1\)</span> 和 <span class="math notranslate nohighlight">\(t=1\)</span> 的参数化函数，
+记作 <span class="math notranslate nohighlight">\(\mu_{\theta}(x_1,t=1)\)</span>，根据以前的套路，我们可以用一个参数化的神经网络模型去拟合它。
+和 VAE 不同的是，这里我们不再用模型去预测 <span class="math notranslate nohighlight">\(p_{{\theta}}(x_0|x_1)\)</span> 的方差，
+而是假设它的方差是一个常量，暂时记作 <span class="math notranslate nohighlight">\(\Sigma\)</span>
 。即模型输入 <span class="math notranslate nohighlight">\(x_1\)</span> 和 <span class="math notranslate nohighlight">\(t=1\)</span>，输出 <span class="math notranslate nohighlight">\(\mu_{\theta}(x_1,t=1)\)</span>。
 根据高斯分布的概率密度函数，对 <span class="math notranslate nohighlight">\(\ln p(x_0|x_1)\)</span> 进行展开</p>
 <div class="math notranslate nohighlight" id="equation-eq-ddpm-035-1">
-<span class="eqno">(2.1.52)<a class="headerlink" href="#equation-eq-ddpm-035-1" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\ln p(x_0|x_1) &amp;=\ln \frac{1}{(2\pi)^{n/2} |\Sigma |^{1/2}}exp\{-\frac{1}{2}(x_0 - \mu_{\theta}(x_1,t=1))^{T}\Sigma^{-1}(x - \mu_{\theta}(x_1,t=1))\}\\&amp; \propto -\frac{1}{2}(x_0 - \mu_{\theta}(x_1,t=1))^{T}(x_0 - \mu_{\theta}(x_1,t=1))\}\\&amp; = -\frac{1}{2} \left\lVert x_0 - \mu_{\theta}(x_1,t=1) \right\rVert_2^2\end{aligned}\end{align} \]</div>
+<span class="eqno">(2.1.56)<a class="headerlink" href="#equation-eq-ddpm-035-1" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\ln p(x_0|x_1) &amp;=\ln \frac{1}{(2\pi)^{n/2} |\Sigma |^{1/2}}exp\{-\frac{1}{2}(x_0 - \mu_{\theta}(x_1,t=1))^{T}\Sigma^{-1}(x - \mu_{\theta}(x_1,t=1))\}\\&amp; \propto -\frac{1}{2}(x_0 - \mu_{\theta}(x_1,t=1))^{T}(x_0 - \mu_{\theta}(x_1,t=1))\}\\&amp; = -\frac{1}{2} \left\lVert x_0 - \mu_{\theta}(x_1,t=1) \right\rVert_2^2\end{aligned}\end{align} \]</div>
 <p>从中可以看出极大化 <span class="math notranslate nohighlight">\(\ln p(x_0|x_1)\)</span> 就等价于极小化模型输出 <span class="math notranslate nohighlight">\(\mu_{\theta}(x_1,t=1)\)</span>
 和 <span class="math notranslate nohighlight">\(x_0\)</span> 的平方误差，模型输出其实就相当于在预测 <span class="math notranslate nohighlight">\(x_0\)</span> 的值，因此我们可以把模型输出
 <span class="math notranslate nohighlight">\(\mu_{\theta}(x_1,t=1)\)</span> 用符号 <span class="math notranslate nohighlight">\(\hat x_{0}(x_1,t=1)\)</span> 来表示。</p>
 <div class="math notranslate nohighlight" id="equation-eq-ddpm-035-2">
-<span class="eqno">(2.1.53)<a class="headerlink" href="#equation-eq-ddpm-035-2" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}&amp; {\operatorname{\arg\max}}_{\theta}
+<span class="eqno">(2.1.57)<a class="headerlink" href="#equation-eq-ddpm-035-2" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}&amp; {\operatorname{\arg\max}}_{\theta}
 \mathbb{E}_{q(x_{1}|x_0)}\left[\ln p_{{\theta}}(x_0|x_1)\right]\\&amp;\Leftrightarrow  {\operatorname{\arg\max}}_{\theta} \  \mathbb{E}_{q(x_{1}|x_0)}
  \left [ -\frac{1}{2} \left\lVert x_0 - \hat x_{0}(x_1,t=1) \right\rVert_2^2 \right ]\\&amp;\Leftrightarrow   {\operatorname{\arg\min}}_{\theta} \  \mathbb{E}_{q(x_{1}|x_0)}
 \left [ \left\lVert x_0 - \hat x_{0}(x_1,t=1) \right\rVert_2^2 \right ]\end{aligned}\end{align} \]</div>
+<p>可以看到，这一项其实就相当于，我们用一个模型去预测样本 <span class="math notranslate nohighlight">\(x_0\)</span>，损失函数等价于 <strong>均方误差</strong>。
+至于其中的期望项 <span class="math notranslate nohighlight">\(\mathbb{E}_{q(x_{1}|x_0)}\)</span> ，是由于模型的输入 <span class="math notranslate nohighlight">\(x_1\)</span> 是一个随机变量，
+并不是一个数值变量，所以需要对随机变量 <span class="math notranslate nohighlight">\(x_1\)</span> 求期望，而求期望时随机变量 <span class="math notranslate nohighlight">\(x_1\)</span> 的概率分布用的是条件概率
+分布 <span class="math notranslate nohighlight">\(q(x_{1}|x_0)\)</span> ，这个概率分布用 <a class="reference internal" href="#equation-eq-ddpm-023">公式(2.1.47)</a> 即可求得。
+当然按照 VAE 相似的套路，我们可以通过采样法近似求解期望。
+这里可以暂时先不关注这一项的具体实现，接着看后面的内容，在最后的表达式中，这一项其实可以和第三项合并在一起。</p>
+<p><strong>prior matching term</strong></p>
+<p>第二项是先验匹配项（prior matching term），它是一个 KL 散度，<span class="math notranslate nohighlight">\(q(x_T|x_0)\)</span> 是前向扩散过程生成的 <span class="math notranslate nohighlight">\(x_T\)</span>
+的后验分布（有了观察样本 <span class="math notranslate nohighlight">\(x_0\)</span> 之后，所以是后验）；
+<span class="math notranslate nohighlight">\(p(x_T)\)</span> 是逆向生成过程中 <span class="math notranslate nohighlight">\(x_T\)</span> 的先验分布。这一项就是约束 <span class="math notranslate nohighlight">\(x_T\)</span> 的后验分布要和先验分布尽量接近，
+VAE 中也有类似的一项，起作用相当于正则项。不过在这里 <span class="math notranslate nohighlight">\(q(x_T|x_0)\)</span> 和 <span class="math notranslate nohighlight">\(p(x_T)\)</span>
+都没有包含未知参数，所以在极大化 ELBO 时，这一项相当于常数项，可以忽略。</p>
 <p><strong>denoising matching term</strong></p>
-<p>这一项是一个 KL 散度，KL 散度的两项都是高斯分布，
+<p>这一项也是一个 KL 散度，KL 散度的两项都是高斯分布，
 只要能找到这两个高斯分布的均值和方差，就可以解析计算它们的 KL 散度了。
 我们先来推导下真实分布 <span class="math notranslate nohighlight">\(q(x_{t-1}|x_t, x_0)\)</span>，
-在 <a class="reference internal" href="#equation-eq-ddpm-033">公式(2.1.50)</a> 基础上继续推导展开，注意在这个过程中，
-<span class="math notranslate nohighlight">\(x_{t-1}\)</span> 是未知量（分布的变量），
-<span class="math notranslate nohighlight">\(x_{t},x_0\)</span> 是已知量。</p>
+在 <a class="reference internal" href="#equation-eq-ddpm-033">公式(2.1.54)</a> 的基础上继续推导展开，注意 <span class="math notranslate nohighlight">\(q(x_{t-1}|x_t, x_0)\)</span> 是条件概率分布，
+其中 <span class="math notranslate nohighlight">\(x_{t-1}\)</span> <strong>是未知量（分布的目标变量）</strong>，
+<span class="math notranslate nohighlight">\(x_{t},x_0\)</span> 是 <strong>条件变量</strong>。</p>
 <div class="math notranslate nohighlight" id="equation-eq-ddpm-036">
-<span class="eqno">(2.1.54)<a class="headerlink" href="#equation-eq-ddpm-036" title="公式的永久链接"></a></span>\[\begin{split}\begin{align}
+<span class="eqno">(2.1.58)<a class="headerlink" href="#equation-eq-ddpm-036" title="公式的永久链接"></a></span>\[\begin{split}\begin{align}
 {q(x_{t-1}|x_t, x_0)}
 &amp;= {\frac{q(x_t | x_{t-1}, x_0)q(x_{t-1}|x_0)}{q(x_{t}|x_0)}}\\
 &amp;= {\frac{\mathcal{N}(x_{t} ; \sqrt{\alpha_t} x_{t-1}, (1 - \alpha_t)\textit{I})\mathcal{N}(x_{t-1} ; \sqrt{\bar\alpha_{t-1}}x_0, (1 - \bar\alpha_{t-1}) \textit{I})}{\mathcal{N}(x_{t} ; \sqrt{\bar\alpha_{t}}x_0, (1 - \bar\alpha_{t})\textit{I})}}\\
@@ -1301,21 +1381,26 @@ MHVAE 是扩散模型的雏形，只需要在 MHVAE 的基础上再稍微调整�
 &amp;= {\text{exp}\left\{-\frac{1}{2}\left(\frac{1}{\frac{(1 - \alpha_t)(1 - \bar\alpha_{t-1})}{1 -\bar\alpha_{t}}}\right)\left[x_{t-1}^2 - 2\frac{\sqrt{\alpha_t}(1-\bar\alpha_{t-1})x_{t} + \sqrt{\bar\alpha_{t-1}}(1-\alpha_t)x_0}{1 -\bar\alpha_{t}}x_{t-1}\right]\right\}}\\
 &amp;\propto {\mathcal{N}(x_{t-1} ;} \underbrace{{\frac{\sqrt{\alpha_t}(1-\bar\alpha_{t-1})x_{t} + \sqrt{\bar\alpha_{t-1}}(1-\alpha_t)x_0}{1 -\bar\alpha_{t}}}}_{\mu_q(x_t, x_0)}, \underbrace{{\frac{(1 - \alpha_t)(1 - \bar\alpha_{t-1})}{1 -\bar\alpha_{t}}\textit{I}}}_{{\Sigma}_q(t)})
 \end{align}\end{split}\]</div>
-<p>上面推导过程中的 <span class="math notranslate nohighlight">\(C(x_t, x_0)\)</span> 无关的项，它仅仅与 <span class="math notranslate nohighlight">\(x_0,x_{t},\alpha\)</span> 有关，
+<p>上面推导过程中的 <span class="math notranslate nohighlight">\(C(x_t, x_0)\)</span> 是与目标变量 <span class="math notranslate nohighlight">\(x_{t-1}\)</span> 无关的项，它仅仅与 <span class="math notranslate nohighlight">\(x_0,x_{t},\alpha\)</span> 有关，
 所以可以把它看做是常量，可以不关注它。
 总之最后的结果是 <span class="math notranslate nohighlight">\(q(x_{t-1}|x_t, x_0)\)</span> 同样是一个高斯分布，它均值记作 <span class="math notranslate nohighlight">\(\mu_q(x_t, x_0)\)</span>，是一个关于 <span class="math notranslate nohighlight">\(x_t, x_0\)</span> 的函数。
 方差记作 <span class="math notranslate nohighlight">\(\Sigma_q(t)\)</span>，仅与 <span class="math notranslate nohighlight">\(\alpha\)</span> 有关，如果把 <span class="math notranslate nohighlight">\(\alpha\)</span> 当做一个超参数，那么显然方差是可以直接计算的。</p>
 <div class="math notranslate nohighlight" id="equation-eq-ddpm-037">
-<span class="eqno">(2.1.55)<a class="headerlink" href="#equation-eq-ddpm-037" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\mu_q(x_t, x_0) &amp;= { \frac{\sqrt{\alpha_t}(1-\bar\alpha_{t-1})x_{t} + \sqrt{\bar\alpha_{t-1}}(1-\alpha_t)x_0}{1 -\bar\alpha_{t}}}\\\Sigma_q(t) &amp;= \frac{(1 - \alpha_t)(1 - \bar\alpha_{t-1})}{ 1 -\bar\alpha_{t}}  \textit{I} = \sigma_q^2(t)   \textit{I}\end{aligned}\end{align} \]</div>
+<span class="eqno">(2.1.59)<a class="headerlink" href="#equation-eq-ddpm-037" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\mu_q(x_t, x_0) &amp;= { \frac{\sqrt{\alpha_t}(1-\bar\alpha_{t-1})x_{t} + \sqrt{\bar\alpha_{t-1}}(1-\alpha_t)x_0}{1 -\bar\alpha_{t}}}\\\Sigma_q(t) &amp;= \frac{(1 - \alpha_t)(1 - \bar\alpha_{t-1})}{ 1 -\bar\alpha_{t}}  \textit{I} = \sigma_q^2(t)   \textit{I}\end{aligned}\end{align} \]</div>
 <p>我们的参数化模型分布 <span class="math notranslate nohighlight">\(p_\theta(x_{t-1}|x_t)\)</span>，需要尽可能的接近真实高斯分布 <span class="math notranslate nohighlight">\(q(x_{t-1}|x_t, x_0)\)</span>
 ，显然 <span class="math notranslate nohighlight">\(p_\theta(x_{t-1}|x_t)\)</span> 也需要是一个高斯分布才行，我们用 <span class="math notranslate nohighlight">\(\mu_{\theta}\)</span> 表示它的均值，
 <span class="math notranslate nohighlight">\(\Sigma_\theta\)</span> 表示的方差。
-真实分布 <span class="math notranslate nohighlight">\(q(x_{t-1}|x_t, x_0)\)</span> 的方差 <span class="math notranslate nohighlight">\(\Sigma_q(t)\)</span> 是一个仅与 <span class="math notranslate nohighlight">\(\alpha\)</span> 有关的常量，
-因此我们不再用模型去学习方差，直接假设 <span class="math notranslate nohighlight">\(\Sigma_\theta=\Sigma_q(t)\)</span> 即可。</p>
-<p>现在，真实分布 <span class="math notranslate nohighlight">\(q(x_{t-1}|x_t, x_0)\)</span> 和参数化学习分布 <span class="math notranslate nohighlight">\(p_\theta(x_{t-1}|x_t)\)</span> 各自的均值和方差表达式都确定了，
+真实分布 <span class="math notranslate nohighlight">\(q(x_{t-1}|x_t, x_0)\)</span> 的方差 <span class="math notranslate nohighlight">\(\Sigma_q(t)\)</span> 是一个仅与 <span class="math notranslate nohighlight">\(\alpha\)</span> 有关的量，
+<strong>在本论文中把它看做一个不需要模型学习的常量</strong>，直接假设 <span class="math notranslate nohighlight">\(\Sigma_\theta=\Sigma_q(t)\)</span> 即可。
+在本论文中，作者认为这个方差学习与否，最终效果差异不大，所以就没有用模型去学习。
+然而后来，有其他学者发布新的论文，提出了学习方差的改进方法，认为学习方差效果会更好。
+后面的章节会详细介绍这个改进方法，这里先假设方差是不需要模型学习的常量即可。</p>
+<div class="math notranslate nohighlight" id="equation-aigc-5">
+<span class="eqno">(2.1.60)<a class="headerlink" href="#equation-aigc-5" title="公式的永久链接"></a></span>\[p_{\theta} (x_{t-1}|x_t) \sim \mathcal{N}(x_{t-1} ;\mu_{\theta},\Sigma_q(t))\]</div>
+<p>现在，真实分布 <span class="math notranslate nohighlight">\(q(x_{t-1}|x_t, x_0)\)</span> 和参数化模型学习分布 <span class="math notranslate nohighlight">\(p_\theta(x_{t-1}|x_t)\)</span> 各自的均值和方差表达式都确定了，
 又已知两个高斯分布的 KL 散度计算公式如下：</p>
 <div class="math notranslate nohighlight" id="equation-eq-ddpm-038">
-<span class="eqno">(2.1.56)<a class="headerlink" href="#equation-eq-ddpm-038" title="公式的永久链接"></a></span>\[\begin{align}
+<span class="eqno">(2.1.61)<a class="headerlink" href="#equation-eq-ddpm-038" title="公式的永久链接"></a></span>\[\begin{align}
 \KL{\mathcal{N}(x; {\mu}_x,{\Sigma}_x)}{\mathcal{N}(y; {\mu}_y,{\Sigma}_y)}
 &amp;=\frac{1}{2}\left[\log\frac{|{\Sigma}_y|}{|{\Sigma}_x|} - d + \text{tr}({\Sigma}_y^{-1}{\Sigma}_x)
 + ({\mu}_y-{\mu}_x)^T {\Sigma}_y^{-1} ({\mu}_y-{\mu}_x)\right]
@@ -1323,7 +1408,7 @@ MHVAE 是扩散模型的雏形，只需要在 MHVAE 的基础上再稍微调整�
 <p>根据这个公式，可以得到真实分布 <span class="math notranslate nohighlight">\(q(x_{t-1}|x_t, x_0)\)</span> 和参数化学习分布 <span class="math notranslate nohighlight">\(p_\theta(x_{t-1}|x_t)\)</span>
 的 KL 散度为</p>
 <div class="math notranslate nohighlight" id="equation-eq-ddpm-039">
-<span class="eqno">(2.1.57)<a class="headerlink" href="#equation-eq-ddpm-039" title="公式的永久链接"></a></span>\[\begin{split}\begin{align}
+<span class="eqno">(2.1.62)<a class="headerlink" href="#equation-eq-ddpm-039" title="公式的永久链接"></a></span>\[\begin{split}\begin{align}
 &amp; \quad \,\KL{q(x_{t-1}|x_t, x_0)}{p_{{\theta}}(x_{t-1}|x_t)} \\
 &amp;= \KL{\mathcal{N}(x_{t-1}; {\mu}_q,{\Sigma}_q(t))}{\mathcal{N}(x_{t-1}; {\mu}_{{\theta}},{\Sigma}_q(t))}\\
 &amp;=\frac{1}{2}\left[\log\frac{|{\Sigma}_q(t)|}{|{\Sigma}_q(t)|} - d + \text{tr}({\Sigma}_q(t)^{-1}{\Sigma}_q(t))
@@ -1335,25 +1420,25 @@ MHVAE 是扩散模型的雏形，只需要在 MHVAE 的基础上再稍微调整�
 \end{align}\end{split}\]</div>
 <p>极大化 ELBO 函数，等同于极小化 <span class="math notranslate nohighlight">\(\KL{q(x_{t-1}|x_t, x_0)}{p_{{\theta}}(x_{t-1}|x_t)}\)</span>
 ，又相当于极小化 <span class="math notranslate nohighlight">\(\left[\left\lVert{\mu}_{{\theta}}-{\mu}_q\right\rVert_2^2\right]\)</span>
-。 <span class="math notranslate nohighlight">\(\mu_{\theta}\)</span> 是参数化学习分布 <span class="math notranslate nohighlight">\(p_\theta(x_{t-1}|x_t)\)</span> 的均值，
+，又是一个均方误差。 <span class="math notranslate nohighlight">\(\mu_{\theta}\)</span> 是参数化模型学习的分布 <span class="math notranslate nohighlight">\(p_\theta(x_{t-1}|x_t)\)</span> 的均值，
 也是我们的模型需要预测（输出）的值，
 显然 <span class="math notranslate nohighlight">\(\mu_{\theta}\)</span> 是和 <span class="math notranslate nohighlight">\(x_t\)</span> 相关的，即它肯定是 <span class="math notranslate nohighlight">\(x_t\)</span> 的一个函数，
 也就是说我们的参数化模型输入 <span class="math notranslate nohighlight">\(x_t\)</span> ，并且输出 <span class="math notranslate nohighlight">\(\mu_{\theta}\)</span>。
 前面我们已经推到出 <span class="math notranslate nohighlight">\({\mu}_q\)</span> 为</p>
 <div class="math notranslate nohighlight" id="equation-eq-ddpm-040">
-<span class="eqno">(2.1.58)<a class="headerlink" href="#equation-eq-ddpm-040" title="公式的永久链接"></a></span>\[\mu_q(x_t, x_0) = { \frac{\sqrt{\alpha_t}(1-\bar\alpha_{t-1})x_{t} + \sqrt{\bar\alpha_{t-1}}(1-\alpha_t)x_0}{1 -\bar\alpha_{t}}}\]</div>
+<span class="eqno">(2.1.63)<a class="headerlink" href="#equation-eq-ddpm-040" title="公式的永久链接"></a></span>\[\mu_q(x_t, x_0) = { \frac{\sqrt{\alpha_t}(1-\bar\alpha_{t-1})x_{t} + \sqrt{\bar\alpha_{t-1}}(1-\alpha_t)x_0}{1 -\bar\alpha_{t}}}\]</div>
 <p>从中可以看出 <span class="math notranslate nohighlight">\({\mu}_q\)</span> 本身也是一个关于 <span class="math notranslate nohighlight">\(x_t\)</span> 的函数，
 我们的目标是使得 <span class="math notranslate nohighlight">\(\mu_{\theta}\)</span> 和 <span class="math notranslate nohighlight">\({\mu}_q\)</span> 尽量接近，
-那么我们完全可以把 <span class="math notranslate nohighlight">\({\mu}_{\theta}\)</span> 也定义成类似 <span class="math notranslate nohighlight">\({\mu}_q\)</span> （<a class="reference internal" href="#equation-eq-ddpm-040">公式(2.1.58)</a>）
+那么我们完全可以把 <span class="math notranslate nohighlight">\({\mu}_{\theta}\)</span> <strong>人为定义成类似</strong>  <span class="math notranslate nohighlight">\({\mu}_q\)</span> （<a class="reference internal" href="#equation-eq-ddpm-040">公式(2.1.63)</a>）
 的计算方式，即</p>
 <div class="math notranslate nohighlight" id="equation-eq-ddpm-041">
-<span class="eqno">(2.1.59)<a class="headerlink" href="#equation-eq-ddpm-041" title="公式的永久链接"></a></span>\[\mu_{\theta}={\mu}_{{\theta}}(x_t, t) = \frac{\sqrt{\alpha_t}(1-\bar\alpha_{t-1})x_{t} + \sqrt{\bar\alpha_{t-1}}(1-\alpha_t)\hat x_{{\theta}}(x_t, t)}{1 -\bar\alpha_{t}}\]</div>
+<span class="eqno">(2.1.64)<a class="headerlink" href="#equation-eq-ddpm-041" title="公式的永久链接"></a></span>\[\mu_{\theta}={\mu}_{{\theta}}(x_t, t) = \frac{\sqrt{\alpha_t}(1-\bar\alpha_{t-1})x_{t} + \sqrt{\bar\alpha_{t-1}}(1-\alpha_t)\hat x_{{\theta}}(x_t, t)}{1 -\bar\alpha_{t}}\]</div>
 <p>模型不再直接预测 <span class="math notranslate nohighlight">\({\mu}_q\)</span> ，而是预测输出 <span class="math notranslate nohighlight">\(\hat x_{{\theta}}(x_t, t)\)</span> ，
-然后利用公式 <a class="reference internal" href="#equation-eq-ddpm-041">公式(2.1.59)</a> 计算得到 <span class="math notranslate nohighlight">\({\mu}_q\)</span> 的预测值，
+然后利用公式 <a class="reference internal" href="#equation-eq-ddpm-041">公式(2.1.64)</a> 计算得到 <span class="math notranslate nohighlight">\({\mu}_q\)</span> 的预测值，
 这样一来，<span class="math notranslate nohighlight">\(\left\lVert{\mu}_{{\theta}}-{\mu}_q\right\rVert_2^2\)</span>
 可以简化成</p>
 <div class="math notranslate nohighlight" id="equation-eq-ddpm-042">
-<span class="eqno">(2.1.60)<a class="headerlink" href="#equation-eq-ddpm-042" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}&amp; \quad \left\lVert{\mu}_{{\theta}}-{\mu}_q \right\rVert_2^2\\&amp;= \left\lVert  \frac{\sqrt{\alpha_t}(1-\bar\alpha_{t-1})x_{t} + \sqrt{\bar\alpha_{t-1}}(1-\alpha_t)\hat x_{{\theta}}(x_t, t)}{1 -\bar\alpha_{t}}
+<span class="eqno">(2.1.65)<a class="headerlink" href="#equation-eq-ddpm-042" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}&amp; \quad \left\lVert{\mu}_{{\theta}}-{\mu}_q \right\rVert_2^2\\&amp;= \left\lVert  \frac{\sqrt{\alpha_t}(1-\bar\alpha_{t-1})x_{t} + \sqrt{\bar\alpha_{t-1}}(1-\alpha_t)\hat x_{{\theta}}(x_t, t)}{1 -\bar\alpha_{t}}
 -    { \frac{\sqrt{\alpha_t}(1-\bar\alpha_{t-1})x_{t} + \sqrt{\bar\alpha_{t-1}}(1-\alpha_t)x_0}{1 -\bar\alpha_{t}}}
 \right\rVert_2^2\\&amp;= \left\lVert  \frac{ \sqrt{\bar\alpha_{t-1}}(1-\alpha_t)\hat x_{{\theta}}(x_t, t)}{1 -\bar\alpha_{t}}
 -    { \frac{\sqrt{\bar\alpha_{t-1}}(1-\alpha_t)x_0}{1 -\bar\alpha_{t}}}
@@ -1365,10 +1450,10 @@ MHVAE 是扩散模型的雏形，只需要在 MHVAE 的基础上再稍微调整�
 我们的参数化模型输入为 <span class="math notranslate nohighlight">\(x_t, t\)</span> ，
 预测输出 <span class="math notranslate nohighlight">\(\hat x_{{\theta}}(x_t, t)\)</span>，
 我们要最小化这个输出值和 <span class="math notranslate nohighlight">\(x_0\)</span> 的平方误差。
-极大化 ELBO 函数（ <a class="reference internal" href="#equation-eq-ddpm-035">公式(2.1.51)</a> ）中的第3项的负的 KL 散度，
+极大化 ELBO 函数（ <a class="reference internal" href="#equation-eq-ddpm-035">公式(2.1.55)</a> ）中的第3项的负的 KL 散度，
 就等价于极小化模型输出和 <span class="math notranslate nohighlight">\(x_0\)</span> 的平方误差。</p>
 <div class="math notranslate nohighlight" id="equation-eq-ddpm-043">
-<span class="eqno">(2.1.61)<a class="headerlink" href="#equation-eq-ddpm-043" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}&amp; {\operatorname{\arg\max}}_{\theta} \left[ -\sum_{t=2}^{T}
+<span class="eqno">(2.1.66)<a class="headerlink" href="#equation-eq-ddpm-043" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}&amp; {\operatorname{\arg\max}}_{\theta} \left[ -\sum_{t=2}^{T}
     \mathbb{E}_{q(x_{t}|x_0)} \left[\KL{q(x_{t-1}|x_t, x_0)}{p_{{\theta}}(x_{t-1}|x_t)}\right]
     \right ]\\&amp; \Leftrightarrow {\operatorname{\arg\min}}_{\theta}  \left [
    \sum_{t=2}^{T}
@@ -1378,17 +1463,17 @@ MHVAE 是扩散模型的雏形，只需要在 MHVAE 的基础上再稍微调整�
    \sum_{t=2}^{T}
     \mathbb{E}_{q(x_{t}|x_0)}  \left [ \left\lVert  ( \hat x_{{\theta}}(x_t, t) -  x_0 ) \right\rVert_2^2 \right ] \right ]\end{aligned}\end{align} \]</div>
 <p><strong>最终的目标函数</strong></p>
-<p>最后我们整合一下 <a class="reference internal" href="#equation-eq-ddpm-035-2">公式(2.1.53)</a> 和 <a class="reference internal" href="#equation-eq-ddpm-043">公式(2.1.61)</a>
+<p>最后我们整合一下 <a class="reference internal" href="#equation-eq-ddpm-035-2">公式(2.1.57)</a> 和 <a class="reference internal" href="#equation-eq-ddpm-043">公式(2.1.66)</a>
 就得到了最终的目标函数，可以看到最终的目标函数其实非常简洁，
 对任意 <span class="math notranslate nohighlight">\(t \in [1,T]\)</span>，
 参数化模型输入 <span class="math notranslate nohighlight">\(x_t\)</span> 和 <span class="math notranslate nohighlight">\(t\)</span>，输出 <span class="math notranslate nohighlight">\(\hat x_{{\theta}}(x_t, t)\)</span>
 ，模型的目标是优化预测值 <span class="math notranslate nohighlight">\(\hat x_{{\theta}}(x_t, t)\)</span> 和真实值 <span class="math notranslate nohighlight">\(x_0\)</span> 之间的平方误差。
 公式中期望 <span class="math notranslate nohighlight">\(\mathbb{E}_{q(x_{t}|x_0)}\)</span> 的解决方法和 VAE 中一样，随机采样 <span class="math notranslate nohighlight">\(x_t\)</span>
 即可，采样次数记为 <span class="math notranslate nohighlight">\(L\)</span> 次，<span class="math notranslate nohighlight">\(L\)</span> 可以设为一个超参数，从经验上看 <span class="math notranslate nohighlight">\(L=1\)</span>
-其实就可以了。至于如何采样 <span class="math notranslate nohighlight">\(x_t\)</span> 的值，显然在前向过程中通过 <a class="reference internal" href="#equation-eq-ddpm-025">公式(2.1.47)</a>
+其实就可以了。至于如何采样 <span class="math notranslate nohighlight">\(x_t\)</span> 的值，显然在前向过程中通过 <a class="reference internal" href="#equation-eq-ddpm-025">公式(2.1.49)</a>
 可以直接计算得到。</p>
 <div class="math notranslate nohighlight" id="equation-eq-ddpm-044">
-<span class="eqno">(2.1.62)<a class="headerlink" href="#equation-eq-ddpm-044" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}    &amp; {\operatorname{\arg\max}}_{\theta} \quad \text{ELBO}\\    &amp; \Leftrightarrow {\operatorname{\arg\max}}_{\theta} \left [
+<span class="eqno">(2.1.67)<a class="headerlink" href="#equation-eq-ddpm-044" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}    &amp; {\operatorname{\arg\max}}_{\theta} \quad \text{ELBO}\\    &amp; \Leftrightarrow {\operatorname{\arg\max}}_{\theta} \left [
           \mathbb{E}_{q(x_{1}|x_0)}\left[\ln p_{{\theta}}(x_0|x_1)\right]
         - \sum_{t=2}^{T} \mathbb{E}_{q(x_{t}|x_0)}\left[\KL{q(x_{t-1}|x_t, x_0)}{p_{{\theta}}(x_{t-1}|x_t)}\right]
         \right]\\    &amp;\Leftrightarrow  {\operatorname{\arg\min}}_{\theta}
@@ -1396,19 +1481,41 @@ MHVAE 是扩散模型的雏形，只需要在 MHVAE 的基础上再稍微调整�
         \mathbb{E}_{q(x_{1}|x_0)} \left [ \left\lVert x_0 - \hat x_{0}(x_1,t=1) \right\rVert_2^2 \right ]
     \right ]
     + \left [
-    \sum_{t=1}^{T}
+    \sum_{t=2}^{T}
     \mathbb{E}_{q(x_{t}|x_0)}   \left [ \left\lVert( \hat x_{{\theta}}(x_t, t) - x_0 )  \right\rVert_2^2 \right ]
     \right ]\\    &amp;  \Leftrightarrow  {\operatorname{\arg\min}}_{\theta}
-    \mathbb{E}_{q(x_{t}|x_0)}   \left [ \left\lVert( \hat x_{{\theta}}(x_t, t) - x_0 )  \right\rVert_2^2 \right ]\end{aligned}\end{align} \]</div>
-<p>在这个变分扩散模型中，前向过程不需要学习，模型只学习了解码分布 <span class="math notranslate nohighlight">\(p_{\theta}(x_{t-1}|x_t)\)</span>。
+     \sum_{t=1}^{T} \mathbb{E}_{q(x_{t}|x_0)}   \left [ \left\lVert( \hat x_{{\theta}}(x_t, t) - x_0 )  \right\rVert_2^2 \right ]\end{aligned}\end{align} \]</div>
+<p>在这个变分扩散模型中，前向过程不需要学习，模型只学习解码分布 <span class="math notranslate nohighlight">\(p_{\theta}(x_{t-1}|x_t)\)</span>。
 在模训练阶段前向过程和逆向过程都要计算，而在模型推理（应用）阶段，不需要前向过程，仅有逆向即可。
-在应用中，输入一个随机高斯噪声数据，然后迭代（循环）执行 <span class="math notranslate nohighlight">\(p_{\theta}(x_{t-1}|x_t)\)</span>
+在推理时，输入一个随机高斯噪声数据，然后迭代（循环）执行 <span class="math notranslate nohighlight">\(p_{\theta}(x_{t-1}|x_t)\)</span>
 最终还原成（生成）一个新的有效图片。</p>
-<p>仔细观察下 <a class="reference internal" href="#equation-eq-ddpm-044">公式(2.1.62)</a>，在每一个时刻 <span class="math notranslate nohighlight">\(t\)</span> 模型预测都是原始的 <span class="math notranslate nohighlight">\(x_0\)</span>
+</section>
+<section id="id14">
+<h3><span class="section-number">2.1.5. </span>图片生成（采样）过程<a class="headerlink" href="#id14" title="永久链接至标题"></a></h3>
+<p>训练完成的神经网络模型为 <span class="math notranslate nohighlight">\(\hat{x}_{\theta}(x_t, t)\)</span>
+，它的输入 <span class="math notranslate nohighlight">\(x_t\)</span> 和 <span class="math notranslate nohighlight">\(t\)</span>
+，输出是对 <span class="math notranslate nohighlight">\(x_0\)</span> 的预测。有个它之后，就可以得到逆过程中的条件概率分布 <span class="math notranslate nohighlight">\(p(x_{t-1}|x_{t})\)</span>
+的一个近似表示。</p>
+<div class="math notranslate nohighlight" id="equation-eq-ddpm-045">
+<span class="eqno">(2.1.68)<a class="headerlink" href="#equation-eq-ddpm-045" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}p(x_{t-1}|x_{t})
+&amp;\approx p_{\theta} (x_{t-1}|x_{t})\\&amp;\approx  q(x_{t-1}|x_t, x_0)\\&amp;\sim  \mathcal{N} (x_{t-1} ; \mu_q(x_t, x_0) , \Sigma_q(t) )\end{aligned}\end{align} \]</div>
+<p>其中，均值 <span class="math notranslate nohighlight">\(\mu_q(x_t, x_0)\)</span> 和 方差 <span class="math notranslate nohighlight">\(\Sigma_q(t)\)</span> 分别为</p>
+<div class="math notranslate nohighlight" id="equation-eq-ddpm-046">
+<span class="eqno">(2.1.69)<a class="headerlink" href="#equation-eq-ddpm-046" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\mu_q(x_t, x_0) &amp;= { \frac{\sqrt{\alpha_t}(1-\bar\alpha_{t-1})x_{t} + \sqrt{\bar\alpha_{t-1}}(1-\alpha_t) \hat{x}_{\theta}(x_t, t) }{1 -\bar\alpha_{t}}}\\\Sigma_q(t) &amp;= \frac{(1 - \alpha_t)(1 - \bar\alpha_{t-1})}{ 1 -\bar\alpha_{t}}  \textit{I} = \sigma_q^2(t)   \textit{I}\end{aligned}\end{align} \]</div>
+<p>逆向生成（采样）过程可以简述为</p>
+<ol class="arabic simple">
+<li><p>设定 <span class="math notranslate nohighlight">\(T=1000\)</span>。</p></li>
+<li><p>从一个标准高斯分布中采样得到 <span class="math notranslate nohighlight">\(x_T\)</span>。</p></li>
+<li><p>利用神经网络模型计算 <span class="math notranslate nohighlight">\(\hat{x}_{\theta}(x_t, t)\)</span></p></li>
+<li><p>计算出 <span class="math notranslate nohighlight">\(p(x_{t-1}|x_{t})\)</span> 的均值 <span class="math notranslate nohighlight">\(\mu_q(x_t, x_0)\)</span> 和方差 <span class="math notranslate nohighlight">\(\Sigma_q(t)\)</span>。</p></li>
+<li><p>从 <span class="math notranslate nohighlight">\(p(x_{t-1}|x_{t})\)</span> 随机采样的到 <span class="math notranslate nohighlight">\(x_{t-1}\)</span></p></li>
+<li><p>重复步骤3~5，直到 <span class="math notranslate nohighlight">\(t=1\)</span> 。</p></li>
+</ol>
+<p>在每一个时刻 <span class="math notranslate nohighlight">\(t\)</span> 模型预测都是原始的 <span class="math notranslate nohighlight">\(x_0\)</span>
 ，从直觉上讲，感觉就不是很合理。当 <span class="math notranslate nohighlight">\(t\)</span> 比较大时，<span class="math notranslate nohighlight">\(x_t\)</span> 距离 <span class="math notranslate nohighlight">\(x_0\)</span> 应该是比较远的，
 虽然表示时刻的 <span class="math notranslate nohighlight">\(t\)</span> 也作为模型的输入，但同样的模型参数要同时解决不同的 <span class="math notranslate nohighlight">\(t\)</span>，其实是比较困难的。
 事实也证明了 DPM 效果确实不是很靠谱，生成的图像质量通常并不高，
-在论文<a class="footnote-reference brackets" href="#footcite-ho2020denoising" id="id14">3</a> 中做了相应的对比实现，证明了这个这个结论。
+在论文<a class="footnote-reference brackets" href="#footcite-ho2020denoising" id="id15">3</a> 中做了相应的对比实现，证明了这个这个结论。
 所以虽然 DPM 在 2015年就提出了，但一直没有引发热度，
 直到2020年，Ho et al 等人发表了论文 DPM 的改进模型 “Denoising Diffusion Probabilistic Models (DDPMs)”
 ，进一步 OPEN AI  发布了基于 DDPM 的 DALL-E ，DALL-E 的效果是非常显著的，这才是得扩散模型得到足够的关注。
@@ -1423,23 +1530,22 @@ MHVAE 是扩散模型的雏形，只需要在 MHVAE 的基础上再稍微调整�
 DDPM 做的关键改进就是参数化模型预测的内容做了调整：</p>
 <ul class="simple">
 <li><p>不再是预测原始的 <span class="math notranslate nohighlight">\(x_0\)</span>，而是预测每一个时刻添加的噪声，降低了模型的学习难度。</p></li>
-<li><p>模型不再预测方差，而是把方差看做一个常量，进一步降低了模型的难度。</p></li>
 </ul>
-<p>回顾下 <a class="reference internal" href="#equation-eq-ddpm-025">公式(2.1.47)</a>，在前向过程中，我们得到 <span class="math notranslate nohighlight">\(q(x_t|x_0)\)</span>
+<p>回顾下 <a class="reference internal" href="#equation-eq-ddpm-025">公式(2.1.49)</a>，在前向过程中，我们得到 <span class="math notranslate nohighlight">\(q(x_t|x_0)\)</span>
 的分布为：</p>
-<div class="math notranslate nohighlight" id="equation-aigc-2">
-<span class="eqno">(2.2.56)<a class="headerlink" href="#equation-aigc-2" title="公式的永久链接"></a></span>\[q(x_t|x_0) \sim \mathcal{N}(\sqrt{\bar{\alpha_i} } \ x_0,  (1- \bar{ \alpha_i})    \textit{I})\]</div>
+<div class="math notranslate nohighlight" id="equation-aigc-6">
+<span class="eqno">(2.2.56)<a class="headerlink" href="#equation-aigc-6" title="公式的永久链接"></a></span>\[q(x_t|x_0) \sim \mathcal{N}(x_t; \sqrt{\bar{\alpha}_t } \ x_0,  (1- \bar{ \alpha}_t)    \textit{I})\]</div>
 <p><span class="math notranslate nohighlight">\(x_t\)</span> 的采样过程为</p>
 <div class="math notranslate nohighlight" id="equation-eq-ddpm-051">
-<span class="eqno">(2.2.57)<a class="headerlink" href="#equation-eq-ddpm-051" title="公式的永久链接"></a></span>\[x_t = \sqrt{\bar{\alpha_i} } \ x_0 + \sqrt{1- \bar{ \alpha_i} }  \ \epsilon  \ \ \ ,
-\bar{\alpha} = \prod_{i=1}^t \alpha_i ,\ \ \epsilon \sim \mathcal{N}(0,\textit(I))\]</div>
+<span class="eqno">(2.2.57)<a class="headerlink" href="#equation-eq-ddpm-051" title="公式的永久链接"></a></span>\[x_t = \sqrt{\bar{\alpha}_t } \ x_0 + \sqrt{1- \bar{ \alpha}_t }  \ \epsilon_t  \ \ \ ,
+\bar{\alpha}_t = \prod_{i=1}^t \alpha_i ,\ \ \epsilon_t \sim \mathcal{N}(0,\textit{I})\]</div>
 <p><a class="reference internal" href="#equation-eq-ddpm-051">公式(2.2.57)</a> 表达了从 <span class="math notranslate nohighlight">\(x_0\)</span> 计算 <span class="math notranslate nohighlight">\(x_t\)</span> 的关系，
 现在可以把它反过来，用 <span class="math notranslate nohighlight">\(x_t\)</span> 得到 <span class="math notranslate nohighlight">\(x_0\)</span>。</p>
 <div class="math notranslate nohighlight" id="equation-eq-ddpm-052">
-<span class="eqno">(2.2.58)<a class="headerlink" href="#equation-eq-ddpm-052" title="公式的永久链接"></a></span>\[x_0 =  \frac{x_t -\sqrt{1- \bar{ \alpha_i} }  \ \epsilon }{ \sqrt{\bar{\alpha_i} }  }
-,\ \ \epsilon \sim \mathcal{N}(0,\textit(I))\]</div>
-<p>我们在 <a class="reference internal" href="#equation-eq-ddpm-039">公式(2.1.57)</a> 的基础上，重新推导下 ELBO 中第三项 KL 散度，
-为方便阅读，把 <a class="reference internal" href="#equation-eq-ddpm-039">公式(2.1.57)</a> 复制到这里。</p>
+<span class="eqno">(2.2.58)<a class="headerlink" href="#equation-eq-ddpm-052" title="公式的永久链接"></a></span>\[x_0 =  \frac{x_t -\sqrt{1- \bar{ \alpha}_t }  \ \epsilon_t }{ \sqrt{\bar{\alpha}_t }  }
+,\ \ \epsilon_t \sim \mathcal{N}(0,\textit{I})\]</div>
+<p>我们在 <a class="reference internal" href="#equation-eq-ddpm-039">公式(2.1.62)</a> 的基础上，重新推导下 ELBO 中第三项 KL 散度，
+为方便阅读，把 <a class="reference internal" href="#equation-eq-ddpm-039">公式(2.1.62)</a> 复制到这里。</p>
 <div class="math notranslate nohighlight" id="equation-eq-ddpm-053">
 <span class="eqno">(2.2.59)<a class="headerlink" href="#equation-eq-ddpm-053" title="公式的永久链接"></a></span>\[\KL{q(x_{t-1}|x_t, x_0)}{p_{{\theta}}(x_{t-1}|x_t)}
 =\frac{1}{2\sigma_q^2(t)}\left[\left\lVert{\mu}_{{\theta}}-{\mu}_q\right\rVert_2^2\right]\]</div>
@@ -1479,10 +1585,10 @@ DDPM 做的关键改进就是参数化模型预测的内容做了调整：</p>
 &amp;= \frac{1}{2\sigma_q^2(t)}\frac{(1 - \alpha_t)^2}{(1 - \bar\alpha_t)\alpha_t}\left[\left\lVert\epsilon  - {\hat\epsilon}_{{\theta}}(x_t, t)\right\rVert_2^2\right]
 \end{align}\end{split}\]</div>
 <p>其中 <span class="math notranslate nohighlight">\(\epsilon\)</span> 表示从时刻 <span class="math notranslate nohighlight">\(t-1\)</span> 到时刻 <span class="math notranslate nohighlight">\(t\)</span> 的前向过程中，
-按照公式 <a class="reference internal" href="#equation-eq-ddpm-024">公式(2.1.46)</a> 添加到 <span class="math notranslate nohighlight">\(x_{t-1}\)</span> 的随机高斯噪声。</p>
+按照公式 <a class="reference internal" href="#equation-eq-ddpm-024">公式(2.1.48)</a> 添加到 <span class="math notranslate nohighlight">\(x_{t-1}\)</span> 的随机高斯噪声。</p>
 <div class="math notranslate nohighlight" id="equation-eq-ddpm-057">
-<span class="eqno">(2.2.63)<a class="headerlink" href="#equation-eq-ddpm-057" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}x_t &amp;=\sqrt{\alpha_t} \ x_{t-1} +  \sqrt{1- \alpha_t } \ \epsilon\\&amp;= \sqrt{\bar{\alpha_i} } \ x_0 + \sqrt{1- \bar{ \alpha_i} }  \ \epsilon  \ \ \ ,
-\bar{\alpha} = \prod_{i=1}^t \alpha_i ,\ \ \epsilon \sim \mathcal{N}(0,\textit(I))\\&amp;\sim \mathcal{N}(\sqrt{\bar{\alpha_i} } \ x_0,  (1- \bar{ \alpha_i})    \textit{I})\end{aligned}\end{align} \]</div>
+<span class="eqno">(2.2.63)<a class="headerlink" href="#equation-eq-ddpm-057" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}x_t &amp;=\sqrt{\alpha_t} \ x_{t-1} +  \sqrt{1- \alpha_t } \ \epsilon\\&amp;= \sqrt{\bar{\alpha}_t } \ x_0 + \sqrt{1- \bar{ \alpha}_t }  \ \epsilon  \ \ \ ,
+\bar{\alpha}_t = \prod_{i=1}^t \alpha_i ,\ \ \epsilon \sim \mathcal{N}(0,\textit{I})\\&amp;\sim \mathcal{N}(\sqrt{\bar{\alpha_t} } \ x_0,  (1- \bar{ \alpha_t})    \textit{I})\end{aligned}\end{align} \]</div>
 <p>对于每一个时刻 <span class="math notranslate nohighlight">\(t\)</span>:</p>
 <ol class="arabic simple">
 <li><p>从标准高斯分布 <span class="math notranslate nohighlight">\(\epsilon\)</span> 中随机采样一个噪声，
@@ -1492,31 +1598,33 @@ DDPM 做的关键改进就是参数化模型预测的内容做了调整：</p>
 <li><p>最小化 <span class="math notranslate nohighlight">\(\hat \epsilon_{{\theta}}(x_t, t)\)</span> 与 <span class="math notranslate nohighlight">\(\epsilon\)</span> 之间的平方误差。</p></li>
 </ol>
 <p>参数化模型直接输出值是 <span class="math notranslate nohighlight">\({\hat\epsilon}_{ {\theta}}(x_t, t)\)</span>
-，这是就相当于 <strong>模型预测是每一步的噪声</strong>，
-从直觉上讲，模型预测每一步的噪声比直接预测 <span class="math notranslate nohighlight">\(x_0\)</span> 要容易很多，
+，这是就相当于 <strong>模型预测是每一步从</strong>  <span class="math notranslate nohighlight">\(x_{t-1}\)</span> 到 <span class="math notranslate nohighlight">\(t\)</span>  <strong>添加的噪声</strong>。
+由于预测噪声之后，再通过 <a class="reference internal" href="#equation-eq-ddpm-055">公式(2.2.61)</a> 就得到了逆向过程 <span class="math notranslate nohighlight">\(p_{{\theta}}(x_{t-1}|x_t)\)</span>
+的期望。</p>
+<p>从直觉上讲，模型预测每一步的噪声比直接预测 <span class="math notranslate nohighlight">\(x_0\)</span> 要容易很多，
 从 DDPM 的论文中也证明了一点。
 相比原来的 DPM，DDPM 能生成更高质量的图像数据。</p>
 <p>论文中给出的训练过程伪代码：</p>
-<figure class="align-center" id="id24">
+<figure class="align-center" id="id31">
 <span id="fg-dm-010"></span><a class="reference internal image-reference" href="../_images/diffusion_training.webp"><img alt="../_images/diffusion_training.webp" src="../_images/diffusion_training.webp" style="width: 655.0px; height: 180.5px;" /></a>
 <figcaption>
-<p><span class="caption-number">图 2.2.1 </span><span class="caption-text">DDPM训练过程伪代码（来自 <a class="footnote-reference brackets" href="#footcite-ho2020denoising" id="id15">3</a>）</span><a class="headerlink" href="#id24" title="永久链接至图片"></a></p>
+<p><span class="caption-number">图 2.2.1 </span><span class="caption-text">DDPM训练过程伪代码（来自 <a class="footnote-reference brackets" href="#footcite-ho2020denoising" id="id16">3</a>）</span><a class="headerlink" href="#id31" title="永久链接至图片"></a></p>
 </figcaption>
 </figure>
 <p>论文中给出的采样（图像生成）过程伪代码如下：</p>
-<figure class="align-center" id="id25">
+<figure class="align-center" id="id32">
 <span id="fg-dm-011"></span><a class="reference internal image-reference" href="../_images/diffusion_sampling.webp"><img alt="../_images/diffusion_sampling.webp" src="../_images/diffusion_sampling.webp" style="width: 630.0px; height: 222.75px;" /></a>
 <figcaption>
-<p><span class="caption-number">图 2.2.2 </span><span class="caption-text">DDPM采样过程伪代码（来自 <a class="footnote-reference brackets" href="#footcite-ho2020denoising" id="id16">3</a>）</span><a class="headerlink" href="#id25" title="永久链接至图片"></a></p>
+<p><span class="caption-number">图 2.2.2 </span><span class="caption-text">DDPM采样过程伪代码（来自 <a class="footnote-reference brackets" href="#footcite-ho2020denoising" id="id17">3</a>）</span><a class="headerlink" href="#id32" title="永久链接至图片"></a></p>
 </figcaption>
 </figure>
 <p>其中 <span class="math notranslate nohighlight">\(\beta_t = 1 - \alpha_t\)</span>
 ，<span class="math notranslate nohighlight">\(\sigma_{t}\)</span>  是逆过程分布 <span class="math notranslate nohighlight">\(q(x_{t-1}|x_t, x_0)\)</span> 的标准差，
-参照 <a class="reference internal" href="#equation-eq-ddpm-036">公式(2.1.54)</a>。</p>
+参照 <a class="reference internal" href="#equation-eq-ddpm-036">公式(2.1.58)</a>。</p>
 <p>在采样（图像生成）过程有一个细节，最后生成的图像（输出值）<span class="math notranslate nohighlight">\(\tilde{x}_0\)</span>
 并不是通过 <span class="math notranslate nohighlight">\(x_{t-1}\)</span> 计算得到的，二者计算方式不一样。
 逆过程中，<span class="math notranslate nohighlight">\(x_{t-1}\)</span> 的分布是 <span class="math notranslate nohighlight">\(q(x_{t-1}|x_t, x_0)\)</span>，
-它是一个高斯分布的随机变量，它需要通过采样得到，
+它是一个高斯分布的随机变量，它需要通过随机采样得到，
 所以上图伪代码中，是先计算出其均值 <span class="math notranslate nohighlight">\(\tilde{\mu}\)</span>，
 然后再加上一项随机高斯噪声 <span class="math notranslate nohighlight">\(\sigma_t z\)</span> 。</p>
 <p>而最终生成的图像 <span class="math notranslate nohighlight">\(x_0\)</span> 是根据 <a class="reference internal" href="#equation-eq-ddpm-057">公式(2.2.63)</a> 的逆运算得到的。
@@ -1524,14 +1632,144 @@ DDPM 做的关键改进就是参数化模型预测的内容做了调整：</p>
 <span class="math notranslate nohighlight">\(\tilde{\mu}\)</span> 是相同的。
 当 <span class="math notranslate nohighlight">\(t=1\)</span> 时，有 <span class="math notranslate nohighlight">\(\bar{\alpha}_1 = \alpha_1\)</span>
 ，此时</p>
-<div class="math notranslate nohighlight" id="equation-aigc-3">
-<span class="eqno">(2.2.64)<a class="headerlink" href="#equation-aigc-3" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\tilde{\mu} &amp;= \frac{1} {\sqrt{\alpha_t}} (x_t - \frac{\beta_t}{\sqrt{1-\bar{\alpha_t}} } \epsilon_{\theta}(x_t,t) )\\&amp;=  \frac{1} {\sqrt{\alpha_1}} (x_1 - \frac{1-\alpha_1}{\sqrt{1-\bar{\alpha_1}} } \bar{\epsilon} )\\&amp;=  \frac{1} {\sqrt{\alpha_1}} (x_1 - \frac{1-\alpha_1}{\sqrt{1-\bar{\alpha_1}} } \bar{\epsilon} )\\&amp;=  \frac{1} {\sqrt{\alpha_1}} (x_1 - \frac{1-\alpha_1}{\sqrt{1-\alpha_1} } \bar{\epsilon} )\\&amp;=  \frac{1} {\sqrt{\alpha_1}} (x_1 -  \sqrt{1-\alpha_1}  \bar{\epsilon} )\\&amp;=  \tilde{x}_0\end{aligned}\end{align} \]</div>
-<p>也就是说我们最终输出的 <span class="math notranslate nohighlight">\(\tilde{x}_0\)</span> 是 <span class="math notranslate nohighlight">\(q(x_{t-1}|x_t, x_0)\)</span> 的期望，
-而不是  <span class="math notranslate nohighlight">\(q(x_{t-1}|x_t, x_0)\)</span> 的采样值，这和我们的 ELBO 函数的第一项是一致的。
+<div class="math notranslate nohighlight" id="equation-eq-ddpm-058">
+<span class="eqno">(2.2.64)<a class="headerlink" href="#equation-eq-ddpm-058" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\tilde{\mu} &amp;= \frac{1} {\sqrt{\alpha_t}} (x_t - \frac{\beta_t}{\sqrt{1-\bar{\alpha_t}} } \epsilon_{\theta}(x_t,t) )\\&amp;=  \frac{1} {\sqrt{\alpha_1}} (x_1 - \frac{1-\alpha_1}{\sqrt{1-\bar{\alpha_1}} } \bar{\epsilon} )\\&amp;=  \frac{1} {\sqrt{\alpha_1}} (x_1 - \frac{1-\alpha_1}{\sqrt{1-\bar{\alpha_1}} } \bar{\epsilon} )\\&amp;=  \frac{1} {\sqrt{\alpha_1}} (x_1 - \frac{1-\alpha_1}{\sqrt{1-\alpha_1} } \bar{\epsilon} )\\&amp;=  \frac{1} {\sqrt{\alpha_1}} (x_1 -  \sqrt{1-\alpha_1}  \bar{\epsilon} )\\&amp;=  \tilde{x}_0\end{aligned}\end{align} \]</div>
+<p>也就是说我们最终输出的 <span class="math notranslate nohighlight">\(\tilde{x}_0\)</span> 是 <span class="math notranslate nohighlight">\(q(x_{t-1}|x_t, x_0,t=1)\)</span> 的期望，
+而不是  <span class="math notranslate nohighlight">\(q(x_{t-1}|x_t, x_0,t=1)\)</span> 的采样值，这和我们的 ELBO 函数的第一项是一致的。
 事实上，所有的回归模型最终输出的都是期望值。</p>
 </section>
-<section id="improved-denoising-diffusion-probabilistic-models-ddpm">
-<h2><span class="section-number">2.3. </span>改进降噪扩散概率模型（Improved Denoising Diffusion Probabilistic Models,DDPM）<a class="headerlink" href="#improved-denoising-diffusion-probabilistic-models-ddpm" title="永久链接至标题"></a></h2>
+<section id="score-based-ddpm">
+<span id="ch-ddpm-score-based"></span><h2><span class="section-number">2.3. </span>基于分数的解释（Score-based DDPM）<a class="headerlink" href="#score-based-ddpm" title="永久链接至标题"></a></h2>
+<p>在2019年，宋旸 <span id="id18">[<a class="reference internal" href="dalle2.html#id17" title="Yang Song and Stefano Ermon. Generative modeling by estimating gradients of the data distribution. 2019. arXiv:1907.05600.">SE19</a>]</span> 提出了一种基于分数的扩散模型 <a class="footnote-reference brackets" href="#footcite-song2019generative" id="id19">5</a> ，
+实际上这种基于分数的扩散模型和本章基于马尔科夫的扩散模型是等价的，
+论文 <span id="id20">[<a class="reference internal" href="dalle2.html#id21" title="Calvin Luo. Understanding diffusion models: a unified perspective. 2022. arXiv:2208.11970.">Luo22</a>]</span> <a class="footnote-reference brackets" href="#footcite-luo2022understanding" id="id21">2</a> 给出了这种等价说明。
+后续的章节我们再单独详细的介绍宋旸论文中基于分数扩散模型的原理，
+这里我们暂且按照论文 <span id="id22">[<a class="reference internal" href="dalle2.html#id21" title="Calvin Luo. Understanding diffusion models: a unified perspective. 2022. arXiv:2208.11970.">Luo22</a>]</span> 的内容给出和 DDPM 等价的分数模型。</p>
+<p>首先需要一个关于 <cite>Tweedie</cite> 公式（Tweedie’s Formula）的背景知识。
+在统计学中，经常需要根据观测样本估计一个概率分布的未知参数，估计算法有很多，比如最大似然估计、贝叶斯估计等等。
+<cite>Tweedie</cite> 公式是一种估计指数族分布均值参数的方法，如果你不知道什么是指数族，可以查看本博客中广义线性模型的内容。
+高斯分布就是指数族分布中的一种，所以可以 <cite>Tweedie</cite> 公式估计高斯分布的均值参数。
+这里省略 <cite>Tweedie</cite> 公式的证明过程，只关注怎么使用 <cite>Tweedie</cite> 公式。</p>
+<p>假设有一个（多元）高斯随机变量 <span class="math notranslate nohighlight">\(z \sim (\mathcal{N}{z;\mu_z,\Sigma_z})\)</span>
+， <cite>Tweedie</cite> 公式可以写为</p>
+<div class="math notranslate nohighlight" id="equation-aigc-7">
+<span class="eqno">(2.3.17)<a class="headerlink" href="#equation-aigc-7" title="公式的永久链接"></a></span>\[\mathbb{E}[\mu_z | z] = z + \Sigma_z \underbrace{ \nabla_z \log p(z)}_{\text{score}}\]</div>
+<p>其中等式左边 <span class="math notranslate nohighlight">\(\mathbb{E}[\mu_z | z]\)</span> 表示：有 <span class="math notranslate nohighlight">\(z\)</span> 的样本条件下，
+<span class="math notranslate nohighlight">\(\mu_z\)</span> 的期望，直观地理解，就是用 <span class="math notranslate nohighlight">\(z\)</span> 的样本估计 <span class="math notranslate nohighlight">\(\mu_z\)</span> 的值。
+等式右边就是具体计算方式，在这里只需要 <span class="math notranslate nohighlight">\(z\)</span> 的一条样本就可以。
+<span class="math notranslate nohighlight">\(\log p(z)\)</span> 就是观测样本的对数似然，
+<span class="math notranslate nohighlight">\(\nabla_z \log p(z)\)</span> 就是观测样本的对数似然的一阶导数，又名梯度，
+也叫 <cite>Stein</cite> 分数（Stein score），简称分数(score)。
+注意，还有另外一个分数， <cite>fisher score</cite> ，二者不太一样，不要搞混了。
+<cite>fisher score</cite> 是对数似然关于 <strong>参数</strong> 的梯度 <span class="math notranslate nohighlight">\(\nabla_{\theta} \log p(z;\theta)\)</span>
+; <cite>Stein score</cite> 是对数似然关于 <strong>观测变量（样本）</strong>  的梯度 <span class="math notranslate nohighlight">\(\nabla_z \log p(z)\)</span>。</p>
+<p>回到 <a class="reference internal" href="#equation-eq-ddpm-025">公式(2.1.49)</a>，在前向过程中，我们得到 <span class="math notranslate nohighlight">\(q(x_t|x_0)\)</span></p>
+<div class="math notranslate nohighlight" id="equation-aigc-8">
+<span class="eqno">(2.3.18)<a class="headerlink" href="#equation-aigc-8" title="公式的永久链接"></a></span>\[q(x_t|x_0) = \mathcal{N}(x_{t} ; \sqrt{\bar\alpha_t} x_0, \left(1 - \bar\alpha_t\right)\textit{I})\]</div>
+<p><span class="math notranslate nohighlight">\(q(x_t|x_0)\)</span> 是一个高斯分布，虽然已知它的均值是 <span class="math notranslate nohighlight">\(\sqrt{\bar\alpha_t} x_0\)</span>，
+但我们仍可以利用 <cite>Tweedie</cite> 公式估计它的均值参数</p>
+<div class="math notranslate nohighlight" id="equation-aigc-9">
+<span class="eqno">(2.3.19)<a class="headerlink" href="#equation-aigc-9" title="公式的永久链接"></a></span>\[\sqrt{\bar\alpha_t} x_0 = \mathbb{E}\left[{\mu}_{x_t}|x_t\right] = x_t + (1 - \bar\alpha_t)\nabla_{x_t}\log p(x_t)\]</div>
+<p>对上式进行移项可以得到一个新的关系式</p>
+<div class="math notranslate nohighlight" id="equation-eq-ddpm-065">
+<span class="eqno">(2.3.20)<a class="headerlink" href="#equation-eq-ddpm-065" title="公式的永久链接"></a></span>\[x_0 = \frac{x_t + (1 - \bar\alpha_t)\nabla\log p(x_t)}{\sqrt{\bar\alpha_t}}\]</div>
+<p>这个关系式是一个分数表达 <span class="math notranslate nohighlight">\(x_0\)</span> 的等式。
+现在回到逆过程中的真实分布 <span class="math notranslate nohighlight">\(q(x_{t-1}|x_t,x_0)\)</span>
+，它的均值 <span class="math notranslate nohighlight">\({\mu}_q(x_t, x_0)\)</span> 在 <a class="reference internal" href="#equation-eq-ddpm-040">公式(2.1.63)</a>
+中已经给出，这里把 <a class="reference internal" href="#equation-eq-ddpm-065">公式(2.3.20)</a> 带入进去</p>
+<div class="math notranslate nohighlight" id="equation-eq-ddpm-066">
+<span class="eqno">(2.3.21)<a class="headerlink" href="#equation-eq-ddpm-066" title="公式的永久链接"></a></span>\[\begin{split}\begin{align}
+{\mu}_q(x_t, x_0) &amp;= \frac{\sqrt{\alpha_t}(1-\bar\alpha_{t-1})x_{t} + \sqrt{\bar\alpha_{t-1}}(1-\alpha_t)x_0}{1 -\bar\alpha_{t}}\\
+&amp;= \frac{\sqrt{\alpha_t}(1-\bar\alpha_{t-1})x_{t} + \sqrt{\bar\alpha_{t-1}}(1-\alpha_t)\frac{x_t + (1 - \bar\alpha_t)\nabla\log p(x_t)}{\sqrt{\bar\alpha_t}}}{1 -\bar\alpha_{t}}\\
+&amp;= \frac{\sqrt{\alpha_t}(1-\bar\alpha_{t-1})x_{t} + (1-\alpha_t)\frac{x_t + (1 - \bar\alpha_t)\nabla\log p(x_t)}{\sqrt{\alpha_t}}}{1 -\bar\alpha_{t}}\\
+&amp;= \frac{\sqrt{\alpha_t}(1-\bar\alpha_{t-1})x_{t}}{1 - \bar\alpha_t} + \frac{(1-\alpha_t)x_t}{(1-\bar\alpha_t)\sqrt{\alpha_t}} + \frac{(1 - \alpha_t)(1 - \bar\alpha_t)\nabla\log p(x_t)}{(1-\bar\alpha_t)\sqrt{\alpha_t}}\\
+&amp;= \left(\frac{\sqrt{\alpha_t}(1-\bar\alpha_{t-1})}{1 - \bar\alpha_t} + \frac{1-\alpha_t}{(1-\bar\alpha_t)\sqrt{\alpha_t}}\right)x_t + \frac{1 - \alpha_t}{\sqrt{\alpha_t}}\nabla\log p(x_t)\\
+&amp;= \left(\frac{\alpha_t(1-\bar\alpha_{t-1})}{(1 - \bar\alpha_t)\sqrt{\alpha_t}} + \frac{1-\alpha_t}{(1-\bar\alpha_t)\sqrt{\alpha_t}}\right)x_t + \frac{1 - \alpha_t}{\sqrt{\alpha_t}}\nabla\log p(x_t)\\
+&amp;= \frac{\alpha_t-\bar\alpha_{t} + 1-\alpha_t}{(1 - \bar\alpha_t)\sqrt{\alpha_t}}x_t + \frac{1 - \alpha_t}{\sqrt{\alpha_t}}\nabla\log p(x_t)\\
+&amp;= \frac{1-\bar\alpha_t}{(1 - \bar\alpha_t)\sqrt{\alpha_t}}x_t + \frac{1 - \alpha_t}{\sqrt{\alpha_t}}\nabla\log p(x_t)\\
+&amp;= \frac{1}{\sqrt{\alpha_t}}x_t + \frac{1 - \alpha_t}{\sqrt{\alpha_t}} \nabla\log p(x_t)
+\end{align}\end{split}\]</div>
+<p>重新按照个形式设定参数化分布 <span class="math notranslate nohighlight">\(p_{\theta}(x_{t-1}|x_t)\)</span> 均值 <span class="math notranslate nohighlight">\(\mu_{\theta}\)</span>
+的表达式</p>
+<div class="math notranslate nohighlight" id="equation-eq-ddpm-067">
+<span class="eqno">(2.3.22)<a class="headerlink" href="#equation-eq-ddpm-067" title="公式的永久链接"></a></span>\[\mu_{\theta}(x_t, t) = \frac{1}{\sqrt{\alpha_t}}x_t + \frac{1 - \alpha_t}{\sqrt{\alpha_t}}s_{{\theta}}(x_t, t)\]</div>
+<p>现在 <span class="math notranslate nohighlight">\(s_{{\theta}}(x_t, t)\)</span> 是模型学习预测的内容，
+相当于模型直接预测的是分数 <span class="math notranslate nohighlight">\(\nabla_{x_t} \log p(x_t)\)</span>，
+最后我们推导下目标函数 ELBO 中相关的 KL 散度。</p>
+<div class="math notranslate nohighlight" id="equation-eq-ddpm-068">
+<span class="eqno">(2.3.23)<a class="headerlink" href="#equation-eq-ddpm-068" title="公式的永久链接"></a></span>\[\begin{split}\begin{align}
+&amp; \quad \,\argmin_{{\theta}} \KL{q(x_{t-1}|x_t, x_0)}{p_{{\theta}}(x_{t-1}|x_t)} \nonumber \\
+&amp;= \argmin_{{\theta}}\KL{\mathcal{N}\left(x_{t-1}; {\mu}_q,{\Sigma}_q\left(t\right)\right)}{\mathcal{N}\left(x_{t-1}; {\mu}_{{\theta}},{\Sigma}_q\left(t\right)\right)}\\
+&amp;=\argmin_{{\theta}}\frac{1}{2\sigma_q^2(t)}\left[\left\lVert\frac{1}{\sqrt{\alpha_t}}x_t + \frac{1 - \alpha_t}{\sqrt{\alpha_t}}s_{{\theta}}(x_t, t) -
+\frac{1}{\sqrt{\alpha_t}}x_t - \frac{1 - \alpha_t}{\sqrt{\alpha_t}}\nabla\log p(x_t)\right\rVert_2^2\right]\\
+&amp;=\argmin_{{\theta}}\frac{1}{2\sigma_q^2(t)}\left[\left\lVert \frac{1 - \alpha_t}{\sqrt{\alpha_t}}s_{{\theta}}(x_t, t) - \frac{1 - \alpha_t}{\sqrt{\alpha_t}}\nabla\log p(x_t)\right\rVert_2^2\right]\\
+&amp;=\argmin_{{\theta}}\frac{1}{2\sigma_q^2(t)}\left[\left\lVert \frac{1 - \alpha_t}{\sqrt{\alpha_t}}(s_{{\theta}}(x_t, t) - \nabla\log p(x_t))\right\rVert_2^2\right]\\
+&amp;=\argmin_{{\theta}}\frac{1}{2\sigma_q^2(t)}\frac{(1 - \alpha_t)^2}{\alpha_t}\left[\left\lVert s_{{\theta}}(x_t, t) - \nabla\log p(x_t)\right\rVert_2^2\right] \label{eq:123}
+\end{align}\end{split}\]</div>
+<p>最后的目标函数仍然是均方误差的形式，和原始扩散模型以及基于噪声的扩散模型是高度一致的。
+公式中的 <span class="math notranslate nohighlight">\(\nabla\log p(x_t)\)</span> 是梯度的真实值，这个可以直接计算得到，<cite>pytorch</cite> 中可以计算指定变量的梯度。
+<span class="math notranslate nohighlight">\(s_{{\theta}}(x_t, t)\)</span> 代表一个神经网络模型，它去学习和预测 <span class="math notranslate nohighlight">\(\nabla\log p(x_t)\)</span>
+。</p>
+<p>接下来看下梯度和噪声的关系，结合 <a class="reference internal" href="#equation-eq-ddpm-065">公式(2.3.20)</a> 和 <a class="reference internal" href="#equation-eq-ddpm-052">公式(2.2.58)</a> 可得</p>
+<div class="math notranslate nohighlight" id="equation-aigc-10">
+<span class="eqno">(2.3.24)<a class="headerlink" href="#equation-aigc-10" title="公式的永久链接"></a></span>\[\begin{split}\begin{align}
+x_0 = \frac{x_t + (1 - \bar\alpha_t)\nabla\log p(x_t)}{\sqrt{\bar\alpha_t}} &amp;= \frac{x_t - \sqrt{1 - \bar\alpha_t}{\epsilon}_t}{\sqrt{\bar\alpha_t}}\\
+\therefore (1 - \bar\alpha_t)\nabla\log p(x_t) &amp;= -\sqrt{1 - \bar\alpha_t}{\epsilon}_t\\
+\nabla\log p(x_t) &amp;= -\frac{1}{\sqrt{1 - \bar\alpha_t}}{\epsilon}_t
+\end{align}\end{split}\]</div>
+<p>我们知道梯度的方向，是函数极值的方向。
+梯度 <span class="math notranslate nohighlight">\(\nabla\log p(x_t)\)</span> 指向的是对数概率函数 <span class="math notranslate nohighlight">\(\log p(x_t)\)</span> 概率密度最大的方向，
+它和添加的噪声相差一个负号，正好是相反的，梯度的方向是噪声的反方向，这十分符合直觉。</p>
+</section>
+<section id="id23">
+<h2><span class="section-number">2.4. </span>扩散模型的三种等价表示<a class="headerlink" href="#id23" title="永久链接至标题"></a></h2>
+<p>到这里我们一共介绍了扩撒模型的三种不同形式，1）直接预测初始样本；2）预测噪声；3）预测分数。
+这三种形式理论是等价的，然后对于模型的学习难度以及灵活性的却是不同的。
+这里我们把这三种形式进行总结对比一下，方便理解和复习。</p>
+<p>逆向过程中真实的（后验）分布为 <span class="math notranslate nohighlight">\(q(x_{t-1}|x_t,x_0)\)</span>
+，它是一个条件高斯分布，均值记为 <span class="math notranslate nohighlight">\(\mu_q\)</span>，
+方差记为 <span class="math notranslate nohighlight">\(\Sigma_{q(t)}\)</span>，</p>
+<div class="math notranslate nohighlight" id="equation-aigc-11">
+<span class="eqno">(2.4.23)<a class="headerlink" href="#equation-aigc-11" title="公式的永久链接"></a></span>\[q(x_{t-1}|x_t,x_0) \sim \mathcal{N}(x_{t-1},\mu_q,\Sigma_{q(t)})\]</div>
+<p>方差 <span class="math notranslate nohighlight">\(\Sigma_{q(t)}\)</span> 的表达式为</p>
+<div class="math notranslate nohighlight" id="equation-aigc-12">
+<span class="eqno">(2.4.24)<a class="headerlink" href="#equation-aigc-12" title="公式的永久链接"></a></span>\[\Sigma_q(t) = \frac{(1 - \alpha_t)(1 - \bar\alpha_{t-1})}{ 1 -\bar\alpha_{t}}  \textit{I} = \sigma_q^2(t)   \textit{I}\]</div>
+<p>方差看做一个已知的常量，默认模型不去学习它。
+我们的参数化模型学习的分布记为 <span class="math notranslate nohighlight">\(p_{\theta}(x_{t-1}|x_t)\)</span>,
+我们要令 <span class="math notranslate nohighlight">\(p_{\theta}(x_{t-1}|x_t)\)</span> 尽量近似真实分布 <span class="math notranslate nohighlight">\(q(x_{t-1}|x_t,x_0)\)</span>。
+实际实现时，模型学习拟合的是真实分布 <span class="math notranslate nohighlight">\(q(x_{t-1}|x_t,x_0)\)</span> 的均值 <span class="math notranslate nohighlight">\(\mu_q\)</span>，
+然而它可以推导出三种不同等价的形式，因此也就有三种不同的学习方式。</p>
+<p><strong>第一种形式：学习初始样本</strong></p>
+<p>均值 <span class="math notranslate nohighlight">\(\mu_q\)</span> 的第一种表达式为</p>
+<div class="math notranslate nohighlight" id="equation-eq-ddpm-083">
+<span class="eqno">(2.4.25)<a class="headerlink" href="#equation-eq-ddpm-083" title="公式的永久链接"></a></span>\[\mu_q(x_t, x_0) = { \frac{\sqrt{\alpha_t}(1-\bar\alpha_{t-1})x_{t} + \sqrt{\bar\alpha_{t-1}}(1-\alpha_t)x_0}{1 -\bar\alpha_{t}}}\]</div>
+<p>按照个形式设定参数化分布 <span class="math notranslate nohighlight">\(p_{\theta}(x_{t-1}|x_t)\)</span> 的均值 <span class="math notranslate nohighlight">\(\mu_{\theta}\)</span></p>
+<div class="math notranslate nohighlight" id="equation-eq-ddpm-084">
+<span class="eqno">(2.4.26)<a class="headerlink" href="#equation-eq-ddpm-084" title="公式的永久链接"></a></span>\[\mu_{\theta}={\mu}_{{\theta}}(x_t, t) = \frac{\sqrt{\alpha_t}(1-\bar\alpha_{t-1})x_{t} + \sqrt{\bar\alpha_{t-1}}(1-\alpha_t)\hat x_{{\theta}}(x_t, t)}{1 -\bar\alpha_{t}}\]</div>
+<p>此时模型实际学习的是初始样本 <span class="math notranslate nohighlight">\(x_0\)</span>，
+显然这种形式对模型来说难度比较大，所以效果并不突出。</p>
+<p><strong>第二种形式：学习噪声</strong></p>
+<p>均值 <span class="math notranslate nohighlight">\(\mu_q\)</span> 的第二种表达式为</p>
+<div class="math notranslate nohighlight" id="equation-eq-ddpm-085">
+<span class="eqno">(2.4.27)<a class="headerlink" href="#equation-eq-ddpm-085" title="公式的永久链接"></a></span>\[\mu_q(x_t, x_0) = \frac{1}{\sqrt{\alpha_t}}x_t - \frac{1 - \alpha_t}{\sqrt{1 - \bar\alpha_t}\sqrt{\alpha_t}}\ \epsilon\]</div>
+<p>同理，按照个形式设定参数化分布 <span class="math notranslate nohighlight">\(p_{\theta}(x_{t-1}|x_t)\)</span> 的均值 <span class="math notranslate nohighlight">\(\mu_{\theta}\)</span></p>
+<div class="math notranslate nohighlight" id="equation-eq-ddpm-086">
+<span class="eqno">(2.4.28)<a class="headerlink" href="#equation-eq-ddpm-086" title="公式的永久链接"></a></span>\[\mu_{\theta}={\mu}_{{\theta}}(x_t, t) = \frac{1}{\sqrt{\alpha_t}}x_t - \frac{1 - \alpha_t}{\sqrt{1 - \bar\alpha_t}\sqrt{\alpha_t}} {\hat\epsilon}_{ {\theta}}(x_t, t)\]</div>
+<p>此时模型学习预测的噪声 <span class="math notranslate nohighlight">\(\epsilon\)</span>
+，相比直接学习初始样本 <span class="math notranslate nohighlight">\(x_0\)</span>，每一步学习噪声简单了许多，模型的效果提升很大。</p>
+<p><strong>第三种形式：学习分数</strong></p>
+<p>依据 <cite>Tweedie</cite> 公式，均值 <span class="math notranslate nohighlight">\(\mu_q\)</span> 的表达式可以写成基于分数的形式</p>
+<div class="math notranslate nohighlight" id="equation-eq-ddpm-087">
+<span class="eqno">(2.4.29)<a class="headerlink" href="#equation-eq-ddpm-087" title="公式的永久链接"></a></span>\[{\mu}_q(x_t, x_0) =  \frac{1}{\sqrt{\alpha_t}}x_t + \frac{1 - \alpha_t}{\sqrt{\alpha_t}}\nabla\log p(x_t)\]</div>
+<p>同样，按照个形式设定参数化分布 <span class="math notranslate nohighlight">\(p_{\theta}(x_{t-1}|x_t)\)</span> 的均值 <span class="math notranslate nohighlight">\(\mu_{\theta}\)</span></p>
+<div class="math notranslate nohighlight" id="equation-eq-ddpm-088">
+<span class="eqno">(2.4.30)<a class="headerlink" href="#equation-eq-ddpm-088" title="公式的永久链接"></a></span>\[{\mu}_q(x_t, x_0) =  \frac{1}{\sqrt{\alpha_t}}x_t + \frac{1 - \alpha_t}{\sqrt{\alpha_t}} s_{\theta}(x_t,t)\]</div>
+<p>此时模型学习预测的是分数（梯度） <span class="math notranslate nohighlight">\(\nabla\log p(x_t)\)</span>。
+相比学习噪声，学习分数有个好处，他可以令我在逆过程采样图片时采用基于分数的采样算法，
+而基于分数的采样算法种类很多，这极大的增加了算法的灵活性。</p>
+</section>
+<section id="improved-denoising-diffusion-probabilistic-models-iddpm">
+<h2><span class="section-number">2.5. </span>改进降噪扩散概率模型（Improved Denoising Diffusion Probabilistic Models,IDDPM）<a class="headerlink" href="#improved-denoising-diffusion-probabilistic-models-iddpm" title="永久链接至标题"></a></h2>
 <ol class="arabic simple">
 <li><p>学习方差</p></li>
 <li><p>线性的schedule 改成余弦schedule</p></li>
@@ -1539,24 +1777,23 @@ DDPM 做的关键改进就是参数化模型预测的内容做了调整：</p>
 <p>待补充</p>
 <p>源码 <a class="reference external" href="https://github.com/openai/improved-diffusion">https://github.com/openai/improved-diffusion</a></p>
 </section>
-<section id="unet">
-<h2><span class="section-number">2.4. </span>UNET<a class="headerlink" href="#unet" title="永久链接至标题"></a></h2>
-<p>待补充</p>
-</section>
-<section id="id17">
-<h2><span class="section-number">2.5. </span>参考文献<a class="headerlink" href="#id17" title="永久链接至标题"></a></h2>
-<p id="id18"><dl class="footnote brackets">
+<section id="id24">
+<h2><span class="section-number">2.6. </span>参考文献<a class="headerlink" href="#id24" title="永久链接至标题"></a></h2>
+<p id="id25"><dl class="footnote brackets">
 <dt class="label" id="footcite-sohldickstein2015deep"><span class="brackets">1</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id2">2</a>,<a href="#id4">3</a>)</span></dt>
 <dd><p>Jascha Sohl-Dickstein, Eric A. Weiss, Niru Maheswaranathan, and Surya Ganguli. Deep unsupervised learning using nonequilibrium thermodynamics. 2015. <a class="reference external" href="https://arxiv.org/abs/1503.03585">arXiv:1503.03585</a>.</p>
 </dd>
-<dt class="label" id="footcite-luo2022understanding"><span class="brackets">2</span><span class="fn-backref">(<a href="#id3">1</a>,<a href="#id5">2</a>,<a href="#id7">3</a>,<a href="#id11">4</a>,<a href="#id12">5</a>,<a href="#id13">6</a>)</span></dt>
+<dt class="label" id="footcite-luo2022understanding"><span class="brackets">2</span><span class="fn-backref">(<a href="#id3">1</a>,<a href="#id5">2</a>,<a href="#id7">3</a>,<a href="#id11">4</a>,<a href="#id12">5</a>,<a href="#id13">6</a>,<a href="#id21">7</a>)</span></dt>
 <dd><p>Calvin Luo. Understanding diffusion models: a unified perspective. 2022. <a class="reference external" href="https://arxiv.org/abs/2208.11970">arXiv:2208.11970</a>.</p>
 </dd>
-<dt class="label" id="footcite-ho2020denoising"><span class="brackets">3</span><span class="fn-backref">(<a href="#id9">1</a>,<a href="#id14">2</a>,<a href="#id15">3</a>,<a href="#id16">4</a>)</span></dt>
+<dt class="label" id="footcite-ho2020denoising"><span class="brackets">3</span><span class="fn-backref">(<a href="#id9">1</a>,<a href="#id15">2</a>,<a href="#id16">3</a>,<a href="#id17">4</a>)</span></dt>
 <dd><p>Jonathan Ho, Ajay Jain, and Pieter Abbeel. Denoising diffusion probabilistic models. 2020. <a class="reference external" href="https://arxiv.org/abs/2006.11239">arXiv:2006.11239</a>.</p>
 </dd>
 <dt class="label" id="footcite-kingma2022variational"><span class="brackets"><a class="fn-backref" href="#id10">4</a></span></dt>
 <dd><p>Diederik P. Kingma, Tim Salimans, Ben Poole, and Jonathan Ho. Variational diffusion models. 2022. <a class="reference external" href="https://arxiv.org/abs/2107.00630">arXiv:2107.00630</a>.</p>
+</dd>
+<dt class="label" id="footcite-song2019generative"><span class="brackets"><a class="fn-backref" href="#id19">5</a></span></dt>
+<dd><p>Yang Song and Stefano Ermon. Generative modeling by estimating gradients of the data distribution. 2019. <a class="reference external" href="https://arxiv.org/abs/1907.05600">arXiv:1907.05600</a>.</p>
 </dd>
 </dl>
 </p>
@@ -1568,7 +1805,7 @@ DDPM 做的关键改进就是参数化模型预测的内容做了调整：</p>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.html" class="btn btn-neutral float-left" title="1. 变分自编码器（Variational Autoencoder）" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
-        <a href="Guidance.html" class="btn btn-neutral float-right" title="3. 条件控制扩散模型" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="ddim.html" class="btn btn-neutral float-right" title="3. 去噪扩散隐式模型（Denoising Diffusion Implicit Models,DDIM）" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
