@@ -2,13 +2,15 @@
 <html class="writer-html5" lang="zh-CN" >
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+<meta content="基于分数的扩散模型" lang="zh_CN" name="description" xml:lang="zh_CN" />
+<meta content="ODE,SDE,随机微分方程,扩散模型" name="keywords" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>4. 基于分数的生成模型 &mdash; 张振虎的博客 张振虎 文档</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
-    <link rel="canonical" href="https://zhangzhenhu.github.io/blog/aigc/Score-Based_Generative_Models.html" />
+    <link rel="canonical" href="https://www.zhangzhenhu.com/aigc/Score-Based_Generative_Models.html" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -19,7 +21,7 @@
         <script src="../_static/doctools.js"></script>
         <script src="../_static/translations.js"></script>
         <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-        <script>window.MathJax = {"tex": {"macros": {"RR": "{\\bf R}", "bold": ["{\\bf #1}", 1], "KL": ["{D_\\textrm{KL}\\left ( #1 \\| #2 \\right )}", 2], "EE": ["{\\mathbb{E}_{#1} \\left [ #2 \\right ]}", 2, ""], "scalemath": ["{\\scalebox{#1}{\\mbox{\\ensuremath{\\displaystyle #2}}}}", 2], "argmin": ["{\\operatorname{\\arg\\min}}"], "ind": ["{\\perp\\!\\!\\!\\!\\perp}"]}}}</script>
+        <script>window.MathJax = {"tex": {"macros": {"RR": "{\\bf R}", "bold": ["{\\bf #1}", 1], "KL": ["{D_\\textrm{KL}\\left ( #1 \\| #2 \\right )}", 2], "EE": ["{\\mathbb{E}_{#1} \\left [ #2 \\right ]}", 2, ""], "scalemath": ["{\\scalebox{#1}{\\mbox{\\ensuremath{\\displaystyle #2}}}}", 2], "argmin": ["{\\operatorname*{\\arg\\min}}"], "ind": ["{\\perp\\!\\!\\!\\!\\perp}"]}}}</script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
@@ -726,13 +728,20 @@
 </ul>
 </li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">4. 基于分数的生成模型</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#denoising-score-matching-with-langevin-dynamics">4.1. DENOISING SCORE MATCHING WITH LANGEVIN DYNAMICS</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id2">4.2. 随机微分方程</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id3">4.2.1. 微分方程</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id4">4.2.2. 随机微分方程</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id5">4.2.3. 基于随机微分方程的生成模型</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">4.1. 基于分数的扩散模型</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#score-matching">4.1.1. 分数匹配算法（Score Matching）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id9">4.1.2. 基于分数的生成模型面临的困难</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id13">4.1.3. 通过加噪的方法估计分布的近似分数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id14">4.1.4. 基于分数的改进采样算法</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#id15">4.2. 随机微分方程</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id16">4.2.1. 微分方程</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id17">4.2.2. 随机微分方程</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id18">4.2.3. 基于随机微分方程的生成模型</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id19">4.3. 参考文献</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="Guidance.html">5. 条件控制扩散模型</a><ul>
@@ -967,33 +976,291 @@
              
   <section id="id1">
 <h1><span class="section-number">4. </span>基于分数的生成模型<a class="headerlink" href="#id1" title="永久链接至标题"></a></h1>
-<section id="denoising-score-matching-with-langevin-dynamics">
-<h2><span class="section-number">4.1. </span>DENOISING SCORE MATCHING WITH LANGEVIN DYNAMICS<a class="headerlink" href="#denoising-score-matching-with-langevin-dynamics" title="永久链接至标题"></a></h2>
+<p>通过前面的学习，我们发现扩散模型可以从不同的角度进行解释。
+其中一个等价的解释是基于分数的模型，前面虽然简单介绍了下，
+但没有详细说明，本章我们详细讨论下基于分数的扩散模型。
+基于分数的扩散模型是由宋旸 <span id="id2">[<a class="reference internal" href="dalle2.html#id17" title="Yang Song and Stefano Ermon. Generative modeling by estimating gradients of the data distribution. 2019. arXiv:1907.05600.">SE19</a>]</span> 等人在2019年提出 <a class="footnote-reference brackets" href="#footcite-song2019generative" id="id3">1</a> 的，
+后来他们又提出了基于随机微分方程的更一般的形式 <a class="footnote-reference brackets" href="#footcite-song2021scorebased" id="id4">2</a>，
+本章我们一起讨论学习一下。</p>
+<section id="id5">
+<h2><span class="section-number">4.1. </span>基于分数的扩散模型<a class="headerlink" href="#id5" title="永久链接至标题"></a></h2>
+<p>在前面 DDPM 和 DDIM 的章节中，已经探讨了 DDPM 的降噪过程，可以看做是沿着分数（梯度） <span class="math notranslate nohighlight">\(\nabla\log p(x_t)\)</span>
+前进。然而宋旸等人提出基于分数的论文 <span id="id6">[<a class="reference internal" href="dalle2.html#id17" title="Yang Song and Stefano Ermon. Generative modeling by estimating gradients of the data distribution. 2019. arXiv:1907.05600.">SE19</a>]</span> 相关工作并不是建立在 DDPM 的基础上，
+所以论文里不是从DDPM的马尔科夫链式结构讨论和导出的，而是直接从分数匹配估计算法推导。</p>
+<p>首先看下基于分数的生成模型的核心思想。
+我们有一些某个分布的观察数据，比如大量的图片数据，
+但是这些数据背后真实的概率分布是未知的，
+我们暂且用符号 <span class="math notranslate nohighlight">\(p_{\text{data}}(x)\)</span> 表示这些观测数据的真实分布。
+然而我们希望能生成新的数据，也就是想从分布 <span class="math notranslate nohighlight">\(p_{\text{data}}(x)\)</span> 中采样新的样本，比如采样生成新的图片。
+但分布 <span class="math notranslate nohighlight">\(p_{\text{data}}(x)\)</span> 是未知的，怎么办呢？
+此时有一种利用分数（score）进行采样的方法，虽然我们不知道 <span class="math notranslate nohighlight">\(p_{\text{data}}(x)\)</span>，
+但如果我们能得到它的分数（基于数据变量 <span class="math notranslate nohighlight">\(x\)</span> 的一阶偏导） <span class="math notranslate nohighlight">\(\nabla_{x} \log p_{\text{data}}(x)\)</span>，
+那么就可以利用它的分数 <span class="math notranslate nohighlight">\(\nabla_{x}\log p_{\text{data}}(x)\)</span> 从 <span class="math notranslate nohighlight">\(p_{\text{data}}(x)\)</span> 中随机采样。
+这样基于分数的采样方法有很多，可以从中选择一个合适的采样方法。
+所以基于分数的生成模型，宏观来看就两步：</p>
+<ol class="arabic simple">
+<li><p>利用分数匹配方法估计出数据分布 <span class="math notranslate nohighlight">\(p_{\text{data}}(x)\)</span> 的近似分数 <span class="math notranslate nohighlight">\(s_{\theta}(x)\)</span></p></li>
+<li><p>使用某个基于分数 <span class="math notranslate nohighlight">\(s_{\theta}(x)\)</span> 的采样算法，随机采样近似数据分布 <span class="math notranslate nohighlight">\(p_{\text{data}}(x)\)</span> 的样本。</p></li>
+</ol>
+<section id="score-matching">
+<h3><span class="section-number">4.1.1. </span>分数匹配算法（Score Matching）<a class="headerlink" href="#score-matching" title="永久链接至标题"></a></h3>
+<p>分数匹配（Score Matching），简单来说它就是一种概率密度估计的方法。
+该方法在多元高斯和独立分量分析模型上得到了证明 <a class="footnote-reference brackets" href="#footcite-hyvarinen2005estimation" id="id7">3</a>。
+在概率统计学中，很多概率密度函数可以写成如下的形式，比如无向图中的概率密度，通过贝叶斯公式推导出的后验概率分布等等。</p>
+<div class="math notranslate nohighlight" id="equation-eq-score-dm-001">
+<span class="eqno">(4.1.51)<a class="headerlink" href="#equation-eq-score-dm-001" title="公式的永久链接"></a></span>\[p(x;\theta) =  \frac{q(x;\theta)}{Z}\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(\theta\)</span> 是未知参数， <span class="math notranslate nohighlight">\(x\)</span> 是我们感兴趣的目标随机变量，可以是一个多元向量。
+<span class="math notranslate nohighlight">\(Z\)</span> 作为分母，它起到归一化的作用，使得式子 <span class="math notranslate nohighlight">\(q(x;\theta)/Z\)</span> 的积分为 <span class="math notranslate nohighlight">\(1\)</span>
+，进而满足概率密度的约束。
+多数情况下，尤其是使用了贝叶斯定理的情况，<span class="math notranslate nohighlight">\(Z\)</span> 本身就是分子的积分</p>
+<div class="math notranslate nohighlight" id="equation-eq-score-dm-002">
+<span class="eqno">(4.1.52)<a class="headerlink" href="#equation-eq-score-dm-002" title="公式的永久链接"></a></span>\[Z = \int q(x;\theta) dx\]</div>
+<p>然而很多情况下这个积分是难以计算的，甚至无法计算的，这就导致我们无法得到概率密度 <span class="math notranslate nohighlight">\(p(x;\theta)\)</span> 的准确形式，
+虽然用最大似然估计能帮我们估计出未知参数 <span class="math notranslate nohighlight">\(\theta\)</span>，但没办法得到 <span class="math notranslate nohighlight">\(p(x;\theta)\)</span> 的完整形式，
+也就不能从 <span class="math notranslate nohighlight">\(p(x;\theta)\)</span> 进行样本生成等等工作。
+而分数匹配就是帮我们估计出 <span class="math notranslate nohighlight">\(p(x;\theta)\)</span> 的一个近似表示，我们用这个近似表示来代替原本的 <span class="math notranslate nohighlight">\(p(x;\theta)\)</span>。</p>
+<p>假设我们有变量 <span class="math notranslate nohighlight">\(x\)</span> 的一些观测样本，我们用 <span class="math notranslate nohighlight">\(p_{\text{data}}(x)\)</span> 表示这些数据的真实分布
+，然后定义一个近似的参数化分布（训练的模型）表示为 <span class="math notranslate nohighlight">\(p_{\theta}(x)\)</span>，
+分数匹配的目标函数是</p>
+<div class="math notranslate nohighlight" id="equation-eq-score-dm-003">
+<span class="eqno">(4.1.53)<a class="headerlink" href="#equation-eq-score-dm-003" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}J(\theta) &amp;= \frac{1}{2} \int p_{\text{data}}(x) \left\lVert \nabla \log p_{\text{data}}(x) - \nabla \log p_{\theta}(x)  \right\rVert^2 d x\\&amp;=\frac{1}{2}  \EE[p_{\text{data}}(x)]{  \left\lVert \nabla \log p_{\text{data}}(x) - \nabla \log p_{\theta}(x)  \right\rVert^2 }\end{aligned}\end{align} \]</div>
+<p>为了符号简洁，分别定义 <span class="math notranslate nohighlight">\(s_{\theta}(x)=\nabla \log p_{\theta}(x)\)</span>，
+<span class="math notranslate nohighlight">\(s_{data}(x)=\nabla \log p_{\text{data}}(x)\)</span>，
+注意这里的梯度都是对变量 <span class="math notranslate nohighlight">\(x\)</span> 的
+，不是参数 <span class="math notranslate nohighlight">\(\theta\)</span>，别搞混了。</p>
+<div class="math notranslate nohighlight" id="equation-eq-score-dm-004">
+<span class="eqno">(4.1.54)<a class="headerlink" href="#equation-eq-score-dm-004" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}J(\theta) &amp;= \frac{1}{2} \int p_{\text{data}}(x) \left\lVert s_{data}(x) - s_{\theta}(x)  \right\rVert^2_2 d x\\&amp;= \frac{1}{2}  \EE[p_{\text{data}}(x)]{  \left\lVert s_{data}(x) - s_{\theta}(x)  \right\rVert^2_2  }\end{aligned}\end{align} \]</div>
+<p>通过极小化目标函数求得参数化分布的未知参数</p>
+<div class="math notranslate nohighlight" id="equation-eq-score-dm-005">
+<span class="eqno">(4.1.55)<a class="headerlink" href="#equation-eq-score-dm-005" title="公式的永久链接"></a></span>\[\hat{\theta} =  \operatorname*{\arg \min}_{\theta} \ J(\theta)\]</div>
+<p>单纯的看这个目标函数似乎很简单，他就是一个均方误差而已，它的目标是令近似分布的对数概率密度梯度和真实数据分布的对数概率密度的梯度尽量相近，
+这其实建立在：如果两个分布的对数密度梯度是一样的，那么他们的概率密度也是一样的。
+这个目标函数形式很简单，但是有个问题，就是 <span class="math notranslate nohighlight">\(s_{data}(x)\)</span> 是不知道的，是无法计算的。</p>
+<p>然后一顿操作猛如虎，得到了目标函数的一个等价表示</p>
+<div class="math notranslate nohighlight" id="equation-eq-score-dm-006">
+<span class="eqno">(4.1.56)<a class="headerlink" href="#equation-eq-score-dm-006" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}J(\theta) &amp;=  \int p_{\text{data}}(x) \left [ tr( \nabla_{x} s_{\theta}(x))
++ \frac{1}{2} \left\lVert  s_{\theta}(x)   \right\rVert^2_2  \right ] d x\\&amp;= \EE[p_{\text{data}}(x)] {   tr( \nabla_{x} s_{\theta}(x))
++ \frac{1}{2} \left\lVert  s_{\theta}(x)   \right\rVert^2_2   }\end{aligned}\end{align} \]</div>
+<p>其中 <span class="math notranslate nohighlight">\(\nabla_{x} s_{\theta}(x)\)</span> 是 <span class="math notranslate nohighlight">\(s_{\theta}(x)\)</span> 的一阶偏导，
+是 <span class="math notranslate nohighlight">\(\log p_{\theta}(x)\)</span> 的二阶偏导，因为是二阶偏导，所以他是一个方阵，
+也被称为 Hessian 矩阵， <span class="math notranslate nohighlight">\(tr(\cdot)\)</span> 表示对角线元素。<span class="math notranslate nohighlight">\(s_{\theta}(x)\)</span> 是我们的近似分布（拟合模型）的
+一阶偏导，它是可以计算的。在这个等价表示中，没有了数据分布的梯度，只剩下了可以计算的拟合模型的梯度。
+从 <a class="reference internal" href="#equation-eq-score-dm-005">公式(4.1.55)</a> 到 <a class="reference internal" href="#equation-eq-score-dm-006">公式(4.1.56)</a> 的推导过程这里不再赘述，
+详细过程可以参考论文 <span id="id8">[<a class="reference internal" href="dalle2.html#id21" title="Aapo Hyvärinen and Peter Dayan. Estimation of non-normalized statistical models by score matching. Journal of Machine Learning Research, 2005.">HyvarinenD05</a>]</span>。</p>
+<p>然而事情还没有完，二阶偏导 <span class="math notranslate nohighlight">\(tr( \nabla_{x} s_{\theta}(x))\)</span> 虽然可以计算，
+但是计算成本时非常高的，尤其是在变量 <span class="math notranslate nohighlight">\(x\)</span> 很高维或者神经网络层次很深的时候，
+通常是无法接受的。针对这个情况，一般有两种解决方法，
+分层分数匹配（Sliced score matching）和降噪分数匹配（Denoising score matching）。</p>
+<p><strong>分层分数匹配（Sliced score matching）</strong></p>
+<p>分层匹配使用一个随机投影矩阵可以 <strong>近似</strong> 计算 <span class="math notranslate nohighlight">\(tr( \nabla_{x} s_{\theta}(x))\)</span>
+，改变后的目标函数为</p>
+<div class="math notranslate nohighlight" id="equation-eq-score-dm-007">
+<span class="eqno">(4.1.57)<a class="headerlink" href="#equation-eq-score-dm-007" title="公式的永久链接"></a></span>\[ \mathbb{E}_{p_v} \EE[p_{\text{data}}(x)]  { v^T \nabla_{x} s_{\theta}(x)  v
++ \frac{1}{2} \left\lVert  s_{\theta}(x)   \right\rVert^2_2   }\]</div>
+<p>其中 <span class="math notranslate nohighlight">\(p_v\)</span> 是一个简单的随机向量即可，比如多元正态分布。
+其中 <span class="math notranslate nohighlight">\(v^T \nabla_{x} s_{\theta}(x)  v\)</span> 可以直接利用正向模式的自动微分计算，
+但是仍然要四倍的计算量。</p>
+<p><strong>降噪分数匹配（Denoising score matching）</strong></p>
+<p>另一种解决分数匹配的方法是降噪分数匹配（Denoising score matching），它是分数匹配算法的一个变种，
+它可以完全避开 <span class="math notranslate nohighlight">\(tr( \nabla_{x} s_{\theta}(x))\)</span> 的计算。
+首先在观测数据 <span class="math notranslate nohighlight">\(x\)</span> 上添加一些预先设定好的噪声数据，得到了新的数据 <span class="math notranslate nohighlight">\(\tilde{x}\)</span>
+，这相当于构建了一条件概率分布 <span class="math notranslate nohighlight">\(q_{\sigma}(\tilde{x}|x)\)</span>，
+根据边际化方法，边缘分布 <span class="math notranslate nohighlight">\(q_{\sigma}(\tilde{x})\)</span> 的计算方法为</p>
+<div class="math notranslate nohighlight" id="equation-eq-score-dm-008">
+<span class="eqno">(4.1.58)<a class="headerlink" href="#equation-eq-score-dm-008" title="公式的永久链接"></a></span>\[q_{\sigma}(\tilde{x}) \triangleq \int q_{\sigma}(\tilde{x}|x)  p_{\text{data}}(x) d x\]</div>
+<p>然后把分数匹配算法应用在这个加噪后的数据分布上，</p>
+<div class="math notranslate nohighlight" id="equation-eq-score-dm-009">
+<span class="eqno">(4.1.59)<a class="headerlink" href="#equation-eq-score-dm-009" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}&amp; \frac{1}{2} \mathbb{E}_{q_{\sigma}(\tilde{x}|x) }
+\left [  \left\lVert  s_{\theta}(\tilde{x}) -\nabla_{\tilde{x}} \log q_{\sigma}(\tilde{x})   \right\rVert^2_2   \right ]\\=&amp; \frac{1}{2} \mathbb{E}_{q_{\sigma}(\tilde{x}|x) p_{\text{data}}(x) }
+\left [  \left\lVert  s_{\theta}(\tilde{x}) -\nabla_{\tilde{x}} \log q_{\sigma}(\tilde{x}|x)   \right\rVert^2_2   \right ]\end{aligned}\end{align} \]</div>
+<p>这么做的一个前提是，如果添加的噪声足够小，那么 <span class="math notranslate nohighlight">\(q_{\sigma}(\tilde{x}) \approx p_{\text{data}}(x)\)</span>
+成立，此时有 <span class="math notranslate nohighlight">\(\nabla_{\tilde{x}} \log q_{\sigma}(\tilde{x}) \approx \nabla_{x} \log p_{\text{data}}(x)\)</span>
+成立，这时我们可以用分数匹配算法估计出 <span class="math notranslate nohighlight">\(q_{\sigma}(\tilde{x})\)</span> 的分数 <span class="math notranslate nohighlight">\(\nabla_{\tilde{x}} \log q_{\sigma}(\tilde{x})\)</span>
+，并用它近似表示原数据分布 <span class="math notranslate nohighlight">\(p_{\text{data}}(x)\)</span> 的分数。</p>
 </section>
-<section id="id2">
-<h2><span class="section-number">4.2. </span>随机微分方程<a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
+<section id="id9">
+<h3><span class="section-number">4.1.2. </span>基于分数的生成模型面临的困难<a class="headerlink" href="#id9" title="永久链接至标题"></a></h3>
+<p>理想是美好的，现实是残酷的。虽然我们想到了这种基于分数的采样模型，
+然而在实际应用时需要面临一些困难，论文中主要提出了两类困难：</p>
+<ol class="arabic simple">
+<li><p>分数匹配算法估计分数的准确性问题。</p></li>
+<li><p>基于分数的采样算法的准确性问题。</p></li>
+</ol>
+<section id="id10">
+<h4><span class="section-number">4.1.2.1. </span>分数估计不准的问题<a class="headerlink" href="#id10" title="永久链接至标题"></a></h4>
+<p>论文中一共提出两个原因会导致分数估计不准确，一个是流体假设问题，一个是低密度区域样本不足的问题。</p>
+<p><strong>流形假设问题</strong></p>
+<p>首先看流体假设问题，论文指出了流形假设的存在，即现实世界中的数据往往集中在嵌入高维空间的低维流形上。
+这句话对数学不好的同学来说跟天书一样，说人话就是，你观测的数据 <span class="math notranslate nohighlight">\(x\)</span> 是 <span class="math notranslate nohighlight">\(n\)</span> 维，
+你以为它真的就是 <span class="math notranslate nohighlight">\(n\)</span> 维吗？现实是：多数情况下，数据中含有信息的真正维度往往小于 <span class="math notranslate nohighlight">\(n\)</span> 维。
+比如一张 <span class="math notranslate nohighlight">\(4096 \times 2160 \)</span>
+，你以为这 <span class="math notranslate nohighlight">\(880w\)</span> 个像素点都是独立有意义的么？未必，我把它压缩到 <span class="math notranslate nohighlight">\(1920 \times 1080=1080P\)</span>
+后，图像的关键信息可能并没有丢失。也就是说原来 4K 图像中很多像素点其实可有可无，并没有包含有意义的信息。</p>
+<p>这里我换个容易理解的说法，从小学数学说起。
+在学线性方程组时，我们知道方程组的解有无解、唯一解、无穷解等等情况。
+假设有一个包含 <span class="math notranslate nohighlight">\(n\)</span> 个方程和 <span class="math notranslate nohighlight">\(m\)</span> 个未知参数的方程组，
+有 <span class="math notranslate nohighlight">\(m\)</span> 个参数就有 <span class="math notranslate nohighlight">\(m\)</span> 对应的系数。
+但是你的方程与方程之间，系数与系数之间可能存在着线性相关，
+即某个方程可以通过其它方程线性变化得到，某个系数可以通过其它系数线性变换得到，
+这样的方程称为无效方程，这样的系数对应的参数称为无效参数或者自由参数。
+假设方程组中有意义的方程为 <span class="math notranslate nohighlight">\(\tilde{n}\)</span> 个，即方程组中独立无关的方程有 <span class="math notranslate nohighlight">\(\tilde{n}\)</span> 个；
+相互独立无关的系数有 <span class="math notranslate nohighlight">\(\tilde{m}\)</span> 个。
+有两种情况会导致方程组有无穷解，无穷解意为着不能确定未知参数的值。</p>
+<ol class="arabic simple">
+<li><p>当 <span class="math notranslate nohighlight">\(\tilde{m}&lt;\tilde{n}\)</span> 时，意为着有意义方程数量不足以确定全部参数的值，此时就方程组会有无穷解。
+这种情况，就相当于在机器学习场景中，有意义的观测样本（方程）数量少于观测变量（系数）的数量。</p></li>
+<li><p>当 <span class="math notranslate nohighlight">\(\tilde{n}&lt;n\)</span> 时，此时意为着有部分系数之间不是相互独立的，这些系数对应的参数就成了自由参数，它的值可以是任意的，此时就方程组也会有无穷解。
+这种情况，就相当于在机器学习场景中，你的特征变量（观测变量）不是相互独立的，存在线性相关。</p></li>
+</ol>
+<p>进入到线性代数，线性方程组可以用形如 <span class="math notranslate nohighlight">\(A\theta=b\)</span> 的矩阵表达，
+其中 <span class="math notranslate nohighlight">\(A\)</span> 是系数矩阵，对应着观测变量的观测值矩阵，或者说特征矩阵，<span class="math notranslate nohighlight">\(\theta\)</span> 是未知参数组成的向量，
+<span class="math notranslate nohighlight">\(b\)</span> 是方程组等号右侧值组成的向量，对应着机器学习场景下的 Label 值向量。
+矩阵 <span class="math notranslate nohighlight">\(A\)</span> 行的数量对应着观测样本的数量，列数对应着观测变量的维数（或者是个数），
+列数和 <span class="math notranslate nohighlight">\(\theta\)</span> 向量长度（未知参数数量）是一样的。</p>
+<p>如果矩阵 <span class="math notranslate nohighlight">\(A\)</span> 列满秩，意味着观测变量（系数）之间是相互独立的，每一个观测变量都含有有意义的信息；
+反之，如果观测变量（系数）之间是部分存在线性关系（或者一一映射），则矩阵 <span class="math notranslate nohighlight">\(A\)</span> 列不满秩，
+矩阵 <span class="math notranslate nohighlight">\(A\)</span> 的列秩就等于有意义观测变量的数量。</p>
+<p>回到流形假设问题，流行假设描述的是 <strong>类似列不满秩的情况</strong> ，就是说我们观测到的数据维度是 <span class="math notranslate nohighlight">\(m\)</span>
+，但很可能这 <span class="math notranslate nohighlight">\(m\)</span> 个变量（或者说维度）并不是都有意义，其中某些变量（维度）可能没有意义，
+可以由其它变量组合变换的到，这样的变量本身是不包含任何有价值信息的。
+<strong>反映到分数估计算法上，这些变量的分数（偏导数）理论上有任意解，不稳定，呈现出来的现象就是训练时 Loss 不稳定不收敛，会反复横跳</strong>
+，具体可以看原论文里的实验和图解。</p>
+<figure class="align-center" id="id21">
+<span id="fg-dm-001"></span><a class="reference internal image-reference" href="../_images/score_001.png"><img alt="../_images/score_001.png" src="../_images/score_001.png" style="width: 829.1999999999999px; height: 303.59999999999997px;" /></a>
+<figcaption>
+<p><span class="caption-number">图 4.1.1 </span><span class="caption-text">左图流体假设导致的LOSS不收敛，右图添加了噪声后的 LOSS情况 （图片来自 <a class="footnote-reference brackets" href="#footcite-song2019generative" id="id11">1</a>）</span><a class="headerlink" href="#id21" title="永久链接至图片"></a></p>
+</figcaption>
+</figure>
+<p><strong>低密度的问题</strong></p>
+<p>另一个影响分数估计准确性的是概率密度的低密度问题，这个问题其实很简单，
+本质上就是观测样本不足的问题。
+我们知道，对于一个非均匀分布的概率分布来说，其概率密度是不均匀的，概率密度低的地方意为着产生概率低，
+那理论上获得这些区域的观测样本的概率就小。也就说，大多数情况下，对于低概率密度的区域，
+我们观测样本覆盖是不足的，这时自然分数估计算法这些区域的拟合和学习就不足，
+显然它对这些区域的预测也将不准。</p>
+</section>
+<section id="id12">
+<h4><span class="section-number">4.1.2.2. </span>郎之万动力采样不准的问题<a class="headerlink" href="#id12" title="永久链接至标题"></a></h4>
+<p>郎之万动力采样（Langevin dynamics sample）算法，是一种利用分数从目标概率分布采样的方法，
+假设目标概率分布是 <span class="math notranslate nohighlight">\(p(x)\)</span>，
+它的分数表示为 <span class="math notranslate nohighlight">\(\nabla_{x} \log p(x)\)</span>
+，给定一个固定的步进 <span class="math notranslate nohighlight">\(\epsilon &gt;0\)</span>
+，以及一个初始样本 <span class="math notranslate nohighlight">\(\tilde{x} \sim \pi(x)\)</span>，
+<span class="math notranslate nohighlight">\(\pi(x)\)</span> 可以认为是一个先验分布，
+郎之万动力采样通过如下迭代方程得到一个目标分布 <span class="math notranslate nohighlight">\(p(x)\)</span> 的采样。</p>
+<div class="math notranslate nohighlight" id="equation-eq-score-dm-010">
+<span class="eqno">(4.1.60)<a class="headerlink" href="#equation-eq-score-dm-010" title="公式的永久链接"></a></span>\[\tilde{x}_{t} = \tilde{x}_{t-1} + \frac{\epsilon}{2} \nabla_{x} \log p( \tilde{x}_{t-1}) + \sqrt{\epsilon} z_t
+, \quad
+z_t \sim \mathcal{0,\textit{I}}\]</div>
+<p>当满足 <span class="math notranslate nohighlight">\(\epsilon \rightarrow 0\)</span> ， <span class="math notranslate nohighlight">\(T \rightarrow \infty\)</span> 和一些正则性条件时,
+<span class="math notranslate nohighlight">\(\tilde{x}_{T}\)</span> 就服从分布 <span class="math notranslate nohighlight">\(p(x)\)</span>，
+此时 <span class="math notranslate nohighlight">\(\tilde{x}_{T}\)</span> 可以看成目标分布 <span class="math notranslate nohighlight">\(p(x)\)</span> 的一个采样。
+当然如果 <span class="math notranslate nohighlight">\(\epsilon &gt; 0\)</span> 并且 <span class="math notranslate nohighlight">\(T &lt; \infty\)</span>
+采样就不是很准，但实际应用中可以忽略这些误差，勉强能用，
+我们要做的就是让 <span class="math notranslate nohighlight">\(\epsilon\)</span> 尽量小，让 <span class="math notranslate nohighlight">\(T\)</span> 尽量大。</p>
+<p>郎之万动力采样的优势就是它只需要有目标分布的分数就行了，不需要知道目标分布 <span class="math notranslate nohighlight">\(p(x)\)</span> 具体形式。
+仔细观察下这个公式，这不就是一个梯度迭代法么，让 <span class="math notranslate nohighlight">\(x_t\)</span> 逐步沿着 <span class="math notranslate nohighlight">\(p(x)\)</span> 的梯度向着 <span class="math notranslate nohighlight">\(p(x)\)</span> 概率密度最大的点前进，
+迭代过程中加入一个随机高斯噪声 <span class="math notranslate nohighlight">\(z_t\)</span>，使其具备随机性。万变不离其宗，搞来搞去就这么点事！！！</p>
+<div class="admonition tip">
+<p class="admonition-title">小技巧</p>
+<p>既然就是个梯度迭代，那我加入二阶梯度是不是采样能更快点？</p>
+</div>
+<p>然而郎之万动力采样存在一个显著的缺陷，
+当数据分布是一个很复杂的分布时，比如存在低密度区域，并且低密度区域把整个概率密度空间分割成多个区域时，
+郎之万动力采样法无法在合理的时间能得到正确的采样，最典型的例子就是高斯混合分布，
+原论文就是用两个分量的混合高斯分布做实验和举例，
+论证了在这种情况下郎之万动力采样法无法健康工作。
+当然如果 <span class="math notranslate nohighlight">\(T\)</span>  足够大还是可以合理采样的，
+但实际应用中，没办法令 <span class="math notranslate nohighlight">\(T\)</span> 足够大，那样的话迭代次数太多，效率太慢了。</p>
+</section>
+</section>
+<section id="id13">
+<h3><span class="section-number">4.1.3. </span>通过加噪的方法估计分布的近似分数<a class="headerlink" href="#id13" title="永久链接至标题"></a></h3>
+<p>通过上一节，我们知道了基于分数的生成模型，面临两个困难，
+1）高维空间有效性问题，有意义信息的维度可能远远小于观测数据的维度，导致分数估计算法不收敛。
+2）数据分布低密度区域问题，低密度区域一方面因为样本不足令分数匹配算法估计不准，另一方面使郎之万采样算法无法在可接受的步数内得到有效采样。
+那怎么解决呢？你猜对了，通过对数据添加高斯噪声解决。</p>
+<p>为什么添加噪声能解决上述问题呢？思考下，原数据分数是 <span class="math notranslate nohighlight">\(p_{data}(x)\)</span>，
+再它基础上添加一些高斯噪声，这个过程对应条件概率分布 <span class="math notranslate nohighlight">\(q_\sigma(\tilde{x}|x)\)</span>，
+添加噪声后得到新的数据 <span class="math notranslate nohighlight">\(\tilde{x}\)</span> 的边缘分布是 <span class="math notranslate nohighlight">\(q_\sigma(\tilde{x}) = \int q_\sigma(\tilde{x}|x) p_{data}(x) dx\)</span>，
+添加噪声就相当于改变了原来的数据分布，这种改变影响两个方面：</p>
+<ol class="arabic simple">
+<li><p>会破坏掉原来数据变量 <span class="math notranslate nohighlight">\(x\)</span> 各个维度（分量）之间的相关性，使得各个维度（分量）间相关性减弱，相当于 <span class="math notranslate nohighlight">\(x\)</span> 变得满秩了。</p></li>
+<li><p>会改变 <span class="math notranslate nohighlight">\(p_{data}(x)\)</span> 的密度，各分量之间添加的噪声是同等权重的，低密度区域会密度变高，相对来说整个密度空间变得均匀了。</p></li>
+</ol>
+<p>添加的噪声越多，对上述两点的影响越大，对问题的改善就越好。这种加噪声的方法又完美契合了上面介绍的
+分数匹配两种方法之一的降噪分数匹配，就是这么的巧合。
+但是，但是，这里有冲突！！！回看一下降噪分数匹配算法，它成立的条件是添加的噪声不能太多啊，
+不然 <span class="math notranslate nohighlight">\(q_\sigma(\tilde{x})\)</span> 就离 <span class="math notranslate nohighlight">\(p_{data}(x)\)</span> 太远了，
+就不能用 <span class="math notranslate nohighlight">\(q_\sigma(\tilde{x})\)</span> 的分数近似 <span class="math notranslate nohighlight">\(p_{data}(x)\)</span> 的分数了。
+而这里有需要足够的大噪声去改善上述两个问题，噪声不够大，这两个问题解决不彻底啊！！！</p>
+<p>那么怎么解决？既然有的人贪心要的多，有的人佛系要的少，重口难调。
+那么就按需分配，设置不同强度等级噪声，各种强度等级的噪声都安排上，总有一款适合你。</p>
+<p>令 <span class="math notranslate nohighlight">\(\{\sigma_i\}_{i=1}^L\)</span> 是一个满足 <span class="math notranslate nohighlight">\(\frac{\sigma_1}{\sigma_2}=\cdots=\frac{\sigma_{L-1}}{\sigma_{L}}\)</span>
+的正几何序列。
+令条件分布 <span class="math notranslate nohighlight">\(q_{\sigma_i}(\tilde{x}|x)\)</span> 是一个高斯条件分布，
+它表示加噪过程，则有</p>
+<div class="math notranslate nohighlight" id="equation-aigc-score-based-generative-models-0">
+<span class="eqno">(4.1.61)<a class="headerlink" href="#equation-aigc-score-based-generative-models-0" title="公式的永久链接"></a></span>\[q_{\sigma_i}(\tilde{x}|x) \sim \mathcal{N}( \tilde{x}|x, \sigma_i^2 \textit{I} )\]</div>
+<p>令 <span class="math notranslate nohighlight">\(q_{\sigma_i}(\tilde{x})\)</span> 表示加噪扰动后的数据边缘分布，
+则有</p>
+<div class="math notranslate nohighlight" id="equation-eq-scored-020">
+<span class="eqno">(4.1.62)<a class="headerlink" href="#equation-eq-scored-020" title="公式的永久链接"></a></span>\[q_{\sigma_i}(\tilde{x}) \triangleq
+\int p_{data}(x)  q_{\sigma_i}(\tilde{x}|x) dt\]</div>
+<p>和之前一样，可以通过采样法得到 <span class="math notranslate nohighlight">\(\tilde{x}\)</span> 的样本</p>
+<div class="math notranslate nohighlight" id="equation-aigc-score-based-generative-models-1">
+<span class="eqno">(4.1.63)<a class="headerlink" href="#equation-aigc-score-based-generative-models-1" title="公式的永久链接"></a></span>\[\tilde{x} = x + \sigma^2_i \epsilon , \quad \epsilon \sim \mathcal{0,\textit{I}}\]</div>
+<p>相比于 DDPM ，这里没有定义一个 <span class="math notranslate nohighlight">\(\alpha\)</span> 参数，事实上 <span class="math notranslate nohighlight">\(\sigma^2_i\)</span>
+起到了类似的作用。
+<span class="math notranslate nohighlight">\(\sigma^2_i\)</span> 从大到小变化，
+<span class="math notranslate nohighlight">\(\sigma^2_0\)</span> 足够大用来解决上面的问题，
+<span class="math notranslate nohighlight">\(\sigma^2_L\)</span> 足够小用来提高分数匹配估计的效果。</p>
+<p>接下来利用上述的分层分数匹配（Sliced score matching）或者降噪分数匹配（Denoising score matching）
+学习一个分数估计模型，它能在不同噪声强度下估计出扰动加噪后数据的分数。
+在这里分层分数匹配和降噪分数匹配两种方法都可以使用，没有特别的限制。
+条件高斯分布 <span class="math notranslate nohighlight">\(q_{\sigma_i}(\tilde{x}| x)\)</span> 的分数为</p>
+<div class="math notranslate nohighlight" id="equation-aigc-score-based-generative-models-2">
+<span class="eqno">(4.1.64)<a class="headerlink" href="#equation-aigc-score-based-generative-models-2" title="公式的永久链接"></a></span>\[\nabla_{\tilde{x}} \log q_{\sigma_i}(\tilde{x}| x)=
+- \frac{\tilde{x}-x}{\sigma_i^2}\]</div>
+<p>按照降噪分数匹配的方法，单一噪声强度的目标函数为</p>
+<div class="math notranslate nohighlight" id="equation-aigc-score-based-generative-models-3">
+<span class="eqno">(4.1.65)<a class="headerlink" href="#equation-aigc-score-based-generative-models-3" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\ell(\theta;\sigma_i) &amp; \triangleq \frac{1}{2} \mathbb{E}_{p_{data}(x)}
+\mathbb{E}_{\tilde{x} \sim \mathcal{x,\sigma_i^2 \textit{I}}}
+\left [  \left\lVert  s_{\theta}(\tilde{x},\sigma_i) -\nabla_{\tilde{x}} \log q_{\sigma}(\tilde{x}|x)   \right\rVert^2_2   \right ]\\&amp; =  \frac{1}{2} \mathbb{E}_{p_{data}(x)}
+\mathbb{E}_{\tilde{x} \sim \mathcal{x,\sigma_i^2 \textit{I}}}
+\left [  \left\lVert  s_{\theta}(\tilde{x},\sigma_i) + \frac{\tilde{x}-x}{\sigma_i^2}   \right\rVert^2_2   \right ]\end{aligned}\end{align} \]</div>
+<p>然后把所有噪声等级结合在一起</p>
+<div class="math notranslate nohighlight" id="equation-aigc-score-based-generative-models-4">
+<span class="eqno">(4.1.66)<a class="headerlink" href="#equation-aigc-score-based-generative-models-4" title="公式的永久链接"></a></span>\[\mathcal{L}(\theta;\{\sigma_i\}_{i=1}^L) \triangleq \frac{1}{L} \sum_{i=1}^L \lambda(\sigma_i) \ell(\theta;\sigma_i)\]</div>
+</section>
+<section id="id14">
+<h3><span class="section-number">4.1.4. </span>基于分数的改进采样算法<a class="headerlink" href="#id14" title="永久链接至标题"></a></h3>
+</section>
+</section>
+<section id="id15">
+<h2><span class="section-number">4.2. </span>随机微分方程<a class="headerlink" href="#id15" title="永久链接至标题"></a></h2>
 <p>我们提出了一个随机微分方程（SDE），通过缓慢注入噪声将复杂的数据分布平滑地转换为已知的先验分布，以及相应的逆时间SDE，通过缓慢去除噪声将先验分布转换回数据分布。</p>
 <p>我们表明，该框架封装了以前在基于分数的生成建模和扩散概率建模中的方法，允许新的采样过程和新的建模能力
 我们还推导了一个等效的神经ODE，它从与SDE相同的分布中进行采样，但还能够进行精确的似然计算，并提高采样效率。
 此外，我们提供了一种新的方法来解决基于分数的模型的反问题，正如类条件生成、图像修复和着色实验所证明的那样</p>
-<section id="id3">
-<h3><span class="section-number">4.2.1. </span>微分方程<a class="headerlink" href="#id3" title="永久链接至标题"></a></h3>
+<section id="id16">
+<h3><span class="section-number">4.2.1. </span>微分方程<a class="headerlink" href="#id16" title="永久链接至标题"></a></h3>
 <p>在研究客观现象时，常常遇到这样一类数学问题，即其中某个变量和其他变量之间的函数依赖关系是未知的，
 但是这个未知的函数关系以及它的某些阶的导数（或微分）连同自变量都由一个已知的方程联系在一起,
 这样的方程称为微分方程(Differential Equation)。简单来说，
 微分方程指的是：<strong>含有未知函数及其导数的方程</strong>。</p>
 <p>微分方程是联系自变量 <span class="math notranslate nohighlight">\(x\)</span>，关于自变量 <span class="math notranslate nohighlight">\(x\)</span> 和
 它的某些阶导数 <span class="math notranslate nohighlight">\(\frac{df}{dx},\frac{d^2f}{dx^2},\dots,\frac{d^nf}{dx^n}\)</span> 的关系式：</p>
-<div class="math notranslate nohighlight" id="equation-aigc-score-based-generative-models-0">
-<span class="eqno">(4.2.10)<a class="headerlink" href="#equation-aigc-score-based-generative-models-0" title="公式的永久链接"></a></span>\[F\left(x,f,\frac{df}{dx},\frac{d^2f}{dx^2},\dots,\frac{d^nf}{dx^n} \right ) = 0\]</div>
+<div class="math notranslate nohighlight" id="equation-aigc-score-based-generative-models-5">
+<span class="eqno">(4.2.10)<a class="headerlink" href="#equation-aigc-score-based-generative-models-5" title="公式的永久链接"></a></span>\[F\left(x,f,\frac{df}{dx},\frac{d^2f}{dx^2},\dots,\frac{d^nf}{dx^n} \right ) = 0\]</div>
 <p>如果未知函数是一元的，那末对应的微分方程称为常微分方程（Ordinary Differential Equation, ODE）；
 如果未知函数是多元的，那末对应的微分方程称为偏微分方程（Partial Differential Equations, PDE）。
 方程中出现的最高阶导数的阶数称为这个微分方程的阶（order）。</p>
 <p>接下是关于微分方程的解，微分方程解的数量是不固定的，有些微分方程有无穷多解，有的微分方程无解，有的微分方程则仅有有限个解。
 <strong>特解**指的是满足微分方程的某一个解；**通解</strong> 指的是满足微分方程的一组解。</p>
 </section>
-<section id="id4">
-<h3><span class="section-number">4.2.2. </span>随机微分方程<a class="headerlink" href="#id4" title="永久链接至标题"></a></h3>
+<section id="id17">
+<h3><span class="section-number">4.2.2. </span>随机微分方程<a class="headerlink" href="#id17" title="永久链接至标题"></a></h3>
 <p>上节介绍的微分方程，其对象为可导函数，可以称之为一般微分方程。
 然而我们经常需要面对一些 <cite>随机过程函数</cite>，即随时间变化的随机变量，
 此时一般微分方程就不再适用了。在处理随机过程时，就需要有特殊的处理方法。
@@ -1032,8 +1299,8 @@
 显然，从公式可以看出 <span class="math notranslate nohighlight">\(X_t\)</span> 可以由 <span class="math notranslate nohighlight">\(X_0\)</span> 加上漂移项和噪声项的在时间 <span class="math notranslate nohighlight">\(t\)</span>
 上的积分得到。</p>
 </section>
-<section id="id5">
-<h3><span class="section-number">4.2.3. </span>基于随机微分方程的生成模型<a class="headerlink" href="#id5" title="永久链接至标题"></a></h3>
+<section id="id18">
+<h3><span class="section-number">4.2.3. </span>基于随机微分方程的生成模型<a class="headerlink" href="#id18" title="永久链接至标题"></a></h3>
 <p>回到图像生成模型的主题来，图像生成扩散模型可以用上述随机微分方程来描述。
 我们的目标是构建一个，建立在连续时间 <span class="math notranslate nohighlight">\(t \in [0,T]\)</span> 上的扩散过程 <span class="math notranslate nohighlight">\(\{X_t\}_{t=0}^T\)</span>
 。<span class="math notranslate nohighlight">\(X_0 \sim p_0\)</span> 表示初始时刻的随机变量，也就是真实图像背后的概率分布，
@@ -1058,9 +1325,24 @@
 利用逆过程从数据分布 <span class="math notranslate nohighlight">\(p_0\)</span> 中去采样新的样本。
 这里直接给出 SDE 的逆过程方程，我们不需要关注它的推导过程，
 SDE的逆过程称为 <cite>逆时间SDE</cite> （reverse-time SDE）</p>
-<div class="math notranslate nohighlight" id="equation-aigc-score-based-generative-models-1">
-<span class="eqno">(4.2.14)<a class="headerlink" href="#equation-aigc-score-based-generative-models-1" title="公式的永久链接"></a></span>\[d x = \left [ f(x,t) -g(t)^2 \Delta_x \log p_t(x)  \right ] dt + g(t) d \bar{w}\]</div>
+<div class="math notranslate nohighlight" id="equation-aigc-score-based-generative-models-6">
+<span class="eqno">(4.2.14)<a class="headerlink" href="#equation-aigc-score-based-generative-models-6" title="公式的永久链接"></a></span>\[d x = \left [ f(x,t) -g(t)^2 \Delta_x \log p_t(x)  \right ] dt + g(t) d \bar{w}\]</div>
 </section>
+</section>
+<section id="id19">
+<h2><span class="section-number">4.3. </span>参考文献<a class="headerlink" href="#id19" title="永久链接至标题"></a></h2>
+<p id="id20"><dl class="footnote brackets">
+<dt class="label" id="footcite-song2019generative"><span class="brackets">1</span><span class="fn-backref">(<a href="#id3">1</a>,<a href="#id11">2</a>)</span></dt>
+<dd><p>Yang Song and Stefano Ermon. Generative modeling by estimating gradients of the data distribution. 2019. <a class="reference external" href="https://arxiv.org/abs/1907.05600">arXiv:1907.05600</a>.</p>
+</dd>
+<dt class="label" id="footcite-song2021scorebased"><span class="brackets"><a class="fn-backref" href="#id4">2</a></span></dt>
+<dd><p>Yang Song, Jascha Sohl-Dickstein, Diederik P. Kingma, Abhishek Kumar, Stefano Ermon, and Ben Poole. Score-based generative modeling through stochastic differential equations. 2021. <a class="reference external" href="https://arxiv.org/abs/2011.13456">arXiv:2011.13456</a>.</p>
+</dd>
+<dt class="label" id="footcite-hyvarinen2005estimation"><span class="brackets"><a class="fn-backref" href="#id7">3</a></span></dt>
+<dd><p>Aapo Hyvärinen and Peter Dayan. Estimation of non-normalized statistical models by score matching. <em>Journal of Machine Learning Research</em>, 2005.</p>
+</dd>
+</dl>
+</p>
 </section>
 </section>
 

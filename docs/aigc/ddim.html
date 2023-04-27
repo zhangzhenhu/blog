@@ -10,7 +10,7 @@
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
-    <link rel="canonical" href="https://zhangzhenhu.github.io/blog/aigc/ddim.html" />
+    <link rel="canonical" href="https://www.zhangzhenhu.com/aigc/ddim.html" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -21,7 +21,7 @@
         <script src="../_static/doctools.js"></script>
         <script src="../_static/translations.js"></script>
         <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-        <script>window.MathJax = {"tex": {"macros": {"RR": "{\\bf R}", "bold": ["{\\bf #1}", 1], "KL": ["{D_\\textrm{KL}\\left ( #1 \\| #2 \\right )}", 2], "EE": ["{\\mathbb{E}_{#1} \\left [ #2 \\right ]}", 2, ""], "scalemath": ["{\\scalebox{#1}{\\mbox{\\ensuremath{\\displaystyle #2}}}}", 2], "argmin": ["{\\operatorname{\\arg\\min}}"], "ind": ["{\\perp\\!\\!\\!\\!\\perp}"]}}}</script>
+        <script>window.MathJax = {"tex": {"macros": {"RR": "{\\bf R}", "bold": ["{\\bf #1}", 1], "KL": ["{D_\\textrm{KL}\\left ( #1 \\| #2 \\right )}", 2], "EE": ["{\\mathbb{E}_{#1} \\left [ #2 \\right ]}", 2, ""], "scalemath": ["{\\scalebox{#1}{\\mbox{\\ensuremath{\\displaystyle #2}}}}", 2], "argmin": ["{\\operatorname*{\\arg\\min}}"], "ind": ["{\\perp\\!\\!\\!\\!\\perp}"]}}}</script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
@@ -728,13 +728,20 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="Score-Based_Generative_Models.html">4. 基于分数的生成模型</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="Score-Based_Generative_Models.html#denoising-score-matching-with-langevin-dynamics">4.1. DENOISING SCORE MATCHING WITH LANGEVIN DYNAMICS</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Score-Based_Generative_Models.html#id2">4.2. 随机微分方程</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="Score-Based_Generative_Models.html#id3">4.2.1. 微分方程</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Score-Based_Generative_Models.html#id4">4.2.2. 随机微分方程</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Score-Based_Generative_Models.html#id5">4.2.3. 基于随机微分方程的生成模型</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Score-Based_Generative_Models.html#id5">4.1. 基于分数的扩散模型</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Score-Based_Generative_Models.html#score-matching">4.1.1. 分数匹配算法（Score Matching）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Score-Based_Generative_Models.html#id9">4.1.2. 基于分数的生成模型面临的困难</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Score-Based_Generative_Models.html#id13">4.1.3. 通过加噪的方法估计分布的近似分数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Score-Based_Generative_Models.html#id14">4.1.4. 基于分数的改进采样算法</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="Score-Based_Generative_Models.html#id15">4.2. 随机微分方程</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Score-Based_Generative_Models.html#id16">4.2.1. 微分方程</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Score-Based_Generative_Models.html#id17">4.2.2. 随机微分方程</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Score-Based_Generative_Models.html#id18">4.2.3. 基于随机微分方程的生成模型</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="Score-Based_Generative_Models.html#id19">4.3. 参考文献</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="Guidance.html">5. 条件控制扩散模型</a><ul>
@@ -1058,7 +1065,8 @@
 只要有了它就能完成生成过程。<span class="math notranslate nohighlight">\(p_{{\theta}}(x_{t-1}|x_t)\)</span> 代表模型，我们的目标就是训练 <span class="math notranslate nohighlight">\(p_{{\theta}}(x_{t-1}|x_t)\)</span>
 令其尽量与 <span class="math notranslate nohighlight">\(q(x_{t-1}|x_t, x_0)\)</span> 相似，它作为 <span class="math notranslate nohighlight">\(q(x_{t-1}|x_t, x_0)\)</span> 的一个近似解。</p>
 <p>单纯的看 <span class="math notranslate nohighlight">\(q(x_{t-1}|x_t, x_0)\)</span>，它是逆向过程的转换核，貌似和前向过程无关，但这是个条件概率分布，它的条件变量是 <span class="math notranslate nohighlight">\(x_t\)</span>
-和 <span class="math notranslate nohighlight">\(x_0\)</span>，也就说它依赖 <span class="math notranslate nohighlight">\(x_t\)</span> 和 <span class="math notranslate nohighlight">\(x_0\)</span>，那这两项怎么来的呢？注意这里关注的是训练阶段。</p>
+和 <span class="math notranslate nohighlight">\(x_0\)</span>，也就说它依赖 <span class="math notranslate nohighlight">\(x_t\)</span> 和 <span class="math notranslate nohighlight">\(x_0\)</span>，那这两项怎么来的呢？注意这里关注的是训练阶段怎么来，
+再预测阶段（图像生成阶段） <span class="math notranslate nohighlight">\(x_0\)</span> 是模型预测得到的，<span class="math notranslate nohighlight">\(x_t\)</span> 本身就是利用 <span class="math notranslate nohighlight">\(q(x_{t-1}|x_t, x_0)\)</span> 一步步迭代得到的。</p>
 <ul class="simple">
 <li><p>先看 <span class="math notranslate nohighlight">\(x_0\)</span>，在训练阶段 <span class="math notranslate nohighlight">\(x_0\)</span> 是观测样本，本身就是已知的。</p></li>
 <li><p>再看 <span class="math notranslate nohighlight">\(x_t\)</span>，最直接的它通过 <span class="math notranslate nohighlight">\(q(x_t|x_{t-1})\)</span> 计算得到，然而我们利用线性高斯的特性，可以直接通过 <span class="math notranslate nohighlight">\(q(x_t|x_0)\)</span> 计算，
@@ -1075,13 +1083,13 @@
 <span class="eqno">(3.2.32)<a class="headerlink" href="#equation-eq-ddim-222" title="公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}q(x_t|x_0)  &amp;= \int q(x_{1:t}|x_0) d x_{1:t-1}\\&amp;= \int \prod_{i=1}^t q(x_{i}|x_{i-1}) d x_{1:t-1}\end{aligned}\end{align} \]</div>
 <p>然而，从概率计算规则上讲，不管 <span class="math notranslate nohighlight">\(q(x_{1:t})\)</span> 怎么分解，最终都是要把它通过积分消除掉，它可以有很多种不同的分解方式的，
 如何分解它并不影响积分后的结果，即不论 <span class="math notranslate nohighlight">\(q(x_{1:t})\)</span> 的分解方式是什么，最后 <span class="math notranslate nohighlight">\(q(x_t|x_0)\)</span> 的结果都是一样的。
-也就说，这种马尔科夫链式分级的方式不是必须得。
+也就说，这种马尔科夫链式分解的方式不是必须得。
 <strong>如果放弃了马尔科夫链式结构的假设，那就得到了一个非马尔科夫的前向模型</strong>。</p>
 <p>从以上的分析结果看，<strong>如果想放弃非马尔科夫的假设，但又想得到和 DDPM 等价的模型（即不改变DDPM的目标函数）</strong>，
 <strong>只需要确保</strong>  <span class="math notranslate nohighlight">\(q(x_t|x_0)\)</span> <strong>和</strong> <span class="math notranslate nohighlight">\(q(x_{t-1}|x_t, x_0)\)</span> <strong>的表达式与DDPM一样就可以了</strong>。
 接下来就尝试构建一个非马尔科夫建设的模型。</p>
 <p>现在，我们重新定义 <span class="math notranslate nohighlight">\(q(x_{1:T}|x_0)\)</span> 的分解方式，
-其中 <span class="math notranslate nohighlight">\(\sigma\)</span> 是一个人工定义的自由参数，它代表了一些分布的方差，
+在这过程中引入一个人工定义的自由参数 <span class="math notranslate nohighlight">\(\sigma^2\)</span>，它代表 <span class="math notranslate nohighlight">\(q_{\sigma}(x_{t-1}|x_t,x_0)\)</span> 的方差，
 它的具体值稍后会讨论。</p>
 <p>定义 <span class="math notranslate nohighlight">\(q(x_{1:T}|x_0)\)</span> 的分解方式为</p>
 <div class="math notranslate nohighlight" id="equation-eq-ddim-225">
@@ -1157,7 +1165,7 @@
 <h2><span class="section-number">3.3. </span>加速采样<a class="headerlink" href="#id4" title="永久链接至标题"></a></h2>
 <p>回顾下 <a class="reference internal" href="#equation-eq-ddim-227">公式(3.2.35)</a>、 <a class="reference internal" href="#equation-eq-ddim-232">公式(3.2.40)</a>、 <a class="reference internal" href="#equation-eq-ddim-233">公式(3.2.41)</a>，多了一个方差参数 <span class="math notranslate nohighlight">\(\sigma^2\)</span>
 ，它代表的是 <span class="math notranslate nohighlight">\(q_{\sigma}(x_{t-1}|x_t,x_0)\)</span> 的方差。
-实际上，它并不是在 DDIM 中额外新增的，现在回顾一下 DDPM 的内容，在 DDPM 中这个方程也是存在的（ <a class="reference internal" href="%E6%89%A9%E6%95%A3%E6%A6%82%E7%8E%87%E6%A8%A1%E5%9E%8B.html#equation-eq-ddpm-036">公式(2.1.58)</a>）
+实际上，它并不是在 DDIM 中额外新增的，现在回顾一下 DDPM 的内容，在 DDPM 中这个方差也是存在的（ <a class="reference internal" href="%E6%89%A9%E6%95%A3%E6%A6%82%E7%8E%87%E6%A8%A1%E5%9E%8B.html#equation-eq-ddpm-036">公式(2.1.58)</a>）
 ，只是在 DDPM 中 <span class="math notranslate nohighlight">\(q_{\sigma}(x_{t-1}|x_t,x_0)\)</span> 是直接通过贝叶斯定理推导出来的（ <a class="reference internal" href="%E6%89%A9%E6%95%A3%E6%A6%82%E7%8E%87%E6%A8%A1%E5%9E%8B.html#equation-eq-ddpm-036">公式(2.1.58)</a>），
 推导的结果中这个方差有一个固定的表达式，即</p>
 <div class="math notranslate nohighlight" id="equation-eq-ddim-234">
@@ -1210,7 +1218,7 @@
 相当于 <span class="math notranslate nohighlight">\(x_{t-1}\)</span> 直接等于了 <span class="math notranslate nohighlight">\(q_{\sigma}(x_{t-1}|x_t,x_0)\)</span> 的期望。
 想一想这意味着什么？</p>
 <ol class="arabic simple">
-<li><p>从随机采样的角度看， <span class="math notranslate nohighlight">\(x_{t-1}\)</span> 不再是从 <span class="math notranslate nohighlight">\(q_{\sigma}(x_{t-1}|x_t,x_0)\)</span> 从随机采样，
+<li><p>从随机采样的角度看， <span class="math notranslate nohighlight">\(x_{t-1}\)</span> 不再是从 <span class="math notranslate nohighlight">\(q_{\sigma}(x_{t-1}|x_t,x_0)\)</span> 进行随机采样，
 而是直接选择 <span class="math notranslate nohighlight">\(q_{\sigma}(x_{t-1}|x_t,x_0)\)</span> 的期望，而又由于 <span class="math notranslate nohighlight">\(q_{\sigma}(x_{t-1}|x_t,x_0)\)</span>
 是高斯分布，它的期望就是它概率密度最大的点，这又相当于 <span class="math notranslate nohighlight">\(x_{t-1}\)</span> 每次都是选取的 <span class="math notranslate nohighlight">\(q_{\sigma}(x_{t-1}|x_t,x_0)\)</span>
 概率密度最大的点，相当于最大概率采样。</p></li>
@@ -1225,9 +1233,9 @@
 <li><p>方差为 <span class="math notranslate nohighlight">\(0\)</span> 时， <span class="math notranslate nohighlight">\(x_t\)</span> 到 <span class="math notranslate nohighlight">\(x_{t-1}\)</span> 的每一步，你就专注的向着目的地笔直前进（沿着期望的方向），不搞幺蛾子，自然到达目的地就快了很多。</p></li>
 </ul>
 <p>回顾一下，我们讲的扩散模型的三个等价表示（ <a class="reference internal" href="%E6%89%A9%E6%95%A3%E6%A6%82%E7%8E%87%E6%A8%A1%E5%9E%8B.html#ch-ddpm-score-based"><span class="std std-numref">节 2.3</span></a>），
-其中一个就是基于分数的等价模型，所谓分数(score)，不就是 <span class="math notranslate nohighlight">\(p(x_0)\)</span> 的梯度么，
+其中一个就是基于分数的等价模型，所谓分数(score)，不就是 <span class="math notranslate nohighlight">\(p(x_t)\)</span> 的梯度么，
 想想梯度下降法，梯度是什么？就是指向 <span class="math notranslate nohighlight">\(p(x_0)\)</span> 的方向，
-<span class="math notranslate nohighlight">\(x_t\)</span> 到 <span class="math notranslate nohighlight">\(x_{t-1}\)</span> 的每一步就是在沿着 <span class="math notranslate nohighlight">\(p(x_0)\)</span> 的梯度向着 <span class="math notranslate nohighlight">\(p(x_0)\)</span> 前进。</p>
+<span class="math notranslate nohighlight">\(x_t\)</span> 到 <span class="math notranslate nohighlight">\(x_{t-1}\)</span> 的每一步就是在沿着 <span class="math notranslate nohighlight">\(p(x_t)\)</span> 的梯度向着 <span class="math notranslate nohighlight">\(p(x_0)\)</span> 前进。</p>
 <p>根据 <a class="reference internal" href="%E6%89%A9%E6%95%A3%E6%A6%82%E7%8E%87%E6%A8%A1%E5%9E%8B.html#ch-ddpm-score-based"><span class="std std-numref">节 2.3</span></a> 的内容，梯度 <span class="math notranslate nohighlight">\(\nabla\log p(x_t)\)</span>
 和预测噪声 <span class="math notranslate nohighlight">\(\hat{\epsilon}_t(x_t,t)\)</span> 的关系为</p>
 <div class="math notranslate nohighlight" id="equation-eq-ddim-236">
@@ -1264,10 +1272,13 @@
 <strong>能不能兼顾速度和多样性呢？</strong> 显然是可以的，设计一个动态自适应的调度算法，开始一段时刻，
 令 <span class="math notranslate nohighlight">\(\sigma_t = 0\)</span> 加快前进收敛速度，最后一段（个）时刻，再令 <span class="math notranslate nohighlight">\(\sigma_t \neq 0\)</span>
 ，增加一点多样性，可以线性控制，也可以余弦控制，总之可以把自适应调度那套玩法借鉴过来。
-同样系数 <span class="math notranslate nohighlight">\(A\)</span> 和 <span class="math notranslate nohighlight">\(B\)</span> 类似于学习率作用，可以同样采用自适应学习率那套玩法。</p>
+同样系数 <span class="math notranslate nohighlight">\(A\)</span> 和 <span class="math notranslate nohighlight">\(B\)</span> 类似于学习率作用，同样可以采用自适应学习率那套玩法。</p>
 <p>在 DDIM 论文中，虽然提出了自由方差参数 <span class="math notranslate nohighlight">\(\sigma_t\)</span>，并做一些实验，
 但论文中把只有 <span class="math notranslate nohighlight">\(\sigma_t = 0\)</span> 的情况定义成 DDIM 模型，
-意为 <cite>隐式（implicit）扩散模型</cite>。</p>
+意为 <cite>隐式（implicit）扩散模型</cite>。
+关于算法的实现代码，可以参考论文作者的实现 <a class="reference external" href="https://github.com/ermongroup/ddim.git">https://github.com/ermongroup/ddim.git</a>
+或者 <code class="docutils literal notranslate"><span class="pre">huggingface</span></code> 开发的扩散模型工具包 <code class="docutils literal notranslate"><span class="pre">diffusers</span></code> 的源码，
+建议看  <code class="docutils literal notranslate"><span class="pre">diffusers</span></code> 的源码，代码写的非常清晰工整，并且在关键点上有注释。</p>
 </section>
 <section id="id5">
 <h2><span class="section-number">3.4. </span>参考文献<a class="headerlink" href="#id5" title="永久链接至标题"></a></h2>

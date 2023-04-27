@@ -2,10 +2,407 @@
 基于分数的生成模型
 ################################################################################################
 
-DENOISING SCORE MATCHING WITH LANGEVIN DYNAMICS
+通过前面的学习，我们发现扩散模型可以从不同的角度进行解释。
+其中一个等价的解释是基于分数的模型，前面虽然简单介绍了下，
+但没有详细说明，本章我们详细讨论下基于分数的扩散模型。
+基于分数的扩散模型是由宋旸 :cite:`song2019generative` 等人在2019年提出 :footcite:p:`song2019generative` 的，
+后来他们又提出了基于随机微分方程的更一般的形式 :footcite:p:`song2021scorebased`，
+本章我们一起讨论学习一下。
+
+
+
+
+
+基于分数的扩散模型
 ################################################################################################
 
+在前面 DDPM 和 DDIM 的章节中，已经探讨了 DDPM 的降噪过程，可以看做是沿着分数（梯度） :math:`\nabla\log p(x_t)`
+前进。然而宋旸等人提出基于分数的论文 :cite:`song2019generative` 相关工作并不是建立在 DDPM 的基础上，
+所以论文里不是从DDPM的马尔科夫链式结构讨论和导出的，而是直接从分数匹配估计算法推导。
 
+
+首先看下基于分数的生成模型的核心思想。
+我们有一些某个分布的观察数据，比如大量的图片数据，
+但是这些数据背后真实的概率分布是未知的，
+我们暂且用符号 :math:`p_{\text{data}}(x)` 表示这些观测数据的真实分布。
+然而我们希望能生成新的数据，也就是想从分布 :math:`p_{\text{data}}(x)` 中采样新的样本，比如采样生成新的图片。
+但分布 :math:`p_{\text{data}}(x)` 是未知的，怎么办呢？
+此时有一种利用分数（score）进行采样的方法，虽然我们不知道 :math:`p_{\text{data}}(x)`，
+但如果我们能得到它的分数（基于数据变量 :math:`x` 的一阶偏导） :math:`\nabla_{x} \log p_{\text{data}}(x)`，
+那么就可以利用它的分数 :math:`\nabla_{x}\log p_{\text{data}}(x)` 从 :math:`p_{\text{data}}(x)` 中随机采样。
+这样基于分数的采样方法有很多，可以从中选择一个合适的采样方法。
+所以基于分数的生成模型，宏观来看就两步：
+
+1. 利用分数匹配方法估计出数据分布 :math:`p_{\text{data}}(x)` 的近似分数 :math:`s_{\theta}(x)`
+2. 使用某个基于分数 :math:`s_{\theta}(x)` 的采样算法，随机采样近似数据分布 :math:`p_{\text{data}}(x)` 的样本。
+
+
+分数匹配算法（Score Matching）
+===================================================
+
+分数匹配（Score Matching），简单来说它就是一种概率密度估计的方法。
+该方法在多元高斯和独立分量分析模型上得到了证明 :footcite:p:`hyvarinen2005estimation`。
+在概率统计学中，很多概率密度函数可以写成如下的形式，比如无向图中的概率密度，通过贝叶斯公式推导出的后验概率分布等等。
+
+.. math::
+    :label: eq_score_dm_001
+
+    p(x;\theta) =  \frac{q(x;\theta)}{Z}
+
+
+其中 :math:`\theta` 是未知参数， :math:`x` 是我们感兴趣的目标随机变量，可以是一个多元向量。
+:math:`Z` 作为分母，它起到归一化的作用，使得式子 :math:`q(x;\theta)/Z` 的积分为 :math:`1`
+，进而满足概率密度的约束。
+多数情况下，尤其是使用了贝叶斯定理的情况，:math:`Z` 本身就是分子的积分
+
+.. math::
+    :label: eq_score_dm_002
+
+    Z = \int q(x;\theta) dx
+
+然而很多情况下这个积分是难以计算的，甚至无法计算的，这就导致我们无法得到概率密度 :math:`p(x;\theta)` 的准确形式，
+虽然用最大似然估计能帮我们估计出未知参数 :math:`\theta`，但没办法得到 :math:`p(x;\theta)` 的完整形式，
+也就不能从 :math:`p(x;\theta)` 进行样本生成等等工作。
+而分数匹配就是帮我们估计出 :math:`p(x;\theta)` 的一个近似表示，我们用这个近似表示来代替原本的 :math:`p(x;\theta)`。
+
+假设我们有变量 :math:`x` 的一些观测样本，我们用 :math:`p_{\text{data}}(x)` 表示这些数据的真实分布
+，然后定义一个近似的参数化分布（训练的模型）表示为 :math:`p_{\theta}(x)`，
+分数匹配的目标函数是
+
+.. math::
+    :label: eq_score_dm_003
+
+    J(\theta) &= \frac{1}{2} \int p_{\text{data}}(x) \left\lVert \nabla \log p_{\text{data}}(x) - \nabla \log p_{\theta}(x)  \right\rVert^2 d x
+
+    &=\frac{1}{2}  \EE[p_{\text{data}}(x)]{  \left\lVert \nabla \log p_{\text{data}}(x) - \nabla \log p_{\theta}(x)  \right\rVert^2 }
+
+
+为了符号简洁，分别定义 :math:`s_{\theta}(x)=\nabla \log p_{\theta}(x)`，
+:math:`s_{data}(x)=\nabla \log p_{\text{data}}(x)`，
+注意这里的梯度都是对变量 :math:`x` 的
+，不是参数 :math:`\theta`，别搞混了。
+
+.. math::
+    :label: eq_score_dm_004
+
+    J(\theta) &= \frac{1}{2} \int p_{\text{data}}(x) \left\lVert s_{data}(x) - s_{\theta}(x)  \right\rVert^2_2 d x
+
+    &= \frac{1}{2}  \EE[p_{\text{data}}(x)]{  \left\lVert s_{data}(x) - s_{\theta}(x)  \right\rVert^2_2  }
+
+通过极小化目标函数求得参数化分布的未知参数
+
+.. math::
+    :label: eq_score_dm_005
+
+    \hat{\theta} =  \operatorname*{\arg \min}_{\theta} \ J(\theta)
+
+
+单纯的看这个目标函数似乎很简单，他就是一个均方误差而已，它的目标是令近似分布的对数概率密度梯度和真实数据分布的对数概率密度的梯度尽量相近，
+这其实建立在：如果两个分布的对数密度梯度是一样的，那么他们的概率密度也是一样的。
+这个目标函数形式很简单，但是有个问题，就是 :math:`s_{data}(x)` 是不知道的，是无法计算的。
+
+
+然后一顿操作猛如虎，得到了目标函数的一个等价表示
+
+.. math::
+    :label: eq_score_dm_006
+
+    J(\theta) &=  \int p_{\text{data}}(x) \left [ tr( \nabla_{x} s_{\theta}(x))
+    + \frac{1}{2} \left\lVert  s_{\theta}(x)   \right\rVert^2_2  \right ] d x
+
+    &= \EE[p_{\text{data}}(x)] {   tr( \nabla_{x} s_{\theta}(x))
+    + \frac{1}{2} \left\lVert  s_{\theta}(x)   \right\rVert^2_2   }
+
+
+其中 :math:`\nabla_{x} s_{\theta}(x)` 是 :math:`s_{\theta}(x)` 的一阶偏导，
+是 :math:`\log p_{\theta}(x)` 的二阶偏导，因为是二阶偏导，所以他是一个方阵，
+也被称为 Hessian 矩阵， :math:`tr(\cdot)` 表示对角线元素。:math:`s_{\theta}(x)` 是我们的近似分布（拟合模型）的
+一阶偏导，它是可以计算的。在这个等价表示中，没有了数据分布的梯度，只剩下了可以计算的拟合模型的梯度。
+从 :eq:`eq_score_dm_005` 到 :eq:`eq_score_dm_006` 的推导过程这里不再赘述，
+详细过程可以参考论文 :cite:`hyvarinen2005estimation`。
+
+
+
+然而事情还没有完，二阶偏导 :math:`tr( \nabla_{x} s_{\theta}(x))` 虽然可以计算，
+但是计算成本时非常高的，尤其是在变量 :math:`x` 很高维或者神经网络层次很深的时候，
+通常是无法接受的。针对这个情况，一般有两种解决方法，
+分层分数匹配（Sliced score matching）和降噪分数匹配（Denoising score matching）。
+
+
+**分层分数匹配（Sliced score matching）**
+
+分层匹配使用一个随机投影矩阵可以 **近似** 计算 :math:`tr( \nabla_{x} s_{\theta}(x))`
+，改变后的目标函数为
+
+.. math::
+    :label: eq_score_dm_007
+
+     \mathbb{E}_{p_v} \EE[p_{\text{data}}(x)]  { v^T \nabla_{x} s_{\theta}(x)  v
+    + \frac{1}{2} \left\lVert  s_{\theta}(x)   \right\rVert^2_2   }
+
+
+其中 :math:`p_v` 是一个简单的随机向量即可，比如多元正态分布。
+其中 :math:`v^T \nabla_{x} s_{\theta}(x)  v` 可以直接利用正向模式的自动微分计算，
+但是仍然要四倍的计算量。
+
+
+**降噪分数匹配（Denoising score matching）**
+
+另一种解决分数匹配的方法是降噪分数匹配（Denoising score matching），它是分数匹配算法的一个变种，
+它可以完全避开 :math:`tr( \nabla_{x} s_{\theta}(x))` 的计算。
+首先在观测数据 :math:`x` 上添加一些预先设定好的噪声数据，得到了新的数据 :math:`\tilde{x}`
+，这相当于构建了一条件概率分布 :math:`q_{\sigma}(\tilde{x}|x)`，
+根据边际化方法，边缘分布 :math:`q_{\sigma}(\tilde{x})` 的计算方法为
+
+.. math::
+    :label: eq_score_dm_008
+
+    q_{\sigma}(\tilde{x}) \triangleq \int q_{\sigma}(\tilde{x}|x)  p_{\text{data}}(x) d x
+
+
+然后把分数匹配算法应用在这个加噪后的数据分布上，
+
+.. math::
+    :label: eq_score_dm_009
+
+    & \frac{1}{2} \mathbb{E}_{q_{\sigma}(\tilde{x}|x) }
+    \left [  \left\lVert  s_{\theta}(\tilde{x}) -\nabla_{\tilde{x}} \log q_{\sigma}(\tilde{x})   \right\rVert^2_2   \right ]
+
+    =& \frac{1}{2} \mathbb{E}_{q_{\sigma}(\tilde{x}|x) p_{\text{data}}(x) }
+    \left [  \left\lVert  s_{\theta}(\tilde{x}) -\nabla_{\tilde{x}} \log q_{\sigma}(\tilde{x}|x)   \right\rVert^2_2   \right ]
+
+
+这么做的一个前提是，如果添加的噪声足够小，那么 :math:`q_{\sigma}(\tilde{x}) \approx p_{\text{data}}(x)`
+成立，此时有 :math:`\nabla_{\tilde{x}} \log q_{\sigma}(\tilde{x}) \approx \nabla_{x} \log p_{\text{data}}(x)`
+成立，这时我们可以用分数匹配算法估计出 :math:`q_{\sigma}(\tilde{x})` 的分数 :math:`\nabla_{\tilde{x}} \log q_{\sigma}(\tilde{x})`
+，并用它近似表示原数据分布 :math:`p_{\text{data}}(x)` 的分数。
+
+基于分数的生成模型面临的困难
+================================================================
+
+理想是美好的，现实是残酷的。虽然我们想到了这种基于分数的采样模型，
+然而在实际应用时需要面临一些困难，论文中主要提出了两类困难：
+
+1. 分数匹配算法估计分数的准确性问题。
+2. 基于分数的采样算法的准确性问题。
+
+
+分数估计不准的问题
+--------------------------------------------------
+
+论文中一共提出两个原因会导致分数估计不准确，一个是流体假设问题，一个是低密度区域样本不足的问题。
+
+**流形假设问题**
+
+首先看流体假设问题，论文指出了流形假设的存在，即现实世界中的数据往往集中在嵌入高维空间的低维流形上。
+这句话对数学不好的同学来说跟天书一样，说人话就是，你观测的数据 :math:`x` 是 :math:`n` 维，
+你以为它真的就是 :math:`n` 维吗？现实是：多数情况下，数据中含有信息的真正维度往往小于 :math:`n` 维。
+比如一张 :math:`4096 \times 2160 ` 的 4K 高清图像，它的像素点总数是 :math:`4096 \times 2160=8847360`
+，你以为这 :math:`880w` 个像素点都是独立有意义的么？未必，我把它压缩到 :math:`1920 \times 1080=1080P`
+后，图像的关键信息可能并没有丢失。也就是说原来 4K 图像中很多像素点其实可有可无，并没有包含有意义的信息。
+
+这里我换个容易理解的说法，从小学数学说起。
+在学线性方程组时，我们知道方程组的解有无解、唯一解、无穷解等等情况。
+假设有一个包含 :math:`n` 个方程和 :math:`m` 个未知参数的方程组，
+有 :math:`m` 个参数就有 :math:`m` 对应的系数。
+但是你的方程与方程之间，系数与系数之间可能存在着线性相关，
+即某个方程可以通过其它方程线性变化得到，某个系数可以通过其它系数线性变换得到，
+这样的方程称为无效方程，这样的系数对应的参数称为无效参数或者自由参数。
+假设方程组中有意义的方程为 :math:`\tilde{n}` 个，即方程组中独立无关的方程有 :math:`\tilde{n}` 个；
+相互独立无关的系数有 :math:`\tilde{m}` 个。
+有两种情况会导致方程组有无穷解，无穷解意为着不能确定未知参数的值。
+
+1. 当 :math:`\tilde{m}<\tilde{n}` 时，意为着有意义方程数量不足以确定全部参数的值，此时就方程组会有无穷解。
+   这种情况，就相当于在机器学习场景中，有意义的观测样本（方程）数量少于观测变量（系数）的数量。
+2. 当 :math:`\tilde{n}<n` 时，此时意为着有部分系数之间不是相互独立的，这些系数对应的参数就成了自由参数，它的值可以是任意的，此时就方程组也会有无穷解。
+   这种情况，就相当于在机器学习场景中，你的特征变量（观测变量）不是相互独立的，存在线性相关。
+
+
+进入到线性代数，线性方程组可以用形如 :math:`A\theta=b` 的矩阵表达，
+其中 :math:`A` 是系数矩阵，对应着观测变量的观测值矩阵，或者说特征矩阵，:math:`\theta` 是未知参数组成的向量，
+:math:`b` 是方程组等号右侧值组成的向量，对应着机器学习场景下的 Label 值向量。
+矩阵 :math:`A` 行的数量对应着观测样本的数量，列数对应着观测变量的维数（或者是个数），
+列数和 :math:`\theta` 向量长度（未知参数数量）是一样的。
+
+如果矩阵 :math:`A` 列满秩，意味着观测变量（系数）之间是相互独立的，每一个观测变量都含有有意义的信息；
+反之，如果观测变量（系数）之间是部分存在线性关系（或者一一映射），则矩阵 :math:`A` 列不满秩，
+矩阵 :math:`A` 的列秩就等于有意义观测变量的数量。
+
+
+
+回到流形假设问题，流行假设描述的是 **类似列不满秩的情况** ，就是说我们观测到的数据维度是 :math:`m`
+，但很可能这 :math:`m` 个变量（或者说维度）并不是都有意义，其中某些变量（维度）可能没有意义，
+可以由其它变量组合变换的到，这样的变量本身是不包含任何有价值信息的。
+**反映到分数估计算法上，这些变量的分数（偏导数）理论上有任意解，不稳定，呈现出来的现象就是训练时 Loss 不稳定不收敛，会反复横跳**
+，具体可以看原论文里的实验和图解。
+
+.. _fg_dm_001:
+.. figure:: pictures/score_001.png
+   :scale: 60 %
+   :align: center
+
+   左图流体假设导致的LOSS不收敛，右图添加了噪声后的 LOSS情况 （图片来自 :footcite:`song2019generative`）
+
+
+
+**低密度的问题**
+
+
+另一个影响分数估计准确性的是概率密度的低密度问题，这个问题其实很简单，
+本质上就是观测样本不足的问题。
+我们知道，对于一个非均匀分布的概率分布来说，其概率密度是不均匀的，概率密度低的地方意为着产生概率低，
+那理论上获得这些区域的观测样本的概率就小。也就说，大多数情况下，对于低概率密度的区域，
+我们观测样本覆盖是不足的，这时自然分数估计算法这些区域的拟合和学习就不足，
+显然它对这些区域的预测也将不准。
+
+
+
+郎之万动力采样不准的问题
+--------------------------------------------------
+
+郎之万动力采样（Langevin dynamics sample）算法，是一种利用分数从目标概率分布采样的方法，
+假设目标概率分布是 :math:`p(x)`，
+它的分数表示为 :math:`\nabla_{x} \log p(x)`
+，给定一个固定的步进 :math:`\epsilon >0`
+，以及一个初始样本 :math:`\tilde{x} \sim \pi(x)`，
+:math:`\pi(x)` 可以认为是一个先验分布，
+郎之万动力采样通过如下迭代方程得到一个目标分布 :math:`p(x)` 的采样。
+
+
+.. math::
+    :label: eq_score_dm_010
+
+    \tilde{x}_{t} = \tilde{x}_{t-1} + \frac{\epsilon}{2} \nabla_{x} \log p( \tilde{x}_{t-1}) + \sqrt{\epsilon} z_t
+    , \quad
+    z_t \sim \mathcal{0,\textit{I}}
+
+当满足 :math:`\epsilon \rightarrow 0` ， :math:`T \rightarrow \infty` 和一些正则性条件时,
+:math:`\tilde{x}_{T}` 就服从分布 :math:`p(x)`，
+此时 :math:`\tilde{x}_{T}` 可以看成目标分布 :math:`p(x)` 的一个采样。
+当然如果 :math:`\epsilon > 0` 并且 :math:`T < \infty`
+采样就不是很准，但实际应用中可以忽略这些误差，勉强能用，
+我们要做的就是让 :math:`\epsilon` 尽量小，让 :math:`T` 尽量大。
+
+郎之万动力采样的优势就是它只需要有目标分布的分数就行了，不需要知道目标分布 :math:`p(x)` 具体形式。
+仔细观察下这个公式，这不就是一个梯度迭代法么，让 :math:`x_t` 逐步沿着 :math:`p(x)` 的梯度向着 :math:`p(x)` 概率密度最大的点前进，
+迭代过程中加入一个随机高斯噪声 :math:`z_t`，使其具备随机性。万变不离其宗，搞来搞去就这么点事！！！
+
+.. tip::
+    既然就是个梯度迭代，那我加入二阶梯度是不是采样能更快点？
+
+
+然而郎之万动力采样存在一个显著的缺陷，
+当数据分布是一个很复杂的分布时，比如存在低密度区域，并且低密度区域把整个概率密度空间分割成多个区域时，
+郎之万动力采样法无法在合理的时间能得到正确的采样，最典型的例子就是高斯混合分布，
+原论文就是用两个分量的混合高斯分布做实验和举例，
+论证了在这种情况下郎之万动力采样法无法健康工作。
+当然如果 :math:`T`  足够大还是可以合理采样的，
+但实际应用中，没办法令 :math:`T` 足够大，那样的话迭代次数太多，效率太慢了。
+
+
+
+
+通过加噪的方法估计分布的近似分数
+================================================================
+
+通过上一节，我们知道了基于分数的生成模型，面临两个困难，
+1）高维空间有效性问题，有意义信息的维度可能远远小于观测数据的维度，导致分数估计算法不收敛。
+2）数据分布低密度区域问题，低密度区域一方面因为样本不足令分数匹配算法估计不准，另一方面使郎之万采样算法无法在可接受的步数内得到有效采样。
+那怎么解决呢？你猜对了，通过对数据添加高斯噪声解决。
+
+
+为什么添加噪声能解决上述问题呢？思考下，原数据分数是 :math:`p_{data}(x)`，
+再它基础上添加一些高斯噪声，这个过程对应条件概率分布 :math:`q_\sigma(\tilde{x}|x)`，
+添加噪声后得到新的数据 :math:`\tilde{x}` 的边缘分布是 :math:`q_\sigma(\tilde{x}) = \int q_\sigma(\tilde{x}|x) p_{data}(x) dx`，
+添加噪声就相当于改变了原来的数据分布，这种改变影响两个方面：
+
+1. 会破坏掉原来数据变量 :math:`x` 各个维度（分量）之间的相关性，使得各个维度（分量）间相关性减弱，相当于 :math:`x` 变得满秩了。
+2. 会改变 :math:`p_{data}(x)` 的密度，各分量之间添加的噪声是同等权重的，低密度区域会密度变高，相对来说整个密度空间变得均匀了。
+
+
+添加的噪声越多，对上述两点的影响越大，对问题的改善就越好。这种加噪声的方法又完美契合了上面介绍的
+分数匹配两种方法之一的降噪分数匹配，就是这么的巧合。
+但是，但是，这里有冲突！！！回看一下降噪分数匹配算法，它成立的条件是添加的噪声不能太多啊，
+不然 :math:`q_\sigma(\tilde{x})` 就离 :math:`p_{data}(x)` 太远了，
+就不能用 :math:`q_\sigma(\tilde{x})` 的分数近似 :math:`p_{data}(x)` 的分数了。
+而这里有需要足够的大噪声去改善上述两个问题，噪声不够大，这两个问题解决不彻底啊！！！
+
+
+
+那么怎么解决？既然有的人贪心要的多，有的人佛系要的少，重口难调。
+那么就按需分配，设置不同强度等级噪声，各种强度等级的噪声都安排上，总有一款适合你。
+
+令 :math:`\{\sigma_i\}_{i=1}^L` 是一个满足 :math:`\frac{\sigma_1}{\sigma_2}=\cdots=\frac{\sigma_{L-1}}{\sigma_{L}}`
+的正几何序列。
+令条件分布 :math:`q_{\sigma_i}(\tilde{x}|x)` 是一个高斯条件分布，
+它表示加噪过程，则有
+
+
+.. math::
+
+    q_{\sigma_i}(\tilde{x}|x) \sim \mathcal{N}( \tilde{x}|x, \sigma_i^2 \textit{I} )
+
+
+令 :math:`q_{\sigma_i}(\tilde{x})` 表示加噪扰动后的数据边缘分布，
+则有
+
+
+.. math::
+    :label: eq_scored_020
+
+    q_{\sigma_i}(\tilde{x}) \triangleq
+    \int p_{data}(x)  q_{\sigma_i}(\tilde{x}|x) dt
+
+
+
+和之前一样，可以通过采样法得到 :math:`\tilde{x}` 的样本
+
+.. math::
+
+    \tilde{x} = x + \sigma^2_i \epsilon , \quad \epsilon \sim \mathcal{0,\textit{I}}
+
+相比于 DDPM ，这里没有定义一个 :math:`\alpha` 参数，事实上 :math:`\sigma^2_i`
+起到了类似的作用。
+:math:`\sigma^2_i` 从大到小变化，
+:math:`\sigma^2_0` 足够大用来解决上面的问题，
+:math:`\sigma^2_L` 足够小用来提高分数匹配估计的效果。
+
+接下来利用上述的分层分数匹配（Sliced score matching）或者降噪分数匹配（Denoising score matching）
+学习一个分数估计模型，它能在不同噪声强度下估计出扰动加噪后数据的分数。
+在这里分层分数匹配和降噪分数匹配两种方法都可以使用，没有特别的限制。
+条件高斯分布 :math:`q_{\sigma_i}(\tilde{x}| x)` 的分数为
+
+.. math::
+
+    \nabla_{\tilde{x}} \log q_{\sigma_i}(\tilde{x}| x)=
+    - \frac{\tilde{x}-x}{\sigma_i^2}
+
+
+按照降噪分数匹配的方法，单一噪声强度的目标函数为
+
+.. math::
+
+    \ell(\theta;\sigma_i) & \triangleq \frac{1}{2} \mathbb{E}_{p_{data}(x)}
+    \mathbb{E}_{\tilde{x} \sim \mathcal{x,\sigma_i^2 \textit{I}}}
+    \left [  \left\lVert  s_{\theta}(\tilde{x},\sigma_i) -\nabla_{\tilde{x}} \log q_{\sigma}(\tilde{x}|x)   \right\rVert^2_2   \right ]
+
+    & =  \frac{1}{2} \mathbb{E}_{p_{data}(x)}
+    \mathbb{E}_{\tilde{x} \sim \mathcal{x,\sigma_i^2 \textit{I}}}
+    \left [  \left\lVert  s_{\theta}(\tilde{x},\sigma_i) + \frac{\tilde{x}-x}{\sigma_i^2}   \right\rVert^2_2   \right ]
+
+
+
+然后把所有噪声等级结合在一起
+
+.. math::
+
+    \mathcal{L}(\theta;\{\sigma_i\}_{i=1}^L) \triangleq \frac{1}{L} \sum_{i=1}^L \lambda(\sigma_i) \ell(\theta;\sigma_i)
+
+
+
+
+基于分数的改进采样算法
+================================================================
 
 
 
@@ -158,3 +555,18 @@ SDE的逆过程称为 `逆时间SDE` （reverse-time SDE）
 .. math::
 
     d x = \left [ f(x,t) -g(t)^2 \Delta_x \log p_t(x)  \right ] dt + g(t) d \bar{w}
+
+
+参考文献
+########################################################
+
+.. footbibliography::
+
+
+
+
+
+
+.. meta::
+    :description lang=zh_CN: 基于分数的扩散模型
+    :keywords: ODE,SDE,随机微分方程,扩散模型
