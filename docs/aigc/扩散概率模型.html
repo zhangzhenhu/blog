@@ -727,21 +727,22 @@
 <li class="toctree-l3"><a class="reference internal" href="ddim.html#id5">3.4. 参考文献</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="Score-Based_Generative_Models.html">4. 基于分数的生成模型</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="Score-Based_Generative_Models.html#id5">4.1. 基于分数的扩散模型</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Score-Based_Generative_Models.html">4. 基于分数的生成模型（Score-based generative models）</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Score-Based_Generative_Models.html#id4">4.1. 基于分数的生成模型</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="Score-Based_Generative_Models.html#score-matching">4.1.1. 分数匹配算法（Score Matching）</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Score-Based_Generative_Models.html#id9">4.1.2. 基于分数的生成模型面临的困难</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Score-Based_Generative_Models.html#id13">4.1.3. 通过加噪的方法估计分布的近似分数</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Score-Based_Generative_Models.html#id14">4.1.4. 基于分数的改进采样算法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Score-Based_Generative_Models.html#id8">4.1.2. 基于分数的生成模型面临的困难</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Score-Based_Generative_Models.html#id12">4.1.3. 通过加噪的方法估计分布的近似分数</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Score-Based_Generative_Models.html#id13">4.1.4. 基于分数的改进采样算法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Score-Based_Generative_Models.html#id15">4.1.5. 改进的分数生成模型</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="Score-Based_Generative_Models.html#id15">4.2. 随机微分方程</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="Score-Based_Generative_Models.html#id16">4.2.1. 微分方程</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Score-Based_Generative_Models.html#id17">4.2.2. 随机微分方程</a></li>
-<li class="toctree-l4"><a class="reference internal" href="Score-Based_Generative_Models.html#id18">4.2.3. 基于随机微分方程的生成模型</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Score-Based_Generative_Models.html#id17">4.2. 随机微分方程</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Score-Based_Generative_Models.html#id18">4.2.1. 微分方程</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Score-Based_Generative_Models.html#id19">4.2.2. 随机微分方程</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Score-Based_Generative_Models.html#id20">4.2.3. 基于随机微分方程的生成模型</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="Score-Based_Generative_Models.html#id19">4.3. 参考文献</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Score-Based_Generative_Models.html#id21">4.3. 参考文献</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="Guidance.html">5. 条件控制扩散模型</a><ul>
@@ -1188,7 +1189,7 @@ MHVAE 是扩散模型的雏形，只需要在 MHVAE 的基础上再稍微调整�
 进行分解为：</p>
 <div class="math notranslate nohighlight" id="equation-eq-ddpm-026">
 <span class="eqno">(2.1.50)<a class="headerlink" href="#equation-eq-ddpm-026" title="公式的永久链接"></a></span>\[p(x_{0:T}) = p(x_T) \prod_{t={T-1}}^0 p(x_{t}|x_{t+1})\]</div>
-<p>其中 <span class="math notranslate nohighlight">\(p(x_T)\)</span> 的概率密度是知道的，它是一个标准高斯分布，即 <span class="math notranslate nohighlight">\(p(x_T) \sim (0,\textit{I})\)</span>
+<p>其中 <span class="math notranslate nohighlight">\(p(x_T)\)</span> 的概率密度是知道的，它是一个标准高斯分布，即 <span class="math notranslate nohighlight">\(p(x_T) \sim \mathcal{N}(0,\textit{I})\)</span>
 。然而 <span class="math notranslate nohighlight">\(p_{\theta}(x_{t}|x_{t+1})\)</span> 是难以计算的，
 即使根据贝叶斯定理得出 <span class="math notranslate nohighlight">\(p_{\theta}(x_{t}|x_{t+1})\)</span> 的表达式，
 它的分母部分（归一化项）是含有积分的，这个积分是没有解析解的，是非常难以计算的。

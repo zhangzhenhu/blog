@@ -1,11 +1,11 @@
 ################################################################################################
-基于分数的生成模型
+基于分数的生成模型（Score-based generative models）
 ################################################################################################
 
 通过前面的学习，我们发现扩散模型可以从不同的角度进行解释。
-其中一个等价的解释是基于分数的模型，前面虽然简单介绍了下，
-但没有详细说明，本章我们详细讨论下基于分数的扩散模型。
-基于分数的扩散模型是由宋旸 :cite:`song2019generative` 等人在2019年提出 :footcite:p:`song2019generative` 的，
+其中一个等价的解释是基于分数的生成模型，前面章节虽然简单介绍了下，
+但没有详细说明，本章我们详细讨论下基于分数的生成模型。
+基于分数的生成模型是由宋旸 :cite:`song2019generative` 等人在2019年提出 :footcite:p:`song2019generative` 的，
 后来他们又提出了基于随机微分方程的更一般的形式 :footcite:p:`song2021scorebased`，
 本章我们一起讨论学习一下。
 
@@ -13,7 +13,7 @@
 
 
 
-基于分数的扩散模型
+基于分数的生成模型
 ################################################################################################
 
 在前面 DDPM 和 DDIM 的章节中，已经探讨了 DDPM 的降噪过程，可以看做是沿着分数（梯度） :math:`\nabla\log p(x_t)`
@@ -22,18 +22,18 @@
 
 
 首先看下基于分数的生成模型的核心思想。
-我们有一些某个分布的观察数据，比如大量的图片数据，
+假设我们有一些服从某个分布的观察数据，比如大量的图片数据，
 但是这些数据背后真实的概率分布是未知的，
 我们暂且用符号 :math:`p_{\text{data}}(x)` 表示这些观测数据的真实分布。
-然而我们希望能生成新的数据，也就是想从分布 :math:`p_{\text{data}}(x)` 中采样新的样本，比如采样生成新的图片。
+我们希望能生成新的数据，也就是想从分布 :math:`p_{\text{data}}(x)` 中采样新的样本，比如采样生成新的图片。
 但分布 :math:`p_{\text{data}}(x)` 是未知的，怎么办呢？
-此时有一种利用分数（score）进行采样的方法，虽然我们不知道 :math:`p_{\text{data}}(x)`，
+此时有一种利用分数（score）进行采样的方法，虽然我们不知道 :math:`p_{\text{data}}(x)` 的具体形式，
 但如果我们能得到它的分数（基于数据变量 :math:`x` 的一阶偏导） :math:`\nabla_{x} \log p_{\text{data}}(x)`，
 那么就可以利用它的分数 :math:`\nabla_{x}\log p_{\text{data}}(x)` 从 :math:`p_{\text{data}}(x)` 中随机采样。
 这样基于分数的采样方法有很多，可以从中选择一个合适的采样方法。
 所以基于分数的生成模型，宏观来看就两步：
 
-1. 利用分数匹配方法估计出数据分布 :math:`p_{\text{data}}(x)` 的近似分数 :math:`s_{\theta}(x)`
+1. 利用分数匹配方法估计出数据分布 :math:`p_{\text{data}}(x)` 的近似分数 :math:`s_{\theta}(x) \approx \nabla_{x} \log p_{\text{data}}(x)` 。
 2. 使用某个基于分数 :math:`s_{\theta}(x)` 的采样算法，随机采样近似数据分布 :math:`p_{\text{data}}(x)` 的样本。
 
 
@@ -197,7 +197,7 @@
 首先看流体假设问题，论文指出了流形假设的存在，即现实世界中的数据往往集中在嵌入高维空间的低维流形上。
 这句话对数学不好的同学来说跟天书一样，说人话就是，你观测的数据 :math:`x` 是 :math:`n` 维，
 你以为它真的就是 :math:`n` 维吗？现实是：多数情况下，数据中含有信息的真正维度往往小于 :math:`n` 维。
-比如一张 :math:`4096 \times 2160 ` 的 4K 高清图像，它的像素点总数是 :math:`4096 \times 2160=8847360`
+比如一张 :math:`4096 \times 2160` 的 4K 高清图像，它的像素点总数是 :math:`4096 \times 2160=8847360`
 ，你以为这 :math:`880w` 个像素点都是独立有意义的么？未必，我把它压缩到 :math:`1920 \times 1080=1080P`
 后，图像的关键信息可能并没有丢失。也就是说原来 4K 图像中很多像素点其实可有可无，并没有包含有意义的信息。
 
@@ -212,7 +212,7 @@
 相互独立无关的系数有 :math:`\tilde{m}` 个。
 有两种情况会导致方程组有无穷解，无穷解意为着不能确定未知参数的值。
 
-1. 当 :math:`\tilde{m}<\tilde{n}` 时，意为着有意义方程数量不足以确定全部参数的值，此时就方程组会有无穷解。
+1. 当 :math:`\tilde{n}<\tilde{m}` 时，意为着有意义方程数量不足以确定全部参数的值，此时就方程组会有无穷解。
    这种情况，就相当于在机器学习场景中，有意义的观测样本（方程）数量少于观测变量（系数）的数量。
 2. 当 :math:`\tilde{n}<n` 时，此时意为着有部分系数之间不是相互独立的，这些系数对应的参数就成了自由参数，它的值可以是任意的，此时就方程组也会有无穷解。
    这种情况，就相当于在机器学习场景中，你的特征变量（观测变量）不是相互独立的，存在线性相关。
@@ -241,7 +241,7 @@
    :scale: 60 %
    :align: center
 
-   左图流体假设导致的LOSS不收敛，右图添加了噪声后的 LOSS情况 （图片来自 :footcite:`song2019generative`）
+   左图流体假设导致的LOSS不收敛，右图添加了噪声后的 LOSS情况 （图片来自 :cite:`song2019generative`）
 
 
 
@@ -358,6 +358,7 @@
 和之前一样，可以通过采样法得到 :math:`\tilde{x}` 的样本
 
 .. math::
+    :label: eq_scored_021
 
     \tilde{x} = x + \sigma^2_i \epsilon , \quad \epsilon \sim \mathcal{0,\textit{I}}
 
@@ -366,6 +367,8 @@
 :math:`\sigma^2_i` 从大到小变化，
 :math:`\sigma^2_0` 足够大用来解决上面的问题，
 :math:`\sigma^2_L` 足够小用来提高分数匹配估计的效果。
+直观地，高噪声有助于分数函数的估计，但也会导致样本损坏；
+而较低的噪声给出了干净的样本，但使得分函数更难估计。
 
 接下来利用上述的分层分数匹配（Sliced score matching）或者降噪分数匹配（Denoising score matching）
 学习一个分数估计模型，它能在不同噪声强度下估计出扰动加噪后数据的分数。
@@ -373,6 +376,7 @@
 条件高斯分布 :math:`q_{\sigma_i}(\tilde{x}| x)` 的分数为
 
 .. math::
+    :label: eq_scored_022
 
     \nabla_{\tilde{x}} \log q_{\sigma_i}(\tilde{x}| x)=
     - \frac{\tilde{x}-x}{\sigma_i^2}
@@ -381,6 +385,7 @@
 按照降噪分数匹配的方法，单一噪声强度的目标函数为
 
 .. math::
+    :label: eq_scored_023
 
     \ell(\theta;\sigma_i) & \triangleq \frac{1}{2} \mathbb{E}_{p_{data}(x)}
     \mathbb{E}_{\tilde{x} \sim \mathcal{x,\sigma_i^2 \textit{I}}}
@@ -392,17 +397,114 @@
 
 
 
-然后把所有噪声等级结合在一起
+:math:`s_{\theta}(\tilde{x},\sigma_i)` 代表神经网络模型，它的输入是 :math:`\tilde{x}` 和 :math:`\sigma_i`
+，输出是预测的分数。最后把所有噪声等级结合在一起
+
+.. math::
+    :label: eq_scored_024
+
+    \mathcal{L}(\theta;\{\sigma_i\}_{i=1}^L ) \triangleq \frac{1}{L} \sum_{i=1}^L \lambda(\sigma_i) \ell(\theta;\sigma_i)
+
+
+这就是最终的目标函数了，其中 :math:`\lambda(\sigma_i)`
+是一个与 :math:`\sigma_i` 有关的权重参数，它的作用是可以对不同噪声等级 :math:`\sigma_i` 设置不同的重要性权重。
+目标函数中包含一个方差项 :math:`\sigma_i^2`
+，它是平方，当 :math:`\sigma_i` 取不同值时波动比较大，可以认为当 :math:`\sigma_i` 取不同值时 :eq:`eq_scored_023`
+的数量级不同，所以这里可以令 :math:`\lambda(\sigma_i)=\sigma_i^2`
+，
 
 .. math::
 
-    \mathcal{L}(\theta;\{\sigma_i\}_{i=1}^L) \triangleq \frac{1}{L} \sum_{i=1}^L \lambda(\sigma_i) \ell(\theta;\sigma_i)
+     \lambda(\sigma_i) \ell(\theta;\sigma_i) &= \sigma_i^2 \frac{1}{2} \mathbb{E}_{p_{data}(x)}
+    \mathbb{E}_{\tilde{x} \sim \mathcal{x,\sigma_i^2 \textit{I}}}
+    \left [  \left\lVert  s_{\theta}(\tilde{x},\sigma_i) + \frac{\tilde{x}-x}{\sigma_i^2}   \right\rVert^2_2   \right ]
 
 
+    &=  \frac{1}{2} \mathbb{E}_{p_{data}(x)}
+    \mathbb{E}_{\tilde{x} \sim \mathcal{x,\sigma_i^2 \textit{I}}}
+    \left [  \left\lVert \sigma_i s_{\theta}(\tilde{x},\sigma_i) + \frac{\tilde{x}-x}{\sigma_i}   \right\rVert^2_2   \right ]
+
+此时有 :math:`\frac{\tilde{x}-x}{\sigma_i}  \sim \mathcal{N}(0,\textit{I})`
+，这样一来不同的噪声等级都有相同的数量级（量纲）。
+原论文中把这个模型称为噪声条件分数网络（Noise Conditional Score Networks,NSCN）。
 
 
 基于分数的改进采样算法
 ================================================================
+
+通过上一步的加噪分数匹配方法，训练出了一个神经网络模型，这个神经网络模型可以预测不同等级的加噪数据的分数 :math:`s_{\theta}(\tilde{x},\sigma_i)`，
+接下来就是如何利用这个分数预测模型来近似采样生成原始数据分布 :math:`p_{data}(x)` 的样本。
+基于分数的采样方法其实有多种，作者这里采样的郎之万动力采样法（Langevin dynamic sample），
+然而前文我们讨论过，郎之万动力采样法存在着不足，对于那些存在低密度区域分割成多个高密度区域的复杂分布，需要较多的采样步骤才能得到相对可靠的采样结果，
+无法在一个可接受的步骤内得到较好的采样结果，针对这个问题，作者提出了一个改进的郎之万动力采样法，称为退火郎之万动力采样法
+（annealed Langevin dynamics），算法的伪代码如\ :numref:`fg_dm_scored_002` 所示。
+
+
+.. _fg_dm_scored_002:
+
+.. figure:: pictures/score_annealed_Langevin_dynamics.png
+   :scale: 30 %
+   :align: center
+
+   退火郎之万动力采样法伪代码过程 （图片来自 :cite:`song2019generative`）
+
+
+
+
+算法的过程其实不复杂，首先初始化超参数 :math:`\{\sigma_i\}_{i=1}^L`
+，然后初始 :math:`\tilde{x}_0`，它可以是一个均匀分布的随机采样，也可以是高斯分布的随机采样。
+接下来就是两层循环，外层循环是噪声等级的循环，从较大噪声等级的 :math:`\sigma_1 \approx=1`
+,到较小的噪声等级 :math:`\sigma_L \approx 0`。
+内循环是一个郎之万动力采样过程，负责对每个噪声等级下的 :math:`q_{sigma_i}(\tilde{x})` 进行采样。
+这样一直到最后一步 :math:`i=L` 时，噪声等级足够小了，:math:`\sigma_L \approx 0`，
+此时 :math:`q_{sigma_L}(\tilde{x}) \approx p_{data}(x)`
+，最后的得到的采样就近似是原数据分布 :math:`p_{data}(x)` 的采样。
+因为是两层循环，内循环是原始的郎之万动力采样，外循环是一个噪声等级逐步降低的过程，
+两层循环加起来构成了退火郎之万动力采样。
+
+
+
+
+
+改进的分数生成模型
+=============================================================
+
+原始的分数模型，作者在 :math:`32 \times 32` 的低分辨率图像上做了实验，得到了不错的效果。
+但是在高分辨率上效果变差了很多。因此作者紧接着又发布了一篇论文，重点在如何改进分数模型，使其在更高分辨率的图像上也能有较好的效果。
+作者进行了大量的分析和试验后，提出了了5项改进，这里不再赘述分析和试验过程的细节，只列出这5项改进内容，
+对细节感兴趣的同学可以阅读原论文 :footcite:`song2020improved`。
+
+
+
+1. 初始噪声等级 :math:`\sigma_1` 的最佳设定，它的大小影响图像生成的多样性（这其实很符合直觉认知），
+   :math:`\sigma_1` 越大多样性越好，:math:`\sigma_1` 的最佳选择是训练数据集里样本对之间的最大的欧式距离。
+2. :math:`\{\sigma_i\}_{i=1}^L` 设置成公比为 :math:`\gamma` 的几何级数，即 :math:`\gamma=\sigma_{i-1}/\sigma_i`，此外 :math:`\gamma` 满足约束
+   :math:`\Phi(\sqrt{2 D}(\gamma-1)+3\gamma)-\Phi(\sqrt{2 D}(\gamma-1)-3\gamma)\approx 0.5`，
+   其中 :math:`\Phi` 是标准高斯分布的累积分布函数，:math:`D` 是观测变量 :math:`x` 的维数。
+3. 神经网络模型由原来的的 :math:`s_{\theta}(\tilde{x},\sigma_i)` 改成 :math:`s_{\theta}(\tilde{x})/\sigma_i` ，
+   把噪声等级 :math:`\sigma_i` 从模型输入中去掉， :math:`s_{\theta}(\tilde{x})` 称为无条件分数网络（unconditional score network）。
+4. 在计算预算允许的范围内选择 :math:`T` ，然后选择一个 :math:`\epsilon` ，使下列方程最大接近 :math:`1`，
+   其中 :math:`x_{T} \sim \mathcal{N}(0,s^{2}_T \textit{I})`。
+
+   .. math::
+
+        \frac{s^2_T}{\sigma_i^2} = \left( 1-\frac{\epsilon}{\sigma_L^2} \right)^{2T}
+        \left( \gamma^2-\frac{2\epsilon}{\sigma_L^2-\sigma_L^2  \left( 1-\frac{\epsilon}{\sigma_L^2} \right)^2  }  \right)
+        + \frac{2\epsilon}{\sigma_L^2-\sigma_L^2  \left( 1-\frac{\epsilon}{\sigma_L^2} \right)^2  }
+
+
+
+5. 训练模型时加入指数滑动平均（exponential moving average,EMA）技术，
+   :math:`\theta_{ema} \leftarrow m\theta_{ema} + (1 − m)\theta_t` ，得到一份 EMA 的模型参数副本，
+   其中 :math:`m = 0.999` 是动量参数。
+   在推理时（生成图像）时，用EMA的模型参数 :math:`\theta_{ema}`。注意，在应用 EMA 时，实际上是有两套模型参数的，
+   模型训练过程中仍然按照原来的优化器（比如 Adam）去更新参数，只是在每一轮更新结束后，额外更新和保存一份 EMA 版本的参数 :math:`\theta_{ema}`。
+   训练完成后输出保存的是两套模型参数，在推理时可以选择用原始模型参数还是使用 EMA 版本的参数。EMA 版本的参数理论上能缓解原始参数过拟合的情况，
+   但这也不是总成立的。
+
+
+
+经过这五项改进后模型在生成图像的多样性和质量上都得到大幅提升，可以生成较高质量的 :math:`256 \times 256` 尺寸的图像。
 
 
 
@@ -568,5 +670,5 @@ SDE的逆过程称为 `逆时间SDE` （reverse-time SDE）
 
 
 .. meta::
-    :description lang=zh_CN: 基于分数的扩散模型
-    :keywords: ODE,SDE,随机微分方程,扩散模型
+    :description lang=zh_CN: 基于分数的生成模型
+    :keywords: ODE,SDE,随机微分方程,扩散模型,Score-based generative models,图像生成,生成模型，分数生成模型
