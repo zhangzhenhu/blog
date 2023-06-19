@@ -570,5 +570,5 @@ DDIM 原论文中阐述方差为 :math:`0` 时可以加速采样（图像生成�
 
 .. meta::
     :description lang=zh_CN: 潜在扩散模型
-    :keywords: ddim,隐式扩散模型,Denoising Diffusion Implicit Models
+    :keywords: ddim,隐式扩散模型,Denoising Diffusion Implicit Models,DDIM,DDPM,DPM,扩散模型
 

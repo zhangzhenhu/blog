@@ -25,6 +25,8 @@ AI内容生成（ai-gc）
 
    Guidance.rst
    稳定扩散模型.rst
+   controlnet.rst
+   dreamBooth.rst
    dalle2.rst
    imgen.rst
 

@@ -1304,5 +1304,5 @@ DDPM 做的关键改进就是参数化模型预测的内容做了调整：
 
 .. meta::
     :description lang=zh_CN: 扩散模型
-    :keywords: 变分自编码器,Variational Autoencoder,VAE,扩散模型,Diffusion Model,生成模型,图像生成
+    :keywords: 变分自编码器,Variational Autoencoder,VAE,扩散模型,Diffusion Model,生成模型,图像生成,DDPM,DDIM
 

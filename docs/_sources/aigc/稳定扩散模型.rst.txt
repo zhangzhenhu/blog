@@ -44,26 +44,28 @@ DDPM 模型在生成图像质量上效果已经非常好，但它也有个缺点
    :scale: 80 %
    :align: center
 
-   LDM 中自编码器示意图（图片来自 `blog <https://medium.com/@steinsfu/stable-diffusion-clearly-explained-ed008044e07e>`_ ）
+   LDM 中自编码器示意图（图片来自\ `博客`_ ）
 
 
 
-这个自编码器（VAE）可以是提前预训练好的模型，在训练扩散模型时，编码器的参数是冻住的，
+这个自编码器（VAE）可以是提前预训练好的模型，在训练扩散模型时，自编码器的参数是冻住的，
 如 :numref:`fg_dm_031` 所示
 
-- 通过使用预训练的编码器 :math:`E`，我们可以将全尺寸图像编码为低维潜在数据（压缩数据）。
-- 通过使用预训练的解码器 :math:`D`，我们可以将潜在数据解码回图像。
+- 通过使用预训练的编码器 :math:`E`，我们可以将全尺寸图像编码为低维潜在空间数据（压缩数据）。
+- 通过使用预训练的解码器 :math:`D`，我们可以将潜在空间数据解码回图像。
 
+
+这样在 DDPM 外层增加一个 VAE 后，DDPM 的扩散过程和降噪过程都是在潜空间（Latent Space）进行，
+潜空间的尺寸远远小于像素空间，极大了降低了硬件资源的需求，同时也能加速整个过程。
 
 
 .. _fg_dm_032:
 
 .. figure:: pictures/diffusion_ldm_2.webp
-   :scale: 80 %
-   :align: center
+    :scale: 80 %
+    :align: center
 
-   LDM 中DDPM是在潜在空间执行的（图片来自
-   blog <https://medium.com/@steinsfu/stable-diffusion-clearly-explained-ed008044e07e>`_ ）
+    LDM 中 DDPM 是在潜在空间执行的（图片来自\ `博客`_ ）
 
 
 正向扩散过程→给潜在数据增加噪声，逆向扩散过程→从潜在数据中消除噪声。
@@ -83,11 +85,10 @@ DDPM 模型在生成图像质量上效果已经非常好，但它也有个缺点
 .. _fg_dm_033:
 
 .. figure:: pictures/diffusion_ldm_3.webp
-   :scale: 80 %
-   :align: center
+    :scale: 80 %
+    :align: center
 
-   条件化的LDM（图片来自 blog <https://medium.com/@steinsfu/stable-diffusion-clearly-explained-ed008044e07e> ）
-
+    条件化的LDM（图片来自\ `博客`_ ）
 
 
 
@@ -126,7 +127,7 @@ LDM模型论文的代码和预训练的模型已经在 Github 开源，地址为
    :scale: 40 %
    :align: center
 
-   LDM 目标函数的变化（图片来自 blog <https://medium.com/@steinsfu/stable-diffusion-clearly-explained-ed008044e07e> )
+   LDM 目标函数的变化（图片来自\ `博客`_ ）
 
 
 
@@ -140,7 +141,7 @@ LDM模型论文的代码和预训练的模型已经在 Github 开源，地址为
    :scale: 70 %
    :align: center
 
-   LDM采样过程的图示（图片来自 blog <https://medium.com/@steinsfu/stable-diffusion-clearly-explained-ed008044e07e> ）
+   LDM采样过程的图示（图片来自\ `博客`_ ）
 
 
 
@@ -158,20 +159,21 @@ LDM模型论文的代码和预训练的模型已经在 Github 开源，地址为
    :scale: 20 %
    :align: center
 
-   LDM 示意图 (来自 :footcite:`rombach2021highresolution`)
+   LDM 示意图 (来自论文 :footcite:`rombach2021highresolution`)
 
 
 
 
-稳定扩散模型（Stable diffusion probabilistic model,SDM）
+稳定扩散模型（Stable diffusion,SD）
 ############################################################################
 
+Stable diffusion 是 LDM 的一个开源预训练模型，
+它由 CompVis 组织提供并开源，
+目前 Stable diffusion 已经占据了图像生成开源领域的主导地位。
 
-2022年 CompVis 开源了一个预训练好的  text-to-image 的 LDM 模型
 
-Stable Diffusion is a latent text-to-image diffusion model capable of generating photo-realistic images given any text input.
 
-为什么都是 Unet？
+
 
 
 
@@ -186,7 +188,7 @@ Stable Diffusion is a latent text-to-image diffusion model capable of generating
 
 
 
-
+.. _博客: https://medium.com/@steinsfu/stable-diffusion-clearly-explained-ed008044e07e
 
 .. meta::
     :description lang=zh_CN: 潜在扩散模型
