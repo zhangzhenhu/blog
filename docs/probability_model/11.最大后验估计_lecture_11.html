@@ -779,7 +779,17 @@
 <li class="toctree-l3"><a class="reference internal" href="../aigc/dalle2.html#id1">9.3. 参考文献</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../aigc/imgen.html">10. Imagen</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../aigc/imgen.html">10. Imagen</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../aigc/imgen.html#id2">10.1. 代码实现解读</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../aigc/imgen.html#id3">10.1.1. 第一阶段</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../aigc/imgen.html#id4">10.1.2. 第二阶段</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../aigc/imgen.html#id5">10.1.3. 第三阶段</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../aigc/imgen.html#id6">10.2. Imagen 总结</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../aigc/imgen.html#id7">10.3. 参考文献</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../audio/index.html">语音技术</a><ul>
@@ -1015,7 +1025,7 @@
 <span class="eqno">(10.6)<a class="headerlink" href="#equation-probability-model-11-lecture-11-2" title="此公式的永久链接"></a></span>\[ \begin{align}\begin{aligned}\max_{x_F}\ p(x_F|\bar{x}_E) &amp;\propto max_{x_F} \ p(x_F,\bar{x}_E)\\&amp;= \max_{x_F} \ p(x_F,x_E)\delta(x_E,\bar{x}_E)\\&amp;= \max_{\mathbf{x}} \ p(\mathbf{x})\delta(x_E,\bar{x}_E)\\&amp;\triangleq \max_{\mathbf{x}} \ p^E(\mathbf{x})\end{aligned}\end{align} \]</div>
 <div class="admonition note">
 <p class="admonition-title">备注</p>
-<p>如果对于公式中的符号 <span class="math notranslate nohighlight">\(\delta,E,\bar{x}_E\)</span> 不理解请回顾一下 <code class="xref std std-numref docutils literal notranslate"><span class="pre">ch_condition_margin</span></code> 。</p>
+<p>如果对于公式中的符号 <span class="math notranslate nohighlight">\(\delta,E,\bar{x}_E\)</span> 不理解请回顾一下 <a class="reference internal" href="8.%E6%B6%88%E5%85%83%E6%B3%95.html#ch-condition-margin"><span class="std std-numref">节 8.2.2</span></a> 。</p>
 </div>
 <p>多数情况下，在最大后验估计中我们感兴趣的不是最大的后验概率值，而是取得最大后验概率时变量的状态。
 这里我们先讨论如何计算最大概率值，然后再讨论如何在这基础上追溯出变量的状态。</p>

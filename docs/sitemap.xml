@@ -292,7 +292,8 @@
     </url>
     <url>
         <loc>https://www.zhangzhenhu.com/machine_learn/线性代数总结.html</loc>
-        <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.zhangzhenhu.com/machine_learn/线性代数总结.html"/>
+        <xhtml:link rel="alternate" hreflang="zh-CN"
+                    href="https://www.zhangzhenhu.com/machine_learn/线性代数总结.html"/>
     </url>
     <url>
         <loc>https://www.zhangzhenhu.com/nlp/bert/content.html</loc>
@@ -428,12 +429,8 @@
     </url>
     <url>
         <loc>https://www.zhangzhenhu.com/probability_model/8.消元法.html</loc>
-        <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.zhangzhenhu.com/probability_model/8.消元法.html"/>
-    </url>
-    <url>
-        <loc>https://www.zhangzhenhu.com/probability_model/8.消元法_lecture_7.html</loc>
         <xhtml:link rel="alternate" hreflang="zh-CN"
-                    href="https://www.zhangzhenhu.com/probability_model/8.消元法_lecture_7.html"/>
+                    href="https://www.zhangzhenhu.com/probability_model/8.消元法.html"/>
     </url>
     <url>
         <loc>https://www.zhangzhenhu.com/probability_model/9.和积算法_lecture_8.html</loc>
@@ -461,7 +458,8 @@
     </url>
     <url>
         <loc>https://www.zhangzhenhu.com/probability_model/参考文献.html</loc>
-        <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.zhangzhenhu.com/probability_model/参考文献.html"/>
+        <xhtml:link rel="alternate" hreflang="zh-CN"
+                    href="https://www.zhangzhenhu.com/probability_model/参考文献.html"/>
     </url>
     <url>
         <loc>https://www.zhangzhenhu.com/probability_model/声明.html</loc>

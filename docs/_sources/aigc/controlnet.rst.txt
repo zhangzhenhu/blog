@@ -84,7 +84,7 @@ OpenClip 的 Image Encoder 部分拿过来直接用。
 
 :numref:`fg_dm_controlnet_002` 中左侧的子图(a)，就是标准版 Stable Diffusion 的 Unet 网络结构，
 只是这里把 U 型结构给拉直了。右侧子图（b）是增加的 ControlNet 平行网络，ControlNet 是的网络结构是左侧 Unet
-的一个镜像，只是去掉了 Decoder 部分，只包含 Encoder 部分和 Middle 部分，并且未每一个 block 套上了一个 :math:`1 \times 1`
+的一个镜像，只是去掉了 Decoder 部分，只包含 Encoder 部分和 Middle 部分，并且为每一个 block 套上了一个 :math:`1 \times 1`
 的卷积层（Convolution）。
 
 
@@ -411,14 +411,21 @@ ControlNet 是一个任务相关的端到端方法，即对于每一种控制类
 但是，如果面对一个复杂场景（多场景），反而变得略麻烦，每一个细分场景都要训练和维护一个模型，
 成本高昂，也不易用。
 
-我们留下三个思考：
+我们留下一个思考：
 
 1. :math:`1 \times 1` 的卷积是否必须得，不要行不行？
-2. 一个从 Unet 镜像的 ControlNet 网络是否必须得，不要行不行？
-3. 如果上述两个都可以去掉，那是不是意味着直接在 Stable Diffusion 基础上进行 Image Condition 训练就可以了？
-   图像生成时，初始化的随机噪声改为 :math:`x_T = x_{\text{Gaussian}} + x_{\text{condition image}}`。
+2. 一个从 `Unet` 镜像的 `ControlNet` 网络是否必须得，不要行不行？
+3. 如果上述两个都可以去掉，那是不是意味着直接在 `Stable Diffusion` 基础上进行 Image Condition 训练就可以了？
+   图像生成时，初始化的随机噪声改为 :math:`x_T = x_{\text{Gaussian}} + x_{\text{condition image}}` 或者是通道维度的拼接。
 
 
+`ControlNet` 原论文其实有做一个对比消融实验（原论文中图20），
+对比了 Stable Diffusion 官方实现的 depth2img，具体实现可以参考 `diffusers.pipelines.StableDiffusionDepth2ImgPipeline`
+，在这个实现中就是把深度图和噪声图在通道维度进行拼接，然后一起输入给 `UNET` 网络，
+当然论文中呈现的结果肯定是  `ControlNet` 效果更好，但是对于这个对比实验的细节没有过多说明，
+不太确定到底是 `ControlNet` 网络结构带来的效果提升，还是两者的训练样本和训练过程不一样导致的，
+其实就是怀疑 `StableDiffusionDepth2ImgPipeline` 效果不好可能是其因为本身没有训练好。
+当然以上仅是个人的浅见，不保证正确。
 
 
 

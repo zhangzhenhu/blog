@@ -779,7 +779,17 @@
 <li class="toctree-l3"><a class="reference internal" href="../aigc/dalle2.html#id1">9.3. 参考文献</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../aigc/imgen.html">10. Imagen</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../aigc/imgen.html">10. Imagen</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../aigc/imgen.html#id2">10.1. 代码实现解读</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../aigc/imgen.html#id3">10.1.1. 第一阶段</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../aigc/imgen.html#id4">10.1.2. 第二阶段</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../aigc/imgen.html#id5">10.1.3. 第三阶段</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../aigc/imgen.html#id6">10.2. Imagen 总结</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../aigc/imgen.html#id7">10.3. 参考文献</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../audio/index.html">语音技术</a><ul>
@@ -2071,7 +2081,7 @@ x_1&amp; p(x_1|\bar{x}_6=1)  \\
 <span class="math notranslate nohighlight">\(\mathrm{x}_1\)</span> 是查询结点。</span><a class="headerlink" href="#id14" title="此图像的永久链接"></a></p>
 </figcaption>
 </figure>
-<p>如 <code class="xref std std-numref docutils literal notranslate"><span class="pre">fg_7_a3</span></code> ，我们继续以查询条件概率 <span class="math notranslate nohighlight">\(p(x_1|\bar{x}_6)\)</span> 为例，我们用定义在团上的势函数表示这个无向图的联合概率分布，
+<p>如 <a class="reference internal" href="#fg-7-a3"><span class="std std-numref">图 8.2.2</span></a> ，我们继续以查询条件概率 <span class="math notranslate nohighlight">\(p(x_1|\bar{x}_6)\)</span> 为例，我们用定义在团上的势函数表示这个无向图的联合概率分布，
 图上的团有 <span class="math notranslate nohighlight">\(\{\mathrm{x_1},\mathrm{x_2}\},\{\mathrm{x_1},\mathrm{x_3}\},\{\mathrm{x_2},\mathrm{x_4}\},\{\mathrm{x_3},\mathrm{x_5}\},\{\mathrm{x_2},\mathrm{x_5},\mathrm{x_6}\}\)</span>
 ，则这个无向图的联合概率分布为：</p>
 <div class="math notranslate nohighlight" id="equation-probability-model-8-37">
