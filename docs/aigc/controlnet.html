@@ -6,7 +6,7 @@
 <meta content="扩散模型,Diffusion Model,生成模型,图像生成,ControlNet" name="keywords" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>7. 条件控制之ControlNet &mdash; 张振虎的博客 张振虎 文档</title>
+  <title>8. 条件控制之ControlNet &mdash; 张振虎的博客 张振虎 文档</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
@@ -24,8 +24,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
-    <link rel="next" title="8. 条件控制之DreamBooth" href="dreamBooth.html" />
-    <link rel="prev" title="6. 稳定扩散模型（Stable diffusion model）" href="%E7%A8%B3%E5%AE%9A%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B.html" /> 
+    <link rel="next" title="9. 条件控制之DreamBooth" href="dreamBooth.html" />
+    <link rel="prev" title="7. 稳定扩散模型（Stable diffusion model）" href="%E7%A8%B3%E5%AE%9A%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -757,39 +757,43 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="%E7%A8%B3%E5%AE%9A%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B.html">6. 稳定扩散模型（Stable diffusion model）</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="%E7%A8%B3%E5%AE%9A%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B.html#latent-diffusion-model-ldm">6.1. 潜在扩散模型（Latent diffusion model,LDM）</a></li>
-<li class="toctree-l3"><a class="reference internal" href="%E7%A8%B3%E5%AE%9A%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B.html#stable-diffusion-sd">6.2. 稳定扩散模型（Stable diffusion,SD）</a></li>
-<li class="toctree-l3"><a class="reference internal" href="%E7%A8%B3%E5%AE%9A%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B.html#id3">6.3. 参考文献</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dalle2.html">6. DALL·E 2</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dalle2.html#glide">6.1. GLIDE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dalle2.html#unclip">6.2. unCLIP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dalle2.html#id3">6.3. 参考文献</a></li>
 </ul>
 </li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">7. 条件控制之ControlNet</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id3">7.1. 算法原理</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id6">7.2. 代码实现</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id7">7.3. 最后的总结</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id8">7.4. 参考文献</a></li>
+<li class="toctree-l2"><a class="reference internal" href="%E7%A8%B3%E5%AE%9A%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B.html">7. 稳定扩散模型（Stable diffusion model）</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="%E7%A8%B3%E5%AE%9A%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B.html#latent-diffusion-model-ldm">7.1. 潜在扩散模型（Latent diffusion model,LDM）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="%E7%A8%B3%E5%AE%9A%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B.html#stable-diffusion-sd">7.2. 稳定扩散模型（Stable diffusion,SD）</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="%E7%A8%B3%E5%AE%9A%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B.html#id3">7.2.1. 推理过程代码</a></li>
+<li class="toctree-l4"><a class="reference internal" href="%E7%A8%B3%E5%AE%9A%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B.html#id4">7.2.2. 训练过程</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="dreamBooth.html">8. 条件控制之DreamBooth</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="dreamBooth.html#id2">8.1. DreamBooth 技术</a></li>
-<li class="toctree-l3"><a class="reference internal" href="dreamBooth.html#id3">8.2. 参考文献</a></li>
+<li class="toctree-l3"><a class="reference internal" href="%E7%A8%B3%E5%AE%9A%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B.html#id5">7.3. 参考文献</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="dalle2.html">9. DALL·E 2</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="dalle2.html#glide">9.1. GLIDE</a></li>
-<li class="toctree-l3"><a class="reference internal" href="dalle2.html#unclip">9.2. Unclip</a></li>
-<li class="toctree-l3"><a class="reference internal" href="dalle2.html#id1">9.3. 参考文献</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">8. 条件控制之ControlNet</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id3">8.1. 算法原理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">8.2. 代码实现</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id7">8.3. 最后的总结</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id8">8.4. 参考文献</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="imgen.html">10. Imagen</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="imgen.html#id2">10.1. 代码实现解读</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="imgen.html#id3">10.1.1. 第一阶段</a></li>
-<li class="toctree-l4"><a class="reference internal" href="imgen.html#id4">10.1.2. 第二阶段</a></li>
-<li class="toctree-l4"><a class="reference internal" href="imgen.html#id5">10.1.3. 第三阶段</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dreamBooth.html">9. 条件控制之DreamBooth</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dreamBooth.html#id2">9.1. DreamBooth 技术</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dreamBooth.html#id3">9.2. 参考文献</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="imgen.html#id6">10.2. Imagen 总结</a></li>
-<li class="toctree-l3"><a class="reference internal" href="imgen.html#id7">10.3. 参考文献</a></li>
+<li class="toctree-l2"><a class="reference internal" href="imagen.html">10. Imagen</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="imagen.html#id2">10.1. 代码实现解读</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="imagen.html#id3">10.1.1. 第一阶段</a></li>
+<li class="toctree-l4"><a class="reference internal" href="imagen.html#id4">10.1.2. 第二阶段</a></li>
+<li class="toctree-l4"><a class="reference internal" href="imagen.html#id5">10.1.3. 第三阶段</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="imagen.html#id6">10.2. Imagen 总结</a></li>
+<li class="toctree-l3"><a class="reference internal" href="imagen.html#id7">10.3. 参考文献</a></li>
 </ul>
 </li>
 </ul>
@@ -990,7 +994,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="index.html">AI内容生成（ai-gc）</a></li>
-      <li class="breadcrumb-item active"><span class="section-number">7. </span>条件控制之ControlNet</li>
+      <li class="breadcrumb-item active"><span class="section-number">8. </span>条件控制之ControlNet</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/aigc/controlnet.rst.txt" rel="nofollow"> 查看页面源码</a>
       </li>
@@ -1001,7 +1005,7 @@
            <div itemprop="articleBody">
              
   <section id="controlnet">
-<h1><span class="section-number">7. </span>条件控制之ControlNet<a class="headerlink" href="#controlnet" title="此标题的永久链接"></a></h1>
+<h1><span class="section-number">8. </span>条件控制之ControlNet<a class="headerlink" href="#controlnet" title="此标题的永久链接"></a></h1>
 <p>图像生成的一个重要问题就是如何控制生成的图像，前面已经介绍了如何对图像生成模型进行 guidance，
 预训练的模型 Stable Diffusion 支持 text guidance。
 然而文本的描述能力其实是非常有限的，图像的很多细节是无法用文本进行清晰描述的，
@@ -1010,11 +1014,11 @@
 引入如果用更详细的信息去指导图像生成就称为了一个重要的研究方向，
 这其中用一张额外的图像去控制图像生成过程就是一种显而易见的手段，
 比如用一张人物姿态图去控制生成过程，使其生成一张完全符合姿态图的图像，
-如<a class="reference internal" href="#fg-dm-controlnet-001"><span class="std std-numref">图 7.1</span></a> 所示，</p>
+如<a class="reference internal" href="#fg-dm-controlnet-001"><span class="std std-numref">图 8.2</span></a> 所示，</p>
 <figure class="align-center" id="id10">
 <span id="fg-dm-controlnet-001"></span><a class="reference internal image-reference" href="../_images/controlnet_pose.png"><img alt="../_images/controlnet_pose.png" src="../_images/controlnet_pose.png" style="width: 644.4000000000001px; height: 355.6px;" /></a>
 <figcaption>
-<p><span class="caption-number">图 7.1 </span><span class="caption-text">利用人物姿态（pose）图控制图像生成，令其生成符合姿态图的人物图像。图片来自 <span id="id1">[<a class="reference internal" href="dalle2.html#id20" title="Lvmin Zhang and Maneesh Agrawala. Adding conditional control to text-to-image diffusion models. 2023. arXiv:2302.05543.">ZA23</a>]</span></span><a class="headerlink" href="#id10" title="此图像的永久链接"></a></p>
+<p><span class="caption-number">图 8.2 </span><span class="caption-text">利用人物姿态（pose）图控制图像生成，令其生成符合姿态图的人物图像。图片来自 <span id="id1">[]</span></span><a class="headerlink" href="#id10" title="此图像的永久链接"></a></p>
 </figcaption>
 </figure>
 <p>本章要介绍的 ControlNet <a class="footnote-reference brackets" href="#footcite-zhang2023adding" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> 就是这样一种的技术，它是在预训练的 Stable Diffusion 模型基础上，
@@ -1022,10 +1026,10 @@
 这个额外的输入作为 Stable Diffusion 的一个控制条件（condition），
 它可以控制 Stable Diffusion 生成的图像结果，使其符合我们输入的条件图像特征。</p>
 <section id="id3">
-<h2><span class="section-number">7.1. </span>算法原理<a class="headerlink" href="#id3" title="此标题的永久链接"></a></h2>
+<h2><span class="section-number">8.1. </span>算法原理<a class="headerlink" href="#id3" title="此标题的永久链接"></a></h2>
 <p>我们知道，Stable Diffusion 本身是支持条件输入的，它的神经网络模型可以用如下函数表示</p>
 <div class="math notranslate nohighlight" id="equation-aigc-controlnet-0">
-<span class="eqno">(7.1.25)<a class="headerlink" href="#equation-aigc-controlnet-0" title="此公式的永久链接"></a></span>\[\epsilon_{\theta}(z_t,t,\tau_{\theta}(y))\]</div>
+<span class="eqno">(8.1.42)<a class="headerlink" href="#equation-aigc-controlnet-0" title="此公式的永久链接"></a></span>\[\epsilon_{\theta}(z_t,t,\tau_{\theta}(y))\]</div>
 <p>其中 <span class="math notranslate nohighlight">\(\epsilon_{\theta}\)</span> 代表 Stable Diffusion 的关键神经网络，
 它的网络实现采用的是 Unet 网络，
 它的输入分别是加噪后的潜空间图像数据 <span class="math notranslate nohighlight">\(z_t\)</span>，
@@ -1035,13 +1039,13 @@
 它是通过引入 OpenClip 模型的文本编码器（Text Encoder）来实现对文本信息的编码
 ，也就是 <span class="math notranslate nohighlight">\(\tau_{\theta}(y)\)</span> 就是 OpenClip 的 Text Encoder。</p>
 <div class="math notranslate nohighlight" id="equation-aigc-controlnet-1">
-<span class="eqno">(7.1.26)<a class="headerlink" href="#equation-aigc-controlnet-1" title="此公式的永久链接"></a></span>\[\epsilon_{\theta}(z_t,t,\tau_{\text{OpenClip}}(\text{text prompt}))\]</div>
+<span class="eqno">(8.1.43)<a class="headerlink" href="#equation-aigc-controlnet-1" title="此公式的永久链接"></a></span>\[\epsilon_{\theta}(z_t,t,\tau_{\text{OpenClip}}(\text{text prompt}))\]</div>
 <p>现在我们期望再额外引入图像控制信息，其实也就是对 <span class="math notranslate nohighlight">\(\tau_{\theta}(y)\)</span> 进行扩展。
 由于我们引入的条件控制信息是图像，所以就涉及到图像的编码处理（特征转换、特征抽取）问题，
 可以最直接的想法是，引入一个图像编码器（Image Encoder）来处理条件图像信息， 比如把
 OpenClip 的 Image Encoder 部分拿过来直接用。</p>
 <div class="math notranslate nohighlight" id="equation-aigc-controlnet-2">
-<span class="eqno">(7.1.27)<a class="headerlink" href="#equation-aigc-controlnet-2" title="此公式的永久链接"></a></span>\[\epsilon_{\theta}(z_t,t,\tau_{\text{OpenClip}}(\text{text prompt}),\tau_{\text{OpenClip}}(\text{image prompt}))\]</div>
+<span class="eqno">(8.1.44)<a class="headerlink" href="#equation-aigc-controlnet-2" title="此公式的永久链接"></a></span>\[\epsilon_{\theta}(z_t,t,\tau_{\text{OpenClip}}(\text{text prompt}),\tau_{\text{OpenClip}}(\text{image prompt}))\]</div>
 <p>但 ControlNet 不是这样的做的，它并没有从别处拿来一个图像编码器（Image Encoder），
 而是直接利用 Stable Diffusion 自己的 Unet 来作为图像编码器，
 接下来看下具体是怎么做的。</p>
@@ -1053,17 +1057,17 @@ OpenClip 的 Image Encoder 部分拿过来直接用。</p>
 <li><p>右侧部分，同样包含12个网络块（blocks），把输入的 <span class="math notranslate nohighlight">\(8 \times 8\)</span> 的 latent image 逐步升维到 <span class="math notranslate nohighlight">\(64 \times 64\)</span>，
 这个过程类似于解压过程，所以可以称为解码器（decoder），也可以称为上采样（up sample）。</p></li>
 </ul>
-<p><a class="reference internal" href="#fg-dm-controlnet-002"><span class="std std-numref">图 7.1.2</span></a> 中左侧的子图(a)，就是标准版 Stable Diffusion 的 Unet 网络结构，
+<p><a class="reference internal" href="#fg-dm-controlnet-002"><span class="std std-numref">图 8.1.3</span></a> 中左侧的子图(a)，就是标准版 Stable Diffusion 的 Unet 网络结构，
 只是这里把 U 型结构给拉直了。右侧子图（b）是增加的 ControlNet 平行网络，ControlNet 是的网络结构是左侧 Unet
 的一个镜像，只是去掉了 Decoder 部分，只包含 Encoder 部分和 Middle 部分，并且为每一个 block 套上了一个 <span class="math notranslate nohighlight">\(1 \times 1\)</span>
 的卷积层（Convolution）。</p>
 <figure class="align-center" id="id11">
 <span id="fg-dm-controlnet-002"></span><a class="reference internal image-reference" href="../_images/controlnet_unet.png"><img alt="../_images/controlnet_unet.png" src="../_images/controlnet_unet.png" style="width: 723.0px; height: 562.8px;" /></a>
 <figcaption>
-<p><span class="caption-number">图 7.1.2 </span><span class="caption-text">左侧(a)图是标准版 Stable Diffusion 的Unet 网络，右侧(b)图是 ControlNet 的平行网络。图片来自 <span id="id4">[<a class="reference internal" href="dalle2.html#id20" title="Lvmin Zhang and Maneesh Agrawala. Adding conditional control to text-to-image diffusion models. 2023. arXiv:2302.05543.">ZA23</a>]</span></span><a class="headerlink" href="#id11" title="此图像的永久链接"></a></p>
+<p><span class="caption-number">图 8.1.3 </span><span class="caption-text">左侧(a)图是标准版 Stable Diffusion 的Unet 网络，右侧(b)图是 ControlNet 的平行网络。图片来自 <span id="id4">[]</span></span><a class="headerlink" href="#id11" title="此图像的永久链接"></a></p>
 </figcaption>
 </figure>
-<p><a class="reference internal" href="#fg-dm-controlnet-003"><span class="std std-numref">图 7.1.3</span></a> 是具体一个 block 的展示，
+<p><a class="reference internal" href="#fg-dm-controlnet-003"><span class="std std-numref">图 8.1.4</span></a> 是具体一个 block 的展示，
 同样左侧子图（a) 是标准版 Stable Diffusion 的一个 block， 右侧子图（b）
 是 ControlNet 对它的一个复制镜像，但是在这个 block 的输出后追加了一个 <span class="math notranslate nohighlight">\(1 \times 1\)</span>
 的卷积层（Convolution）。 ControlNet 的 block 和 Unet 的 Encoder、Middle 是一一对应的，
@@ -1075,8 +1079,8 @@ ControlNet block 的输出会和对应的 Unet Encoder(Middle) block 的输出 �
 <figure class="align-center" id="id12">
 <span id="fg-dm-controlnet-003"></span><a class="reference internal image-reference" href="../_images/controlnet_block.png"><img alt="../_images/controlnet_block.png" src="../_images/controlnet_block.png" style="width: 705.6px; height: 244.2px;" /></a>
 <figcaption>
-<p><span class="caption-number">图 7.1.3 </span><span class="caption-text">block 的细节展示，左侧(a)图是标准版 Stable Diffusion 的一个 block，右侧(b)图是 ControlNet 对它的复制镜像，
-并在后面追加了一个 <span class="math notranslate nohighlight">\(1 \times 1\)</span> 的卷积层（Convolution）。图片来自 <span id="id5">[<a class="reference internal" href="dalle2.html#id20" title="Lvmin Zhang and Maneesh Agrawala. Adding conditional control to text-to-image diffusion models. 2023. arXiv:2302.05543.">ZA23</a>]</span></span><a class="headerlink" href="#id12" title="此图像的永久链接"></a></p>
+<p><span class="caption-number">图 8.1.4 </span><span class="caption-text">block 的细节展示，左侧(a)图是标准版 Stable Diffusion 的一个 block，右侧(b)图是 ControlNet 对它的复制镜像，
+并在后面追加了一个 <span class="math notranslate nohighlight">\(1 \times 1\)</span> 的卷积层（Convolution）。图片来自 <span id="id5">[]</span></span><a class="headerlink" href="#id12" title="此图像的永久链接"></a></p>
 </figcaption>
 </figure>
 <p>ControlNet 并没有从别处拿来一个 Image Encoder 来用，
@@ -1085,7 +1089,7 @@ ControlNet block 的输出会和对应的 Unet Encoder(Middle) block 的输出 �
 而又由于 Unet 由三部分组成：左侧编码器、中间部分、右侧解码部分，
 ControlNet 只复制了其中左侧编码器和中间部分，并在每一个block 后面追加一个 <span class="math notranslate nohighlight">\(1 \times 1\)</span>
 的卷积。ControlNet 每一个 block 的输出，会通过跳线连接到  Stable Diffusion 的 Unet 右侧解码器对应部分。
-<a class="reference internal" href="#fg-dm-controlnet-003"><span class="std std-numref">图 7.1.3</span></a> 画成一个 W 型可能更直观一些。</p>
+<a class="reference internal" href="#fg-dm-controlnet-003"><span class="std std-numref">图 8.1.4</span></a> 画成一个 W 型可能更直观一些。</p>
 <p><strong>训练过程</strong></p>
 <p>ControlNet 在训练时，原始 Stable Diffusion 的 Unet 部分是冻住的，参数不更新，
 仅仅 ControlNet 部分的参数进行更新，这里有两个细节</p>
@@ -1103,20 +1107,20 @@ ControlNet 只复制了其中左侧编码器和中间部分，并在每一个blo
 论文作者已经给出了解释：是可以正常更新参数的。</p>
 <p>这里可以从一个最简单的线性函数进行解释，</p>
 <div class="math notranslate nohighlight" id="equation-aigc-controlnet-3">
-<span class="eqno">(7.1.28)<a class="headerlink" href="#equation-aigc-controlnet-3" title="此公式的永久链接"></a></span>\[y = \omega x + b\]</div>
+<span class="eqno">(8.1.45)<a class="headerlink" href="#equation-aigc-controlnet-3" title="此公式的永久链接"></a></span>\[y = \omega x + b\]</div>
 <p>参数 <span class="math notranslate nohighlight">\(\omega\)</span> ,特征 <span class="math notranslate nohighlight">\(x\)</span> , 偏置 <span class="math notranslate nohighlight">\(b\)</span> 的偏导分别为</p>
 <div class="math notranslate nohighlight" id="equation-aigc-controlnet-4">
-<span class="eqno">(7.1.29)<a class="headerlink" href="#equation-aigc-controlnet-4" title="此公式的永久链接"></a></span>\[\begin{split}\frac{\partial y}{\partial \omega} &amp;= x \\
+<span class="eqno">(8.1.46)<a class="headerlink" href="#equation-aigc-controlnet-4" title="此公式的永久链接"></a></span>\[\begin{split}\frac{\partial y}{\partial \omega} &amp;= x \\
 \frac{\partial y}{\partial x} &amp;= \omega \\
 \frac{\partial y}{\partial b} &amp;= 1\end{split}\]</div>
 <p>参数 <span class="math notranslate nohighlight">\(\omega\)</span> 的初始值为 <span class="math notranslate nohighlight">\(0\)</span> 并代表它的梯度为 <span class="math notranslate nohighlight">\(0\)</span>
 ，所以 <span class="math notranslate nohighlight">\(0\)</span> 初始化的卷积层是可以正常进行参数更新的。</p>
 <p>增加了 ControlNet 后，整体的噪声预测参数化网络用函数表示为</p>
 <div class="math notranslate nohighlight" id="equation-aigc-controlnet-5">
-<span class="eqno">(7.1.30)<a class="headerlink" href="#equation-aigc-controlnet-5" title="此公式的永久链接"></a></span>\[\epsilon_{\theta}(z_t,t,\tau_{\text{OpenClip}}(\text{text prompt}),\tau_{\text{ControlNet}}(\text{image prompt}))\]</div>
+<span class="eqno">(8.1.47)<a class="headerlink" href="#equation-aigc-controlnet-5" title="此公式的永久链接"></a></span>\[\epsilon_{\theta}(z_t,t,\tau_{\text{OpenClip}}(\text{text prompt}),\tau_{\text{ControlNet}}(\text{image prompt}))\]</div>
 </section>
 <section id="id6">
-<h2><span class="section-number">7.2. </span>代码实现<a class="headerlink" href="#id6" title="此标题的永久链接"></a></h2>
+<h2><span class="section-number">8.2. </span>代码实现<a class="headerlink" href="#id6" title="此标题的永久链接"></a></h2>
 <p>ControlNet 的官方实现在 <a class="reference external" href="https://github.com/lllyasviel/ControlNet">Github/ControlNet</a>
 ，但这个官方实现略显复杂，这里我们还是推荐阅读 <code class="docutils literal notranslate"><span class="pre">diffusers</span></code> 的实现，
 这里我们摘录其中关键的部分，帮助理解。</p>
@@ -1311,7 +1315,7 @@ ControlNet 的实现是类 <code class="docutils literal notranslate"><span clas
 对更多细节感兴趣的可以直接查阅相关源码。</p>
 </section>
 <section id="id7">
-<h2><span class="section-number">7.3. </span>最后的总结<a class="headerlink" href="#id7" title="此标题的永久链接"></a></h2>
+<h2><span class="section-number">8.3. </span>最后的总结<a class="headerlink" href="#id7" title="此标题的永久链接"></a></h2>
 <p>ControlNet 是一个任务相关的端到端方法，即对于每一种控制类型都要训练一个特定的 ControlNet 支持，
 比如线图控制、深度图控制、姿态控制等等。这样有好处也有坏处，
 单独看一个场景，拥有使用简单、训练成本低等优点。
@@ -1333,7 +1337,7 @@ ControlNet 的实现是类 <code class="docutils literal notranslate"><span clas
 当然以上仅是个人的浅见，不保证正确。</p>
 </section>
 <section id="id8">
-<h2><span class="section-number">7.4. </span>参考文献<a class="headerlink" href="#id8" title="此标题的永久链接"></a></h2>
+<h2><span class="section-number">8.4. </span>参考文献<a class="headerlink" href="#id8" title="此标题的永久链接"></a></h2>
 <div class="docutils container" id="id9">
 <aside class="footnote brackets" id="footcite-zhang2023adding" role="note">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">1</a><span class="fn-bracket">]</span></span>
@@ -1348,8 +1352,8 @@ ControlNet 的实现是类 <code class="docutils literal notranslate"><span clas
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
-        <a href="%E7%A8%B3%E5%AE%9A%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B.html" class="btn btn-neutral float-left" title="6. 稳定扩散模型（Stable diffusion model）" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
-        <a href="dreamBooth.html" class="btn btn-neutral float-right" title="8. 条件控制之DreamBooth" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="%E7%A8%B3%E5%AE%9A%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B.html" class="btn btn-neutral float-left" title="7. 稳定扩散模型（Stable diffusion model）" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="dreamBooth.html" class="btn btn-neutral float-right" title="9. 条件控制之DreamBooth" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

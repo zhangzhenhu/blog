@@ -6,7 +6,7 @@
 <meta content="变分自编码器,Variational Autoencoder,VAE,扩散模型,Diffusion Model,生成模型,图像生成" name="keywords" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>6. 稳定扩散模型（Stable diffusion model） &mdash; 张振虎的博客 张振虎 文档</title>
+  <title>7. 稳定扩散模型（Stable diffusion model） &mdash; 张振虎的博客 张振虎 文档</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
@@ -24,8 +24,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
-    <link rel="next" title="7. 条件控制之ControlNet" href="controlnet.html" />
-    <link rel="prev" title="5. 条件控制扩散模型" href="Guidance.html" /> 
+    <link rel="next" title="8. 条件控制之ControlNet" href="controlnet.html" />
+    <link rel="prev" title="6. DALL·E 2" href="dalle2.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -757,39 +757,43 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">6. 稳定扩散模型（Stable diffusion model）</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#latent-diffusion-model-ldm">6.1. 潜在扩散模型（Latent diffusion model,LDM）</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#stable-diffusion-sd">6.2. 稳定扩散模型（Stable diffusion,SD）</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id3">6.3. 参考文献</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dalle2.html">6. DALL·E 2</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dalle2.html#glide">6.1. GLIDE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dalle2.html#unclip">6.2. unCLIP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dalle2.html#id3">6.3. 参考文献</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="controlnet.html">7. 条件控制之ControlNet</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="controlnet.html#id3">7.1. 算法原理</a></li>
-<li class="toctree-l3"><a class="reference internal" href="controlnet.html#id6">7.2. 代码实现</a></li>
-<li class="toctree-l3"><a class="reference internal" href="controlnet.html#id7">7.3. 最后的总结</a></li>
-<li class="toctree-l3"><a class="reference internal" href="controlnet.html#id8">7.4. 参考文献</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">7. 稳定扩散模型（Stable diffusion model）</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#latent-diffusion-model-ldm">7.1. 潜在扩散模型（Latent diffusion model,LDM）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stable-diffusion-sd">7.2. 稳定扩散模型（Stable diffusion,SD）</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id3">7.2.1. 推理过程代码</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id4">7.2.2. 训练过程</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="dreamBooth.html">8. 条件控制之DreamBooth</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="dreamBooth.html#id2">8.1. DreamBooth 技术</a></li>
-<li class="toctree-l3"><a class="reference internal" href="dreamBooth.html#id3">8.2. 参考文献</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">7.3. 参考文献</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="dalle2.html">9. DALL·E 2</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="dalle2.html#glide">9.1. GLIDE</a></li>
-<li class="toctree-l3"><a class="reference internal" href="dalle2.html#unclip">9.2. Unclip</a></li>
-<li class="toctree-l3"><a class="reference internal" href="dalle2.html#id1">9.3. 参考文献</a></li>
+<li class="toctree-l2"><a class="reference internal" href="controlnet.html">8. 条件控制之ControlNet</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="controlnet.html#id3">8.1. 算法原理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="controlnet.html#id6">8.2. 代码实现</a></li>
+<li class="toctree-l3"><a class="reference internal" href="controlnet.html#id7">8.3. 最后的总结</a></li>
+<li class="toctree-l3"><a class="reference internal" href="controlnet.html#id8">8.4. 参考文献</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="imgen.html">10. Imagen</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="imgen.html#id2">10.1. 代码实现解读</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="imgen.html#id3">10.1.1. 第一阶段</a></li>
-<li class="toctree-l4"><a class="reference internal" href="imgen.html#id4">10.1.2. 第二阶段</a></li>
-<li class="toctree-l4"><a class="reference internal" href="imgen.html#id5">10.1.3. 第三阶段</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dreamBooth.html">9. 条件控制之DreamBooth</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dreamBooth.html#id2">9.1. DreamBooth 技术</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dreamBooth.html#id3">9.2. 参考文献</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="imgen.html#id6">10.2. Imagen 总结</a></li>
-<li class="toctree-l3"><a class="reference internal" href="imgen.html#id7">10.3. 参考文献</a></li>
+<li class="toctree-l2"><a class="reference internal" href="imagen.html">10. Imagen</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="imagen.html#id2">10.1. 代码实现解读</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="imagen.html#id3">10.1.1. 第一阶段</a></li>
+<li class="toctree-l4"><a class="reference internal" href="imagen.html#id4">10.1.2. 第二阶段</a></li>
+<li class="toctree-l4"><a class="reference internal" href="imagen.html#id5">10.1.3. 第三阶段</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="imagen.html#id6">10.2. Imagen 总结</a></li>
+<li class="toctree-l3"><a class="reference internal" href="imagen.html#id7">10.3. 参考文献</a></li>
 </ul>
 </li>
 </ul>
@@ -990,7 +994,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="index.html">AI内容生成（ai-gc）</a></li>
-      <li class="breadcrumb-item active"><span class="section-number">6. </span>稳定扩散模型（Stable diffusion model）</li>
+      <li class="breadcrumb-item active"><span class="section-number">7. </span>稳定扩散模型（Stable diffusion model）</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/aigc/稳定扩散模型.rst.txt" rel="nofollow"> 查看页面源码</a>
       </li>
@@ -1001,7 +1005,7 @@
            <div itemprop="articleBody">
              
   <section id="stable-diffusion-model">
-<span id="ch-ldm"></span><h1><span class="section-number">6. </span>稳定扩散模型（Stable diffusion model）<a class="headerlink" href="#stable-diffusion-model" title="此标题的永久链接"></a></h1>
+<span id="ch-ldm"></span><h1><span class="section-number">7. </span>稳定扩散模型（Stable diffusion model）<a class="headerlink" href="#stable-diffusion-model" title="此标题的永久链接"></a></h1>
 <p>DDPM 模型在生成图像质量上效果已经非常好，但它也有个缺点，
 那就是 <span class="math notranslate nohighlight">\(x_t\)</span> 的尺寸是和图片一致的，<span class="math notranslate nohighlight">\(x_t\)</span> 的元素和图片的像素是一一对应的，
 所以称 DDPM 是像素(pixel)空间的生成模型。
@@ -1009,8 +1013,9 @@
 ，如果想生成一张高尺寸的图像， <span class="math notranslate nohighlight">\(x_t\)</span> 的张量大小是非常大的，这就需要极大的显卡（硬件）资源，包括计算资源和显存资源。
 同样的，它的训练成本也是高昂的。高昂的成本极大的限制了它在民用领用的发展。</p>
 <section id="latent-diffusion-model-ldm">
-<h2><span class="section-number">6.1. </span>潜在扩散模型（Latent diffusion model,LDM）<a class="headerlink" href="#latent-diffusion-model-ldm" title="此标题的永久链接"></a></h2>
-<p>2021 年 CompVis 小组发布了论文 <cite>High-Resolution Image Synthesis with Latent Diffusion Models</cite>
+<h2><span class="section-number">7.1. </span>潜在扩散模型（Latent diffusion model,LDM）<a class="headerlink" href="#latent-diffusion-model-ldm" title="此标题的永久链接"></a></h2>
+<p>2021年德国慕尼黑路德维希-马克西米利安大学计算机视觉和学习研究小组（原海德堡大学计算机视觉小组），
+简称 CompVis 小组，发布了论文 <cite>High-Resolution Image Synthesis with Latent Diffusion Models</cite>
 <a class="footnote-reference brackets" href="#footcite-rombach2021highresolution" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>，针对这个问题做了一些改进，
 主要的改进点有：</p>
 <ul class="simple">
@@ -1024,24 +1029,24 @@
 由于 <span class="math notranslate nohighlight">\(z_0\)</span> 是压缩过的，其尺寸远远小于原始的图像，这样就能极大的减少 DDPM 资源的消耗。
 压缩后 <span class="math notranslate nohighlight">\(z_0\)</span> 所在的数据空间称为潜在空间（latent space）,
 <span class="math notranslate nohighlight">\(z_0\)</span> 可以称为潜在数据。</p>
-<figure class="align-center" id="id6">
+<figure class="align-center" id="id8">
 <span id="fg-dm-031"></span><a class="reference internal image-reference" href="../_images/diffusion_ldm_vae.webp"><img alt="../_images/diffusion_ldm_vae.webp" src="../_images/diffusion_ldm_vae.webp" style="width: 431.20000000000005px; height: 183.20000000000002px;" /></a>
 <figcaption>
-<p><span class="caption-number">图 6.1.6 </span><span class="caption-text">LDM 中自编码器示意图（图片来自<a class="reference external" href="https://medium.com/&#64;steinsfu/stable-diffusion-clearly-explained-ed008044e07e">博客</a> ）</span><a class="headerlink" href="#id6" title="此图像的永久链接"></a></p>
+<p><span class="caption-number">图 7.1.2 </span><span class="caption-text">LDM 中自编码器示意图（图片来自<a class="reference external" href="https://medium.com/&#64;steinsfu/stable-diffusion-clearly-explained-ed008044e07e">博客</a> ）</span><a class="headerlink" href="#id8" title="此图像的永久链接"></a></p>
 </figcaption>
 </figure>
 <p>这个自编码器（VAE）可以是提前预训练好的模型，在训练扩散模型时，自编码器的参数是冻住的，
-如 <a class="reference internal" href="#fg-dm-031"><span class="std std-numref">图 6.1.6</span></a> 所示</p>
+如 <a class="reference internal" href="#fg-dm-031"><span class="std std-numref">图 7.1.2</span></a> 所示</p>
 <ul class="simple">
 <li><p>通过使用预训练的编码器 <span class="math notranslate nohighlight">\(E\)</span>，我们可以将全尺寸图像编码为低维潜在空间数据（压缩数据）。</p></li>
 <li><p>通过使用预训练的解码器 <span class="math notranslate nohighlight">\(D\)</span>，我们可以将潜在空间数据解码回图像。</p></li>
 </ul>
 <p>这样在 DDPM 外层增加一个 VAE 后，DDPM 的扩散过程和降噪过程都是在潜空间（Latent Space）进行，
 潜空间的尺寸远远小于像素空间，极大了降低了硬件资源的需求，同时也能加速整个过程。</p>
-<figure class="align-center" id="id7">
+<figure class="align-center" id="id9">
 <span id="fg-dm-032"></span><a class="reference internal image-reference" href="../_images/diffusion_ldm_2.webp"><img alt="../_images/diffusion_ldm_2.webp" src="../_images/diffusion_ldm_2.webp" style="width: 432.8px; height: 358.40000000000003px;" /></a>
 <figcaption>
-<p><span class="caption-number">图 6.1.7 </span><span class="caption-text">LDM 中 DDPM 是在潜在空间执行的（图片来自<a class="reference external" href="https://medium.com/&#64;steinsfu/stable-diffusion-clearly-explained-ed008044e07e">博客</a> ）</span><a class="headerlink" href="#id7" title="此图像的永久链接"></a></p>
+<p><span class="caption-number">图 7.1.3 </span><span class="caption-text">LDM 中 DDPM 是在潜在空间执行的（图片来自<a class="reference external" href="https://medium.com/&#64;steinsfu/stable-diffusion-clearly-explained-ed008044e07e">博客</a> ）</span><a class="headerlink" href="#id9" title="此图像的永久链接"></a></p>
 </figcaption>
 </figure>
 <p>正向扩散过程→给潜在数据增加噪声，逆向扩散过程→从潜在数据中消除噪声。
@@ -1051,10 +1056,10 @@
 <p><strong>条件处理</strong></p>
 <p>在 DDPM 的过程中，可以增加额外的指导信息，使其生成我们的想要的图像，
 比如文本生成图像、图像生成图像等等。</p>
-<figure class="align-center" id="id8">
+<figure class="align-center" id="id10">
 <span id="fg-dm-033"></span><a class="reference internal image-reference" href="../_images/diffusion_ldm_3.webp"><img alt="../_images/diffusion_ldm_3.webp" src="../_images/diffusion_ldm_3.webp" style="width: 742.4000000000001px; height: 334.40000000000003px;" /></a>
 <figcaption>
-<p><span class="caption-number">图 6.1.8 </span><span class="caption-text">条件化的LDM（图片来自<a class="reference external" href="https://medium.com/&#64;steinsfu/stable-diffusion-clearly-explained-ed008044e07e">博客</a> ）</span><a class="headerlink" href="#id8" title="此图像的永久链接"></a></p>
+<p><span class="caption-number">图 7.1.4 </span><span class="caption-text">条件化的LDM（图片来自<a class="reference external" href="https://medium.com/&#64;steinsfu/stable-diffusion-clearly-explained-ed008044e07e">博客</a> ）</span><a class="headerlink" href="#id10" title="此图像的永久链接"></a></p>
 </figcaption>
 </figure>
 <p>用符号 <span class="math notranslate nohighlight">\(y\)</span> 表示额外的条件数据，用 <span class="math notranslate nohighlight">\(\tau_{\theta}\)</span>
@@ -1068,7 +1073,7 @@
 这里选用一个预训练好的 CLIP 模型即可。</p>
 <p>通过在 UNET 网络中增加 Attention 机制把文本的嵌入向量( <span class="math notranslate nohighlight">\(\tau_{\theta}(y)\)</span> ）
 加入到 UNET 网络中。加入不同的内容可以通过一个开关（switch）来控制，
-如 <a class="reference internal" href="#fg-dm-033"><span class="std std-numref">图 6.1.8</span></a> 所示。</p>
+如 <a class="reference internal" href="#fg-dm-033"><span class="std std-numref">图 7.1.4</span></a> 所示。</p>
 <ul class="simple">
 <li><p>对于文本输入，它们首先使用语言模型 <span class="math notranslate nohighlight">\(\tau_{\theta}(y)\)</span> （例如BERT，CLIP）转换为嵌入（向量），然后通过（多头）注意（Q，K，V）层映射到U-Net。</p></li>
 <li><p>对于其他空间对齐的输入（例如语义图、图像、修复），可以使用串联来完成调节。</p></li>
@@ -1077,39 +1082,317 @@
 LDM模型论文的代码和预训练的模型已经在 Github 开源，地址为： <cite>https://github.com/CompVis/latent-diffusion</cite>
 。</p>
 <p><strong>训练过程</strong></p>
-<p>相比于 DDPM ，条件化的 LDM 目标函数稍微变化了一点，具体变化内容可以参考 <a class="reference internal" href="#fg-dm-034"><span class="std std-numref">图 6.1.9</span></a>。</p>
-<figure class="align-center" id="id9">
+<p>相比于 DDPM ，条件化的 LDM 目标函数稍微变化了一点，具体变化内容可以参考 <a class="reference internal" href="#fg-dm-034"><span class="std std-numref">图 7.1.5</span></a>。</p>
+<figure class="align-center" id="id11">
 <span id="fg-dm-034"></span><a class="reference internal image-reference" href="../_images/diffusion_ldm_7.png"><img alt="../_images/diffusion_ldm_7.png" src="../_images/diffusion_ldm_7.png" style="width: 440.0px; height: 232.0px;" /></a>
 <figcaption>
-<p><span class="caption-number">图 6.1.9 </span><span class="caption-text">LDM 目标函数的变化（图片来自<a class="reference external" href="https://medium.com/&#64;steinsfu/stable-diffusion-clearly-explained-ed008044e07e">博客</a> ）</span><a class="headerlink" href="#id9" title="此图像的永久链接"></a></p>
+<p><span class="caption-number">图 7.1.5 </span><span class="caption-text">LDM 目标函数的变化（图片来自<a class="reference external" href="https://medium.com/&#64;steinsfu/stable-diffusion-clearly-explained-ed008044e07e">博客</a> ）</span><a class="headerlink" href="#id11" title="此图像的永久链接"></a></p>
 </figcaption>
 </figure>
 <p><strong>生成（采样）过程</strong></p>
-<figure class="align-center" id="id10">
+<figure class="align-center" id="id12">
 <span id="fg-dm-035"></span><a class="reference internal image-reference" href="../_images/diffusion_ldm_4.webp"><img alt="../_images/diffusion_ldm_4.webp" src="../_images/diffusion_ldm_4.webp" style="width: 708.4px; height: 247.1px;" /></a>
 <figcaption>
-<p><span class="caption-number">图 6.1.10 </span><span class="caption-text">LDM采样过程的图示（图片来自<a class="reference external" href="https://medium.com/&#64;steinsfu/stable-diffusion-clearly-explained-ed008044e07e">博客</a> ）</span><a class="headerlink" href="#id10" title="此图像的永久链接"></a></p>
+<p><span class="caption-number">图 7.1.6 </span><span class="caption-text">LDM采样过程的图示（图片来自<a class="reference external" href="https://medium.com/&#64;steinsfu/stable-diffusion-clearly-explained-ed008044e07e">博客</a> ）</span><a class="headerlink" href="#id12" title="此图像的永久链接"></a></p>
 </figcaption>
 </figure>
-<p><a class="reference internal" href="#fg-dm-035"><span class="std std-numref">图 6.1.10</span></a> 是 LDM 采样过程的图形化表示，
+<p><a class="reference internal" href="#fg-dm-035"><span class="std std-numref">图 7.1.6</span></a> 是 LDM 采样过程的图形化表示，
 过程并不复杂，经过 DDPM 采样生成的 <span class="math notranslate nohighlight">\(z_0\)</span> 需要用解码器 <span class="math notranslate nohighlight">\(D\)</span>
 还原成图像。</p>
-<figure class="align-center" id="id11">
+<figure class="align-center" id="id13">
 <span id="fg-dm-036"></span><a class="reference internal image-reference" href="../_images/diffusion_ldm.png"><img alt="../_images/diffusion_ldm.png" src="../_images/diffusion_ldm.png" style="width: 520.0px; height: 258.8px;" /></a>
 <figcaption>
-<p><span class="caption-number">图 6.1.11 </span><span class="caption-text">LDM 示意图 (来自论文 <a class="footnote-reference brackets" href="#footcite-rombach2021highresolution" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>)</span><a class="headerlink" href="#id11" title="此图像的永久链接"></a></p>
+<p><span class="caption-number">图 7.1.7 </span><span class="caption-text">LDM 示意图 (来自论文 <a class="footnote-reference brackets" href="#footcite-rombach2021highresolution" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>)</span><a class="headerlink" href="#id13" title="此图像的永久链接"></a></p>
 </figcaption>
 </figure>
 </section>
 <section id="stable-diffusion-sd">
-<h2><span class="section-number">6.2. </span>稳定扩散模型（Stable diffusion,SD）<a class="headerlink" href="#stable-diffusion-sd" title="此标题的永久链接"></a></h2>
-<p>Stable diffusion 是 LDM 的一个开源预训练模型，
-它由 CompVis 组织提供并开源，
+<h2><span class="section-number">7.2. </span>稳定扩散模型（Stable diffusion,SD）<a class="headerlink" href="#stable-diffusion-sd" title="此标题的永久链接"></a></h2>
+<p>LDM 本身是由 CompVis 提出并联合 Runway ML进行开发实现，后来 Stability AI 也参与进来并提供了一些资源，
+联合搞了一个预训练的 LDM 模型，称为 Stable diffusion。
+所以，Stable diffusion 是 LDM 的一个开源预训练模型，由于它的开源迅速火爆起来。
 目前 Stable diffusion 已经占据了图像生成开源领域的主导地位。</p>
-</section>
+<p>由于  Stable diffusion 只是LDM的一个开源预训练模型，没有额外的复杂数学公式需要讨论，
+这里我们就直接上代码吧。
+我们不用 Stable diffusion 的官方代码库 <a class="reference external" href="https://github.com/Stability-AI/stablediffusion">stablediffusion</a>
+，而是 huggingface 开源库 diffusers 中的实现，
+它的易读性更好一些。</p>
 <section id="id3">
-<h2><span class="section-number">6.3. </span>参考文献<a class="headerlink" href="#id3" title="此标题的永久链接"></a></h2>
-<div class="docutils container" id="id4">
+<h3><span class="section-number">7.2.1. </span>推理过程代码<a class="headerlink" href="#id3" title="此标题的永久链接"></a></h3>
+<p>diffusers 把模型的核心逻辑都封装在各种 DiffusionPipeline 中，
+StableDiffusionPipeline 核心代码在 <code class="docutils literal notranslate"><span class="pre">diffusers.StableDiffusionPipeline</span></code>
+先看初始化代码，可明显看到整个 StableDiffusionPipeline 包含几个关键组件：vae,text_encoder/tokenizer,unet,scheduler。
+这几个组件和 LDM 中是对应的。</p>
+<ul class="simple">
+<li><p>vae: VAE 自编码器，负责前后的编解码（压缩、解压缩）工作。</p></li>
+<li><p>text_encoder/tokenizer: 文本编码器，负责对文本Prompt进行编码处理。</p></li>
+<li><p>unet: 噪声预测模型，也是DDPM的核心。</p></li>
+<li><p>scheduler: 负责降噪过程（逆过程）的计算，也就是实现 <span class="math notranslate nohighlight">\(x_t -&gt; x_{t-1}\)</span> ，对应着 DDPM、DDIM、ODE等不同的降采样实现。</p></li>
+<li><p>safety_checker: 做生成图像安全性检查的，可选，暂时可以不关注它。</p></li>
+<li><p>feature_extractor: 如果输入条件中存在 img，也就是以图生图(img2img)，可以用它对条件图片进行特征抽取，也就是图像编码器（img encoder），可选。</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">vae</span><span class="p">:</span> <span class="n">AutoencoderKL</span><span class="p">,</span>
+    <span class="n">text_encoder</span><span class="p">:</span> <span class="n">CLIPTextModel</span><span class="p">,</span>
+    <span class="n">tokenizer</span><span class="p">:</span> <span class="n">CLIPTokenizer</span><span class="p">,</span>
+    <span class="n">unet</span><span class="p">:</span> <span class="n">UNet2DConditionModel</span><span class="p">,</span>
+    <span class="n">scheduler</span><span class="p">:</span> <span class="n">KarrasDiffusionSchedulers</span><span class="p">,</span>
+    <span class="n">safety_checker</span><span class="p">:</span> <span class="n">StableDiffusionSafetyChecker</span><span class="p">,</span>
+    <span class="n">feature_extractor</span><span class="p">:</span> <span class="n">CLIPImageProcessor</span><span class="p">,</span>
+    <span class="n">requires_safety_checker</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<p>接下来是核心逻辑的实现，代码在方法 <code class="docutils literal notranslate"><span class="pre">StableDiffusionPipeline::__call__</span></code> 中，
+我们直接在代码加注释予以解说。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">prompt</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">height</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">width</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">num_inference_steps</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span>
+    <span class="n">guidance_scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">7.5</span><span class="p">,</span>
+    <span class="n">negative_prompt</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">num_images_per_prompt</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="n">eta</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="n">generator</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Generator</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Generator</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">latents</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">FloatTensor</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">prompt_embeds</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">FloatTensor</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">negative_prompt_embeds</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">FloatTensor</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">output_type</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;pil&quot;</span><span class="p">,</span>
+    <span class="n">return_dict</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">callback</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">[[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">FloatTensor</span><span class="p">],</span> <span class="kc">None</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">callback_steps</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="n">cross_attention_kwargs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Function invoked when calling the pipeline for generation.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        prompt (`str` or `List[str]`, *optional*):</span>
+<span class="sd">            The prompt or prompts to guide the image generation. If not defined, one has to pass `prompt_embeds`.</span>
+<span class="sd">            instead.</span>
+<span class="sd">        height (`int`, *optional*, defaults to self.unet.config.sample_size * self.vae_scale_factor):</span>
+<span class="sd">            The height in pixels of the generated image.</span>
+<span class="sd">        width (`int`, *optional*, defaults to self.unet.config.sample_size * self.vae_scale_factor):</span>
+<span class="sd">            The width in pixels of the generated image.</span>
+<span class="sd">        num_inference_steps (`int`, *optional*, defaults to 50):</span>
+<span class="sd">            The number of denoising steps. More denoising steps usually lead to a higher quality image at the</span>
+<span class="sd">            expense of slower inference.</span>
+<span class="sd">        guidance_scale (`float`, *optional*, defaults to 7.5):</span>
+<span class="sd">            Guidance scale as defined in [Classifier-Free Diffusion Guidance](https://arxiv.org/abs/2207.12598).</span>
+<span class="sd">            `guidance_scale` is defined as `w` of equation 2. of [Imagen</span>
+<span class="sd">            Paper](https://arxiv.org/pdf/2205.11487.pdf). Guidance scale is enabled by setting `guidance_scale &gt;</span>
+<span class="sd">            1`. Higher guidance scale encourages to generate images that are closely linked to the text `prompt`,</span>
+<span class="sd">            usually at the expense of lower image quality.</span>
+<span class="sd">        negative_prompt (`str` or `List[str]`, *optional*):</span>
+<span class="sd">            The prompt or prompts not to guide the image generation. If not defined, one has to pass</span>
+<span class="sd">            `negative_prompt_embeds` instead. Ignored when not using guidance (i.e., ignored if `guidance_scale` is</span>
+<span class="sd">            less than `1`).</span>
+<span class="sd">        num_images_per_prompt (`int`, *optional*, defaults to 1):</span>
+<span class="sd">            The number of images to generate per prompt.</span>
+<span class="sd">        eta (`float`, *optional*, defaults to 0.0):</span>
+<span class="sd">            Corresponds to parameter eta (η) in the DDIM paper: https://arxiv.org/abs/2010.02502. Only applies to</span>
+<span class="sd">            [`schedulers.DDIMScheduler`], will be ignored for others.</span>
+<span class="sd">        generator (`torch.Generator` or `List[torch.Generator]`, *optional*):</span>
+<span class="sd">            One or a list of [torch generator(s)](https://pytorch.org/docs/stable/generated/torch.Generator.html)</span>
+<span class="sd">            to make generation deterministic.</span>
+<span class="sd">        latents (`torch.FloatTensor`, *optional*):</span>
+<span class="sd">            Pre-generated noisy latents, sampled from a Gaussian distribution, to be used as inputs for image</span>
+<span class="sd">            generation. Can be used to tweak the same generation with different prompts. If not provided, a latents</span>
+<span class="sd">            tensor will ge generated by sampling using the supplied random `generator`.</span>
+<span class="sd">        prompt_embeds (`torch.FloatTensor`, *optional*):</span>
+<span class="sd">            Pre-generated text embeddings. Can be used to easily tweak text inputs, *e.g.* prompt weighting. If not</span>
+<span class="sd">            provided, text embeddings will be generated from `prompt` input argument.</span>
+<span class="sd">        negative_prompt_embeds (`torch.FloatTensor`, *optional*):</span>
+<span class="sd">            Pre-generated negative text embeddings. Can be used to easily tweak text inputs, *e.g.* prompt</span>
+<span class="sd">            weighting. If not provided, negative_prompt_embeds will be generated from `negative_prompt` input</span>
+<span class="sd">            argument.</span>
+<span class="sd">        output_type (`str`, *optional*, defaults to `&quot;pil&quot;`):</span>
+<span class="sd">            The output format of the generate image. Choose between</span>
+<span class="sd">            [PIL](https://pillow.readthedocs.io/en/stable/): `PIL.Image.Image` or `np.array`.</span>
+<span class="sd">        return_dict (`bool`, *optional*, defaults to `True`):</span>
+<span class="sd">            Whether or not to return a [`~pipelines.stable_diffusion.StableDiffusionPipelineOutput`] instead of a</span>
+<span class="sd">            plain tuple.</span>
+<span class="sd">        callback (`Callable`, *optional*):</span>
+<span class="sd">            A function that will be called every `callback_steps` steps during inference. The function will be</span>
+<span class="sd">            called with the following arguments: `callback(step: int, timestep: int, latents: torch.FloatTensor)`.</span>
+<span class="sd">        callback_steps (`int`, *optional*, defaults to 1):</span>
+<span class="sd">            The frequency at which the `callback` function will be called. If not specified, the callback will be</span>
+<span class="sd">            called at every step.</span>
+<span class="sd">        cross_attention_kwargs (`dict`, *optional*):</span>
+<span class="sd">            A kwargs dictionary that if specified is passed along to the `AttentionProcessor` as defined under</span>
+<span class="sd">            `self.processor` in</span>
+<span class="sd">            [diffusers.cross_attention](https://github.com/huggingface/diffusers/blob/main/src/diffusers/models/cross_attention.py).</span>
+
+<span class="sd">    Examples:</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        [`~pipelines.stable_diffusion.StableDiffusionPipelineOutput`] or `tuple`:</span>
+<span class="sd">        [`~pipelines.stable_diffusion.StableDiffusionPipelineOutput`] if `return_dict` is True, otherwise a `tuple.</span>
+<span class="sd">        When returning a tuple, the first element is a list with the generated images, and the second element is a</span>
+<span class="sd">        list of `bool`s denoting whether the corresponding generated image likely represents &quot;not-safe-for-work&quot;</span>
+<span class="sd">        (nsfw) content, according to the `safety_checker`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># 0. Default height and width to unet</span>
+    <span class="c1"># unet 网络输入的图像尺寸，也就是潜空间 Latent space 的尺寸</span>
+    <span class="n">height</span> <span class="o">=</span> <span class="n">height</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">unet</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">sample_size</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">vae_scale_factor</span>
+    <span class="n">width</span> <span class="o">=</span> <span class="n">width</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">unet</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">sample_size</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">vae_scale_factor</span>
+
+    <span class="c1"># 1. Check inputs. Raise error if not correct</span>
+    <span class="c1"># 检查输入的合法性，可以不关注</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">check_inputs</span><span class="p">(</span>
+        <span class="n">prompt</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">callback_steps</span><span class="p">,</span> <span class="n">negative_prompt</span><span class="p">,</span> <span class="n">prompt_embeds</span><span class="p">,</span> <span class="n">negative_prompt_embeds</span>
+    <span class="p">)</span>
+
+    <span class="c1"># 2. Define call parameters</span>
+    <span class="k">if</span> <span class="n">prompt</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="n">batch_size</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">elif</span> <span class="n">prompt</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+        <span class="n">batch_size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">prompt</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">batch_size</span> <span class="o">=</span> <span class="n">prompt_embeds</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="n">device</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_execution_device</span>
+    <span class="c1"># here `guidance_scale` is defined analog to the guidance weight `w` of equation (2)</span>
+    <span class="c1"># of the Imagen paper: https://arxiv.org/pdf/2205.11487.pdf . `guidance_scale = 1`</span>
+    <span class="c1"># corresponds to doing no classifier free guidance.</span>
+    <span class="c1"># 是否启动 classifier_free_guidance 特性，如果启用的需要同时执行带条件的噪声预测和不带条件的噪声预测</span>
+    <span class="c1"># 注意，负提示词是否生效和它相关，只有启用 classifier_free_guidance 负提示词才会生效，</span>
+    <span class="c1"># 否则负提示词不起作用。</span>
+    <span class="n">do_classifier_free_guidance</span> <span class="o">=</span> <span class="n">guidance_scale</span> <span class="o">&gt;</span> <span class="mf">1.0</span>
+
+    <span class="c1"># 3. Encode input prompt</span>
+    <span class="c1"># 对输入的文本Prompt进行编码处理，内部其实是调用文本编码器进行编码处理</span>
+    <span class="c1"># 这里需要注意的是负提示词的处理</span>
+    <span class="c1"># 如果 do_classifier_free_guidance == True，负提示词才会生效，并起是和正提示词在batch维度拼接在一起</span>
+    <span class="c1"># prompt_embeds = torch.cat([negative_prompt_embeds, prompt_embeds])</span>
+    <span class="c1"># 稍后解释为什么</span>
+    <span class="n">prompt_embeds</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_encode_prompt</span><span class="p">(</span>
+        <span class="n">prompt</span><span class="p">,</span>
+        <span class="n">device</span><span class="p">,</span>
+        <span class="n">num_images_per_prompt</span><span class="p">,</span>
+        <span class="n">do_classifier_free_guidance</span><span class="p">,</span>
+        <span class="n">negative_prompt</span><span class="p">,</span>
+        <span class="n">prompt_embeds</span><span class="o">=</span><span class="n">prompt_embeds</span><span class="p">,</span>
+        <span class="n">negative_prompt_embeds</span><span class="o">=</span><span class="n">negative_prompt_embeds</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># 4. Prepare timesteps</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">scheduler</span><span class="o">.</span><span class="n">set_timesteps</span><span class="p">(</span><span class="n">num_inference_steps</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span>
+    <span class="n">timesteps</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scheduler</span><span class="o">.</span><span class="n">timesteps</span>
+
+    <span class="c1"># 5. Prepare latent variables</span>
+    <span class="c1"># unet 网络输入支持的 channels 数量</span>
+    <span class="n">num_channels_latents</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">unet</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">in_channels</span>
+    <span class="c1"># 设置降噪过程的初始化随机高斯噪声，也就是 latent 初始化</span>
+    <span class="n">latents</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">prepare_latents</span><span class="p">(</span>
+        <span class="n">batch_size</span> <span class="o">*</span> <span class="n">num_images_per_prompt</span><span class="p">,</span>
+        <span class="n">num_channels_latents</span><span class="p">,</span>
+        <span class="n">height</span><span class="p">,</span>
+        <span class="n">width</span><span class="p">,</span>
+        <span class="n">prompt_embeds</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span>
+        <span class="n">device</span><span class="p">,</span>
+        <span class="n">generator</span><span class="p">,</span>
+        <span class="n">latents</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># 6. Prepare extra step kwargs. TODO: Logic should ideally just be moved out of the pipeline</span>
+    <span class="n">extra_step_kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">prepare_extra_step_kwargs</span><span class="p">(</span><span class="n">generator</span><span class="p">,</span> <span class="n">eta</span><span class="p">)</span>
+
+    <span class="c1"># 7. Denoising loop</span>
+    <span class="n">num_warmup_steps</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">timesteps</span><span class="p">)</span> <span class="o">-</span> <span class="n">num_inference_steps</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">scheduler</span><span class="o">.</span><span class="n">order</span>
+    <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">progress_bar</span><span class="p">(</span><span class="n">total</span><span class="o">=</span><span class="n">num_inference_steps</span><span class="p">)</span> <span class="k">as</span> <span class="n">progress_bar</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">timesteps</span><span class="p">):</span>
+            <span class="c1"># expand the latents if we are doing classifier free guidance</span>
+            <span class="c1"># 这里在 batch 维度放大两倍，是为了在一个batch中同时处理得到有条件噪声预测和无条件噪声预测</span>
+            <span class="n">latent_model_input</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">latents</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span> <span class="k">if</span> <span class="n">do_classifier_free_guidance</span> <span class="k">else</span> <span class="n">latents</span>
+            <span class="n">latent_model_input</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scheduler</span><span class="o">.</span><span class="n">scale_model_input</span><span class="p">(</span><span class="n">latent_model_input</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+
+            <span class="c1"># predict the noise residual</span>
+            <span class="c1"># 预测噪声，当然这个过程是在潜空间 latent space 进行的</span>
+            <span class="n">noise_pred</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">unet</span><span class="p">(</span>
+                <span class="n">latent_model_input</span><span class="p">,</span>
+                <span class="n">t</span><span class="p">,</span>
+                <span class="n">encoder_hidden_states</span><span class="o">=</span><span class="n">prompt_embeds</span><span class="p">,</span>
+                <span class="n">cross_attention_kwargs</span><span class="o">=</span><span class="n">cross_attention_kwargs</span><span class="p">,</span>
+                <span class="n">return_dict</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+            <span class="c1"># perform guidance</span>
+            <span class="k">if</span> <span class="n">do_classifier_free_guidance</span><span class="p">:</span>
+                <span class="c1"># 在batch维度一分为二，前一半作为无条件预测噪声，后一边是有条件预测噪声</span>
+                <span class="n">noise_pred_uncond</span><span class="p">,</span> <span class="n">noise_pred_text</span> <span class="o">=</span> <span class="n">noise_pred</span><span class="o">.</span><span class="n">chunk</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+                <span class="c1"># 根据  classifier free guidance 公式进行加权求和</span>
+                <span class="n">noise_pred</span> <span class="o">=</span> <span class="n">noise_pred_uncond</span> <span class="o">+</span> <span class="n">guidance_scale</span> <span class="o">*</span> <span class="p">(</span><span class="n">noise_pred_text</span> <span class="o">-</span> <span class="n">noise_pred_uncond</span><span class="p">)</span>
+
+            <span class="c1"># compute the previous noisy sample x_t -&gt; x_t-1</span>
+            <span class="c1"># 使用 scheduler 进行降噪处理，这里 scheduler 其实就是不同降噪采样算法的实现，可以有多种不同实现，比如 DDPM、DDIM、ODE等各种采样算法</span>
+            <span class="n">latents</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scheduler</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">noise_pred</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">latents</span><span class="p">,</span> <span class="o">**</span><span class="n">extra_step_kwargs</span><span class="p">,</span> <span class="n">return_dict</span><span class="o">=</span><span class="kc">False</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+            <span class="c1"># call the callback, if provided</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">timesteps</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span> <span class="ow">or</span> <span class="p">((</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">num_warmup_steps</span> <span class="ow">and</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">scheduler</span><span class="o">.</span><span class="n">order</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+                <span class="n">progress_bar</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">callback</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">%</span> <span class="n">callback_steps</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">callback</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">latents</span><span class="p">)</span>
+    <span class="c1"># 最后，还需要用 vae 的解码器，把 latent 解码成原尺寸的图像</span>
+    <span class="k">if</span> <span class="n">output_type</span> <span class="o">==</span> <span class="s2">&quot;latent&quot;</span><span class="p">:</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="n">latents</span>
+        <span class="n">has_nsfw_concept</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">elif</span> <span class="n">output_type</span> <span class="o">==</span> <span class="s2">&quot;pil&quot;</span><span class="p">:</span>
+        <span class="c1"># 8. Post-processing</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">decode_latents</span><span class="p">(</span><span class="n">latents</span><span class="p">)</span>
+
+        <span class="c1"># 9. Run safety checker</span>
+        <span class="n">image</span><span class="p">,</span> <span class="n">has_nsfw_concept</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">run_safety_checker</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">prompt_embeds</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+
+        <span class="c1"># 10. Convert to PIL</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">numpy_to_pil</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># 8. Post-processing</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">decode_latents</span><span class="p">(</span><span class="n">latents</span><span class="p">)</span>
+
+        <span class="c1"># 9. Run safety checker</span>
+        <span class="n">image</span><span class="p">,</span> <span class="n">has_nsfw_concept</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">run_safety_checker</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">prompt_embeds</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+
+    <span class="c1"># Offload last model to CPU</span>
+    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;final_offload_hook&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">final_offload_hook</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">final_offload_hook</span><span class="o">.</span><span class="n">offload</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">return_dict</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">has_nsfw_concept</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">StableDiffusionPipelineOutput</span><span class="p">(</span><span class="n">images</span><span class="o">=</span><span class="n">image</span><span class="p">,</span> <span class="n">nsfw_content_detected</span><span class="o">=</span><span class="n">has_nsfw_concept</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>整个实现是非常清晰简洁的，很容易能看懂，这里稍微复杂的地方就是 <cite>classifier_free_guidance</cite> 的处理，
+先回顾一下 <cite>classifier_free_guidance</cite> 核心的公式</p>
+<div class="math notranslate nohighlight" id="equation-aigc-0">
+<span class="eqno">(7.2.11)<a class="headerlink" href="#equation-aigc-0" title="此公式的永久链接"></a></span>\[\bar{\epsilon}_{\theta}(z_t, c) = w \epsilon_{\theta}(z_t, c) + (1 − w) \epsilon_{\theta}(z_t)\]</div>
+<p>前面讨论过 <cite>classifier free guidance</cite> 技术，其实实现起来很简单，就是降噪过程中，用同一个 <cite>UNET</cite> 网络分别进行有条件和无条件两个噪声预测，
+然后两者加权求和作为最终的预测噪声。
+这里实现的时候有两个小 trick:</p>
+<ol class="arabic simple">
+<li><p>没有分别调用 <cite>UNET</cite> 两次，而是把输入 <cite>batch</cite> 扩大两倍，前面部分作为无条件，后面部分作为有条件，反正都是同一个 <cite>UNET</cite> 网络，这样做效率更高。</p></li>
+<li><p>无条件部分，并不是真的没有任何条件，而是把负提示词作为条件，所以是把负提示词和 classifier_free_guidance 糅合在一起实现了。</p></li>
+</ol>
+<p>另外一点，用 VAE 编码成的latent，其实可以看做是一个更小尺寸的压缩图片，比如目标图像是 <span class="math notranslate nohighlight">\(256 \times 256\)</span>
+，经过用 VAE 编码（压缩后）后变成 <span class="math notranslate nohighlight">\(64 \times 64\)</span> 的小尺寸图像，
+最后再用 VAE 的解码器放大到 <span class="math notranslate nohighlight">\(256 \times 256\)</span>。
+所以其实，VAE 可以看做一个图片压缩解压缩的过程，那我们是不是可以利用它做图像的高清修复呢。</p>
+</section>
+<section id="id4">
+<h3><span class="section-number">7.2.2. </span>训练过程<a class="headerlink" href="#id4" title="此标题的永久链接"></a></h3>
+<p>训练过程的代码在 <cite>diffusers/examples/text_to_image/</cite>
+目录下，目前有三个版本。</p>
+<p>待补充</p>
+</section>
+</section>
+<section id="id5">
+<h2><span class="section-number">7.3. </span>参考文献<a class="headerlink" href="#id5" title="此标题的永久链接"></a></h2>
+<div class="docutils container" id="id6">
 <aside class="footnote brackets" id="footcite-rombach2021highresolution" role="note">
 <span class="label"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></span>
 <span class="backrefs">(<a role="doc-backlink" href="#id1">1</a>,<a role="doc-backlink" href="#id2">2</a>)</span>
@@ -1124,8 +1407,8 @@ LDM模型论文的代码和预训练的模型已经在 Github 开源，地址为
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
-        <a href="Guidance.html" class="btn btn-neutral float-left" title="5. 条件控制扩散模型" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
-        <a href="controlnet.html" class="btn btn-neutral float-right" title="7. 条件控制之ControlNet" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="dalle2.html" class="btn btn-neutral float-left" title="6. DALL·E 2" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="controlnet.html" class="btn btn-neutral float-right" title="8. 条件控制之ControlNet" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

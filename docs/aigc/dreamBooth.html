@@ -6,7 +6,7 @@
 <meta content="变分自编码器,Variational Autoencoder,VAE,扩散模型,Diffusion Model,生成模型,图像生成,DreamBooth" name="keywords" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>8. 条件控制之DreamBooth &mdash; 张振虎的博客 张振虎 文档</title>
+  <title>9. 条件控制之DreamBooth &mdash; 张振虎的博客 张振虎 文档</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
@@ -24,8 +24,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
-    <link rel="next" title="9. DALL·E 2" href="dalle2.html" />
-    <link rel="prev" title="7. 条件控制之ControlNet" href="controlnet.html" /> 
+    <link rel="next" title="10. Imagen" href="imagen.html" />
+    <link rel="prev" title="8. 条件控制之ControlNet" href="controlnet.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -757,39 +757,43 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="%E7%A8%B3%E5%AE%9A%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B.html">6. 稳定扩散模型（Stable diffusion model）</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="%E7%A8%B3%E5%AE%9A%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B.html#latent-diffusion-model-ldm">6.1. 潜在扩散模型（Latent diffusion model,LDM）</a></li>
-<li class="toctree-l3"><a class="reference internal" href="%E7%A8%B3%E5%AE%9A%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B.html#stable-diffusion-sd">6.2. 稳定扩散模型（Stable diffusion,SD）</a></li>
-<li class="toctree-l3"><a class="reference internal" href="%E7%A8%B3%E5%AE%9A%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B.html#id3">6.3. 参考文献</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dalle2.html">6. DALL·E 2</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dalle2.html#glide">6.1. GLIDE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dalle2.html#unclip">6.2. unCLIP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dalle2.html#id3">6.3. 参考文献</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="controlnet.html">7. 条件控制之ControlNet</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="controlnet.html#id3">7.1. 算法原理</a></li>
-<li class="toctree-l3"><a class="reference internal" href="controlnet.html#id6">7.2. 代码实现</a></li>
-<li class="toctree-l3"><a class="reference internal" href="controlnet.html#id7">7.3. 最后的总结</a></li>
-<li class="toctree-l3"><a class="reference internal" href="controlnet.html#id8">7.4. 参考文献</a></li>
+<li class="toctree-l2"><a class="reference internal" href="%E7%A8%B3%E5%AE%9A%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B.html">7. 稳定扩散模型（Stable diffusion model）</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="%E7%A8%B3%E5%AE%9A%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B.html#latent-diffusion-model-ldm">7.1. 潜在扩散模型（Latent diffusion model,LDM）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="%E7%A8%B3%E5%AE%9A%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B.html#stable-diffusion-sd">7.2. 稳定扩散模型（Stable diffusion,SD）</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="%E7%A8%B3%E5%AE%9A%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B.html#id3">7.2.1. 推理过程代码</a></li>
+<li class="toctree-l4"><a class="reference internal" href="%E7%A8%B3%E5%AE%9A%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B.html#id4">7.2.2. 训练过程</a></li>
 </ul>
 </li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">8. 条件控制之DreamBooth</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id2">8.1. DreamBooth 技术</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id3">8.2. 参考文献</a></li>
+<li class="toctree-l3"><a class="reference internal" href="%E7%A8%B3%E5%AE%9A%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B.html#id5">7.3. 参考文献</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="dalle2.html">9. DALL·E 2</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="dalle2.html#glide">9.1. GLIDE</a></li>
-<li class="toctree-l3"><a class="reference internal" href="dalle2.html#unclip">9.2. Unclip</a></li>
-<li class="toctree-l3"><a class="reference internal" href="dalle2.html#id1">9.3. 参考文献</a></li>
+<li class="toctree-l2"><a class="reference internal" href="controlnet.html">8. 条件控制之ControlNet</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="controlnet.html#id3">8.1. 算法原理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="controlnet.html#id6">8.2. 代码实现</a></li>
+<li class="toctree-l3"><a class="reference internal" href="controlnet.html#id7">8.3. 最后的总结</a></li>
+<li class="toctree-l3"><a class="reference internal" href="controlnet.html#id8">8.4. 参考文献</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="imgen.html">10. Imagen</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="imgen.html#id2">10.1. 代码实现解读</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="imgen.html#id3">10.1.1. 第一阶段</a></li>
-<li class="toctree-l4"><a class="reference internal" href="imgen.html#id4">10.1.2. 第二阶段</a></li>
-<li class="toctree-l4"><a class="reference internal" href="imgen.html#id5">10.1.3. 第三阶段</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">9. 条件控制之DreamBooth</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">9.1. DreamBooth 技术</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">9.2. 参考文献</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="imgen.html#id6">10.2. Imagen 总结</a></li>
-<li class="toctree-l3"><a class="reference internal" href="imgen.html#id7">10.3. 参考文献</a></li>
+<li class="toctree-l2"><a class="reference internal" href="imagen.html">10. Imagen</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="imagen.html#id2">10.1. 代码实现解读</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="imagen.html#id3">10.1.1. 第一阶段</a></li>
+<li class="toctree-l4"><a class="reference internal" href="imagen.html#id4">10.1.2. 第二阶段</a></li>
+<li class="toctree-l4"><a class="reference internal" href="imagen.html#id5">10.1.3. 第三阶段</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="imagen.html#id6">10.2. Imagen 总结</a></li>
+<li class="toctree-l3"><a class="reference internal" href="imagen.html#id7">10.3. 参考文献</a></li>
 </ul>
 </li>
 </ul>
@@ -990,7 +994,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="index.html">AI内容生成（ai-gc）</a></li>
-      <li class="breadcrumb-item active"><span class="section-number">8. </span>条件控制之DreamBooth</li>
+      <li class="breadcrumb-item active"><span class="section-number">9. </span>条件控制之DreamBooth</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/aigc/dreamBooth.rst.txt" rel="nofollow"> 查看页面源码</a>
       </li>
@@ -1001,7 +1005,7 @@
            <div itemprop="articleBody">
              
   <section id="dreambooth">
-<h1><span class="section-number">8. </span>条件控制之DreamBooth<a class="headerlink" href="#dreambooth" title="此标题的永久链接"></a></h1>
+<h1><span class="section-number">9. </span>条件控制之DreamBooth<a class="headerlink" href="#dreambooth" title="此标题的永久链接"></a></h1>
 <p>本章我们讨论谷歌团队发表的 <cite>DreamBooth</cite> <a class="footnote-reference brackets" href="#footcite-ruiz2023dreambooth" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> ，
 <cite>DreamBooth</cite> 也是一种控制图像生成内容的方法，但它的思想和场景与 <cite>ControlNet</cite> 是截然不同的。
 <cite>DreamBooth</cite> 针对的使用场景是，期望生成同一个主体的多张不同图像，
@@ -1014,15 +1018,15 @@
 这时候就可以用 <cite>DreamBooth</cite> + <cite>Stable Diffusion</cite> 批量生成多彩多姿的图片。
 只需要提前准备好 3~5 张小狗的图片，给它起个名字吗，然后使用 <cite>DreamBooth</cite> 方法微调一下预训练的
 <cite>Stable Diffusion</cite> 模型，生成图像时，在提示词里加入小狗的名字，就能生成以你的小狗为主体的各式各样的图片，
-如 <a class="reference internal" href="#fig-dreambooth-001"><span class="std std-numref">图 8.2</span></a> 所示。</p>
+如 <a class="reference internal" href="#fig-dreambooth-001"><span class="std std-numref">图 9.1</span></a> 所示。</p>
 <figure class="align-default" id="id5">
 <span id="fig-dreambooth-001"></span><img alt="../_images/dreambooth_dog.jpg" src="../_images/dreambooth_dog.jpg" />
 <figcaption>
-<p><span class="caption-number">图 8.2 </span><span class="caption-text">为同一只小狗生成不同场景的图像（图片来自 <a class="reference external" href="https://dreambooth.github.io/">DreamBooth project</a> ）</span><a class="headerlink" href="#id5" title="此图像的永久链接"></a></p>
+<p><span class="caption-number">图 9.1 </span><span class="caption-text">为同一只小狗生成不同场景的图像（图片来自 <a class="reference external" href="https://dreambooth.github.io/">DreamBooth project</a> ）</span><a class="headerlink" href="#id5" title="此图像的永久链接"></a></p>
 </figcaption>
 </figure>
 <section id="id2">
-<h2><span class="section-number">8.1. </span>DreamBooth 技术<a class="headerlink" href="#id2" title="此标题的永久链接"></a></h2>
+<h2><span class="section-number">9.1. </span>DreamBooth 技术<a class="headerlink" href="#id2" title="此标题的永久链接"></a></h2>
 <p><cite>DreamBooth</cite> 并不是一个独立的图像生成模型，它是一种微调技术，通过对现有的预训练好的图像生成模型进行微调，
 进而实现能通过文本 Prompt 控制生成同一个主体的不同场景的图像。
 与 <cite>ControlNet</cite> 不同的是， <cite>DreamBooth</cite> 要简单很多，它并没有修改 <cite>Unet</cite> 的网络结构，也没有增加额外的网络。
@@ -1077,7 +1081,7 @@ huggingface 提供了详细的训练教程和例子，地址在： <a class="ref
 ，可以参考一下。</p>
 </section>
 <section id="id3">
-<h2><span class="section-number">8.2. </span>参考文献<a class="headerlink" href="#id3" title="此标题的永久链接"></a></h2>
+<h2><span class="section-number">9.2. </span>参考文献<a class="headerlink" href="#id3" title="此标题的永久链接"></a></h2>
 <div class="docutils container" id="id4">
 <aside class="footnote brackets" id="footcite-ruiz2023dreambooth" role="note">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
@@ -1092,8 +1096,8 @@ huggingface 提供了详细的训练教程和例子，地址在： <a class="ref
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
-        <a href="controlnet.html" class="btn btn-neutral float-left" title="7. 条件控制之ControlNet" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
-        <a href="dalle2.html" class="btn btn-neutral float-right" title="9. DALL·E 2" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="controlnet.html" class="btn btn-neutral float-left" title="8. 条件控制之ControlNet" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="imagen.html" class="btn btn-neutral float-right" title="10. Imagen" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

@@ -528,7 +528,7 @@
 这样的方程称为微分方程(Differential Equation)。简单来说，
 微分方程指的是：**含有未知函数及其导数的方程**。
 
-微分方程是联系自变量 :math:`x`，关于自变量 :math:`x`的未知函数 :math:`f` 和
+微分方程是联系自变量 :math:`x`，关于自变量 :math:`x` 的未知函数 :math:`f` 和
 它的某些阶导数 :math:`\frac{df}{dx},\frac{d^2f}{dx^2},\dots,\frac{d^nf}{dx^n}` 的关系式：
 
 .. math::
@@ -537,12 +537,12 @@
 
 
 
-如果未知函数是一元的，那末对应的微分方程称为常微分方程（Ordinary Differential Equation, ODE）；
-如果未知函数是多元的，那末对应的微分方程称为偏微分方程（Partial Differential Equations, PDE）。
+如果未知函数是一元的，对应的微分方程称为常微分方程（Ordinary Differential Equation, ODE）；
+如果未知函数是多元的，对应的微分方程称为偏微分方程（Partial Differential Equations, PDE）。
 方程中出现的最高阶导数的阶数称为这个微分方程的阶（order）。
 
 接下是关于微分方程的解，微分方程解的数量是不固定的，有些微分方程有无穷多解，有的微分方程无解，有的微分方程则仅有有限个解。
-**特解**指的是满足微分方程的某一个解；**通解** 指的是满足微分方程的一组解。
+**特解** 指的是满足微分方程的某一个解； **通解** 指的是满足微分方程的一组解。
 
 
 

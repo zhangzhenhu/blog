@@ -24,11 +24,11 @@ AI内容生成（ai-gc）
    Score-Based_Generative_Models.rst
 
    Guidance.rst
+   dalle2.rst
    稳定扩散模型.rst
    controlnet.rst
    dreamBooth.rst
-   dalle2.rst
-   imgen.rst
+   imagen.rst
 
 
 
