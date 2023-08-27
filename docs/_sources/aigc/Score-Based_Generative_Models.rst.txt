@@ -666,6 +666,9 @@ SDE的逆过程称为 `逆时间SDE` （reverse-time SDE）
 
 
 
+.. 宋旸博客_ : https://yang-song.net/blog/2021/score/#introduction
+.. ODE_ : https://ericmjl.github.io/score-models/notebooks/04-diffeq.html
+
 
 
 

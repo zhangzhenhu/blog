@@ -35,7 +35,7 @@ OpenAI 在2021年发表了一篇论文
 
 
 前文我们讲过，原本的扩散模型是从一个随机高斯噪声逐步降噪生成一张图片，这个过过程生成的图片是完全随机。
-随后大家研究怎么控制这个扩展，使其生成我想要的图片，提出了各种 Guidance 方法，
+随后大家研究怎么控制这个过程，使其生成我想要的图片，提出了各种 Guidance 方法，
 从最开始的 Class Guidance，到 Class-free Guidance，再到 Clip Guidance，
 演变到可通过输入文本提示来引导图像生成过程，也可以称为 Text-Conditional Diffusion Models，
 或者简称 text to image。

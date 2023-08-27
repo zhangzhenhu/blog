@@ -1,0 +1,70 @@
+################################
+deepspeed - 预备知识
+################################
+
+
+``deepspeed`` 底层依赖 ``torch.distribution`` 、 ``cuda`` 等等，
+要想更好的理解 ``deepspeed``，需要先弄懂一些预备知识。
+由于时间和精力的问题，暂时无法全部讲清楚，我会慢慢补全。
+读者可以先参考其他资料。
+
+
+torch.distribute
+################################
+
+
+**rank**
+进程号
+多进程上下文中，一般假定 rank = 0 为主进程或第一个进程
+**node**
+物理节点，表明一个容器或一台机器
+节点内部能够包括多个 GPU
+**local_rank**
+一个 node 中，进程的相对序号
+local_rank 在 node 之间独立
+**world_size**
+大局进程数
+一个分布式使命中 rank 的数量
+**group**
+进程组
+一个分布式使命就对应一个进程组
+只有当用户创立多个进程组时，才会用到
+
+
+
+
+自动混合精度AMP
+################################
+
+
+
+
+
+**Amp (Automatic Mixed Precision) 自动混合精度**
+
+**Apex**
+从英伟达网页 Apex (A PyTorch Extension) — Apex 0.1.0 documentation可以得到apex的全称——A PyTorch Extension(Apex)
+
+**torch 原生支持的amp**
+最简单了，只需要安装有pytorch就能使用，而且代码也简单。限制条件只有一个就是pytorch的版本一定>1.6。
+主要是
+利用了这两个API——torch.cuda.amp.GradScalar 和 torch.cuda.amp.autocast。
+
+
+
+cuda Stream and Event
+################################
+
+
+https://pytorch.org/docs/stable/generated/torch.cuda.Event.html
+
+https://www.cnblogs.com/1024incn/p/5891051.html
+
+
+
+pin_memory
+################################
+
+
+
+
