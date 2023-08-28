@@ -1053,6 +1053,155 @@
   <section id="deepspeed">
 <h1><span class="section-number">2. </span>deepspeed - 总入口<a class="headerlink" href="#deepspeed" title="此标题的永久链接"></a></h1>
 <p><code class="docutils literal notranslate"><span class="pre">deepspeed</span></code> 总的入口在 <code class="docutils literal notranslate"><span class="pre">deepspeed.__init__::initialize</span></code> :</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+           <span class="n">model</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+           <span class="n">optimizer</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">Optimizer</span><span class="p">,</span> <span class="n">DeepSpeedOptimizerCallable</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+           <span class="n">model_parameters</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+           <span class="n">training_data</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Dataset</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+           <span class="n">lr_scheduler</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">_LRScheduler</span><span class="p">,</span> <span class="n">DeepSpeedSchedulerCallable</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+           <span class="n">mpu</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+           <span class="n">dist_init_required</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+           <span class="n">collate_fn</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+           <span class="n">config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+           <span class="n">config_params</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="sd">&quot;&quot;&quot;Initialize the DeepSpeed Engine.</span>
+
+<span class="sd">Arguments:</span>
+<span class="sd">    args: an object containing local_rank and deepspeed_config fields.</span>
+<span class="sd">        This is optional if `config` is passed.</span>
+
+<span class="sd">    model: Required: nn.module class before apply any wrappers</span>
+
+<span class="sd">    optimizer: Optional: a user defined Optimizer or Callable that returns an Optimizer object.</span>
+<span class="sd">        This overrides any optimizer definition in the DeepSpeed json config.</span>
+
+<span class="sd">    model_parameters: Optional: An iterable of torch.Tensors or dicts.</span>
+<span class="sd">        Specifies what Tensors should be optimized.</span>
+
+<span class="sd">    training_data: Optional: Dataset of type torch.utils.data.Dataset</span>
+
+<span class="sd">    lr_scheduler: Optional: Learning Rate Scheduler Object or a Callable that takes an Optimizer and returns a Scheduler object.</span>
+<span class="sd">        The scheduler object should define a get_lr(), step(), state_dict(), and load_state_dict() methods</span>
+
+<span class="sd">    mpu: Optional: A model parallelism unit object that implements</span>
+<span class="sd">        get_{model,data}_parallel_{rank,group,world_size}()</span>
+
+<span class="sd">    dist_init_required: Optional: None will auto-initialize torch distributed if needed,</span>
+<span class="sd">        otherwise the user can force it to be initialized or not via boolean.</span>
+
+<span class="sd">    collate_fn: Optional: Merges a list of samples to form a</span>
+<span class="sd">        mini-batch of Tensor(s).  Used when using batched loading from a</span>
+<span class="sd">        map-style dataset.</span>
+
+<span class="sd">    config: Optional: Instead of requiring args.deepspeed_config you can pass your deepspeed config</span>
+<span class="sd">        as an argument instead, as a path or a dictionary.</span>
+
+<span class="sd">    config_params: Optional: Same as `config`, kept for backwards compatibility.</span>
+
+<span class="sd">Returns:</span>
+<span class="sd">    A tuple of ``engine``, ``optimizer``, ``training_dataloader``, ``lr_scheduler``</span>
+
+<span class="sd">    * ``engine``: DeepSpeed runtime engine which wraps the client model for distributed training.</span>
+
+<span class="sd">    * ``optimizer``: Wrapped optimizer if a user defined ``optimizer`` is supplied, or if</span>
+<span class="sd">      optimizer is specified in json config else ``None``.</span>
+
+<span class="sd">    * ``training_dataloader``: DeepSpeed dataloader if ``training_data`` was supplied,</span>
+<span class="sd">      otherwise ``None``.</span>
+
+<span class="sd">    * ``lr_scheduler``: Wrapped lr scheduler if user ``lr_scheduler`` is passed, or</span>
+<span class="sd">      if ``lr_scheduler`` specified in JSON configuration. Otherwise ``None``.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="n">log_dist</span><span class="p">(</span><span class="s2">&quot;DeepSpeed info: version=</span><span class="si">{}</span><span class="s2">, git-hash=</span><span class="si">{}</span><span class="s2">, git-branch=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">__version__</span><span class="p">,</span> <span class="n">__git_hash__</span><span class="p">,</span>
+                                                                         <span class="n">__git_branch__</span><span class="p">),</span>
+         <span class="n">ranks</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="c1"># Disable zero.Init context if it&#39;s currently enabled</span>
+<span class="n">zero</span><span class="o">.</span><span class="n">partition_parameters</span><span class="o">.</span><span class="n">shutdown_init_context</span><span class="p">()</span>
+
+<span class="k">assert</span> <span class="n">model</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;deepspeed.initialize requires a model&quot;</span>
+
+<span class="k">global</span> <span class="n">dist</span>
+<span class="kn">from</span> <span class="nn">deepspeed</span> <span class="kn">import</span> <span class="n">comm</span> <span class="k">as</span> <span class="n">dist</span>
+<span class="c1"># 底层分布式通信引擎支持多种选择，有 [&#39;cuda&#39;, &#39;cpu&#39;, &#39;xpu&#39;, &#39;npu&#39;, &#39;mps&#39;] 几种选择</span>
+<span class="c1"># 当然大部分情况我们都选择 cuda</span>
+<span class="c1"># 可以通过环境变量 DS_ACCELERATOR 指定</span>
+<span class="n">dist_backend</span> <span class="o">=</span> <span class="n">get_accelerator</span><span class="p">()</span><span class="o">.</span><span class="n">communication_backend_name</span><span class="p">()</span>
+<span class="n">dist</span><span class="o">.</span><span class="n">init_distributed</span><span class="p">(</span><span class="n">dist_backend</span><span class="o">=</span><span class="n">dist_backend</span><span class="p">,</span> <span class="n">dist_init_required</span><span class="o">=</span><span class="n">dist_init_required</span><span class="p">)</span>
+
+<span class="c1"># Set config using config_params for backwards compat</span>
+<span class="k">if</span> <span class="n">config</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">config_params</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">config</span> <span class="o">=</span> <span class="n">config_params</span>
+
+<span class="c1"># Check for deepscale_config for backwards compat</span>
+<span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="s2">&quot;deepscale_config&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">args</span><span class="o">.</span><span class="n">deepscale_config</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;************ --deepscale_config is deprecated, please use --deepspeed_config ************&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="s2">&quot;deepspeed_config&quot;</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">deepspeed_config</span> <span class="ow">is</span>
+                <span class="kc">None</span><span class="p">),</span> <span class="s2">&quot;Not sure how to proceed, we were given both a deepscale_config and deepspeed_config&quot;</span>
+    <span class="n">args</span><span class="o">.</span><span class="n">deepspeed_config</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">deepscale_config</span>
+    <span class="n">args</span><span class="o">.</span><span class="n">deepscale_config</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="c1"># Check that we have only one config passed</span>
+<span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="s2">&quot;deepspeed_config&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">args</span><span class="o">.</span><span class="n">deepspeed_config</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">assert</span> <span class="n">config</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;Not sure how to proceed, we were given deepspeed configs in the deepspeed arguments and deepspeed.initialize() function call&quot;</span>
+    <span class="n">config</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">deepspeed_config</span>
+<span class="k">assert</span> <span class="n">config</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;DeepSpeed requires --deepspeed_config to specify configuration file&quot;</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">PipelineModule</span><span class="p">):</span>
+<span class="c1"># 首先，不是流水线模块</span>
+    <span class="n">config_class</span> <span class="o">=</span> <span class="n">DeepSpeedConfig</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">mpu</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">config_class</span><span class="o">.</span><span class="n">hybrid_engine</span><span class="o">.</span><span class="n">enabled</span><span class="p">:</span>
+        <span class="c1"># 混合引擎（Hybrid Engine）。它利用原始DeepSpeed引擎进行高速训练模式，</span>
+        <span class="c1"># 同时轻松应用DeepSpeed推理引擎进行生成/评估模式，</span>
+        <span class="c1"># 为第三阶段的RLHF训练提供了一个明显更快的训练系统</span>
+        <span class="n">engine</span> <span class="o">=</span> <span class="n">DeepSpeedHybridEngine</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">,</span>
+                                       <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
+                                       <span class="n">optimizer</span><span class="o">=</span><span class="n">optimizer</span><span class="p">,</span>
+                                       <span class="n">model_parameters</span><span class="o">=</span><span class="n">model_parameters</span><span class="p">,</span>
+                                       <span class="n">training_data</span><span class="o">=</span><span class="n">training_data</span><span class="p">,</span>
+                                       <span class="n">lr_scheduler</span><span class="o">=</span><span class="n">lr_scheduler</span><span class="p">,</span>
+                                       <span class="n">mpu</span><span class="o">=</span><span class="n">mpu</span><span class="p">,</span>
+                                       <span class="n">dist_init_required</span><span class="o">=</span><span class="n">dist_init_required</span><span class="p">,</span>
+                                       <span class="n">collate_fn</span><span class="o">=</span><span class="n">collate_fn</span><span class="p">,</span>
+                                       <span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">,</span>
+                                       <span class="n">config_class</span><span class="o">=</span><span class="n">config_class</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># 一般情况下是这里，也是我们重点要梳理的</span>
+        <span class="n">engine</span> <span class="o">=</span> <span class="n">DeepSpeedEngine</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">,</span>
+                                 <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
+                                 <span class="n">optimizer</span><span class="o">=</span><span class="n">optimizer</span><span class="p">,</span>
+                                 <span class="n">model_parameters</span><span class="o">=</span><span class="n">model_parameters</span><span class="p">,</span>
+                                 <span class="n">training_data</span><span class="o">=</span><span class="n">training_data</span><span class="p">,</span>
+                                 <span class="n">lr_scheduler</span><span class="o">=</span><span class="n">lr_scheduler</span><span class="p">,</span>
+                                 <span class="n">mpu</span><span class="o">=</span><span class="n">mpu</span><span class="p">,</span>
+                                 <span class="n">dist_init_required</span><span class="o">=</span><span class="n">dist_init_required</span><span class="p">,</span>
+                                 <span class="n">collate_fn</span><span class="o">=</span><span class="n">collate_fn</span><span class="p">,</span>
+                                 <span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">,</span>
+                                 <span class="n">config_class</span><span class="o">=</span><span class="n">config_class</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">assert</span> <span class="n">mpu</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;mpu must be None with pipeline parallelism&quot;</span>
+    <span class="n">mpu</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">mpu</span><span class="p">()</span>
+    <span class="n">config_class</span> <span class="o">=</span> <span class="n">DeepSpeedConfig</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">mpu</span><span class="p">)</span>
+    <span class="c1"># 如果是流水线模式，就用 PipelineEngine</span>
+    <span class="n">engine</span> <span class="o">=</span> <span class="n">PipelineEngine</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">,</span>
+                            <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
+                            <span class="n">optimizer</span><span class="o">=</span><span class="n">optimizer</span><span class="p">,</span>
+                            <span class="n">model_parameters</span><span class="o">=</span><span class="n">model_parameters</span><span class="p">,</span>
+                            <span class="n">training_data</span><span class="o">=</span><span class="n">training_data</span><span class="p">,</span>
+                            <span class="n">lr_scheduler</span><span class="o">=</span><span class="n">lr_scheduler</span><span class="p">,</span>
+                            <span class="n">mpu</span><span class="o">=</span><span class="n">mpu</span><span class="p">,</span>
+                            <span class="n">dist_init_required</span><span class="o">=</span><span class="n">dist_init_required</span><span class="p">,</span>
+                            <span class="n">collate_fn</span><span class="o">=</span><span class="n">collate_fn</span><span class="p">,</span>
+                            <span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">,</span>
+                            <span class="n">config_class</span><span class="o">=</span><span class="n">config_class</span><span class="p">)</span>
+
+<span class="c1"># Restore zero.Init context if necessary</span>
+<span class="n">zero</span><span class="o">.</span><span class="n">partition_parameters</span><span class="o">.</span><span class="n">restore_init_context</span><span class="p">()</span>
+
+<span class="n">return_items</span> <span class="o">=</span> <span class="p">[</span><span class="n">engine</span><span class="p">,</span> <span class="n">engine</span><span class="o">.</span><span class="n">optimizer</span><span class="p">,</span> <span class="n">engine</span><span class="o">.</span><span class="n">training_dataloader</span><span class="p">,</span> <span class="n">engine</span><span class="o">.</span><span class="n">lr_scheduler</span><span class="p">]</span>
+<span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">return_items</span><span class="p">)</span>
+</pre></div>
+</div>
 <p>这个入口只是一个代理，根据不同情况选择三种模式之一</p>
 <ul class="simple">
 <li><p>流水线引擎（PipelineEngine），这个模式先不管他，后续有机会再分析，</p></li>

@@ -1067,6 +1067,218 @@ stage 1,2 的特性都在这个优化器中实现。</p>
 <section id="id1">
 <h2><span class="section-number">3.1. </span>配置项初始化<a class="headerlink" href="#id1" title="此标题的永久链接"></a></h2>
 <p>首先是一些入参、配置项、变量的初始化。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">deepspeed.runtime.zero.stage_1_and_2</span> <span class="kn">import</span> <span class="n">DeepSpeedZeroOptimizer</span>
+<span class="k">class</span> <span class="nc">DeepSpeedZeroOptimizer</span><span class="p">(</span><span class="n">ZeROOptimizer</span><span class="p">):</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">DeepSpeedZeroOptimizer designed to reduce the memory footprint</span>
+<span class="sd">required for training large deep learning models.</span>
+
+<span class="sd">For more details please see ZeRO: Memory Optimization Towards Training A Trillion Parameter Models</span>
+<span class="sd">https://arxiv.org/abs/1910.02054</span>
+
+<span class="sd">For usage examples, refer to TODO: DeepSpeed Tutorial</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+   <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">init_optimizer</span><span class="p">,</span>
+                 <span class="n">param_names</span><span class="p">,</span>
+                 <span class="n">timers</span><span class="p">,</span>
+                 <span class="n">static_loss_scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+                 <span class="n">dynamic_loss_scale</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                 <span class="n">dynamic_loss_args</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                 <span class="n">contiguous_gradients</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                 <span class="n">reduce_bucket_size</span><span class="o">=</span><span class="mi">500000000</span><span class="p">,</span>
+                 <span class="n">allgather_bucket_size</span><span class="o">=</span><span class="mi">5000000000</span><span class="p">,</span>
+                 <span class="n">dp_process_group</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">expert_parallel_group</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">expert_data_parallel_group</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">reduce_scatter</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                 <span class="n">overlap_comm</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                 <span class="n">offload_optimizer_config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">mpu</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">clip_grad</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+                 <span class="n">gradient_accumulation_dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span>
+                 <span class="n">communication_data_type</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float16</span><span class="p">,</span>
+                 <span class="n">postscale_gradients</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                 <span class="n">gradient_predivide_factor</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+                 <span class="n">gradient_accumulation_steps</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                 <span class="n">ignore_unused_parameters</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                 <span class="n">partition_grads</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                 <span class="n">round_robin_gradients</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                 <span class="n">has_moe_layers</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                 <span class="n">fp16_master_weights_and_gradients</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                 <span class="n">elastic_checkpoint</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="c1"># 二阶段也支持 cpu offload 和 pin memory，根据配置情况判断是否启用</span>
+        <span class="k">if</span> <span class="n">offload_optimizer_config</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">offload_optimizer_config</span><span class="o">.</span><span class="n">device</span> <span class="o">!=</span> <span class="n">OffloadDeviceEnum</span><span class="o">.</span><span class="n">none</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cpu_offload</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cpu_offload_pin_memory</span> <span class="o">=</span> <span class="n">offload_optimizer_config</span><span class="o">.</span><span class="n">pin_memory</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cpu_offload</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cpu_offload_pin_memory</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="k">if</span> <span class="n">dist</span><span class="o">.</span><span class="n">get_rank</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Reduce bucket size </span><span class="si">{</span><span class="n">reduce_bucket_size</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Allgather bucket size </span><span class="si">{</span><span class="n">allgather_bucket_size</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;CPU Offload: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">cpu_offload</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Round robin gradient partitioning: </span><span class="si">{</span><span class="n">round_robin_gradients</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="c1"># The fused optimizer does all the work. We need this layer for two reason:</span>
+        <span class="c1"># 1. maintain same user API from apex.fp16_utils</span>
+        <span class="c1"># 2. keep common stuff here in case we need to add ne552w fused optimizer later</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">elastic_checkpoint</span> <span class="o">=</span> <span class="n">elastic_checkpoint</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">param_names</span> <span class="o">=</span> <span class="n">param_names</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mpu</span> <span class="o">=</span> <span class="n">mpu</span>
+        <span class="c1"># differences from apex.fp16_utils:</span>
+        <span class="c1"># - assume all model params in fp16</span>
+        <span class="c1"># - assume all params requires grad</span>
+        <span class="c1"># - flat by groups, not keeping state. TODO: remove state explicitly?</span>
+        <span class="c1"># - master grad and unflat master weight never exist. TODO: a way to save out unflat master?</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">get_accelerator</span><span class="p">()</span><span class="o">.</span><span class="n">is_available</span><span class="p">():</span>
+            <span class="k">raise</span> <span class="ne">SystemError</span><span class="p">(</span><span class="s2">&quot;Accelerator is not detected, cannot perform low precision training (e.g., fp16, bf16).&quot;</span><span class="p">)</span>
+        <span class="c1"># 基础优化器</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">optimizer</span> <span class="o">=</span> <span class="n">init_optimizer</span>
+
+        <span class="c1"># Use torch (un)flatten ops</span>
+        <span class="c1"># 把张量打开扁平化的方法，这两个方法调用的是 torch 的方法</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">flatten</span> <span class="o">=</span> <span class="n">_flatten_dense_tensors</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">unflatten</span> <span class="o">=</span> <span class="n">_unflatten_dense_tensors</span>
+
+        <span class="c1"># ZeRO stage 1 (False) or 2 (True)</span>
+        <span class="c1">#  是否启用梯度分割</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">partition_gradients</span> <span class="o">=</span> <span class="n">partition_grads</span>  <span class="c1"># type: bool</span>
+        <span class="c1"># stage 阶段</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">zero_stage_string</span> <span class="o">=</span> <span class="s2">&quot;ZeRO-2&quot;</span> <span class="k">if</span> <span class="n">partition_grads</span> <span class="k">else</span> <span class="s2">&quot;ZeRO-1&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">timers</span> <span class="o">=</span> <span class="n">timers</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">reduce_scatter</span> <span class="o">=</span> <span class="n">reduce_scatter</span>
+        <span class="c1"># 配置项 默认为 False</span>
+        <span class="c1"># 尝试将梯度缩减与逆向计算相重叠</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">overlap_comm</span> <span class="o">=</span> <span class="n">overlap_comm</span> <span class="c1"># type: bool</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">deepspeed_adam_offload</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cpu_offload</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">device</span> <span class="o">=</span> <span class="n">get_accelerator</span><span class="p">()</span><span class="o">.</span><span class="n">current_device_name</span><span class="p">()</span> <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">cpu_offload</span> <span class="k">else</span> <span class="s1">&#39;cpu&#39;</span>
+        <span class="c1"># 所属的并行进程组</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dp_process_group</span> <span class="o">=</span> <span class="n">dp_process_group</span>
+
+        <span class="c1">#  专家并行所属的组  expert parallel group</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ep_process_group</span> <span class="o">=</span> <span class="n">expert_parallel_group</span>
+
+        <span class="c1"># 专家数据并行组  data parallel group for experts</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">expert_dp_process_group</span> <span class="o">=</span> <span class="n">expert_data_parallel_group</span>
+
+        <span class="c1">#   data parallel size for non-experts</span>
+        <span class="n">dp_size</span> <span class="o">=</span> <span class="n">dist</span><span class="o">.</span><span class="n">get_world_size</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dp_process_group</span><span class="p">)</span>
+
+        <span class="c1">#For MoE models this maybe different for different param group</span>
+        <span class="c1">#It will be modified during MoE setup later in the init</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">real_dp_process_group</span> <span class="o">=</span> <span class="p">[</span><span class="n">dp_process_group</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">optimizer</span><span class="o">.</span><span class="n">param_groups</span><span class="p">))]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">partition_count</span> <span class="o">=</span> <span class="p">[</span><span class="n">dp_size</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">optimizer</span><span class="o">.</span><span class="n">param_groups</span><span class="p">))]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">is_gradient_accumulation_boundary</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="c1"># CPU-Offload requires contiguous gradients</span>
+        <span class="c1"># 在生成梯度时将其复制到连续的缓冲区中。避免了后向传递过程中的内存碎片。</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">contiguous_gradients</span> <span class="o">=</span> <span class="n">contiguous_gradients</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">cpu_offload</span>  <span class="c1"># type: bool</span>
+        <span class="c1"># 是否有 moe 层</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">has_moe_layers</span> <span class="o">=</span> <span class="n">has_moe_layers</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_moe_layers</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_configure_moe_settings</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_global_grad_norm</span> <span class="o">=</span> <span class="mf">0.</span>
+
+        <span class="k">if</span> <span class="n">mpu</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model_parallel_group</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model_parallel_world_size</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model_parallel_rank</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model_parallel_group</span> <span class="o">=</span> <span class="n">mpu</span><span class="o">.</span><span class="n">get_model_parallel_group</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model_parallel_world_size</span> <span class="o">=</span> <span class="n">mpu</span><span class="o">.</span><span class="n">get_model_parallel_world_size</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model_parallel_rank</span> <span class="o">=</span> <span class="n">bwc_tensor_model_parallel_rank</span><span class="p">(</span><span class="n">mpu</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">overflow</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clip_grad</span> <span class="o">=</span> <span class="n">clip_grad</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">communication_data_type</span> <span class="o">=</span> <span class="n">communication_data_type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gradient_predivide_factor</span> <span class="o">=</span> <span class="n">gradient_predivide_factor</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">postscale_gradients</span> <span class="o">=</span> <span class="n">postscale_gradients</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gradient_accumulation_steps</span> <span class="o">=</span> <span class="n">gradient_accumulation_steps</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">micro_step_id</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ignore_unused_parameters</span> <span class="o">=</span> <span class="n">ignore_unused_parameters</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">round_robin_gradients</span> <span class="o">=</span> <span class="n">round_robin_gradients</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">extra_large_param_to_reduce</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fp16_master_weights_and_gradients</span> <span class="o">=</span> <span class="n">fp16_master_weights_and_gradients</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fp16_master_weights_and_gradients</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">cpu_offload</span> <span class="ow">and</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">optimizer</span><span class="p">)</span> <span class="ow">in</span> <span class="p">[</span><span class="n">DeepSpeedCPUAdam</span><span class="p">],</span> \
+            <span class="sa">f</span><span class="s2">&quot;fp16_master_and_gradients requires optimizer to support keeping fp16 master and gradients while keeping the optimizer states in fp32.&quot;</span>\
+            <span class="sa">f</span><span class="s2">&quot;Currently only supported using ZeRO-Offload with DeepSpeedCPUAdam. But current setting is ZeRO-Offload:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">cpu_offload</span><span class="si">}</span><span class="s2"> and optimizer type </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">optimizer</span><span class="p">)</span><span class="si">}</span><span class="s2">.&quot;</span> \
+            <span class="sa">f</span><span class="s2">&quot;Either disable fp16_master_weights_and_gradients or enable </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">zero_stage_string</span><span class="si">}</span><span class="s2"> Offload with DeepSpeedCPUAdam.&quot;</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">reduce_scatter</span><span class="p">:</span>
+            <span class="n">valid_reduce_scatter_dtypes</span> <span class="o">=</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">float16</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">bfloat16</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+            <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">communication_data_type</span> <span class="ow">in</span> <span class="n">valid_reduce_scatter_dtypes</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">zero_stage_string</span><span class="si">}</span><span class="s2"> supports </span><span class="si">{</span><span class="n">valid_reduce_scatter_dtypes</span><span class="si">}</span><span class="s2"> communication_data_type with reduce scatter enabled. Got: &#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">communication_data_type</span><span class="si">}</span><span class="s2">&#39;&quot;</span>
+            <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">gradient_predivide_factor</span> <span class="o">==</span> <span class="mf">1.0</span><span class="p">,</span> <span class="s2">&quot;gradient_predivide_factor != 1.0 is not yet supported with </span><span class="si">{self.zero_stage_string}</span><span class="s2"> with reduce scatter enabled&quot;</span>
+            <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">postscale_gradients</span><span class="p">,</span> <span class="s2">&quot;pre-scale gradients is not yet supported with </span><span class="si">{self.zero_stage_string}</span><span class="s2"> with reduce scatter enabled&quot;</span>
+
+        <span class="c1"># param flattened by groups</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bit16_groups</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bit16_groups_flat</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1"># param partitioned by data parallel degree</span>
+        <span class="c1"># this will contain a list of equal sized tensors</span>
+        <span class="c1"># each of which will be updated by a different process</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parallel_partitioned_bit16_groups</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1"># a single 32-bit partition of the parallel partitioned parameters</span>
+        <span class="c1"># that this process will update</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">single_partition_of_fp32_groups</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1"># param partition info</span>
+
+        <span class="c1"># These are the parameters in each group that will not be updated by this process directly</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">params_not_in_partition</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1"># These are the parameters that will be updated by this process directly</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">params_in_partition</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1"># Offset from the first parameter in the self.params_in_partition</span>
+        <span class="c1"># the parameter boundaries may not align with partition boundaries</span>
+        <span class="c1"># so we need to keep track of the offset</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">first_offset</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1"># number of elements per partition in each group</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">partition_size</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1"># align nccl all-gather send buffers to 4-byte boundary</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nccl_start_alignment_factor</span> <span class="o">=</span> <span class="mi">2</span>  <span class="c1"># 4-byte alignment/sizeof(fp16) = 2</span>
+
+        <span class="k">assert</span> <span class="p">(</span>
+            <span class="n">allgather_bucket_size</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">nccl_start_alignment_factor</span> <span class="o">==</span> <span class="mi">0</span>
+        <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;allgather_bucket_size must be a multiple of nccl_start_alignment_factor, </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">nccl_start_alignment_factor</span><span class="si">}</span><span class="s2"> &quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">all_reduce_print</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">optimizer</span><span class="o">.</span><span class="n">param_groups</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;params&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gradient_accumulation_dtype</span> <span class="o">=</span> <span class="n">gradient_accumulation_dtype</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gradient_accumulation_dtype</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">use_separate_grad_accum</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">use_separate_grad_accum</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_separate_grad_accum</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">partition_gradients</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">use_grad_accum_for_reduction</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">use_grad_accum_for_reduction</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">round_robin_bit16_groups</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">round_robin_bit16_indices</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1"># Use different parallel to do all_to_all_reduce related things</span>
+        <span class="c1"># padding on each partition for alignment purposes</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">groups_padding</span> <span class="o">=</span> <span class="p">[]</span>
+</pre></div>
+</div>
 </section>
 <section id="id2">
 <h2><span class="section-number">3.2. </span>参数分割<a class="headerlink" href="#id2" title="此标题的永久链接"></a></h2>

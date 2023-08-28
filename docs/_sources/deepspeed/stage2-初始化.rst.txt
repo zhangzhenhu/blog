@@ -31,7 +31,9 @@ Stage 1,2 的核心功能就是对参数的梯度和优化器的状态进行分�
 
 首先是一些入参、配置项、变量的初始化。
 
-.. code-block::python
+
+.. code-block:: python
+
 
     from deepspeed.runtime.zero.stage_1_and_2 import DeepSpeedZeroOptimizer
     class DeepSpeedZeroOptimizer(ZeROOptimizer):

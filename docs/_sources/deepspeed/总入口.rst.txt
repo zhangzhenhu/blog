@@ -8,6 +8,7 @@ deepspeed - 总入口
 
 
 .. code-block:: python
+
     def initialize(args=None,
                model: torch.nn.Module = None,
                optimizer: Optional[Union[Optimizer, DeepSpeedOptimizerCallable]] = None,
