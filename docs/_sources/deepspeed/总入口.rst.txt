@@ -326,14 +326,22 @@ deepspeed - 总入口
             )
 
         if zero_stage <= ZeroStageEnum.gradients:  # stage <=2
+            # 配置项 默认为 False
+            # 尝试将梯度缩减与逆向计算相重叠
             overlap_comm = self.zero_overlap_comm()
+            # 配置项 默认为 True
+            # 在生成梯度时将其复制到连续的缓冲区中。避免了后向传递过程中的内存碎片。
             contiguous_gradients = self.zero_contiguous_gradients()
+            # 配置项 默认为 False
+            # 针对 CPU 卸载的第 1 和第 2 阶段优化，通过细粒度梯度分区，将梯度复制到 CPU 内存的过程并行化。
+            # 性能优势随着梯度累积步骤（优化器步骤之间的复制次数增加）或 GPU 数量（并行性增加）的增加而增加。
             round_robin_gradients = self.zero_round_robin_gradients()
             assert not isinstance(optimizer, DummyOptim), "zero stage {} requires an optimizer".format(zero_stage)
 
             log_dist(f'Creating {model_dtype} ZeRO stage {zero_stage} optimizer', ranks=[0])
             # Overlap and contiguous grads are meaningless in stage 1 and are ignored
             if zero_stage == ZeroStageEnum.optimizer_states:  # stage==1
+                # stage 1 不支持这些特性，需要关闭
                 overlap_comm = False
                 round_robin_gradients = False
                 # Non-MoE requires contiguous grads to be disabled w. stage 1

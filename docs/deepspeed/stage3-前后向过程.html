@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>5. Stage3 - 前后向过程 &mdash; 张振虎的博客 张振虎 文档</title>
+  <title>6. Stage3 - 前后向过程 &mdash; 张振虎的博客 张振虎 文档</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
@@ -21,7 +21,7 @@
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
     <link rel="next" title="语音技术" href="../audio/index.html" />
-    <link rel="prev" title="4. Stage3 - hook 注册" href="stage3-hook.html" /> 
+    <link rel="prev" title="5. Stage3 - hook 注册" href="stage3-hook.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -812,25 +812,31 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="stage3-%E5%8F%82%E6%95%B0%E5%88%86%E5%89%B2.html">3. Stage3 - 参数分割</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="stage3-%E5%8F%82%E6%95%B0%E5%88%86%E5%89%B2.html#deepspeedzerooptimizer-stage3">3.1. DeepSpeedZeroOptimizer_Stage3</a></li>
-<li class="toctree-l3"><a class="reference internal" href="stage3-%E5%8F%82%E6%95%B0%E5%88%86%E5%89%B2.html#deepspeedzerooffload">3.2. DeepSpeedZeRoOffload</a></li>
-<li class="toctree-l3"><a class="reference internal" href="stage3-%E5%8F%82%E6%95%B0%E5%88%86%E5%89%B2.html#init">3.3. Init 模块</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="stage3-%E5%8F%82%E6%95%B0%E5%88%86%E5%89%B2.html#convert-to-deepspeed-param">3.3.1. _convert_to_deepspeed_param</a></li>
-<li class="toctree-l4"><a class="reference internal" href="stage3-%E5%8F%82%E6%95%B0%E5%88%86%E5%89%B2.html#partition">3.3.2. partition</a></li>
-<li class="toctree-l4"><a class="reference internal" href="stage3-%E5%8F%82%E6%95%B0%E5%88%86%E5%89%B2.html#partition-param-sec">3.3.3. partition_param_sec</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stage2-%E5%88%9D%E5%A7%8B%E5%8C%96.html">3. stage2 - 初始化</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="stage2-%E5%88%9D%E5%A7%8B%E5%8C%96.html#id1">3.1. 配置项初始化</a></li>
+<li class="toctree-l3"><a class="reference internal" href="stage2-%E5%88%9D%E5%A7%8B%E5%8C%96.html#id2">3.2. 参数分割</a></li>
+<li class="toctree-l3"><a class="reference internal" href="stage2-%E5%88%9D%E5%A7%8B%E5%8C%96.html#cpu-offload">3.3. cpu offload</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="stage3-%E5%8F%82%E6%95%B0%E5%88%86%E5%89%B2.html">4. Stage3 - 参数分割</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="stage3-%E5%8F%82%E6%95%B0%E5%88%86%E5%89%B2.html#deepspeedzerooptimizer-stage3">4.1. DeepSpeedZeroOptimizer_Stage3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="stage3-%E5%8F%82%E6%95%B0%E5%88%86%E5%89%B2.html#deepspeedzerooffload">4.2. DeepSpeedZeRoOffload</a></li>
+<li class="toctree-l3"><a class="reference internal" href="stage3-%E5%8F%82%E6%95%B0%E5%88%86%E5%89%B2.html#init">4.3. Init 模块</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="stage3-%E5%8F%82%E6%95%B0%E5%88%86%E5%89%B2.html#convert-to-deepspeed-param">4.3.1. _convert_to_deepspeed_param</a></li>
+<li class="toctree-l4"><a class="reference internal" href="stage3-%E5%8F%82%E6%95%B0%E5%88%86%E5%89%B2.html#partition">4.3.2. partition</a></li>
+<li class="toctree-l4"><a class="reference internal" href="stage3-%E5%8F%82%E6%95%B0%E5%88%86%E5%89%B2.html#partition-param-sec">4.3.3. partition_param_sec</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="stage3-hook.html">4. Stage3 - hook 注册</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">5. Stage3 - 前后向过程</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id1">5.1. 参数还原</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#all-gather-params">5.1.1. __all_gather_params</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stage3-hook.html">5. Stage3 - hook 注册</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">6. Stage3 - 前后向过程</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">6.1. 参数还原</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#all-gather-params">6.1.1. __all_gather_params</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id2">5.2. 参数重新分割</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#release-param">5.2.1. release_param</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">6.2. 参数重新分割</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#release-param">6.2.1. release_param</a></li>
 </ul>
 </li>
 </ul>
@@ -1034,7 +1040,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="index.html">deepspeed 详解-源码分析</a></li>
-      <li class="breadcrumb-item active"><span class="section-number">5. </span>Stage3 - 前后向过程</li>
+      <li class="breadcrumb-item active"><span class="section-number">6. </span>Stage3 - 前后向过程</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/deepspeed/stage3-前后向过程.rst.txt" rel="nofollow"> 查看页面源码</a>
       </li>
@@ -1045,15 +1051,15 @@
            <div itemprop="articleBody">
              
   <section id="stage3">
-<h1><span class="section-number">5. </span>Stage3 - 前后向过程<a class="headerlink" href="#stage3" title="此标题的永久链接"></a></h1>
-<p>在 <code class="docutils literal notranslate"><span class="pre">Hook</span></code> 章节（ <a class="reference internal" href="stage3-hook.html#ch-deepspeed-hook"><span class="std std-numref">节 4</span></a> ）
+<h1><span class="section-number">6. </span>Stage3 - 前后向过程<a class="headerlink" href="#stage3" title="此标题的永久链接"></a></h1>
+<p>在 <code class="docutils literal notranslate"><span class="pre">Hook</span></code> 章节（ <a class="reference internal" href="stage3-hook.html#ch-deepspeed-hook"><span class="std std-numref">节 5</span></a> ）
 我们看到对每个 <code class="docutils literal notranslate"><span class="pre">Module</span></code> 的前后向过程都进行了 <code class="docutils literal notranslate"><span class="pre">hook</span></code>
 ，在 <code class="docutils literal notranslate"><span class="pre">Module::forward</span></code> 前后都会执行特定的动作，
 也就是在这里需要完成被分割参数的还原与重新释放。
 并且关键的动作都在类 <code class="docutils literal notranslate"><span class="pre">PartitionedParameterCoordinator</span></code> 中，
 本章我们研究前向过程。</p>
 <section id="id1">
-<h2><span class="section-number">5.1. </span>参数还原<a class="headerlink" href="#id1" title="此标题的永久链接"></a></h2>
+<h2><span class="section-number">6.1. </span>参数还原<a class="headerlink" href="#id1" title="此标题的永久链接"></a></h2>
 <p>理论上，前后向过程前都要还原参数，
 先把 <code class="docutils literal notranslate"><span class="pre">hook</span></code> 的函数贴过来，</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">()</span>
@@ -1237,7 +1243,7 @@
 </pre></div>
 </div>
 <section id="all-gather-params">
-<h3><span class="section-number">5.1.1. </span>__all_gather_params<a class="headerlink" href="#all-gather-params" title="此标题的永久链接"></a></h3>
+<h3><span class="section-number">6.1.1. </span>__all_gather_params<a class="headerlink" href="#all-gather-params" title="此标题的永久链接"></a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@instrument_w_nvtx</span>
 <span class="k">def</span> <span class="nf">__all_gather_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="n">Parameter</span><span class="p">],</span> <span class="n">forward</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="n">quantized_params</span> <span class="o">=</span> <span class="p">[]</span>
@@ -1298,8 +1304,8 @@
 </pre></div>
 </div>
 <p>我们发现最终又跳到了每个参数的方法 <code class="docutils literal notranslate"><span class="pre">all_gather_coalesced</span></code> 中，
-这个方法是前面参数分割章节（ <a class="reference internal" href="stage3-%E5%8F%82%E6%95%B0%E5%88%86%E5%89%B2.html#ch-deepspeed-stage3-init"><span class="std std-numref">节 3</span></a> ）
-中赋予的，具体在 <a class="reference internal" href="stage3-%E5%8F%82%E6%95%B0%E5%88%86%E5%89%B2.html#ch-deepspeed-stage3-convert-to-deepspeed-param"><span class="std std-numref">节 3.3.1</span></a>
+这个方法是前面参数分割章节（ <a class="reference internal" href="stage3-%E5%8F%82%E6%95%B0%E5%88%86%E5%89%B2.html#ch-deepspeed-stage3-init"><span class="std std-numref">节 4</span></a> ）
+中赋予的，具体在 <a class="reference internal" href="stage3-%E5%8F%82%E6%95%B0%E5%88%86%E5%89%B2.html#ch-deepspeed-stage3-convert-to-deepspeed-param"><span class="std std-numref">节 4.3.1</span></a>
 ，</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@instrument_w_nvtx</span>
 <span class="k">def</span> <span class="nf">all_gather_coalesced</span><span class="p">(</span><span class="n">params</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Parameter</span><span class="p">],</span>
@@ -1489,7 +1495,7 @@
 </section>
 </section>
 <section id="id2">
-<h2><span class="section-number">5.2. </span>参数重新分割<a class="headerlink" href="#id2" title="此标题的永久链接"></a></h2>
+<h2><span class="section-number">6.2. </span>参数重新分割<a class="headerlink" href="#id2" title="此标题的永久链接"></a></h2>
 <p>同样先把直接 <code class="docutils literal notranslate"><span class="pre">hook</span></code> 的函数贴过来，</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">()</span>
 <span class="k">def</span> <span class="nf">post_sub_module_forward_function</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sub_module</span><span class="p">):</span>
@@ -1519,7 +1525,7 @@
 <p>显然核心的逻辑在 <code class="docutils literal notranslate"><span class="pre">param_coordinator.release_sub_module(sub_module,</span> <span class="pre">backward=False)</span></code>
 ，接下来跟进去分析。</p>
 <section id="release-param">
-<h3><span class="section-number">5.2.1. </span>release_param<a class="headerlink" href="#release-param" title="此标题的永久链接"></a></h3>
+<h3><span class="section-number">6.2.1. </span>release_param<a class="headerlink" href="#release-param" title="此标题的永久链接"></a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@instrument_w_nvtx</span>
 <span class="nd">@torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">()</span>
 <span class="k">def</span> <span class="nf">release_sub_module</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">submodule</span><span class="p">:</span> <span class="n">Module</span><span class="p">,</span> <span class="n">backward</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -1542,7 +1548,7 @@
 </pre></div>
 </div>
 <p>看到最终调用 <code class="docutils literal notranslate"><span class="pre">param.partition(backward=backward)</span></code> 对参数有重新进行了一遍分割流程。
-这又回到了 <a class="reference internal" href="stage3-%E5%8F%82%E6%95%B0%E5%88%86%E5%89%B2.html#ch-deepspeed-stage3-partition"><span class="std std-numref">节 3.3.2</span></a>
+这又回到了 <a class="reference internal" href="stage3-%E5%8F%82%E6%95%B0%E5%88%86%E5%89%B2.html#ch-deepspeed-stage3-partition"><span class="std std-numref">节 4.3.2</span></a>
 。</p>
 </section>
 </section>
@@ -1552,7 +1558,7 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
-        <a href="stage3-hook.html" class="btn btn-neutral float-left" title="4. Stage3 - hook 注册" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="stage3-hook.html" class="btn btn-neutral float-left" title="5. Stage3 - hook 注册" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
         <a href="../audio/index.html" class="btn btn-neutral float-right" title="语音技术" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
