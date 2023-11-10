@@ -1,8 +1,0 @@
-
-
-
-
-
-
-
- If Y comes from an exponential family then the derivatives of the log-likelihood and quasi-likelihood function coincide.

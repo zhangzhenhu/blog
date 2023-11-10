@@ -1,8 +1,0 @@
-
-
-
-normalization 标准化
------------------------------
-
-
-sklearn.preprocessing.scale(mfccs, axis=1)
