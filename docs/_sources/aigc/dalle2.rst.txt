@@ -1,0 +1,89 @@
+.. _ch_dalle2:
+
+
+########################################################
+DALL·E 2
+########################################################
+
+
+DALL·E 模型是 OpenAI 推出的文本-图像生成工具，目前为止 OpenAI 推出了两个版本：DALL·E 和 DALL·E2
+，这两个版本的技术架构并不同，DALL·E 是基于 VQ-VAE和GPT的，而 DALL·E2 是基于扩散模型的。
+DALL·E2 的效果远超 DALL·E ，所以这里我们重点介绍 DALL·E2。
+DALL·E2 是建立在 OpenAI 之前的工作 GLIDE 模型之上的，所以我们先介绍 GLIDE。
+
+
+
+GLIDE
+########################################################
+
+OpenAI 在2021年发表了一篇论文
+`GLIDE: Towards Photorealistic Image Generation and Editing with Text-Guided Diffusion Models` :footcite:`GLIDE`
+，这篇论文同样是建立在扩散模型的基础上，提出了一种基于文本指导的图像扩散过程，
+并且对比了 `CLIP guidance` 和 `classifier-free guidance` 两种策略的效果，得出结论：采用 `classifier-free guidance`
+训练的模型在图片真实性和主题相似方面效果更好。
+并且他们认为他们的模型在经过fine-tune后，可以执行图像修复（image inpainting），从而实现强大的文本驱动图像编辑。
+模型代码开源地址为：https://github.com/openai/glide-text2im
+
+
+
+
+
+论文中也说了，它们的模型对于复杂的文本提示效果也不好，它们解决方法是支持图像再编辑。简单来说，既然对于复杂的描述生成的效果不好，
+那就多来几次，每次可以再上一次的基础上继续修改更新图片，直到满意为止，
+这也是 GLIDE 的由来，取得是 "Guided Language to Image Diffusion for Generation and Editing" 的首字母。
+
+
+
+前文我们讲过，原本的扩散模型是从一个随机高斯噪声逐步降噪生成一张图片，这个过过程生成的图片是完全随机。
+随后大家研究怎么控制这个过程，使其生成我想要的图片，提出了各种 Guidance 方法，
+从最开始的 Class Guidance，到 Class-free Guidance，再到 Clip Guidance，
+演变到可通过输入文本提示来引导图像生成过程，也可以称为 Text-Conditional Diffusion Models，
+或者简称 text to image。
+GLIDE 模型就是一个基于 Clip Guidance 和 Class-free Guidance 实现的  Text-Conditional Diffusion Model
+。具体地，GLIDE 做了如下几件事：
+
+1. 基于 Clip Guidance 理论实现 Text-Conditional，但是它没有选择用预训练好的 Clip 模型，而是重新训练了一个加噪声的 Clip模型。
+   简单来说，他们认为通用的 Clip 模型训练过程中图片是没有加噪声的。而在扩散模型中，每一步的图像都是加了噪声的，这并不一致，
+   所以用加噪的图片重新训练了一个 Clip，实验证明效果更好。当然，我们从马后炮的角度看，这么做意义不大，性价比很低，后来的发展中没人这么干了。
+2. 扩散模型选用的 :math:`64 \times 64` 的分辨率尺寸，显然这个分辨率太低了，所以又搞了一个高清放大模型，这个高清放大模型同样是基于扩散模型实现。
+   先用 :math:`64 \times 64` 扩散模型生成小尺寸分图像，再用放大扩散模型放大到 :math:`256 \times 256`，两个模型级联。
+   这和 Imagen 是一样的思路，实际上 GLIDE,Imagen,Stable Diffusion 都是同样的套路。先生成 :math:`64 \times 64` 的，再放大。
+3. 关于内绘（Inpainting），这个咱们之前的内容没有讨论过。简单来说，Inpainting 就是图片内局部的修改，更换图片中局部的内容，比如换装。
+   实际上，扩散模型是可以做这个事情的。在早期的方案中，是在降噪的每一个步骤中，把原图先加上对应的噪声，即 :math:`q(x_t|x_0)`，
+   然后把需要保留的部分覆盖到 :math:`\hat{x}_t` 上，
+   这样就能保证原图不需要修改的部分能保留下来，只有需要修改部分由模型进行重新生成。
+   但这个方案有一个不足的地方，就是保留部分和修改部分的边缘有时会有很明显的割裂感，过渡不是那么的平滑。
+   在 GLIDE 的工作中，专门针对这个内绘（Inpainting）场景微调了一个版本的模型，以达到更好的效果。
+
+
+在这个工作中，之所以会额外优化内绘（Inpainting）的效果，就是前面提到的，
+他们想实现通过多次修改图片解决 Clip Guidance 对负责文本效果差的问题，
+期望能通过多次修改图片得到满足最终复杂需求的图片。
+时间放到23年，GLIDE已经显得过时了，有关 GLIDE 的更多细节就不讨论了，有兴趣的可以自行查阅论文和源码。
+
+
+
+
+unCLIP
+########################################################
+
+unCLIP :footcite:`Dalle2` 是 OpenAI 继 GLIDE 之后，提出的另一个文本到图像的生成模型框架，
+据说就是后来 Dalle 2 的内部实现。
+
+
+
+
+
+
+
+参考文献
+########################################################
+
+.. footbibliography::
+
+
+
+
+.. meta::
+    :description lang=zh_CN: DALLE
+    :keywords: 扩散模型,Diffusion Model,生成模型,图像生成,GLIDE,DALLE,unCLIP

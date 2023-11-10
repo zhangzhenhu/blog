@@ -1,0 +1,26 @@
+
+
+.. [J11]
+   Järvi L, Grimmond CSB & Christen A (2011) The Surface Urban Energy
+   and Water Balance Scheme (SUEWS): Evaluation in Los Angeles and
+   Vancouver. J. Hydrol. 411, 219-237.
+
+.. [D14]
+    Devavrat Shah. 6.438 Algorithms for Inference. Fall 2014. Massachusetts Institute of Technology: MIT OpenCourseWare, https://ocw.mit.edu. License: Creative Commons BY-NC-SA.
+
+Barndorff-Nielsen, Ole. Information and Exponential Families: In Statistical Theory. Wiley, 2014.
+Boes, Stefan, 和Rainer Winkelmann. 《Ordered Response Models》. Allgemeines Statistisches Archiv, 卷 90, 期 1, 2006年3月, 页 167–81. DOI.org (Crossref), doi:10.1007/s10182-006-0228-y.
+Dobson, Annette J., 和Adrian G. Barnett. An introduction to generalized linear models. 3rd ed, CRC Press, 2008.
+Gill, Jeff. Generalized linear models: a unified approach. Sage Publications, Inc, 2001.
+Hardin, James W., 和Joseph M. Hilbe. Generalized linear models and extensions. Fourth edition, Stata Press, 2018.
+Hilbe, Joseph M. Negative binomial regression. 2nd ed, Cambridge University Press, 2011.
+Hinde, John, 和Clarice Demetrio. Overdispersion: Models and Estimation. CRC, 2006.
+Hinde, John, 和Clarice G. B. Demétrio. 《Overdispersion: Models and Estimation》. Computational Statistics & Data Analysis, 卷 27, 期 2, 1998年4月, 页 151–70. DOI.org (Crossref), doi:10.1016/S0167-9473(98)00007-3.
+McCullagh, P., 和J. A. Nelder. Generalized Linear Models. Springer US, 1989. DOI.org (Crossref), doi:10.1007/978-1-4899-3242-6.
+Morel, Jorge G., 和Nagaraj K. Neerchal. Overdispersion models in SAS. SAS Institute, 2012.
+Zhang, Hui, 等. 《Statistical Methods for Overdispersion in MRNA-Seq Count Data》. The Open Bioinformatics Journal, 卷 7, 期 1, 2013年12月, 页 34–40. DOI.org (Crossref), doi:10.2174/1875036201307010034.
+
+
+
+
+

@@ -1,0 +1,18 @@
+
+
+机器学习
+=================================
+
+
+.. toctree::
+   :maxdepth: 2
+   :numbered:
+
+   feature_engineering.rst
+   信息论总结.rst
+
+   EM.rst
+   Model_evaluate_select.rst
+   Tree_model.rst
+   线性代数总结.rst
+

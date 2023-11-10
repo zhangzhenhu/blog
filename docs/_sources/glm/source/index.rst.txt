@@ -1,0 +1,60 @@
+.. ebook documentation master file, created by
+   sphinx-quickstart on Thu Dec  6 19:19:14 2018.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+广义线性模型
+###########################
+
+
+.. meta::
+   :description lang=zh_CN: 广义线性模型
+   :keywords: 广义线性模型,逻辑回归,多分类,泊松回归,泊松模型,线性回归,指数分布,GLM,generalized linear model,Overdispersion,Logistic Regression,logit Regression
+
+
+
+
+
+
+
+.. toctree::
+   :maxdepth: 3
+   :numbered:
+   :caption: 目录
+
+
+   概率基础/content.rst
+   最大似然估计/content.rst
+   推断与检验/content.rst
+   贝叶斯估计/content.rst
+   指数族/content.rst
+   线性回归/content.rst
+   广义线性模型/content.rst
+   广义线性模型/estimate.rst
+   模型评估/content.rst
+   模型评估/influence.rst
+   高斯模型/content.rst
+   逆高斯模型/content.rst
+   二项模型/content.rst
+   泊松模型/content.rst
+   指数模型/content.rst
+   gamma模型/content.rst
+   过度分散/content.rst
+   负二项模型/content.rst
+   零计数问题/content.rst
+   无序离散模型/content.rst
+   有序离散模型/content.rst
+
+
+
+
+
+.. toctree::
+   :maxdepth: 1
+
+   附录/分布表.rst
+   参考文献/content.rst
+
+
+
+

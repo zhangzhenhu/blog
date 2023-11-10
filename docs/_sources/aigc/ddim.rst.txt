@@ -1,0 +1,574 @@
+############################################################################################
+去噪扩散隐式模型（Denoising Diffusion Implicit Models,DDIM）
+############################################################################################
+
+在 `DDPM` 中，生成过程被定义为马尔可夫扩散过程的反向过程，在逆向采样过程的每一步，模型预测噪声
+
+
+`DDIM` 的作者发现，扩散过程并不是必须遵循马尔科夫链，
+在之后的基于分数的扩散模型以及基于随机微分等式的理论都有相同的结论。
+基于此，`DDIM` 的作者重新定义了扩散过程和逆过程，并提出了一种新的采样技巧，
+可以大幅减少采样的步骤，极大的提高了图像生成的效率，代价是牺牲了一定的多样性，
+图像质量略微下降，但在可接受的范围内。
+
+扩散模型的回顾
+############################################################################################
+
+
+首先回顾一下 DDPM 模型的机制，在 DDPM 中，真实世界的图像数据用随机变量 :math:`x_0`
+表示，它的概率密度记作 :math:`q(x_0)`，
+然而它的真实分布未知的，即 :math:`q(x_0)` 具体形式是未知的，
+所以我们没办法直接从 :math:`q(x_0)` 采样生成新的图片。
+幸运的是，我们有很多 :math:`x_0` 的观测样本，
+因此我们可以想办法利用这些观测样本估计出 :math:`q(x_0)` 的一个近似表示，
+然后从这个近似表示中抽样生成样本。
+
+核心的思想是，构建一个马尔科夫链式结构，逐步的向 :math:`x_0`
+上添加高斯随机噪声，并最终令其演变成一个纯高斯数据（标准正态分布），
+把这个过程称为加噪过程，或者前向过程。
+它的逆向过程就是逐步降噪的过程，
+主要估计出逆向过程中每一步的降噪转换核 :math:`p(x_{t-1}|p_{t})`，
+就可以从一个标准正态分布的高斯噪声数据 :math:`x_T`，
+逐步的降噪生成一张图片数据。
+
+
+整个网络的联合概率分布可以表示为 :math:`p(x_{0:T})`，
+根据联合概率的链式法则，前向扩散过程的链式分解
+
+.. math::
+    :label: eq_ddim_211
+
+    p(x_{0:T}) = q(x_0) \prod_{t=1}^T q(x_t|x_{t-1})
+
+
+然而 :math:`q(x_0)` 是具体形式是未知的，但是我们有它的观测样本，
+有了 :math:`x_0` 的观测样本之后，相当于 :math:`x_0` 的值已知，
+此时可以写成已知 :math:`x_0` 的条件概率分布，
+
+.. math::
+    :label: eq_ddim_213
+
+    q(x_{1:T}|x_0) = q(x_1|x_0) \prod_{t=2}^T q(x_t|x_{t-1}) =  \prod_{t=1}^T q(x_t|x_{t-1})
+
+前向扩散过程的转换核 :math:`q(x_t|x_{t-1})` 是一个条件高斯分布，
+它的概率密度为
+
+.. math::
+    :label: eq_ddim_214
+
+    q(x_t|x_{t-1}) = \mathcal{N} (\sqrt{\alpha_t} \ x_{t-1}, (1- \alpha_t ) \textit{I} )
+
+
+:math:`q(x_t|x_{t-1})` 代表着在 :math:`x_{t-1}` 的基础上添加一个高斯噪声得到 :math:`x_{t}`，
+有了这个转换（加噪）核，就可以逐步的把一张有意义的图像数据 :math:`x_0`
+转换为一个纯高斯噪声数据 :math:`x_T`。
+然而这个加噪计算过程需要一步一步计算，计算效率比较差，
+这时可以利用条件高斯分布的一个计算技巧，直接从 :math:`x_{0}` 一步计算得到任意时刻的 :math:`x_t`，
+这个过程可以表示为条件概率分布 :math:`q(x_t|x_{0})` ：
+
+
+.. math::
+    :label: eq_ddim_215
+
+    q(x_t|x_{0}) = \int q(x_{1:t}|x_0) d x_{1:t-1}
+    \sim \mathcal{N}(\sqrt{\bar{ \alpha}_t } \ x_0,  (1- \bar{ \alpha}_t)    \textit{I})
+
+:math:`q(x_t|x_{0})` 的直接算数计算等式为：
+
+.. math::
+    :label: eq_ddim_216
+
+    x_t &= \sqrt{\bar{\alpha}_t } \ x_0 + \sqrt{1- \bar{ \alpha}_t }  \ \epsilon_t  \ \ \ ,
+    \bar{\alpha}_t = \prod_{i=1}^t \alpha_i ,\ \ \epsilon_t \sim \mathcal{N}(0,\textit{I})
+
+    &\sim \mathcal{N}(\sqrt{\bar{ \alpha}_t } \ x_0,  (1- \bar{ \alpha}_t)    \textit{I})
+
+
+
+加噪过程的逆过程称为降噪过程，降噪过程是对联合概率 :math:`p(x_{0:T})`
+按照反向过程进行链式分解：
+
+.. math::
+    :label: eq_ddim_217
+
+    p(x_{0:T}) = p(x_T) \prod_{t=T}^1 p(x_{t-1}|x_{t})
+
+其中 :math:`p(x_T) \sim \mathcal{N}(0,\textit{I})` 是一个标准正态分布，
+:math:`p(x_{t-1}|x_{t})` 是逆向过程每一步的转换核（条件分布），
+他表示在 :math:`x_{t}` 的基础上去掉一部分高斯噪声得到 :math:`x_{t-1}`
+，所以称为降噪过程。
+
+我们的关键就是估计出 :math:`p(x_{t-1}|x_{t})` 的一个近似表示。
+根据最大似然估计理论，我们需要极大化观测数据的对数似然 :math:`\ln p(x_0)`
+，然而整个网络中随机变量有个 :math:`T` 个，可是只有 :math:`x_0`
+有观测样本，这是就需要 :math:`T` 变量的联合概率 :math:`p(x_{0:T})`
+进行边际化进而得到 :math:`x_0` 的边缘概率 :math:`p(x_0)`,
+如下式所示，
+
+
+.. math::
+    :label: eq_ddim_218
+
+    \ln p(x_0) = \ln \int  p(x_{0:T} ) d x_{1:T}
+
+没有观测样本的变量 :math:`x_{1:T}` 称为隐变量，
+这是一个典型的含有隐变量模型的估计问题。
+如 :eq:`eq_ddim_218` 所示，隐变量的存在（需要边际化消除）导致
+对数似然函数存在了积分操作，这导致对数函数无法分解成简单的形式，
+进而难以求解其梯度，无法直接极大化。
+这时可以利用 `Jensen` 不等式，得到对数似然函数的一个下界函数（ELBO），
+当满足一定条件时，极大化这个下界函数和极大化对数似然是等价的。
+
+.. math::
+    :label: eq_ddim_219
+
+    \EE[q_{x_0}]{\ln p(x_0)}
+    & \geq {\mathbb{E}_{q(x_{1:T}|x_0)}\left[\ln \frac{p(x_{0:T})}{q(x_{1:T}|x_0)}\right]}
+
+    & \Rightarrow \mathbb{E}_{q(x_{1}|x_0)}\left[\ln p_{{\theta}}(x_0|x_1)\right]
+    - \sum_{t=2}^{T} \mathbb{E}_{q(x_{t}|x_0)}\left[\KL{q(x_{t-1}|x_t, x_0)}{p_{{\theta}}(x_{t-1}|x_t)}\right]
+
+
+代入各项之后，最后的目标函数是一个简单的均方误差，这里记作 :math:`L_{\gamma}`，
+其中 :math:`\gamma_t` 表示一些常数项，它不影响极大化的结果。
+
+
+.. math::
+    :label: eq_ddim_220
+
+    L_{\gamma} :=  \sum_{t=1}^T \gamma_t \EE[q(x_t|x_0)]{ \left\lVert\epsilon_t  - {\hat\epsilon}_{{\theta}}(x_t, t)\right\rVert_2^2 }
+    \ \ , \epsilon_t \sim \mathcal{N}(0,\textit{I})
+
+
+
+非马尔科夫前向过程
+############################################################################################
+
+
+
+重点观察下 DDPM 最终的目标函数 :eq:`eq_ddim_219` 和 :eq:`eq_ddim_220`，
+目标函数中最关键的是 KL 散度的项， 这一项是 :math:`q(x_{t-1}|x_t, x_0)` 和 :math:`p_{{\theta}}(x_{t-1}|x_t)`
+的 KL 散度。其中 :math:`q(x_{t-1}|x_t, x_0)` 是逆过程的转换核，它是逆过程（图像生成过程，图像采样过程）的核心，
+只要有了它就能完成生成过程。:math:`p_{{\theta}}(x_{t-1}|x_t)` 代表模型，我们的目标就是训练 :math:`p_{{\theta}}(x_{t-1}|x_t)`
+令其尽量与 :math:`q(x_{t-1}|x_t, x_0)` 相似，它作为 :math:`q(x_{t-1}|x_t, x_0)` 的一个近似解。
+
+单纯的看 :math:`q(x_{t-1}|x_t, x_0)`，它是逆向过程的转换核，貌似和前向过程无关，但这是个条件概率分布，它的条件变量是 :math:`x_t`
+和 :math:`x_0`，也就说它依赖 :math:`x_t` 和 :math:`x_0`，那这两项怎么来的呢？注意这里关注的是训练阶段怎么来，
+再预测阶段（图像生成阶段） :math:`x_0` 是模型预测得到的，:math:`x_t` 本身就是利用 :math:`q(x_{t-1}|x_t, x_0)` 一步步迭代得到的。
+
+- 先看 :math:`x_0`，在训练阶段 :math:`x_0` 是观测样本，本身就是已知的。
+- 再看 :math:`x_t`，最直接的它通过 :math:`q(x_t|x_{t-1})` 计算得到，然而我们利用线性高斯的特性，可以直接通过 :math:`q(x_t|x_0)` 计算，
+  绕过了 :math:`q(x_t|x_{t-1})` ，这意味这 :math:`x_t` 可以不依赖 :math:`x_{t-1}`。
+
+
+看下 :math:`q(x_t|x_0)` 是怎么来的，
+它是在联合概率的 :math:`q(x_{1:t}|x_0)` 的基础上边际化（消除变量 :math:`x_{1:t-1}` ）得到的，
+如下式所示，
+
+.. math::
+    :label: eq_ddim_221
+
+    q(x_t|x_0) = \int q(x_{1:t}|x_0) d x_{1:t-1}
+
+
+在原始的 DDPM 模型中，对联合概率 :math:`q(x_{1:t})` 的进一步分解是按照马尔科夫链的形式分解的，
+即
+
+.. math::
+    :label: eq_ddim_222
+
+    q(x_t|x_0)  &= \int q(x_{1:t}|x_0) d x_{1:t-1}
+
+    &= \int \prod_{i=1}^t q(x_{i}|x_{i-1}) d x_{1:t-1}
+
+
+然而，从概率计算规则上讲，不管 :math:`q(x_{1:t})` 怎么分解，最终都是要把它通过积分消除掉，它可以有很多种不同的分解方式的，
+如何分解它并不影响积分后的结果，即不论 :math:`q(x_{1:t})` 的分解方式是什么，最后 :math:`q(x_t|x_0)` 的结果都是一样的。
+也就说，这种马尔科夫链式分解的方式不是必须得。
+**如果放弃了马尔科夫链式结构的假设，那就得到了一个非马尔科夫的前向模型**。
+
+从以上的分析结果看，**如果想放弃非马尔科夫的假设，但又想得到和 DDPM 等价的模型（即不改变DDPM的目标函数）**，
+**只需要确保**  :math:`q(x_t|x_0)` **和** :math:`q(x_{t-1}|x_t, x_0)` **的表达式与DDPM一样就可以了**。
+接下来就尝试构建一个非马尔科夫建设的模型。
+
+
+
+现在，我们重新定义 :math:`q(x_{1:T}|x_0)` 的分解方式，
+在这过程中引入一个人工定义的自由参数 :math:`\sigma^2`，它代表 :math:`q_{\sigma}(x_{t-1}|x_t,x_0)` 的方差，
+它的具体值稍后会讨论。
+
+定义 :math:`q(x_{1:T}|x_0)` 的分解方式为
+
+.. math::
+    :label: eq_ddim_225
+
+    q_\sigma (x_{1:T}|x_0) := q_{\sigma}(x_T|x_0) \prod_{t=2}^T q_{\sigma}(x_{t-1}|x_t,x_0)
+
+其中 :math:`q_\sigma(x_T|x_{0})` 维持与DDPM一样，
+
+.. math::
+    :label: eq_ddim_226
+
+    q_\sigma(x_T|x_{0})
+    \sim \mathcal{N}(\sqrt{\bar{ \alpha}_T } \ x_0,  (1- \bar{ \alpha}_T)    \textit{I})
+
+对任意 :math:`t>1`，定义 :math:`q_{\sigma}(x_{t-1}|x_t,x_0)` 的分布为
+
+.. math::
+    :label: eq_ddim_227
+
+    q_{\sigma}(x_{t-1}|x_t,x_0) \sim \mathcal{N} \left(
+    \underbrace{
+        \sqrt{\bar{\alpha}_{t-1}} \ x_0
+        + \sqrt{1-\bar{\alpha}_{t-1}-\sigma_t^2} \cdot \frac{x_t - \sqrt{\bar{\alpha}_t} \ x_0 }{\sqrt{1-\bar{\alpha}_t}}
+    }_{\text{期望}}
+    , \underbrace{ \sigma_t^2 \textit{I} }_{\text{方差}}
+    \right )
+
+
+
+定义完成后，还有一个问题，就是 :eq:`eq_ddim_226` 是否对任意的 :math:`1\le t \le T` 成立，
+在 DDIM 的原论文 :footcite:`song2022denoising` 中给出了证明，这里不再赘述证明过程，有兴趣的可以查看原论文的附录B。
+结论是：如下分布对任意的 :math:`1\le t \le T` 都是成立的。
+
+.. math::
+    :label: eq_ddim_228
+
+    q_\sigma(x_t|x_{0})
+    \sim \mathcal{N}(
+    \sqrt{\bar{ \alpha}_t } \ x_0 ,
+    (1- \bar{ \alpha}_t)\textit{I})
+
+
+
+
+
+新的分解方式（ :eq:`eq_ddim_225`）下， 没有了马尔科夫链式结构的假设。
+其中 :math:`q_{\sigma}(x_{t-1}|x_t,x_0)` 仍然是逆过程的转换核，在逆过程中
+，:math:`x_{t-1}` 同时依赖 :math:`x_t` 和 :math:`x_0`。
+
+在原始的DPM模型中，训练的模型就是直接预测 :math:`x_0` 进而得到 :math:`q_{\sigma}(x_{t-1}|x_t,x_0)` 近似表示。
+在后来的 DDPM 改进中，利用了 :math:`x_0,x_t,\epsilon_t` 三者的关系式（ :eq:`eq_ddim_216`），
+用 :math:`x_t,\epsilon_t` 替换了 :math:`x_0`，进而令模型去预测 :math:`\epsilon_t`。
+现在 :math:`q_{\sigma}(x_{t-1}|x_t,x_0)` 的（ :eq:`eq_ddim_227`）期望又直接依赖 :math:`x_0` 了，
+**兜兜转转居然又回到了最初**。
+**在这里为了能利用上已经训练好的 DDPM 模型（预测噪声的模型）**，
+再一次利用关系式 :eq:`eq_ddim_216` 得到预测的 :math:`\hat{x}_0`
+，如下式所示
+
+
+.. math::
+    :label: eq_ddim_229
+
+    \hat{x}_0 =f_{\theta}^{(t)}(x_t)=  \frac{x_t -\sqrt{1- \bar{ \alpha}_t }  \ \hat{\epsilon}_t (x_t,t)}{ \sqrt{\bar{\alpha}_t }  }
+
+
+这样我们利用上已经训练好的 DDPM模型 :math:`\hat{\epsilon}_t (x_t,t)` ，
+不需要再重新训练一个模型。利用 :eq:`eq_ddim_229` 得到  :math:`\hat{x}_0`
+，代入到 :eq:`eq_ddim_227` 进而就得到了逆向转换核 :math:`q_{\sigma}(x_{t-1}|x_t,x_0)` 的（近似）分布
+
+.. math::
+    :label: eq_ddim_230
+
+    p_{{\theta},\sigma}(x_{t-1}|x_t) &\sim \mathcal{N} \left(
+    \sqrt{\bar{\alpha}_{t-1}} \ \hat{x}_0
+    + \sqrt{1-\bar{\alpha}_{t-1}-\sigma_t^2} \cdot \frac{x_t - \sqrt{\bar{\alpha}_t} \ \hat{x}_0 }{\sqrt{1-\bar{\alpha}_t}}
+    ,\sigma_t^2 \textit{I}
+    \right )
+
+    &\approx  q_{\sigma}(x_{t-1}|x_t,x_0)
+
+
+我们整理下整个逆向生成过程，
+
+对于 :math:`x_T`，
+
+.. math::
+    :label: eq_ddim_231
+
+     p(x_T) = \mathcal{N}(0, \textit{I})
+
+对于 :math:`p(x_{t-1}|x_t)`，
+
+.. math::
+    :label: eq_ddim_232
+
+    p(x_{t-1}|x_t) = \left \{ \begin{array}{rcl}
+    &\mathcal{N}(\hat{x}_0(x_1,t=1), \sigma^2_1 \textit{I} \ ) &\mbox{if}\quad t =1\\
+    &q_{\sigma}(x_{t-1}|x_t,\hat{x}_0(x_t,t)) &\mbox{if}\quad 1 \lt t \le T
+    \end{array} \right .
+
+根据 :eq:`eq_ddim_230`，:math:`x_{t-1}` 具体地计算（采样）公式为：
+
+
+
+.. math::
+    :label: eq_ddim_233
+
+    x_{t-1} &= \sqrt{\bar{\alpha}_{t-1}} \ \hat{x}_0
+    + \sqrt{1-\bar{\alpha}_{t-1}-\sigma_t^2} \cdot \frac{x_t - \sqrt{\bar{\alpha}_t} \ \hat{x}_0 }{\sqrt{1-\bar{\alpha}_t}}
+    + \sigma_t \epsilon_t^*
+
+    &=\sqrt{\bar{\alpha}_{t-1}}  \underbrace{ \left (
+        \frac{x_t -\sqrt{1- \bar{ \alpha}_t }  \ \hat{\epsilon}_t (x_t,t)}{ \sqrt{\bar{\alpha}_t }  } \right )
+    }_{\text{predict } x_0}
+    + \underbrace{\sqrt{1-\bar{\alpha}_{t-1}-\sigma_t^2} \quad \hat{\epsilon}_t (x_t,t)}_{\text{direction pointing to }x_t}
+     + \underbrace{\sigma_t \epsilon_t^{*}}_{\text{random noise}}
+
+    & \text{where}\quad \epsilon_t^{*} \sim \mathcal{N}(0,\textit{I})
+
+
+
+在这个新的定义中，前向过程没有了马尔科夫的假设，
+并且逆向转换核 :math:`q_{\sigma}(x_{t-1}|x_t,x_0)` 也不再满足马尔科夫链的定义（仅依赖上一个状态），
+因此本论文作者称之为非马尔科夫扩散过程。
+同时可以直接利用之前已经训练好的 DDPM 预测噪声的模型，不用再重新训练一个新模型。
+
+
+加速采样
+########################################################
+
+回顾下 :eq:`eq_ddim_227`、 :eq:`eq_ddim_232`、 :eq:`eq_ddim_233`，多了一个方差参数 :math:`\sigma^2`
+，它代表的是 :math:`q_{\sigma}(x_{t-1}|x_t,x_0)` 的方差。
+实际上，它并不是在 DDIM 中额外新增的，现在回顾一下 DDPM 的内容，在 DDPM 中这个方差也是存在的（ :eq:`eq_ddpm_036`）
+，只是在 DDPM 中 :math:`q_{\sigma}(x_{t-1}|x_t,x_0)` 是直接通过贝叶斯定理推导出来的（ :eq:`eq_ddpm_036`），
+推导的结果中这个方差有一个固定的表达式，即
+
+.. math::
+    :label: eq_ddim_234
+
+    \sigma^2 = \frac{(1 - \alpha_t)(1 - \bar\alpha_{t-1})}{ 1 -\bar\alpha_{t}}
+
+
+在 DDIM 中，把 :math:`\sigma^2` 当做一个可以人工调整的超参数，
+这样就可以通过调整方差 :math:`\sigma^2` 而得到不一样的效果。
+而在 DDIM 中，如果令 :eq:`eq_ddim_234` 成立，那么 DDIM 就退化成了 DDPM。
+这里给出推导的过程。
+
+令 :eq:`eq_ddim_234` 成立，并将其代入到 :math:`q_{\sigma}(x_{t-1}|x_t,x_0)` 的期望中，有
+
+.. math::
+    :label: eq_ddim_235
+
+    \EE{q_{\sigma}(x_{t-1}|x_t,x_0)} &=\sqrt{\bar{\alpha}_{t-1}} \ x_0
+    + \sqrt{1-\bar{\alpha}_{t-1}-\sigma_t^2} \cdot \frac{x_t - \sqrt{\bar{\alpha}_t} \ x_0 }{\sqrt{1-\bar{\alpha}_t}}
+
+    &=  \sqrt{\bar{\alpha}_{t-1}} \ x_0
+    + \sqrt{1-\bar{\alpha}_{t-1}- \frac{(1 - \alpha_t)(1 - \bar\alpha_{t-1})}{ 1 -\bar\alpha_{t}} } \cdot \frac{x_t - \sqrt{\bar{\alpha}_t} \ x_0 }{\sqrt{1-\bar{\alpha}_t}}
+
+    &=  \sqrt{\bar{\alpha}_{t-1}} \ x_0
+    + \sqrt{ \frac{(1-\bar{\alpha}_{t-1})(1 -\bar\alpha_{t})-  (1 - \alpha_t)(1 - \bar\alpha_{t-1})}{ 1 -\bar\alpha_{t} } } \cdot \frac{x_t - \sqrt{\bar{\alpha}_t} \ x_0 }{\sqrt{1-\bar{\alpha}_t}}
+
+
+    &=  \sqrt{\bar{\alpha}_{t-1}} \ x_0
+    + \sqrt{ \frac{(1-\bar{\alpha}_{t-1})(\alpha_{t} -\bar\alpha_{t}) }{ 1 -\bar\alpha_{t} } } \cdot \frac{x_t - \sqrt{\bar{\alpha}_t} \ x_0 }{\sqrt{1-\bar{\alpha}_t}}
+
+
+    &=  \sqrt{\bar{\alpha}_{t-1}} \ x_0
+    + \sqrt{ \frac{\alpha_{t}(1-\bar{\alpha}_{t-1})^2 }{ 1 -\bar\alpha_{t} } } \cdot \frac{x_t - \sqrt{\bar{\alpha}_t} \ x_0 }{\sqrt{1-\bar{\alpha}_t}}
+
+    &=  \sqrt{\bar{\alpha}_{t-1}} \ x_0
+    + \sqrt{ \frac{\alpha_{t}(1-\bar{\alpha}_{t-1})^2 }{ (1 -\bar\alpha_{t})^2 } } \cdot (x_t - \sqrt{ \bar{\alpha}_t} \ x_0  )
+
+    &=  \sqrt{\bar{\alpha}_{t-1}} \ x_0
+    +  \frac{ \sqrt{\alpha_{t} }  (1-\bar{\alpha}_{t-1})   (x_t - \sqrt{ \bar{\alpha}_t} \ x_0  ) }{ (1 -\bar\alpha_{t}) }
+
+
+    &= \frac{ (1 -\bar\alpha_{t}) \sqrt{\bar{\alpha}_{t-1}} \ x_0 }{(1 -\bar\alpha_{t})}
+    +  \frac{ \sqrt{\alpha_{t} }  (1-\bar{\alpha}_{t-1}) x_t - \sqrt{\alpha_{t} }  (1-\bar{\alpha}_{t-1})   \sqrt{ \bar{\alpha}_t} \ x_0   }{ (1 -\bar\alpha_{t}) }
+
+    &=\frac{ (1 -\bar\alpha_{t}) \sqrt{\bar{\alpha}_{t-1}} \ x_0
+    + \sqrt{\alpha_{t} }  (1-\bar{\alpha}_{t-1}) x_t
+    -  (1-\bar{\alpha}_{t-1})   \sqrt{ \alpha_{t}  \bar{\alpha}_t  } \ x_0   }
+    { (1 -\bar\alpha_{t}) }
+
+    &=\frac{
+     \sqrt{\alpha_{t} }  (1-\bar{\alpha}_{t-1}) x_t
+    +(1 -\bar\alpha_{t}) \sqrt{\bar{\alpha}_{t-1}} \ x_0
+    -  (1-\bar{\alpha}_{t-1})   \sqrt{ \alpha_{t}^2  \bar{\alpha}_{t-1}  } \ x_0   }
+    { (1 -\bar\alpha_{t}) }
+
+    &=\frac{
+     \sqrt{\alpha_{t} }  (1-\bar{\alpha}_{t-1}) x_t
+    +(1 -\bar\alpha_{t}) \sqrt{\bar{\alpha}_{t-1}} \ x_0
+    -  (1-\bar{\alpha}_{t-1})   \alpha_{t}\sqrt{  \bar{\alpha}_{t-1}  } \ x_0   }
+    { (1 -\bar\alpha_{t}) }
+
+    &=\frac{
+     \sqrt{\alpha_{t} }  (1-\bar{\alpha}_{t-1}) x_t
+    +[(1 -\bar\alpha_{t})
+    -  (1-\bar{\alpha}_{t-1})   \alpha_{t}] \sqrt{  \bar{\alpha}_{t-1}  } \ x_0   }
+    { (1 -\bar\alpha_{t}) }
+
+    &=\frac{
+     \sqrt{\alpha_{t} }  (1-\bar{\alpha}_{t-1}) x_t
+    +(1 -\bar\alpha_{t}
+    -  \alpha_{t} +\bar{\alpha}_{t})    \sqrt{  \bar{\alpha}_{t-1}  } \ x_0   }
+    { (1 -\bar\alpha_{t}) }
+
+    &=\frac{
+     \sqrt{\alpha_{t} }  (1-\bar{\alpha}_{t-1}) x_t
+    + \sqrt{  \bar{\alpha}_{t-1}  }(1 - \alpha_{t} ) \ x_0   }
+    { (1 -\bar\alpha_{t}) }
+
+可以看到，这和上一章 DDPM 中 :math:`q_{\sigma}(x_{t-1}|x_t,x_0)` 的期望（ :eq:`eq_ddpm_036`）是完全一样的，
+可以得出：**DDIM 可以看做是 DDPM 的扩展， DDPM 是 DDIM 的一个特例**。
+
+
+可以想到，:math:`\sigma^2` 另一个特殊的选择是令 :math:`\sigma^2=0`
+，这意味 :math:`q_{\sigma}(x_{t-1}|x_t,x_0)` **的方差为** :math:`0`
+。最直接的 :eq:`eq_ddim_233` 中的随机噪声项 :math:`\sigma_t \epsilon_t^{*}` 没了，
+相当于 :math:`x_{t-1}` 直接等于了 :math:`q_{\sigma}(x_{t-1}|x_t,x_0)` 的期望。
+想一想这意味着什么？
+
+1. 从随机采样的角度看， :math:`x_{t-1}` 不再是从 :math:`q_{\sigma}(x_{t-1}|x_t,x_0)` 进行随机采样，
+   而是直接选择 :math:`q_{\sigma}(x_{t-1}|x_t,x_0)` 的期望，而又由于 :math:`q_{\sigma}(x_{t-1}|x_t,x_0)`
+   是高斯分布，它的期望就是它概率密度最大的点，这又相当于 :math:`x_{t-1}` 每次都是选取的 :math:`q_{\sigma}(x_{t-1}|x_t,x_0)`
+   概率密度最大的点，相当于最大概率采样。
+2. 从数值计算角度看，没有了随机项 :math:`\sigma_t \epsilon_t^{*}`，成了确定性等式计算，不再具有随机性。
+
+
+DDIM 原论文中阐述方差为 :math:`0` 时可以加速采样（图像生成）过程，
+它从子序列的角度解释，不是很容易理解。这里我们就从随机性的直观角度理解。
+
+- 方差不为 :math:`0` 时， :math:`x_t` 到 :math:`x_{t-1}` 的每一步是随机性采样，随机性导致不可控，会走很多弯路。就好比你从起点 :math:`x_T`
+  走到终点 :math:`x_0`，每一步你不好好走，虽然指向目的地的方向（期望）确定了，但是总是在这个方向上加上一个随机量（方差）作为你的步进，
+  自然你会走很多弯路绕路，走的不是直线。这样你到达目的地 :math:`x_0` 的步数（时间）就变长了。
+- 方差为 :math:`0` 时， :math:`x_t` 到 :math:`x_{t-1}` 的每一步，你就专注的向着目的地笔直前进（沿着期望的方向），不搞幺蛾子，自然到达目的地就快了很多。
+
+
+
+回顾一下，我们讲的扩散模型的三个等价表示（ :numref:`ch_ddpm_score_based`），
+其中一个就是基于分数的等价模型，所谓分数(score)，不就是 :math:`p(x_t)` 的梯度么，
+想想梯度下降法，梯度是什么？就是指向 :math:`p(x_0)` 的方向，
+:math:`x_t` 到 :math:`x_{t-1}` 的每一步就是在沿着 :math:`p(x_t)` 的梯度向着 :math:`p(x_0)` 前进。
+
+根据 :numref:`ch_ddpm_score_based` 的内容，梯度 :math:`\nabla\log p(x_t)`
+和预测噪声 :math:`\hat{\epsilon}_t(x_t,t)` 的关系为
+
+.. math::
+    :label: eq_ddim_236
+
+    \nabla\log p(x_t) = -\frac{1}{\sqrt{1 - \bar\alpha_t}} \hat{\epsilon}_t(x_t,t)
+
+:math:`\hat{x}_0` 可以用梯度替换
+
+.. math::
+    :label: eq_ddim_237
+
+    \hat{x}_0 = \frac{x_t + (1 - \bar\alpha_t)\nabla\log p(x_t)}{\sqrt{\bar\alpha_t}}
+
+
+
+把 :eq:`eq_ddim_237` 代入到 :math:`x_{t-1}` 的迭代公式 :eq:`eq_ddim_233` 中
+
+.. math::
+    :label: eq_ddim_238
+
+    x_{t-1} &= \sqrt{\bar{\alpha}_{t-1}} \ \hat{x}_0
+    + \sqrt{1-\bar{\alpha}_{t-1}-\sigma_t^2} \cdot \frac{x_t - \sqrt{\bar{\alpha}_t} \ \hat{x}_0 }{\sqrt{1-\bar{\alpha}_t}}
+    + \sigma_t \epsilon_t^*
+
+    &= \sqrt{\bar{\alpha}_{t-1}}   \frac{x_t + (1 - \bar\alpha_t)\nabla\log p(x_t)}{\sqrt{\bar\alpha_t}}
+
+    & \quad + \sqrt{1-\bar{\alpha}_{t-1}-\sigma_t^2} \cdot
+    \left [ \frac{x_t - \sqrt{\bar{\alpha}_t}  }{\sqrt{1-\bar{\alpha}_t}}
+    - \frac{\sqrt{\bar{\alpha}_t}}{\sqrt{1-\bar{\alpha}_t}} \cdot  \frac{x_t + (1 - \bar\alpha_t)\nabla\log p(x_t)}{\sqrt{\bar\alpha_t}}
+    \right ]
+
+    &\quad + \sigma_t \epsilon_t^*
+
+    &= \frac{x_t \sqrt{\bar{\alpha}_{t-1}} + \sqrt{\bar{\alpha}_{t-1}} (1 - \bar\alpha_t)\nabla\log p(x_t)}{\sqrt{\bar\alpha_t}}
+
+    & \quad + \sqrt{1-\bar{\alpha}_{t-1}-\sigma_t^2} \cdot
+    \left [ \frac{x_t\sqrt{\bar{\alpha}_t} - \bar{\alpha}_t }{\sqrt{\bar{\alpha}_t} \sqrt{1-\bar{\alpha}_t}}
+    -  \frac{x_t\sqrt{\bar{\alpha}_t} + \sqrt{\bar{\alpha}_t}(1 - \bar\alpha_t)\nabla\log p(x_t)}{\sqrt{\bar\alpha_t} \sqrt{1-\bar{\alpha}_t}}
+    \right ]
+
+    & \quad + \sigma_t \epsilon_t^*
+
+    &= \frac{x_t \sqrt{\bar{\alpha}_{t-1}}}{\sqrt{\bar\alpha_t}}
+     + \frac{\sqrt{\bar{\alpha}_{t-1}} (1 - \bar\alpha_t)\nabla\log p(x_t)}{ \sqrt{\bar\alpha_t}}
+
+    & \quad + \sqrt{1-\bar{\alpha}_{t-1}-\sigma_t^2} \cdot
+     \frac{-\bar{\alpha}_t  - \sqrt{\bar{\alpha}_t}(1 - \bar\alpha_t)\nabla\log p(x_t)}{\sqrt{\bar\alpha_t} \sqrt{1-\bar{\alpha}_t}}
+
+    & \quad + \sigma_t \epsilon_t^*
+
+    &= \frac{x_t \sqrt{\bar{\alpha}_{t-1}} }{ \sqrt{\bar\alpha_t}}
+     + \frac{\sqrt{\bar{\alpha}_{t-1}} (1 - \bar\alpha_t)\nabla\log p(x_t)}{ \sqrt{\bar\alpha_t} }
+
+    & \quad - \sqrt{1-\bar{\alpha}_{t-1}-\sigma_t^2} \cdot
+     \frac{\bar{\alpha}_t  + \sqrt{\bar{\alpha}_t}(1 - \bar\alpha_t)\nabla\log p(x_t)}{\sqrt{\bar\alpha_t} \sqrt{1-\bar{\alpha}_t}}
+
+    & \quad + \sigma_t \epsilon_t^*
+
+    &= \frac{x_t \sqrt{\bar{\alpha}_{t-1}} }{ \sqrt{\bar\alpha_t}}
+     + \frac{\sqrt{\bar{\alpha}_{t-1}} (1 - \bar\alpha_t)\nabla\log p(x_t)}{ \sqrt{\bar\alpha_t}}
+
+    & \quad -
+      \frac{ \sqrt{1-\bar{\alpha}_{t-1}-\sigma_t^2} \sqrt{\bar{\alpha}_t}(1 - \bar\alpha_t)\nabla\log p(x_t)}{\sqrt{\bar\alpha_t} \sqrt{1-\bar{\alpha}_t}}
+
+    & \quad + \frac{\bar{\alpha}_t  \sqrt{1-\bar{\alpha}_{t-1}-\sigma_t^2} }{\sqrt{\bar\alpha_t} \sqrt{1-\bar{\alpha}_t}}
+
+    & \quad + \sigma_t \epsilon_t^*
+
+    &= \frac{x_t  }{ \sqrt{\alpha_t}}
+     + \frac{\sqrt{\bar{\alpha}_{t-1}} (1 - \bar\alpha_t)\nabla\log p(x_t)}{ \sqrt{\bar\alpha_t}}
+
+    & \quad -
+      \frac{ \sqrt{1-\bar{\alpha}_{t-1}-\sigma_t^2} \sqrt{\bar{\alpha}_t }\sqrt{(1 - \bar\alpha_t)}\nabla\log p(x_t)}{\sqrt{\bar\alpha_t} }
+
+    & \quad + \frac{\sqrt{\bar{\alpha}_t}  \sqrt{1-\bar{\alpha}_{t-1}-\sigma_t^2} }{ \sqrt{1-\bar{\alpha}_t}}
+
+    & \quad + \sigma_t \epsilon_t^*
+
+    &= \frac{x_t  }{ \sqrt{\alpha_t}}
+
+    &\quad + \frac{ \left [ \sqrt{\bar{\alpha}_{t-1}} (1 - \bar\alpha_t)
+        - \sqrt{1-\bar{\alpha}_{t-1}-\sigma_t^2} \sqrt{\bar{\alpha}_t }\sqrt{(1 - \bar\alpha_t)} \right ]
+        \nabla\log p(x_t)}{ \sqrt{\bar\alpha_t}}
+
+    & \quad + \frac{\sqrt{\bar{\alpha}_t}  \sqrt{1-\bar{\alpha}_{t-1}-\sigma_t^2} }{ \sqrt{1-\bar{\alpha}_t}}
+
+    & \quad + \sigma_t \epsilon_t^*
+
+    & := A x_t + B \nabla\log p(x_t) + C + \sigma_t \epsilon_t^*
+
+
+
+现在看明白了吧，逆向生成过程中 :math:`x_t` 的迭代（降噪）过程，其实就是沿着 :math:`x_t` 的梯度在前进。
+**放开你的想象力，这和利用梯度下降法求解最优参数是不是一样的**！！！
+**那是不是意味着我可以把各种高级的优化器算法、自适应性学习率算法等等用在这里**，比如 ``adam`` 算法等等。
+
+如果令 :math:`\sigma_t \neq 0`，意味着保留了随机项，生成的多样性更好，但是收敛速度会下降。
+反之，令 :math:`\sigma_t = 0`，去掉随机项，收敛速度加快，但会损失多样性。
+**能不能兼顾速度和多样性呢？** 显然是可以的，设计一个动态自适应的调度算法，开始一段时刻，
+令 :math:`\sigma_t = 0` 加快前进收敛速度，最后一段（个）时刻，再令 :math:`\sigma_t \neq 0`
+，增加一点多样性，可以线性控制，也可以余弦控制，总之可以把自适应调度那套玩法借鉴过来。
+同样系数 :math:`A` 和 :math:`B` 类似于学习率作用，同样可以采用自适应学习率那套玩法。
+
+
+在 DDIM 论文中，虽然提出了自由方差参数 :math:`\sigma_t`，并做一些实验，
+但论文中把只有 :math:`\sigma_t = 0` 的情况定义成 DDIM 模型，
+意为 `隐式（implicit）扩散模型`。
+关于算法的实现代码，可以参考论文作者的实现 https://github.com/ermongroup/ddim.git
+或者 ``huggingface`` 开发的扩散模型工具包 ``diffusers`` 的源码，
+建议看  ``diffusers`` 的源码，代码写的非常清晰工整，并且在关键点上有注释。
+
+
+
+参考文献
+########################################################
+
+.. footbibliography::
+
+
+
+
+
+
+.. meta::
+    :description lang=zh_CN: 潜在扩散模型
+    :keywords: ddim,隐式扩散模型,Denoising Diffusion Implicit Models,DDIM,DDPM,DPM,扩散模型
+

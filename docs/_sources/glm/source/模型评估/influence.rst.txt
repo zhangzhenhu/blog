@@ -1,0 +1,825 @@
+#########################################
+模型检验
+#########################################
+
+
+
+
+我们基于样本训练模型，基于样本计算模型拟合优度指标，并给出模型好坏的结论。
+然而，这一切都是建立随机样本的基础上，模型拟合优度指标也是一个随机量，
+我们的结论是根据样本推断(influence)得出的，推断得出结论不是百分百准确的，
+这就需要同时给出这个结论的可靠程度，而这就是统计推断(statistical inference)所做的事情。
+
+上一章我们介绍了 ``GLM`` 中评价模型拟合好坏程度的常见指标，以及这些指标的定义和计算方法，
+但是没有说明如何根据指标值得出结论，本章我们探讨如何根据拟合优度指标的值得出模型优劣的结论，
+以及结论的可靠程度。
+假设检验是统计推断中常用的方法之一，
+其中似然比检验、wald 检验以及拉格朗日乘子检验是其中最常用的三大模型检验的方法，
+在正式讨论三大模型检验之前，我们先回顾一个重要的结论，
+这是稍后推导检验方法的理论基础。
+
+
+**渐近正态性**
+
+如果响应变量是正态分布，则通常可以准确确定一些统计量的抽样分布。
+反之，如果响应变量不是正态分布，就需要依赖中心极限定理，找到其大样本下的近似分布。
+注意，这些结论的成立都是有一些前提条件的，
+对于来自属于指数族分布的观测数据，特别是对于广义线性模型，确实满足了必要条件。
+在本节我们只给出统计量抽样分布的一些关键步骤，
+Fahrmeir和Kaufmann（1985）给出了广义线性模型抽样分布理论的详细信息。
+
+如果一个统计量 :math:`S`，其渐近服从正态分布 :math:`S \sim \mathcal{N}(\mathbb{E}[S],V(S))`
+，其中 :math:`\mathbb{E}[S]` 和 :math:`V(S)` 分别是 :math:`S` 的期望和方差
+，则近似的有：
+
+
+.. math::
+
+    \frac{S-\mathbb{E}[S]}{\sqrt{V(S)}} \sim \mathcal{N}(0,1)
+
+
+根据卡方分布的定义，等价的有
+
+.. math::
+    \frac{(S-\mathbb{E}[S])^2}{V(S)} \sim \chi^2 (1)
+
+
+如果 :math:`S` 是一个向量 :math:`\pmb{S}^{T}=[S_1,\dots,S_k]` ，上述结论可以写成向量的模式。
+
+.. math::
+    :label: eq_influence_110
+
+    (\pmb{S}-\mathbb{E}[\pmb{S}])^T \pmb{V}^{-1}(\pmb{S}-\mathbb{E}[\pmb{S}])
+    \sim \chi^2 (k)
+
+其中 :math:`\pmb{V}` 是协方差矩阵，并且必须是非奇异矩阵。
+
+
+
+
+拉格朗日乘子检验
+#############################################
+
+我们已经知道似然函数及其一阶导数都是一个关于样本的函数，
+所以似然函数及其一阶导数都是统计量(statistic)。
+似然函数的一阶导数又叫做得分函数(score function)，也称为得分统计量(score statics)。
+拉格朗日乘子检验（Lagrange multiplier test,LMT）是利用得分统计量对模型进行检验的方法，
+因为是通过得分统计量进行检验，所以也被称为是分数检验（score test）。
+它可以用于检验在一个模型的基础上增加特征的特征变量后能否显著提升模型的效果。
+
+
+
+
+得分统计量
+=================================
+
+
+假设 :math:`Y_1,\dots,Y_N` 是相互独立的 ``GLM`` 样本变量，
+这里我们强调 :math:`Y_i` 是一个随机变量，所以用大写符号表示。
+其中有 :math:`\mathbb{E}[Y_i]=\mu_i` , :math:`g(\mu_i)=\beta^T x_i=\eta_i`
+，自然参数 :math:`\theta_i` 是一个关于 :math:`\mu_i` 函数。
+``GLM`` 模型的对数似然函数为
+
+.. math::
+
+    \ell(\beta)= \sum_{i=1}^N \left \{   \frac{Y_i \theta_i - b(\theta_i)}{a(\phi)}   + c(y_i,\phi)   \right \}
+
+
+
+根据 :numref:`章节%s <ch_glm_estimate>` 的内容，对数似然函数的一阶导数又叫得分统计量，
+记作 :math:`U`。
+``GLM`` 得分统计量的一般形式为
+
+.. math::
+    :label: eq_glm_influence_033
+
+    U_j = \frac{ \partial \ell}{\beta_j}
+    &= \sum_{i=1}^N \left ( \frac{\partial \ell_i}{\partial \theta_i} \right )
+    \left ( \frac{\partial \theta_i}{\partial \mu_i} \right )
+    \left ( \frac{\partial \mu_i}{\partial \eta_i} \right )
+    \left ( \frac{\partial \eta_i}{\partial \beta_j} \right )
+
+    &= \sum_{i=1}^N \left \{ \frac{Y_i-b'(\theta_i)}{a(\phi)}   \right \}
+    \left \{ \frac{1}{\nu(\mu_i)} \right \} \left ( \frac{\partial \mu}{\partial \eta} \right )_i x_{ij}
+
+    &= \sum_{i=1}^N \frac{Y_i-\mu_i}{a(\phi) \nu(\mu_i) } \left ( \frac{\partial \mu}{\partial \eta} \right )_i x_{ij}
+
+    &= \sum_{i=1}^N \frac{Y_i-\hat{y}_i}{a(\phi) \nu(\hat{y}_i) } \left ( \frac{\partial \mu}{\partial \eta} \right )_i x_{ij}
+
+
+    &= \sum_{i=1}^N \frac{Y_i-\hat{y}_i}{V(\hat{y}_i) } \left ( \frac{\partial \mu}{\partial \eta} \right )_i x_{ij}
+
+注意下标 :math:`j` 表示的协变量参数向量 :math:`\beta` 的下标，:math:`U_j` 是对数似然函数对 :math:`\beta_j` 的一阶偏导数。
+对于任意的样本 :math:`Y_i` 都有 :math:`\mathbb{E}[Y_i]=\mu_i`
+，因此有
+
+.. math::
+    \mathbb{E}_{Y_i}[U_j] = 0
+
+统计量 :math:`U` 的协方差矩阵又称作信息矩阵，记作 :math:`\mathcal{J}`。
+
+
+.. math::
+
+    \mathcal{J}_{jk} = \mathbb{E}[U_jU_k]
+    =\sum_{i=1}^N
+    \left ( \frac{\partial \mu}{\partial \eta} \right )^2_i  \frac{  x_{ij} x_{ik}}{ a(\phi) \nu(\hat{y}_i) }
+
+
+在  :numref:`章节%s参数估计 <ch_estimate>` 我们讲过，
+信息矩阵 :math:`\mathcal{J}` 又等于对数似然函数二阶偏导数（海森矩阵）的期望的负数，
+
+.. math::
+
+    \mathcal{J} = - \mathbb{E}[\ell'']
+    = - \mathbb{E}[U']
+
+
+如果模型的参数向量 :math:`\beta` 只有一个截距参数， :math:`\beta=[\beta_0]` ，
+此时模型只有一个参数，得分统计量 :math:`U` 是一个标量，渐近服从正态分布。
+
+.. math::
+    :label: eq_glm_influence_015
+
+    U  \sim \mathcal{N}(0,\mathcal{J})
+    \ \text{或者} \
+    \frac{U}{\sqrt{\mathcal{J}}} \sim \mathcal{N}(0,1)
+
+根据卡方分布的定义，也可以写成
+
+.. math::
+
+     \frac{U^2}{\mathcal{J}}  \sim \chi^2 (1)
+
+
+如果 :math:`\beta` 是一个参数向量，:math:`\beta^T=[\beta_0,\beta_1,\dots,\beta_p]`，
+模型一共有 :math:`p+1` 个参数，
+则 :math:`\textbf{U}` 表示一个向量 :math:`\textbf{U}^T=[U_0,U_1,\dots,U_p]`
+，此时 :math:`\textbf{U}` 渐近服从多维正态分布（multivariate Normal distribution,MVN）。
+
+.. math::
+
+    \textbf{U} \sim MVN(\textbf{0},\mathbf{\mathcal{J}})
+
+在大样本下有
+
+.. math::
+    :label: eq_glm_influence_036
+
+    \textbf{U}^T \mathbf{\mathcal{J}}^{-1} \textbf{U} \sim  \chi^2 (p+1)
+
+在 ``GLM`` 中通常都是有多个协变量参数的，我们默认符号 :math:`U` 是一个向量。
+
+
+
+检验过程
+===============================================
+
+假设我们的特征变量 :math:`X` 一共有 :math:`k` 个，即 :math:`X_i = [X_1,X_2,\cdots,X_k]`
+，对应的协变量参数向量为 :math:`\beta=[\beta_0,\beta_1,\cdots,\beta_k]`
+。现在把 :math:`X_i` 分成两部分，
+一部分有 :math:`p` 个，记作 :math:`X_{i}^p=[X_1,X_2,\cdots,X_p]`，
+相应的协变量参数为 :math:`\beta^p=[\beta_0,\beta_1,\cdots,\beta_p]`。
+另一部分有 :math:`q` 个，记作 :math:`X_{i}^q=[X_{p+1},X_{p+2},\cdots,X_k]`，
+对应的协变量参数为 :math:`\beta^q=[\beta_{p+1},\beta_{p+2},\cdots,\beta_k]`。
+其中 :math:`p+q=k`。
+假设给模型添加一个约束 :math:`\beta_q=0`，拉格朗日乘子检验就是检验这个约束是否成立。
+换一种说法就是，增加这 :math:`q` 个特征后模型的效果是否有显著性提升。
+
+检验的零假设记作
+
+.. math::
+
+    H_0 : \beta_q = [\beta_{p+1},\beta_{p+2},\cdots,\beta_k] = [0,0,\dots,0]
+
+对立假设为
+
+.. math::
+
+
+    H_a : \beta_q = [\beta_{p+1},\beta_{p+2},\cdots,\beta_k] \neq [0,0,\dots,0]
+
+
+首先是，在 :math:`H_0` 成立的基础上训练出一个拟合模型，
+这等价于训练一个只包含 :math:`p` 个参数（特征变量）的模型，记作 :math:`M_p`。
+
+
+然后需要计算检验统计量的值，拉格朗日乘子检验使用的统计量是 :eq:`eq_glm_influence_036`，
+这里暂时把这个统计量记作 :math:`H`。
+
+.. math::
+
+    H(\beta^q) = U(\beta^q)^T \mathcal{J(\beta^q)}^{-1} U(\beta^q)
+
+需要注意的是，我们的零假设是关于 :math:`\beta^q` 的，
+所以这里计算的是 :math:`H(\beta_q)` 的值，
+而不是 :math:`H(\beta_p)` 。
+公式中的 :math:`U(\beta^q)_j` 按照 :eq:`eq_glm_influence_033` 进行计算，
+其中 :math:`\hat{y_i}` 的值是上一步训练出的只包含 :math:`p` 个特征的模型 :math:`M_p` 的预测值，
+:math:`x_{ij}` 是参数 :math:`\beta_{j}^q` 对应的特征值。
+
+
+根据上一节的结论，这个统计量的抽样分布是渐近卡方分布。
+可以使用卡方检验得出结论，
+如果 :math:`H(\beta^q)` 的值落在拒绝域，则拒绝零假设，
+这意味着拒绝 :math:`\beta_q` 全部为 :math:`0` 的假设。
+也就是说如果为模型增加 :math:`X_q` 这部分特征，模型的效果能得到显著的提升。
+
+
+我们可以为 :math:`\beta^q` 的中每一个 :math:`\beta^q_j` 单独计算出一个 :math:`H(\beta^q_j)`
+的值，每个参数独立进行检验，此时统计量的自由度是 :math:`1`。
+也可以全部 :math:`q` 个参数一起计算出整体的 :math:`H(\beta^q)`
+，以此对全部 :math:`q` 参数的整体进行检验，此时统计量的自由度是 :math:`q`。
+
+
+有时还可以对 :math:`H` 进行开方，得到一个渐近服从标准正态分布的统计量，
+利用标准正态分布进行检验也是可以的。
+
+.. math::
+
+    \sqrt{H} \sim \mathcal{N}(0,1)
+
+
+拉格朗日乘子检验使用的是得分（score）统计量，因此也被称作分数检验（score test）。
+
+
+
+.. _ch_glm_influence_wald:
+
+wald 检验
+#############################################
+
+拉格朗日乘子检验是对得分统计量的检验，
+本节我们讨论的 ``wald`` 检验是直接对参数估计量的检验。
+我们先给出 ``GLM`` 模型中协变量参数估计量的抽样分布，
+然后再给出检验过程，事实上它的检验过程和 Z 检验是没有太大区别的。
+
+
+
+.. topic:: 泰勒级数
+
+    定义一个单变量的函数 :math:`f(x)`，
+    对于函数上的某个点 :math:`x=t` 的附近有如下近似成立：
+
+    .. math::
+
+        f(x) = f(t) + (x-t)\left[ \frac{df}{dx} \right]_{x=t}
+        + \frac{1}{2}(x-t)^2 \left[ \frac{d^2f}{d x^2}  \right ]_{x=t}
+        + \dots
+
+
+
+参数估计量
+=================================
+
+
+对数似然函数的一阶偏导数又叫做得分统计量，记作 :math:`U(\beta)`
+，它是一个关于协变量参数 :math:`\beta` 的函数。
+现在我们把得分函数在 :math:`\hat{\beta}` 附近的按照泰勒级数近似展开，
+忽略二阶以及更高阶的项。
+
+.. math::
+
+    U(\beta) = U(\hat{\beta}) + (\beta-\hat{\beta}) U'(\hat{\beta})
+
+:math:`U(\hat{\beta})` 是对数似然函数在点 :math:`\hat{\beta}` 处的一阶偏导数，
+参数估计值 :math:`\hat{\beta}` 是通过令 :math:`U(\beta)=0` 得到的，
+所以显然有 :math:`U(\hat{\beta})=0` 成立。
+
+
+.. math::
+
+    U(\beta) =  (\beta-\hat{\beta}) U'(\hat{\beta})
+
+:math:`U'(\hat{\beta})` 得分函数的偏导数，也就是对数似然函数在点 :math:`\hat{\beta}` 处的二阶偏导数，
+一般称为海森矩阵，记作 :math:`H(\hat{\beta})=U'(\hat{\beta})`。
+
+
+.. math::
+    :label: eq_glm_influence_204
+
+    U(\beta) =  (\beta-\hat{\beta}) U'(\hat{\beta})
+    =  H(\hat{\beta})(\beta-\hat{\beta})
+
+
+海森矩阵的期望等于信息矩阵的负数，
+
+.. math::
+
+    \mathbb{E}[ H(\hat{\beta}) ] = - \mathcal{J}(\hat{\beta})
+
+我们用信息矩阵近似的代替海森矩阵，
+:eq:`eq_glm_influence_204` 可以进一步改写成
+
+.. math::
+    :label: eq_glm_influence_206
+
+
+    U(\beta) = -  \mathcal{J}(\hat{\beta})(\beta-\hat{\beta})
+    =  \mathcal{J}(\hat{\beta})(\hat{\beta}-\beta)
+
+
+等价的有
+
+.. math::
+
+    (\hat{\beta}-\beta) = \mathcal{J}^{-1} U
+
+其中 :math:`\mathcal{J}` 可以看做是常量，根据 :math:`\mathbb{E}[U]=0` 可得
+
+.. math::
+
+    \mathbb{E}[\hat{\beta}-\beta] =   \mathcal{J}^{-1} \mathbb{E}[U] = 0
+
+因此可得 :math:`\mathbb{E}[\hat{\beta}]=\beta`，
+估计量 :math:`\hat{\beta}` 是参数 :math:`\beta` 的一致估计。
+现在来看下估计量 :math:`\hat{\beta}` 的方差 :math:`V(\hat{\beta})` 。
+
+
+.. math::
+
+    V(\hat{\beta}) &= \mathbb{E} \left [ (\hat{\beta} -\mathbb{E}[\hat{\beta}]) (\hat{\beta}-\mathbb{E}[\hat{\beta}])^T \right ]
+
+    &= \mathbb{E} \left[ (\hat{\beta} -\beta) (\hat{\beta} -\beta)^T \right ]
+
+    &= \mathbb{E} \left[ \mathcal{J}^{-1}U U^T \mathcal{J}^{-1} \right ]
+
+    &= \mathcal{J}^{-1} \mathbb{E} \left[ U U^T  \right ] \mathcal{J}^{-1}
+
+    &= \mathcal{J}^{-1}
+
+
+
+根据上一节的结论（:eq:`eq_glm_influence_015`），统计量 :math:`U/\sqrt{\mathcal{J}}`
+的抽样分布是标准高斯分布，可得
+
+.. math::
+    :label: eq_glm_influence_207
+
+    \frac{U}{\sqrt{\mathcal{J}}}
+    =  (\hat{\beta}-\beta) \sqrt{\mathcal{J}(\hat{\beta})}  \sim \mathcal{N}(0,1)
+
+
+
+
+也可以写成
+
+.. math::
+    :label: eq_glm_influence_208
+
+    \hat{\beta} \sim \mathcal{N}(\beta, \mathcal{J}^{-1})
+
+
+如果 :math:`Y` 的分布是正态分布，似然估计量 :math:`\hat{\beta}` 就是精确服从正态分布，而不是渐近了。
+如果 :math:`Y` 的分布是非正态分布，似然估计量 :math:`\hat{\beta}` 就是渐近服从正态分布。
+
+
+参考本节开始时的理论（:eq:`eq_influence_110`）， :eq:`eq_glm_influence_207`
+平方之后得到卡方统计量。
+
+.. math::
+    :label: eq_glm_influence_210
+
+    (\hat{\beta}-\beta)^T\mathcal{J}(\hat{\beta})(\hat{\beta}-\beta) \sim \chi^2(p+1)
+
+
+:math:`p` 是模型的特征数量，也是协变量参数的数量（不含截距参数），:math:`p+1` 中的 :math:`1` 代表截距参数，
+:math:`p+1` 就是模型的参数数量。
+:eq:`eq_glm_influence_210` 又叫做 ``Wald`` 统计量。
+
+
+
+检验过程
+==============================================
+
+
+``Wald`` 统计量是有关参数估计量的统计量，因此可以用它对参数估计量进行检验。
+检验过程和拉格朗日乘子检验非常类似，
+不同的地方在于，拉格朗日乘子检验是训练一个参数较少的模型，然后检验新增特征是否有显著的意义，
+而 ``Wald`` 检验正相反，
+``Wald`` 检验是训练一个包含全部特征（更多参数）的模型，然后检验模型中部分参数是否有显著意义，
+如果没有，意味着这些特征（参数）可以从模型中去掉。
+
+
+``Wald`` 检验的零假设就是假设协变量参数 :math:`\beta` 的真实值是某个特定的值，
+然后基于这个假设做进一步的显著性检验。
+通常会假设参数真实值为 :math:`0`，比如假设 :math:`\beta_j=0`，
+如果最后接受这个假设，意味着对应的特征 :math:`X_j` 对模型的拟合观测数据是没有贡献的，
+理论上就可以去掉这一维特征，进行得到一个更简单（参数更少）的模型。
+
+``Wald`` 检验可以对每个参数独立检验，
+此时可以用 :eq:`eq_glm_influence_208` 的标准正态分布对单一参数进行检验，
+也可以用 :eq:`eq_glm_influence_210` 同时对全体参数进行检验（全部参数是否同时为 :math:`0`）。
+实际上对全部参数同时进行检验没有什么意义，
+所以通常还是对每个参数单独进行检验。
+
+
+符号 :math:`j` 表示第 :math:`j` 个特征，:math:`\beta_j` 表示特征 :math:`X_j` 对应的协变量参数，
+零假设和对立假设，分别是
+
+.. math::
+
+    H_0 : \beta_j = 0
+
+    H_a : \beta_j \neq 0
+
+单一参数进行检验的过程和 :numref:`ch_influence_test_test` 讲的 Z 检验（T检验）没啥区别，
+基本是一样的，这里就不再赘述了。
+此外，根据参数估计量的抽样分布 :eq:`eq_glm_influence_208`
+，可以同时给出参数估计值的置信区间。
+有关置信区间的内容可以复习一下 :numref:`ch_influence_test_interval`。
+
+
+
+
+
+似然比检验
+#######################################
+
+在上一章我们已经介绍了对数似然比统计量（log-likelihood ratio,LLR），
+``LLR`` 用来对比两个嵌套模型的拟合优度，它是复杂模型（协变量参数多一些）和 简单模型（协变量参数少一些）的对数似然差值的2倍。
+
+
+.. math::
+    :label: eq_glm_test_021
+
+    LLR= 2(\ln L_g - \ln L_s)
+
+
+``LLR`` 的值越大意味着被比较的两个模型对数据的拟合优度差异越大。
+反之，``LLR`` 的值比较小意味着两个模型对数据的拟合优度差异较小。
+``LLR`` 常用来做嵌套模型的对比选择，
+如果两个模型对数据的拟合能力差别较小，我们更倾向于选择简单模型（协变量参数较少的模型）。
+``LLR`` 有时也会被用来做特征的筛选，对比去掉某些特征后模型的效果是否显著下降，
+或者是增加某些特征后模型效果有没有显著的提升。
+
+
+抽样分布
+=================================
+
+
+我们继续用符号 :math:`\hat{\beta}` 表示协变量参数 :math:`\beta` 的似然估计值，
+:math:`\hat{\beta}` 是 :math:`\beta` 的一致无偏估计，
+在样本足够的情况下，理论上二者应该是比较接近的。
+对数似然函数 :math:`\ell(\beta)` 是关于 :math:`\beta` 的一个函数，
+在 :math:`\beta=\hat{\beta}` 附近利用泰勒级数可以得到
+
+.. math::
+    :label: eq_glm_test_022
+
+    \ell(\beta) &= \ell(\hat{\beta}) + (\beta - \hat{\beta}) \frac{\partial \ell(\beta)}{\partial \hat{\beta}}
+    + \frac{1}{2}(\beta-\hat{\beta})^2   \frac{\partial^2 \ell(\beta)}{\partial \hat{\beta}^2}
+
+    &=  \ell(\hat{\beta})  + (\beta - \hat{\beta}) U(\hat{\beta})
+    -\frac{1}{2}(\beta -\hat{\beta} )^T\mathcal{J}(\hat{\beta})(\beta-\hat{\beta})
+
+:math:`U(\hat{\beta})` 是对数似然函数在点 :math:`\hat{\beta}` 处的一阶偏导数，
+:math:`\mathcal{J}(\hat{\beta})` 是对数似然函数在点 :math:`\hat{\beta}` 处的二阶偏导数期望的负数，
+参数估计值 :math:`\hat{\beta}` 是通过令 :math:`U(\beta)=0` 得到的，
+所以显然有 :math:`U(\hat{\beta})=0` 成立。
+
+
+
+.. math::
+
+     \ell(\beta) - \ell(\hat{\beta}) =   -\frac{1}{2}(\beta -\hat{\beta} )^T\mathcal{J}(\hat{\beta})(\beta-\hat{\beta})
+
+
+
+继续移项，可得到如下统计量
+
+.. math::
+    :label: eq_influence_260
+
+    2[\ell(\hat{\beta}) - \ell(\beta) ] = (\hat{\beta} -\beta )^T\mathcal{J}(\hat{\beta})(\hat{\beta}-\beta)
+
+
+
+依据 :eq:`eq_glm_influence_210` 这个统计量是服从自由度为 :math:`p+1` 的卡方分布，:math:`p+1`
+是模型的参数数量。
+
+.. math::
+
+    2[\ell(\hat{\beta}) - \ell(\beta) ] \sim \chi^2(p+1)
+
+
+
+我们用下标 :math:`s` 表示简单模型，比如 :math:`\beta_s` 表示简单的模型的参数向量（真实值），
+:math:`\hat{\beta}_s` 表示简单模型的参数估计量，其协变量参数数量为 :math:`p+1` 个。
+用下标 :math:`g` 表示负责模型，比如 :math:`\beta_g` 表示复杂的模型的参数向量（真实值），
+:math:`\hat{\beta}_g` 表示复杂模型的参数估计量，其协变量参数数量为 :math:`q+1` 个。
+
+
+
+.. math::
+
+    LLR &= 2[\ell(\hat{\beta}_g) - \ell(\hat{\beta}_s)]
+
+    &= 2[\ell(\hat{\beta}_g) - \ell(\hat{\beta}_s)]
+    + 2\ell(\beta_{g}) - 2\ell(\beta_{s})
+    + 2\ell(\beta_{s})  - 2\ell(\beta_{g})
+
+    &= \underbrace{2[ \ell(\hat{\beta}_g ) -  \ell(\beta_g)  ]}_{\chi^2(q+1)}
+    - \underbrace{2[ \ell(\hat{\beta}_s) - \ell(\beta_s)  ]}_{\chi^2(p+1)}
+    + \underbrace{2[ \ell(\beta_{g}) - \ell(\beta_{s})   ]}_{\text{常数值}v}
+
+
+
+
+其中 :math:`\ell(\beta_{g})` 与 :math:`\ell(\beta_{s})` 表示参数真实值的似然值（模型的理论最大似然值），是一个数值，不是统计量。
+最终 :math:`LLR` 可以看做是由三部分组成，自由度为 :math:`q+1` 的卡方统计量减去自由度为 :math:`p+1` 的卡方统计量，
+再加上一个常数值 :math:`v` 。
+
+根据卡方分布的特性，统计量 :math:`LLR` 渐近服从自由度为 :math:`q-p` 的 **非中心卡方分布**。
+
+.. math::
+
+    LLR \sim \chi^2(q-p,v)
+
+
+注意偏差统计量 ``LLR`` 是一个 **非中心卡方分布**，这和之前介绍的统计量不同，
+:math:`v` 是非中心参数。
+``LLR`` 的期望值是 :math:`\mathbb{E}[\text{LLR}] = q-p+v` 。
+现在来重点看一下 :math:`v` 的值，
+
+.. math::
+
+    v = 2[ \ell(\beta_{s};y) - \ell(\beta_{f};y)   ]
+
+:math:`v` 的值是复杂模型的理论最大似然值和简单模型的理论最大似然值的差，
+两个模型对数据的拟合能力越接近，这个差值 :math:`v` 就越小。
+极限情况下，两个模型拟合能力一样好，差值 :math:`v=0`。
+此时 ``LLR`` 就是渐进服从 **中心卡方分布** :math:`\chi^2(q-p)` 。
+
+
+如果响应变量 :math:`Y` 是高斯分布，则统计量 ``LLR``
+就是确切服从（非中心）卡方分布的，而不是渐近的。
+如果响应变量 :math:`Y` 不是高斯分布，则统计量 ``LLR``
+是 **渐近** 服从（非中心）卡方分布的。
+
+
+模型比较
+===============================================
+
+似然比统计量可以用来比较两个嵌套模型对同一份数据的拟合效果。
+在 ``GLM`` 中 ，要求两个模型具有相同的指数族分布，以及同样的连接函数，
+被比较的两个模型只有线性预测器是不同的，一个参数多，一个参数少，换句话说一个使用的特征多，另一个使用的特征少。
+**这种嵌套模型比较通常可以用来判断某些特征是否有价值，对模型是否有足够的贡献**。
+然而理论上，两个模型参数不同，对数据的拟合度必然会略有不同，
+两个模型的似然值也必然会有一些差异。
+但是这个差异能否说明两个模型对数据的拟合能力具有统计显著性，就需要通过检验给出结论，
+这个可以通过似然比检验实现。
+
+
+
+在 ``GLM`` 中，检验两个模型拟合能力是否有显著差异的一般性步骤是：
+
+1. 定义模型 :math:`M_0` 对应着零假设 :math:`H_0`，定义另一个更一般(参数更多)的模型 :math:`M_1` 对应着备择假设 :math:`H_a`。
+   零假设 :math:`H_0` 表示模型 :math:`M_0` 和 :math:`M_1` 拟合度一样好，反之，
+   备择假设 :math:`H_a` 表示  :math:`M_0` 比  :math:`M_1` 拟合度差。
+2. 训练模型 :math:`M_0` ，然后计算一个拟合优度(goodness of fit,GOF)指标统计量 :math:`G_0` 。同样训练模型 :math:`M_1` 并计算拟合优度指标 :math:`G_1` 。
+3. 计算两个模型拟合度的差异，通常可以是 :math:`\Delta G=G_1-G_0` ，或者是 :math:`\Delta G=G_1/G_0` 。
+4. 使用差值统计量 :math:`\Delta G` 的抽样分布检验接受假设 :math:`G_1=G_0` 还是 :math:`G_1 \ne G_0`
+5. 如果假设 :math:`G_1=G_0` 没有被拒绝，则接受 :math:`H_0` 。反之，如果假设 :math:`G_1=G_0` 被拒绝，则接受备择假设 :math:`H_a`，
+   :math:`M_1` 模型在统计学上显著更优。
+
+
+我们以对数似然比检验为例，
+首先我们设定零假设代表模型 :math:`M_0`，模型参数数量为 :math:`p+1` 。
+对立假设代表模型 :math:`M_1` ，参数数量为 :math:`q+1` 。
+并且有 :math:`q>p` 成立。
+零假设和对立假设分别为
+
+.. math::
+
+    &H_0: G_0=G_1 \ \text{两个模型拟合效果一样}
+
+    &H_1: G_0 \neq G_1 \ \text{两个模型拟合效果具有统计学上的显著差异}
+
+拟合优度指标选择对数似然值，
+我们用 :math:`\ell_0` 表示模型 :math:`M_0` 的对数似然值，
+用符号 :math:`\ell_1` 表示模型 :math:`M_1` 的对数似然值，
+两个模型 ``LLR`` 为
+
+.. math::
+
+    \Delta G = \text{LLR} =2( \ell_1 - \ell_0)
+
+统计量 ``LLR`` 的抽样分布是卡方分布
+
+.. math::
+
+   \text{LLR} \sim \chi^2(q-p,v)
+
+如果两个模型的拟合能力是接近的，则 ``LLR`` 期望值是 :math:`q-p`，
+否则就是 :math:`q-p+v`。
+换句话说，在零假设成立的条件下，``LLR`` 的抽样分布是自由度为 :math:`q-p`
+的中心卡方分布。
+
+
+根据假设检验的过程，我们计算出 ``LLR`` 的值，然后看这个值是否落在
+分布 :math:`\chi^2(p-q)` 的拒绝域(比如是否落在图形右侧 :math:`100*\alpha \%` 的区域内)
+。如果落在拒绝域内，则拒绝 :math:`H_0` 假设，接受 :math:`H_1` 假设。
+通常如果两个模型拟合能力相差巨大，``LLR`` 直观上远远大于 :math:`q-p` 了，此时也没有进行假设检验的必要了。
+当两个模型的拟合能力比较接近，从经验上(直观上)无法判断是否显著时，才有假设检验的必要。
+
+
+
+
+
+
+
+
+
+偏差统计量
+===============================================
+
+
+我们知道偏差统计量就是饱和模型（saturated model）和拟合模型的对数似然比，
+记作
+
+.. math::
+
+    D = 2[\ell_s - \ell_t]
+
+
+其中 :math:`\ell_s` 表示饱和模型对数似然值，
+:math:`\ell_t` 表示拟合模型的对数似然值。
+饱和模型的参数数量和观测样本的数量 :math:`N` 是相同的，
+假设拟合模型的参数数量是 :math:`p+1`，
+显然偏差统计量的抽样分布就是
+
+.. math::
+
+    D \sim \chi^2(N-p-1,v)
+
+
+根据卡方分布的特性，统计量 :math:`D` 渐近服从 **非中心卡方分布** ，
+其自由度是 :math:`N-p-1` 。
+
+
+
+模型对数据拟合的越好(越接近饱和模型)，其偏差 :math:`D` 就越接近中心卡方分布 :math:`\chi^2(N-p-1)` ，
+此时偏差统计量 :math:`D` 的期望就越接近 :math:`N-p-1` 。反之如果模型拟合的不好，偏差统计量 :math:`D`
+就是非中心卡方分布 :math:`\chi^2(N-p-1,v)` ，其期望值就是 :math:`v+N-p-1` 。
+
+既然偏差统计量就是对数似然比统计量，原则上可以用偏差统计检验拟合模型和饱和模型的拟合能力是否具有显著性差异，
+然而实际上这没有意义。
+实际应用中，拟合模型的参数数量普遍是远远小于样本数量的，二者对数据的拟合能力肯定是相差很大的，
+也就是说偏差值几乎必然是显著的，没有必要进行检验了。
+
+
+
+
+
+
+
+F 检验
+=================================
+
+似然比检验可以用来比较两个嵌套模型是否有显著差异，
+进而判断两个模型相差的那些特征对模型是否有显著意义。
+然而对于 ``GLM`` 的某些模型计算出准确的对数似然值并不容易。
+回顾一下 ``GLM`` 模型对数似然函数的一般形式
+
+.. math::
+
+    \ell(\beta)= \sum_{i=1}^N \left \{   \frac{Y_i \theta_i - b(\theta_i)}{a(\phi)}   + c(y_i,\phi)   \right \}
+
+
+
+可以看到对数似然函数依赖分散参数 :math:`\phi`，对于嵌套模型 ``LLR`` 来说，
+式中的项 :math:`c(y_i,\phi)` 是可以抵消掉的，
+但是 :math:`a(\phi)` 仍然是存在的，
+如果这个 :math:`\phi` 未知显然是无法计算出来的。
+当然部分 ``GLM`` 的模型是没有分散参数的，也就不存在这个问，比如大部分的离散模型。
+然后很多连续值模型是存在分散参数的。
+在 ``GLM`` 中，通常会建立如下两个假设来简化这个问题。
+
+- 对比的两个模型是嵌套模型，并且共享分散参数 :math:`\phi`，即两个模型使用同样的参数值。
+- 分散参数 :math:`\phi` 与样本观测样本无关，即所有观测样本有一样的参数值。
+
+在这两个假设成立的前提下，可以估计值 :math:`\phi` 的值，然后代入进去求得 ``LLR`` 的值，
+有关 :math:`\phi` 的估计方法在前面的章节中已经讨论过，这里就不再细说了。
+传统线性回归模型的做法是假设分散参数是常量 :math:`1`，
+即假设 :math:`\phi=\sigma^2=1`
+。当然这样的强假设未必对所有数据都成立，有关这个问题不再本节的讨论范围内，就不细说了。
+这里我们讨论另外一种方法解决 :math:`\phi` 未知的问题。
+
+
+
+
+回顾下 ``GLM`` 模型一般形式的定义，在定义中，分散参数 :math:`\phi` 与线性预测器 :math:`\eta_i=\beta^T x_i` 是独立无关的，
+换句话说，两个嵌套模型，拥有同样的 :math:`\phi`。
+在这个假设的前提下 ``LLR`` 可以写为
+
+
+.. math::
+
+    LLR &= 2[\ell_{M_1} - \ell_{M_0}]
+
+    &= 2 \left \{ \sum_{i=1}^N \left [   \frac{Y_i \theta_i - b(\theta_i)}{a(\phi)}   + c(y_i,\phi)  \right ]_{M_1}
+    -
+     \sum_{i=1}^N \left [   \frac{Y_i \theta_i - b(\theta_i)}{a(\phi)}   + c(y_i,\phi)  \right ]_{M_0}
+        \right \}
+
+
+    &=  \frac{2[ \ell'_{M_1} - \ell'_{M_0}] }{a(\phi)}
+
+    &=  \frac{LLR'}{a(\phi)} \sim \chi^2(q-p)
+
+其中 :math:`\ell'` 为
+
+
+.. math::
+
+     \ell' = \sum_{i=1}^N \left [   \frac{Y_i \theta_i - b(\theta_i)}{a(\phi)} \right ]
+
+
+偏差统计量是似然比的一个特例，用符号 :math:`M_s` 表示饱和模型，模型 :math:`M_0` 和模型 :math:`M_1`
+的偏差统计量分别为
+
+.. math::
+
+    D_{M_0} &= \frac{2[ \ell'_{M_s} - \ell'_{M_0}] }{a(\phi)} = \frac{D'_{M_0}}{a(\phi)} \sim \chi^2(p+1)
+
+    D_{M_1} &= \frac{2[ \ell'_{M_s} - \ell'_{M_1}] }{a(\phi)} = \frac{D'_{M_1}}{a(\phi)} \sim \chi^2(q+1)
+
+
+
+
+现在回顾下三大抽样分布中的 :math:`F` 分布，根据 :math:`F` 分布的定义，
+两个卡方统计量各自除以自由度之后的比值服从 :math:`F` 分布，
+因此以下统计量的抽样分布是 :math:`F` 分布。
+
+
+
+.. math::
+    :label: eq_glm_influence_345
+
+    F = \left. \frac{LLR}{q-p} \middle/ \frac{D_{M_1}}{N-q-1} \right.
+    = \left. \frac{LLR'}{q-p} \middle/ \frac{D'_{M_1}}{N-q-1} \right.
+    \sim F(q-p,N-q-1)
+
+
+
+实际上对数似然比 ``LLR`` 可以通过两个模型的偏差得到
+
+.. math::
+    :label: eq_glm_influence_346
+
+    LLR = \Delta D =  D_{M_0} -  D_{M_1} = \frac{D'_{M_0} - D'_{M_1}}{a(\phi)} = \frac{\Delta D'}{a(\phi)}
+
+
+因此 :math:`F` 统计量也可以完全通过模型的偏差计算
+
+
+.. math::
+
+
+   F = \left. \frac{\Delta D'}{q-p} \middle/ \frac{D'_{M_1}}{N-q-1} \right.
+    \sim F(q-p,N-q-1)
+
+
+
+:math:`F` 检验统计量可以消除分散参数 :math:`\phi` 的影响，
+并且 :math:`F` 统计量的值可以利用模型的偏差计算得到，
+而 ``IRLS`` 算法是可以同时产出模型的偏差值的，
+因此  :math:`F` 的值是比较容易得到的。
+
+
+
+按照 :math:`F` 分布的定义，两个独立的 **中心卡方** 随机变量各自除以自由度后，再相除得到 **中心** :math:`F` 分布。
+一个 **非中心卡方** 随机变量除以一个 **中心卡方** 随机变量得到 **非中心** :math:`F` 分布。
+**这里都要求第二个卡方变量必须是中心卡方变量**，所以要应用 :math:`F` 检验统计量前提是模型 :math:`M_1` 是一个"好的"模型，
+其偏差统计量 :math:`D_1` 是一个中心卡方分布。
+然而这通常并不容易实现，
+因此在实际应用中 :math:`F` 检验也不是经常使用。
+
+
+
+
+总结
+####################################
+
+如上所述，这三种检验方法都是在解决相同的问题，即忽略（参数约束为 :math:`0`）部分特征（预测变量）后模型的拟合度是否显著下降，
+但它们的解决方法不相同。
+似然比检验，必须同时训练出两个模型，然后比较这两个模型；
+``score`` 检验和 ``wald`` 检验近似于似然比检验，但只需要训练一个模型。
+``score`` 检验训练的是简单模型，模型不包括需要检验的那部分特征，
+``wald`` 检验训练的是复杂模型，模型包括了需要检验的特征集合。
+**随着样本变得无限大，三种检验方法趋近于等同的**。
+
+
+
+这三个测试之间的一个有趣的关系是，当模型为线性时，
+三个测试统计量具有以下关系 ``Wald`` :math:`\geq` ``LR`` :math:`\geq`
+``Score`` （Johnston and DiNardo 1997 p.150）。
+也就是说，``Wald`` 检验统计量将始终大于 ``LLR`` 检验统计量，
+而 ``LLR`` 检验统计量将始终大于 ``Score`` 检验统计量。
+
+
+在有限的样本中，这三个方法往往会产生不同的检验统计量，但通常得出的结论是相同的。
+当计算能力受到更大限制，训练模型需要很长时间时，能够使用单个模型来近似得到与 ``LLR`` 相同检验结果是一个相当大的优势。
+如今，对于大多数研究人员可能想要比较的模型而言，计算时间已不再是问题，
+我们通常建议在大多数情况下使用 ``LLR`` 检验。

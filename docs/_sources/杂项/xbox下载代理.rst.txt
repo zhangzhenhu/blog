@@ -1,0 +1,114 @@
+#############################################
+华硕路由器梅林固件 xbox 下载加速
+#############################################
+
+
+背景
+#############################################
+
+方法
+#############################################
+
+
+工具安装
+=======================================
+
+opkg(Entware) 问题修复
+---------------------------------
+
+目前华硕梅林固件的包管理工具（类似 Ubuntu 的 apt 工具）已经切换到了 ``Entware``，
+具体安装使用说明文档在：https://github.com/RMerl/asuswrt-merlin/wiki/Entware
+
+我很早之前安装了 ``Entware``，长时间没折腾了，这次使用 ``opkg`` 命令发现报错，
+无法用 ``wget`` 命令正常下载，经查发现是由于 ``opkg`` 默认用的 ``wget`` 版本不支持 ``ssl`` 。
+先来看下默认 ``wget`` 在哪里
+
+.. code-block:: shell
+
+    admin@RT-AX86U:/tmp/home/root# ll /opt/bin/wget
+    lrwxrwxrwx    1 admin    root            23 Feb 12  2023 /opt/bin/wget -> /opt/libexec/wget-nossl*
+
+可以看到链接到了 ``wget-nossl`` ，从名字也可以看出不带 ``ssl`` 的，用命令 ``wget --version``
+看下具体的信息。
+
+.. code-block:: shell
+
+    admin@RT-AX86U:/tmp/home/root# wget --version
+    GNU Wget 1.21.3 built on linux-gnu.
+
+    -cares +digest -gpgme -https +ipv6 -iri +large-file -metalink +nls
+    -ntlm +opie -psl -ssl
+
+从中可以看到，``-`` 意味着编译时没有开启这个功能，编译时不带 ``ssl`` 。
+
+然后我们删掉这个软连接，
+
+.. code-block:: shell
+
+    admin@RT-AX86U:/tmp/home/root# rm /opt/bin/wget
+
+删掉后，执行命令 ``which wget`` 再看下 ``wget`` 命令还有没有，
+
+.. code-block:: shell
+
+    admin@RT-AX86U:/tmp/home/root# which wget
+    /usr/sbin/wget
+
+
+发现我这系统里还有一个 ``/usr/sbin/wget`` ，
+继续看下这个版本的信息。
+
+.. code-block:: shell
+
+    admin@RT-AX86U:/tmp/home/root# wget --version
+    GNU Wget 1.21.3 built on linux-gnueabi.
+
+    -cares +digest -gpgme +https +ipv6 -iri +large-file -metalink -nls
+    -ntlm -opie -psl +ssl/openssl
+
+显然我这个系统默认版本的 wget 是带有 ``+ssl/openssl`` 的。
+这时再用 ``opkg`` 命令就正常了。
+
+
+必要工具安装
+---------------------------------
+
+接下来就可以正常执行安装命令了
+
+
+**lighttpd**
+
+.. code-block:: shell
+
+    opkg update
+    opkg install lighttpd lighttpd-mod-redirect lighttpd-mod-proxy
+
+
+
+**lighttpd**
+
+.. code-block:: shell
+
+    opkg update
+    opkg install lighttpd lighttpd-mod-redirect lighttpd-mod-proxy
+
+
+**ss-merlin**
+
+自己搜索关键词 ``asuswrt-merlin``,然后去 ``github.com`` 找地址。
+
+
+
+思路
+=======================================
+
+通过 xbox下载助手（https://github.com/skydevil88/XboxDownload/tree/master）
+了解到 xbox 游戏下载服务分国际站（.com ）和国内站（.cn），
+
+期望能实现如下功能：
+
+1. 游戏下载跳转到国内站，尽量加速下载。
+2. 商店、账号继续走国际站，并且通过 ``ss`` 绕过障碍。
+
+
+

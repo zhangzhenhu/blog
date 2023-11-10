@@ -1,0 +1,40 @@
+########################################################
+参考文献
+########################################################
+
+
+.. bibliography:: references.bib
+    :cited:
+    :style: plain
+
+
+
+
+.. [#1] Devavrat Shah. 6.438 Algorithms for Inference. Fall 2014. Massachusetts Institute of Technology: MIT OpenCourseWare, https://ocw.mit.edu. License: Creative Commons BY-NC-SA.
+
+.. [#2] David S. Batista. `Hidden Markov Model and Naive Bayes relationship`_.
+
+.. [#] Hyeong In Choi.(2017). `Lectures on Machine Learning`_,Lecture 4.
+
+.. [#] Dobson, Annette J. & Barnett, Adrian G. (2008) An Introduction to Generalized Linear Models, Third Edition.
+.. [#] Dawei Shen. `Some Mathematics for HMM`_.
+.. [#] 航, 李. (2016). 统计学习方法. 北京, 北京: 清华大学出版社.
+.. [#] 概率图模型-原理与技术. 清华大学出版社
+.. [#] . prml
+.. [#] . An Introduction to Conditional Random Fields
+.. [#] .  An Introduction to MCMC for Machine Learning
+.. [#] .  Classical Probabilistic Models and Conditional Random Fields
+.. [#] Songfeng Zheng.  Sufficient Statistics and Exponential Family.
+
+.. [#] Gould, W. W., J. S. Pitblado, and B. P. Poi. 2010. Maximum Likelihood Estimation with Stata. 4th ed. College Station, TX: Stata Press.
+.. [#] Christophe Dutang. Some explanations about the IWLS algorithm to fit generalized linear models. 2017. hal-01577698
+
+
+.. _`Hidden Markov Model and Naive Bayes relationship`: http://www.davidsbatista.net/blog/2017/11/11/HHM_and_Naive_Bayes/
+.. _`Some Mathematics for HMM`: https://pdfs.semanticscholar.org/4ce1/9ab0e07da9aa10be1c336400c8e4d8fc36c5.pdf
+.. _`Lectures on Machine Learning`: http://www.math.snu.ac.kr/~hichoi/machinelearning/lecturenotes/ExpFam_GLM.pdf
+
+
+
+    https://thodrek.github.io/CS839_fall18/
+

@@ -1,0 +1,771 @@
+########################################################
+广义线性模型
+########################################################
+
+线性回归模型是算法领域的入门模型，是每个新人入门的必须课。
+在线性回归模型中假设响应变量 :math:`Y` 是由两部分组成：系统组件（system component）
+和误差组件（error component）。
+其中系统组件是一个线性预测器 :math:`\eta=x^T \beta`
+，误差组件是一个服从标准正态分布的随机量 :math:`\epsilon \sim \mathcal{N}(0,1)`
+。
+
+.. math::
+
+    y &= \beta_0 + x_1 \beta_1 +x_2 \beta_2 +\cdots + x_p \beta_p  + \epsilon
+
+    &= x^T \beta + \epsilon
+
+虽然线性预测器 :math:`\eta` 是一个数值变量，
+但误差项 :math:`\epsilon` 是一个高斯随机变量，
+响应变量 :math:`Y` 作为二者的加和，也是一个高斯随机量，
+并有 :math:`\mathbb{E}[Y]=\eta=x^T \beta`
+。
+
+.. math::
+
+    Y \sim  \mathcal{N}(x^T \beta,1)
+
+因此，在线性回归中，可以把响应变量 :math:`Y` 解释成一个高斯随机变量。
+
+那么，响应变量 :math:`Y` 是不是可以解释成其它概率分布的随机变量呢？比如，伯努利变量、泊松变量等等，
+答案显然是可以的。如果把 :math:`Y` 解释成伯努利变量，得到就是逻辑回归模型，
+如果把 :math:`Y` 解释成泊松变量，得到的就是泊松回归模型，等等，还有很多种类的回归模型。
+实际上，对于常见的概率分布，都有对应的回归模型。
+但是在早期，这些回归模型，都是独立开发，独立应用的。
+虽然这些模型都是使用最大似然估计进行参数估计，但每种模型都需要独立对似然函数就行求导等操作。
+
+直到1972年，John Nelder 和 Robert Wedderburn
+提出了一种统一的框架：广义线性模型（Generalized linear models,GLM）。
+``GLM`` 将多种统计回归模型归一到一个框架下，并且提出了一个统一的参数估计算法：
+迭代重加权最小二乘法(iteratively reweighted least squares method,IRLS)。
+在 ``GLM`` 框架中，
+误差项的概率分布可以是指数族分布中的任意一种，
+因此，在 ``GLM`` 中，响应变量 :math:`Y` 可以解释成指数族分布中的任意一种。
+线性预测器部分保持不变，仅仅是误差项扩展到了指数族分布，因此称为
+**广义线性模型** 。
+
+
+
+本章我们正式讨论广义线性模型，``GLM`` 是建立在指数族分布的技术上，
+因此我们首先介绍下指数族概率分布的标准形式，然后再给出 ``GLM`` 的定义。
+
+
+
+.. todo:
+
+    所有观测样本的方差是相同。
+
+    模型分为系统组件和误差组件，误差分布是指数族分布。
+
+
+
+
+
+指数族分布
+#############################
+
+自然指数族
+====================================
+
+
+在 :numref:`ch_24_1` 我们讨论了指数族分布，所有指数族的概率密度(质量)函数都可以写成如下的形式。
+
+.. math::
+    :label: eq_glm_08
+
+    p(y|\theta) = \exp \{\theta^T T(y) - A(\theta) + S(y)\}
+
+
+其中 :math:`\theta`
+称为自然参数(natural parameter)或者规范参数(canonical parameter)，
+其代表了模型中所有的未知参数。
+通常指数族分布会有两个参数，一个代表位置(location)的参数，
+一个代表尺度(scale)的参数。
+位置参数和分布的期望相关，尺度参数和分布的方差相关。
+
+
+本章我们讨论的广义线性模型并不使用上述形式的指数族，而是指数族的一个子集，
+自然指数族(natural exponential family)，
+自然指数族是满足 :math:`T(y)=y` 的指数族。
+
+
+.. math::
+    :label: eq_glm_111
+
+    p(y|\theta) = \exp \{\theta^T y - A(\theta) + S(y)\}
+
+
+指数族的这个形式被称为自然形式(natural form)或者规范形式(canonical form)，
+**虽然指数族中大部分分布都可以写成上述自然形式，但是也有一些分布，虽然属于指数族，但是不能写成上述自然形式，**
+**比如对数正态分布(LogNormal distribution)。**
+
+.. important::
+    这里有个容易搞混的地方，虽然参数 :math:`\theta` 叫规范参数(canonical parameter)，
+    但是必须满足 :math:`T(y)=y` 的形式才叫做规范形式(canonical form)。
+
+
+指数族分布中，有的分布只有一个参数，有的分布有两个参数，
+规范参数 :math:`\theta` 包含了分布所有的原始参数，
+当分布只有一个参数时，:math:`\theta`  就是一个标量参数，
+当分布有两个参数时，:math:`\theta` 就是一个二元向量参数。
+并且指数族分布的两个参数分别和分布的期望与方差相关，分别代表了位置(location)与尺度(scale)。
+
+规范参数 :math:`\theta` 和指数族分布的原始参数是存在一一映射的，
+规范参数 :math:`\theta` 可以是一个标量参数，也可以包含两个参数的向量，
+对于单参数的指数族分布，原始参数通常就是分布的期望 :math:`\mu` ，此时 :math:`\theta` 是 :math:`\mu` 的函数。
+对于双参数的指数族分布，原始参数通常就是分布的期望 :math:`\mu` 和方差 :math:`\sigma^2` ，
+此时 :math:`\theta` 是含有两个参数的向量，并 :math:`\theta` 是期望 :math:`\mu` 和 :math:`\sigma^2` 的函数。
+
+
+指数族的规范形式( :eq:`eq_glm_111` ) 规范参数 :math:`\theta` 包含了所有参数，这不方便处理。
+因此我们把参数拆分一下，在规范形式的基础上再引入一个代表尺度(scale)的参数 :math:`\phi`
+。
+
+
+.. math::
+    :label: eq_glm_121
+
+    p(y|\theta) = \exp \{\frac{\theta y - b(\theta)}{a(\phi)} + c(y,\phi)\}
+
+
+
+这种形式的指数族通常被称为指数分散族(exponential dispersion family,EDF)，
+:math:`a(\phi)` 称为分散函数(dispersion function)，是已知的。
+:math:`\phi` 称为分散参数(dispersion parameter)。
+:math:`\theta` 仍然称作自然参数(natural parameter)或者规范参数(canonical parameter)。
+
+:eq:`eq_glm_121` 形式的指数族，其实就是对参数 :math:`\theta` 进行了拆分，
+把期望参数和方差参数拆分开。
+**使得自然参数** :math:`\theta` **仅和期望** :math:`\mu` **相关** ，
+分散参数 :math:`\phi` 和分布的方差参数相关。
+分拆后，规范参数
+:math:`\theta` 仅和分布的期望参数 :math:`\mu` 相关，
+并且和 :math:`\mu` 之间存在一一映射的函数关系，
+换句话说，:math:`\theta` 和 :math:`\mu` 可以互相转化。
+
+.. math::
+
+    \theta &=f(\mu)
+
+    \mu &= f^{-1}(\theta)
+
+
+
+
+
+**分散参数(dispersion parameter)**
+
+在最初的GLM论文中(Nelder and Wedderburn, 1972)把 :math:`a(\phi)`
+称为尺度因子(scale factor)， 并且没有给参数 :math:`\phi`
+单独命名。后来在1974年 Royal Statistical Society 发布了首个
+GLM的软件工具包(Generalized Linear Interactive Modelling,GLIM)，
+在GLIM中把 :math:`a(\phi)` 定义成：
+
+.. math::
+
+    a(\phi) = \frac{\phi}{w}
+
+其中 :math:`w` 是样本的先验权重(prior weight)，:math:`\phi`
+称为尺度参数(scale parameter)，
+这就是导致了对 :math:`\phi` 命名产生了歧义。
+因为"scale"这个词在统计学还有其它用法，容易产生混淆，
+所以在1980s(McCullagh and Nelder)初版的 ``GLM`` 书籍中，
+把 :math:`\phi` 命名为"dispersion parameter"，
+后来也就沿用了这种叫法。
+但是由于 ``GLIM`` 流行了很久，导致"scale"的叫法还存在很多资料中。
+
+
+在很多GLM的工具包中，都会把 :math:`a(\phi)` 定义成如下形式：
+
+.. math::
+    :label: eq_glm_1010
+
+    a(\phi)_i = \frac{\phi}{w_i}
+
+其中 :math:`w_i` 是观测样本的权重，一般是已知的。
+不同的样本可以拥有不同的权重值，
+比如进行参数估计时，对于某些样本设置成 :math:`w_i=0`
+，这就相当于抛弃了这些样本。
+
+
+
+:math:`a(\phi)` 的函数形式并没有严格的要求，其函数形式并不重要，
+本质上 :math:`a(\phi)` 就是代表了分散参数(dispersion parameter)，
+所以通常直接令 :math:`a(\phi)=\phi` 。
+如果你需要不同的样本有不同的值，那么就使用 :eq:`eq_glm_1010` 的形式。
+:eq:`eq_glm_1010` 的形式中，当所有样本拥有相同的 :math:`w` 权重时，
+就等价于 :math:`a(\phi)=\phi` 。
+
+
+
+通常在 ``GLM`` 中，只有参数 :math:`\theta` 作为模型的未知参数，此时称为单参数模。
+单参数模型指的是模型中只有 :math:`\theta` 是未知参数，而 :math:`\phi` 是已知的，
+反之，如果 :math:`\theta` 和 :math:`\phi` 都是未知的，则成为双参数模型。
+指数族的某些分布，是不存在分散参数的，
+比如对于伯努利分布、泊松分布、二项式分布等等离散分布。
+
+
+自然参数 :math:`\theta` 和分布的期望相关，它是期望的一个函数。
+而分散参数 :math:`\phi` 和分布的方差相关，它影响着方差的大小，
+具体的关系在之后的内容中会详细说明。
+
+
+
+**累积函数(cumulant function)**
+
+我们知道在 :eq:`eq_glm_08` 的指数族形式中 :math:`A(\theta)` 称为累积函数(cumulant function)，
+可以用 :math:`A(\theta)` 的导数求出分布的矩，一阶导数是分布的期望，
+二阶导数是分布的方差。
+然而在GLM中我们使用的是 :eq:`eq_glm_121` 的形式，
+其中 :math:`b(\theta)` 本质上就是 :math:`A(\theta)`
+，二者关系是：
+
+.. math::
+    A(\theta) = \frac{ b(\theta) }{a(\phi)}
+
+所以我们同样把 :math:`b(\theta)` 被称为累积函数(cumulant function)，
+并且它同样和分布的矩(moments)有关。
+
+.. math::
+
+    \mathbb{E}[Y] = b'(\theta)=\mu
+
+.. math::
+    :label: eq_34_20
+
+    V(Y) = A''(\theta)=a(\phi)b''(\theta)
+
+由于 :math:`b(\theta)` 是在 :math:`A(\theta)` 的基础上拆分出去 :math:`a(\phi)`
+，所以 :math:`b(\theta)` 的二阶导数不再分布的方差，需要再乘上 :math:`a(\phi)` 才能得到分布的方差。
+
+**方差结构**
+
+在 ``EDF`` (指数分散族，Exponential Dispersion Family)中，
+分布的方差可以表示成两部分的乘积（ :eq:`eq_34_20` ），
+一部分是分散函数 :math:`a(\phi)`
+，另一部分是累计函数的二阶导数 :math:`b''(\theta)` 。
+
+.. math::
+
+    V(Y)  = b''(\theta) a(\phi) = \nu(\mu)a(\phi)
+
+
+累积函数 :math:`b(\theta)` 是一个关于 :math:`\theta` 的函数，
+其二阶导数要么是一个常数，要么是一个关于自然参数 :math:`\theta` 的函数。
+而自然参数 :math:`\theta` 和均值参数 :math:`\mu`
+存在一一对应关系，所以一定可以把 :math:`\theta` 替换成 :math:`\mu`
+。
+
+
+我们定义累计函数 :math:`b(\theta)` 的二阶导数为方差函数(variance function)，
+方差函数是一个关于期望 :math:`\mu` 的函数。
+
+.. math::
+
+    b''(\theta) = \nu(\mu)
+
+方差函数 :math:`\nu(\mu)` 存在两种情况：
+
+1. 方差函数是一个常量值， :math:`\nu(\mu)=b''(\theta)=constant` ，**此时分布的方差与均值无关** 。
+2. 方差函数是一个关于均值 :math:`\mu` 的函数，:math:`\nu(\mu)=b''(\theta)=f(\theta)=f(\mu)` ，**此时分布的方差与均值有关**
+
+
+方差函数(variance function)，是一个平滑函数，它把分布的均值参数 :math:`\mu`
+和分布的方差关联在一起。
+**如果其值一个常数值，说明均值和方差是独立无关的**；
+**反之，如果是** :math:`\mu` **的函数，说明均值和方差是相关联的**。
+在高斯分布中， :math:`b''(\theta)=1` ，所以方差和均值是相互独立的，
+对于其他分布，这是不成立的，高斯分布是特例。
+
+
+影响方差的，除了方差函数 :math:`\nu(\mu)` 以外，还有分散参数 :math:`a(\phi)=\phi`
+，它起到一个缩放的作用。
+参数 :math:`\theta` 和 :math:`\phi` 本质上是位置(locate)和尺度(scale)参数，
+位置参数反映数据的均值，尺度参数反映数据方差。
+
+
+当 :math:`a(\phi)=1` 时，分布的方差可以通过 :math:`\nu(\mu)` 计算得到，
+模型只有一个未知参数 :math:`\mu` (或者说是 :math:`\theta` ，因为 :math:`\mu` 和 :math:`\theta` 是可以转换的)，
+此时就是单参数指数族分布。
+当 :math:`a(\phi)=\phi` 时，分布就多了一个未知参数 :math:`\phi`
+，此时就是双参数指数族分布。
+之后我们会看到，高斯分布是一个双参数分布，而
+最大似然估计是无法同时估计出参数 :math:`\theta` 和 :math:`\phi` 的，
+需要做一些改动才行，在以后的章节中我们会讨论这个问题。
+
+
+在经典线性回归模型中，输入特征数据 :math:`x` 通过线性组合 :math:`\eta=\beta^T x`
+影响着响应变量 :math:`Y` (高斯分布) 的均值 :math:`\mu=\eta=\beta^T x` ，
+所有的观测样本共用参数 :math:`\beta` (对于任意 :math:`x` ，都是同样的 :math:`\beta` 值)，
+当 :math:`x` 不同时， 高斯变量 :math:`Y` 拥有不同的均值 :math:`\mu` ，
+通过这种方式实现了条件概率分布 :math:`p(Y|X)` 的表达。
+但是对于高斯变量 :math:`Y` 的方差参数 :math:`\sigma^2` 并没有假设为未知参数，而是假设其为已知的值，
+并且对于任意的观测样本 :math:`x` 都是一样的值。
+然而，在GLM的框架下，是可以允许不同观测样本有不同的方差，
+而这是通过 :math:`a(\phi)` 实现的。
+此时函数 :math:`a(\phi)` 通常被定义成如下的形式：
+
+.. math::
+
+    a(\phi) = \frac{\phi}{w_i}
+
+
+通常对于所有的观测样本来说，:math:`\phi` 是一个相同的，而 :math:`w` 可以根据不同的观测样本取不同的值，
+下标 :math:`i` 表示样本编号。
+:math:`w` 被称为先验权重(prior weight)，通常是根据额外的先验信息确定的。
+如果所有观测样本具有相同的方差假设，那么 :math:`w` 值通常就是1；反之，:math:`w` 可以是和样本相关的，
+不同的样本采用不同的值。
+
+
+.. csv-table:: 常见分布的方差函数
+    :header: "分布","方差函数 :math:`\\nu(\\mu)`", "约束", "导数 :math:`\\partial \\nu(\\mu) / \\partial\\mu`"
+
+    "Gaussian",   ":math:`1`",    ":math:`\left\{  \begin{array}{lr} \mu \in \mathcal{R} \\ y \in \mathcal{R} \end{array} \right .`",      ":math:`0`"
+    "Bernoulli",   ":math:`\mu(1-\mu)`",    ":math:`\left\{  \begin{array}{lr} 0<\mu<1 \\ 0 \le y \le 1 \end{array} \right .`",      ":math:`1-2\mu`"
+    "Binomial(k)",   ":math:`\mu(1-\mu/k)`",    ":math:`\left\{  \begin{array}{lr} 0<\mu<k \\ 0 \le y \le k \end{array} \right .`",      ":math:`1-2\mu/k`"
+    "Poisson",   ":math:`\mu`",    ":math:`\left\{  \begin{array}{lr} \mu >0 \\  y \ge 0 \end{array} \right .`",      ":math:`1`"
+    "Gamma",   ":math:`\mu^2`",    ":math:`\left\{  \begin{array}{lr} \mu >0 \\  y > 0 \end{array} \right .`",      ":math:`2\mu`"
+    "Inverse Gaussian",   ":math:`\mu^3`",    ":math:`\left\{  \begin{array}{lr} \mu >0 \\  y > 0 \end{array} \right .`",      ":math:`3\mu^2`"
+    "Negative binomial(:math:`\alpha`)",   ":math:`\mu+\alpha\mu^3`",    ":math:`\left\{  \begin{array}{lr} \mu >0 \\  y \ge 0 \end{array} \right .`",      ":math:`1+2\alpha\mu`"
+    "Power(:math:`k`)",   ":math:`\mu^k`",    ":math:`\left\{  \begin{array}{lr} \mu >0 \\  k \ne 0,1,2  \end{array} \right .`",      ":math:`k\mu^{k-1}`"
+
+
+
+示例：高斯分布
+=============================
+
+
+高斯分布的概率密度函数为：
+
+.. math::
+
+    f(y) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp \{ -\frac{1}{2}\frac{(y-\mu)^2}{\sigma^2} \}
+
+
+把其改写成指数分散族的形式：
+
+.. math::
+
+    f(y) = \exp \{ \frac{y\mu-\frac{1}{2}\mu^2}{\sigma^2} - \frac{y^2}{2\sigma^2}
+    - \frac{1}{2} \ln (2\pi\sigma^2) \}
+
+
+和 :eq:`eq_glm_121` 进行对比，各个标准项为：
+
+.. math::
+
+    \theta &=\mu
+
+    b(\theta) &= \frac{1}{2}\mu^2
+
+    a(\phi) &= \sigma^2
+
+
+高斯分布的均值和方差为：
+
+.. math::
+
+
+    \mathbb{E}[Y]=b'(\theta) = \mu
+
+    Var(Y) = b''(\theta)a(\phi) = \sigma^2
+
+对于高斯分布来说，方差和均值是独立无关的。
+
+
+示例：伯努利分布
+=============================
+
+在 :numref:`ch_basic_Bernoulli` 我们已经介绍过伯努利分布，伯努利分布的概率质量函数一般写作
+
+.. math::
+
+        P(Y) = \pi^y (1-\pi)^{1-y}
+
+
+其中 :math:`\pi` 是它的原始参数，表示变量 :math:`Y=1` 的概率。
+现在我们把它变成指数族分布的形式。
+
+
+.. math::
+
+        P(Y) &= \pi^y (1-\pi)^{1-y}
+
+        &= \exp \left \{ \ln \left [   \pi^y (1-\pi)^{1-y}  \right  ]   \right  \}
+
+        &= \exp  \left \{ \ln   \pi^y  + \ln  (1-\pi)^{1-y}    \right  \}
+
+        &= \exp  \left \{  y \ln \pi +  (1-y)\ln  (1-\pi)   \right  \}
+
+        &= \exp  \left \{  y \ln \pi +  \ln  (1-\pi)  - y \ln  (1-\pi)  \right  \}
+
+        &= \exp  \left \{  y \ln \frac{ \pi} {(1-\pi)} +  \ln  (1-\pi)   \right  \}
+
+
+和指数族的标准形式 :eq:`eq_glm_121` 进行对比，首先能看出分散函数部分是没有的，也就是相当于
+
+.. math::
+
+     a(\phi) =  1
+
+不同于高斯分布，伯努利分布没有分散参数，或者是分散参数是常量 :math:`1`
+。事实上，指数族中大部分离散分布都是没有额外的分散参数的。
+
+接下来，看下自然参数 :math:`\theta` 和原始参数 :math:`\pi` 之间的关系。
+
+
+.. math::
+
+       \theta &= \ln \frac{ \pi} {1-\pi}
+
+        \pi &=  \frac{\exp\{\theta\} }{ 1+ \exp\{\theta\}  }
+
+
+然后是累积分布函数 :math:`b(\theta)`
+，
+
+.. math::
+
+
+        b(\theta) = - \ln(1-\pi) = \ln ( 1 + \exp \{\theta\})
+
+
+
+再来看它的期望。注意，这里 :math:`b'(\theta)` 是对 :math:`\theta` 的导数，不是对 :math:`\pi` 的导数。
+
+.. math::
+
+    \mathbb{E}[Y] &=b'(\theta)
+
+    &=  \frac{1}{ 1 + \exp \{\theta\} } \cdot 1 \cdot  \exp \{\theta\}
+
+    &=   \frac{ \exp \{\theta\}}{ 1 + \exp \{\theta\} }
+
+    &=  \pi \triangleq \mu
+
+从这可以看出，对于伯努利分布，原始参数 :math:`\pi` 就是它的期望参数 :math:`\mu`
+。最后，伯努利分布的方差为
+
+
+.. math::
+
+    Var(Y) &= a(\phi) \nu(\mu)
+
+    &= b''(\theta)
+
+    &= \pi(1-\pi) \triangleq  \mu(1-\mu)
+
+
+从中可以看出，伯努利分布是没有额外的分散参数的，同时它的方差是和期望成二次关系。
+这个特性会产生很大的影响，之后的章节会详细讨论这个问题。
+
+
+广义线性模型
+########################################################
+
+我们在学习统计分析、数据挖掘、机器学习等领域相关内容时，入门模型就是线性回归模型，
+除此之外还有逻辑回归，泊松回归，二项式回归等等，实际上这些都是线性模型。
+这些模型都是由不同的人提出的，我们也是一个一个去学习的，并在不同的场景下去应用。
+后来有人发现，这些模型其实都是一家人，到1972年，``John Nelder`` 和 ``Robert Wedderburn`` 提出了一种模型框架：广义线性模型
+。这些常见的回归模型都可以纳入到这个框架解释，并用统一的参数估计方法去估计模型参数。
+广义线性模型直接用指数族的标准形式对随机变量 :math:`Y` 进行建模，
+不同的回归模型意味着随机变量 :math:`Y` 是不同的指数族分布而已。
+
+
+在 ``GLM`` 框架中，我们假设响应变量 :math:`Y` 是服从指数族分布的，
+我们的目的是通过输入变量 :math:`X` 预测响应变量 :math:`Y` 的值，
+并且GLM是线性模型，也就是通过输入变量 :math:`X` 的线性组合预测 :math:`Y` 。
+
+**线性预测器**
+
+既然是线性模型，所以显然，
+我们需要把多维变量 :math:`X` 进行线性组合。
+
+.. math::
+    \eta = \beta^T x + b
+
+:math:`x` 可以是一个向量，:math:`\eta` 是关于 :math:`x` 的
+一个线性函数。为了简洁性，通常会人为的为 :math:`x` 加入一维常量值1，
+并且把截距参数 :math:`b` 算在 :math:`\beta` 中，
+这样上述线性函数可以写成向量內积的形式。
+
+.. math::
+    \eta = \beta^T x
+
+在广义线性模型中，通常把 :math:`\eta` 成为线性预测器。
+
+**连接函数**
+
+回顾一下我们的初衷，我们需要用输入变量 :math:`X` 的线性结果 :math:`\eta` 去预测输出变量 :math:`Y` 的值，
+:math:`Y` 是一个指数族的 **随机变量** ，对于一个随机变量，其值可以是其值域空间中任意的一个值，
+只不过每个值的概率可能不同（当然对于均匀分布其每个值的概率是相同的）。
+但是，我们期望得到 :math:`Y` 的一个具体的值，显然随机变量 :math:`Y` 的期望值是最好不过选择。
+
+.. math::
+
+    \mu = \mathbb{E}[Y]
+
+
+现在，我们需要通过 :math:`\eta` 得到 :math:`\mu` ，然后把 :math:`\mu` 作为模型的输出值，
+也就是模型预测出的 :math:`Y` 的值。
+那要如何做到呢？显然，可以定义一个函数，将两者连接起来。
+
+
+
+.. math::
+
+    \eta &= g(\mu)
+
+    \mu &= g^{-1}(\eta)
+
+在 ``GLM`` 框架中，把函数 :math:`g` 称为连接函数(link function)，
+连接函数 :math:`g` 是用来连接线性预测器 :math:`\eta` 和均值 :math:`\mu` 的。
+连接函数的反函数 :math:`g^{-1}` 可以称为响应函数(response function)，或者激活函数(active function)，
+连接函数可以有很多种选择。
+在高斯线性模型（传统线性回归模型）中，连接函数是恒等函数 :math:`\eta=g(\mu)=\mu` 。
+在泊松分布中，均值 :math:`\mu` 必须是正的，所以 :math:`\eta=\mu` 不再适用，因为 :math:`\eta=\beta^Tx`
+的取值范围值整个实数域。对于泊松分布，连接函数可以选择对数函数 :math:`\eta=log \mu` ，此时 :math:`\mu=e^{\eta}`
+确保了 :math:`\mu` 为正数。
+**连接函数本质上，就是把实数域范围的** :math:`\eta` **转换到特定分布合法的** :math:`\mu` **值空间上。**
+
+
+**广义线性模型**
+
+显然，一个广义线性模型有三个关键组件：
+
+1. 一个线性预测器 :math:`\eta=\beta^T x` ，被称为系统组件(systematic component)。
+2. 一个指数族分布作为响应变量 :math:`Y` 概率分布 :math:`P(Y;\theta)` ，被称为随机组件(random component)。
+3. 一个连接函数 :math:`g` 使得 :math:`\eta=g(\mu)` ，:math:`\mu` 是 :math:`Y` 的期望，连接函数描述系统组件和随机组件之间的关系。
+
+
+
+
+.. _fg_34_1:
+
+.. figure:: pictures/34_1.jpg
+    :scale: 50 %
+    :align: center
+
+    广义线性模型变量之间的关系
+
+广义线性模型是对经典线性回归模型的扩展，将输出变量 :math:`Y` 的条件概率分布扩展到指数族分布，
+:numref:`fg_34_1` 展示了广义线性模型框架下各个变量之间的关系。
+
+- 输入变量 :math:`X` 和系数 :math:`\beta` 组成一个线性关系， :math:`\eta=\beta^T x` ，
+  :math:`\eta` 被称为线性预测器(linear predictor)，:math:`\beta` 是定义的未知参数。
+
+- 在广义线性模型的框架下，响应变量 :math:`Y` 被看做是随机变量，并且其概率分布是指数族分布的一种，:math:`\theta` 是分布的自然参数。
+  :math:`\theta` 和 :math:`\mu` 存在一一映射关系，我们用函数 :math:`\psi` 表示这种关系。
+
+- 通过一个连接函数(link function)将 :math:`\eta` 和变量 :math:`Y` 的期望 :math:`\mu` 关联起来，:math:`\eta=g(\mu)` ，
+  函数 :math:`g` 称为连接函数。 :math:`g` 的反函数就是激活函数(active function)，:math:`\mu=g^{-1}(\eta)`
+  ，有的资料中也称为响应函数(response function)、均值函数(mean function)。
+  激活函数可以是线性的，也可以是非线性的，
+  比如，经典线性回归模型的激活函数为 :math:`\mu=g^{-1}(\eta)=\eta` ，逻辑回归模型的激活函数为 :math:`\mu=g^{-1}(\eta)=sigmoid(\eta)` 。
+
+
+
+线性预测器 :math:`\eta` 和指数族分布的期望 :math:`\mu` 存在函数关系，:math:`\mu=g^{-1}(\eta)`
+。指数族分布的自然参数 :math:`\theta`
+又和期望 :math:`\mu` 存在着一一映射的关系，:math:`\theta=\psi(\mu)`
+。因此，指数族分布的自然参数 :math:`\theta` 一定是可以转换成一个关于 :math:`\eta`
+的函数，响应变量 :math:`Y` 的概率分布函数可以转化成和 :math:`\eta` 相关。
+
+.. math::
+    :label: eq_34_glm_001
+
+    p(y|\theta) &= \exp \left \{\frac{\theta y - b(\theta)}{a(\phi)} + c(y,\phi) \right \}
+
+    &= \exp \left \{ \frac{\psi(\mu) y - b(\psi(\mu)}{a(\phi)} + c(y,\phi)  \right \}
+
+    &= \exp \left \{ \frac{ \psi(g^{-1}(\eta)) y - b(   \psi(g^{-1}(\eta)) )}{a(\phi)} + c(y,\phi)  \right \}
+
+    &= \exp \left \{ \frac{ \psi(g^{-1}(\beta^T x)) y - b(   \psi(g^{-1}(\beta^T x)) )}{a(\phi)} + c(y,\phi)  \right \}
+
+    &= P(Y|X;\beta)
+
+至此，我们把输入变量 :math:`X` 和响应变量 :math:`Y` 的概率分布函数连接到了一起，得到了条件概率分布 :math:`P(Y|X)`
+的概率分布，:eq:`eq_34_glm_001` 就是广义线性模型的一般形式。
+
+
+**规范连接(canonical link)**
+
+观察 :eq:`eq_34_glm_001` ，如果连接函数 :math:`g` 和 :math:`\psi` 相同，那么 :math:`\psi`
+和 :math:`g^{-1}` 就互为反函数，二者可以抵消掉，此时满足 :math:`\theta=\eta`
+，上式就可以简化成如下形式。
+
+
+.. math::
+    :label: eq_34_glm_002
+
+    P(Y|X;\beta) = \exp \left \{ \frac{ (\beta^Tx )y - b(\beta^Tx  )}{a(\phi)} + c(y,\phi)  \right \}
+
+
+
+
+
+
+
+当连接函数使得 :math:`\eta=\theta` 时，称为规范连接(canonical link)函数。
+实际上规范连接函数满足 :math:`\eta=g(\mu)=\psi(\mu)=\theta` ，
+换句话说，对于一个特定的指数族分布，其规范连接函数为 :math:`g=\psi` 。
+使用规范连接函数可以带来很多统计属性，最直接的就是可以简化参数估计的计算过程。
+
+
+**传统线性回归模型**
+
+传统的线性回归模型就是假设响应变量 :math:`Y` 服从高斯分布，高斯分布的概率密度函数用指数族的形式表示为：
+
+.. math::
+
+    f(y) = \exp \{ \frac{y\mu-\frac{1}{2}\mu^2}{\sigma^2} - \frac{y^2}{2\sigma^2}
+    - \frac{1}{2} \ln (2\pi\sigma^2) \}
+
+和 :eq:`eq_glm_121` 进行对比，各个标准项为：
+
+.. math::
+
+    \theta &=\mu
+
+    b(\theta) &= \frac{1}{2}\mu^2
+
+    a(\phi) &= \sigma^2
+
+
+可以看到，高斯分布的自然参数 :math:`\theta` 和其期望 :math:`\mu` 之间的关系为恒等函数，
+即 :math:`\theta=\mu` 。
+在传统线性回归模型中，连接函数采用的也是恒等函数，因此传统线性回归模型采用的是标准连接函数。
+此时满足 :math:`\theta=\mu=\eta=\beta^Tx`
+，模型预测值 :math:`\hat{y}` 为：
+
+.. math::
+    \hat{y} = \mu = \eta =\beta^Tx
+
+此外，传统线性回归模型中假设所有样本的都具有相同的方差，并且方差是常量1，:math:`\sigma^2=1`
+。
+
+然而，当无法合理地假设数据是正态分布的或者响应变量的结果集有限集时，传统的线性回归模型是不合适的。
+此外，在许多情况下，传统线性回归模型的同方差假设是站不住脚的，此时传统线性回归模型也是不合适的。
+GLM允许对传统线性回归模型进行扩展，以突破这些限制。
+我们可以根据 :math:`y` 的数据分布选择合适的指数族概率分布，并且调整连接函数把实数域的 :math:`\eta` 值映射到
+:math:`y` 的值域空间中。
+同时我们能够开发一种适用于所有GLM框架下模型的参数估计算法，以应对不同情况下的参数估计问题。
+
+
+
+
+
+
+
+
+.. csv-table:: 常见连接函数
+    :header: "名称","连接函数", "激活函数(反连接)", " :math:`\\mu` 的空间"
+
+    "Identity",   ":math:`\eta=\mu`",    ":math:`\mu=\eta`",      ":math:`\mu \in \mathcal{R}`"
+    "Logit",   ":math:`\eta=\ln\{\mu/(1-\mu)\}`",    ":math:`\mu=e^\eta/(1+e^\eta)`",      ":math:`\mu \in (0,1)`"
+    "Log",   ":math:`\eta=\ln(\mu)`",    ":math:`\mu=e^\eta`",      ":math:`\mu >0`"
+    "Negative binomial( :math:`\alpha`)",   ":math:`\eta=\ln\{\mu/(\mu+1/\alpha)\}`", ":math:`\mu=e^\eta/\{ \alpha(1-e^\eta)\}`", ":math:`\mu >0`"
+    "Log-complement",   ":math:`\eta=\ln(1-\mu)`",    ":math:`\mu=1-e^\eta`",      ":math:`\mu <1`"
+    "Log-log",   ":math:`\eta=-ln \{- \ln(\mu)\}`",    ":math:`\mu=\exp\{-\exp(-\eta)\}`",      ":math:`\mu \in (0,1)`"
+    "Complementary log-log",   ":math:`\eta=ln \{- \ln(1-\mu)\}`",    ":math:`\mu=1-\exp\{-\exp(\eta)\}`",      ":math:`\mu \in (0,1)`"
+    "Probit",   ":math:`\eta=\Phi^{-1}(\mu)`",    ":math:`\mu=\Phi(\eta)`",      ":math:`\mu \in (0,1)`"
+    "Reciprocal",   ":math:`\eta=1/\mu`",    ":math:`\mu=1/\eta`",      ":math:`\mu \in \mathcal{R}`"
+    "Power(:math:`\alpha=-2`)",   ":math:`\eta=1/\mu^2`",    ":math:`\mu=1/\sqrt{\eta}`",      ":math:`\mu >0`"
+    "Power(:math:`\alpha`) :math:`\left\{  \begin{array}{lr}\alpha \ne 0\\ \alpha=0 \end{array} \right .`",   ":math:`\eta=\left\{  \begin{array}{lr}\mu^\alpha \\ \ln(\mu) \end{array} \right .`",    ":math:`\mu=\left\{  \begin{array}{lr}\eta^{1/\alpha} \\ \exp(\eta) \end{array} \right .`",      ":math:`\mu \in \mathcal{R}`"
+    "Odds power(:math:`\alpha`) :math:`\left\{  \begin{array}{lr}\alpha \ne 0\\ \alpha=0 \end{array} \right .`",   ":math:`\eta=\left\{  \begin{array}{lr} \frac{\mu/(1-\mu)^\alpha-1}{\alpha} \\ \ln \left( \frac{\mu}{1-\mu} \right) \end{array} \right .`",    ":math:`\mu=\left\{  \begin{array}{lr} \frac{(1+\alpha\eta)^{1/\alpha}}{1+(1+\alpha\eta)^{1/\alpha}} \\ \frac{e^\eta}{1+e^\eta} \end{array} \right .`",      ":math:`\mu \in (0,1)`"
+
+
+
+.. csv-table:: 连接函数的导数
+    :header: "名称","连接函数", "一阶导数 :math:`\\triangle=\\partial \\eta /\\partial \\mu`", "二阶导数"
+
+    "Identity",   ":math:`\eta=\mu`",      ":math:`1`",      ":math:`0`"
+    "Logit",   ":math:`\eta=\ln\{\mu/(1-\mu)\}`",    ":math:`1/\{\mu(1-\mu)\}`",      ":math:`(2\mu-1)\triangle^2`"
+    "Log",   ":math:`\eta=\ln(\mu)`",    ":math:`1/\mu`",      ":math:`-\triangle^2`"
+    "Negative binomial( :math:`\alpha`)",   ":math:`\eta=\ln\{\alpha\mu/(1+\alpha\mu)\}`", ":math:`1/(\mu+\alpha\mu^2)`", ":math:`-\triangle^2(1+2\alpha\mu)`"
+    "Log-complement",   ":math:`\eta=\ln(1-\mu)`",    ":math:`-1/(1-\mu)`",      ":math:`-\triangle^2`"
+    "Log-log",   ":math:`\eta=-ln \{- \ln(\mu)\}`",    ":math:`-1/\{\mu\ln(\mu)\}`",      ":math:`\{1+\ln(\mu)\}\triangle^2`"
+    "Complementary log-log",   ":math:`\eta=ln \{- \ln(1-\mu)\}`",    ":math:`\{(\mu-1)\ln(1-\mu)\}^{-1}`",      ":math:`-\{1+\ln(1-\mu)\}\triangle^2`"
+    "Probit",   ":math:`\eta=\Phi^{-1}(\mu)`",    ":math:`1/\phi\{\Phi^{-1}(\mu)\}`",      ":math:`\eta\triangle^2`"
+    "Reciprocal",   ":math:`\eta=1/\mu`",    ":math:`-1/\mu^2`",      ":math:`-2\triangle / \mu`"
+    "Power(:math:`\alpha=-2`)",   ":math:`\eta=1/\mu^2`",    ":math:`-2/\mu^3`",      ":math:`-3\triangle / \mu`"
+    "Power(:math:`\alpha`) :math:`\left\{  \begin{array}{lr}\alpha \ne 0\\ \alpha=0 \end{array} \right .`",   ":math:`\eta=\left\{  \begin{array}{lr}\mu^\alpha \\ \ln(\mu) \end{array} \right .`",    ":math:`\left\{  \begin{array}{lr} \alpha \mu ^{\alpha-1} \\ 1/\mu \end{array} \right .`",      ":math:`\left\{  \begin{array}{lr} (\alpha-1)\triangle/\alpha \\ -\triangle^2  \end{array} \right .`"
+    "Odds power(:math:`\alpha`) :math:`\left\{  \begin{array}{lr}\alpha \ne 0\\ \alpha=0 \end{array} \right .`",   ":math:`\eta=\left\{  \begin{array}{lr} \frac{\mu/(1-\mu)^\alpha-1}{\alpha} \\ \ln \left( \frac{\mu}{1-\mu} \right) \end{array} \right .`",    ":math:`\left\{  \begin{array}{lr} \frac{\mu^{\alpha-1}}{(1-\mu)^{\alpha+1}} \\ \frac{1}{\mu(1-\mu)} \end{array} \right .`",      ":math:`\left\{  \begin{array}{lr} \triangle\left(\frac{1-1/\alpha}{1-\mu} +\alpha+1\right) \\ \mu\triangle^2  \end{array} \right .`"
+
+
+
+
+
+.. csv-table:: 激活函数的导数
+    :header: "连接函数名称", "激活函数(反连接)","一阶导数 :math:`\\triangle=\\partial \\mu /\\partial \\eta`", "二阶导数"
+
+    "Identity",    ":math:`\mu=\eta`",      ":math:`1`",      ":math:`0`"
+    "Logit",      ":math:`\mu=e^\eta/(1+e^\eta)`",      ":math:`\mu(1-\mu)`",      ":math:`\triangle(1-2\mu)`"
+    "Log",      ":math:`\mu=e^\eta`",      ":math:`\mu`",      ":math:`\triangle`"
+    "Negative binomial( :math:`\alpha`)",   ":math:`\mu=e^\eta/\{ \alpha(1-e^\eta)\}`", ":math:`\mu+\alpha\mu^2`",      ":math:`\triangle(1+2\alpha\mu)`"
+    "Log-complement",     ":math:`\mu=1-e^\eta`",      ":math:`\mu-1`",      ":math:`\triangle`"
+    "Log-log",       ":math:`\mu=\exp\{-\exp(-\eta)\}`",      ":math:`-\mu\ln(\mu)`",      ":math:`\triangle\{ 1+\ln(\mu)\}`"
+    "Complementary log-log",     ":math:`\mu=1-\exp\{-\exp(\eta)\}`",      ":math:`(\mu-1)\ln(1-\mu)`",      ":math:`\triangle\{1+\ln(1-\mu)\}`"
+    "Probit",       ":math:`\mu=\Phi(\eta)`",      ":math:`\phi(\eta)`",      ":math:`-\triangle \eta`"
+    "Reciprocal",       ":math:`\mu=1/\eta`",      ":math:`-\mu^2`",      ":math:`-2\triangle\mu`"
+    "Power(:math:`\alpha=-2`)",       ":math:`\mu=1/\sqrt{\eta}`",      ":math:`-\mu^3/2`",      ":math:`3\triangle^2 / \mu`"
+    "Power(:math:`\alpha`) :math:`\left\{  \begin{array}{lr}\alpha \ne 0\\ \alpha=0 \end{array} \right .`",      ":math:`\mu=\left\{  \begin{array}{lr}\eta^{1/\alpha} \\ \exp(\eta) \end{array} \right .`",      ":math:`\left\{  \begin{array}{lr} \frac{1}{\alpha} \mu^{1-\alpha} \\  \mu \end{array} \right .`",      ":math:`\left\{  \begin{array}{lr} \triangle(1/\alpha -1)/\mu^\alpha \\ \triangle  \end{array} \right .`"
+    "Odds power(:math:`\alpha`) :math:`\left\{  \begin{array}{lr}\alpha \ne 0\\ \alpha=0 \end{array} \right .`",    ":math:`\mu=\left\{  \begin{array}{lr} \frac{(1+\alpha\eta)^{1/\alpha}}{1+(1+\alpha\eta)^{1/\alpha}} \\ \frac{e^\eta}{1+e^\eta} \end{array} \right .`",      ":math:`\left\{  \begin{array}{lr} \frac{\mu(1-\mu)}{1+\alpha\eta} \\ \mu(1-\mu)  \end{array} \right .`",      ":math:`\left\{  \begin{array}{lr} \triangle \left ( 1-2\mu-\frac{\alpha}{1+\alpha\eta}   \right) \\  \triangle(1-2\mu) \end{array} \right .`"
+
+
+
+
+
+
+
+
+
+
+例子
+################################
+
+
+
+
+
+
+.. csv-table:: 常见GLM表(1)
+    :header: "","Normal(Gaussian) :math:`N(\\mu,\\sigma^2)`", "Bernoulli :math:`B(\\mu)`",  "Binomial :math:`B(N,\\mu)`"
+
+    "Range of y",   "real: :math:`(-\infty,+\infty)`",    ":math:`\{0,1\}`",      ":math:`\{0,\dots,N\}`"
+    "f(y)", :math:`\frac{1}{\sqrt{2\pi\sigma^2}}\exp \{ -\frac{(y-\mu)^2}{2\sigma^2} \}`,  :math:`\mu^y(1-\mu)^{1-y}`,:math:`\binom{N}{y}\mu^y(1-\mu)^{N-y}`
+    "EDF",:math:`\exp\{\frac{\mu y-\frac{\mu^2}{2}}{\sigma^2}-\frac{y^2}{2\sigma^2}-\frac{\ln 2\pi\sigma^2}{2}\}`, :math:`\exp\{y \ln \frac{\mu}{1-\mu} + \ln(1-\mu)\}`,:math:`\exp\bigg[ \frac{y \ln(\frac{\mu}{1-\mu}) + \ln(1-\mu)}{1/N} + \ln({N \choose y})\bigg]`
+    ":math:`\theta=\psi(\mu)`", :math:`\theta=\mu`, :math:`\theta=\ln \left ( \frac{\mu}{1-\mu} \right )=logit(\mu)`,:math:`\theta=\ln \left ( \frac{\mu}{1-\mu} \right )`
+    ":math:`\mu=\psi^{-1}(\theta)`", :math:`\mu=\theta`, :math:`\mu=\frac{1}{1+e^{-\theta}}=sigmoid(\theta)`,:math:`\mu=\frac{1}{1+e^{-\theta}}`
+    ":math:`b(\theta)`",:math:`\frac{\theta^2}{2}`,:math:`\ln(1+e^{\theta})`,:math:`\ln(1+e^{\theta})`
+    ":math:`b(\mu)`",:math:`\frac{\mu^2}{2}`,:math:`-\ln(1-\mu)`,:math:`-\ln(1-\mu)`
+    "Link name",        Identity, Logit,Logit
+    "Link function",    :math:`\eta=\mu`,    :math:`\eta=\ln \left( \frac{\mu}{1-\mu} \right)`,:math:`\eta=\ln \left( \frac{\mu}{1-\mu} \right)`
+    "Mean function",    :math:`\mu=\eta`,    :math:`\mu=\frac{1}{1+e^{-\eta}}`,:math:`\mu=\frac{N}{1+e^{-\eta}}`
+    ":math:`\nu(\mu)=b''(\theta)`",  1,  :math:`\mu(1-\mu)`,:math:`\mu(1-\mu)`
+    ":math:`a(\phi)`", :math:`\sigma^2`,1,:math:`\frac{1}{N}`
+
+
+
+
+
+
+.. csv-table:: 常见GLM表(2)
+    :header: "", "Categorical :math:`Cat(K,\\mu)`","Poisson :math:`Poisson(\\mu)`"
+
+    "Range of y",    ":math:`\{1,\dots,K\}`","integer :math:`0,1,2,\dots`"
+    "f(y)", :math:`\prod_{k}\mu_k^{y_k}`, :math:`\exp\{y\ln \mu - \ln\mu\}`
+    "EDF",:math:`\exp \left \{ \sum_{k=1}^{K-1} x_k \ln \left ( \frac{\mu_k}{ \mu_K} \right )+ \ln \left  (1-\sum_{k=1}^{K-1} \mu_k \right ) \right \}`,:math:`\exp\{y\ln \mu - \ln\mu\}`
+    ":math:`\theta=\psi(\mu)`", :math:`\theta_k=\ln \left ( \frac{\mu_k}{\mu_K} \right )`,:math:`\theta=\ln \mu`
+    ":math:`\mu=\psi^{-1}(\theta)`",:math:`\mu_k = \frac{e^{\theta_k}}{\sum_{j=1}^K e^{\theta_j}}`,:math:`\mu=e^{\theta}`
+    ":math:`b(\theta)`",:math:`\ln \left (  \sum_{k=1}^K e^{\theta_k}  \right )`,:math:`e^{\theta}`
+    ":math:`b(\mu)`",:math:`- \ln \left  (1-\sum_{k=1}^{K-1} \mu_k \right )`,:math:`\ln\mu`
+    "Link name",        Logit
+    "Link function",    :math:`\eta_k=\ln \left( \frac{\mu_k}{\mu_K} \right)`
+    "Mean function",   :math:`\mu_k=\frac{e^{\eta_k}}{\sum_k e^{\eta_k}}`
+    ":math:`\nu(\mu)=b''(\theta)`",  :math:`\mu_k(1-\mu_k)`,\mu
+    ":math:`a(\phi)`", 1,1
+
+
+
+

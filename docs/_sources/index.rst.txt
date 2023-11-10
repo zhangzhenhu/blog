@@ -1,0 +1,40 @@
+.. learning book documentation master file, created by
+   sphinx-quickstart on Thu Dec  6 19:19:14 2018.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+   probability_model/index_html.rst
+
+Welcome
+==============================================
+
+由于 ``github`` 不稳定，本博客在 ``readthedocs`` 设有分号，同步更新，可任选其一。
+
+- readthedocs: https://zzh-blog.readthedocs.io/zh_CN/latest/index.html
+- github: https://zhangzhenhu.github.io/blog/index.html
+
+
+.. section-numbering::
+
+.. toctree::
+   :maxdepth: 2
+   :caption: 目录:
+
+
+   glm/source/index.rst
+   probability_model/index_html.rst
+   aigc/index.rst
+   deepspeed/index.rst
+   audio/index.rst
+   edm/index.rst
+   nlp/index.rst
+   rst_tutorial/latex.rst
+   rst_tutorial/graphviz.rst
+   读书笔记/index.rst
+
+
+.. meta::
+   :baidu-site-verification: code-92beWlmuPX
+   :google-site-verification: MxGOML7qIMAC8gJpqLgS6Pwxfx2TP68nkzehYsZiqi4
+   :msvalidate.01: 3C5E935623CA4FB23E290E0D1C40889E
+
+

@@ -1,0 +1,298 @@
+###########################
+latex demo
+###########################
+
+
+
+- 在线 latex : https://www.latexlive.com/##
+
+
+latex
+##################################################
+
+
+
+How to write an m x n matrix in LaTeX
+============================================
+
+pmatrix, bmatrix, vmatrix, Vmatrix are Latex environments:
+
+p for parentheses
+b for brackets
+v for verts
+B for braces
+V for double verts.
+
+
+With big parentheses
+---------------------------------------
+
+.. code-block:: latex
+
+    A_{m,n} =
+    \begin{pmatrix}
+    a_{1,1} & a_{1,2} & \cdots & a_{1,n} \\
+    a_{2,1} & a_{2,2} & \cdots & a_{2,n} \\
+    \vdots  & \vdots  & \ddots & \vdots  \\
+    a_{m,1} & a_{m,2} & \cdots & a_{m,n}
+    \end{pmatrix}
+
+.. math::
+
+
+    A_{m,n} =
+    \begin{pmatrix}
+    a_{1,1} & a_{1,2} & \cdots & a_{1,n} \\
+    a_{2,1} & a_{2,2} & \cdots & a_{2,n} \\
+    \vdots  & \vdots  & \ddots & \vdots  \\
+    a_{m,1} & a_{m,2} & \cdots & a_{m,n}
+    \end{pmatrix}
+
+
+
+
+
+With parentheses
+---------------------------------
+
+
+.. code-block:: latex
+
+    A =
+    \begin{pmatrix}
+    1 & 2 & 3 \\
+    4 & 5 & 6 \\
+    7 & 8 & 9
+    \end{pmatrix}
+
+
+.. math::
+
+
+    A =
+    \begin{pmatrix}
+    1 & 2 & 3 \\
+    4 & 5 & 6 \\
+    7 & 8 & 9
+    \end{pmatrix}
+
+
+With brackets
+---------------------------------
+
+.. code-block::
+
+    B =
+    \begin{bmatrix}
+    a & b & c \\
+    d & e & f \\
+    g & h & i
+    \end{bmatrix}
+
+
+.. math::
+
+
+    B =
+    \begin{bmatrix}
+    a & b & c \\
+    d & e & f \\
+    g & h & i
+    \end{bmatrix}
+
+LateX matrix with no bracket
+---------------------------------
+
+Without brackets:
+
+.. code-block:: latex
+
+   \begin{matrix}
+   a_{11} & a_{12} & a_{13}  \\
+   a_{21} & a_{22} & a_{23}  \\
+   a_{31} & a_{32} & a_{33}  \\
+   \end{matrix}
+
+
+.. math::
+
+   \begin{matrix}
+   a_{11} & a_{12} & a_{13}  \\
+   a_{21} & a_{22} & a_{23}  \\
+   a_{31} & a_{32} & a_{33}  \\
+   \end{matrix}
+
+
+With vertical bar brackets
+---------------------------------
+
+
+.. code-block:: latex
+
+   \begin{vmatrix}
+   a_{11} & a_{12} & a_{13}  \\
+   a_{21} & a_{22} & a_{23}  \\
+   a_{31} & a_{32} & a_{33}  \\
+   \end{vmatrix}
+
+
+
+.. math::
+
+
+   \begin{vmatrix}
+   a_{11} & a_{12} & a_{13}  \\
+   a_{21} & a_{22} & a_{23}  \\
+   a_{31} & a_{32} & a_{33}  \\
+   \end{vmatrix}
+
+
+
+with curly brackets
+-------------------------------------
+
+
+
+.. code-block:: latex
+
+
+   \begin{Bmatrix}
+   a_{11} & a_{12} & a_{13}  \\
+   a_{21} & a_{22} & a_{23}  \\
+   a_{31} & a_{32} & a_{33}  \\
+   \end{Bmatrix}
+
+
+
+.. math::
+
+
+   \begin{Bmatrix}
+   a_{11} & a_{12} & a_{13}  \\
+   a_{21} & a_{22} & a_{23}  \\
+   a_{31} & a_{32} & a_{33}  \\
+   \end{Bmatrix}
+
+
+with double vertical bar brackets
+--------------------------------------------------------
+
+
+.. code-block:: latex
+
+
+   \begin{Vmatrix}
+   a_{11} & a_{12} & a_{13}  \\
+   a_{21} & a_{22} & a_{23}  \\
+   a_{31} & a_{32} & a_{33}  \\
+   \end{Vmatrix}
+
+
+.. math::
+
+   \begin{Vmatrix}
+   a_{11} & a_{12} & a_{13}  \\
+   a_{21} & a_{22} & a_{23}  \\
+   a_{31} & a_{32} & a_{33}  \\
+   \end{Vmatrix}
+
+
+small inline matrix
+--------------------------------------------------------
+
+
+
+.. code-block:: latex
+
+    I love small matrice such $\big(\begin{smallmatrix} a & b\\ c & d \end{smallmatrix}\big)$
+
+
+
+I love small matrice such :math:`\big(\begin{smallmatrix} a & b\\ c & d \end{smallmatrix}\big)`
+
+Examples matrix 2 x 2 in LaTeX
+--------------------------------------------------------
+
+.. code-block:: latex
+
+    \begin{matrix}
+    a & b \\
+    c & d
+    \end{matrix}
+    \quad
+    \begin{pmatrix}
+    a & b \\
+    c & d
+    \end{pmatrix}
+    \quad
+    \begin{bmatrix}
+    a & b \\
+    c & d
+    \end{bmatrix}
+    \quad
+    \begin{vmatrix}
+    a & b \\
+    c & d
+    \end{vmatrix}
+    \quad
+    \begin{Vmatrix}
+    a & b \\
+    c & d
+    \end{Vmatrix}
+
+.. math::
+
+    \begin{matrix}
+    a & b \\
+    c & d
+    \end{matrix}
+    \quad
+    \begin{pmatrix}
+    a & b \\
+    c & d
+    \end{pmatrix}
+    \quad
+    \begin{bmatrix}
+    a & b \\
+    c & d
+    \end{bmatrix}
+    \quad
+    \begin{vmatrix}
+    a & b \\
+    c & d
+    \end{vmatrix}
+    \quad
+    \begin{Vmatrix}
+    a & b \\
+    c & d
+    \end{Vmatrix}
+
+
+===============================================
+
+.. code-block:: latex
+
+
+    \boxed{u=1}
+
+    \begin{equation}
+    \boxed{
+    \begin{array}{rcl}
+    x + -y + z -t & = & 0 \\
+    2x + 2y + 2z +3t & = & 0
+    \end{array}
+    }
+    \end{equation}
+
+.. math::
+
+    \boxed{u=1}
+
+    \begin{equation}
+    \boxed{
+    \begin{array}{rcl}
+    x + -y + z -t & = & 0 \\
+    2x + 2y + 2z +3t & = & 0
+    \end{array}
+    }
+    \end{equation}
