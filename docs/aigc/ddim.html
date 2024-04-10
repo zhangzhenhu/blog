@@ -1218,14 +1218,16 @@
 这时可以利用 <cite>Jensen</cite> 不等式，得到对数似然函数的一个下界函数（ELBO），
 当满足一定条件时，极大化这个下界函数和极大化对数似然是等价的。</p>
 <div class="math notranslate nohighlight" id="equation-eq-ddim-219">
-<span class="eqno">(3.1.34)<a class="headerlink" href="#equation-eq-ddim-219" title="此公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned}\EE[q_{x_0}]{\ln p(x_0)}
-&amp; \geq {\mathbb{E}_{q(x_{1:T}|x_0)}\left[\ln \frac{p(x_{0:T})}{q(x_{1:T}|x_0)}\right]}\\&amp; \Rightarrow \mathbb{E}_{q(x_{1}|x_0)}\left[\ln p_{{\theta}}(x_0|x_1)\right]
+<span class="eqno">(3.1.34)<a class="headerlink" href="#equation-eq-ddim-219" title="此公式的永久链接">¶</a></span>\[ \begin{align}\begin{aligned} \ln p(x_0) &amp;= \ln \int  p(x_{0:T} ) d x_{1:T}\\&amp;= \ln \int \frac{p(x_{0:T}) q(x_{1:T}|x_0) }{  q(x_{1:T}|x_0) }  d x_{1:T}
+\ \ \ (\text{乘上} 1= \frac{ q(x_{1:T}|x_0) }{  q(x_{1:T}|x_0) } \text{相当于没变化}  )\\&amp;= \ln \mathbb{E}_{ q(x_{1:T}|x_0)} \left [ \frac{ p(x_{0:T}) }{  q(x_{1:T}|x_0) }  \right ]
+ \ \ \ (\text{积分变期望})\\&amp; \geq {\mathbb{E}_{q(x_{1:T}|x_0)}\left[\ln \frac{p(x_{0:T})}{q(x_{1:T}|x_0)}\right]}\\&amp; \Rightarrow \mathbb{E}_{q(x_{1}|x_0)}\left[\ln p_{{\theta}}(x_0|x_1)\right]
 - \sum_{t=2}^{T} \mathbb{E}_{q(x_{t}|x_0)}\left[\KL{q(x_{t-1}|x_t, x_0)}{p_{{\theta}}(x_{t-1}|x_t)}\right]\end{aligned}\end{align} \]</div>
 <p>代入各项之后，最后的目标函数是一个简单的均方误差，这里记作 <span class="math notranslate nohighlight">\(L_{\gamma}\)</span>，
 其中 <span class="math notranslate nohighlight">\(\gamma_t\)</span> 表示一些常数项，它不影响极大化的结果。</p>
 <div class="math notranslate nohighlight" id="equation-eq-ddim-220">
 <span class="eqno">(3.1.35)<a class="headerlink" href="#equation-eq-ddim-220" title="此公式的永久链接">¶</a></span>\[L_{\gamma} :=  \sum_{t=1}^T \gamma_t \EE[q(x_t|x_0)]{ \left\lVert\epsilon_t  - {\hat\epsilon}_{{\theta}}(x_t, t)\right\rVert_2^2 }
 \ \ , \epsilon_t \sim \mathcal{N}(0,\textit{I})\]</div>
+<p>更详细的推导过程可以查阅上一章节的内容 <a class="reference internal" href="%E6%89%A9%E6%95%A3%E6%A6%82%E7%8E%87%E6%A8%A1%E5%9E%8B.html#ch-ddpm"><span class="std std-numref">2.DDPM扩散概率模型详解</span></a> 。</p>
 </section>
 <section id="id2">
 <h2><span class="section-number">3.2. </span>非马尔科夫前向过程<a class="headerlink" href="#id2" title="此标题的永久链接">¶</a></h2>

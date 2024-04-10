@@ -122,7 +122,14 @@
 .. math::
     :label: eq_ddim_219
 
-    \EE[q_{x_0}]{\ln p(x_0)}
+     \ln p(x_0) &= \ln \int  p(x_{0:T} ) d x_{1:T}
+
+    &= \ln \int \frac{p(x_{0:T}) q(x_{1:T}|x_0) }{  q(x_{1:T}|x_0) }  d x_{1:T}
+    \ \ \ (\text{乘上} 1= \frac{ q(x_{1:T}|x_0) }{  q(x_{1:T}|x_0) } \text{相当于没变化}  )
+
+    &= \ln \mathbb{E}_{ q(x_{1:T}|x_0)} \left [ \frac{ p(x_{0:T}) }{  q(x_{1:T}|x_0) }  \right ]
+     \ \ \ (\text{积分变期望})
+
     & \geq {\mathbb{E}_{q(x_{1:T}|x_0)}\left[\ln \frac{p(x_{0:T})}{q(x_{1:T}|x_0)}\right]}
 
     & \Rightarrow \mathbb{E}_{q(x_{1}|x_0)}\left[\ln p_{{\theta}}(x_0|x_1)\right]
@@ -140,6 +147,7 @@
     \ \ , \epsilon_t \sim \mathcal{N}(0,\textit{I})
 
 
+更详细的推导过程可以查阅上一章节的内容 :numref:`%s.DDPM扩散概率模型详解<ch_DDPM>` 。
 
 非马尔科夫前向过程
 ############################################################################################
